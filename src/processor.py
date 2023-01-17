@@ -23,7 +23,7 @@ def clone_codebase(url):
 
 def parse_codebase(dir):
     dict = {}
-    paths = Path(dir).rglob("*.py")
+    paths = Path(dir).rglob("src/*.py")
     for path in paths:
         with open(path) as f:
             contents = "".join(f.readlines())

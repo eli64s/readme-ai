@@ -6,6 +6,6 @@ src/__pycache__
 
 outputs/
 
-notebooks/.ipynb_checkpoints
+notebooks/
 
 assets/icons
