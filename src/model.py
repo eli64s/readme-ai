@@ -1,6 +1,4 @@
-"""
-src/chatgpt_engine.py
-"""
+"""src/chatgpt_engine.py."""
 import os
 from typing import Dict
 
@@ -10,7 +8,7 @@ openai.api_key = os.getenv("API_SK")
 
 
 def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
-    """Summarize the code in the following Python script: file
+    """Summarize the code in the following Python script: file.
 
     Args:
         file (str): The name of the file to summarize

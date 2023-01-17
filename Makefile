@@ -8,13 +8,13 @@ help:
 	@echo "style   : executes style formatting."
 	@echo "clean   : cleans all unnecessary files."
 
-# Set the api secret key to use ChatGPT.
+# Set api secret key for ChatGPT.
 OPENAI_API_KEY=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
 export OPENAI_API_KEY
 api_key:
 	echo "Set OPENAI_API_KEY"
 
-# Automated Docstring with ChatGPT.
+# Automated docstring creation.
 autodocs: api_key
 	autodocstrings src
 

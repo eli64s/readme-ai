@@ -1,7 +1,9 @@
 # gitignore
 
+assets/
+
 src/__pycache__
 
 outputs/
 
-notebooks/
+notebooks/.ipynb_checkpoints

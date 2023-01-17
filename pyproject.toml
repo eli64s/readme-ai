@@ -4,8 +4,8 @@ line-length = 79
 include = '\.pyi?$'
 exclude = '''
 /(
-      .eggs         
-    | .git         
+      .eggs
+    | .git
     | .hg
     | .mypy_cache
     | .tox

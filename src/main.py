@@ -1,39 +1,35 @@
 #!/usr/bin/env python
-import logging
 from pathlib import Path
 
 import hydra
 import pandas as pd
 from omegaconf import DictConfig
 
-import gpt_model
+import logger
+import model
 import processor
 
-logger = logging.getLogger(__name__)
+logger = logger.setup_logger()
 
 
 @hydra.main(version_base=None, config_path="../configs", config_name="config")
 def main(cfg: DictConfig) -> None:
-    """Main function for the program.
-
-    Args:
-        cfg: A dictionary of configuration parameters.
-
-    Returns:
-        None
-    """
-    output_dir = Path("data/output/file_docs.csv").resolve()
-    path = cfg.input.input_path
+    """Main function for the program."""
+    url = cfg.input.url
     engine = cfg.api.engine
+    outdir = Path(cfg.output).resolve()
 
-    dir = processor.clone_codebase(path)
-    files = processor.parse_codebase(dir)
+    tmpdir = processor.clone_codebase(url)
+    files = processor.parse_codebase(tmpdir)
 
-    file_summary = gpt_model.code_to_text(engine, files)
+    logger.info(f"Total files to document: {len(files)}")
 
-    cols = ["file", "summary"]
-    df = pd.DataFrame(file_summary, columns=cols)
-    df.to_csv(output_dir, index=False)
+    file_summary = model.code_to_text(engine, files)
+
+    df = pd.DataFrame(file_summary, columns=["file", "summary"])
+    df.to_csv(outdir, index=False)
+
+    logger.info("ChatGPT code-to-language model is complete.")
 
 
 if __name__ == "__main__":

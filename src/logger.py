@@ -1,6 +1,4 @@
-"""
-logging/logger.py
-"""
+"""logging/logger.py."""
 import logging
 
 from colorlog import ColoredFormatter
@@ -26,24 +24,3 @@ def setup_logger():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
     return logger
-
-
-def main():
-    """This is the main function.
-
-    Args:
-        None
-
-    Returns:
-        None
-    """
-    logger = setup_logger()
-    logger.critical("a critical message")
-    logger.debug("a debug message")
-    logger.error("an error message")
-    logger.info("an info message")
-    logger.warning("a warning message")
-
-
-if __name__ == "__main__":
-    main()

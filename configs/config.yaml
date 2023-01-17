@@ -1,3 +1,7 @@
+# Default configuration file.
 defaults:
+  - _self_
   - api: gpt
   - input: github
+
+outdir: data/output/docs.csv
