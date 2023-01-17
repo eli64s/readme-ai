@@ -8,17 +8,17 @@
 This project generates a clean and structured Markdown template to kickstart your machine learning projects.  
 Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
 
-![IMAGE](https://img.shields.io/badge/Python-386f9f?style=for-the-badge&logo=python&logoColor=ffcf46)
-![IMAGE](https://img.shields.io/badge/Pytest-white?style=for-the-badge&logo=pytest&logoColor=009fe3)
-![IMAGE](https://img.shields.io/badge/conda-white.svg?&style=for-the-badge&logo=anaconda&logoColor=342B029)
-![IMAGE](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
-![IMAGE](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
+![Bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
+![markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 
-![IMAGE](https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white)
-![IMAGE](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
-![IMAGE](https://img.shields.io/badge/pre-commit-FAB040?style=for-the-badge&logo=precommit&logoColor=FAB040)
-![IMAGE](https://img.shields.io/badge/DVC-945DD6?style=for-the-badge&logo=dataversioncontrol&logoColor=white)
-![IMAGE](https://img.shields.io/badge/GitHub-A74AC7?style=for-the-badge&logo=github&logoColor=white)
+![Pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
+![DVC](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
+![pre-commit](https://img.shields.io/badge/pre-commit-FAB040?style=for-the-badge&logo=precommit&logoColor=FAB040)
+![prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+![GitHub](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)
 
 ---
 
@@ -31,7 +31,7 @@ OpenAI API is leveraged to generate boilerplate codebase documentation in a stru
 
 ## Prerequisites
 ### 🤖 OpenAI API
-- [OpenAI API: ChatGPT](https://beta.openai.com/docs/introduction)
+- [OpenAI API](https://beta.openai.com/docs/introduction)
 ### 🛡 Shields.io (optional)
 - [Shields.io](https://shields.io/)
 ### Automate Docstrings (optional)
