@@ -3,7 +3,7 @@
 <span style="vertical-align:middle">
 <h1>OpenAI Auto Markdown Docs</h1></span></a>
 
-### *NOT COMPLETED: Work In Progress !*
+### *Work In Progress: [this image](https://github.com/eli64s/gpt_auto_markdown_docs/blob/main/data/docs/current_status.png) is what OpenAI produces so far.*
 
 This project generates a clean and structured Markdown template to kickstart your machine learning projects.  
 Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
