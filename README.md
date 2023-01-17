@@ -3,6 +3,8 @@
 <span style="vertical-align:middle">
 <h1>OpenAI Auto Markdown Docs</h1></span></a>
 
+### *NOT COMPLETED: Work In Progress !*
+
 This project generates a clean and structured Markdown template to kickstart your machine learning projects.  
 Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
 
@@ -27,7 +29,7 @@ OpenAI API is leveraged to generate boilerplate codebase documentation in a stru
 - Generates README Markdown documentation for all Python files in your repository.
 - Analyzes project dependencies to structure and style markdown header with [Shields.io](https://shields.io/) badges.
 
-## Prerequisite
+## Prerequisites
 ### 🤖 OpenAI API
 - [OpenAI API: ChatGPT](https://beta.openai.com/docs/introduction)
 ### 🛡 Shields.io (optional)
