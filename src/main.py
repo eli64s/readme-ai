@@ -1,29 +1,39 @@
-"""
-src/main.py
-"""
+#!/usr/bin/env python
 import logging
+from pathlib import Path
 
 import hydra
+import pandas as pd
 from omegaconf import DictConfig
 
-import chatgpt_engine
-import utils
+import gpt_model
+import processor
 
 logger = logging.getLogger(__name__)
 
 
 @hydra.main(version_base=None, config_path="../configs", config_name="config")
 def main(cfg: DictConfig) -> None:
-    apikey = cfg.api.sk
+    """Main function for the program.
+
+    Args:
+        cfg: A dictionary of configuration parameters.
+
+    Returns:
+        None
+    """
+    output_dir = Path("data/output/file_docs.csv").resolve()
     path = cfg.input.input_path
+    engine = cfg.api.engine
 
-    utils.clone_codebase(path)
+    dir = processor.clone_codebase(path)
+    files = processor.parse_codebase(dir)
 
-    # file_list = utils.parse_codebase()
+    file_summary = gpt_model.code_to_text(engine, files)
 
-    # summary_text = chatgpt_engine.annotate_file(apikey, file_list)
-
-    # logger.info(f"{summary_text}")
+    cols = ["file", "summary"]
+    df = pd.DataFrame(file_summary, columns=cols)
+    df.to_csv(output_dir, index=False)
 
 
 if __name__ == "__main__":

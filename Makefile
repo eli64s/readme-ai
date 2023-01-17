@@ -8,6 +8,16 @@ help:
 	@echo "style   : executes style formatting."
 	@echo "clean   : cleans all unnecessary files."
 
+# Set the api secret key to use ChatGPT.
+OPENAI_API_KEY=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
+export OPENAI_API_KEY
+api_key:
+	echo "Set OPENAI_API_KEY"
+
+# Automated Docstring with ChatGPT.
+autodocs: api_key
+	autodocstrings src
+
 # Style
 .PHONY: style
 style:
@@ -26,7 +36,7 @@ clean: style
 	-find . | grep -E ".trash" | xargs rm -rf
 	-rm -f .coverage
 	-rm -rf UNKNOWN.egg-info
-	-rm -rf hydra/outputs
+	-rm -rf _tmp
 	-rm -rf outputs
 
 # Conda Virtual Environment

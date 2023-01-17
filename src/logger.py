@@ -29,6 +29,14 @@ def setup_logger():
 
 
 def main():
+    """This is the main function.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     logger = setup_logger()
     logger.critical("a critical message")
     logger.debug("a debug message")

@@ -1,0 +1,7 @@
+# gitignore
+
+src/__pycache__
+
+outputs/
+
+notebooks/

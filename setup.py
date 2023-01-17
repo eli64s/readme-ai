@@ -8,7 +8,7 @@ setup(
     description="",
     author="",
     author_email="",
-    url="https://github.com/eli64s/kookiekutter",
+    url="https://github.com/eli64s/kookie_kutter",
     install_requires=["hydra-core"],
     packages=find_packages(),
 )
