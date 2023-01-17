@@ -115,3 +115,86 @@ bash scripts/run_model.sh
 - [References](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md#licenses-copyrights--trademarks)
 
 ---
+
+<a style="vertical-align: middle">
+    <img src=https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg
+        width="100" ; style="vertical-align: middle" />
+    <span style="vertical-align: middle">
+        <h2>Modules (src)</h2>
+    </span>
+</a>
+
+
+<div>
+    <h4><a id="connectors/postgres.py"></a>
+        <h4>connectors/postgres.py</h4>
+        <p>This Python script creates a PostgreSQL database and two tables within it. It connects to the PostgreSQL
+            database using psycopg2, drops the database if it already exists, creates the database, grants all
+            privileges to the user, and then creates the two tables. It also has a function to get the table name from
+            the SQL query.</p>
+</div>
+
+<div>
+    <h4><a id="connectors/mysql.py"></a>
+        <h4>connectors/mysql.py</h4>
+        <p>def main():
+            print("This program will calculate the average of two numbers")
+            num1 = float(input("Enter the first number: "))
+            num2 = float(input("Enter the second number: "))
+            average = (num1 + num2) / 2
+            print("The average of the two numbers is:", average)
+
+            This code is a program that calculates the average of two numbers entered by the user. It prompts</p>
+</div>
+
+<div>
+    <h4><a id="src/train.py"></a>
+        <h4>src/train.py</h4>
+        <p>This Python script loads parameters from a YAML file, loads a matrix from a pickle file, and uses the matrix
+            to train a Random Forest Classifier. The classifier is then saved to an output file.</p>
+</div>
+
+<div>
+    <h4><a id="src/evaluate.py"></a>
+        <h4>src/evaluate.py</h4>
+        <p>This Python script evaluates a model and its features using metrics such as average precision score, ROC AUC
+            score, and precision-recall curve. It also creates plots for the ROC curve, confusion matrix, and feature
+            importance. It takes two arguments, the model file and the features file, and uses the train and test files
+            from the features file.</p>
+</div>
+
+<div>
+    <h4><a id="src/prepare.py"></a>
+        <h4>src/prepare.py</h4>
+        <p>This Python script prepares data for a machine learning model. It reads in a data file, splits it into a
+            training and test set, and writes the data to two output files. It also processes the data by removing extra
+            whitespace and adding a label to each line based on the presence of a target tag.</p>
+</div>
+
+<div>
+    <h4><a id="src/featurization.py"></a>
+        <h4>src/featurization.py</h4>
+        <p>This Python script reads in two data files (train.tsv and test.tsv) from a specified directory, uses the
+            CountVectorizer and TfidfTransformer functions from the sklearn library to generate feature matrices, and
+            saves the matrices in a specified directory as pickle files. It also prints out the size and data type of
+            the output matrices.</p>
+</div>
+
+<div>
+    <h4><a id="hydra/my_app.py"></a>
+        <h4>hydra/my_app.py</h4>
+        <p>"""
+            This Python script uses the Hydra configuration manager to read a CSV file, get the full path of the input
+            file, get the schema information from the configuration, and log the DataFrame and Config.</p>
+</div>
+
+<div>
+    <h4><a id="hydra/my_app_dataclass.py"></a>
+        <h4>hydra/my_app_dataclass.py</h4>
+        <p>"""
+            This Python script defines two classes, DBConnection and its subclasses MySQLConnection and
+            PostgresConnection, which are used to connect to a database. It also defines three dataclasses, DBConfig,
+            MySQLConfig, and PostgresConfig, which are used to store configuration information for the database
+            connection. Finally, it defines a function, my_app, which uses the instantiate function to create a
+            connection to the database.</p>
+</div>

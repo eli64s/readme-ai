@@ -1,4 +1,4 @@
-"""src/chatgpt_engine.py."""
+"""src/model.py."""
 import os
 from typing import Dict
 
@@ -8,16 +8,10 @@ openai.api_key = os.getenv("API_SK")
 
 
 def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
-    """Summarize the code in the following Python script: file.
-
-    Args:
-        file (str): The name of the file to summarize
-
-    Returns:
-        str: The summary of the file
-    """
-    l = []
+    doc_list = []
     for file, code in files.items():
+        if "__init__" in file:
+            continue
         prompt = f"Summarize the code in the following Python script: {code}"
         response = openai.Completion.create(
             model=engine,
@@ -29,5 +23,5 @@ def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
             presence_penalty=0.0,
         )
         file_summary = response["choices"][0]["text"].strip()
-        l.append((file, file_summary))
-    return l
+        doc_list.append((file, file_summary))
+    return doc_list

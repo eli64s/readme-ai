@@ -20,3 +20,5 @@ black
 colorlog
 flake8
 isort
+
+markdownify
