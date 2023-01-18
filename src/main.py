@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from pathlib import Path
 
 import hydra
@@ -35,12 +36,10 @@ def main(cfg: DictConfig) -> None:
 
     html_docs = builder.create_html()
     md_docs = md(html_docs)
-    with open("data/docs/markdown.html", "w") as file:
+    with open("output/docs/htmldocs.html", "w") as file:
         file.write(html_docs)
-    with open("data/docs/markdown.md", "w") as file:
+    with open("output/docs/mddocs.md", "w") as file:
         file.write(md_docs)
-
-    logger.info("ChatGPT code-to-language model is complete.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,68 @@
+<html>
+
+<body>
+    <div>
+        <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
+            width="80">
+        <h1>OpenAI Auto Markdown Docs</h1>
+        <hr>
+        <h3>Software and Packeges</h3>
+        <p>[description]</p>
+        <p><img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" />
+            <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" />
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h3>Overview</h3>
+        <p>[description]</p>
+        <hr>
+        <h3>Prerequistes</h3>
+        <p>[description]</p>
+    </div>
+    <hr>
+    <div>
+        <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
+        width="80" />
+        <h3>Repository Structure</h3>
+        <p>[description]</p>
+    </div>
+    <hr>
+    <div>
+        <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" 
+        width="80" />
+        <h3>Modules [src]</h3>
+        <dl>
+            <dt><b><i>processor.py</i></b></dt>
+            <dd>This Python script contains functions to clone a codebase from a given URL, create a temporary directory, and parse the codebase into a dictionary. The clone_codebase() function clones the codebase from the given URL and stores it in the temporary directory created by the get_tmpdir() function. The parse_codebase() function then reads the contents of each .py file in the codebase and stores it in a dictionary with the file path as the key.</dd>
+        </dl>
+        <dl>
+            <dt><b><i>logger.py</i></b></dt>
+            <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG.</dd>
+        </dl>
+        <dl>
+            <dt><b><i>model.py</i></b></dt>
+            <dd>This script uses the OpenAI API to generate a summary of a Python script. It takes in a dictionary of files and code as an argument and loops through each file and code. It then creates a prompt for the OpenAI API to generate a summary of the code. The script then stores the summary in a list and returns the list of summaries.</dd>
+        </dl>
+        <dl>
+            <dt><b><i>builder.py</i></b></dt>
+            <dd>This script imports the Pandas library and defines two strings containing HTML code. It then defines a function called create_html() which reads a CSV file, iterates through the rows, and builds a string containing HTML code. Finally, it returns the HTML string which includes the two strings defined earlier.</dd>
+        </dl>
+        <dl>
+            <dt><b><i>main.py</i></b></dt>
+            <dd>This Python script uses the Hydra library to set up a configuration file for a code-to-language model. It uses the Pandas library to create a dataframe from the codebase, and the Markdownify library to convert the dataframe into HTML and Markdown documents. It then uses the Builder, Logger, and Model libraries to process the codebase, log the progress, and summarize the code. Finally, it writes the HTML and Markdown documents to the specified output directory.</dd>
+        </dl>
+    </div>
+    <hr>
+    <div>
+        <h3>Roadmap</h3>
+        <p>[description]</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Licenses</h3>
+        <p>[description]</p>
+    </div>
+    <hr>
+</body>
+</html>

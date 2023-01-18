@@ -4,4 +4,4 @@ defaults:
   - api: gpt
   - input: github
 
-outdir: data/output/docs.csv
+outdir: output/data/docs.csv

@@ -3,10 +3,13 @@
 <span style="vertical-align:middle">
 <h1>OpenAI Auto Markdown Docs</h1></span></a>
 
-### *NOT COMPLETED: Work In Progress !*
+> This project generates a clean and structured Markdown template to kickstart your machine learning projects.
+> 
+> Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
 
-This project generates a clean and structured Markdown template to kickstart your machine learning projects.  
-Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
+---
+## Software and Packages
+
 
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
@@ -24,14 +27,13 @@ Leverages OpenAI API models to convert Python code to natural language, providin
 
 ## Overview
 
-OpenAI API is leveraged to generate boilerplate codebase documentation in a structured and clean format. Developers can focus on the more critical aspects of their project documentation and refine OpenAI's boilerplate summaries.
+> I'm using the base GPT-3 model Davinci to translate a given repositoru of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. The image below contains a sample of what this project produces so far.
 
-- Generates README Markdown documentation for all Python files in your repository.
-- Analyzes project dependencies to structure and style markdown header with [Shields.io](https://shields.io/) badges.
+![GPT-3](output/docs/gpt_python_to_language.png)
 
 ## Prerequisites
 ### 🤖 OpenAI API
-- [OpenAI API](https://beta.openai.com/docs/introduction)
+1. [OpenAI](https://beta.openai.com/docs/introduction) - generate API key on OpenAI's website.
 ### 🛡 Shields.io (optional)
 - [Shields.io](https://shields.io/)
 ### Automate Docstrings (optional)
@@ -87,27 +89,40 @@ bash scripts/run_model.sh
     ├── model.py
     └── processor.py
 ```
-
+<body>
 <a style="vertical-align:middle">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="100"; style="vertical-align:middle" />
 <span style="vertical-align:middle">
 <h2>Modules (src)</h2></span></a>
+<dl>
+    <dt><b><i>processor.py</i></b></dt>
+    <dd>This Python script contains functions to clone a codebase from a given URL, create a temporary directory, and parse the codebase into a dictionary. The clone_codebase() function clones the codebase from the given URL into the temporary directory created by the get_tmpdir() function. The parse_codebase() function then reads all the Python files in the codebase and stores them in a dictionary with the file path as the key and the file contents as the value.</dd>
+</dl>
 
-#### main.py
+<dl>
+    <dt><b><i>logger.py</i></b></dt>
+    <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG, which will print all log messages.</dd>
+</dl>
 
-#### model.pu
+<dl>
+    <dt><b><i>model.py</i></b></dt>
+    <dd>This script uses the OpenAI API to generate a summary of a Python script. It takes in a dictionary of files and code as an argument and loops through each file and code. It then creates a prompt for the OpenAI API to generate a summary of the code. The script then stores the summary in a list and returns the list of summaries.</dd>
+</dl>
 
-#### processor.py
+<dl>
+    <dt><b><i>builder.py</i></b></dt>
+    <dd>This script creates an HTML page with information about OpenAI Auto Markdown Docs. It imports the Pandas library and reads a CSV file containing the names of scripts and their descriptions. It then creates an HTML page with a header, a section for software and packages, a section for the repository structure, and a section for the roadmap. It also includes images and badges for the software and packages.</dd>
+</dl>
 
----
+<dl>
+    <dt><b><i>main.py</i></b></dt>
+    <dd>This Python script uses the hydra library to set up a configuration file, then uses the pathlib library to create a directory for the output. It uses the markdownify library to convert HTML documents to markdown documents. It then uses the builder, logger, model, and processor modules to clone a codebase from a given URL, parse the codebase, convert the code to text, and create HTML and markdown documents. Finally, it logs a message that the code-to-language</dd>
+</dl>
+</body>
 
 ## Roadmap
 
-- [ ] 
-- [ ]
-
-> <svg width="50" height="50" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path d="M0.000590812 131.108V42.8655C-0.00675869 42.5314 0.0545285 42.1993 0.180663 41.8898C0.306798 41.5803 0.495099 41.2999 0.733924 41.066C0.946982 40.8366 1.20476 40.6532 1.4914 40.5271C1.77803 40.401 2.08745 40.3349 2.40059 40.3329H34.9339C47.8228 40.3329 58.845 44.8872 68.0006 53.9958C77.1561 63.1044 81.7339 74.0569 81.7339 86.8534C81.7339 99.7387 77.1561 110.758 68.0006 119.911C58.845 129.064 47.8228 133.64 34.9339 133.64H2.40059C2.08745 133.638 1.77803 133.572 1.4914 133.446C1.20476 133.32 0.946982 133.137 0.733924 132.907C0.495099 132.673 0.306798 132.393 0.180663 132.084C0.0545285 131.774 -0.00675869 131.442 0.000590812 131.108V131.108ZM20.8006 113.913H33.6006C41.0673 113.913 47.2673 111.313 52.2006 106.115C57.1339 100.916 59.6006 94.4957 59.6006 86.8534C59.6006 79.2999 57.1339 72.9239 52.2006 67.7253C47.2673 62.5268 41.0673 59.9275 33.6006 59.9275H20.8006V113.913Z" fill="#13ADC7"/><path d="M95.1177 155.723L53.5177 66.0147C53.0732 65.126 53.0954 64.3262 53.5843 63.6153C54.0732 62.9044 54.8065 62.549 55.7843 62.549H73.5177C74.6732 62.549 75.4288 63.0377 75.7843 64.0152L97.7843 112.668H98.5843L120.584 64.0152C120.94 63.0377 121.695 62.549 122.851 62.549H140.584C141.562 62.549 142.295 62.9044 142.784 63.6153C143.273 64.3262 143.295 65.126 142.851 66.0147L100.984 155.723C100.451 156.701 99.6954 157.189 98.7176 157.189H97.3843C96.4065 157.189 95.651 156.701 95.1177 155.723V155.723Z" fill="#945DD6"/><path d="M128.865 121.111C119.532 111.78 114.865 100.45 114.865 87.12C114.865 73.7904 119.554 62.438 128.932 53.0628C138.31 43.6876 149.665 39 162.999 39C175.443 39 186.199 43.1322 195.265 51.3966C196.599 52.6407 196.643 53.8848 195.399 55.1289L184.999 65.9259C183.843 66.9923 182.732 66.9923 181.665 65.9259C176.599 61.3938 170.599 59.1278 163.665 59.1278C156.199 59.1278 149.976 61.8159 144.999 67.1922C140.021 72.5685 137.532 79.0334 137.532 86.5868C137.532 94.0514 140.043 100.427 145.065 105.715C150.087 111.002 156.332 113.646 163.799 113.646C170.732 113.646 176.687 111.513 181.665 107.248C182.91 106.181 184.065 106.226 185.132 107.381L195.532 118.445C196.687 119.6 196.643 120.8 195.399 122.044C186.51 130.664 175.71 134.973 162.999 134.973C149.665 134.973 138.287 130.353 128.865 121.111V121.111Z" fill="#F46737"/></g></svg>
-
+- Implement data version control - dvc.
 
 ---
 ## Licenses, Copyrights & Trademarks

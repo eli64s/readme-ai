@@ -3,6 +3,7 @@ numpy
 omegaconf
 openai
 pandas
+PyGithub
 pre-commit
 
 # --------- hydra --------- #
