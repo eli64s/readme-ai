@@ -27,7 +27,7 @@
 
 ## Overview
 
-> I'm using the base GPT-3 model Davinci to translate a given repositoru of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. The image below contains a sample of what this project produces so far.
+> I'm using the base GPT model Davinci to translate a given repositoru of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. The image below contains a sample of what this project produces so far.
 
 ![GPT-3](output/docs/gpt_python_to_language.png)
 
