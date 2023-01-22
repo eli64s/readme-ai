@@ -38,7 +38,7 @@ def main(cfg: DictConfig) -> None:
     pkg_list = utils.get_pkgs_list()
     name = url.split("/")[-1]
     badges = builder.create_header(pkgs_path, pkg_list)
-    html_docs = builder.create_html(badges, name, doc_path)
+    html_docs = builder.create_html(cfg, badges, name, doc_path)
     utils.write_file(html_path, html_docs)
 
     logger.info(f"Markdown documentation complete.")

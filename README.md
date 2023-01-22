@@ -80,12 +80,12 @@ bash scripts/run_model.sh
 │   │   └── icons.json
 │   ├── driver
 │   │   └── openai.yaml
+│   ├── html
+│   │   └── tags.yaml
 │   └── repository
 │       ├── github.yaml
 │       └── local.yaml
 ├── output
-│   ├── html
-│   │   └── project_template.html
 │   ├── png
 │   │   ├── docs.png
 │   │   └── header.png

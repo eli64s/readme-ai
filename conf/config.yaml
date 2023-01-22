@@ -3,6 +3,7 @@ defaults:
   - _self_
   - driver: openai
   - repository: github
+  - html: tags
 
 html_file: output/structured_doc.html
 pkgs_file: conf/data/icons.json

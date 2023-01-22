@@ -47,96 +47,46 @@ def create_header(path, pkg_list):
     return header
 
 
-def create_html(badges, name, path):
+def create_html(cfg, badges, name, path):
     """This function creates an html file from a csv file.
     Args:
         icon (str): The icon to be used in the html file.
     Returns:
         str: The html file.
     """
-    header = f"""
-    <html>
-
-    <body>
-        <div>
-            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-                width="80">
-            <h1>{name}</h1>
-            <hr>
-            <h3>Software and Packages</h3>
-            <p>[description]</p>
-            <p>
-                {badges}
-            </p>
-        </div>
-    """
-    result = """
+    header = f"""{cfg.html.header}
+        <h1>{name}</h1>
         <hr>
-        <div>
-            <h3>Overview</h3>
-            <p>[description]</p>
-            <hr>
-            <h3>Prerequistes</h3>
-            <p>[description]</p>
+        <h3>Software and Packages</h3>
+        <p>[description]</p>
+        <p>{badges}</p>
         </div>
-        <hr>
-        <div>
-            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
-            width="80" />
-            <h3>Repository Structure</h3>
-            <p>[description]</p>
-        </div>
-        <hr>
-        <div>
-            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" 
-            width="80" />
-            <h3>Modules</h3>
-    """
-    closing_tags = """
-        </div>
-            <hr>
-            <div>
-                <h3>Roadmap</h3>
-                <p>[description]</p>
-            </div>
-            <hr>
-            <div>
-                <h3>Licenses</h3>
-                <p>[description]</p>
-            </div>
-            <hr>
-        </body>
-        </html>
-    """
-
-    prev_dir = None
+        """
+    body = cfg.html.body
+    closing = cfg.html.closing
 
     data = pd.read_csv(path)
 
+    prev_dir = None
     for i, j in data.iterrows():
         file = j[0].split("/")
-
         curr_dir = file[0]
-
         script = file[1]
 
         if prev_dir != curr_dir:
             tag = f"""<h3><i>{curr_dir.upper()}</i></h3>
-            <dl>
+                <dl>
                 <dt><b><i>{script}</i></b></dt>
-                <dd>{j[1]}</dd>
-            </dl>
-            """
+                <dd>{j[1].replace('"', '')}</dd>
+                </dl>
+                """
         else:
-            tag = f"""
-            <dl>
+            tag = f"""<dl>
                 <dt><b><i>{script}</i></b></dt>
-                <dd>{j[1]}</dd>
-            </dl>
-            """
-
+                <dd>{j[1].replace('"', '')}</dd>
+                </dl>
+                """
+        body = f"{body}{tag}"
         prev_dir = curr_dir
 
-        result = f"{result}{tag}"
-
-    return f"{header}{result}{closing_tags}"
+    return f"{header}{body}{closing}"
