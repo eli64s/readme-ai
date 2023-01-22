@@ -3,9 +3,9 @@
 <span style="vertical-align:middle">
 <h1>OpenAI Auto Markdown Docs</h1></span></a>
 
-> This project generates a clean and structured Markdown template to kickstart your machine learning projects.
-> 
-> Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
+This project generates a structured Markdown template to kickstart your machine learning projects. Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
+
+> Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 
 ---
 ## Software and Packages
@@ -26,13 +26,15 @@
 
 ## Overview
 
-I'm using the base GPT model Davinci to translate a given repository of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. Features include:
+The code usese the base GPT Davinci model to translate a given repository of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. Features include:
 
-1. Creates automated header section with Shields.io badge icons that include your project dependencies.
-2. Creates summary of each `.py` file in a specified GitHub repository.
-3. Generates a structured output template for project documentation.
+1. Automated header badge icons related to your project dependencies.
+2. Generates summaries of each `.py` file from the input GitHub repository.
+3. Creates a structured output Markdown template containing the project documentation.
+4. Generates repository file tree.
+5. [Automated docstrings](https://github.com/cdesarmeaux/autodocstrings) - ```bash scripts/auto_docstrs.sh```
 
-The images below contain samples of what the project generates so far.
+The images below contain sample outputs of what the project generates so far.
 
 > Document header with codebase package badges.
 
@@ -40,16 +42,12 @@ The images below contain samples of what the project generates so far.
 
 > Document header with codebase package badges.
 
-![GPT-3](output/png/docs.png)
+![GPT-3](output/png/body.png)
 
 ## Prerequisites
 ### 🤖 OpenAI API
 1. [OpenAI](https://beta.openai.com/docs/introduction) - generate API key on OpenAI's website.
-### 🛡 Shields.io (optional)
-- [Shields.io](https://shields.io/)
-### Automate Docstrings (optional)
-- [Autodocstrings: Repository](https://github.com/cdesarmeaux/autodocstrings)
-  
+
 ---
 ## Usage
 
@@ -140,12 +138,13 @@ bash scripts/run_model.sh
 
 ## Roadmap
 
-- Add compatability for multiple file types. 
+- Add compatability for multiple file types.
 - Implement data version control - dvc.
 
 ---
 ## Licenses, Copyrights & Trademarks
 
-- [Badges: Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+- [GitHub Profile Badges - Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+- [Automated Docstrings - cdesarmeaux/autodocstrings](https://github.com/cdesarmeaux/autodocstrings)
 
 ---

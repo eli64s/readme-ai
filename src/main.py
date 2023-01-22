@@ -1,7 +1,6 @@
 """
 src/main.py
 """
-import os
 from pathlib import Path
 
 import hydra
@@ -24,6 +23,7 @@ def main(cfg: DictConfig) -> None:
     engine = cfg.driver.engine
     url = cfg.repository.url
     html_path = Path(cfg.html_file).resolve()
+    md_path = Path(cfg.md_file).resolve()
     pkgs_path = Path(cfg.pkgs_file).resolve()
     doc_path = Path(cfg.doc_file).resolve()
 
@@ -36,11 +36,13 @@ def main(cfg: DictConfig) -> None:
     docs.to_csv(doc_path, index=False)
 
     pkg_list = utils.get_pkgs_list()
+    pkg_list = pkg_list + processor.get_file_extensions()
     name = url.split("/")[-1]
+
     badges = builder.create_header(pkgs_path, pkg_list)
     html_docs = builder.create_html(cfg, badges, name, doc_path)
-    utils.write_file(html_path, html_docs)
 
+    utils.write_file(html_docs, html_path, md_path)
     logger.info(f"Markdown documentation complete.")
 
 

@@ -39,10 +39,13 @@ def read_json(path):
     return contents
 
 
-def write_file(path, html_file):
+def write_file(html, html_path, md_path):
     """Write a file to a given path.
     :param path: The path to write the file to.
     :param html_file: The file to write.
     """
-    with open(path, "w") as file:
-        file.write(html_file)
+    with open(html_path, "w", encoding="utf-8") as file:
+        file.write(html)
+
+    with open(md_path, "w", encoding="utf-8") as file:
+        file.write(md(html))

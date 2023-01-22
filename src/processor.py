@@ -6,27 +6,6 @@ from pathlib import Path
 import git
 
 
-def get_requirements():
-    """This function uses the pipreqs library to generate a requirements.txt file
-    for the project.
-    """
-    os.system("pipreqs _tmp/ --force")
-
-
-def get_tmpdir():
-    """get_tmpdir()
-    ------------
-    Returns a temporary directory path.
-    If the directory already exists, it is deleted and recreated.
-    """
-    base = Path(".").absolute()
-    path = f"{base}/_tmp"
-    if os.path.exists(path):
-        shutil.rmtree(path)
-    os.makedirs(path)
-    return path
-
-
 def clone_codebase(url):
     """Clones a git repository and installs the requirements.txt file.
 
@@ -40,6 +19,26 @@ def clone_codebase(url):
     git.Repo.clone_from(url, tmpdir)
     os.system("pipreqs _tmp/ --force")
     return tmpdir
+
+
+def get_file_extensions():
+    file_list = os.walk(os.getcwd())
+    file_types = set()
+    for walk_output in file_list:
+        for file_name in walk_output[-1]:
+            file_types.add(file_name.split(".")[-1])
+    return list(file_types)
+
+
+def get_tmpdir():
+    """Returns a temporary directory path. If the
+    directory already exists, it is overrided."""
+    base = Path(".").absolute()
+    path = f"{base}/_tmp"
+    if os.path.exists(path):
+        shutil.rmtree(path)
+    os.makedirs(path)
+    return path
 
 
 def parse_codebase(dir):

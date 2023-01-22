@@ -1,0 +1,74 @@
+<html>
+<body>
+    <div>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="80" />
+        <h1>openai_automated_markdowns</h1>
+        <hr>
+        <h3>Software and Packages</h3>
+        <p>[description]</p>
+        <p><img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white">
+				<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white">
+				<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white">
+				<img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white">
+				<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white">
+				<img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white">
+				</p>
+        </div>
+        <hr>
+<div>
+    <h3>Overview</h3>
+    <p>[description]</p>
+    <hr>
+    <h3>Prerequistes</h3>
+    <p>[description]</p>
+</div>
+<hr>
+<div>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
+    <h3>Repository Structure</h3>
+    <p>[description]</p>
+</div>
+<hr>
+<div>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
+    <h3>Modules</h3>
+<h3><i>SRC</i></h3>
+                <dl>
+                <dt><b><i>processor.py</i></b></dt>
+                <dd>This Python script contains functions related to managing a codebase. The get_requirements() function uses the pipreqs library to generate a requirements.txt file for the project. The get_tmpdir() function returns a temporary directory path, deleting and recreating it if it already exists. The clone_codebase() function clones a git repository and installs the requirements.txt file. Finally, the parse_codebase() function parses a directory of python files and returns a dictionary of</dd>
+                </dl>
+                <dl>
+                <dt><b><i>logger.py</i></b></dt>
+                <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG.</dd>
+                </dl>
+                <dl>
+                <dt><b><i>model.py</i></b></dt>
+                <dd>This script uses the OpenAI API to summarize the code in a specified GitHub repository. It takes in a language model and a dictionary of files and code, and returns a dictionary of file names and summaries. It skips the __init__ file and uses the OpenAI Completion API to generate summaries for each file.</dd>
+                </dl>
+                <dl>
+                <dt><b><i>builder.py</i></b></dt>
+                <dd>This script is used to create an HTML file from a CSV file. It imports the Pandas library and a custom utils library. It defines two functions: get_pkg_icons() and create_html(). The get_pkg_icons() function takes a path to a JSON file and returns a dictionary of icons. The create_html() function takes a configuration object, a list of badges, a name, and a path to a CSV file. It creates a header for the HTML</dd>
+                </dl>
+                <dl>
+                <dt><b><i>utils.py</i></b></dt>
+                <dd>This Python script contains four functions. The first function, get_pkgs_list(), reads a requirements.txt file and returns a list of packages. The second function, read_json(), reads a json file and returns its contents as a dictionary. The third function, write_file(), writes a file to a given path. The fourth function, markdownify(), converts a string to markdown.</dd>
+                </dl>
+                <dl>
+                <dt><b><i>main.py</i></b></dt>
+                <dd>
+This Python script is used to generate a Markdown documentation from a codebase. It uses the Hydra library to read a configuration file, clones the codebase from a given URL, parses the codebase, and converts the code into text. It then creates a Pandas DataFrame with the file names and summaries, and saves it to a CSV file. It also creates a list of packages used in the codebase, creates a header with badges, and creates an HTML file</dd>
+                </dl>
+                </div>
+    <hr>
+    <div>
+        <h3>Roadmap</h3>
+        <p>[description]</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Licenses</h3>
+        <p>[description]</p>
+    </div>
+  <hr>
+</body>
+</html>
