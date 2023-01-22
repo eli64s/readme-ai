@@ -28,7 +28,7 @@ def get_pkg_icons(path):
     return icon_map
 
 
-def create_header(path, pkg_list, name):
+def create_header(path, pkg_list):
     """This function creates a header for a webpage.
     Args:
         icon_map (dict): A dictionary of icons.
@@ -44,11 +44,10 @@ def create_header(path, pkg_list, name):
         if pkg in icons:
             badge = icons[pkg.strip().lower()]["src"]
             header += f'<img src="{badge}">\n\t\t\t\t'
-    html_code = create_html(header, name)
-    return html_code
+    return header
 
 
-def create_html(icon, name):
+def create_html(badges, name, path):
     """This function creates an html file from a csv file.
     Args:
         icon (str): The icon to be used in the html file.
@@ -67,7 +66,7 @@ def create_html(icon, name):
             <h3>Software and Packages</h3>
             <p>[description]</p>
             <p>
-                {icon}
+                {badges}
             </p>
         </div>
     """
@@ -109,14 +108,20 @@ def create_html(icon, name):
         </body>
         </html>
     """
-    data = pd.read_csv("output/data/docs.csv")
-    prev_folder = None
+
+    prev_dir = None
+
+    data = pd.read_csv(path)
+
     for i, j in data.iterrows():
-        script = j[0].split("/")
-        curr_folder = script[0]
-        script = script[1]
-        if prev_folder != curr_folder:
-            tag = f"""<h3><i>{curr_folder.upper()}</i></h3>
+        file = j[0].split("/")
+
+        curr_dir = file[0]
+
+        script = file[1]
+
+        if prev_dir != curr_dir:
+            tag = f"""<h3><i>{curr_dir.upper()}</i></h3>
             <dl>
                 <dt><b><i>{script}</i></b></dt>
                 <dd>{j[1]}</dd>
@@ -129,6 +134,9 @@ def create_html(icon, name):
                 <dd>{j[1]}</dd>
             </dl>
             """
-        prev_folder = curr_folder
+
+        prev_dir = curr_dir
+
         result = f"{result}{tag}"
+
     return f"{header}{result}{closing_tags}"

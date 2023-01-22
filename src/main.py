@@ -25,7 +25,7 @@ def main(cfg: DictConfig) -> None:
     url = cfg.repository.url
     html_path = Path(cfg.html_file).resolve()
     pkgs_path = Path(cfg.pkgs_file).resolve()
-    text_path = Path(cfg.text_file).resolve()
+    doc_path = Path(cfg.doc_file).resolve()
 
     tmpdir = processor.clone_codebase(url)
     files = processor.parse_codebase(tmpdir)
@@ -33,11 +33,12 @@ def main(cfg: DictConfig) -> None:
 
     file_summary = model.code_to_text(engine, files)
     docs = pd.DataFrame(file_summary, columns=["file", "summary"])
-    docs.to_csv(text_path, index=False)
+    docs.to_csv(doc_path, index=False)
 
     pkg_list = utils.get_pkgs_list()
     name = url.split("/")[-1]
-    html_docs = builder.create_header(pkgs_path, pkg_list, name)
+    badges = builder.create_header(pkgs_path, pkg_list)
+    html_docs = builder.create_html(badges, name, doc_path)
     utils.write_file(html_path, html_docs)
 
     logger.info(f"Markdown documentation complete.")

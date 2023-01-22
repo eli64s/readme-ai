@@ -70,36 +70,31 @@ bash scripts/run_model.sh
 <h2>Repository</h2></span></a>
 
 ```shell
-(kkenv) gpt_auto_markdown_docs[main*] % tree
 .
 ├── Makefile
 ├── README.md
 ├── conf
 │   ├── __init__.py
-│   ├── api
-│   │   └── gpt.yaml
 │   ├── config.yaml
 │   ├── data
 │   │   └── icons.json
-│   ├── input
-│   │   ├── github.yaml
-│   │   └── local.yaml
-│   └── logger
-│       └── logger.yaml
-├── notebooks
-│   └── data_checks.ipynb
+│   ├── driver
+│   │   └── openai.yaml
+│   └── repository
+│       ├── github.yaml
+│       └── local.yaml
 ├── output
-│   ├── data
-│   │   └── docs.csv
-│   ├── gpt_output.html
 │   ├── html
 │   │   └── project_template.html
-│   └── png
-│       ├── docs.png
-│       └── header.png
+│   ├── png
+│   │   ├── docs.png
+│   │   └── header.png
+│   ├── raw_docs.csv
+│   └── structured_doc.html
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
+│   ├── auto_docstrs.sh
 │   └── run_main.sh
 ├── setup.py
 └── src

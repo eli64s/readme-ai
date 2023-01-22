@@ -1,7 +1,7 @@
 #!/bin/bash
 set +x
 
-API_SK="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"
+API_SK=""
 export API_SK
 
 python src/main.py

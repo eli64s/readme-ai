@@ -6,4 +6,4 @@ defaults:
 
 html_file: output/structured_doc.html
 pkgs_file: conf/data/icons.json
-text_file: output/raw_docs.csv
+doc_file: output/raw_docs.csv
