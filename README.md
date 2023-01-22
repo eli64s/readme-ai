@@ -146,6 +146,6 @@ bash scripts/run_model.sh
 ---
 ## Licenses, Copyrights & Trademarks
 
-- [References](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md#licenses-copyrights--trademarks)
+- [Badges: Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
 
 ---
