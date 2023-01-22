@@ -1,10 +1,9 @@
 # Default configuration file.
-# Default configuration file.
 defaults:
   - _self_
-  - api: gpt
-  - input: github
-  
-html_file: output/gpt_output.html
+  - driver: openai
+  - repository: github
+
+html_file: output/structured_doc.html
 pkgs_file: conf/data/icons.json
-text_file: output/data/docs.csv
+text_file: output/raw_docs.csv

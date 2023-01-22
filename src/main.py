@@ -1,3 +1,6 @@
+"""
+src/main.py
+"""
 import os
 from pathlib import Path
 
@@ -11,14 +14,15 @@ import model
 import processor
 import utils
 
+
 logger = logger.setup_logger()
 
 
 @hydra.main(version_base=None, config_path="../conf", config_name="config")
 def main(cfg: DictConfig) -> None:
     """Main function for the program."""
-    url = cfg.input.url
-    engine = cfg.api.engine
+    engine = cfg.driver.engine
+    url = cfg.repository.url
     html_path = Path(cfg.html_file).resolve()
     pkgs_path = Path(cfg.pkgs_file).resolve()
     text_path = Path(cfg.text_file).resolve()
@@ -32,10 +36,10 @@ def main(cfg: DictConfig) -> None:
     docs.to_csv(text_path, index=False)
 
     pkg_list = utils.get_pkgs_list()
-    name = url.split('/')[-1]
+    name = url.split("/")[-1]
     html_docs = builder.create_header(pkgs_path, pkg_list, name)
     utils.write_file(html_path, html_docs)
-    
+
     logger.info(f"Markdown documentation complete.")
 
 

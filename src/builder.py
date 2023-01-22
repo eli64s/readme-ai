@@ -38,17 +38,13 @@ def create_header(path, pkg_list, name):
     """
     header = ""
     icons = get_pkg_icons(path)
-
     pkg_list.append("python")
     pkg_list.append("github")
-
     for pkg in pkg_list:
         if pkg in icons:
             badge = icons[pkg.strip().lower()]["src"]
             header += f'<img src="{badge}">\n\t\t\t\t'
-
     html_code = create_html(header, name)
-
     return html_code
 
 
@@ -75,7 +71,6 @@ def create_html(icon, name):
             </p>
         </div>
     """
-
     result = """
         <hr>
         <div>
