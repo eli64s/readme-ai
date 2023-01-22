@@ -70,7 +70,6 @@ bash scripts/run_model.sh
 <h2>Repository</h2></span></a>
 
 ```shell
-(kkenv) gpt_auto_markdown_docs[main*] % tree
 .
 ├── Makefile
 ├── README.md
