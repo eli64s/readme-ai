@@ -10,11 +10,10 @@
 ---
 ## Software and Packages
 
-
+![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
 ![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
-![Bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
 ![markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
 
 ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
@@ -27,9 +26,21 @@
 
 ## Overview
 
-> I'm using the base GPT model Davinci to translate a given repository of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. The image below contains a sample of what this project produces so far.
+I'm using the base GPT model Davinci to translate a given repository of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. Features include:
 
-![GPT-3](output/docs/gpt_python_to_language.png)
+1. Creates automated header section with Shields.io badge icons that include your project dependencies.
+2. Creates summary of each `.py` file in a specified GitHub repository.
+3. Generates a structured output template for project documentation.
+
+The images below contain samples of what the project generates so far.
+
+> Document header with codebase package badges.
+
+![GPT-3](output/png/header.png)
+
+> Document header with codebase package badges.
+
+![GPT-3](output/png/docs.png)
 
 ## Prerequisites
 ### 🤖 OpenAI API
@@ -59,41 +70,53 @@ bash scripts/run_model.sh
 <h2>Repository</h2></span></a>
 
 ```shell
+(kkenv) gpt_auto_markdown_docs[main*] % tree
 .
 ├── Makefile
 ├── README.md
-├── configs
+├── conf
 │   ├── __init__.py
 │   ├── api
 │   │   └── gpt.yaml
 │   ├── config.yaml
+│   ├── data
+│   │   └── icons.json
 │   ├── input
 │   │   ├── github.yaml
 │   │   └── local.yaml
 │   └── logger
 │       └── logger.yaml
-├── data
-│   └── output
-│       └── docs.csv
 ├── notebooks
 │   └── data_checks.ipynb
+├── output
+│   ├── data
+│   │   └── docs.csv
+│   ├── gpt_output.html
+│   ├── html
+│   │   └── project_template.html
+│   └── png
+│       ├── docs.png
+│       └── header.png
 ├── pyproject.toml
 ├── requirements.txt
-├── setup
-│   └── setup.sh
+├── scripts
+│   └── run_main.sh
 ├── setup.py
 └── src
     ├── __init__.py
+    ├── builder.py
     ├── logger.py
     ├── main.py
     ├── model.py
-    └── processor.py
+    ├── processor.py
+    └── utils.py
 ```
 <body>
 <a style="vertical-align:middle">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="100"; style="vertical-align:middle" />
 <span style="vertical-align:middle">
 <h2>Modules (src)</h2></span></a>
+<h3><i>SRC</i></h3>
 <dl>
     <dt><b><i>processor.py</i></b></dt>
     <dd>This Python script contains functions to clone a codebase from a given URL, create a temporary directory, and parse the codebase into a dictionary. The clone_codebase() function clones the codebase from the given URL into the temporary directory created by the get_tmpdir() function. The parse_codebase() function then reads all the Python files in the codebase and stores them in a dictionary with the file path as the key and the file contents as the value.</dd>
@@ -111,17 +134,18 @@ bash scripts/run_model.sh
 
 <dl>
     <dt><b><i>builder.py</i></b></dt>
-    <dd>This script creates an HTML page with information about OpenAI Auto Markdown Docs. It imports the Pandas library and reads a CSV file containing the names of scripts and their descriptions. It then creates an HTML page with a header, a section for software and packages, a section for the repository structure, and a section for the roadmap. It also includes images and badges for the software and packages.</dd>
+    <dd>This Python script imports the Pandas library and reads a CSV file. It then iterates through the rows of the CSV file and creates an HTML document with a description of each row. The HTML document includes a roadmap, licenses, overview, prerequisites, repository structure, and modules.</dd>
 </dl>
 
 <dl>
     <dt><b><i>main.py</i></b></dt>
-    <dd>This Python script uses the hydra library to set up a configuration file, then uses the pathlib library to create a directory for the output. It uses the markdownify library to convert HTML documents to markdown documents. It then uses the builder, logger, model, and processor modules to clone a codebase from a given URL, parse the codebase, convert the code to text, and create HTML and markdown documents. Finally, it logs a message that the code-to-language</dd>
+    <dd>This Python script is used to document a codebase. It takes a URL as input, uses an engine to parse the codebase, and then creates a summary of the codebase in a CSV file. It also creates HTML and Markdown documents of the codebase.</dd>
 </dl>
 </body>
 
 ## Roadmap
 
+- Add compatability for multiple file types. 
 - Implement data version control - dvc.
 
 ---

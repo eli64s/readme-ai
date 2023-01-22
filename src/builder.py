@@ -2,52 +2,81 @@
 """
 import pandas as pd
 
+import utils
 
-def create_html():
-    closing_tags = """
-        </div>
-            <hr>
-            <div>
-                <h3>Roadmap</h3>
-                <p>[description]</p>
-            </div>
-            <hr>
-            <div>
-                <h3>Licenses</h3>
-                <p>[description]</p>
-            </div>
-            <hr>
-        </body>
-        </html>
+
+def get_pkg_icons(path):
+    """Get the package list from the json file.
+
+    Args:
+        path: The path of the json file.
+        pkg_list: The list of packages.
+
+    Returns:
+        The package list.
     """
+    contents = utils.read_json(path)
+    icon_map = {}
+    idx = 0
+    while True:
+        try:
+            row = contents["icons"][idx]
+            icon_map[row["name"].lower()] = row
+        except:
+            break
+        idx += 1
+    return icon_map
 
-    result = """
+
+def create_header(path, pkg_list, name):
+    """This function creates a header for a webpage.
+    Args:
+        icon_map (dict): A dictionary of icons.
+        packages (list): A list of packages.
+    Returns:
+        str: A string of HTML.
+    """
+    header = ""
+    icons = get_pkg_icons(path)
+
+    pkg_list.append("python")
+    pkg_list.append("github")
+
+    for pkg in pkg_list:
+        if pkg in icons:
+            badge = icons[pkg.strip().lower()]["src"]
+            header += f'<img src="{badge}">\n\t\t\t\t'
+
+    html_code = create_html(header, name)
+
+    return html_code
+
+
+def create_html(icon, name):
+    """This function creates an html file from a csv file.
+    Args:
+        icon (str): The icon to be used in the html file.
+    Returns:
+        str: The html file.
+    """
+    header = f"""
     <html>
 
     <body>
         <div>
             <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
                 width="80">
-            <h1>OpenAI Auto Markdown Docs</h1>
+            <h1>{name}</h1>
             <hr>
-            <h3>Software and Packeges</h3>
+            <h3>Software and Packages</h3>
             <p>[description]</p>
             <p>
-                <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" />
-                <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" />
-                <img src="https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white" />
-                <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" />
-                <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" />
-                <img src="https://img.shields.io/badge/pre-commit-FAB040?style=for-the-badge&logo=precommit&logoColor=FAB040" />
-            </p>
-            <p>
-                <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white" />
-                <img src="https://img.shields.io/badge/CondaForge-000000.svg?style=for-the-badge&logo=Conda-Forge&logoColor=white" />
-                <img src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E" />
-                <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" />
-                <img src="https://img.shields.io/badge/Shields.io-000000.svg?style=for-the-badge&logo=shieldsdotio&logoColor=white" />
+                {icon}
             </p>
         </div>
+    """
+
+    result = """
         <hr>
         <div>
             <h3>Overview</h3>
@@ -67,18 +96,44 @@ def create_html():
         <div>
             <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" 
             width="80" />
-            <h3>Modules [src]</h3>
+            <h3>Modules</h3>
     """
-
+    closing_tags = """
+        </div>
+            <hr>
+            <div>
+                <h3>Roadmap</h3>
+                <p>[description]</p>
+            </div>
+            <hr>
+            <div>
+                <h3>Licenses</h3>
+                <p>[description]</p>
+            </div>
+            <hr>
+        </body>
+        </html>
+    """
     data = pd.read_csv("output/data/docs.csv")
-
+    prev_folder = None
     for i, j in data.iterrows():
-        script = j[0].split("/")[1]
-        tag = f"""
-        <dl>
-            <dt><b><i>{script}</i></b></dt>
-            <dd>{j[1]}</dd>
-        </dl>
-        """
+        script = j[0].split("/")
+        curr_folder = script[0]
+        script = script[1]
+        if prev_folder != curr_folder:
+            tag = f"""<h3><i>{curr_folder.upper()}</i></h3>
+            <dl>
+                <dt><b><i>{script}</i></b></dt>
+                <dd>{j[1]}</dd>
+            </dl>
+            """
+        else:
+            tag = f"""
+            <dl>
+                <dt><b><i>{script}</i></b></dt>
+                <dd>{j[1]}</dd>
+            </dl>
+            """
+        prev_folder = curr_folder
         result = f"{result}{tag}"
-    return f"{result}{closing_tags}"
+    return f"{header}{result}{closing_tags}"

@@ -1,0 +1,10 @@
+# Default configuration file.
+# Default configuration file.
+defaults:
+  - _self_
+  - api: gpt
+  - input: github
+  
+html_file: output/gpt_output.html
+pkgs_file: conf/data/icons.json
+text_file: output/data/docs.csv

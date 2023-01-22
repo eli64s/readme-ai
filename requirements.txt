@@ -1,8 +1,8 @@
 dvc
-numpy
 omegaconf
 openai
 pandas
+pipdeptree
 PyGithub
 pre-commit
 

@@ -1,0 +1,81 @@
+
+    <html>
+
+    <body>
+        <div>
+            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
+                width="80">
+            <h1>gpt_auto_markdown_docs</h1>
+            <hr>
+            <h3>Software and Packages</h3>
+            <p>[description]</p>
+            <p>
+                <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white">
+				<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white">
+				<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white">
+				<img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white">
+				
+            </p>
+        </div>
+    
+        <hr>
+        <div>
+            <h3>Overview</h3>
+            <p>[description]</p>
+            <hr>
+            <h3>Prerequistes</h3>
+            <p>[description]</p>
+        </div>
+        <hr>
+        <div>
+            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
+            width="80" />
+            <h3>Repository Structure</h3>
+            <p>[description]</p>
+        </div>
+        <hr>
+        <div>
+            <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" 
+            width="80" />
+            <h3>Modules</h3>
+    <h3><i>SRC</i></h3>
+            <dl>
+                <dt><b><i>processor.py</i></b></dt>
+                <dd>This Python script contains functions to clone a codebase from a given URL, create a temporary directory, and parse the codebase into a dictionary. The clone_codebase() function clones the codebase from the given URL into the temporary directory created by the get_tmpdir() function. The parse_codebase() function then reads all the Python files in the codebase and stores them in a dictionary with the file path as the key and the file contents as the value.</dd>
+            </dl>
+            
+            <dl>
+                <dt><b><i>logger.py</i></b></dt>
+                <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG, which will print all log messages.</dd>
+            </dl>
+            
+            <dl>
+                <dt><b><i>model.py</i></b></dt>
+                <dd>This script uses the OpenAI API to generate a summary of a Python script. It takes in a dictionary of files and code as an argument and loops through each file and code. It then creates a prompt for the OpenAI API to generate a summary of the code. The script then stores the summary in a list and returns the list of summaries.</dd>
+            </dl>
+            
+            <dl>
+                <dt><b><i>builder.py</i></b></dt>
+                <dd>This Python script imports the Pandas library and reads a CSV file. It then iterates through the rows of the CSV file and creates an HTML document with a description of each row. The HTML document includes a roadmap, licenses, overview, prerequisites, repository structure, and modules.</dd>
+            </dl>
+            
+            <dl>
+                <dt><b><i>main.py</i></b></dt>
+                <dd>This Python script is used to document a codebase. It takes a URL as input, uses an engine to parse the codebase, and then creates a summary of the codebase in a CSV file. It also creates HTML and Markdown documents of the codebase.</dd>
+            </dl>
+            
+        </div>
+            <hr>
+            <div>
+                <h3>Roadmap</h3>
+                <p>[description]</p>
+            </div>
+            <hr>
+            <div>
+                <h3>Licenses</h3>
+                <p>[description]</p>
+            </div>
+            <hr>
+        </body>
+        </html>
+    
