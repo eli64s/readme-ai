@@ -84,11 +84,13 @@ bash scripts/run_model.sh
 │       ├── github.yaml
 │       └── local.yaml
 ├── output
+│   ├── html_docs.html
+│   ├── output.md
 │   ├── png
-│   │   ├── docs.png
+│   │   ├── body.png
 │   │   └── header.png
 │   ├── raw_docs.csv
-│   └── structured_doc.html
+│   └── tree.md
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
