@@ -12,8 +12,8 @@ width="80" />
 
 ![](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
 ![](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
+![](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
 ![](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)
 
@@ -50,13 +50,14 @@ width="80" />
 ### *SRC*
 
 ***processor.py***  
-This Python script contains functions related to managing a codebase.
-The get\_requirements() function uses the pipreqs library to generate a
-requirements.txt file for the project. The get\_tmpdir() function
-returns a temporary directory path, deleting and recreating it if it
-already exists. The clone\_codebase() function clones a git repository
-and installs the requirements.txt file. Finally, the parse\_codebase()
-function parses a directory of python files and returns a dictionary of
+This script contains functions for cloning a git repository, getting
+file extensions, creating a temporary directory, and parsing a directory
+of python files. The clone\_codebase() function takes a URL as an
+argument and clones the repository to a temporary directory, then
+installs the requirements.txt file. The get\_file\_extensions() function
+walks through the current working directory and returns a list of file
+extensions. The get\_tmpdir() function creates a temporary directory if
+it does not already exist, and
 
 <!-- -->
 
@@ -90,20 +91,17 @@ a name, and a path to a CSV file. It creates a header for the HTML
 This Python script contains four functions. The first function,
 get\_pkgs\_list(), reads a requirements.txt file and returns a list of
 packages. The second function, read\_json(), reads a json file and
-returns its contents as a dictionary. The third function, write\_file(),
-writes a file to a given path. The fourth function, markdownify(),
-converts a string to markdown.
+returns the contents as a dictionary. The third function, write\_file(),
+writes a file to a given path. The fourth function, md(), converts HTML
+to Markdown.
 
 <!-- -->
 
 ***main.py***  
-This Python script is used to generate a Markdown documentation from a
-codebase. It uses the Hydra library to read a configuration file, clones
-the codebase from a given URL, parses the codebase, and converts the
-code into text. It then creates a Pandas DataFrame with the file names
-and summaries, and saves it to a CSV file. It also creates a list of
-packages used in the codebase, creates a header with badges, and creates
-an HTML file
+This Python script sets up a logger, clones a codebase from a given URL,
+parses the codebase, creates a summary of the code, creates a list of
+packages used, creates HTML and Markdown documentation, and writes the
+documentation to the specified files.
 
 ------------------------------------------------------------------------
 

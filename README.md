@@ -1,7 +1,7 @@
 <a style="vertical-align:middle">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"; style="vertical-align:middle" />
 <span style="vertical-align:middle">
-<h1>OpenAI Auto Markdown Docs</h1></span></a>
+<h1>OpenAI Automated Markdown Doc</h1></span></a>
 
 This project generates a structured Markdown template to kickstart your machine learning projects. Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
 

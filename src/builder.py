@@ -1,8 +1,14 @@
 """src/format.py
 """
+import os
+
 import pandas as pd
 
 import utils
+
+
+def get_tree():
+    os.popen("tree -H baseHREF").read()
 
 
 def get_pkg_icons(path):

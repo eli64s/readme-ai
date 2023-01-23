@@ -9,8 +9,7 @@ help:
 	@echo "clean   : cleans all unnecessary files."
 
 # Set api secret key for ChatGPT.
-OPENAI_API_KEY=sk-xxxx
-export OPENAI_API_KEY
+#export OPENAI_API_KEY=
 api_key:
 	echo "Set OPENAI_API_KEY"
 
