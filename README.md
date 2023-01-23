@@ -8,7 +8,7 @@ This project generates a structured Markdown template to kickstart your machine 
 > Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 
 ---
-## Software and Packages
+## Software & Packages
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
@@ -53,7 +53,7 @@ The images below contain sample outputs of what the project generates so far.
 
 ```Bash
 # 1. Clone GitHub repository.
-git clone https://github.com/king-technologies/Project-Initiator.git && cd gpt_auto_markdown_docs
+git clone https://github.com/eli64s/chatgpt-automated-markdowns && cd chatgpt-automated-markdowns
 
 # 2. Setup conda virtual environment.
 make conda
