@@ -1,59 +1,54 @@
-<a style="vertical-align:middle">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"; style="vertical-align:middle" />
-<span style="vertical-align:middle">
-<h1>OpenAI Automated Markdown Doc</h1></span></a>
+<div align="center">
 
-This project generates a structured Markdown template to kickstart your machine learning projects. Leverages OpenAI API models to convert Python code to natural language, providing boilerplate summaries for our codebase.
+<h1 align="center">
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"><p>ChatGPT Automated Markdown Docs</p>
+</h1>
 
-> Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
-
----
-## Software and Packages
+**Generate structured Markdown boilerplate documentation to kickstart your data and software projects.**
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
-![markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
-
-![Pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
-![DVC](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
-![pre-commit](https://img.shields.io/badge/pre-commit-FAB040?style=for-the-badge&logo=precommit&logoColor=FAB040)
-![prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+![Anaconda](https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white)
+![Bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)
+
+</div>
 
 ---
 
 ## Overview
 
-The code usese the base GPT Davinci model to translate a given repository of Python code to documentaion, aiming to generate boilerplate Markdown docs for my projects. Features include:
+This project leverages the base GPT Davinci model from OpenAI to translate a repository of Python code to documentaion. Features include:
 
 1. Automated header badge icons related to your project dependencies.
 2. Generates summaries of each `.py` file from the input GitHub repository.
 3. Creates a structured output Markdown template containing the project documentation.
-4. Generates repository file tree.
+4. Generates repository file directory tree.
 5. [Automated docstrings](https://github.com/cdesarmeaux/autodocstrings) - ```bash scripts/auto_docstrs.sh```
 
 The images below contain sample outputs of what the project generates so far.
 
 > Document header with codebase package badges.
 
-![GPT-3](output/png/header.png)
+![GPT-3](docs/png/header.png)
 
 > Document header with codebase package badges.
 
-![GPT-3](output/png/body.png)
+![GPT-3](docs/png/body.png)
 
+> Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 ## Prerequisites
-### 🤖 OpenAI API
-1. [OpenAI](https://beta.openai.com/docs/introduction) - generate API key on OpenAI's website.
+
+- 🤖 OpenAI API - generate an API key on their [website](https://beta.openai.com/docs/introduction).
 
 ---
 ## Usage
 
 ```Bash
 # 1. Clone GitHub repository.
-git clone https://github.com/king-technologies/Project-Initiator.git && cd gpt_auto_markdown_docs
+git clone https://github.com/eli64s/chatgpt-automated-markdowns && cd chatgpt-automated-markdowns
 
 # 2. Setup conda virtual environment.
 make conda
@@ -69,6 +64,7 @@ bash scripts/run_model.sh
 
 ```shell
 .
+.
 ├── Makefile
 ├── README.md
 ├── conf
@@ -80,10 +76,12 @@ bash scripts/run_model.sh
 │   │   └── openai.yaml
 │   ├── html
 │   │   └── tags.yaml
+│   ├── paths
+│   │   └── paths.yaml
 │   └── repository
 │       ├── github.yaml
 │       └── local.yaml
-├── output
+├── docs
 │   ├── html_docs.html
 │   ├── output.md
 │   ├── png
@@ -144,7 +142,7 @@ bash scripts/run_model.sh
 - Implement data version control - dvc.
 
 ---
-## Licenses, Copyrights & Trademarks
+## References
 
 - [GitHub Profile Badges - Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
 - [Automated Docstrings - cdesarmeaux/autodocstrings](https://github.com/cdesarmeaux/autodocstrings)

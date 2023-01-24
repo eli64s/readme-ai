@@ -2,8 +2,8 @@
 defaults:
   - _self_
   - driver: openai
-  - repository: github
   - html: tags
+  - repository: github
 
 doc_file: docs/raw_docs.csv
 html_file: docs/html_docs.html

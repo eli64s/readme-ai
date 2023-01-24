@@ -7,6 +7,8 @@
 │   │   └── openai.yaml
 │   ├── html
 │   │   └── tags.yaml
+│   ├── paths
+│   │   └── paths.yaml
 │   ├── repository
 │   │   ├── github.yaml
 │   │   └── local.yaml
@@ -33,7 +35,9 @@
 │   ├── model.py
 │   ├── processor.py
 │   └── utils.py
+├── tests
 ├── Makefile
+├── README.html
 ├── README.md
 ├── pyproject.toml
 ├── requirements.txt
