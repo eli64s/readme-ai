@@ -18,7 +18,7 @@ def setup_logger():
             "CRITICAL": "red",
         },
     )
-    logger = logging.getLogger("example")
+    logger = logging.getLogger(__name__)
     handler = logging.StreamHandler()
     handler.setFormatter(formatter)
     logger.addHandler(handler)

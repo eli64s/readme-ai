@@ -1,10 +1,7 @@
 <div align="center">
 
 <h1 align="center">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"><p>ChatGPT Automated Markdown Docs</p>
-</h1>
-
-**Generate structured Markdown boilerplate documentation to kickstart your data and software projects.**
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"><p>🤖 ChatGPT Automated Markdown Documentation</p></h1><b>Generate structured Markdown boilerplate docs to kickstart your data and software projects!</b><br><br>
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
@@ -26,24 +23,26 @@ This project leverages the base GPT Davinci model from OpenAI to translate a rep
 2. Generates summaries of each `.py` file from the input GitHub repository.
 3. Creates a structured output Markdown template containing the project documentation.
 4. Generates repository file directory tree.
-5. [Automated docstrings](https://github.com/cdesarmeaux/autodocstrings) - ```bash scripts/auto_docstrs.sh```
+5. [Automated docstrings](https://github.com/cdesarmeaux/autodocstrings) - `bash scripts/auto_docstrs.sh`
 
 The images below contain sample outputs of what the project generates so far.
 
 > Document header with codebase package badges.
 
-![GPT-3](docs/png/header.png)
+![GPT-3](docs/png/head.png)
 
 > Document header with codebase package badges.
 
 ![GPT-3](docs/png/body.png)
 
 > Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
+
 ## Prerequisites
 
-- 🤖 OpenAI API - generate an API key on their [website](https://beta.openai.com/docs/introduction).
+- 🤖 OpenAI API: generate a new API key on their [website](https://beta.openai.com/docs/introduction).
 
 ---
+
 ## Usage
 
 ```Bash
@@ -64,23 +63,12 @@ bash scripts/run_model.sh
 
 ```shell
 .
-.
 ├── Makefile
 ├── README.md
 ├── conf
-│   ├── __init__.py
-│   ├── config.yaml
-│   ├── data
-│   │   └── icons.json
-│   ├── driver
-│   │   └── openai.yaml
-│   ├── html
-│   │   └── tags.yaml
-│   ├── paths
-│   │   └── paths.yaml
-│   └── repository
-│       ├── github.yaml
-│       └── local.yaml
+│   ├── conf.toml
+│   └── data
+│       └── icons.json
 ├── docs
 │   ├── html_docs.html
 │   ├── output.md
@@ -98,43 +86,41 @@ bash scripts/run_model.sh
 └── src
     ├── __init__.py
     ├── builder.py
+    ├── conf.py
     ├── logger.py
     ├── main.py
     ├── model.py
     ├── processor.py
     └── utils.py
 ```
+
+<html>
 <body>
 <a style="vertical-align:middle">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="100"; style="vertical-align:middle" />
 <span style="vertical-align:middle">
-<h2>Modules (src)</h2></span></a>
-<h3><i>SRC</i></h3>
-<dl>
-    <dt><b><i>processor.py</i></b></dt>
-    <dd>This Python script contains functions to clone a codebase from a given URL, create a temporary directory, and parse the codebase into a dictionary. The clone_codebase() function clones the codebase from the given URL into the temporary directory created by the get_tmpdir() function. The parse_codebase() function then reads all the Python files in the codebase and stores them in a dictionary with the file path as the key and the file contents as the value.</dd>
-</dl>
+<h2>Modules</h2></span></a>
+<div><details closed>
+<summary>SRC</summary>
+<h5>processor.py</h5>
+<p>This script contains functions for cloning a git repository, getting file extensions, creating a temporary directory, and parsing a directory of python files. The clone_codebase() function takes a URL as an argument and clones the repository to a temporary directory, then installs the requirements.txt file. The get_file_extensions() function walks through the current working directory and returns a list of file extensions. The get_tmpdir() function creates a temporary directory if it does not already exist, and</p>
 
-<dl>
-    <dt><b><i>logger.py</i></b></dt>
-    <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG, which will print all log messages.</dd>
-</dl>
+<h5>logger.py</h5>
+<p>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG.</p>
 
-<dl>
-    <dt><b><i>model.py</i></b></dt>
-    <dd>This script uses the OpenAI API to generate a summary of a Python script. It takes in a dictionary of files and code as an argument and loops through each file and code. It then creates a prompt for the OpenAI API to generate a summary of the code. The script then stores the summary in a list and returns the list of summaries.</dd>
-</dl>
+<h5>model.py</h5>
+<p>This script uses the OpenAI API to summarize the code in a specified GitHub repository. It takes in a language model and a dictionary of files and code, and returns a dictionary of file names and summaries. It skips the __init__ file and uses the OpenAI Completion API to generate summaries for each file.</p>
 
-<dl>
-    <dt><b><i>builder.py</i></b></dt>
-    <dd>This Python script imports the Pandas library and reads a CSV file. It then iterates through the rows of the CSV file and creates an HTML document with a description of each row. The HTML document includes a roadmap, licenses, overview, prerequisites, repository structure, and modules.</dd>
-</dl>
+<h5>builder.py</h5>
+<p>This script is used to create an HTML file from a CSV file. It imports the Pandas library and a custom utils library. It defines two functions: get_pkg_icons() and create_html(). The get_pkg_icons() function takes a path to a JSON file and returns a dictionary of icons. The create_html() function takes a configuration object, a list of badges, a name, and a path to a CSV file. It creates a header for the HTML</p>
 
-<dl>
-    <dt><b><i>main.py</i></b></dt>
-    <dd>This Python script is used to document a codebase. It takes a URL as input, uses an engine to parse the codebase, and then creates a summary of the codebase in a CSV file. It also creates HTML and Markdown documents of the codebase.</dd>
-</dl>
-</body>
+<h5>utils.py</h5>
+<p>This Python script contains four functions. The first function, get_pkgs_list(), reads a requirements.txt file and returns a list of packages. The second function, read_json(), reads a json file and returns the contents as a dictionary. The third function, write_file(), writes a file to a given path. The fourth function, md(), converts HTML to Markdown.</p>
+
+<h5>main.py</h5>
+<p>This Python script sets up a logger, clones a codebase from a given URL, parses the codebase, creates a summary of the code, creates a list of packages used, creates HTML and Markdown documentation, and writes the documentation to the specified files.</p>
+<hr>
+</div></body></html>
 
 ## Roadmap
 
@@ -142,6 +128,7 @@ bash scripts/run_model.sh
 - Implement data version control - dvc.
 
 ---
+
 ## References
 
 - [GitHub Profile Badges - Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)

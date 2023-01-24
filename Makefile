@@ -8,7 +8,6 @@ help:
 	@echo "style   : executes style formatting."
 	@echo "clean   : cleans all unnecessary files."
 
-# Set api secret key for ChatGPT.
 #export OPENAI_API_KEY=
 api_key:
 	echo "Set OPENAI_API_KEY"

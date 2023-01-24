@@ -15,6 +15,12 @@ logger = logging.getLogger(__name__)
 
 @contextlib.contextmanager
 def make_temp_directory():
+    """Clone GitHub repository
+        to temporary directory.
+
+    Yields:
+        iterator: files
+    """
     temp_dir = tempfile.mkdtemp()
     try:
         yield temp_dir
@@ -23,15 +29,33 @@ def make_temp_directory():
 
 
 def clone_codebase(url):
+    """Runs git clone to retrieve
+        project input data.
+
+    Args:
+        url (str): GitHub
+
+    Returns:
+        Dict: map of all repo contents
+    """
     with make_temp_directory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
         files = parse_codebase(temp_dir)
-        files["packages"] = get_packages(temp_dir)
-        files["extensions"] = get_file_extensions(temp_dir)
+        files["packages"] = get_packages()
+        files["extensions"] = get_extensions(temp_dir)
     return files
 
 
-def get_file_extensions(temp_dir):
+def get_extensions(temp_dir):
+    """Get file extensions to help
+        generate project badge icons.
+
+    Args:
+        temp_dir (str): temp directory
+
+    Returns:
+        List: file extensions
+    """
     file_list = os.walk(temp_dir)
     file_types = set()
     for walk_output in file_list:
@@ -40,9 +64,17 @@ def get_file_extensions(temp_dir):
     return list(file_types)
 
 
-def get_packages(temp_dir):
-    subprocess.run(f"pipreqs {temp_dir} --force", shell=True)
-    logger.info(f"{temp_dir}\n")
+def get_packages():
+    """Get codebase packages to help
+        generate project badge icons.
+
+    Args:
+        temp_dir (str): temp directory
+
+    Returns:
+        List: codebase packages
+    """
+    subprocess.run(f"pipreqs . --force", shell=True)
     with open(Path("requirements.txt").resolve()) as f:
         lines = f.read().splitlines()
         pkgs = ["".join(r) for r in lines]
@@ -51,6 +83,14 @@ def get_packages(temp_dir):
 
 
 def parse_codebase(dir):
+    """Get each file as a raw string.
+
+    Args:
+        dir (str): temp directory
+
+    Returns:
+        Dict: map of all repo contents
+    """
     dict = {}
     paths = Path(dir).rglob("*/*.py")
     for path in paths:

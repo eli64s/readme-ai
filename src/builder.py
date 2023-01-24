@@ -2,16 +2,13 @@
 """
 import pandas as pd
 
-import utils
 
-
-def get_icons(path):
-    contents = utils.read_json(path)
+def get_icons(icon_list):
     icon_map = {}
     idx = 0
     while True:
         try:
-            row = contents["icons"][idx]
+            row = icon_list["icons"][idx]
             icon_map[row["name"].lower()] = row
         except:
             break
@@ -19,10 +16,11 @@ def get_icons(path):
     return icon_map
 
 
-def create_header(path, pkgs):
-    pkgs.append("git")
+def create_header(file_io, pkgs):
+    icon_list = file_io.read_json()
+    icons = get_icons(icon_list)
+    pkgs.append("github")
     header = ""
-    icons = get_icons(path)
     for pkg in pkgs:
         if pkg in icons:
             badge = icons[pkg.strip().lower()]["src"]
@@ -31,22 +29,16 @@ def create_header(path, pkgs):
 
 
 def create_html(cfg, badges, name, path):
-    """This function creates an html file from a csv file.
-    Args:
-        icon (str): The icon to be used in the html file.
-    Returns:
-        str: The html file.
-    """
-    header = f"""{cfg.html.header}
+    header = f"""{cfg.html.head}
         <h1>{name}</h1>
         <hr>
-        <h3>Software and Packages</h3>
+        <h3>Software & Packages</h3>
         <p>[description]</p>
         <p>{badges}</p>
         </div>
         """
     body = cfg.html.body
-    closing = cfg.html.closing
+    closing = cfg.html.close
 
     data = pd.read_csv(path)
 
@@ -57,19 +49,19 @@ def create_html(cfg, badges, name, path):
         script = file[1]
 
         if prev_dir != curr_dir:
-            tag = f"""<h3><i>{curr_dir.upper()}</i></h3>
-                <dl>
-                <dt><b><i>{script}</i></b></dt>
-                <dd>{j[1].replace('"', '')}</dd>
-                </dl>
-                """
-        else:
-            tag = f"""<dl>
-                <dt><b><i>{script}</i></b></dt>
-                <dd>{j[1].replace('"', '')}</dd>
-                </dl>
-                """
+            body = f"""{body}
+            <div><details open>
+            <summary>{curr_dir.upper()}</summary>"""
+
+        tag = f"""
+            <h5>{script}</h5>
+            <p>{j[1].replace('"', '')}</p>
+        """
         body = f"{body}{tag}"
+
         prev_dir = curr_dir
+
+        if curr_dir != prev_dir:
+            body = f"{body}</details></div>"
 
     return f"{header}{body}{closing}"

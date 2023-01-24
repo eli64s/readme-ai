@@ -1,0 +1,56 @@
+[api]
+engine = "text-davinci-003"
+sk_key = "EXPORT YOUR SECRET KEY"
+
+[paths]
+docs = "docs/raw_docs.csv"
+html = "docs/output.html"
+mdrk = "docs/output.md"
+pkgs = "conf/data/icons.json"
+
+[store]
+url = "https://github.com/eli64s/chatgpt-auto-markdowns"
+
+[html]
+head = """
+<html>
+<body>
+<div>
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="80">
+"""
+
+body = """
+<h3 id="overview">Overview</h3>
+<p>[description]</p>
+<hr />
+<h3 id="prerequistes">Prerequistes</h3>
+<p>[description]</p>
+<hr />
+<p><img
+src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
+width="80" /></p>
+<h3 id="repository-structure">Repository Structure</h3>
+<p>[description]</p>
+<hr />
+<p><img
+src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
+width="80" /></p>
+<h3 id="modules">Modules</h3>
+<p>[description]</p>
+"""
+
+close = """
+<hr>
+<div>
+<h3>Roadmap</h3>
+<p>[description]</p>
+</div>
+<hr>
+<div>
+<h3>Licenses</h3>
+<p>[description]</p>
+</div>
+<hr>
+</body>
+</html>
+"""

@@ -5,10 +5,10 @@ set +x
 
 python src/main.py
 
-pandoc --to=markdown_strict -o docs/output.md docs/html_docs.html
-perl -pi -w -e 's/style="width: 80%;"/width="80"/g;' docs/output.md
+pandoc --to=markdown_strict -o docs/output.md docs/output.html
+#perl -pi -w -e 's/style="width: 80%;"/width="80"/g;' docs/output.md
 
 make clean
 
-#tree --dirsfirst --noreport -I docs/tree.md |
-#sed '1s/^/```bash\n/;$s/$/\n```/' > docs/tree.md
+tree --dirsfirst --noreport -I docs/tree.md |
+sed '1s/^/```bash\n/;$s/$/\n```/' > docs/tree.md

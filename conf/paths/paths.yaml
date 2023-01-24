@@ -1,5 +1,0 @@
-# Config file paths.
-docs: docs/raw_docs.csv
-html: docs/html_docs.html
-mrkd: docs/output.md
-pkgs: conf/data/icons.json
