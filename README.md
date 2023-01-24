@@ -4,7 +4,7 @@
     <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"><p>ChatGPT Automated Markdown Docs</p>
 </h1>
 
-**Generate a structured Markdown with boilerplate docs to kickstart your data and software projects.**
+**Generate structured Markdown boilerplate documentation to kickstart your data and software projects.**
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
@@ -32,16 +32,16 @@ The images below contain sample outputs of what the project generates so far.
 
 > Document header with codebase package badges.
 
-![GPT-3](output/png/header.png)
+![GPT-3](docs/png/header.png)
 
 > Document header with codebase package badges.
 
-![GPT-3](output/png/body.png)
+![GPT-3](docs/png/body.png)
 
 > Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 ## Prerequisites
-### 🤖 OpenAI API
-- [OpenAI](https://beta.openai.com/docs/introduction) - generate API key on OpenAI's website.
+
+- 🤖 OpenAI API - generate an API key on their [website](https://beta.openai.com/docs/introduction).
 
 ---
 ## Usage
@@ -64,6 +64,7 @@ bash scripts/run_model.sh
 
 ```shell
 .
+.
 ├── Makefile
 ├── README.md
 ├── conf
@@ -75,10 +76,12 @@ bash scripts/run_model.sh
 │   │   └── openai.yaml
 │   ├── html
 │   │   └── tags.yaml
+│   ├── paths
+│   │   └── paths.yaml
 │   └── repository
 │       ├── github.yaml
 │       └── local.yaml
-├── output
+├── docs
 │   ├── html_docs.html
 │   ├── output.md
 │   ├── png

@@ -1,0 +1,80 @@
+<div align="center">
+
+    <h1 align="center">
+        <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
+            width="100">
+        <p>ChatGPT Automated Markdown Docs</p>
+    </h1>
+    <p>
+    <h3>https://github.com/eli64s/openai_automated_markdowns</h3>
+    </p><img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white">
+    <img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white">
+    <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white">
+    <img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white">
+    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white">
+    <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white">
+    <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white">
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<hr>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-Bash"><span class="hljs-comment"># 1. Clone GitHub repository.</span>
+git <span class="hljs-built_in">clone</span> https://github.com/eli64s/openai_automated_markdowns &amp;&amp; <span class="hljs-built_in">cd</span> openai_automated_markdowns
+
+<span class="hljs-comment"># 2. Setup conda virtual environment.</span>
+make conda
+
+<span class="hljs-comment"># 3. Run the model.</span>
+bash scripts/run_model.sh
+</code></pre>
+<pre><code class="language-shell">None</code></pre>
+<h3><i>SRC</i></h3>
+<dl>
+    <dt><b><i>processor.py</i></b></dt>
+    <dd>This script contains functions for cloning a git repository, getting file extensions, creating a temporary
+        directory, and parsing a directory of python files. The clone_codebase() function takes a URL as an argument and
+        clones the repository to a temporary directory, then installs the requirements.txt file. The
+        get_file_extensions() function walks through the current working directory and returns a list of file
+        extensions. The get_tmpdir() function creates a temporary directory if it does not already exist, and</dd>
+</dl>
+<dl>
+    <dt><b><i>logger.py</i></b></dt>
+    <dd>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed
+        in different colors. It also sets the log level to DEBUG.</dd>
+</dl>
+<dl>
+    <dt><b><i>model.py</i></b></dt>
+    <dd>This script uses the OpenAI API to summarize the code in a specified GitHub repository. It takes in a language
+        model and a dictionary of files and code, and returns a dictionary of file names and summaries. It skips the
+        __init__ file and uses the OpenAI Completion API to generate summaries for each file.</dd>
+</dl>
+<dl>
+    <dt><b><i>builder.py</i></b></dt>
+    <dd>This script is used to create an HTML file from a CSV file. It imports the Pandas library and a custom utils
+        library. It defines two functions: get_pkg_icons() and create_html(). The get_pkg_icons() function takes a path
+        to a JSON file and returns a dictionary of icons. The create_html() function takes a configuration object, a
+        list of badges, a name, and a path to a CSV file. It creates a header for the HTML</dd>
+</dl>
+<dl>
+    <dt><b><i>utils.py</i></b></dt>
+    <dd>This Python script contains four functions. The first function, get_pkgs_list(), reads a requirements.txt file
+        and returns a list of packages. The second function, read_json(), reads a json file and returns the contents as
+        a dictionary. The third function, write_file(), writes a file to a given path. The fourth function, md(),
+        converts HTML to Markdown.</dd>
+</dl>
+<dl>
+    <dt><b><i>main.py</i></b></dt>
+    <dd>This Python script sets up a logger, clones a codebase from a given URL, parses the codebase, creates a summary
+        of the code, creates a list of packages used, creates HTML and Markdown documentation, and writes the
+        documentation to the specified files.</dd>
+</dl>
+<hr>
+<div>
+    <h3>Roadmap</h3>
+    <p>[description]</p>
+</div>
+<hr>
+<div>
+    <h3>Licenses</h3>
+    <p>[description]</p>
+</div>

@@ -1,14 +1,10 @@
 <img
 src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-width="80" />
+width="100" />
 
-# openai\_automated\_markdowns
+ChatGPT Automated Markdown Docs
 
-------------------------------------------------------------------------
-
-### Software and Packages
-
-\[description\]
+### https://github.com/eli64s/openai\_automated\_markdowns
 
 ![](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
@@ -18,35 +14,22 @@ width="80" />
 ![](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
 ![](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)
 
-------------------------------------------------------------------------
-
-### Overview
-
-\[description\]
+## Prerequisites
 
 ------------------------------------------------------------------------
 
-### Prerequistes
+## Usage
 
-\[description\]
+    # 1. Clone GitHub repository.
+    git clone https://github.com/eli64s/openai_automated_markdowns && cd openai_automated_markdowns
 
-------------------------------------------------------------------------
+    # 2. Setup conda virtual environment.
+    make conda
 
-<img
-src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
-width="80" />
+    # 3. Run the model.
+    bash scripts/run_model.sh
 
-### Repository Structure
-
-\[description\]
-
-------------------------------------------------------------------------
-
-<img
-src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
-width="80" />
-
-### Modules
+    None
 
 ### *SRC*
 
@@ -115,5 +98,3 @@ documentation to the specified files.
 ### Licenses
 
 \[description\]
-
-------------------------------------------------------------------------

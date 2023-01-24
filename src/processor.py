@@ -1,28 +1,34 @@
 """src/utils.py."""
+import contextlib
 import os
 import shutil
+import tempfile
 from pathlib import Path
 
 import git
 
 
+@contextlib.contextmanager
+def make_temp_directory():
+    temp_dir = tempfile.mkdtemp()
+    try:
+        yield temp_dir
+    finally:
+        shutil.rmtree(temp_dir)
+
+
 def clone_codebase(url):
-    """Clones a git repository and installs the requirements.txt file.
-
-    Args:
-        url (str): The url of the git repository.
-
-    Returns:
-        str: The path to the cloned repository.
-    """
-    tmpdir = get_tmpdir()
-    git.Repo.clone_from(url, tmpdir)
-    os.system("pipreqs _tmp/ --force")
-    return tmpdir
+    with make_temp_directory() as temp_dir:
+        git.Repo.clone_from(url, temp_dir)
+        files = parse_codebase(temp_dir)
+        os.popen("pipreqs  --force")
+        files["packages"] = get_packages()
+        files["extensions"] = get_file_extensions(temp_dir)
+    return files
 
 
-def get_file_extensions():
-    file_list = os.walk(os.getcwd())
+def get_file_extensions(temp_dir):
+    file_list = os.walk(temp_dir)
     file_types = set()
     for walk_output in file_list:
         for file_name in walk_output[-1]:
@@ -30,26 +36,15 @@ def get_file_extensions():
     return list(file_types)
 
 
-def get_tmpdir():
-    """Returns a temporary directory path. If the
-    directory already exists, it is overrided."""
-    base = Path(".").absolute()
-    path = f"{base}/_tmp"
-    if os.path.exists(path):
-        shutil.rmtree(path)
-    os.makedirs(path)
-    return path
+def get_packages():
+    with open(Path("requirements.txt").resolve()) as f:
+        lines = f.read().splitlines()
+        pkgs = ["".join(r) for r in lines]
+        pkgs = [r.split("=")[0] for r in lines]
+    return pkgs
 
 
 def parse_codebase(dir):
-    """Parses a directory of python files and returns a dictionary of the file contents.
-
-    Args:
-        dir (str): The directory to parse.
-
-    Returns:
-        dict: A dictionary of the file contents.
-    """
     dict = {}
     paths = Path(dir).rglob("*/*.py")
     for path in paths:

@@ -7,12 +7,14 @@
 │   │   └── openai.yaml
 │   ├── html
 │   │   └── tags.yaml
+│   ├── paths
+│   │   └── paths.yaml
 │   ├── repository
 │   │   ├── github.yaml
 │   │   └── local.yaml
 │   ├── __init__.py
 │   └── config.yaml
-├── output
+├── docs
 │   ├── png
 │   │   ├── body.png
 │   │   └── header.png
@@ -26,6 +28,7 @@
 ├── src
 │   ├── __init__.py
 │   ├── builder.py
+│   ├── conf.py
 │   ├── logger.py
 │   ├── main.py
 │   ├── model.py
@@ -33,6 +36,7 @@
 │   └── utils.py
 ├── tests
 ├── Makefile
+├── README.html
 ├── README.md
 ├── pyproject.toml
 ├── requirements.txt
