@@ -5,7 +5,7 @@ defaults:
   - repository: github
   - html: tags
 
-doc_file: output/raw_docs.csv
-html_file: output/html_docs.html
-md_file: output/output.md
+doc_file: docs/raw_docs.csv
+html_file: docs/html_docs.html
+md_file: docs/output.md
 pkgs_file: conf/data/icons.json

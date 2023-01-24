@@ -12,7 +12,7 @@
 │   │   └── local.yaml
 │   ├── __init__.py
 │   └── config.yaml
-├── output
+├── docs
 │   ├── png
 │   │   ├── body.png
 │   │   └── header.png
@@ -24,8 +24,10 @@
 │   ├── auto_docstrs.sh
 │   └── run_main.sh
 ├── src
+│   ├── tests
 │   ├── __init__.py
 │   ├── builder.py
+│   ├── conf.py
 │   ├── logger.py
 │   ├── main.py
 │   ├── model.py

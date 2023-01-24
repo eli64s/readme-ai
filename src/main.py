@@ -27,19 +27,15 @@ def main(cfg: DictConfig) -> None:
     pkgs_path = Path(cfg.pkgs_file).resolve()
     doc_path = Path(cfg.doc_file).resolve()
 
-    tmpdir = processor.clone_codebase(url)
-    files = processor.parse_codebase(tmpdir)
+    files = processor.clone_codebase(url)
     logger.info(f"Total files to document: {len(files)}")
 
-    file_summary = model.code_to_text(engine, files)
-    docs = pd.DataFrame(file_summary, columns=["file", "summary"])
-    docs.to_csv(doc_path, index=False)
+    # file_summary = model.code_to_text(engine, files)
+    # docs = pd.DataFrame(file_summary, columns=["file", "summary"])
 
-    pkg_list = utils.get_pkgs_list()
-    pkg_list = pkg_list + processor.get_file_extensions()
     name = url.split("/")[-1]
-
-    badges = builder.create_header(pkgs_path, pkg_list)
+    pkgs = files["packages"] + files["extensions"]
+    badges = builder.create_header(pkgs_path, pkgs)
     html_docs = builder.create_html(cfg, badges, name, doc_path)
 
     utils.write_file(html_docs, html_path, md_path)

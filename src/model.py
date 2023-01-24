@@ -9,16 +9,6 @@ openai.api_key = os.getenv("API_SK")
 
 
 def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
-    """Converts code to natural language - summarizing
-        each file in a specified GitHub repository.
-
-    Args:
-        engine (str): OpenAI language model
-        files (Dict[str, str]): Repository contents.
-
-    Returns:
-        Dict[str, str]: Repositroy content summaries.
-    """
     doc_list = []
     for file, code in files.items():
         if "__init__" in file:
