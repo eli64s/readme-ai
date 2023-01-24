@@ -19,13 +19,12 @@ logger = logger.setup_logger()
 
 @hydra.main(version_base=None, config_path="../conf", config_name="config")
 def main(cfg: DictConfig) -> None:
-    """Main function for the program."""
     engine = cfg.driver.engine
     url = cfg.repository.url
-    html_path = Path(cfg.html_file).resolve()
-    md_path = Path(cfg.md_file).resolve()
-    pkgs_path = Path(cfg.pkgs_file).resolve()
-    doc_path = Path(cfg.doc_file).resolve()
+    pkgs_path = cfg.pkgs
+    doc_path = cfg.docs
+
+    files = processor.clone_codebase(url)
 
     files = processor.clone_codebase(url)
     logger.info(f"Total files to document: {len(files)}")
@@ -38,7 +37,6 @@ def main(cfg: DictConfig) -> None:
     badges = builder.create_header(pkgs_path, pkgs)
     html_docs = builder.create_html(cfg, badges, name, doc_path)
 
-    utils.write_file(html_docs, html_path, md_path)
     logger.info(f"Markdown documentation complete.")
 
 
