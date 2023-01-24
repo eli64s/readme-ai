@@ -25,7 +25,6 @@ def main(cfg: DictConfig) -> None:
     pkgs = files["packages"] + files["extensions"]
 
     logger.info(f"\n{pkgs}\n")
-    logger.info(f"\n{exts}\n")
     logger.info(f"Total files to document: {len(files)}")
 
     # file_summary = model.code_to_text(engine, files)

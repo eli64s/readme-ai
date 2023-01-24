@@ -1,11 +1,16 @@
 """src/utils.py."""
 import contextlib
+import logging
 import os
 import shutil
+import subprocess
 import tempfile
 from pathlib import Path
 
 import git
+
+
+logger = logging.getLogger(__name__)
 
 
 @contextlib.contextmanager
@@ -21,8 +26,7 @@ def clone_codebase(url):
     with make_temp_directory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
         files = parse_codebase(temp_dir)
-        os.popen("pipreqs  --force")
-        files["packages"] = get_packages()
+        files["packages"] = get_packages(temp_dir)
         files["extensions"] = get_file_extensions(temp_dir)
     return files
 
@@ -36,7 +40,9 @@ def get_file_extensions(temp_dir):
     return list(file_types)
 
 
-def get_packages():
+def get_packages(temp_dir):
+    subprocess.run(f"pipreqs {temp_dir} --force", shell=True)
+    logger.info(f"{temp_dir}\n")
     with open(Path("requirements.txt").resolve()) as f:
         lines = f.read().splitlines()
         pkgs = ["".join(r) for r in lines]
