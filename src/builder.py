@@ -1,26 +1,11 @@
 """src/format.py
 """
-import os
-
 import pandas as pd
 
 import utils
 
 
-def get_tree():
-    os.popen("tree -H baseHREF").read()
-
-
-def get_pkg_icons(path):
-    """Get the package list from the json file.
-
-    Args:
-        path: The path of the json file.
-        pkg_list: The list of packages.
-
-    Returns:
-        The package list.
-    """
+def get_icons(path):
     contents = utils.read_json(path)
     icon_map = {}
     idx = 0
@@ -34,19 +19,11 @@ def get_pkg_icons(path):
     return icon_map
 
 
-def create_header(path, pkg_list):
-    """This function creates a header for a webpage.
-    Args:
-        icon_map (dict): A dictionary of icons.
-        packages (list): A list of packages.
-    Returns:
-        str: A string of HTML.
-    """
+def create_header(path, pkgs):
+    pkgs.append("git")
     header = ""
-    icons = get_pkg_icons(path)
-    pkg_list.append("python")
-    pkg_list.append("github")
-    for pkg in pkg_list:
+    icons = get_icons(path)
+    for pkg in pkgs:
         if pkg in icons:
             badge = icons[pkg.strip().lower()]["src"]
             header += f'<img src="{badge}">\n\t\t\t\t'

@@ -1,35 +1,50 @@
 <img
 src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-width="100" />
+width="80" />
 
-ChatGPT Automated Markdown Docs
-
-### https://github.com/eli64s/openai\_automated\_markdowns
-
-![](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
-![](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
-![](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
-![](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
-![](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
-![](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)
-
-## Prerequisites
+# chatgpt-auto-markdowns
 
 ------------------------------------------------------------------------
 
-## Usage
+### Software and Packages
 
-    # 1. Clone GitHub repository.
-    git clone https://github.com/eli64s/openai_automated_markdowns && cd openai_automated_markdowns
+\[description\]
 
-    # 2. Setup conda virtual environment.
-    make conda
+![](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
+![](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+![](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
+![](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
+![](https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white)
 
-    # 3. Run the model.
-    bash scripts/run_model.sh
+------------------------------------------------------------------------
 
-    None
+### Overview
+
+\[description\]
+
+------------------------------------------------------------------------
+
+### Prerequistes
+
+\[description\]
+
+------------------------------------------------------------------------
+
+<img
+src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
+width="80" />
+
+### Repository Structure
+
+\[description\]
+
+------------------------------------------------------------------------
+
+<img
+src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
+width="80" />
+
+### Modules
 
 ### *SRC*
 
@@ -98,3 +113,5 @@ documentation to the specified files.
 ### Licenses
 
 \[description\]
+
+------------------------------------------------------------------------
