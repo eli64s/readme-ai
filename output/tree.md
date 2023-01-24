@@ -31,6 +31,7 @@
 │   ├── model.py
 │   ├── processor.py
 │   └── utils.py
+├── tests
 ├── Makefile
 ├── README.md
 ├── pyproject.toml

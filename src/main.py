@@ -31,10 +31,8 @@ def main(cfg: DictConfig) -> None:
     files = processor.parse_codebase(tmpdir)
     logger.info(f"Total files to document: {len(files)}")
 
-    file_summary = model.code_to_text(engine, files)
-    docs = pd.DataFrame(file_summary, columns=["file", "summary"])
-    docs.to_csv(doc_path, index=False)
-
+    # file_summary = model.code_to_text(engine, files)
+    # docs.to_csv(doc_path, index=False)
     pkg_list = utils.get_pkgs_list()
     pkg_list = pkg_list + processor.get_file_extensions()
     name = url.split("/")[-1]
