@@ -37,9 +37,9 @@ The images below contain sample outputs of what the project generates so far.
 
 > Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 
-## Prerequisites
+## Requirements
 
-- 🤖 OpenAI API: generate a new API key on their [website](https://beta.openai.com/docs/introduction).
+- OpenAI API: generate a new API key on their [website](https://beta.openai.com/docs/introduction).
 
 ---
 

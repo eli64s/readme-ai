@@ -9,3 +9,5 @@ outputs/
 notebooks
 
 assets/icons
+
+.ipynb_checkpoints

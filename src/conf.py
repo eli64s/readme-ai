@@ -1,4 +1,5 @@
 """ src/conf.py """
+import urllib
 from enum import Enum
 
 from pydantic import AnyUrl

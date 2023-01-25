@@ -37,6 +37,10 @@ def create_html(cfg, badges, name, path):
         <p>{badges}</p>
         </div>
         """
+    import utils
+
+    utils.FileHandler(cfg).write_html(header)
+
     body = cfg.html.body
     closing = cfg.html.close
 

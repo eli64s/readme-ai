@@ -23,7 +23,7 @@ body = """
 <h3 id="overview">Overview</h3>
 <p>[description]</p>
 <hr />
-<h3 id="prerequistes">Prerequistes</h3>
+<h3 id="requirements">Requirements</h3>
 <p>[description]</p>
 <hr />
 <p><img
@@ -36,7 +36,6 @@ width="80" /></p>
 src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
 width="80" /></p>
 <h3 id="modules">Modules</h3>
-<p>[description]</p>
 """
 
 close = """

@@ -12,6 +12,9 @@
 │   ├── output.md
 │   ├── raw_docs.csv
 │   └── tree.md
+├── notebooks
+│   ├── data_validation.ipynb
+│   └── markdown.py
 ├── scripts
 │   ├── auto_docstrs.sh
 │   └── run_main.sh
@@ -24,6 +27,8 @@
 │   ├── model.py
 │   ├── processor.py
 │   └── utils.py
+├── tests
+│   └── conftest.py
 ├── Makefile
 ├── README.md
 ├── pyproject.toml

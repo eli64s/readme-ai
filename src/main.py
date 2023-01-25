@@ -18,6 +18,7 @@ logger = logger.setup_logger()
 def main() -> None:
     conf_dict = toml.load("conf/conf.toml")
     conf_objs = dacite.from_dict(AppConfig, conf_dict)
+
     url = conf_objs.store.url
     file_io = utils.FileHandler(conf_objs)
     docs_path = conf_objs.paths.docs
@@ -25,7 +26,7 @@ def main() -> None:
     files = processor.clone_codebase(url)
     pkgs = files["packages"] + files["extensions"]
 
-    logger.info(f"Total files to document: {len(files)}")
+    logger.info(f"\nTotal files to document: {len(files)}\n")
     logger.info(f"Project dependencies:\n{pkgs}\n")
 
     # file_summary = model.code_to_text(engine, files)

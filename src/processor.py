@@ -1,6 +1,5 @@
 """src/utils.py."""
 import contextlib
-import logging
 import os
 import shutil
 import subprocess
@@ -8,9 +7,6 @@ import tempfile
 from pathlib import Path
 
 import git
-
-
-logger = logging.getLogger(__name__)
 
 
 @contextlib.contextmanager
@@ -21,10 +17,12 @@ def make_temp_directory():
     Yields:
         iterator: files
     """
+    # logger.debug("\nCreating temp directory.\n")
     temp_dir = tempfile.mkdtemp()
     try:
         yield temp_dir
     finally:
+        # logger.info(f"\nRemoving temp folder: {temp_dir}\n")
         shutil.rmtree(temp_dir)
 
 
@@ -39,7 +37,9 @@ def clone_codebase(url):
         Dict: map of all repo contents
     """
     with make_temp_directory() as temp_dir:
+        # logger.info(f"\nCloning git repo: {url}\n")
         git.Repo.clone_from(url, temp_dir)
+        # logger.info("\nParsing the repository.\n")
         files = parse_codebase(temp_dir)
         files["packages"] = get_packages()
         files["extensions"] = get_extensions(temp_dir)
