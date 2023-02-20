@@ -1,4 +1,5 @@
 #!/bin/bash
+set +x
 
 pandoc --to=markdown_strict -o docs/markdown/_readme.md docs/html/readme.html
 perl -pi -w -e 's/style="width: 80%;"/width="80"/g;' docs/markdown/_readme.md
