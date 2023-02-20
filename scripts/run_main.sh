@@ -1,14 +1,11 @@
 #!/bin/bash
 set +x
 
-#export API_SK=
-
-python src/main.py
-
-pandoc --to=markdown_strict -o docs/output.md docs/output.html
-#perl -pi -w -e 's/style="width: 80%;"/width="80"/g;' docs/output.md
+export OPENAI_API_KEY=""
 
 make clean
 
-tree --dirsfirst --noreport -I docs/tree.md |
-sed '1s/^/```bash\n/;$s/$/\n```/' > docs/tree.md
+python src/main.py
+
+find docs/markdown -type f ! -name 'readme.md' -delete
+find docs/html -type f ! -name 'readme.html' -delete

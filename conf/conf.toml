@@ -1,55 +1,60 @@
+# OpenAI
 [api]
 engine = "text-davinci-003"
-sk_key = "EXPORT YOUR SECRET KEY"
+key = "<OPENAI-API-KEY>"
 
+# GitHub
+[github]
+url = "https://github.com/eli64s/PyDocsAI"
+
+# Paths
 [paths]
-docs = "docs/raw_docs.csv"
-html = "docs/output.html"
-mdrk = "docs/output.md"
-pkgs = "conf/data/icons.json"
+badges = "conf/badges.json"
+docs = "docs/gpt/raw_data.csv"
+html = "docs/html/readme.html"
+md = "docs/markdown/_readme.md"
 
-[store]
-url = "https://github.com/eli64s/chatgpt-auto-markdowns"
-
+# HTML
 [html]
 head = """
 <html>
-<body>
 <div>
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="80">
 """
-
 body = """
 <h3 id="overview">Overview</h3>
-<p>[description]</p>
-<hr />
-<h3 id="requirements">Requirements</h3>
-<p>[description]</p>
-<hr />
+<p>[insert-description]</p>
+<hr>
+<h3 id="use-case">Use-Case</h3>
+<p>[insert-description]</p>
+<hr>
+<h3 id="features">Features</h3>
+<p>[insert-description]</p>
+<hr>
+<p><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
+width="80" /></p>
+<h3 id="modules">Modules</h3>
+<br>
+"""
+setup = """
+<hr>
+<h2>Getting Started</h2><p>[insert-description]</p>
+<h3>Usage</h3>
+<pre><code class="language-Bash"># 1. Clone GitHub repository.
+git clone {} &amp;&amp; cd {}
+</code></pre>
+<h2>Contribute</h2>
+<ul>
+  <li>Contributions and suggestions welcome!</li>
+</ul>
+<hr>
+</html>
+"""
+tree = """
+<hr>
 <p><img
 src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
 width="80" /></p>
 <h3 id="repository-structure">Repository Structure</h3>
-<p>[description]</p>
-<hr />
-<p><img
-src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
-width="80" /></p>
-<h3 id="modules">Modules</h3>
-"""
-
-close = """
-<hr>
-<div>
-<h3>Roadmap</h3>
-<p>[description]</p>
-</div>
-<hr>
-<div>
-<h3>Licenses</h3>
-<p>[description]</p>
-</div>
-<hr>
-</body>
-</html>
+<br>
 """

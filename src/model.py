@@ -5,15 +5,31 @@ from typing import Dict
 import openai
 
 
-openai.api_key = os.getenv("API_SK")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
-    prompt = f"Summarize the code in the following Python script: {code}"
+    """_summary_
+
+    Parameters
+    ----------
+    engine
+        _description_
+    files
+        _description_
+
+    Returns
+    -------
+        _description_
+    """
     doc_list = []
+
     for file, code in files.items():
-        if "__init__" in file:
+        if "__init__" in file or ".py" not in file:
             continue
+
+        prompt = f"Summarize the Python code provided below: {code}"
+
         response = openai.Completion.create(
             model=engine,
             prompt=prompt,

@@ -1,7 +1,7 @@
 <div align="center">
-
 <h1 align="center">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"><p>🤖 ChatGPT Automated Markdown Documentation</p></h1><b>Generate structured Markdown boilerplate docs to kickstart your data and software projects!</b><br><br>
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
+<p>PyDocsAI</p></h1><b>Automate README creation and documentation for your project's codebase!</b><br><br>
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
@@ -17,49 +17,41 @@
 
 ## Overview
 
-This project leverages the base GPT Davinci model from OpenAI to translate a repository of Python code to documentaion. Features include:
+PyDocsAI is a Python package that provides an automated way to generate a README.md file and documentation for a codebase. This package leverages OpenAI's GPT Davinci model to translate the codebase into documentation, and then generates a structured output Markdown template that contains the project documentation. PyDocsAI also generates automated header badge icons related to your project dependencies and creates a repository file directory tree.
 
-1. Automated header badge icons related to your project dependencies.
-2. Generates summaries of each `.py` file from the input GitHub repository.
-3. Creates a structured output Markdown template containing the project documentation.
-4. Generates repository file directory tree.
-5. [Automated docstrings](https://github.com/cdesarmeaux/autodocstrings) - `bash scripts/auto_docstrs.sh`
+The project is still under development and is very opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
+## Use-Case
 
-The images below contain sample outputs of what the project generates so far.
+- Software, data, machine learning, or any project that requires documentation.
+- Note that automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
 
-> Document header with codebase package badges.
+## Feautres
 
-![GPT-3](docs/png/head.png)
+### Badges
 
-> Document header with codebase package badges.
+Analyzes your project repository to create a list of software and packages used, displayed as badges in the README header section.
 
-![GPT-3](docs/png/body.png)
+<div><details closed><summary>Example - Header Badges</a></summary>
 
-> Note: automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
+![GPT-3](docs/gpt/head.png)
 
-## Requirements
+</detais></div>
 
-- OpenAI API: generate a new API key on their [website](https://beta.openai.com/docs/introduction).
+### Codebase Summary
 
----
+This project leverages the base GPT Davinci model from OpenAI to translate a repository of Python code to documentaion.
 
-## Usage
+<div><details closed><summary>Example - Codebase Docs</a></summary>
 
-```Bash
-# 1. Clone GitHub repository.
-git clone https://github.com/eli64s/chatgpt-automated-markdowns && cd chatgpt-automated-markdowns
+[GPT-3](docs/gpt/body.png)</detais>
 
-# 2. Setup conda virtual environment.
-make conda
+</div>
 
-# 3. Run the model.
-bash scripts/run_model.sh
-```
+### Directory Tree
 
-<a style="vertical-align:middle">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="100"; style="vertical-align:middle" />
-<span style="vertical-align:middle">
-<h2>Repository</h2></span></a>
+Creates a directory tree to display in your readme.
+
+<div><details closed><summary>Example - Directory Tree</a></summary>
 
 ```shell
 .
@@ -94,44 +86,86 @@ bash scripts/run_model.sh
     └── utils.py
 ```
 
-<html>
-<body>
-<a style="vertical-align:middle">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="100"; style="vertical-align:middle" />
-<span style="vertical-align:middle">
-<h2>Modules</h2></span></a>
-<div><details closed>
-<summary>SRC</summary>
-<h5>processor.py</h5>
-<p>This script contains functions for cloning a git repository, getting file extensions, creating a temporary directory, and parsing a directory of python files. The clone_codebase() function takes a URL as an argument and clones the repository to a temporary directory, then installs the requirements.txt file. The get_file_extensions() function walks through the current working directory and returns a list of file extensions. The get_tmpdir() function creates a temporary directory if it does not already exist, and</p>
+</div>
 
-<h5>logger.py</h5>
-<p>This Python script sets up a logger with a ColoredFormatter, which allows for different log levels to be printed in different colors. It also sets the log level to DEBUG.</p>
+### README Generation
 
-<h5>model.py</h5>
-<p>This script uses the OpenAI API to summarize the code in a specified GitHub repository. It takes in a language model and a dictionary of files and code, and returns a dictionary of file names and summaries. It skips the __init__ file and uses the OpenAI Completion API to generate summaries for each file.</p>
+See this [Sample Markdown](docs/markdown/readme.md) for the README.md file generated running this script on this repository.
 
-<h5>builder.py</h5>
-<p>This script is used to create an HTML file from a CSV file. It imports the Pandas library and a custom utils library. It defines two functions: get_pkg_icons() and create_html(). The get_pkg_icons() function takes a path to a JSON file and returns a dictionary of icons. The create_html() function takes a configuration object, a list of badges, a name, and a path to a CSV file. It creates a header for the HTML</p>
+---
 
-<h5>utils.py</h5>
-<p>This Python script contains four functions. The first function, get_pkgs_list(), reads a requirements.txt file and returns a list of packages. The second function, read_json(), reads a json file and returns the contents as a dictionary. The third function, write_file(), writes a file to a given path. The fourth function, md(), converts HTML to Markdown.</p>
+## Getting Started
 
-<h5>main.py</h5>
-<p>This Python script sets up a logger, clones a codebase from a given URL, parses the codebase, creates a summary of the code, creates a list of packages used, creates HTML and Markdown documentation, and writes the documentation to the specified files.</p>
-<hr>
-</div></body></html>
+### GitHub Repository
+
+Copy the url of your project's GitHub repository and update the code below from `conf/conf.toml` below.
+
+```bash
+# GitHub
+[github]
+url = "https://github.com/eli64s/PyDocsAI"
+```
+
+### OpenAI API Key
+
+<details closed>
+<summary><a href="https://platform.openai.com/docs/introduction">OpenAI API Setup</a></summary>
+
+Here are the steps to create an OpenAI API key:
+
+1. Go to the OpenAI website.
+2. Click the "Sign up for free" button.
+3. Fill out the registration form with your information and agree to the terms of service.
+4. Once logged in, click on the "API" tab.
+5. Follow the instructions to create a new API key.
+6. Copy the API key and keep it in a secure place.
+
+You can now use the OpenAI API key to integrate with OpenAI's language models in your projects.
+</details>
+
+Copy your your OpenAI API key and update the code below from `scripts/run_main.sh` below.
+
+```bash
+#!/bin/bash
+set +x
+
+export OPENAI_API_KEY="<OPENAI-API-KEY>"
+
+```
+
+---
+
+### Usage
+
+```Bash
+# 1. Clone GitHub repository.
+git clone https://github.com/eli64s/PyDocsAI && cd PyDocsAI
+
+# 2. Setup conda virtual environment.
+make conda
+
+# 3. Run the model.
+bash scripts/run_model.sh
+```
+
+---
+
+## Contribute
+
+Contributions and suggestions welcome!
+
+---
 
 ## Roadmap
 
-- Add compatability for multiple file types.
-- Implement data version control - dvc.
+- Add compatability for additional file types.
+- Extend capabilities beyond codebase documentation
 
 ---
 
 ## References
 
-- [GitHub Profile Badges - Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+- [Profile Badges - Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
 - [Automated Docstrings - cdesarmeaux/autodocstrings](https://github.com/cdesarmeaux/autodocstrings)
 
 ---

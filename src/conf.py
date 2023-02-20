@@ -1,10 +1,5 @@
 """ src/conf.py """
-import urllib
-from enum import Enum
-
-from pydantic import AnyUrl
-from pydantic import validator
-from pydantic.dataclasses import dataclass
+from dataclasses import dataclass
 
 
 @dataclass
@@ -12,7 +7,7 @@ class OpenAI:
     """_summary_"""
 
     engine: str
-    sk_key: str
+    key: str
 
 
 @dataclass
@@ -23,27 +18,30 @@ class GitHub:
 
 
 @dataclass
-class HtmlObjs:
+class Html:
     """_summary_"""
 
     head: str
     body: str
-    close: str
+    setup: str
+    tree: str
 
 
 @dataclass
 class Paths:
     """_summary_"""
 
-    docs: str = "docs/raw_docs.csv"
-    html: str = "docs/html_docs.html"
-    mrkd: str = "docs/output.md"
-    pkgs: str = "conf/data/icons.json"
+    badges: str = "conf/badges.json"
+    docs: str = "docs/gpt/raw_data.csv"
+    html: str = "docs/html/readme.html"
+    md: str = "docs/md/_readme.md"
 
 
 @dataclass
 class AppConfig:
+    """_summary_"""
+
     api: OpenAI
-    html: HtmlObjs
+    github: GitHub
+    html: Html
     paths: Paths
-    store: GitHub

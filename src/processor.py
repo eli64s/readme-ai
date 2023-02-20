@@ -9,6 +9,16 @@ from pathlib import Path
 import git
 
 
+REPO_PATH = "src/*.py"
+
+
+def get_tree() -> None:
+    """_summary_"""
+    cwd_path = Path.cwd()
+    bash_path = f"{cwd_path}/scripts/build_md.sh"
+    subprocess.call(["bash", bash_path])
+
+
 @contextlib.contextmanager
 def make_temp_directory():
     """Clone GitHub repository
@@ -17,12 +27,13 @@ def make_temp_directory():
     Yields:
         iterator: files
     """
-    # logger.debug("\nCreating temp directory.\n")
+    # Logger.debug("Creating temp directory")
+
     temp_dir = tempfile.mkdtemp()
     try:
         yield temp_dir
     finally:
-        # logger.info(f"\nRemoving temp folder: {temp_dir}\n")
+        # LOGGER.info(f"\nRemoving temp folder: {temp_dir}\n")
         shutil.rmtree(temp_dir)
 
 
@@ -37,9 +48,9 @@ def clone_codebase(url):
         Dict: map of all repo contents
     """
     with make_temp_directory() as temp_dir:
-        # logger.info(f"\nCloning git repo: {url}\n")
+        # LOGGER.info(f"\nCloning git repo: {url}\n")
         git.Repo.clone_from(url, temp_dir)
-        # logger.info("\nParsing the repository.\n")
+        # LOGGER.info("\nParsing the repository.\n")
         files = parse_codebase(temp_dir)
         files["packages"] = get_packages()
         files["extensions"] = get_extensions(temp_dir)
@@ -92,7 +103,7 @@ def parse_codebase(dir):
         Dict: map of all repo contents
     """
     dict = {}
-    paths = Path(dir).rglob("*/*.py")
+    paths = Path(dir).rglob(REPO_PATH)
     for path in paths:
         with open(path) as f:
             contents = "".join(f.readlines())

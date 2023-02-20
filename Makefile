@@ -26,19 +26,18 @@ style:
 # Clean
 .PHONY: clean
 clean: style
+	-rm docs/html/*  
+	-rm docs/markdown/*
+	-rm -f docs/gpt/raw_data.csv 
 	find . -name '*.log' -delete
 	find . -type f -name "*.DS_Store" -ls -delete
 	find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf
 	find . | grep -E ".pytest_cache" | xargs rm -rf
 	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
 	find . | grep -E ".trash" | xargs rm -rf
-	rm -f .coverage
-	rm -rf UNKNOWN.egg-info
-	rm -rf _tmp
-	rm -rf outputs
 
 # Conda Virtual Environment
 conda:
-	conda create -n $(ARG) python=3.9 pip conda -y
-	source activate $(ARG) && \
+	conda create -n myenv python=3.9 pip conda -y
+	source activate myenv && \
 	pip install -r requirements.txt

@@ -1,19 +1,19 @@
 [tool.poetry]
-name = "python_monorepo"
+name = "PyDocsAI"
 version = "0.0.0"
-description = "Python Monorepo"
-authors = ["Eli <k0b01101011@gmail.com>"]
+description = "Automate README creation and documentation for your projects!"
+authors = "eli64s"
 license = "Apache-2.0"
 readme = "README.md"
-homepage = "https://github.com/eli64s/gpt_auto_markdown_docs"
-repository = "https://github.com/eli64s/gpt_auto_markdown_docs"
+homepage = "https://github.com/eli64s/PyDocsAI"
+repository = "https://github.com/eli64s/PyDocsAI"
 documentation = ""
 classifiers = [
     "Development Status :: 5 - Production/Stable",
 ]
 
 [tool.poetry.urls]
-Changelog = "https://github.com/eli64s/gpt_auto_markdown_docs/releases"
+Changelog = "https://github.com/eli64s/PyDocsAI/releases"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -46,7 +46,7 @@ xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
 
 [tool.poetry.scripts]
-python_monorepo = "python_monorepo.__main__:main"
+pydocsai = "pydocsai.__main__:main"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -54,7 +54,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["python_monorepo", "tests"]
+source = ["src", "tests"]
 
 [tool.coverage.report]
 show_missing = true

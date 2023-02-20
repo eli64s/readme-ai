@@ -2,42 +2,44 @@
 src/main.py
 """
 import dacite
-import toml
 
 import builder
-import logger
 import model
 import processor
-import utils
 from conf import AppConfig
+from logger import Logger
+from utils import FileFactory
 
 
-logger = logger.setup_logger()
+CONF = "conf/conf.toml"
+LOGGER = Logger("PyDocsAI_logger")
 
 
 def main() -> None:
-    conf_dict = toml.load("conf/conf.toml")
-    conf_objs = dacite.from_dict(AppConfig, conf_dict)
+    LOGGER.warning("PyDocsAI processing has begun.")
 
-    url = conf_objs.store.url
-    file_io = utils.FileHandler(conf_objs)
-    docs_path = conf_objs.paths.docs
+    file_factory = FileFactory(".")
+    conf_dict = file_factory.read_toml(CONF)
+    conf = dacite.from_dict(AppConfig, conf_dict)
 
+    url = conf.github.url
     files = processor.clone_codebase(url)
-    pkgs = files["packages"] + files["extensions"]
+    packages = files["packages"] + files["extensions"]
 
-    logger.info(f"\nTotal files to document: {len(files)}\n")
-    logger.info(f"Project dependencies:\n{pkgs}\n")
+    LOGGER.info(f"Total files to document: {len(files)}")
+    LOGGER.info(f"Project dependencies: {packages}")
 
-    # file_summary = model.code_to_text(engine, files)
-    # docs = pd.DataFrame(file_summary, columns=["file", "summary"])
+    engine = conf.api.engine
+    LOGGER.info(f"OpenAI Engine: {engine}")
 
-    name = url.split("/")[-1]
-    badges = builder.create_header(file_io, pkgs)
-    html_docs = builder.create_html(conf_objs, badges, name, docs_path)
-    file_io.write_html(html_docs)
+    code_summary = model.code_to_text(engine, files)
+    LOGGER.info(f"OpenAI code summary: {code_summary}")
 
-    logger.info("Markdown documentation complete.")
+    file_factory.write_csv(conf.paths.docs, code_summary)
+
+    builder.build(conf, packages, url)
+    LOGGER.warning("PyDocsAI processing complete.")
+    LOGGER.warning("Find your project readme docs ➡️ docs/*")
 
 
 if __name__ == "__main__":

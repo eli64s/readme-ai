@@ -1,9 +1,46 @@
 """src/format.py
 """
+import subprocess
+from pathlib import Path
+
 import pandas as pd
 
+from utils import FileFactory
 
-def get_icons(icon_list):
+
+def build(cfg, pkgs, url):
+    file_factory = FileFactory(".")
+    badges = file_factory.read_json(cfg.paths.badges)
+    badges = get_badges(badges)
+    name = url.split("/")[-1]
+
+    html_head = get_header(cfg, badges, name, pkgs)
+    html_body = get_body(cfg.html.body, cfg.paths.docs)
+    html_tree = cfg.html.tree
+
+    html_code = f"{html_head}{html_body}{html_tree}"
+    file_factory.write_html(cfg.paths.html, html_code)
+
+    html_setup = get_setup(cfg.html.setup, name, url)
+    file_factory.write_html("docs/html/setup.html", html_setup)
+
+    get_tree()
+
+    return html_code
+
+
+def get_badges(icon_list):
+    """_summary_
+
+    Parameters
+    ----------
+    icon_list
+            _description_
+
+    Returns
+    -------
+            _description_
+    """
     icon_map = {}
     idx = 0
     while True:
@@ -16,34 +53,38 @@ def get_icons(icon_list):
     return icon_map
 
 
-def create_header(file_io, pkgs):
-    icon_list = file_io.read_json()
-    icons = get_icons(icon_list)
+def get_header(cfg, badges, name, pkgs):
+    """_summary_
+
+    Parameters
+    ----------
+    file_io
+            _description_
+    pkgs
+            _description_
+
+    Returns
+    -------
+            _description_
+    """
     pkgs.append("github")
     header = ""
     for pkg in pkgs:
-        if pkg in icons:
-            badge = icons[pkg.strip().lower()]["src"]
+        if pkg in badges:
+            badge = badges[pkg.strip().lower()]["src"]
             header += f'<img src="{badge}">\n\t\t\t\t'
-    return header
+
+    header_html = f"""{cfg.html.head}<br><br>
+    <h1>{name}</h1><br>
+    <p>[insert-project-summary]</p>
+    <br><h4>Software & Packages</h4>
+    <p>{header}</p>
+    </div>
+    """
+    return header_html
 
 
-def create_html(cfg, badges, name, path):
-    header = f"""{cfg.html.head}
-        <h1>{name}</h1>
-        <hr>
-        <h3>Software & Packages</h3>
-        <p>[description]</p>
-        <p>{badges}</p>
-        </div>
-        """
-    import utils
-
-    utils.FileHandler(cfg).write_html(header)
-
-    body = cfg.html.body
-    closing = cfg.html.close
-
+def get_body(body, path):
     data = pd.read_csv(path)
 
     prev_dir = None
@@ -53,8 +94,7 @@ def create_html(cfg, badges, name, path):
         script = file[1]
 
         if prev_dir != curr_dir:
-            body = f"""{body}
-            <div><details open>
+            body = f"""{body}<details closed>
             <summary>{curr_dir.upper()}</summary>"""
 
         tag = f"""
@@ -64,8 +104,18 @@ def create_html(cfg, badges, name, path):
         body = f"{body}{tag}"
 
         prev_dir = curr_dir
-
         if curr_dir != prev_dir:
-            body = f"{body}</details></div>"
+            body = f"{body}<br></details><br>"
+    # body = f"{body}<br></details><br>"
+    return body
 
-    return f"{header}{body}{closing}"
+
+def get_setup(html, name, url):
+    return html.format(url, name)
+
+
+def get_tree() -> None:
+    """_summary_"""
+    cwd_path = Path.cwd()
+    bash_path = f"{cwd_path}/scripts/build_md.sh"
+    subprocess.call(["bash", bash_path])
