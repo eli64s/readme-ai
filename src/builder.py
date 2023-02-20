@@ -3,7 +3,6 @@
 import os
 import subprocess
 import tempfile
-
 import git
 import pandas as pd
 
@@ -15,19 +14,22 @@ def build(cfg, pkgs, url):
     badges = file_factory.read_json(cfg.paths.badges)
     badges = get_badges(badges)
     name = url.split("/")[-1]
-
-    html_head = get_header(cfg, badges, name, pkgs)
-    html_body = get_body(cfg.html.body, cfg.paths.docs)
+    
+    html_body = cfg.html.body
     html_tree = cfg.html.tree
+    html_head = get_header(cfg, badges, name, pkgs)
 
     html_code = f"{html_head}{html_body}{html_tree}"
     file_factory.write_html(cfg.paths.html, html_code)
-
+    
     html_setup = get_setup(cfg.html.setup, name, url)
     file_factory.write_html("docs/html/setup.html", html_setup)
-
+    
+    md_tables = get_tables(cfg.paths.docs)
+    file_factory.write_md("docs/markdown/tables.md", md_tables)
+    
     get_tree(url)
-
+    
     return html_code
 
 
@@ -79,41 +81,25 @@ def get_header(cfg, badges, name, pkgs):
     header_html = f"""{cfg.html.head}<br><br>
     <h1>{name}</h1><br>
     <p>[insert-project-summary]</p>
-    <br><h4>Software & Packages</h4>
-    <p>{header}</p>
+    <br><p>{header}</p>
     </div>
     """
     return header_html
 
 
-def get_body(body, path):
-    data = pd.read_csv(path)
-
-    prev_dir = None
-    for i, j in data.iterrows():
-        file = j[0].split("/")
-        curr_dir = file[0]
-        script = file[1]
-
-        if prev_dir != curr_dir:
-            body = f"""{body}<details closed>
-            <summary>{curr_dir.upper()}</summary>"""
-
-        tag = f"""
-            <h4>{script}</h4>
-            <p>{j[1].replace('"', '')}</p>
-        """
-        body = f"{body}{tag}"
-
-        prev_dir = curr_dir
-        if curr_dir != prev_dir:
-            body = f"{body}<br></details><br>"
-    body = f"{body}<br></details><br>"
-    return body
-
-
 def get_setup(html, name, url):
     return html.format(url, name)
+
+
+def get_tables(path):
+    df = pd.read_csv(path)
+    df[['path', 'file']] = df['module'].str.rsplit('/', n=1, expand=True)
+    markdown_tables = []
+    for index, group in df.groupby('path'):
+        markdown_table = group[['file','summary']].to_markdown(index=False)
+        markdown_tables.append(f'## {index}\n{markdown_table}')
+    md_code = '\n'.join(markdown_tables)
+    return md_code
 
 
 def get_tree(url) -> None:
@@ -133,7 +119,7 @@ def get_tree(url) -> None:
         output_str = output_bytes.decode("utf-8")
 
         markdown_str = f"```bash\n{output_str}```"
-        markdown_file = os.path.join(root_dir, "tree.md")
+        markdown_file = os.path.join(root_dir, "docs/markdown/tree.md")
 
         with open(markdown_file, "w") as f:
             f.write(markdown_str)

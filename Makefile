@@ -29,12 +29,12 @@ clean: style
 	-rm docs/html/*  
 	-rm docs/markdown/*
 	-rm -f docs/gpt/raw_data.csv 
-	find . -name '*.log' -delete
-	find . -type f -name "*.DS_Store" -ls -delete
-	find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf
-	find . | grep -E ".pytest_cache" | xargs rm -rf
-	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
-	find . | grep -E ".trash" | xargs rm -rf
+	-find . -name '*.log' -delete
+	-find . -type f -name "*.DS_Store" -ls -delete
+	-find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf
+	-find . | grep -E ".pytest_cache" | xargs rm -rf
+	-find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
+	-find . | grep -E ".trash" | xargs rm -rf
 
 # Conda Virtual Environment
 conda:

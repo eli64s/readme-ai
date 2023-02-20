@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass
 class OpenAI:
-    """_summary_"""
+    """OpenAI API details."""
 
     engine: str
     key: str
@@ -12,14 +12,14 @@ class OpenAI:
 
 @dataclass
 class GitHub:
-    """_summary_"""
+    """GitHub repository."""
 
     url: str
 
 
 @dataclass
 class Html:
-    """_summary_"""
+    """HTML template code."""
 
     head: str
     body: str
@@ -29,7 +29,7 @@ class Html:
 
 @dataclass
 class Paths:
-    """_summary_"""
+    """Project file paths."""
 
     badges: str = "conf/badges.json"
     docs: str = "docs/gpt/raw_data.csv"
@@ -39,7 +39,7 @@ class Paths:
 
 @dataclass
 class AppConfig:
-    """_summary_"""
+    """Configuration constants object."""
 
     api: OpenAI
     github: GitHub

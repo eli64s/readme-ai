@@ -27,6 +27,7 @@ class FileFactory:
     def write_csv(self, file_name: str, data):
         with open(self._get_file_path(file_name), "w") as f:
             writer = csv.writer(f)
+            writer.writerow(['module', 'summary'])
             for row in data:
                 writer.writerow(row)
 

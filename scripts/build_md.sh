@@ -14,6 +14,7 @@ cat docs/markdown/temp_3.md docs/markdown/setup.md | pandoc -f markdown -t markd
 sed 's/^\`*<img/<img/' docs/markdown/temp_4.md > docs/markdown/temp_5.md
 sed 's/width="80" \/>`{=html}/width="80" \/>/g' docs/markdown/temp_5.md > docs/markdown/readme.md
 
+python src/md_helper.py
+
 find docs/markdown -type f ! -name 'readme.md' -delete
 find docs/html -type f ! -name 'readme.html' -delete
-rm tree.md
