@@ -4,6 +4,8 @@ GitPython==3.1.31
 mdutils==1.4.0
 openai==0.26.1
 pandas==1.5.2
+pipreqs
 pytest==7.2.1
 setuptools==66.1.1
+tabulate
 toml==0.10.2
