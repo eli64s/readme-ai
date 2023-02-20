@@ -33,7 +33,7 @@ Analyzes your project repository to create a list of software and packages used,
 
 <div><details closed><summary>Example - Header Badges</a></summary>
 
-![GPT-3](docs/gpt/head.png)
+![header](docs/gpt/head.png)
 
 </detais></div>
 
@@ -43,7 +43,7 @@ This project leverages the base GPT Davinci model from OpenAI to translate a rep
 
 <div><details closed><summary>Example - Codebase Docs</a></summary>
 
-[GPT-3](docs/gpt/body.png)</detais>
+![body](docs/gpt/body.png)</detais>
 
 </div>
 
