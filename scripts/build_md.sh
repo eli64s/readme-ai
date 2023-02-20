@@ -16,3 +16,4 @@ sed 's/width="80" \/>`{=html}/width="80" \/>/g' docs/markdown/temp_5.md > docs/m
 
 find docs/markdown -type f ! -name 'readme.md' -delete
 find docs/html -type f ! -name 'readme.html' -delete
+rm tree.md

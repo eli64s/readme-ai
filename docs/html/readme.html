@@ -1,0 +1,55 @@
+<html>
+<div>
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="80">
+<br><br>
+    <h1>PydocsAI</h1><br>
+    <p>[insert-project-summary]</p>
+    <br><h4>Software & Packages</h4>
+    <p><img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white">
+				<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white">
+				<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white">
+				<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white">
+				<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white">
+				<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white">
+				<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white">
+				</p>
+    </div>
+    <hr>
+<h3 id="overview">Overview</h3>
+<p>[insert-description]</p>
+<hr>
+<h3 id="use-case">Use-Case</h3>
+<p>[insert-description]</p>
+<hr>
+<h3 id="features">Features</h3>
+<p>[insert-description]</p>
+<hr>
+<p><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
+width="80" /></p>
+<h3 id="modules">Modules</h3>
+<br>
+<details closed>
+            <summary>SRC</summary>
+            <h4>processor.py</h4>
+            <p>This code provides functions to clone a GitHub repository, get the packages and file extensions used in the repository, and parse the codebase into a dictionary. It also provides a context manager to clone the repository to a temporary directory.</p>
+        
+            <h4>logger.py</h4>
+            <p>This code creates a Logger class that is used to log messages with different levels of severity. It imports the logging and colorlog modules and configures the logger with a StreamHandler and a ColoredFormatter. It also provides methods for logging messages with different levels of severity.</p>
+        
+            <h4>model.py</h4>
+            <p>This code imports the OpenAI library and sets the API key from the environment. It then defines a function, code_to_text(), which takes an engine and a dictionary of files and code as parameters. The function iterates through the files and code, skips any files that are not Python files, and creates a prompt for each file. It then uses the OpenAI library to generate a summary of the code and appends the file and summary to a list. Finally, the function</p>
+        
+            <h4>builder.py</h4>
+            <p>This code is used to build a HTML page from a given configuration file, a list of packages, and a URL. It reads a JSON file containing badges, creates a header with the badges, creates a body from a CSV file, and creates a setup page. It also clones a repository from the given URL and creates a tree.md file with the directory structure of the repository.</p>
+        
+            <h4>utils.py</h4>
+            <p>The FileFactory class is a Python module that provides methods for reading and writing various file types, such as JSON, CSV, HTML, Markdown, and TOML. It takes a base path as an argument and uses it to construct the file path for the specified file name.</p>
+        
+            <h4>main.py</h4>
+            <p>This code is a Python script that reads a configuration file, clones a codebase from a given URL, uses an OpenAI engine to generate a code summary, writes the summary to a CSV file, and builds a project readme.</p>
+        <br></details><br><hr>
+<p><img
+src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
+width="80" /></p>
+<h3 id="repository-structure">Repository Structure</h3>
+<br>

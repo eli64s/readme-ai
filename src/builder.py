@@ -3,7 +3,6 @@
 import os
 import subprocess
 import tempfile
-from pathlib import Path
 
 import git
 import pandas as pd
@@ -70,7 +69,7 @@ def get_header(cfg, badges, name, pkgs):
     -------
             _description_
     """
-    pkgs.append("github")
+    pkgs.append("markdown")
     header = ""
     for pkg in pkgs:
         if pkg in badges:
@@ -101,7 +100,7 @@ def get_body(body, path):
             <summary>{curr_dir.upper()}</summary>"""
 
         tag = f"""
-            <h5>{script}</h5>
+            <h4>{script}</h4>
             <p>{j[1].replace('"', '')}</p>
         """
         body = f"{body}{tag}"
@@ -109,7 +108,7 @@ def get_body(body, path):
         prev_dir = curr_dir
         if curr_dir != prev_dir:
             body = f"{body}<br></details><br>"
-    # body = f"{body}<br></details><br>"
+    body = f"{body}<br></details><br>"
     return body
 
 
