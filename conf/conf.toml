@@ -5,7 +5,7 @@ key = "<OPENAI-API-KEY>"
 
 # GitHub
 [github]
-url = "https://github.com/eli64s/PyDocsAI"
+url = "https://github.com/eli64s/PydocsAI"
 
 # Paths
 [paths]

@@ -1,8 +1,11 @@
 """src/format.py
 """
+import os
 import subprocess
+import tempfile
 from pathlib import Path
 
+import git
 import pandas as pd
 
 from utils import FileFactory
@@ -24,7 +27,7 @@ def build(cfg, pkgs, url):
     html_setup = get_setup(cfg.html.setup, name, url)
     file_factory.write_html("docs/html/setup.html", html_setup)
 
-    get_tree()
+    get_tree(url)
 
     return html_code
 
@@ -114,8 +117,30 @@ def get_setup(html, name, url):
     return html.format(url, name)
 
 
-def get_tree() -> None:
-    """_summary_"""
-    cwd_path = Path.cwd()
-    bash_path = f"{cwd_path}/scripts/build_md.sh"
-    subprocess.call(["bash", bash_path])
+def get_tree(url) -> None:
+    """_summary_
+
+    Parameters
+    ----------
+    url
+        _description_
+    """
+    root_dir = os.getcwd()
+    tree_path = f"{root_dir}/docs/markdown/tree.md"
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        git.Repo.clone_from(url, tmp_dir)
+        output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
+        output_str = output_bytes.decode("utf-8")
+
+        markdown_str = f"```bash\n{output_str}```"
+        markdown_file = os.path.join(root_dir, "tree.md")
+
+        with open(markdown_file, "w") as f:
+            f.write(markdown_str)
+        with open(markdown_file, "r") as f:
+            lines = f.readlines()
+            lines.pop(1)
+            lines.pop(-2)
+        with open(tree_path, "w") as f:
+            f.writelines(lines)

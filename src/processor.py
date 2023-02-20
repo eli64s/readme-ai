@@ -9,32 +9,7 @@ from pathlib import Path
 import git
 
 
-REPO_PATH = "src/*.py"
-
-
-def get_tree() -> None:
-    """_summary_"""
-    cwd_path = Path.cwd()
-    bash_path = f"{cwd_path}/scripts/build_md.sh"
-    subprocess.call(["bash", bash_path])
-
-
-@contextlib.contextmanager
-def make_temp_directory():
-    """Clone GitHub repository
-        to temporary directory.
-
-    Yields:
-        iterator: files
-    """
-    # Logger.debug("Creating temp directory")
-
-    temp_dir = tempfile.mkdtemp()
-    try:
-        yield temp_dir
-    finally:
-        # LOGGER.info(f"\nRemoving temp folder: {temp_dir}\n")
-        shutil.rmtree(temp_dir)
+REPO_PATH = "*.py"
 
 
 def clone_codebase(url):
@@ -48,9 +23,7 @@ def clone_codebase(url):
         Dict: map of all repo contents
     """
     with make_temp_directory() as temp_dir:
-        # LOGGER.info(f"\nCloning git repo: {url}\n")
         git.Repo.clone_from(url, temp_dir)
-        # LOGGER.info("\nParsing the repository.\n")
         files = parse_codebase(temp_dir)
         files["packages"] = get_packages()
         files["extensions"] = get_extensions(temp_dir)
@@ -91,6 +64,21 @@ def get_packages():
         pkgs = ["".join(r) for r in lines]
         pkgs = [r.split("=")[0] for r in lines]
     return pkgs
+
+
+@contextlib.contextmanager
+def make_temp_directory():
+    """Clone GitHub repository
+        to temporary directory.
+
+    Yields:
+        iterator: files
+    """
+    temp_dir = tempfile.mkdtemp()
+    try:
+        yield temp_dir
+    finally:
+        shutil.rmtree(temp_dir)
 
 
 def parse_codebase(dir):

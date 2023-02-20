@@ -1,7 +1,7 @@
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
-<p>PyDocsAI</p></h1><b>Automate README creation and documentation for your project's codebase!</b><br><br>
+<p>PydocsAI</p></h1><b>Automate README creation and documentation for your project's codebase!</b><br><br>
 
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
@@ -17,13 +17,12 @@
 
 ## Overview
 
-PyDocsAI is a Python package that provides an automated way to generate a README.md file and documentation for a codebase. This package leverages OpenAI's GPT Davinci model to translate the codebase into documentation, and then generates a structured output Markdown template that contains the project documentation. PyDocsAI also generates automated header badge icons related to your project dependencies and creates a repository file directory tree.
+PydocsAI is a Python package that provides an automated way to generate a README.md file and documentation for a codebase. This package leverages OpenAI's GPT Davinci model to translate the codebase into documentation, and then generates a structured output Markdown template that contains the project documentation. PydocsAI also generates automated header badge icons related to your project dependencies and creates a repository file directory tree.
 
 The project is still under development and is very opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
 ## Use-Case
 
-- Software, data, machine learning, or any project that requires documentation.
-- Note that automated templates will always have a very opinionated setup that you should update and adapt for your own needs, but it might be a good starting point for your project.
+Software, data, machine learning, or any project that requires documentation!
 
 ## Feautres
 
@@ -47,7 +46,7 @@ This project leverages the base GPT Davinci model from OpenAI to translate a rep
 
 </div>
 
-### Directory Tree
+### Repository Tree
 
 Creates a directory tree to display in your readme.
 
@@ -88,7 +87,7 @@ Creates a directory tree to display in your readme.
 
 </div>
 
-### README Generation
+### README Generatino
 
 See this [Sample Markdown](docs/markdown/readme.md) for the README.md file generated running this script on this repository.
 
