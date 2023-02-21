@@ -26,6 +26,7 @@ style:
 # Clean
 .PHONY: clean
 clean: style
+	-rm -rf .vscode
 	-find . -name '*.log' -delete
 	-find . -type f -name "*.DS_Store" -ls -delete
 	-find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf
