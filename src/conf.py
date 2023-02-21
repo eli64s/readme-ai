@@ -14,27 +14,28 @@ class OpenAI:
 class GitHub:
     """GitHub repository."""
 
+    file_type: str
     url: str
 
 
 @dataclass
-class Html:
+class Markdown:
     """HTML template code."""
 
     head: str
     body: str
-    setup: str
+    modules: str
     tree: str
+    usage: str
 
 
 @dataclass
 class Paths:
     """Project file paths."""
 
-    badges: str = "conf/badges.json"
-    docs: str = "docs/gpt/raw_data.csv"
-    html: str = "docs/html/readme.html"
-    md: str = "docs/md/_readme.md"
+    badges: str
+    docs: str
+    md: str
 
 
 @dataclass
@@ -43,5 +44,5 @@ class AppConfig:
 
     api: OpenAI
     github: GitHub
-    html: Html
+    md: Markdown
     paths: Paths

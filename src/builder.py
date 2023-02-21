@@ -3,6 +3,7 @@
 import os
 import subprocess
 import tempfile
+
 import git
 import pandas as pd
 
@@ -10,27 +11,31 @@ from utils import FileFactory
 
 
 def build(cfg, pkgs, url):
-    file_factory = FileFactory(".")
-    badges = file_factory.read_json(cfg.paths.badges)
+    pkgs.append("markdown")
+        
+    md_code = cfg.md.head
+    md_body = cfg.md.body
+    md_tree = cfg.md.tree
+    md_modules = cfg.md.modules
+    md_usage = cfg.md.usage
+
+    json_path = cfg.paths.badges
+    json_file = FileFactory(json_path).get_handler()
+    badges = json_file.read_file()
     badges = get_badges(badges)
     name = url.split("/")[-1]
-    
-    html_body = cfg.html.body
-    html_tree = cfg.html.tree
-    html_head = get_header(cfg, badges, name, pkgs)
 
-    html_code = f"{html_head}{html_body}{html_tree}"
-    file_factory.write_html(cfg.paths.html, html_code)
-    
-    html_setup = get_setup(cfg.html.setup, name, url)
-    file_factory.write_html("docs/html/setup.html", html_setup)
-    
+    md_badges = get_header(badges, pkgs)
+    md_code = md_code.format(name, md_badges)
+    md_code = f"{md_code}{md_body}{md_tree}"
+
+    md_repo = get_tree(url)
     md_tables = get_tables(cfg.paths.docs)
-    file_factory.write_md("docs/markdown/tables.md", md_tables)
-    
-    get_tree(url)
-    
-    return html_code
+    md_usage = md_usage.format(url, name)
+    md_code = f"{md_code}{md_repo}{md_modules}{md_tables}{md_usage}"
+
+    md_file = FileFactory(cfg.paths.md).get_handler()
+    md_file.write_file(md_code)
 
 
 def get_badges(icon_list):
@@ -57,7 +62,7 @@ def get_badges(icon_list):
     return icon_map
 
 
-def get_header(cfg, badges, name, pkgs):
+def get_header(badges, pkgs):
     """_summary_
 
     Parameters
@@ -71,34 +76,27 @@ def get_header(cfg, badges, name, pkgs):
     -------
             _description_
     """
-    pkgs.append("markdown")
+    cnt = 0
     header = ""
     for pkg in pkgs:
         if pkg in badges:
-            badge = badges[pkg.strip().lower()]["src"]
-            header += f'<img src="{badge}">\n\t\t\t\t'
-
-    header_html = f"""{cfg.html.head}<br><br>
-    <h1>{name}</h1><br>
-    <p>[insert-project-summary]</p>
-    <br><p>{header}</p>
-    </div>
-    """
-    return header_html
-
-
-def get_setup(html, name, url):
-    return html.format(url, name)
+            pkg_name = pkg.strip().lower()
+            badge = badges[pkg_name]["src"]
+            if cnt % 4 == 0:
+                header += "\n\n"
+            header += f"![{pkg_name}]({badge})"
+            cnt += 1
+    return header
 
 
 def get_tables(path):
     df = pd.read_csv(path)
-    df[['path', 'file']] = df['module'].str.rsplit('/', n=1, expand=True)
-    markdown_tables = []
-    for index, group in df.groupby('path'):
-        markdown_table = group[['file','summary']].to_markdown(index=False)
-        markdown_tables.append(f'## {index}\n{markdown_table}')
-    md_code = '\n'.join(markdown_tables)
+    df[["path", "file"]] = df["module"].str.rsplit("/", n=1, expand=True)
+    md_tables = []
+    for index, group in df.groupby("path"):
+        md_table = group[["file", "summary"]].to_markdown(index=False)
+        md_tables.append(f"## {index}\n{md_table}")
+    md_code = "\n".join(md_tables)
     return md_code
 
 
@@ -110,22 +108,9 @@ def get_tree(url) -> None:
     url
         _description_
     """
-    root_dir = os.getcwd()
-    tree_path = f"{root_dir}/docs/markdown/tree.md"
-
     with tempfile.TemporaryDirectory() as tmp_dir:
         git.Repo.clone_from(url, tmp_dir)
         output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
         output_str = output_bytes.decode("utf-8")
-
         markdown_str = f"```bash\n{output_str}```"
-        markdown_file = os.path.join(root_dir, "docs/markdown/tree.md")
-
-        with open(markdown_file, "w") as f:
-            f.write(markdown_str)
-        with open(markdown_file, "r") as f:
-            lines = f.readlines()
-            lines.pop(1)
-            lines.pop(-2)
-        with open(tree_path, "w") as f:
-            f.writelines(lines)
+        return markdown_str

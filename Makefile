@@ -26,9 +26,6 @@ style:
 # Clean
 .PHONY: clean
 clean: style
-	-rm docs/html/*  
-	-rm docs/markdown/*
-	-rm -f docs/gpt/raw_data.csv 
 	-find . -name '*.log' -delete
 	-find . -type f -name "*.DS_Store" -ls -delete
 	-find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf

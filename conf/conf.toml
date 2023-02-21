@@ -5,57 +5,71 @@ key = "<OPENAI-API-KEY>"
 
 # GitHub
 [github]
+file_type = "src/*.py"
 url = "https://github.com/eli64s/PydocsAI"
 
 # Paths
 [paths]
 badges = "conf/badges.json"
-docs = "docs/gpt/raw_data.csv"
-html = "docs/html/readme.html"
-md = "docs/markdown/_readme.md"
+docs = "docs/raw_data.csv"
+md = "docs/readme.md"
 
-# HTML
-[html]
-head = """
-<html>
-<div>
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="80">
+# Markdown
+[md]
+head = """\n<div align="center">\n<h1 align="center">
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
+\n<div><p>{}</p></h1>
+\n<h3 align="center">[insert-project-summary]</h3>{}
+\n</div>
+\n\n---
 """
+
 body = """
-<hr>
-<h3 id="overview">Overview</h3>
-<p>[insert-description]</p>
-<hr>
-<h3 id="use-case">Use-Case</h3>
-<p>[insert-description]</p>
-<hr>
-<h3 id="features">Features</h3>
-<p>[insert-description]</p>
-<hr>
-<p><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg"
-width="80" /></p>
-<h3 id="modules">Modules</h3>
-<br>
+\n## Overview
+\n> [insert-description]
+\n## Use-Case
+\n> [insert-description]
+\n## Feautres
+\n> [insert-description]
 """
-setup = """
-<hr>
-<h2>Getting Started</h2><p>[insert-description]</p>
-<h3>Usage</h3>
-<pre><code class="language-Bash"># 1. Clone GitHub repository.
-git clone {} &amp;&amp; cd {}
-</code></pre>
-<h2>Contribute</h2>
-<ul>
-  <li>Contributions and suggestions welcome!</li>
-</ul>
-<hr>
-</html>
+
+modules = """
+\n---
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
+\n## Modules
 """
+
 tree = """
-<hr>
-<p><img
-src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg"
-width="80" /></p>
-<h3 id="repository-structure">Repository Structure</h3>
-<br>
+\n---
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
+\n## Repository Structure
+"""
+
+usage = """
+\n---
+\n## Getting Started
+
+\n### Usage
+\n```Bash\n# 1. Clone GitHub repository.\ngit clone {} && cd {}
+
+\n# 2...
+
+\n# 3...
+\n```
+
+\n---
+
+\n## Contribute
+
+\n> [insert-description]
+
+\n## Roadmap
+
+\n> [insert-description]
+
+\n## References
+
+\n> [insert-description]
+
+\n---
 """

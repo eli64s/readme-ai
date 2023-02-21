@@ -9,10 +9,7 @@ from pathlib import Path
 import git
 
 
-REPO_PATH = "*.py"
-
-
-def clone_codebase(url):
+def clone_codebase(file_type, url):
     """Runs git clone to retrieve
         project input data.
 
@@ -24,8 +21,8 @@ def clone_codebase(url):
     """
     with make_temp_directory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
-        files = parse_codebase(temp_dir)
-        files["packages"] = get_packages()
+        files = parse_codebase(file_type, temp_dir)
+        files["packages"] = get_packages(temp_dir)
         files["extensions"] = get_extensions(temp_dir)
     return files
 
@@ -48,7 +45,7 @@ def get_extensions(temp_dir):
     return list(file_types)
 
 
-def get_packages():
+def get_packages(temp_dir):
     """Get codebase packages to help
         generate project badge icons.
 
@@ -58,8 +55,8 @@ def get_packages():
     Returns:
         List: codebase packages
     """
-    subprocess.run(f"pipreqs . --force", shell=True)
-    with open(Path("requirements.txt").resolve()) as f:
+    subprocess.run(["pipreqs", temp_dir], check=True)
+    with open(f"{temp_dir}/requirements.txt", "r") as f:
         lines = f.read().splitlines()
         pkgs = ["".join(r) for r in lines]
         pkgs = [r.split("=")[0] for r in lines]
@@ -81,7 +78,7 @@ def make_temp_directory():
         shutil.rmtree(temp_dir)
 
 
-def parse_codebase(dir):
+def parse_codebase(file_type, dir):
     """Get each file as a raw string.
 
     Args:
@@ -90,11 +87,11 @@ def parse_codebase(dir):
     Returns:
         Dict: map of all repo contents
     """
-    dict = {}
-    paths = Path(dir).rglob(REPO_PATH)
+    artifacts = {}
+    paths = Path(dir).rglob(file_type)
     for path in paths:
         with open(path) as f:
             contents = "".join(f.readlines())
             key = "/".join(str(path).split("/")[-2:])
-            dict[key] = contents
-    return dict
+            artifacts[key] = contents
+    return artifacts

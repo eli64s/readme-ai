@@ -3,52 +3,96 @@ src/utils.py
 """
 import csv
 import json
-from pathlib import Path
+import os
 
 import toml
 
 
 class FileFactory:
-    def __init__(self, base_path: str):
-        self.base_path = base_path
+    def __init__(self, file_path):
+        self.file_path = file_path
 
-    def read_json(self, file_name: str):
-        with open(self._get_file_path(file_name), "r") as f:
-            return json.load(f)
+    def get_handler(self):
+        file_readers = {
+            ".csv": CSVFileHandler,
+            ".json": JSONFileHandler,
+            ".html": HTMLFileHandler,
+            ".md": MDFileHandler,
+            ".toml": TOMLFileHandler,
+        }
+        file_type = os.path.splitext(self.file_path)[1]
+        file_reader_class = file_readers.get(file_type)
+        if file_reader_class:
+            return file_reader_class(self.file_path)
+        else:
+            raise ValueError("Unsupported file type")
 
-    def write_json(self, file_name: str, data):
-        with open(self._get_file_path(file_name), "w") as f:
-            json.dump(data, f, indent=2)
 
-    def read_csv(self, file_name: str):
-        with open(self._get_file_path(file_name), "r") as f:
-            return list(csv.reader(f))
+class FileHandler:
+    def __init__(self, file_path):
+        self.file_path = file_path
 
-    def write_csv(self, file_name: str, data):
-        with open(self._get_file_path(file_name), "w") as f:
-            writer = csv.writer(f)
-            writer.writerow(['module', 'summary'])
+    def read_file(self):
+        pass
+
+    def write_file(self, data):
+        self.data = data
+
+
+class CSVFileHandler(FileHandler):
+    def read_file(self):
+        with open(self.file_path, "r") as csv_file:
+            reader = csv.reader(csv_file)
+            data = [row for row in reader]
+        return data
+
+    def write_file(self, data):
+        with open(self.file_path, "w") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(["module", "summary"])
             for row in data:
                 writer.writerow(row)
 
-    def read_html(self, file_name: str):
-        with open(self._get_file_path(file_name), "r") as f:
-            return f.read()
 
-    def write_html(self, file_name: str, data):
-        with open(self._get_file_path(file_name), "w") as f:
-            f.write(data)
+class JSONFileHandler(FileHandler):
+    def read_file(self):
+        with open(self.file_path, "r") as json_file:
+            data = json.load(json_file)
+        return data
 
-    def read_md(self, file_name: str):
-        with open(self._get_file_path(file_name), "r") as f:
-            return f.read()
+    def write_file(self, data):
+        with open(self.file_path, "w") as json_file:
+            json.dump(data, json_file, indent=4)
 
-    def write_md(self, file_name: str, data):
-        with open(self._get_file_path(file_name), "w") as f:
-            f.write(data)
 
-    def read_toml(self, file_name: str):
-        return toml.load(file_name)
+class HTMLFileHandler(FileHandler):
+    def read_file(self):
+        with open(self.file_path, "r") as html_file:
+            data = html_file.read()
+        return data
 
-    def _get_file_path(self, file_name: str):
-        return str(Path(self.base_path) / file_name)
+    def write_file(self, data):
+        with open(self.file_path, "w") as html_file:
+            html_file.write(data)
+
+
+class MDFileHandler(FileHandler):
+    def read_file(self):
+        with open(self.file_path, "r") as md_file:
+            data = md_file.read()
+        return data
+
+    def write_file(self, data):
+        with open(self.file_path, "w") as md_file:
+            md_file.write(data)
+
+
+class TOMLFileHandler(FileHandler):
+    def read_file(self):
+        with open(self.file_path, "r") as toml_file:
+            data = toml.load(toml_file)
+        return data
+
+    def write_file(self, data):
+        with open(self.file_path, "w") as toml_file:
+            toml.dump(data, toml_file)
