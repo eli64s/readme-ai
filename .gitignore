@@ -13,3 +13,6 @@ assets/icons
 
 .ipynb_checkpoints
 
+.pytest_cache
+
+.vscode
