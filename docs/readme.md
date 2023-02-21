@@ -8,9 +8,7 @@
 
 <h3 align="center">[insert-project-summary]</h3>
 
-![openai](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)![html](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
-
-![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)![sh](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+![openai](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)![sh](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
 
 </div>
 
@@ -18,10 +16,6 @@
 ---
 
 ## Overview
-
-> [insert-description]
-
-## Use-Case
 
 > [insert-description]
 
@@ -35,27 +29,23 @@
 
 ## Repository Structure
 ```bash
-/var/folders/k8/9bv99nsj41g6f9_b63qh1__80000gn/T/tmpbal_q9h4
+/var/folders/k8/9bv99nsj41g6f9_b63qh1__80000gn/T/tmpl4du7sp3
 ├── Makefile
 ├── README.md
 ├── conf
 │   ├── badges.json
 │   └── conf.toml
 ├── docs
-│   ├── gpt
-│   │   ├── body.png
+│   ├── imgs
+│   │   ├── docs.png
 │   │   ├── head.png
-│   │   ├── raw_data.csv
 │   │   └── tree.png
-│   ├── html
-│   │   └── readme.html
-│   └── markdown
-│       └── readme.md
+│   ├── raw_data.csv
+│   └── readme.md
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
 │   ├── auto_docstrings.sh
-│   ├── build_md.sh
 │   └── run_main.sh
 ├── setup.py
 ├── src
@@ -64,7 +54,6 @@
 │   ├── conf.py
 │   ├── logger.py
 │   ├── main.py
-│   ├── md_helper.py
 │   ├── model.py
 │   ├── processor.py
 │   └── utils.py
@@ -78,7 +67,7 @@
     ├── test_processor.py
     └── test_utils.py
 
-9 directories, 33 files
+7 directories, 30 files
 ```
 ---
 
@@ -88,14 +77,14 @@
 ## src
 | file         | summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 |:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Html, Paths, and AppConfig. Each of these classes contains variables that are used to store information related to the project. The OpenAI class stores engine and key information, the GitHub class stores a URL, the Html class stores head, body, setup, and tree information, and the Paths class stores badge, docs, html, and md file paths.                         |
-| processor.py | This code provides functions to clone a GitHub repository, get the packages and file extensions used in the repository, and parse the codebase into a dictionary. It also provides a context manager to clone the repository to a temporary directory.                                                                                                                                                                                                                   |
+| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig. Each of these classes contains variables that are used to store information related to the project.                                                                                                                                                                                                                                        |
+| processor.py | This code provides functions to clone a GitHub repository, parse the codebase, and get packages and extensions from the codebase. It uses the git library to clone the repository to a temporary directory, and then uses the pipreqs library to get the packages from the codebase. It also uses the os and shutil libraries to walk through the directory and get the file extensions. Finally, it uses the pathlib library to get each file as a raw string.          |
 | logger.py    | This code creates a Logger class that is used to log messages with different levels of severity. It imports the logging and colorlog modules and configures the logger with a StreamHandler and a ColoredFormatter. It also provides methods for logging messages with different levels of severity.                                                                                                                                                                     |
 | model.py     | This code imports the OpenAI library and sets the API key from the environment. It then defines a function, code_to_text(), which takes an engine and a dictionary of files and code as parameters. The function iterates through the files and code, skips any files that are not Python files, and creates a prompt for each file. It then uses the OpenAI library to generate a summary of the code and appends the file and summary to a list. Finally, the function |
-| builder.py   | This code builds an HTML page with a header, body, and tree. It reads a JSON file containing badges, and uses the badges to create a header for the HTML page. It also reads a CSV file to create tables in Markdown format, and uses a git repository URL to generate a tree in Markdown format. Finally, it writes the HTML, Markdown, and setup files to the appropriate directories.                                                                                 |
-| md_helper.py | This Python code reads the content of two Markdown files, one containing the main content and one containing the new content to be inserted. It then finds the index of the header after which the new content should be inserted and inserts it. Finally, it combines the sections into a single Markdown string and writes the updated content to the main file.                                                                                                       |
-| utils.py     | FileFactory is a class that provides methods to read and write data from/to different file formats (JSON, CSV, HTML, Markdown, and TOML). It takes a base path as an argument and uses it to construct the file path for the file to be read/written.                                                                                                                                                                                                                    |
-| main.py      | This code is a Python script that reads a configuration file, clones a codebase from a given URL, uses an OpenAI engine to generate a code summary, writes the summary to a CSV file, and builds a project readme.                                                                                                                                                                                                                                                       |
+| builder.py   | This code is a function that builds a markdown file from a configuration file, a list of packages, and a URL. It uses the FileFactory class to read and write files, the pandas library to read a CSV file, and the git library to clone a repository. It also uses the subprocess library to run the tree command. The function gets badges from a JSON file, creates a header with the badges, creates tables from a CSV file, and creates a tree from the cl          |
+| utils.py     | The provided Python code is a FileFactory class that is used to read and write different types of files. It imports the csv, json, and toml modules and has methods for reading and writing files of different types, such as CSV, JSON, HTML, MD, and TOML.                                                                                                                                                                                                             |
+| main.py      | """                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|              | This code is for a program called PydocsAI. It reads a configuration file, clones a codebase from a given URL, and uses an OpenAI engine to generate a code summary. It then writes the code summary to a CSV file and builds the project readme docs. Finally, it logs the completion of the program.                                                                                                                                                                   |
 ---
 
 ## Getting Started
@@ -119,19 +108,23 @@ git clone https://github.com/eli64s/PydocsAI && cd PydocsAI
 ---
 
 
+## Roadmap
+
+
+- [x]
+
+- []
+
+- []
+
+
 ## Contribute
 
 
 > [insert-description]
 
 
-## Roadmap
-
-
-> [insert-description]
-
-
-## References
+## Acknowledgments
 
 
 > [insert-description]

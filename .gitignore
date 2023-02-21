@@ -3,6 +3,7 @@
 assets/
 
 src/__pycache__
+tests/__pycache__
 
 outputs/
 
@@ -11,3 +12,4 @@ notebooks
 assets/icons
 
 .ipynb_checkpoints
+

@@ -12,7 +12,7 @@ help:
 api_key:
 	echo "Set OPENAI_API_KEY"
 
-# Automated docstring creation.
+# Automated docstrings
 autodocs: api_key
 	autodocstrings src
 

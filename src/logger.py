@@ -1,5 +1,6 @@
-"""src/logger.py."""
-
+"""
+src/logger.py
+"""
 import logging
 
 import colorlog

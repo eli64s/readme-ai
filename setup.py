@@ -11,6 +11,6 @@ setup(
     author="",
     author_email="",
     url="",
-    install_requires=["hydra-core"],
+    install_requires=[],
     packages=find_packages(),
 )

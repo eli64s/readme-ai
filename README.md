@@ -2,8 +2,8 @@
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
 <div><p>PydocsAI</p></h1>
-<h3 align="center">Automate README generation and codebase documentation for your projects!</h3>
-<h4 align="center">🏎💨 Powered by OpenAI's language model API.</h4>
+<h3 align="center">Automate README creation, code documentation, and more!</h3>
+<h4 align="center">🏎💨 Powered by OpenAI's language model API and the tools listed below.</h4>
 
 ![Markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
@@ -12,19 +12,20 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
 ![Anaconda](https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white)
 ![Bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
+
 </div>
 
 ---
 
 ## Overview
 
-PydocsAI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that contains codebase metadata and code documentation.
+PydocsAI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
 
-The project is still under development and is very opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
+The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
 
 ## Use-Case
 
-Software, data, machine learning, or any project that requires documentation!
+- Applicable to all disciplines of work, and projects both large and small
 
 ## Feautres
 
@@ -73,7 +74,7 @@ Copy the url of your project's GitHub repository and update the code below from 
 ```bash
 # GitHub
 [github]
-url = "https://github.com/eli64s/PydocsAI"
+url = "<INSERT-GITHUB-REPO>"
 ```
 
 ### OpenAI API Key
@@ -91,6 +92,7 @@ Follow the steps below to create an [OpenAI API key](https://platform.openai.com
 6. Copy the API key and keep it in a secure place.
 
 You can now use the OpenAI API key to integrate with OpenAI's language models in your projects.
+
 </details>
 
 Copy your your OpenAI API key and update the code below from `scripts/run_main.sh` below.
@@ -100,7 +102,6 @@ Copy your your OpenAI API key and update the code below from `scripts/run_main.s
 set +x
 
 export OPENAI_API_KEY="<OPENAI-API-KEY>"
-
 ```
 
 ---
@@ -111,31 +112,27 @@ export OPENAI_API_KEY="<OPENAI-API-KEY>"
 # 1. Clone GitHub repository.
 git clone https://github.com/eli64s/PydocsAI && cd PydocsAI
 
-# 2. Setup conda virtual environment.
+# 2. Setup conda environment.
 make conda
 
-# 3. Run the model.
+# 3. Run PydocsAI.
 bash scripts/run_model.sh
 ```
 
 ---
 
-## Contribute
-
-Contributions and suggestions welcome!
-
----
-
 ## Roadmap
 
-- Add compatability for additional file types.
-- Extend capabilities beyond codebase documentation
+- [] Add compatability for additional file types.
+- [] Extend capabilities beyond code documentation.
+- [] Implement different configuration file templates.
 
----
+## Contributing
 
-## References
+Contributions are welcomed! Let's build 🧩
 
-- Profile Badges - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
-- Automated Docstrings - [cdesarmeaux/autodocstrings](https://github.com/cdesarmeaux/autodocstrings)
+## Acknowledgments
+
+- Badge Icons: [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
 
 ---

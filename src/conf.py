@@ -20,7 +20,7 @@ class GitHub:
 
 @dataclass
 class Markdown:
-    """HTML template code."""
+    """Markdown template code."""
 
     head: str
     body: str

@@ -1,36 +1,30 @@
-"""tests/test_conf.py"""
-
-import unittest
+# tests/test_conf.py
 
 from conf import AppConfig
 from conf import GitHub
-from conf import HtmlObjs
+from conf import Markdown
 from conf import OpenAI
 from conf import Paths
 
 
-class TestAppConfig(unittest.TestCase):
-    def test_create_app_config(self):
-        api = OpenAI(engine="davinci", sk_key="my-secret-key")
-        html = HtmlObjs(head="<head>", body="<body>", close="</html>")
-        paths = Paths(
-            docs="test_docs.csv",
-            html="test_html.html",
-            mrkd="test_output.md",
-            pkgs="test_icons.json",
-        )
-        store = GitHub(url="https://github.com/myrepo")
+def test_AppConfig():
+    api = OpenAI(engine="davinci-codex", key="my_key")
+    github = GitHub(file_type="py", url="https://github.com/myproject")
+    md = Markdown(
+        head="# My Project", body="This is my project", modules="", tree="", usage=""
+    )
+    paths = Paths(badges="badges/", docs="docs/", md="md/")
+    app_config = AppConfig(api=api, github=github, md=md, paths=paths)
 
-        app_config = AppConfig(api=api, html=html, paths=paths, store=store)
-
-        self.assertIsInstance(app_config, AppConfig)
-        self.assertEqual(app_config.api.engine, "davinci")
-        self.assertEqual(app_config.api.sk_key, "my-secret-key")
-        self.assertEqual(app_config.html.head, "<head>")
-        self.assertEqual(app_config.html.body, "<body>")
-        self.assertEqual(app_config.html.close, "</html>")
-        self.assertEqual(app_config.paths.docs, "test_docs.csv")
-        self.assertEqual(app_config.paths.html, "test_html.html")
-        self.assertEqual(app_config.paths.mrkd, "test_output.md")
-        self.assertEqual(app_config.paths.pkgs, "test_icons.json")
-        self.assertEqual(app_config.store.url, "https://github.com/myrepo")
+    assert app_config.api.engine == "davinci-codex"
+    assert app_config.api.key == "my_key"
+    assert app_config.github.file_type == "py"
+    assert app_config.github.url == "https://github.com/myproject"
+    assert app_config.md.head == "# My Project"
+    assert app_config.md.body == "This is my project"
+    assert app_config.md.modules == ""
+    assert app_config.md.tree == ""
+    assert app_config.md.usage == ""
+    assert app_config.paths.badges == "badges/"
+    assert app_config.paths.docs == "docs/"
+    assert app_config.paths.md == "md/"

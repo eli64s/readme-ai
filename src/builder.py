@@ -1,6 +1,6 @@
-"""src/format.py
 """
-import os
+src/format.py
+"""
 import subprocess
 import tempfile
 
@@ -10,10 +10,25 @@ import pandas as pd
 from utils import FileFactory
 
 
-def build(cfg, pkgs, url):
+def build(cfg: object, pkgs: list, url: str) -> None:
+    """_summary_
+
+    Parameters
+    ----------
+    cfg
+        _description_
+    pkgs
+        _description_
+    url
+        _description_
+    """
     pkgs.append("markdown")
-        
-    md_code = cfg.md.head
+    name = url.split("/")[-1]
+
+    docs_path = cfg.paths.docs
+    docs_df = pd.read_csv(docs_path)
+
+    md = cfg.md.head
     md_body = cfg.md.body
     md_tree = cfg.md.tree
     md_modules = cfg.md.modules
@@ -21,40 +36,40 @@ def build(cfg, pkgs, url):
 
     json_path = cfg.paths.badges
     json_file = FileFactory(json_path).get_handler()
+
     badges = json_file.read_file()
     badges = get_badges(badges)
-    name = url.split("/")[-1]
-
     md_badges = get_header(badges, pkgs)
-    md_code = md_code.format(name, md_badges)
-    md_code = f"{md_code}{md_body}{md_tree}"
+
+    md = md.format(name, md_badges)
+    md = f"{md}{md_body}{md_tree}"
 
     md_repo = get_tree(url)
-    md_tables = get_tables(cfg.paths.docs)
+    md_tables = get_tables(docs_df)
     md_usage = md_usage.format(url, name)
-    md_code = f"{md_code}{md_repo}{md_modules}{md_tables}{md_usage}"
 
+    md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
-    md_file.write_file(md_code)
+    md_file.write_file(md)
 
 
-def get_badges(icon_list):
+def get_badges(icon_dict):
     """_summary_
 
     Parameters
     ----------
-    icon_list
-            _description_
+    icon_dict
+        _description_
 
     Returns
     -------
-            _description_
+        _description_
     """
     icon_map = {}
     idx = 0
     while True:
         try:
-            row = icon_list["icons"][idx]
+            row = icon_dict["icons"][idx]
             icon_map[row["name"].lower()] = row
         except:
             break
@@ -67,14 +82,14 @@ def get_header(badges, pkgs):
 
     Parameters
     ----------
-    file_io
-            _description_
+    badges
+        _description_
     pkgs
-            _description_
+        _description_
 
     Returns
     -------
-            _description_
+        _description_
     """
     cnt = 0
     header = ""
@@ -82,35 +97,46 @@ def get_header(badges, pkgs):
         if pkg in badges:
             pkg_name = pkg.strip().lower()
             badge = badges[pkg_name]["src"]
-            if cnt % 4 == 0:
-                header += "\n\n"
             header += f"![{pkg_name}]({badge})"
-            cnt += 1
     return header
 
 
-def get_tables(path):
-    df = pd.read_csv(path)
-    df[["path", "file"]] = df["module"].str.rsplit("/", n=1, expand=True)
+def get_tables(docs_df: pd.DataFrame) -> str:
+    """_summary_
+
+    Parameters
+    ----------
+    docs_df
+        _description_
+
+    Returns
+    -------
+        _description_
+    """
+    docs_df[["path", "file"]] = docs_df["module"].str.rsplit("/", n=1, expand=True)
     md_tables = []
-    for index, group in df.groupby("path"):
+    for idx, group in docs_df.groupby("path"):
         md_table = group[["file", "summary"]].to_markdown(index=False)
-        md_tables.append(f"## {index}\n{md_table}")
+        md_tables.append(f"## {idx}\n{md_table}")
     md_code = "\n".join(md_tables)
     return md_code
 
 
-def get_tree(url) -> None:
+def get_tree(url: str) -> str:
     """_summary_
 
     Parameters
     ----------
     url
         _description_
+
+    Returns
+    -------
+        _description_
     """
     with tempfile.TemporaryDirectory() as tmp_dir:
         git.Repo.clone_from(url, tmp_dir)
         output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
-        output_str = output_bytes.decode("utf-8")
-        markdown_str = f"```bash\n{output_str}```"
-        return markdown_str
+        tree_str = output_bytes.decode("utf-8")
+        tree_md = f"```bash\n{tree_str}```"
+        return tree_md

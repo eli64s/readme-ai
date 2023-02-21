@@ -19,15 +19,14 @@ md = "docs/readme.md"
 head = """\n<div align="center">\n<h1 align="center">
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
 \n<div><p>{}</p></h1>
-\n<h3 align="center">[insert-project-summary]</h3>{}
+\n<h3 align="center">[insert-project-summary]</h3>
+\n{}
 \n</div>
 \n\n---
 """
 
 body = """
 \n## Overview
-\n> [insert-description]
-\n## Use-Case
 \n> [insert-description]
 \n## Feautres
 \n> [insert-description]
@@ -59,15 +58,17 @@ usage = """
 
 \n---
 
+\n## Roadmap
+
+\n- [x]
+\n- []
+\n- []
+
 \n## Contribute
 
 \n> [insert-description]
 
-\n## Roadmap
-
-\n> [insert-description]
-
-\n## References
+\n## Acknowledgments
 
 \n> [insert-description]
 
