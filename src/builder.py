@@ -41,7 +41,7 @@ def build(cfg: object, pkgs: list, url: str) -> None:
     badges = json_file.read_file()
     badges = get_badges(badges)
     md_badges = get_header(badges, pkgs)
-    md_toc.format(name=name, name_lower=name.lower())
+    md_toc = md_toc.format(name=name, name_lower=name.lower())
                   
     md = md.format(name, md_badges)
     md = f"{md}{md_toc}{md_body}{md_tree}"
