@@ -5,8 +5,8 @@ key = "<OPENAI-API-KEY>"
 
 # GitHub
 [github]
-dirs = "src/*.py"
-url = "https://github.com/eli64s/PydocsAI"
+dirs = "*/*.py"
+url = "https://github.com/eli64s/django_social_media_app"
 
 # Paths
 [paths]
@@ -54,7 +54,7 @@ body = """
 modules = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-\n## Modules
+\n## Modules\n
 """
 
 tree = """
@@ -63,9 +63,8 @@ tree = """
 \n## Repository Structure
 """
 
-usage = """
-\n---\n
-\n## Getting Started
+usage = """\n<hr />\n
+## Getting Started
 \n### Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
 
