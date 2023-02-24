@@ -46,7 +46,7 @@ def build(cfg: object, pkgs: list, url: str) -> None:
 
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df)
-    md_usage = md_usage.format(name, url, name, name, name)
+    md_usage = md_usage.format(url=url, name=name)
 
     md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
@@ -113,6 +113,7 @@ def get_tables(docs_df: pd.DataFrame) -> str:
     -------
         _description_
     """
+    docs_df = docs_df[~docs_df.module.isin(["extensions", "packages"])]
     docs_df[["path", "file"]] = docs_df["module"].str.rsplit("/", n=1, expand=True)
     md_tables = []
     for idx, group in docs_df.groupby("path"):
@@ -138,5 +139,7 @@ def get_tree(url: str) -> str:
         git.Repo.clone_from(url, tmp_dir)
         output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
         tree_str = output_bytes.decode("utf-8")
-        tree_md = f"```bash\n{tree_str}```"
+        tree_lines = tree_str.split("\n")[1:]
+        tree_str = "\n".join(tree_lines)
+        tree_md = f"```bash\n.\n{tree_str}```"
         return tree_md

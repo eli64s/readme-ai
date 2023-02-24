@@ -101,19 +101,24 @@ def parse_codebase(file_type, dir):
 
 
 def create_environment_file(repo_path):
-    env_file = os.path.join(repo_path, 'environment.yaml')
+    env_file = os.path.join(repo_path, "environment.yaml")
     if os.path.exists(env_file):
         print(f"{env_file} already exists")
     else:
-        env_file = os.path.join(repo_path, 'environment.yml')
+        env_file = os.path.join(repo_path, "environment.yml")
         if os.path.exists(env_file):
             print(f"{env_file} already exists")
         else:
-            setup_dir = os.path.join(repo_path, 'setup')
+            setup_dir = os.path.join(repo_path, "setup")
             os.makedirs(setup_dir, exist_ok=True)
-            env_file = os.path.join(setup_dir, 'environment.yaml')
+            env_file = os.path.join(setup_dir, "environment.yaml")
             try:
-                subprocess.run(f"conda env export > {env_file}", shell=True, check=True, cwd=repo_path)
+                subprocess.run(
+                    f"conda env export > {env_file}",
+                    shell=True,
+                    check=True,
+                    cwd=repo_path,
+                )
                 print(f"Created {env_file}")
             except subprocess.CalledProcessError as e:
                 print(f"Error creating {env_file}: {e}")

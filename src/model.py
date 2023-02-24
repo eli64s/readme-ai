@@ -33,10 +33,11 @@ def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
 
     try:
         for file, code in files.items():
-            if "__init__" in file or ".py" not in file:
+        
+            if "__init__" in file:
                 continue
 
-            prompt = f"Summarize the Python code provided below: {code}"
+            prompt = f"Summarize the code provided below: {code}"
 
             response = openai.Completion.create(
                 model=engine,

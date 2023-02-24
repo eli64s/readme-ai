@@ -14,7 +14,7 @@ class OpenAI:
 class GitHub:
     """GitHub repository."""
 
-    file_type: str
+    dirs: str
     url: str
 
 

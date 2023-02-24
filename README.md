@@ -19,7 +19,26 @@
 
 ---
 
-## 🌊 Overview
+## 📦 Table of Contents
+
+- [📦 Table of Contents](#-table-of-contents)
+- [📍 Introdcution](#-introdcution)
+- [🔮 Features](#-features)
+- [🏎💨 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [GitHub Repository](#github-repository)
+  - [OpenAI API Setup](#openai-api-setup)
+  - [Installation](#installation)
+  - [Running PydocsAI](#running-pydocsai)
+- [🧩 Roadmap](#-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [📧 Contact](#-contact)
+- [🙏 Acknowledgments](#-acknowledgments)
+
+---
+
+## 📍 Introdcution
 
 PydocsAI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
 
@@ -66,7 +85,7 @@ The project is still under development and is opinionated in its setup, but it c
 
 ---
 
-## 🚀 Getting Started
+## 🏎💨 Getting Started
 
 ### Prerequisites
 
@@ -135,9 +154,9 @@ python src/main.py
 
 ---
 
-## 📍 Roadmap
+## 🧩 Roadmap
 
-- [ ] Add compatability for additional file types.
+- [ ] Add compatability for additional languages. Rust next.
 - [ ] Extend capabilities beyond code documentation.
 - [ ] Implement different configuration file templates.
 
