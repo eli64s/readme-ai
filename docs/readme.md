@@ -18,14 +18,10 @@
 
 ## Table of Contents
 
-
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [Feautres](#feautres)
 - [Repository Structure](#repository-structure)
 - [Modules](#modules)
-- [src](#src)
-- [| main.py      | This code is a script for a program called PydocsAI. It imports various modules and reads a configuration file. It then clones a codebase from a given URL and creates a list of packages and extensions. It then uses an OpenAI engine to generate a summary of the code and writes it to a CSV file. Finally, it builds the project readme docs and prints a message to the user.                                              |](#-mainpy-------this-code-is-a-script-for-a-program-called-pydocsai-it-imports-various-modules-and-reads-a-configuration-file-it-then-clones-a-codebase-from-a-given-url-and-creates-a-list-of-packages-and-extensions-it-then-uses-an-openai-engine-to-generate-a-summary-of-the-code-and-writes-it-to-a-csv-file-finally-it-builds-the-project-readme-docs-and-prints-a-message-to-the-user----------------------------------------------)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -100,7 +96,9 @@
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
 ## Modules
-## src
+
+### SRC
+
 | file         | summary                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig. Each of these classes contains variables that are used to store information related to the project.                                                                                                                                                                                                |

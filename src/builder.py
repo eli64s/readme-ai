@@ -119,7 +119,7 @@ def get_tables(docs_df: pd.DataFrame) -> str:
     md_tables = []
     for idx, group in docs_df.groupby("path"):
         md_table = group[["file", "summary"]].to_markdown(index=False)
-        md_tables.append(f"## {idx}\n{md_table}")
+        md_tables.append(f"### {idx}\n{md_table.upper()}")
     md_code = "\n".join(md_tables)
     return md_code
 
