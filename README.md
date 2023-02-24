@@ -53,7 +53,7 @@ The project is still under development and is opinionated in its setup, but it c
 | --- | --- |
 | <br /><b>Project Tree</b><br /><br />Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
 
-<h1 align="center">👇<br /><br />⒋ 🐍 Environment Yaml</h1>
+<h1 align="center">👇<br /><br />⒋ 🐍 Environment YAML</h1>
 <p align="center">Creates the directory and file setup/environment.yaml if it does not already exit, and writes the README installion section.
 </p>
 
@@ -62,7 +62,7 @@ The project is still under development and is opinionated in its setup, but it c
 | <br /><br/><b>Environment Yaml</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
 <br />
-<h2 align="center">👇<br /><br /><a href="https://github.com/eli64s/PydocsAI/blob/main/docs/readme.md">Example Output README File</a></h2>
+<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/PydocsAI/blob/main/docs/readme.md">Example Output README File</a></h1>
 
 ---
 
