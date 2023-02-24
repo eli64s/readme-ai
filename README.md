@@ -2,7 +2,7 @@
   <h1 align="center">
     <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
     <br />
-    PydocsAI
+    README-AI
   </h1>
 
   > <h3 align="center">Automate README creation, code documentation, and more!</h3>
@@ -31,7 +31,7 @@
   - [GitHub Repository](#github-repository)
   - [OpenAI API Setup](#openai-api-setup)
   - [Installation](#installation)
-  - [Running PydocsAI](#running-pydocsai)
+  - [Running README-AI](#running-readme-ai)
 - [🧩 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
@@ -42,9 +42,9 @@
 
 ## 📍 Introdcution
 
-PydocsAI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
+README-AI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
 
-The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
+The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of README-AI is limited to codebases written in Python.
 
 ---
 
@@ -83,7 +83,7 @@ The project is still under development and is opinionated in its setup, but it c
 | <br /><br/><b>Environment YAML</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
 <br />
-<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/PydocsAI/blob/main/docs/readme.md">Example Output README File</a></h1>
+<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme.md">Example Output README File</a></h1>
 
 ---
 
@@ -109,7 +109,7 @@ url = "<INSERT-GITHUB-REPO>"
 
 ### OpenAI API Setup
 
-To use PydocsAI, you will need an API key for OpenAI. Follow the steps below to create an API key:
+To use README-AI, you will need an API key for OpenAI. Follow the steps below to create an API key:
 
 <details closed>
 <summary>User Guide</summary>
@@ -125,17 +125,17 @@ To use PydocsAI, you will need an API key for OpenAI. Follow the steps below to 
 
 ### Installation
 
-1. Clone the PydocsAI repository:
+1. Clone the README-AI repository:
 
 ```sh
-git clone https://github.com/eli64s/PydocsAI.git && cd PydocsAI
+git clone https://github.com/eli64s/README-AI.git && cd README-AI
 ```
 
 2. Create a new Conda environment and install the required dependencies:
 
 ```sh
 conda env create -f setup/environment.yaml
-conda activate pydocsai
+conda activate README-AI
 ```
 
 3. Set up the OpenAI API key by creating an environment variable:
@@ -146,9 +146,9 @@ export OPENAI_API_KEY=<your-api-key>
 
 Alternatively, you can set up the OpenAI API key in a .env file in the root directory of the project.
 
-### Running PydocsAI
+### Running README-AI
 
-Once you have installed PydocsAI, you can generate a README file for your codebase by running the following command:
+Once you have installed README-AI, you can generate a README file for your codebase by running the following command:
 
 ```sh
 python src/main.py
@@ -166,7 +166,7 @@ python src/main.py
 
 ## 🤝 Contributing
 
-We welcome contributions to PydocsAI from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
+We welcome contributions to README-AI from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
 
 ---
 
@@ -178,7 +178,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-If you have any questions or feedback about PydocsAI, please feel free to reach out. We would be happy to hear from you!
+If you have any questions or feedback about README-AI, please feel free to reach out. We would be happy to hear from you!
 
 ---
 

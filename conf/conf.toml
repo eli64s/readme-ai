@@ -6,7 +6,7 @@ key = "<OPENAI-API-KEY>"
 # GitHub
 [github]
 dirs = "*/*.py"
-url = "https://github.com/eli64s/django_social_media_app"
+url = "https://github.com/eli64s/README-AI"
 
 # Paths
 [paths]

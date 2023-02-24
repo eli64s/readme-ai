@@ -97,6 +97,8 @@ def get_header(badges, pkgs):
     for pkg in pkgs:
         if pkg in badges:
             pkg_name = pkg.strip().lower()
+            if not pkg_name:
+                pkg_name = pkg.strip()
             badge = badges[pkg_name]["src"]
             header += f"![{pkg_name}]({badge})"
     return header
