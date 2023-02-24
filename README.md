@@ -38,7 +38,7 @@ The project is still under development and is opinionated in its setup, but it c
 | <b>Codebase Documentation</b><br /><br />This project leverages OpenAI's GPT Davinci<br /> model to convert a given Python codebase into<br /> natural language, producing a well-structured<br /> project README template that includes codebase metadata, documentation<br /> and other essential details. | ![header](docs/imgs/docs.png) |
 
 <h1 align="center">👇<br /><br />⒉ 🪪 Badges</h1>
-<p align="center">Stop wasting time making your README pretty! Visualize project dependencies and compnents in your README's header section.
+<p align="center">Stop wasting time making your README pretty! Visualize project dependencies and components in your README's header section.
 </p>
 
 |   |   |
