@@ -62,7 +62,7 @@ The project is still under development and is opinionated in its setup, but it c
 | <br /><br/><b>Environment Yaml</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
 <br />
-<h2 align="center">👇<br /><br /><a href="[docs/readme.md">Example Output README File</a></h2>
+<h2 align="center">👇<br /><br /><a href="https://github.com/eli64s/PydocsAI/blob/main/docs/readme.md">Example Output README File</a></h2>
 
 ---
 
