@@ -51,7 +51,7 @@ The project is still under development and is opinionated in its setup, but it c
 ## 🔮 Features
 
 <h1 align="center">👇<br /><br />1. 🤖 Codebase Documentation</h1>
-<p align="center">Have you met anyone who said they loved documenting code? That’s why we're building this project, hope you enjoy!
+<p align="center">Have you met anyone who said they loved writing documentation? That’s why we're building this project, hope you enjoy!
 </p>
 
 |   |   |

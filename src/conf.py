@@ -23,6 +23,7 @@ class Markdown:
     """Markdown template code."""
 
     head: str
+    toc: str
     body: str
     modules: str
     tree: str

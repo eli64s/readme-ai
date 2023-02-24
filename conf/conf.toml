@@ -26,6 +26,23 @@ head = """\n<div align="center">\n<h1 align="center">
 \n\n---
 """
 
+toc = """
+\n## Table of Contents
+
+\n- [Table of Contents](#-table-of-contents)
+\n- [Introdcution](#-introdcution)
+\n- [Features](#-features)
+\n- [Getting Started](#-getting-started)
+\n  - [Prerequisites](#prerequisites)
+\n  - [Installation](#installation)
+\n  - [Running {name}](#running-{name_lower})
+\n- [Roadmap](#-roadmap)
+\n- [Contributing](#-contributing)
+\n- [License](#-license)
+\n- [Contact](#-contact)
+\n- [Acknowledgments](#-acknowledgments)
+\n---"""
+
 body = """
 \n## Introduction
 \n> [insert-description]
@@ -77,7 +94,15 @@ usage = """
 \n> [insert-description]
 \n---
 
-## Acknowledgments
+\n## License
+\n> [insert-description]
+\n---
+
+\n## Contact
+\n> [insert-description]
+\n---
+
+\n## Acknowledgments
 \n> [insert-description]
 \n---
 """
