@@ -46,7 +46,7 @@ def build(cfg: object, pkgs: list, url: str) -> None:
 
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df)
-    md_usage = md_usage.format(name, url, name, name)
+    md_usage = md_usage.format(name, url, name, name, name)
 
     md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
