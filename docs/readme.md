@@ -16,23 +16,6 @@
 
 ---
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Feautres](#feautres)
-- [Repository Structure](#repository-structure)
-- [Modules](#modules)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Running PydocsAI](#running-pydocsai)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
-
----
 ## Introduction
 
 > [insert-description]
@@ -96,18 +79,16 @@
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
 ## Modules
-
 ### SRC
-
-| file         | summary                                                                                                                                                                                                                                                                                                                                                                                                                          |
-|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig. Each of these classes contains variables that are used to store information related to the project.                                                                                                                                                                                                |
-| processor.py | This code is a function that clones a GitHub repository to a temporary directory, parses the codebase to get each file as a raw string, gets the file extensions and packages to help generate project badge icons, and creates an environment file.                                                                                                                                                                             |
-| logger.py    | This code creates a Logger class that is used to log messages with different levels of severity. It also configures the logger to use a colored formatter to display the log messages with different colors for different levels of severity.                                                                                                                                                                                    |
-| model.py     | This code is a Python function that uses the OpenAI Codex API to summarize Python code. It takes two parameters: an engine name and a dictionary of file names and code contents. It returns a dictionary of file names and code summaries. It also includes an exception handler for OpenAI API errors.                                                                                                                         |
-| builder.py   | This code is a function that builds a markdown file from a configuration object, a list of packages, and a URL. It reads a CSV file, reads a JSON file, and uses the git library to clone a repository. It then formats the markdown file with the data from the CSV and JSON files, and the repository tree. It returns the formatted markdown file.                                                                            |
-| utils.py     | The FileFactory class is a utility class that provides a get_handler() method which takes a file path as an argument and returns a FileHandler object based on the file type. The FileHandler class is an abstract class that provides read_file() and write_file() methods. There are five subclasses of FileHandler that provide implementations for reading and writing different file types (CSV, JSON, HTML, MD, and TOML). |
-| main.py      | This code is a script for a program called PydocsAI. It imports various modules and reads a configuration file. It then clones a codebase from a given URL and creates a list of packages and extensions. It then uses an OpenAI engine to generate a summary of the code and writes it to a CSV file. Finally, it builds the project readme docs and prints a message to the user.                                              |
+| file         | summary                                                                                                                                                                                                                                                                                                                                                                                |
+|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig. Each of these classes contains variables that are used to store information related to the project.                                                                                                                                                      |
+| processor.py | This code is a function that clones a GitHub repository to a temporary directory, parses the codebase to get each file as a raw string, gets the file extensions and packages to help generate project badge icons, and creates an environment file.                                                                                                                                   |
+| logger.py    | This code creates a Logger class that is used to log messages with different levels of severity. It imports the logging and colorlog modules and sets up a StreamHandler with a ColoredFormatter to format the log messages. It also provides methods for logging messages with different levels of severity.                                                                          |
+| model.py     | This code is a Python function that uses the OpenAI Codex API to summarize Python code. It takes two parameters: an engine name and a dictionary of file names and code contents. It returns a dictionary of file names and code summaries. It also includes an exception handler for OpenAI API errors.                                                                               |
+| builder.py   | This code is a function that builds a markdown file from a configuration object, a list of packages, and a URL. It reads a CSV file, reads a JSON file, and uses the git library to clone a repository. It then formats the markdown file with the data from the CSV and JSON files, and the repository tree. It returns the formatted markdown file.                                  |
+| utils.py     | FileFactory is a class that creates a file handler based on the file type of the file path provided. It contains a dictionary of file types and the corresponding file handler class. The FileHandler class is the parent class for all the file handler classes. Each file handler class has a read_file and write_file method that reads and writes the file based on the file type. |
+| main.py      | This code is for a program called PydocsAI. It reads a configuration file, clones a codebase from a given URL, and uses an OpenAI engine to generate a summary of the code. It then writes the summary to a CSV file and builds the project readme docs. Finally, it logs that the processing is complete and the readme docs can be found in the docs folder.                         |
 ---
 
 

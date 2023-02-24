@@ -42,14 +42,14 @@ def build(cfg: object, pkgs: list, url: str) -> None:
     badges = get_badges(badges)
     md_badges = get_header(badges, pkgs)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
-                  
+
     md = md.format(name, md_badges)
-    md = f"{md}{md_toc}{md_body}{md_tree}"
+    md = f"{md}{md_body}{md_tree}"
 
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df)
     md_usage = md_usage.format(url=url, name=name)
-    
+
     md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
     md_file.write_file(md)
@@ -119,7 +119,7 @@ def get_tables(docs_df: pd.DataFrame) -> str:
     md_tables = []
     for idx, group in docs_df.groupby("path"):
         md_table = group[["file", "summary"]].to_markdown(index=False)
-        md_tables.append(f"### {idx}\n{md_table.upper()}")
+        md_tables.append(f"### {idx.upper()}\n{md_table}")
     md_code = "\n".join(md_tables)
     return md_code
 

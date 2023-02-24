@@ -29,9 +29,10 @@ head = """\n<div align="center">\n<h1 align="center">
 toc = """
 \n## Table of Contents
 
-\n- [Table of Contents](#-table-of-contents)
 \n- [Introdcution](#-introdcution)
 \n- [Features](#-features)
+\n- [Repository Structure](#repository-structure)
+\n- [Modules](#modules)
 \n- [Getting Started](#-getting-started)
 \n  - [Prerequisites](#prerequisites)
 \n  - [Installation](#installation)

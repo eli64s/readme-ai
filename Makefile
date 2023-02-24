@@ -1,4 +1,4 @@
-#!/usr/bin/env make
+# Makefile
 
 SHELL := $(which bash)
 VENV := myenv
@@ -19,12 +19,14 @@ ifndef OPENAI_API_KEY
 endif
 
 # Style
+.PHONY: style
 style:
 	-black .
 	-flake8
 	-isort .
 
 # Clean
+.PHONY: clean
 clean: style
 	-rm -rf .vscode
 	-find . -name '*.log' -delete
@@ -33,6 +35,7 @@ clean: style
 	-find . | grep -E ".pytest_cache" | xargs rm -rf
 	-find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
 	-find . | grep -E ".trash" | xargs rm -rf
+
 
 # Conda Virtual Environment
 conda:
