@@ -19,7 +19,8 @@ LOGGER = Logger("PydocsAI_logger")
 
 def main() -> None:
     LOGGER.warning("PydocsAI processing has begun.")
-
+    
+    cwd_path = Path.cwd()
     conf_file = Path(CONF).resolve()
     toml_file = FileFactory(conf_file).get_handler()
     conf_dict = toml_file.read_file()
@@ -27,9 +28,9 @@ def main() -> None:
 
     url = conf.github.url
     file_type = conf.github.file_type
-    files = processor.clone_codebase(file_type, url)
+    files = processor.clone_codebase(cwd_path, file_type, url)
     packages = files["packages"] + files["extensions"]
-
+  
     LOGGER.info(f"Total files to document: {len(files)}")
     LOGGER.info(f"Project dependencies: {packages}")
 

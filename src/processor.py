@@ -11,7 +11,7 @@ from pathlib import Path
 import git
 
 
-def clone_codebase(file_type, url):
+def clone_codebase(cwd_path, file_type, url):
     """Runs git clone to retrieve
         project input data.
 
@@ -26,6 +26,7 @@ def clone_codebase(file_type, url):
         files = parse_codebase(file_type, temp_dir)
         files["packages"] = get_packages(temp_dir)
         files["extensions"] = get_extensions(temp_dir)
+        create_environment_file(cwd_path)
     return files
 
 
@@ -97,3 +98,22 @@ def parse_codebase(file_type, dir):
             key = "/".join(str(path).split("/")[-2:])
             artifacts[key] = contents
     return artifacts
+
+
+def create_environment_file(repo_path):
+    env_file = os.path.join(repo_path, 'environment.yaml')
+    if os.path.exists(env_file):
+        print(f"{env_file} already exists")
+    else:
+        env_file = os.path.join(repo_path, 'environment.yml')
+        if os.path.exists(env_file):
+            print(f"{env_file} already exists")
+        else:
+            setup_dir = os.path.join(repo_path, 'setup')
+            os.makedirs(setup_dir, exist_ok=True)
+            env_file = os.path.join(setup_dir, 'environment.yaml')
+            try:
+                subprocess.run(f"conda env export > {env_file}", shell=True, check=True, cwd=repo_path)
+                print(f"Created {env_file}")
+            except subprocess.CalledProcessError as e:
+                print(f"Error creating {env_file}: {e}")

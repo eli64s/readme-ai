@@ -19,7 +19,7 @@ md = "docs/readme.md"
 head = """\n<div align="center">\n<h1 align="center">
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
 \n<div><p>{}</p></h1>
-\n<h3 align="center">[insert-project-summary]</h3>
+\n  <h3 align="center">[insert-project-summary]</h3>
 \n{}
 \n</div>
 \n\n---
@@ -46,35 +46,48 @@ tree = """
 
 usage = """
 \n---
+
 \n## Getting Started
 
-\n### Usage
-\n```Bash\n# 1. Clone GitHub repository.\ngit clone {} && cd {}
+\n### Prerequisites
 
-\n# 2...
+\nBefore you begin, ensure that you have the following prerequisites installed:
 
-\n# 3...
-\n```
+\n> - [insert-prerequisites-if-needed]
+
+\n### Installation
+
+\n1. Clone the {} repository:
+
+\n```sh\ngit clone {} && cd {}\n```
+
+\n2. Create a new Conda environment and install the required dependencies:
+
+\n```sh\nconda env create -f setup/environment.yaml\nconda activate {}\n```
+
+\n> 3. [insert-additional-steps]
+
+\n```sh\n #... \n```
+
+\n### Running PydocsAI
+
+\n```sh\n# ... \n```
 
 \n---
 
 \n## Roadmap
 
-\n- [x]
-\n- []
-\n- []
+\n> - [X] [insert-task]
+\n> - [ ] [insert-task]
+\n> - [ ] [insert-task]
 
 \n---
 
-\n## Contribute
-
+\n## Contributing
 \n> [insert-description]
-
 \n---
 
-\n## Acknowledgments
-
+## 🙏 Acknowledgments
 \n> [insert-description]
-
 \n---
 """

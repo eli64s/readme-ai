@@ -1,18 +1,20 @@
 <div align="center">
-<h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
-<div><p>PydocsAI</p></h1>
-<h3 align="center">Automate README creation, code documentation, and more!</h3>
-<h4 align="center">🏎💨 Powered by OpenAI's language model API and the tools listed below.</h4>
-
-![Markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
-![Pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
-![Anaconda](https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white)
-![Bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
-
+  <h1 align="center">
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+    <br />
+    PydocsAI
+  </h1>
+  <h3 align="center">Automate README creation, code documentation, and more!</h3>
+  <h4 align="center">🏎💨 Powered by OpenAI's language model API and the tools listed below.</h4>
+  <p align="center">
+    <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+    <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
+    <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
+    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
+    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
+    <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
+  </p>
 </div>
 
 ---
@@ -23,49 +25,60 @@ PydocsAI is a Python package that provides an automated way to generate a README
 
 The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of PyDocsAI is limited to codebases written in Python.
 
-## 🔮 Feautres
+---
 
-### *Badges*
+## 🔮 Features
 
-Analyzes your project's dependencies and requirements, displaying them as badges in the README's header section.
+<h1 align="center">👇<br /><br />1. 🤖 Codebase Documentation</h1>
+<p align="center">Have you met anyone who said they loved documenting code? hat’s why we're building this project and hope you’ll enjoy!
+</p>
 
-<div><details closed><summary>Example - Badges</a></summary>
+|   |   |
+| --- | --- |
+| <b>Codebase Documentation</b><br /><br />This project leverages OpenAI's GPT Davinci<br /> model to convert a given Python codebase into<br /> natural language, producing a well-structured<br /> project README template that includes codebase metadata, documentation<br /> and other essential details. | ![header](docs/imgs/docs.png) |
 
-![header](docs/imgs/head.png)
+<h1 align="center">👇<br /><br />⒉ 🪪 Badges</h1>
+<p align="center">Stop wasting time making your README pretty! Visualize project dependencies and compnents in your README's header section.
+</p>
 
-</detais></div>
+|   |   |
+| --- | --- |
+| <br /><br/><b>Profile Badges</b><br /><br />Analyzes your project's dependencies and requirements, displaying them as badges<br /> in the README's header section. | ![badges](docs/imgs/head.png) |
 
-### *Code Summary*
+<h1 align="center">👇<br /><br />⒊ 🌳 Project Tree</h1>
+<p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
+</p>
 
-This project leverages the base GPT Davinci model from OpenAI to translate a repository of Python code to documentaion.
+|   |   |
+| --- | --- |
+| <br /><b>Project Tree</b><br /><br />Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
 
-<div><details closed><summary>Example - Docoumentation</a></summary>
+<h1 align="center">👇<br /><br />⒋ 🐍 Environment Yaml</h1>
+<p align="center">Creates the directory and file setup/environment.yaml if it does not already exit, and writes the README installion section.
+</p>
 
-![body](docs/imgs/docs.png)</detais>
+|   |   |
+| --- | --- |
+| <br /><br/><b>Environment Yaml</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
-</div>
-
-### *Repository Tree*
-
-Creates a GitHub directory tree to display in your readme.
-
-<div><details closed><summary>Example - Tree</a></summary>
-
-![body](docs/imgs/tree.png)</detais>
-
-</div>
-
-### *README.md Creation*
-
-See this example [markdown file](docs/readme.md) that was generated by running this project for this repository.
+<br />
+<h2 align="center">👇<br /><br /><a href="[docs/readme.md">Example Output README File</a></h2>
 
 ---
 
 ## 🚀 Getting Started
 
+### Prerequisites
+
+Before you begin, ensure that you have the following prerequisites installed:
+
+- Python 3.6 or higher
+- Conda package manager (recommended)
+- Access to the OpenAI API (see OpenAI API Setup below)
+  
 ### GitHub Repository
 
-Copy the url of your project's GitHub repository and update the code below from `conf/conf.toml` below.
+Copy the url of your project's GitHub repository and update the code below in the [conf/conf.toml](conf/conf.toml) file.
 
 ```bash
 # GitHub
@@ -73,12 +86,12 @@ Copy the url of your project's GitHub repository and update the code below from 
 url = "<INSERT-GITHUB-REPO>"
 ```
 
-### OpenAI API Key
+### OpenAI API Setup
+
+To use PydocsAI, you will need an API key for OpenAI. Follow the steps below to create an API key:
 
 <details closed>
-<summary>OpenAI API Setup</summary>
-
-Follow the steps below to create an [OpenAI API key](https://platform.openai.com/docs/introduction).
+<summary>User Guide</summary>
 
 1. Go to the OpenAI website.
 2. Click the "Sign up for free" button.
@@ -87,47 +100,64 @@ Follow the steps below to create an [OpenAI API key](https://platform.openai.com
 5. Follow the instructions to create a new API key.
 6. Copy the API key and keep it in a secure place.
 
-You can now use the OpenAI API key to integrate with OpenAI's language models in your projects.
-
 </details>
 
-Copy your your OpenAI API key and update the code below from `scripts/run_main.sh` below.
+### Installation
 
-```bash
-#!/bin/bash
-set +x
+1. Clone the PydocsAI repository:
 
-export OPENAI_API_KEY="<OPENAI-API-KEY>"
+```sh
+git clone https://github.com/eli64s/PydocsAI.git && cd PydocsAI
 ```
 
----
+2. Create a new Conda environment and install the required dependencies:
 
-## 🎯 Usage
+```sh
+conda env create -f setup/environment.yaml
+conda activate pydocsai
+```
 
-```Bash
-# 1. Clone GitHub repository.
-git clone https://github.com/eli64s/PydocsAI && cd PydocsAI
+3. Set up the OpenAI API key by creating an environment variable:
 
-# 2. Setup conda environment.
-make conda
+```sh
+export OPENAI_API_KEY=<your-api-key>
+```
 
-# 3. Run PydocsAI.
-bash scripts/run_model.sh
+Alternatively, you can set up the OpenAI API key in a .env file in the root directory of the project.
+
+### Running PydocsAI
+
+Once you have installed PydocsAI, you can generate a README file for your codebase by running the following command:
+
+```sh
+python src/main.py
 ```
 
 ---
 
 ## 📍 Roadmap
 
-- [] Add compatability for additional file types.
-- [] Extend capabilities beyond code documentation.
-- [] Implement different configuration file templates.
+- [ ] Add compatability for additional file types.
+- [ ] Extend capabilities beyond code documentation.
+- [ ] Implement different configuration file templates.
 
 ---
 
-## 🧩 Contributing
+## 🤝 Contributing
 
-- Contributing is welcomed, lets build!
+We welcome contributions to PydocsAI from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 📧 Contact
+
+If you have any questions or feedback about PydocsAI, please feel free to reach out. We would be happy to hear from you!
 
 ---
 
