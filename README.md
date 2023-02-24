@@ -4,17 +4,19 @@
     <br />
     PydocsAI
   </h1>
-  <h3 align="center">Automate README creation, code documentation, and more!</h3>
-  <h4 align="center">🏎💨 Powered by OpenAI's language model API and the tools listed below.</h4>
-  <p align="center">
-    <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
-    <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
-    <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
-    <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
-    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
-    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
-    <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
-  </p>
+
+  > <h3 align="center">Automate README creation, code documentation, and more!</h3>
+  > <h3 align="center">🔌 Powered by OpenAI's language model API and the tools below.</h3>
+  >  <p align="center">
+  >   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+  >   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
+  >   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
+  >   <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
+  >   <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
+  >   <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
+  >   <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
+  > </p>
+
 </div>
 
 ---
@@ -73,12 +75,12 @@ The project is still under development and is opinionated in its setup, but it c
 | <br /><b>Project Tree</b><br /><br />Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
 
 <h1 align="center">👇<br /><br />⒋ 🐍 Environment YAML</h1>
-<p align="center">Creates the directory and file setup/environment.yaml if it does not already exit, and writes the README installion section.
+<p align="center">Creates directory and file setup/environment.yaml if missing, and writes the README installion guide.
 </p>
 
 |   |   |
 | --- | --- |
-| <br /><br/><b>Environment Yaml</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
+| <br /><br/><b>Environment YAML</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
 <br />
 <h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/PydocsAI/blob/main/docs/readme.md">Example Output README File</a></h1>

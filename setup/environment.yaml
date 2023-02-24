@@ -91,4 +91,3 @@ dependencies:
       - yarg==0.1.9
       - yarl==1.8.2
       - zipp==3.14.0
-prefix: /Users/k01101011/miniconda/envs/myenv

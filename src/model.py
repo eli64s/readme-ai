@@ -33,7 +33,6 @@ def code_to_text(engine: str, files: Dict[str, str]) -> Dict[str, str]:
 
     try:
         for file, code in files.items():
-        
             if "__init__" in file:
                 continue
 

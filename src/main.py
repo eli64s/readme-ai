@@ -42,7 +42,7 @@ def main() -> None:
     csv_file = FileFactory(conf.paths.docs).get_handler()
     csv_file.write_file(code_docs)
     builder.build(conf, packages, url)
-    
+
     LOGGER.warning("PydocsAI processing complete.")
     LOGGER.warning("Find your project readme docs ➡️ docs/*")
 

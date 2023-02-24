@@ -1,30 +1,30 @@
-# Makefile
-SHELL = /bin/bash
+#!/usr/bin/env make
 
-.PHONY: help
+SHELL := $(which bash)
+VENV := myenv
+
+.PHONY: help api_key autodocs style clean conda
+
+# Help
 help:
 	@echo "Commands:"
 	@echo "venv    : creates a virtual environment."
 	@echo "style   : executes style formatting."
 	@echo "clean   : cleans all unnecessary files."
 
-#export OPENAI_API_KEY=
+# OpenAI API key
 api_key:
-	echo "Set OPENAI_API_KEY"
-
-# Automated docstrings
-autodocs: api_key
-	autodocstrings src
+ifndef OPENAI_API_KEY
+	$(error OPENAI_API_KEY is undefined)
+endif
 
 # Style
-.PHONY: style
 style:
 	-black .
 	-flake8
 	-isort .
 
 # Clean
-.PHONY: clean
 clean: style
 	-rm -rf .vscode
 	-find . -name '*.log' -delete
@@ -36,6 +36,5 @@ clean: style
 
 # Conda Virtual Environment
 conda:
-	conda create -n myenv python=3.9 pip conda -y
-	source activate myenv && \
-	pip install -r requirements.txt
+	conda create -n $(VENV) python=3.9 -y
+	conda activate $(VENV) && pip install -r requirements.txt
