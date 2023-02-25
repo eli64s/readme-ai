@@ -30,9 +30,10 @@ def build(cfg: object, pkgs: list, url: str) -> None:
 
     md = cfg.md.head
     md_body = cfg.md.body
+    md_dropdown = cfg.md.dropdown
+    md_modules = cfg.md.modules
     md_toc = cfg.md.toc
     md_tree = cfg.md.tree
-    md_modules = cfg.md.modules
     md_usage = cfg.md.usage
 
     json_path = cfg.paths.badges
@@ -40,6 +41,7 @@ def build(cfg: object, pkgs: list, url: str) -> None:
 
     badges = json_file.read_file()
     badges = get_badges(badges)
+
     md_badges = get_header(badges, pkgs)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
 
@@ -47,7 +49,7 @@ def build(cfg: object, pkgs: list, url: str) -> None:
     md = f"{md}{md_body}{md_tree}"
 
     md_repo = get_tree(url)
-    md_tables = get_tables(docs_df)
+    md_tables = get_tables(docs_df, md_dropdown)
     md_usage = md_usage.format(url=url, name=name)
 
     md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
@@ -81,14 +83,12 @@ def get_badges(icon_dict):
 
 def get_header(badges, pkgs):
     """_summary_
-
     Parameters
     ----------
     badges
         _description_
     pkgs
         _description_
-
     Returns
     -------
         _description_
@@ -104,7 +104,7 @@ def get_header(badges, pkgs):
     return header
 
 
-def get_tables(docs_df: pd.DataFrame) -> str:
+def get_tables(docs_df: pd.DataFrame, dropdown: str) -> str:
     """_summary_
 
     Parameters
@@ -118,13 +118,13 @@ def get_tables(docs_df: pd.DataFrame) -> str:
     """
     docs_df = docs_df[~docs_df.module.isin(["extensions", "packages"])]
     docs_df[["path", "file"]] = docs_df["module"].str.rsplit("/", n=1, expand=True)
-    md_tables = []
+    
+    tables = []
     for idx, group in docs_df.groupby("path"):
-        md_table = group[["file", "summary"]].to_markdown(index=False)
-        dropdown_tb = f"\n\n<details closed><summary>{idx.upper()}</summary>\n\n{md_table}\n\n</details>"
-        md_tables.append(dropdown_tb)
-    md_code = "\n".join(md_tables)
-    return md_code
+        table = group[["file", "summary"]].to_markdown(index=False)
+        table_wrapper = dropdown.format(idx.upper(), table)
+        tables.append(table_wrapper)
+    return "\n".join(tables)
 
 
 def get_tree(url: str) -> str:

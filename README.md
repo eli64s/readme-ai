@@ -42,6 +42,7 @@
 
 ## 📍 Introdcution
 
+
 README-AI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
 
 The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of README-AI is limited to codebases written in Python.
@@ -158,6 +159,7 @@ python src/main.py
 
 ## 🧩 Roadmap
 
+- [ ] Add additional language models on top of GPT-3 to fine tune text.
 - [ ] Add compatability for additional languages. Rust next.
 - [ ] Extend capabilities beyond code documentation.
 - [ ] Implement different configuration file templates.
@@ -172,7 +174,7 @@ We welcome contributions to README-AI from the open-source community! If you wou
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 

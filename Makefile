@@ -1,6 +1,6 @@
 # Makefile
 
-SHELL := $(which bash)
+SHELL = /bin/bash
 VENV := myenv
 
 .PHONY: help api_key autodocs style clean conda

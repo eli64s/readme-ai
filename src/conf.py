@@ -22,10 +22,11 @@ class GitHub:
 class Markdown:
     """Markdown template code."""
 
-    head: str
-    toc: str
     body: str
+    head: str
+    dropdown: str
     modules: str
+    toc: str
     tree: str
     usage: str
 

@@ -14,7 +14,7 @@ from utils import FileFactory
 
 
 CONF = "conf/conf.toml"
-LOGGER = Logger("PydocsAI_logger")
+LOGGER = Logger("my_logger")
 
 
 def main() -> None:

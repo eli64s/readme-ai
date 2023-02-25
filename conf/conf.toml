@@ -6,7 +6,7 @@ key = "<OPENAI-API-KEY>"
 # GitHub
 [github]
 dirs = "*/*.py"
-url = "https://github.com/eli64s/README-AI"
+url = "https://github.com/eli64s/README-AI" #"https://github.com/GokuMohandas/mlops-course"
 
 # Paths
 [paths]
@@ -56,6 +56,7 @@ modules = """
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 \n## Modules\n
 """
+dropdown = """\n\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
 
 tree = """
 \n---
