@@ -56,7 +56,7 @@ This project is still under development and is opinionated in it's setup, but ca
 
 |                                                                                                                                                                                                                                                                             |                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <b>Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](docs/imgs/docs.png) |
+| <b>Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/docs.png?raw=true) |
 
 <h1 align="center">⒉<br>👇<br><br>🪪 Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
@@ -64,7 +64,7 @@ This project is still under development and is opinionated in it's setup, but ca
 
 |                                                                                                                                                            |                               |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>Profile Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](docs/imgs/head.png) |
+| <br><br/><b>Profile Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Project Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
@@ -72,7 +72,7 @@ This project is still under development and is opinionated in it's setup, but ca
 
 |                                                                                           |                             |
 | ----------------------------------------------------------------------------------------- | --------------------------- |
-| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README. | ![tree](docs/imgs/tree.png) |
+| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README. | ![tree](https://github.com/eli64s/README-AI/blob/main/docs/imgs/tree.png?raw=true) |
 
 <h1 align="center">⒋<br>👇<br><br>🐍 Environment YAML</h1>
 <p align="center">Creates directory and file setup/environment.yaml if missing, and writes the README installion guide.
@@ -80,7 +80,7 @@ This project is still under development and is opinionated in it's setup, but ca
 
 |                                                                                                                                                                              |                                |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| <br><br/><b>Environment YAML</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
+| <br><br/><b>Environment YAML</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![getting_started](https://github.com/eli64s/README-AI/blob/main/docs/imgs/usage.png?raw=true) |
 
 <h1 align="center">5.<br>👇<br><br>🧩 Additional Sections</h1>
 <p align="center">Additional sections to complete your project's README Markdown file.
@@ -88,7 +88,7 @@ This project is still under development and is opinionated in it's setup, but ca
 
 |                                                                                                                               |                               |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>Additional Sections</b><br><br>Creates additional sections to build a complete and robust README for your project | ![badges](docs/imgs/misc.png) |
+| <br><br/><b>Additional Sections</b><br><br>Creates additional sections to build a complete and robust README for your project | ![misc](https://github.com/eli64s/README-AI/blob/main/docs/imgs/misc.png?raw=true) |
 
 <h1 align="center">⒍<br>👇<br><br>🪄 Example Output Files</h1>
 <h2 align="center">
