@@ -54,47 +54,49 @@ This project is still under development and is opinionated in it's setup, but ca
 <p align="center">Have you met anyone who said they loved writing documentation? That’s why we're building this project, enjoy!
 </p>
 
-|                                                                                                                                                                                                                                                                             |                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <b>Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/docs.png?raw=true) |
+|                                                                                                                                                                                                                                                                                         |                                                                                      |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| <br><br/><b>📍 Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/docs.png?raw=true) |
 
 <h1 align="center">⒉<br>👇<br><br>🪪 Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
 </p>
 
-|                                                                                                                                                            |                               |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>Profile Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
+|                                                                                                                                                               |                                                                                      |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| <br><br/><b>📍 Project Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
 
-<h1 align="center">⒊<br>👇<br><br>🌲 Project Tree</h1>
+<h1 align="center">⒊<br>👇<br><br>🌲 Repository Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
 </p>
 
-|                                                                                           |                             |
-| ----------------------------------------------------------------------------------------- | --------------------------- |
-| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README. | ![tree](https://github.com/eli64s/README-AI/blob/main/docs/imgs/tree.png?raw=true) |
+|                                                                                                             |                                                                                    |
+|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| <br><br/><b>📍 GitHub Repository Tree</b><br><br>Creates a GitHub directory tree to display in your README. | ![tree](https://github.com/eli64s/README-AI/blob/main/docs/imgs/tree.png?raw=true) |
 
-<h1 align="center">⒋<br>👇<br><br>🐍 Environment YAML</h1>
+<h1 align="center">⒋<br>👇<br><br>🐍 Environment Yaml</h1>
 <p align="center">Creates directory and file setup/environment.yaml if missing, and writes the README installion guide.
 </p>
 
-|                                                                                                                                                                              |                                |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| <br><br/><b>Environment YAML</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![getting_started](https://github.com/eli64s/README-AI/blob/main/docs/imgs/usage.png?raw=true) |
+|                                                                                                                                                                                      |                                                                                                |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| <br><br/><b>📍 Environment Yaml File</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![getting_started](https://github.com/eli64s/README-AI/blob/main/docs/imgs/usage.png?raw=true) |
 
 <h1 align="center">5.<br>👇<br><br>🧩 Additional Sections</h1>
-<p align="center">Additional sections to complete your project's README Markdown file.
+<p align="center">Additional sections to build a robust README template for your project!
 </p>
 
-|                                                                                                                               |                               |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>Additional Sections</b><br><br>Creates additional sections to build a complete and robust README for your project | ![misc](https://github.com/eli64s/README-AI/blob/main/docs/imgs/misc.png?raw=true) |
+|                                                                                                                                                                                      |                                                                                                |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| <br><br/><b>📍 Automated Introduction and Features section</b><br><br>Additional boilerplate documentation generated by the OpenAI API.    | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/overview.png?raw=true) 
+| <br><br/><b>📍 Contributing section and more!</b><br><br>Generates multiple additional sections to complete your README template. | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/misc.png?raw=true) |
+
 
 <h1 align="center">⒍<br>👇<br><br>🪄 Example Output Files</h1>
 <h2 align="center">
-  <a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">1️⃣ README.md - Small Codebase</a>
+  <a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">1️⃣ README.md - Small Codebase</a>
   <br>
-  <a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex2.md">2️⃣ README.md - Large Codebase</a>
+  <a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">2️⃣ README.md - Large Codebase</a>
 </h2>
 
 ---
@@ -178,10 +180,27 @@ python src/main.py
 
 ## 🤝 Contributing
 
-Contributions are warmly welcomed from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
+Contributions are always welcome! Please follow these steps:
 
-- Found a bug, open a new issue [here.](https://github.com/eli64s/README-AI/issues)
-- Want to add a feature, create a pull-request [here.](https://github.com/eli64s/README-AI/pulls)
+1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
+2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
+3. Create a new branch with a descriptive name (e.g., `new-feature-branch` or `bugfix-issue-123`).
+   ```sh
+   git checkout -b new-feature-branch
+   ```
+4. Make changes to the project's codebase.
+5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
+   ```sh
+   git commit -m 'Implemented new feature.'
+   ```
+6. Push your changes to your forked repository on GitHub using the following command
+   ```sh
+   git push origin new-feature-branch
+   ```
+7. Create a [pull request](https://github.com/eli64s/README-AI/pulls) to the original repository.
+
+Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
+The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
 ---
 
@@ -193,7 +212,8 @@ This project is licensed under the MIT License. See [README-AI's LICENSE](LICENS
 
 ## 📲 Contact
 
-If you have any questions or feedback about README-AI, feel free to start a [discussion!](https://github.com/eli64s/README-AI/discussions)
+- If you have any questions or feedback about README-AI, feel free to start a [discussion!](https://github.com/eli64s/README-AI/discussions)
+- If you have identified a bug, open a [new issue!](https://github.com/eli64s/README-AI/issues)
 
 ---
 

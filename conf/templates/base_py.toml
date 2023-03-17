@@ -7,7 +7,11 @@ head = """\n<div align="center">
 <br>
 {}
 </h1>
-\n> <h3 align="center">[📌  insert-project-summary]</h3>
+\n> <h3 align="center">
+>
+> `[📌  INSERT-PROJECT-SUMMARY]`
+>
+> </h3>
 > <h3 align="center">🚀 Developed using OpenAI's language model API and the software tools below.</h3>
 > <p align="center">
 > {}
@@ -19,14 +23,12 @@ head = """\n<div align="center">
 toc = """
 \n## 📦 Table of Contents
 
+\n- [📦 Table of Contents](#-table-of-contents)
 \n- [👋 Introdcution](#-introdcution)
 \n- [🔮 Features](#-features)
-\n- [🌲 Repository Structure](#repository-structure)
+\n- [⚙️ Repository Structure](#repository-structure)
 \n- [🧩 Modules](#modules)
 \n- [🏎💨 Getting Started](#-getting-started)
-\n  - [Prerequisites](#prerequisites)
-\n  - [Installation](#installation)
-\n  - [Running {name}](#running-{name_lower})
 \n- [🗺 Roadmap](#-roadmap)
 \n- [🤝 Contributing](#-contributing)
 \n- [🪪 License](#-license)
@@ -36,7 +38,7 @@ toc = """
 
 body = """
 \n## 👋 Introduction
-\n> `[📌  insert-description]`
+\n{}
 \n## 🔮 Feautres
 \n{}
 """
@@ -51,7 +53,7 @@ dropdown = """\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
 tree = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## 🌲 Repository Structure
+\n## ⚙️ Repository Structure
 """
 
 usage = """\n<hr />\n
@@ -59,7 +61,7 @@ usage = """\n<hr />\n
 \n### Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
 
-\n- `[📌  insert-prerequisites-if-needed]`
+\n- `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
 
 \n### Installation
 \n1. Clone the {name} repository:
@@ -76,38 +78,49 @@ usage = """\n<hr />\n
 
 ## 🗺 Roadmap
 
-> - [X] `[📌  insert-task]`
-> - [ ] `[📌  insert-task]`
-> - [ ] `[📌  insert-task]`
+- [X] `[📌  INSERT-TASK-TODO]`
+- [ ] `[📌  INSERT-TASK-TODO]`
+- [ ] `[📌  INSERT-TASK-TODO]`
 \n---
 
 ## 🤝 Contributing
 
-We appreciate any contributions you can make to this project! To contribute, please follow these steps:
+Contributions are always welcome! Please follow these steps:
 
-1. Fork the repository.
-2. Create a new branch with a descriptive name (e.g., `feature-add-new-feature` or `bugfix-issue-123`).
-3. Make your changes in the new branch.
-4. Commit your changes, and push them to your fork.
-5. Create a pull request to the original repository.
+1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
+2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
+3. Create a new branch with a descriptive name (e.g., `new-feature-branch` or `bugfix-issue-123`).
+   ```sh
+   git checkout -b new-feature-branch
+   ```
+4. Make changes to the project's codebase.
+5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
+   ```sh
+   git commit -m 'Implemented new feature.'
+   ```
+6. Push your changes to your forked repository on GitHub using the following command
+   ```sh
+   git push origin new-feature-branch
+   ```
+7. Create a pull request to the original repository.
 
-Please ensure your code follows the project's coding style and passes any tests before submitting a pull request.  
-If you have any questions or need assistance, feel free to open an issue.
+Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
+The project maintainers will review your changes and provide feedback or merge them into the main branch.
 \n---
 
 ## 🪪 License
 
-This project is licensed under the `[📌  insert-license-i.e-MIT]` License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 \n---
 
 ## 📲 Contact
 
-If you have any questions or concerns, please open an issue on GitHub or contact the repository owner at `[📌  your-email@example.com]`
+If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  your-email@example.com]`
 
 \n---
 
 ## 🙏 Acknowledgments
-\n> `[📌  insert-description]`
+\n `[📌  INSERT-DESCRIPTION]`
 \n---
 """

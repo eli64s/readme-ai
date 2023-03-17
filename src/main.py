@@ -21,7 +21,6 @@ def main() -> None:
     LOGGER.info("README-AI is now executing.")
 
     # Load config file
-    cwd_path = Path.cwd()
     conf_file = Path(CONF).resolve()
     toml_file = FileFactory(conf_file).get_handler()
     conf_dict = toml_file.read_file()
@@ -31,6 +30,7 @@ def main() -> None:
     dirs = conf.github.dirs
     raw_docs = conf.paths.docs
     repo_url = conf.github.url
+    cwd_path = Path.cwd()
     files = processor.clone_codebase(cwd_path, dirs, repo_url)
     repo_name = processor.extract_repo_name(repo_url)
     repo_pkgs = files["packages"] + files["extensions"]
@@ -38,18 +38,20 @@ def main() -> None:
     LOGGER.info(f"Total files to document: {len(files)}")
     LOGGER.info(f"Project dependencies: {repo_pkgs}")
 
-    # OpenAI API call
+    # OpenAI API
     prompt_feats = conf.api.prompt_features
-    features = model.generate_readme_section(repo_url, prompt_feats)
+    feats_text = model.generate_readme_features(repo_url, prompt_feats)
+    intro_text = model.generate_readme_intro(repo_url)
     code_docs = model.code_to_text(files)
 
-    LOGGER.info(f"OpenAI generated features: {features}")
+    LOGGER.info(f"OpenAI generated features: {feats_text}")
+    LOGGER.info(f"OpenAI generated introduction: {intro_text}")
     LOGGER.info(f"OpenAI generated documentation: {code_docs}")
 
-    # Build Markdown file
+    # Build README.md
     csv_file = FileFactory(raw_docs).get_handler()
     csv_file.write_file(code_docs)
-    builder.build(conf, features, repo_pkgs, repo_name, repo_url)
+    builder.build(conf, feats_text, intro_text, repo_pkgs, repo_name, repo_url)
 
     LOGGER.info("README-AI execution complete.")
     LOGGER.info("Find your project README.md ➡️ docs/*")

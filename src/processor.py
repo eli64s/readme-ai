@@ -33,10 +33,40 @@ def clone_codebase(cwd_path, file_type, url):
         files = parse_codebase(file_type, temp_dir)
         files["packages"] = get_packages(temp_dir)
         files["extensions"] = get_extensions(temp_dir)
-        create_environment_file(cwd_path, temp_dir)
+        create_environ_file(cwd_path, temp_dir)
 
     repo.close()
     return files
+
+
+def create_environ_file(repo_path, temp_dir):
+    """Create a conda environment file.
+
+    Args:
+        repo_path (str): The path to the repository.
+    """
+    file_name = "environment.yml"
+    env_file = os.path.join(temp_dir, file_name)
+    if os.path.exists(env_file):
+        print(f"{env_file} already exists")
+        return
+
+    env_file = os.path.join(temp_dir, file_name)
+    if os.path.exists(env_file):
+        print(f"{env_file} already exists")
+        return
+
+    setup_dir = os.path.join(repo_path, "setup")
+    os.makedirs(setup_dir, exist_ok=True)
+    env_file = os.path.join(setup_dir, file_name)
+
+    try:
+        subprocess.run(
+            f"conda env export > {env_file}", shell=True, check=True, cwd=repo_path
+        )
+        print(f"Created {env_file}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error creating {env_file}: {e}")
 
 
 def extract_repo_name(repo_url):
@@ -107,32 +137,3 @@ def parse_codebase(file_type, directory):
             key = "/".join(path.relative_to(directory).parts[-2:])
             artifacts[key] = contents
     return artifacts
-
-
-def create_environment_file(repo_path, temp_dir):
-    """Create a conda environment file.
-
-    Args:
-        repo_path (str): The path to the repository.
-    """
-    env_file = os.path.join(temp_dir, "environment.yaml")
-    if os.path.exists(env_file):
-        print(f"{env_file} already exists")
-        return
-
-    env_file = os.path.join(temp_dir, "environment.yml")
-    if os.path.exists(env_file):
-        print(f"{env_file} already exists")
-        return
-
-    setup_dir = os.path.join(repo_path, "setup")
-    os.makedirs(setup_dir, exist_ok=True)
-    env_file = os.path.join(setup_dir, "environment.yaml")
-
-    try:
-        subprocess.run(
-            f"conda env export > {env_file}", shell=True, check=True, cwd=repo_path
-        )
-        print(f"Created {env_file}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error creating {env_file}: {e}")

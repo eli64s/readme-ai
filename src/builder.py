@@ -10,7 +10,9 @@ import pandas as pd
 from utils import FileFactory
 
 
-def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
+def build(
+    cfg: object, features: str, intro: str, pkgs: list, name: str, url: str
+) -> None:
     """_summary_
     Parameters
     ----------
@@ -39,31 +41,29 @@ def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
 
     json_path = cfg.paths.badges
     json_file = FileFactory(json_path).get_handler()
+    json_dict = json_file.read_file()
+    badges = get_badges(json_dict)
 
-    badges = json_file.read_file()
-    badges = get_badges(badges)
-
-    pkgs.append("markdown")
-    pkgs.append("openai")
+    pkgs.extend(["markdown"])
     md_badges = get_header(badges, pkgs)
-    md_body = md_body.format(features)
+    md_body = md_body.format(intro, features)
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df, md_dropdown)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
     md_usage = md_usage.format(url=url, name=name)
 
     md = md.format(name, md_badges)
-    md = f"{md}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_usage}"
+    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
     md_file.write_file(md)
 
 
-def get_badges(icon_dict):
+def get_badges(json_dict):
     """_summary_
 
     Parameters
     ----------
-    icon_dict
+    json_dict
         _description_
 
     Returns
@@ -74,7 +74,7 @@ def get_badges(icon_dict):
     idx = 0
     while True:
         try:
-            row = icon_dict["icons"][idx]
+            row = json_dict["icons"][idx]
             icon_map[row["name"].lower()] = row
         except:
             break
@@ -117,12 +117,14 @@ def get_tables(docs_df: pd.DataFrame, dropdown: str) -> str:
     -------
         _description_
     """
-    docs_df = docs_df[~docs_df.module.isin(["extensions", "packages"])]
-    docs_df[["path", "file"]] = docs_df["module"].str.rsplit("/", n=1, expand=True)
+    docs_df = docs_df[~docs_df["Module"].isin(["extensions", "packages"])]
+    docs_df[["Directory", "File Name"]] = docs_df["Module"].str.rsplit(
+        "/", n=1, expand=True
+    )
 
     tables = []
-    for idx, group in docs_df.groupby("path"):
-        table = group[["file", "summary"]].to_markdown(index=False)
+    for idx, group in docs_df.groupby("Directory"):
+        table = group[["File Name", "Summary"]].to_markdown(index=False)
         table_wrapper = dropdown.format(idx.upper(), table)
         tables.append(table_wrapper)
     return "\n".join(tables)

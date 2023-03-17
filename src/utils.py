@@ -49,7 +49,7 @@ class CSVFileHandler(FileHandler):
     def write_file(self, data):
         with open(self.file_path, "w") as csv_file:
             writer = csv.writer(csv_file)
-            writer.writerow(["module", "summary"])
+            writer.writerow(["Module", "Summary"])
             for row in data:
                 writer.writerow(row)
 
