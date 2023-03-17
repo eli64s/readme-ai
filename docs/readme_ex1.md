@@ -1,34 +1,39 @@
 
 <div align="center">
 <h1 align="center">
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+<br>README-AI</h1>
 
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
-
-<div><p>README-AI</p></h1>
-
-
-> [insert-project-summary]
-
-![openai](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)![sh](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+> <h3 align="center">[👉 insert-project-summary]</h3>
+> <p align="center">
+> 
+> ![openai](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
+> ![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+> ![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
+> ![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+> ![sh](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
+> ![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
+> ![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+> </p>
 
 </div>
 
 
 ---
 
-## Introduction
+## 📍 Introduction
 
-> [insert-description]
+> [👉 insert-description]
 
-## Feautres
+## 🔮 Feautres
 
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
-## Repository Structure
+## 🌲 Repository Structure
 ```bash
 .
 ├── LICENSE
@@ -36,7 +41,9 @@
 ├── README.md
 ├── conf
 │   ├── badges.json
-│   └── conf.toml
+│   ├── conf.toml
+│   └── templates
+│       └── base_py.toml
 ├── docs
 │   ├── imgs
 │   │   ├── docs.png
@@ -44,7 +51,8 @@
 │   │   ├── tree.png
 │   │   └── usage.png
 │   ├── raw_data.csv
-│   └── readme.md
+│   ├── readme.md
+│   └── readme_ex2.md
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
@@ -73,30 +81,28 @@
     ├── test_processor.py
     └── test_utils.py
 
-8 directories, 34 files
+9 directories, 36 files
 ```
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## Modules
-
+## 🧩 Modules
 
 
 <details closed><summary>SRC</summary>
 
-| file         | summary                                                                                                                                                                                                                                                                                   |
-|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                                                                                             |
-| processor.py | This code is a Python script that clones a GitHub repository to a temporary directory, parses the codebase to get each file as a raw string, gets the file extensions and packages to help generate project badge icons, and creates an environment file.                                 |
-| logger.py    | This code creates a Logger class that is used to log messages with different levels of severity.It also configures the logger to use a colored formatter to display the log messages with different colors for different levels of severity.                                              |
-| model.py     | This code is a Python function that uses the OpenAI Codex API to summarize Python code.It takes two parameters: an engine name and a dictionary of file names and code contents.                                                                                                          |
-| builder.py   | This code is a function that builds a markdown file from a configuration object, a list of packages, and a URL.It reads a CSV file, creates a header with badges, creates a table of contents, creates a tree of the repository, creates a table of modules, and creates a usage section. |
-| utils.py     | FileFactory is a class that creates a file handler based on the file type of the file path provided.It contains a dictionary of file types and their corresponding file handler classes.                                                                                                  |
-| main.py      | This code is a script for a program called PydocsAI.It imports various modules and reads a configuration file.It then clones a codebase from a given URL and creates a list of packages and extensions.                                                                                   |
+| file         | summary                                                                                                                                                                                                                                      |
+|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                                                |
+| processor.py | This code provides functions to clone a Git repository, parse its contents, and create a conda environment file.It uses the git, contextlib, os, shutil, and tempfile modules.                                                               |
+| logger.py    | This code creates a Logger class that is used to log messages with different levels of severity.It also configures the logger to use a colored formatter to display the log messages with different colors for different levels of severity. |
+| model.py     | This code is a Python module that provides a function to summarize Python code using OpenAI's Codex API.It also provides a function to summarize text.                                                                                       |
+| builder.py   | This code is a function that builds a markdown file from a configuration object, a list of packages, and a URL.It reads a CSV file, reads a JSON file, and uses the git library to clone a repository.                                       |
+| utils.py     | FileFactory is a class that creates a FileHandler object based on the file type of the file path provided.The FileHandler class is an abstract class that provides methods for reading and writing files.                                    |
+| main.py      | This code imports various modules and reads a configuration file.It then clones a codebase from a given URL and creates a list of packages and extensions.                                                                                   |
 
 </details>
-
 
 <details closed><summary>TESTS</summary>
 
@@ -114,14 +120,14 @@
 </details>
 <hr />
 
-## Getting Started
+## 🏎💨 Getting Started
 
 ### Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
 
 
-> - [insert-prerequisites-if-needed]
+> - [👉 insert-prerequisites-if-needed]
 
 
 ### Installation
@@ -140,7 +146,7 @@ conda env create -f setup/environment.yaml
 conda activate README-AI
 ```
 
-> 3. [insert-additional-steps]
+> 3. [👉 insert-additional-steps]
 
 
 ```sh
@@ -155,42 +161,34 @@ conda activate README-AI
 
 ---
 
+## 🗺 Roadmap
 
-## Roadmap
-
-
-> - [X] [insert-task]
-
-> - [ ] [insert-task]
-
-> - [ ] [insert-task]
+> - [X] [👉 insert-task]
+> - [ ] [👉 insert-task]
+> - [ ] [👉 insert-task]
 
 ---
 
+## 🤝 Contributing
 
-## Contributing
-
-> [insert-description]
-
----
-
-
-## License
-
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
+## 🪪 License
 
-## Contact
-
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
+## 📲 Contact
 
-## Acknowledgments
+> [👉 insert-description]
 
-> [insert-description]
+---
+
+## 🙏 Acknowledgments
+
+> [👉 insert-description]
 
 ---

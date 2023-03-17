@@ -9,6 +9,7 @@ import openai
 import spacy
 from spacy.lang.en import English
 
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
 parser = English()

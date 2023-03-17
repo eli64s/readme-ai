@@ -1,60 +1,62 @@
 # README Template: base_py
 
 [md]
-head = """\n<div align="center">\n<h1 align="center">
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
-\n<div><p>{}</p></h1>
-
-\n> [insert-project-summary]
-\n{}
-\n</div>
-\n\n---
+head = """\n<div align="center">
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+<br>{}</h1>
+\n> <h3 align="center">[👉 insert-project-summary]</h3>
+> <p align="center">
+> {}
+> </p>
+\n</div>\n
+\n---
 """
 
 toc = """
-\n## Table of Contents
+\n## 📦 Table of Contents
 
-\n- [Introdcution](#-introdcution)
-\n- [Features](#-features)
-\n- [Repository Structure](#repository-structure)
-\n- [Modules](#modules)
-\n- [Getting Started](#-getting-started)
+\n- [📍 Introdcution](#-introdcution)
+\n- [🔮 Features](#-features)
+\n- [🌲 Repository Structure](#repository-structure)
+\n- [🧩 Modules](#modules)
+\n- [🏎💨 Getting Started](#-getting-started)
 \n  - [Prerequisites](#prerequisites)
 \n  - [Installation](#installation)
 \n  - [Running {name}](#running-{name_lower})
-\n- [Roadmap](#-roadmap)
-\n- [Contributing](#-contributing)
-\n- [License](#-license)
-\n- [Contact](#-contact)
-\n- [Acknowledgments](#-acknowledgments)
+\n- [🗺 Roadmap](#-roadmap)
+\n- [🤝 Contributing](#-contributing)
+\n- [🪪 License](#-license)
+\n- [📲 Contact](#-contact)
+\n- [🙏 Acknowledgments](#-acknowledgments)
 \n---"""
 
 body = """
-\n## Introduction
-\n> [insert-description]
-\n## Feautres
-\n> [insert-description]
+\n## 📍 Introduction
+\n> [👉 insert-description]
+\n## 🔮 Feautres
+\n> [👉 insert-description]
 """
 
 modules = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-\n## Modules\n
+\n## 🧩 Modules\n
 """
-dropdown = """\n\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
+dropdown = """\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
 
 tree = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## Repository Structure
+\n## 🌲 Repository Structure
 """
 
 usage = """\n<hr />\n
-## Getting Started
+## 🏎💨 Getting Started
 \n### Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
 
-\n> - [insert-prerequisites-if-needed]
+\n> - [👉 insert-prerequisites-if-needed]
 
 \n### Installation
 \n1. Clone the {name} repository:
@@ -62,33 +64,33 @@ usage = """\n<hr />\n
 \n```sh\ngit clone {url} && cd {name}\n```
 \n2. Create a new Conda environment and install the required dependencies:
 \n```sh\nconda env create -f setup/environment.yaml\nconda activate {name}\n```
-\n> 3. [insert-additional-steps]
+\n> 3. [👉 insert-additional-steps]
 
 \n```sh\n #... \n```
 \n### Running {name}
 \n```sh\n# ... \n```
 \n---
 
-\n## Roadmap
+## 🗺 Roadmap
 
-\n> - [X] [insert-task]
-\n> - [ ] [insert-task]
-\n> - [ ] [insert-task]
+> - [X] [👉 insert-task]
+> - [ ] [👉 insert-task]
+> - [ ] [👉 insert-task]
 \n---
 
-\n## Contributing
-\n> [insert-description]
+## 🤝 Contributing
+\n> [👉 insert-description]
 \n---
 
-\n## License
-\n> [insert-description]
+## 🪪 License
+\n> [👉 insert-description]
 \n---
 
-\n## Contact
-\n> [insert-description]
+## 📲 Contact
+\n> [👉 insert-description]
 \n---
 
-\n## Acknowledgments
-\n> [insert-description]
+## 🙏 Acknowledgments
+\n> [👉 insert-description]
 \n---
 """

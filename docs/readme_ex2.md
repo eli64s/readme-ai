@@ -1,39 +1,45 @@
 
 <div align="center">
 <h1 align="center">
+<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+<br>mlops-course</h1>
 
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100">
-
-<div><p>mlops-course</p></h1>
-
-
-> [insert-project-summary]
-
-
-![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)![fastapi](https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white)![mlflow](https://img.shields.io/badge/MLflow-0194E2.svg?style=for-the-badge&logo=MLflow&logoColor=white)![numpy](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white)
-![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![scikit-learn](https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
-
-![streamlit](https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white)![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
-![ipynb](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+> <h3 align="center">[👉 insert-project-summary]</h3>
+> <p align="center">
+> 
+> ![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
+> ![fastapi](https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white)
+> ![mlflow](https://img.shields.io/badge/MLflow-0194E2.svg?style=for-the-badge&logo=MLflow&logoColor=white)
+> ![numpy](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white)
+> ![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+> ![scikit-learn](https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+> 
+> ![streamlit](https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white)
+> ![ipynb](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)
+> ![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
+> ![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
+> ![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+> ![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+> </p>
 
 </div>
 
 
 ---
 
-## Introduction
+## 📍 Introduction
 
-> [insert-description]
+> [👉 insert-description]
 
-## Feautres
+## 🔮 Feautres
 
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
-## Repository Structure
+## 🌲 Repository Structure
 ```bash
 .
 ├── Dockerfile
@@ -113,8 +119,7 @@
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## Modules
-
+## 🧩 Modules
 
 
 <details closed><summary>AIRFLOW</summary>
@@ -124,7 +129,6 @@
 | webserver_config.py | This code provides the default configuration for the Airflow webserver.It includes settings for authentication type, user registration, recaptcha, mail server, and theme. |
 
 </details>
-
 
 <details closed><summary>APP</summary>
 
@@ -137,37 +141,33 @@
 
 </details>
 
-
 <details closed><summary>CODE</summary>
 
 | file             | summary                                                                                                                                                                                                                                                               |
 |:-----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | test_utils.py    | This code tests two functions from the tagifai.utils module.The first function, save_and_load_dict, tests the ability to save a dictionary to a file and then load it back.                                                                                           |
-| test_predict.py  | This code is testing the custom_predict function from the tagifai module.It is testing the function with three different thresholds (0.5, 0.6, and 0.75) and the expected output for each threshold (0, 1, and 1 respectively).                                       |
+| test_predict.py  | This code is a pytest function that tests the custom_predict function from the tagifai module.It tests the function with three different thresholds and the expected output for each.                                                                                 |
 | test_evaluate.py | This code tests the tagifai evaluate module.It imports numpy, pandas, pytest, and the slicing module from snorkel.It then creates a dataframe with three entries and tests two slice functions, nlp_cnn and short_text, to make sure they return the correct indices. |
 | test_data.py     | This code tests various functions related to data preprocessing and manipulation.It imports the necessary libraries and creates a fixture for a dataframe.                                                                                                            |
 | test_main.py     | This code tests the Tagifai main module by running various commands such as elt-data, train-model, optimize, load-artifacts, and predict-tag.                                                                                                                         |
 
 </details>
 
-
 <details closed><summary>CONFIG</summary>
 
-| file      | summary                                                                                                                                                         |
-|:----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| config.py | This code imports logging, sys, and Path from the pathlib library.It also imports mlflow.It then sets up URLs, directories, stores, and logging configurations. |
+| file      | summary                                                                                                                                                                       |
+|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| config.py | This code imports logging, sys, and pathlib, and sets up URLs, directories, stores, and logging configurations.It also sets up MLFlow model registry and a list of stopwords. |
 
 </details>
-
 
 <details closed><summary>DAGS</summary>
 
-| file         | summary                                                                                                                                                                                                                                                                                                       |
-|:-------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| workflows.py | The code provided is a Python script that creates a DAG (Directed Acyclic Graph) for MLOps tasks.It includes a PythonOperator to extract data from a BigQuery data warehouse, a GreatExpectationsOperator to validate the data, a PythonOperator to optimize the data, and a PythonOperator to train a model. |
+| file         | summary                                                                                                                                                                                                                     |
+|:-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| workflows.py | The code provided is a Python script that creates a DAG (Directed Acyclic Graph) for MLOps tasks.It includes tasks to extract data from a BigQuery data warehouse, validate the data, optimize the data, and train a model. |
 
 </details>
-
 
 <details closed><summary>MODEL</summary>
 
@@ -177,7 +177,6 @@
 
 </details>
 
-
 <details closed><summary>STREAMLIT</summary>
 
 | file   | summary                                                                                                                                                                                                                                     |
@@ -186,29 +185,28 @@
 
 </details>
 
-
 <details closed><summary>TAGIFAI</summary>
 
-| file        | summary                                                                                                                                                                                                                                                              |
-|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| predict.py  | This code provides a function, predict(), that takes in a list of texts and a dictionary of artifacts from a run and returns a list of predictions for the input texts.                                                                                              |
-| utils.py    | This code provides two functions to load and save a dictionary from/to a JSON file, and a function to set seeds for reproducibility.                                                                                                                                 |
-| train.py    | This code is a function that trains a model on data using the SGDClassifier, TfidfVectorizer, and RandomOverSampler.It also includes an objective function for optimization trials that sets additional attributes and returns the overall performance of the model. |
-| evaluate.py | This code provides a function to generate performance metrics for a given set of true labels and predicted labels.It also provides a slicing function to generate metrics for slices of data.                                                                        |
-| main.py     | This code provides a command line interface (CLI) for a tag prediction model.It includes commands to extract, load, and transform data, train a model, optimize hyperparameters, and predict tags.                                                                   |
-| data.py     | This code provides functions to preprocess data, encode labels, and generate balanced data splits.It imports json, re, collections, typing, numpy, pandas, nltk, and sklearn.                                                                                        |
+| file        | summary                                                                                                                                                                                            |
+|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| predict.py  | This code provides a function, predict(), that takes in a list of texts and a dictionary of artifacts from a run and returns a list of predictions for the input texts.                            |
+| utils.py    | This code provides two functions to load and save a dictionary from/to a JSON file, and a function to set seeds for reproducibility.                                                               |
+| train.py    | This code is a function that trains a model on data using the SGDClassifier, TfidfVectorizer, and RandomOverSampler.It also optimizes the model using Optuna and logs the metrics using MLFlow.    |
+| evaluate.py | This code provides a function to generate performance metrics for a given set of true labels and predicted labels.It also provides a slicing function to generate metrics for slices of data.      |
+| main.py     | This code provides a command line interface (CLI) for a tag prediction model.It includes commands to extract, load, and transform data, train a model, optimize hyperparameters, and predict tags. |
+| data.py     | This code provides functions to preprocess data, encode labels, and generate balanced data splits.It imports json, re, collections, typing, numpy, pandas, nltk, and sklearn.                      |
 
 </details>
 <hr />
 
-## Getting Started
+## 🏎💨 Getting Started
 
 ### Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
 
 
-> - [insert-prerequisites-if-needed]
+> - [👉 insert-prerequisites-if-needed]
 
 
 ### Installation
@@ -227,7 +225,7 @@ conda env create -f setup/environment.yaml
 conda activate mlops-course
 ```
 
-> 3. [insert-additional-steps]
+> 3. [👉 insert-additional-steps]
 
 
 ```sh
@@ -242,42 +240,34 @@ conda activate mlops-course
 
 ---
 
+## 🗺 Roadmap
 
-## Roadmap
-
-
-> - [X] [insert-task]
-
-> - [ ] [insert-task]
-
-> - [ ] [insert-task]
+> - [X] [👉 insert-task]
+> - [ ] [👉 insert-task]
+> - [ ] [👉 insert-task]
 
 ---
 
+## 🤝 Contributing
 
-## Contributing
-
-> [insert-description]
-
----
-
-
-## License
-
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
+## 🪪 License
 
-## Contact
-
-> [insert-description]
+> [👉 insert-description]
 
 ---
 
+## 📲 Contact
 
-## Acknowledgments
+> [👉 insert-description]
 
-> [insert-description]
+---
+
+## 🙏 Acknowledgments
+
+> [👉 insert-description]
 
 ---

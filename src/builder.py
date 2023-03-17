@@ -100,7 +100,7 @@ def get_header(badges, pkgs):
             if not pkg_name:
                 pkg_name = pkg.strip()
             badge = badges[pkg_name]["src"]
-            header += f"![{pkg_name}]({badge})"
+            header += f"\n> ![{pkg_name}]({badge})"
     return header
 
 
@@ -118,7 +118,7 @@ def get_tables(docs_df: pd.DataFrame, dropdown: str) -> str:
     """
     docs_df = docs_df[~docs_df.module.isin(["extensions", "packages"])]
     docs_df[["path", "file"]] = docs_df["module"].str.rsplit("/", n=1, expand=True)
-    
+
     tables = []
     for idx, group in docs_df.groupby("path"):
         table = group[["file", "summary"]].to_markdown(index=False)

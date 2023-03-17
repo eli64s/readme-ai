@@ -83,8 +83,16 @@ The project is still under development and is opinionated in its setup, but it c
 | --- | --- |
 | <br /><br/><b>Environment YAML</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
+<h1 align="center">👇<br /><br />5. 🧩 And More!</h1>
+<p align="center">Additional sections to complete your project's README.
+</p>
+
+|   |   |
+| --- | --- |
+| <br /><br/><b>README Sections</b><br /><br />Creates additional sections to build a complete and<br /> robust README.md for your project | ![badges](docs/imgs/misc.png) |
+
 <br />
-<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme.md">Example Output README File</a></h1>
+<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">Example Output README File</a></h1>
 
 ---
 

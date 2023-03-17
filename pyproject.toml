@@ -1,19 +1,19 @@
 [tool.poetry]
-name = "PydocsAI"
+name = "README-AI"
 version = "0.0.0"
 description = "Automate README creation and documentation for your projects!"
 authors = "eli64s"
 license = "Apache-2.0"
 readme = "README.md"
-homepage = "https://github.com/eli64s/PydocsAI"
-repository = "https://github.com/eli64s/PydocsAI"
+homepage = "https://github.com/eli64s/README-AI"
+repository = "https://github.com/eli64s/README-AI"
 documentation = ""
 classifiers = [
     "Development Status :: 5 - Production/Stable",
 ]
 
 [tool.poetry.urls]
-Changelog = "https://github.com/eli64s/PydocsAI/releases"
+Changelog = "https://github.com/eli64s/README-AI/releases"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -46,7 +46,7 @@ xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
 
 [tool.poetry.scripts]
-pydocsai = "pydocsai.__main__:main"
+README-AI = "README-AI.__main__:main"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
