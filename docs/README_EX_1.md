@@ -43,7 +43,7 @@ README AI
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📲 Contact](#-contact)
+- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -232,7 +232,7 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ---
 
-## 📲 Contact
+## 📫 Contact
 
 If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  your-email@example.com]`
 

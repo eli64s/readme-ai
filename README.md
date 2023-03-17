@@ -35,7 +35,7 @@
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📲 Contact](#-contact)
+- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -44,7 +44,21 @@
 
 README-AI provides an automated way to generate a README Markdown files and create boilerplate documentation for your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
-This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
+<style>
+    .warning {
+        border: 2px solid #ffa500;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #ffefd5;
+        color: #ff8c00;
+    }
+</style>
+
+<div class="warning">
+    <p><strong>🚧 Note:</strong><br>This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
+    </p>
+</div>
+
 
 ---
 
@@ -58,13 +72,13 @@ This project is still under development and is opinionated in it's setup, but ca
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | <br><br/><b>📍 Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](https://github.com/eli64s/README-AI/blob/main/docs/imgs/docs.png?raw=true) |
 
-<h1 align="center">⒉<br>👇<br><br>🪪 Badges</h1>
+<h1 align="center">⒉<br>👇<br><br>🪪 Project Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
 </p>
 
 |                                                                                                                                                               |                                                                                      |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| <br><br/><b>📍 Project Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
+| <br><br/><b>📍 Project Badges </b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. <br><br/><b>📍 Table of Contents </b><br><br>Creates table of contents section for your README file. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Repository Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
@@ -210,7 +224,7 @@ This project is licensed under the MIT License. See [README-AI's LICENSE](LICENS
 
 ---
 
-## 📲 Contact
+## 📫 Contact
 
 - If you have any questions or feedback about README-AI, feel free to start a [discussion!](https://github.com/eli64s/README-AI/discussions)
 - If you have identified a bug, open a [new issue!](https://github.com/eli64s/README-AI/issues)

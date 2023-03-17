@@ -51,7 +51,7 @@ toc = """
 \n- [🗺 Roadmap](#-roadmap)
 \n- [🤝 Contributing](#-contributing)
 \n- [🪪 License](#-license)
-\n- [📲 Contact](#-contact)
+\n- [📫 Contact](#-contact)
 \n- [🙏 Acknowledgments](#-acknowledgments)
 \n---"""
 
@@ -133,7 +133,7 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 \n---
 
-## 📲 Contact
+## 📫 Contact
 
 If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  your-email@example.com]`
 
