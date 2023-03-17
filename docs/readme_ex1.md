@@ -2,18 +2,22 @@
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>README-AI</h1>
+<br>
+README AI
+</h1>
 
-> <h3 align="center">[👉 insert-project-summary]</h3>
+> <h3 align="center">[📌  insert-project-summary]</h3>
+> <h3 align="center">🚀 Developed using OpenAI's language model API and the software tools below.</h3>
 > <p align="center">
-> 
+>
 > ![openai](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
 > ![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-> ![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
 > ![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
+> ![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white)
 > ![sh](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white)
 > ![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
 > ![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+
 > </p>
 
 </div>
@@ -21,13 +25,17 @@
 
 ---
 
-## 📍 Introduction
+## 👋 Introduction
 
-> [👉 insert-description]
+> `[📌  insert-description]`
 
 ## 🔮 Feautres
 
-> [👉 insert-description]
+- README-AI is a tool that can help you generate a README file for your project.
+
+- README-AI takes care of all the common sections that a README file should have, such as the Project Description, Installation Instructions, andUsage Instructions.
+
+- README-AI is easy to use and only takes a few minutes to generate a README file for your project.
 
 ---
 
@@ -48,10 +56,11 @@
 │   ├── imgs
 │   │   ├── docs.png
 │   │   ├── head.png
+│   │   ├── misc.png
 │   │   ├── tree.png
 │   │   └── usage.png
 │   ├── raw_data.csv
-│   ├── readme.md
+│   ├── readme_ex1.md
 │   └── readme_ex2.md
 ├── pyproject.toml
 ├── requirements.txt
@@ -81,7 +90,7 @@
     ├── test_processor.py
     └── test_utils.py
 
-9 directories, 36 files
+9 directories, 37 files
 ```
 ---
 
@@ -92,30 +101,30 @@
 
 <details closed><summary>SRC</summary>
 
-| file         | summary                                                                                                                                                                                                                                      |
-|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| conf.py      | This code defines a class called AppConfig which contains five other classes: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                                                |
-| processor.py | This code provides functions to clone a Git repository, parse its contents, and create a conda environment file.It uses the git, contextlib, os, shutil, and tempfile modules.                                                               |
-| logger.py    | This code creates a Logger class that is used to log messages with different levels of severity.It also configures the logger to use a colored formatter to display the log messages with different colors for different levels of severity. |
-| model.py     | This code is a Python module that provides a function to summarize Python code using OpenAI's Codex API.It also provides a function to summarize text.                                                                                       |
-| builder.py   | This code is a function that builds a markdown file from a configuration object, a list of packages, and a URL.It reads a CSV file, reads a JSON file, and uses the git library to clone a repository.                                       |
-| utils.py     | FileFactory is a class that creates a FileHandler object based on the file type of the file path provided.The FileHandler class is an abstract class that provides methods for reading and writing files.                                    |
-| main.py      | This code imports various modules and reads a configuration file.It then clones a codebase from a given URL and creates a list of packages and extensions.                                                                                   |
+| file         | summary                                                                                                                                                                                                             |
+|:-------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| conf.py      | This code defines a configuration constants object, AppConfig, which contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                     |
+| processor.py | This code is a processor for a Git repository. It clones the repository, parses the contents, and creates an environment file.                                                                                      |
+| logger.py    | This code is a logger class that provides methods for logging messages with different levels of severity. It also configures the logger to output messages with colored formatting.                                 |
+| model.py     | This code is a Python module that uses OpenAI's Codex API to summarize Python code. It takes a dictionary of file names and code contents as an argument and returns a dictionary of file names and code summaries. |
+| builder.py   | This code is a Python script that builds a markdown file from a configuration object, a list of packages, and a URL. It uses the pandas library to read a CSV file, and the git library to clone a repository.      |
+| utils.py     | This code creates a FileFactory class that can be used to read and write data from different file types, such as CSV, JSON, HTML, MD, and TOML.                                                                     |
+| main.py      | This code is a Python script that uses the OpenAI API to generate a project README. md file. It loads a configuration file, clones the codebase, and uses the OpenAI engine to generate a summary of the code.      |
 
 </details>
 
 <details closed><summary>TESTS</summary>
 
-| file              | summary                                                                                                                                                                                                                                                              |
-|:------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| test_model.py     | This code is a unit test for the code_to_text() function in the model.py file.It mocks the openai.Completion.create() function and tests the code_to_text() function with two different files.                                                                       |
-| test_utils.py     | This code is a Python file containing utility functions for testing.It contains two functions, 'assert_equal' and 'assert_not_equal', which are used to compare two values and check if they are equal or not.                                                       |
-| conftest.py       | This code is a pytest configuration file.It defines two fixtures, test_conf and my_fixture.The test_conf fixture has a scope of "function" while the my_fixture fixture returns a list of numbers.                                                                   |
-| test_conf.py      | This code is a test for the AppConfig class.It creates an instance of AppConfig with OpenAI, GitHub, Markdown, and Paths objects as parameters.                                                                                                                      |
-| test_builder.py   | This code is a Python script for testing a builder module.It contains a class called TestBuilder which has two methods: test_build_and_run and test_run.                                                                                                             |
-| test_processor.py | This code is a test file for a processor module.It contains a test class with two test methods, test_process_data and test_process_file.                                                                                                                             |
-| test_main.py      | This code tests the main.py file by mocking the configuration dictionary, files, and other functions.It checks that the logger is called correctly, the configuration file is read, the codebase is cloned, the code is converted to text, and the builder is built. |
-| test_logger.py    | This code is a test file for a logger module.It contains a test class with two test methods, test_logger_logs_message and test_logger_logs_warning.                                                                                                                  |
+| file              | summary                                                                                                                                                                                                                                                                                |
+|:------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| test_model.py     | This code tests the code_to_text function from the model module. It uses the unittest and mock libraries to mock the openai Completion. create function and test the code_to_text function.                                                                                            |
+| test_utils.py     | This code is a Python module containing utility functions for testing. It provides a set of functions to help automate the process of testing code, such as generating test data, running tests, and verifying results.                                                                |
+| conftest.py       | This code is a pytest configuration file which sets up two fixtures, test_conf and my_fixture, for use in tests.                                                                                                                                                                       |
+| test_conf.py      | This code tests the AppConfig class, which is used to store configuration information for a project. It tests the OpenAI, GitHub, Markdown, and Paths classes, which are used to store information about the project's API, GitHub repository, Markdown documentation, and file paths. |
+| test_builder.py   | This code is a test suite for a builder module. It contains tests to ensure that the builder module is functioning correctly and producing the expected results.                                                                                                                       |
+| test_processor.py | This code is a test suite for a processor module. It contains unit tests to ensure that the processor module is functioning correctly.                                                                                                                                                 |
+| test_main.py      | This test_main() function tests the main() function in the main. py file. It mocks the configuration dictionary, files, and other functions to ensure that the main() function is working properly.                                                                                    |
+| test_logger.py    | This code is a test file for a logger module. It contains tests to ensure that the logger module is functioning correctly and is able to log messages to the console.                                                                                                                  |
 
 </details>
 <hr />
@@ -127,33 +136,33 @@
 Before you begin, ensure that you have the following prerequisites installed:
 
 
-> - [👉 insert-prerequisites-if-needed]
+- `[📌  insert-prerequisites-if-needed]`
 
 
 ### Installation
 
-1. Clone the README-AI repository:
+1. Clone the README AI repository:
 
 
 ```sh
-git clone https://github.com/eli64s/README-AI && cd README-AI
+git clone https://github.com/eli64s/README-AI && cd README AI
 ```
 
 2. Create a new Conda environment and install the required dependencies:
 
 ```sh
 conda env create -f setup/environment.yaml
-conda activate README-AI
+conda activate README AI
 ```
 
-> 3. [👉 insert-additional-steps]
+3. `[📌  insert-additional-steps]`
 
 
 ```sh
  #... 
 ```
 
-### Running README-AI
+### Running README AI
 
 ```sh
 # ... 
@@ -163,32 +172,43 @@ conda activate README-AI
 
 ## 🗺 Roadmap
 
-> - [X] [👉 insert-task]
-> - [ ] [👉 insert-task]
-> - [ ] [👉 insert-task]
+> - [X] `[📌  insert-task]`
+> - [ ] `[📌  insert-task]`
+> - [ ] `[📌  insert-task]`
 
 ---
 
 ## 🤝 Contributing
 
-> [👉 insert-description]
+We appreciate any contributions you can make to this project! To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name (e.g., `feature-add-new-feature` or `bugfix-issue-123`).
+3. Make your changes in the new branch.
+4. Commit your changes, and push them to your fork.
+5. Create a pull request to the original repository.
+
+Please ensure your code follows the project's coding style and passes any tests before submitting a pull request.  
+If you have any questions or need assistance, feel free to open an issue.
 
 ---
 
 ## 🪪 License
 
-> [👉 insert-description]
+This project is licensed under the `[📌  insert-license-i.e-MIT]` License. See the [LICENSE](LICENSE) file for more information.
+
 
 ---
 
 ## 📲 Contact
 
-> [👉 insert-description]
+If you have any questions or concerns, please open an issue on GitHub or contact the repository owner at `[📌  your-email@example.com]`
+
 
 ---
 
 ## 🙏 Acknowledgments
 
-> [👉 insert-description]
+> `[📌  insert-description]`
 
 ---

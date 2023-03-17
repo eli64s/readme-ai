@@ -6,8 +6,9 @@ from dataclasses import dataclass
 class OpenAI:
     """OpenAI API details."""
 
+    api_key: str
     engine: str
-    key: str
+    prompt_features: str
 
 
 @dataclass

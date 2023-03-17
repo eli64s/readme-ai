@@ -10,20 +10,21 @@ import pandas as pd
 from utils import FileFactory
 
 
-def build(cfg: object, pkgs: list, url: str) -> None:
+def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
     """_summary_
-
     Parameters
     ----------
     cfg
         _description_
+    features
+        _description_
     pkgs
+        _description_
+    name
         _description_
     url
         _description_
     """
-    pkgs.append("markdown")
-    name = url.split("/")[-1]
 
     docs_path = cfg.paths.docs
     docs_df = pd.read_csv(docs_path)
@@ -42,17 +43,17 @@ def build(cfg: object, pkgs: list, url: str) -> None:
     badges = json_file.read_file()
     badges = get_badges(badges)
 
+    pkgs.append("markdown")
+    pkgs.append("openai")
     md_badges = get_header(badges, pkgs)
-    md_toc = md_toc.format(name=name, name_lower=name.lower())
-
-    md = md.format(name, md_badges)
-    md = f"{md}{md_body}{md_tree}"
-
+    md_body = md_body.format(features)
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df, md_dropdown)
+    md_toc = md_toc.format(name=name, name_lower=name.lower())
     md_usage = md_usage.format(url=url, name=name)
 
-    md = f"{md}{md_repo}{md_modules}{md_tables}{md_usage}"
+    md = md.format(name, md_badges)
+    md = f"{md}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_usage}"
     md_file = FileFactory(cfg.paths.md).get_handler()
     md_file.write_file(md)
 

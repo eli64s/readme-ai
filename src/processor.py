@@ -3,6 +3,7 @@ src/processor.py
 """
 import contextlib
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -11,18 +12,9 @@ from pathlib import Path
 import git
 
 
-@contextlib.contextmanager
-def make_temp_directory():
-    """Create a temporary directory.
-
-    Yields:
-        str: The path to the temporary directory.
-    """
-    temp_dir = tempfile.mkdtemp()
-    try:
-        yield temp_dir
-    finally:
-        shutil.rmtree(temp_dir)
+def add_space_between_sentences(text):
+    pattern = r"([.!?])(\S)"
+    return re.sub(pattern, r"\1 \2", text)
 
 
 def clone_codebase(cwd_path, file_type, url):
@@ -45,6 +37,12 @@ def clone_codebase(cwd_path, file_type, url):
 
     repo.close()
     return files
+
+
+def extract_repo_name(repo_url):
+    repo_name = repo_url.rstrip("/").split("/")[-1]
+    repo_name = re.sub(r"[-_]", " ", repo_name)
+    return repo_name
 
 
 def get_extensions(temp_dir):
@@ -76,6 +74,20 @@ def get_packages(temp_dir):
     with open(f"{temp_dir}/requirements.txt") as f:
         pkgs = [line.split("=")[0] for line in f.read().splitlines()]
     return pkgs
+
+
+@contextlib.contextmanager
+def make_temp_directory():
+    """Create a temporary directory.
+
+    Yields:
+        str: The path to the temporary directory.
+    """
+    temp_dir = tempfile.mkdtemp()
+    try:
+        yield temp_dir
+    finally:
+        shutil.rmtree(temp_dir)
 
 
 def parse_codebase(file_type, directory):

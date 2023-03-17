@@ -1,11 +1,15 @@
 # OpenAI API
 [api]
+api_key = "<OPENAI-API-KEY>"
 engine = "text-davinci-003"
-key = "<OPENAI-API-KEY>"
+prompt_features = """\
+Generate a project feature section to be used in the README.md file for the {} GiitHub project.
+Format the generated text as Markdown code, with each sentence as a bullet point.
+"""
 
 # GitHub Repository
 [github]
-dirs = "*/*.py"
+dirs = "**/*.py"
 url = "https://github.com/eli64s/README-AI" #"https://github.com/GokuMohandas/mlops-course" #
 
 # File paths and directories
@@ -19,8 +23,11 @@ md = "docs/README.md"
 head = """\n<div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>{}</h1>
-\n> <h3 align="center">[👉 insert-project-summary]</h3>
+<br>
+{}
+</h1>
+\n> <h3 align="center">[📌  insert-project-summary]</h3>
+> <h3 align="center">🚀 Developed using OpenAI's language model API and the software tools below.</h3>
 > <p align="center">
 > {}
 > </p>
@@ -31,7 +38,7 @@ head = """\n<div align="center">
 toc = """
 \n## 📦 Table of Contents
 
-\n- [📍 Introdcution](#-introdcution)
+\n- [👋 Introdcution](#-introdcution)
 \n- [🔮 Features](#-features)
 \n- [🌲 Repository Structure](#repository-structure)
 \n- [🧩 Modules](#modules)
@@ -47,10 +54,10 @@ toc = """
 \n---"""
 
 body = """
-\n## 📍 Introduction
-\n> [👉 insert-description]
+\n## 👋 Introduction
+\n> `[📌  insert-description]`
 \n## 🔮 Feautres
-\n> [👉 insert-description]
+\n{}
 """
 
 modules = """
@@ -71,7 +78,7 @@ usage = """\n<hr />\n
 \n### Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
 
-\n> - [👉 insert-prerequisites-if-needed]
+\n- `[📌  insert-prerequisites-if-needed]`
 
 \n### Installation
 \n1. Clone the {name} repository:
@@ -79,7 +86,7 @@ usage = """\n<hr />\n
 \n```sh\ngit clone {url} && cd {name}\n```
 \n2. Create a new Conda environment and install the required dependencies:
 \n```sh\nconda env create -f setup/environment.yaml\nconda activate {name}\n```
-\n> 3. [👉 insert-additional-steps]
+\n3. `[📌  insert-additional-steps]`
 
 \n```sh\n #... \n```
 \n### Running {name}
@@ -88,24 +95,38 @@ usage = """\n<hr />\n
 
 ## 🗺 Roadmap
 
-> - [X] [👉 insert-task]
-> - [ ] [👉 insert-task]
-> - [ ] [👉 insert-task]
+> - [X] `[📌  insert-task]`
+> - [ ] `[📌  insert-task]`
+> - [ ] `[📌  insert-task]`
 \n---
 
 ## 🤝 Contributing
-\n> [👉 insert-description]
+
+We appreciate any contributions you can make to this project! To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch with a descriptive name (e.g., `feature-add-new-feature` or `bugfix-issue-123`).
+3. Make your changes in the new branch.
+4. Commit your changes, and push them to your fork.
+5. Create a pull request to the original repository.
+
+Please ensure your code follows the project's coding style and passes any tests before submitting a pull request.  
+If you have any questions or need assistance, feel free to open an issue.
 \n---
 
 ## 🪪 License
-\n> [👉 insert-description]
+
+This project is licensed under the `[📌  insert-license-i.e-MIT]` License. See the [LICENSE](LICENSE) file for more information.
+
 \n---
 
 ## 📲 Contact
-\n> [👉 insert-description]
+
+If you have any questions or concerns, please open an issue on GitHub or contact the repository owner at `[📌  your-email@example.com]`
+
 \n---
 
 ## 🙏 Acknowledgments
-\n> [👉 insert-description]
+\n> `[📌  insert-description]`
 \n---
 """
