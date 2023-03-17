@@ -1,7 +1,7 @@
 <div align="center">
   <h1 align="center">
     <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-    <br />
+    <br>
     README-AI
   </h1>
 
@@ -24,7 +24,7 @@
 ## 🧩 Table of Contents
 
 - [🧩 Table of Contents](#-table-of-contents)
-- [📍 Introdcution](#-introdcution)
+- [👋 Introdcution](#-introdcution)
 - [🔮 Features](#-features)
 - [🏎💨 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
@@ -40,10 +40,10 @@
 
 ---
 
-## 📍 Introdcution
+## 👋 Introdcution
 
 
-README-AI provides an automated way to generate a README Markdown file and document your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
+README-AI provides an automated way to generate a README Markdown file and create boilerplate documentation for your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
 This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
 
@@ -51,48 +51,52 @@ This project is still under development and is opinionated in it's setup, but ca
 
 ## 🔮 Features
 
-<h1 align="center">👇<br /><br />1. 🤖 Codebase Documentation</h1>
-<p align="center">Have you met anyone who said they loved writing documentation? That’s why we're building this project, hope you enjoy!
+<h1 align="center">1.<br>👇<br><br>🤖 Codebase Documentation</h1>
+<p align="center">Have you met anyone who said they loved writing documentation? That’s why we're building this project, enjoy!
 </p>
 
 |   |   |
 | --- | --- |
-| <b>Codebase Documentation</b><br /><br />This project leverages OpenAI's GPT Davinci<br /> model to convert a given Python codebase into natural language, producing a well-structured<br />README template that includes repo metadata, documentation and other essential details. | ![header](docs/imgs/docs.png) |
+| <b>Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](docs/imgs/docs.png) |
 
-<h1 align="center">👇<br /><br />⒉ 🪪 Badges</h1>
+<h1 align="center">⒉<br>👇<br><br>🪪 Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
 </p>
 
 |   |   |
 | --- | --- |
-| <br /><br/><b>Profile Badges</b><br /><br />Analyzes your project's dependencies and requirements, displaying them as badges<br /> in the README's header section. | ![badges](docs/imgs/head.png) |
+| <br><br/><b>Profile Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](docs/imgs/head.png) |
 
-<h1 align="center">👇<br /><br />⒊ 🌲 Project Tree</h1>
+<h1 align="center">⒊<br>👇<br><br>🌲 Project Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
 </p>
 
 |   |   |
 | --- | --- |
-| <br /><b>Project Tree</b><br /><br />Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
+| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
 
-<h1 align="center">👇<br /><br />⒋ 🐍 Environment YAML</h1>
+<h1 align="center">⒋<br>👇<br>🐍 Environment YAML</h1>
 <p align="center">Creates directory and file setup/environment.yaml if missing, and writes the README installion guide.
 </p>
 
 |   |   |
 | --- | --- |
-| <br /><br/><b>Environment YAML</b><br /><br />Creates your project's environment yaml<br /> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
+| <br><br/><b>Environment YAML</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
-<h1 align="center">👇<br /><br />5. 🧩 And More!</h1>
-<p align="center">Additional sections to complete your project's README.
+<h1 align="center">5.<br>👇<br>🧩 Additional Sections</h1>
+<p align="center">Additional sections to complete your project's README Markdown file.
 </p>
 
 |   |   |
 | --- | --- |
-| <br /><br/><b>Additional Sections</b><br /><br />Creates additional sections to build a complete and robust README for your project | ![badges](docs/imgs/misc.png) |
+| <br><br/><b>Additional Sections</b><br><br>Creates additional sections to build a complete and robust README for your project | ![badges](docs/imgs/misc.png) |
 
-<br />
-<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">Example README.md File</a></h1>
+<h1 align="center">⒍<br>👇<br>Example Output Files</h1>
+<h2 align="center">
+  <a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">1️⃣ README.md - Small Codebase</a>
+  <br>
+  <a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex2.md">2️⃣ README.md - Large Codebase</a>
+</h2>
 
 ---
 
