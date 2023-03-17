@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "README-AI"
 version = "0.0.0"
-description = "Automate README creation and documentation for your projects!"
+description = "Automate README creation, code documentation, and more!"
 authors = "eli64s"
 license = "Apache-2.0"
 readme = "README.md"

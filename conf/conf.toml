@@ -6,13 +6,13 @@ key = "<OPENAI-API-KEY>"
 # GitHub Repository
 [github]
 dirs = "*/*.py"
-url = "https://github.com/GokuMohandas/mlops-course" #"https://github.com/eli64s/README-AI" #
+url = "https://github.com/eli64s/README-AI" #"https://github.com/GokuMohandas/mlops-course" #
 
 # File paths and directories
 [paths]
 badges = "conf/badges.json"
 docs = "docs/raw_data.csv"
-md = "docs/readme.md"
+md = "docs/README.md"
 
 # Markdown section code templates
 [md]
