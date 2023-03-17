@@ -10,10 +10,9 @@ import pandas as pd
 from utils import FileFactory
 
 
-def build(
-    cfg: object, features: str, intro: str, pkgs: list, name: str, url: str
-) -> None:
+def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
     """_summary_
+
     Parameters
     ----------
     cfg
@@ -27,7 +26,6 @@ def build(
     url
         _description_
     """
-
     docs_path = cfg.paths.docs
     docs_df = pd.read_csv(docs_path)
 
@@ -46,7 +44,7 @@ def build(
 
     pkgs.extend(["markdown"])
     md_badges = get_header(badges, pkgs)
-    md_body = md_body.format(intro, features)
+    md_body = md_body.format(features)
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df, md_dropdown)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
@@ -121,11 +119,10 @@ def get_tables(docs_df: pd.DataFrame, dropdown: str) -> str:
     docs_df[["Directory", "File Name"]] = docs_df["Module"].str.rsplit(
         "/", n=1, expand=True
     )
-
     tables = []
     for idx, group in docs_df.groupby("Directory"):
         table = group[["File Name", "Summary"]].to_markdown(index=False)
-        table_wrapper = dropdown.format(idx.upper(), table)
+        table_wrapper = dropdown.format(idx.capitalize(), table)
         tables.append(table_wrapper)
     return "\n".join(tables)
 

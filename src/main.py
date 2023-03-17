@@ -27,31 +27,28 @@ def main() -> None:
     conf = dacite.from_dict(AppConfig, conf_dict)
 
     # Get project dependencies
-    dirs = conf.github.dirs
     raw_docs = conf.paths.docs
     repo_url = conf.github.url
-    cwd_path = Path.cwd()
-    files = processor.clone_codebase(cwd_path, dirs, repo_url)
-    repo_name = processor.extract_repo_name(repo_url)
-    repo_pkgs = files["packages"] + files["extensions"]
+
+    repo_full_name, repo_name = processor.extract_user_repo_from_url(repo_url)
+    files = processor.fetch_github_folder_contents(repo_full_name)
+    reqs = processor.dependencies_helper(repo_url)
 
     LOGGER.info(f"Total files to document: {len(files)}")
-    LOGGER.info(f"Project dependencies: {repo_pkgs}")
+    LOGGER.info(f"Project dependencies: {reqs}")
 
     # OpenAI API
     prompt_feats = conf.api.prompt_features
-    feats_text = model.generate_readme_features(repo_url, prompt_feats)
-    intro_text = model.generate_readme_intro(repo_url)
+    features_text = model.generate_readme_features(repo_url, prompt_feats)
     code_docs = model.code_to_text(files)
 
-    LOGGER.info(f"OpenAI generated features: {feats_text}")
-    LOGGER.info(f"OpenAI generated introduction: {intro_text}")
+    LOGGER.info(f"OpenAI generated features: {features_text}")
     LOGGER.info(f"OpenAI generated documentation: {code_docs}")
 
     # Build README.md
     csv_file = FileFactory(raw_docs).get_handler()
     csv_file.write_file(code_docs)
-    builder.build(conf, feats_text, intro_text, repo_pkgs, repo_name, repo_url)
+    builder.build(conf, features_text, reqs, repo_name, repo_url)
 
     LOGGER.info("README-AI execution complete.")
     LOGGER.info("Find your project README.md ➡️ docs/*")

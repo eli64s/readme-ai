@@ -3,7 +3,7 @@
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>
-README AI
+README-AI
 </h1>
 
 > <h3 align="center">
@@ -39,7 +39,7 @@ README AI
 - [🏎💨 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Running README AI](#running-readme-ai)
+  - [Running README-AI](#running-readme-ai)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
@@ -49,14 +49,13 @@ README AI
 ---
 ## 👋 Introduction
 
-This repository contains a README file generator AI.
+> `[📌  INSERT-DESCRIPTION]`
 
 ## 🔮 Feautres
 
-This project features:
-
-* A README.md file generated automatically by a machine learning model, based on the project's other files
-* The ability to generate a README.md file for any GitHub project, using the same machine learning model
+- The README-AI project is a tool that automatically generates a README file for your GitHub repositories. 
+- It includes a summary of your project, a list of features, a screenshot, and a link to the live site. 
+- README-AI is written in python and is available on GitHub.
 
 ---
 
@@ -74,15 +73,17 @@ This project features:
 │   └── templates
 │       └── base_py.toml
 ├── docs
+│   ├── README_EX_1.md
+│   ├── README_EX_2.md
+│   ├── README_EX_3.md
 │   ├── imgs
 │   │   ├── docs.png
 │   │   ├── head.png
 │   │   ├── misc.png
+│   │   ├── overview.png
 │   │   ├── tree.png
 │   │   └── usage.png
-│   ├── raw_data.csv
-│   ├── readme_ex1.md
-│   └── readme_ex2.md
+│   └── raw_data.csv
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
@@ -111,7 +112,7 @@ This project features:
     ├── test_processor.py
     └── test_utils.py
 
-9 directories, 37 files
+9 directories, 39 files
 ```
 ---
 
@@ -120,32 +121,26 @@ This project features:
 ## 🧩 Modules
 
 
-<details closed><summary>SRC</summary>
+<details closed><summary>Scripts</summary>
 
-| File Name    | Summary                                                                                                                                                                                                                        |
-|:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| conf.py      | This code defines a configuration constants object, AppConfig, which contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                |
-| processor.py | This code is a Python script that clones a Git repository and retrieves its contents. It also parses the codebase, gets the file extensions and packages, creates a temporary directory, and creates a conda environment file. |
-| logger.py    | This code creates a Logger class which provides methods for logging messages with different levels of severity. It also configures the logger to output messages with colored formatting.                                      |
-| model.py     | This code is a Python module that provides functions for summarizing code and generating readme sections. It uses the OpenAI API and the Spacy library to process text.                                                        |
-| builder.py   | This code is a Python script that builds a markdown file from a configuration object, a list of features, a list of packages, a name, and a URL.                                                                               |
-| utils.py     | This code creates a FileFactory class that can be used to read and write data from different file types, such as CSV, JSON, HTML, MD, and TOML.                                                                                |
-| main.py      | This code is a Python script that uses the dacite, builder, model, processor, AppConfig, Logger, and FileFactory modules to generate a README. md file for a given project.                                                    |
+| File Name   | Summary                                                                                                                                                      |
+|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| run_main.sh | This code is a Bash script that downloads the English language model for the spaCy library and then runs the main. py file from the src directory.           |
+| test.sh     | This code activates a conda environment called "myenv", runs a pytest command with verbose and junitxml options, and then deactivates the conda environment. |
 
 </details>
 
-<details closed><summary>TESTS</summary>
+<details closed><summary>Src</summary>
 
-| File Name         | Summary                                                                                                                                                                                       |
-|:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| test_model.py     | This code is a Python script for testing a model. It contains functions for testing the accuracy of the model, as well as functions for validating the model's performance.                   |
-| test_utils.py     | This code is a Python file containing unit tests for a utility module. It tests the functionality of the utility module to ensure that it is working correctly.                               |
-| conftest.py       | This code is a pytest configuration file which sets up two fixtures, test_conf and my_fixture, for use in tests.                                                                              |
-| test_conf.py      | This code is a Python script for testing configuration files. It contains functions for validating the syntax of configuration files and for checking the values of configuration parameters. |
-| test_builder.py   | This code is a test suite for a builder module. It contains tests to ensure that the builder module is functioning correctly and producing the expected results.                              |
-| test_processor.py | This code is a test suite for a processor module. It contains unit tests to ensure that the processor module is functioning correctly.                                                        |
-| test_main.py      | This code is a test file for the main module of a program. It contains tests to ensure that the main module is functioning correctly.                                                         |
-| test_logger.py    | This code is a test file for a logger module. It contains tests to ensure that the logger module is functioning correctly and is able to log messages to the console.                         |
+| File Name    | Summary                                                                                                                                                                                                                                                                  |
+|:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| builder.py   | This code is a Python script that builds a Markdown file from a configuration object, a list of features, an introduction, a list of packages, a name, and a URL.                                                                                                        |
+| conf.py      | This code defines a configuration constants object, AppConfig, which contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                                                          |
+| logger.py    | This code creates a Logger class which provides methods for logging messages with different levels of severity. The messages are printed to the console with different colors depending on the severity.                                                                 |
+| main.py      | This code is a Python script that uses the OpenAI API to generate a README. md file for a given project. It loads a configuration file, clones the project's codebase, and uses the OpenAI API to generate features, an introduction, and documentation for the project. |
+| model.py     | This code is a Python module that provides functions for summarizing code and generating readme features. It uses the OpenAI API and the Spacy library to process text.                                                                                                  |
+| processor.py | This code is a Python script that clones a Git repository and retrieves its contents. It also creates a conda environment file and parses the codebase to get the contents of each file with a specific file type.                                                       |
+| utils.py     | This code creates a FileFactory class that can be used to read and write data from different file types, such as CSV, JSON, HTML, MD, and TOML.                                                                                                                          |
 
 </details>
 <hr />
@@ -162,18 +157,18 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 ### Installation
 
-1. Clone the README AI repository:
+1. Clone the README-AI repository:
 
 
 ```sh
-git clone https://github.com/eli64s/README-AI && cd README AI
+git clone https://github.com/eli64s/README-AI && cd README-AI
 ```
 
 2. Create a new Conda environment and install the required dependencies:
 
 ```sh
 conda env create -f setup/environment.yaml
-conda activate README AI
+conda activate README-AI
 ```
 
 3. `[📌  insert-additional-steps]`
@@ -183,7 +178,7 @@ conda activate README AI
  #... 
 ```
 
-### Running README AI
+### Running README-AI
 
 ```sh
 # ... 

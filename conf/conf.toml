@@ -3,13 +3,12 @@
 api_key = "<OPENAI-API-KEY>"
 engine = "text-davinci-003"
 prompt_features = """\
-Generate a project feature section to be used in the README.md file for the {} GiitHub project.
-Format the generated text as Markdown code, with each sentence as a bullet point.
+Create a summary description for a README.md feature section for the GiitHub project - {}.
+Format the generated text as a bullet list in Markdown code.
 """
 
 # GitHub Repository
 [github]
-dirs = "**/*.py"
 url = "https://github.com/eli64s/README-AI" #"https://github.com/GokuMohandas/mlops-course" #
 
 # File paths and directories
@@ -57,7 +56,7 @@ toc = """
 
 body = """
 \n## 👋 Introduction
-\n{}
+\n> `[📌  INSERT-DESCRIPTION]`
 \n## 🔮 Feautres
 \n{}
 """

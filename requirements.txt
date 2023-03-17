@@ -8,7 +8,10 @@ isort
 openai
 pandas
 pipreqs
+PyGithub
 pytest
+requests
 setuptools
+spacy
 tabulate
 toml

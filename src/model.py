@@ -98,44 +98,6 @@ def generate_readme_features(url: str, prompt: str) -> str:
     return generated_text.lstrip()
 
 
-def generate_readme_intro(url):
-    match = re.search(r"github.com/([^/]*)/([^/]*)", url)
-    if not match:
-        raise ValueError("Invalid GitHub URL")
-
-    owner = match.group(1)
-    repo = match.group(2)
-    model_engine = "text-davinci-002"
-    prompt = (
-        f"Generate a 'Usage' section for the {repo} repository on GitHub.\n\n"
-        f"## Repository\n\n"
-        f"Owner: {owner}\n"
-        f"Name: {repo}\n\n"
-        "## Usage\n\n"
-        "### How to install\n\n"
-        "### How to use\n\n"
-        "### Example usage\n\n"
-        "### API Reference\n\n"
-        "### Parameters\n\n"
-        "### Return Values\n\n"
-        "### Exceptions\n\n"
-        "### Contributing\n\n"
-        "### License\n\n"
-        "## Acknowledgments\n\n"
-        "## References\n\n"
-    )
-    response = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
-    text = response.choices[0].text.strip()
-    return text.split("\n")[0]
-
-
 def summarize_text(summary: str) -> str:
     """_summary_
 
