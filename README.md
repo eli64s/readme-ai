@@ -1,3 +1,12 @@
+<style>
+.warning {
+  border: 2px solid #ffa500;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #ffefd5;
+  color: #ff8c00;
+}
+</style>
 <div align="center">
   <h1 align="center">
     <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
@@ -44,21 +53,12 @@
 
 README-AI provides an automated way to generate a README Markdown files and create boilerplate documentation for your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
-<style>
-    .warning {
-        border: 2px solid #ffa500;
-        border-radius: 10px;
-        padding: 10px;
-        background-color: #ffefd5;
-        color: #ff8c00;
-    }
-</style>
 
 <div class="warning">
-    <p><strong>🚧 Note:</strong><br>This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
-    </p>
+  <strong>🚧 Note:</strong> 
+  <br><p>
+  This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.</p>
 </div>
-
 
 ---
 
