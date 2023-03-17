@@ -5,17 +5,17 @@
     README-AI
   </h1>
 
-  > <h3 align="center">Automate README creation, code documentation, and more!</h3>
-  > <h3 align="center">🚀 Powered by OpenAI's language model API and the software below.</h3>
-  >  <p align="center">
-  >   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
-  >   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
-  >   <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
-  >   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
-  >   <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
-  >   <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
-  >   <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
-  > </p>
+> <h3 align="center">Automate README creation, code documentation, and more!</h3>
+> <h3 align="center">🚀 Powered by OpenAI's language model API and the software below.</h3>
+>  <p align="center">
+>   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+>   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
+>   <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
+>   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
+>   <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
+>   <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
+>   <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
+> </p>
 
 </div>
 
@@ -42,7 +42,6 @@
 
 ## 👋 Introdcution
 
-
 README-AI provides an automated way to generate a README Markdown file and create boilerplate documentation for your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
 This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
@@ -55,43 +54,43 @@ This project is still under development and is opinionated in it's setup, but ca
 <p align="center">Have you met anyone who said they loved writing documentation? That’s why we're building this project, enjoy!
 </p>
 
-|   |   |
-| --- | --- |
+|                                                                                                                                                                                                                                                                             |                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
 | <b>Codebase Documentation</b><br><br>This project leverages OpenAI's GPT Davinci<br> model to convert a given Python codebase into natural language, producing a well-structured<br>README template that includes repo metadata, documentation and other essential details. | ![header](docs/imgs/docs.png) |
 
 <h1 align="center">⒉<br>👇<br><br>🪪 Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
 </p>
 
-|   |   |
-| --- | --- |
+|                                                                                                                                                            |                               |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
 | <br><br/><b>Profile Badges</b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](docs/imgs/head.png) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Project Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
 </p>
 
-|   |   |
-| --- | --- |
-| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README.| ![tree](docs/imgs/tree.png) |
+|                                                                                           |                             |
+| ----------------------------------------------------------------------------------------- | --------------------------- |
+| <br><b>Project Tree</b><br><br>Creates a GitHub directory tree to display in your README. | ![tree](docs/imgs/tree.png) |
 
-<h1 align="center">⒋<br>👇<br>🐍 Environment YAML</h1>
+<h1 align="center">⒋<br>👇<br><br>🐍 Environment YAML</h1>
 <p align="center">Creates directory and file setup/environment.yaml if missing, and writes the README installion guide.
 </p>
 
-|   |   |
-| --- | --- |
+|                                                                                                                                                                              |                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | <br><br/><b>Environment YAML</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![badges](docs/imgs/usage.png) |
 
-<h1 align="center">5.<br>👇<br>🧩 Additional Sections</h1>
+<h1 align="center">5.<br>👇<br><br>🧩 Additional Sections</h1>
 <p align="center">Additional sections to complete your project's README Markdown file.
 </p>
 
-|   |   |
-| --- | --- |
+|                                                                                                                               |                               |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
 | <br><br/><b>Additional Sections</b><br><br>Creates additional sections to build a complete and robust README for your project | ![badges](docs/imgs/misc.png) |
 
-<h1 align="center">⒍<br>👇<br>Example Output Files</h1>
+<h1 align="center">⒍<br>👇<br><br>🪄 Example Output Files</h1>
 <h2 align="center">
   <a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">1️⃣ README.md - Small Codebase</a>
   <br>
@@ -109,7 +108,7 @@ Before you begin, ensure that you have the following prerequisites installed:
 - Python 3.6 or higher
 - Conda package manager (recommended)
 - Access to the OpenAI API (see OpenAI API Setup below)
-  
+
 ### GitHub Repository
 
 Copy the url of your project's GitHub repository and update the code below in the [conf/conf.toml](conf/conf.toml) file.
