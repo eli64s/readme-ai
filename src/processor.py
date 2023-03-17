@@ -45,7 +45,7 @@ def create_environ_file(repo_path, temp_dir):
     Args:
         repo_path (str): The path to the repository.
     """
-    file_name = "environment.yml"
+    file_name = "environment.yaml"
     env_file = os.path.join(temp_dir, file_name)
     if os.path.exists(env_file):
         print(f"{env_file} already exists")

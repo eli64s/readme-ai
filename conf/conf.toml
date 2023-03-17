@@ -18,7 +18,7 @@ badges = "conf/badges.json"
 docs = "docs/raw_data.csv"
 md = "docs/README.md"
 
-# Markdown section code templates
+# Markdown template code
 [md]
 head = """\n<div align="center">
 <h1 align="center">

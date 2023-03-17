@@ -99,6 +99,8 @@ README-AI provides an automated way to generate a README Markdown files and crea
   <a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">1️⃣ README.md - Small Codebase</a>
   <br>
   <a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">2️⃣ README.md - Large Codebase</a>
+  <br>
+  <a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">3️⃣ README.md - Large Codebase</a>
 </h2>
 
 ---
@@ -128,9 +130,9 @@ url = "<INSERT-GITHUB-REPO>"
 To use README-AI, you will need an API key for OpenAI. Follow the steps below to create an API key:
 
 <details closed>
-<summary>User Guide</summary>
+<summary>User Guide - OpenAI API</summary>
 
-1. Go to the OpenAI website.
+1. Go to the [OpenAI website](https://platform.openai.com/).
 2. Click the "Sign up for free" button.
 3. Fill out the registration form with your information and agree to the terms of service.
 4. Once logged in, click on the "API" tab.
