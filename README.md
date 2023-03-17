@@ -6,12 +6,12 @@
   </h1>
 
   > <h3 align="center">Automate README creation, code documentation, and more!</h3>
-  > <h3 align="center">🔌 Powered by OpenAI's language model API and the tools below.</h3>
+  > <h3 align="center">🚀 Powered by OpenAI's language model API and the software below.</h3>
   >  <p align="center">
   >   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
   >   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
-  >   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
   >   <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
+  >   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
   >   <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" />
   >   <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
   >   <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
@@ -21,9 +21,9 @@
 
 ---
 
-## 📦 Table of Contents
+## 🧩 Table of Contents
 
-- [📦 Table of Contents](#-table-of-contents)
+- [🧩 Table of Contents](#-table-of-contents)
 - [📍 Introdcution](#-introdcution)
 - [🔮 Features](#-features)
 - [🏎💨 Getting Started](#-getting-started)
@@ -32,10 +32,10 @@
   - [OpenAI API Setup](#openai-api-setup)
   - [Installation](#installation)
   - [Running README-AI](#running-readme-ai)
-- [🧩 Roadmap](#-roadmap)
+- [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [📧 Contact](#-contact)
+- [🪪 License](#-license)
+- [📲 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -43,9 +43,9 @@
 ## 📍 Introdcution
 
 
-README-AI is a Python package that provides an automated way to generate a README.md file and document your codebase. This package leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template that includes codebase metadata and documentation.
+README-AI provides an automated way to generate a README Markdown file and document your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
-The project is still under development and is opinionated in its setup, but it can be used as a starting point for projects that require documentation. The current version of README-AI is limited to codebases written in Python.
+This project is still under development and is opinionated in it's setup, but can be used as a starting point for any project that requires documentation. The current version of README-AI works best on codebases written in Python.
 
 ---
 
@@ -57,7 +57,7 @@ The project is still under development and is opinionated in its setup, but it c
 
 |   |   |
 | --- | --- |
-| <b>Codebase Documentation</b><br /><br />This project leverages OpenAI's GPT Davinci<br /> model to convert a given Python codebase into<br /> natural language, producing a well-structured<br /> project README template that includes codebase metadata, documentation<br /> and other essential details. | ![header](docs/imgs/docs.png) |
+| <b>Codebase Documentation</b><br /><br />This project leverages OpenAI's GPT Davinci<br /> model to convert a given Python codebase into natural language, producing a well-structured<br />README template that includes repo metadata, documentation and other essential details. | ![header](docs/imgs/docs.png) |
 
 <h1 align="center">👇<br /><br />⒉ 🪪 Badges</h1>
 <p align="center">Visualize project dependencies and components in your README's header section with badges.
@@ -67,7 +67,7 @@ The project is still under development and is opinionated in its setup, but it c
 | --- | --- |
 | <br /><br/><b>Profile Badges</b><br /><br />Analyzes your project's dependencies and requirements, displaying them as badges<br /> in the README's header section. | ![badges](docs/imgs/head.png) |
 
-<h1 align="center">👇<br /><br />⒊ 🌳 Project Tree</h1>
+<h1 align="center">👇<br /><br />⒊ 🌲 Project Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
 </p>
 
@@ -89,10 +89,10 @@ The project is still under development and is opinionated in its setup, but it c
 
 |   |   |
 | --- | --- |
-| <br /><br/><b>README Sections</b><br /><br />Creates additional sections to build a complete and<br /> robust README.md for your project | ![badges](docs/imgs/misc.png) |
+| <br /><br/><b>Additional Sections</b><br /><br />Creates additional sections to build a complete and robust README for your project | ![badges](docs/imgs/misc.png) |
 
 <br />
-<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">Example Output README File</a></h1>
+<h1 align="center">👇<br /><br /><a href="https://github.com/eli64s/README-AI/blob/main/docs/readme_ex1.md">Example README.md File</a></h1>
 
 ---
 
@@ -165,30 +165,32 @@ python src/main.py
 
 ---
 
-## 🧩 Roadmap
+## 🗺 Roadmap
 
-- [ ] Add additional language models on top of GPT-3 to fine tune text.
-- [ ] Add compatability for additional languages. Rust next.
-- [ ] Extend capabilities beyond code documentation.
-- [ ] Implement different configuration file templates.
+- [ ] Add additional language models on top of OpenAI's to fine tune text.
+- [ ] Add compatability for multiple additional languages.
+- [ ] Implement different configuration README templates.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to README-AI from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
+Contributions are warmly welcomed from the open-source community! If you would like to contribute, please see our contribution guidelines for more information.
+
+- Found a bug, open a new issue [here.](https://github.com/eli64s/README-AI/issues)
+- Want to add a feature, create a pull-request [here.](https://github.com/eli64s/README-AI/pulls)
 
 ---
 
-## 📄 License
+## 🪪 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [README-AI's LICENSE](LICENSE) file for additional details.
 
 ---
 
-## 📧 Contact
+## 📲 Contact
 
-If you have any questions or feedback about README-AI, please feel free to reach out. We would be happy to hear from you!
+If you have any questions or feedback about README-AI, feel free to start a [discussion!](https://github.com/eli64s/README-AI/discussions)
 
 ---
 
