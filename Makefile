@@ -1,7 +1,5 @@
-# Makefile
-
 SHELL = /bin/bash
-VENV := myenv
+VENV := readmeai
 
 .PHONY: help api_key autodocs style clean conda
 
@@ -30,6 +28,7 @@ style:
 clean: style
 	-rm -rf .vscode
 	-rm -rf .ruff_cache
+	-rm -rf readmeai.egg-info
 	-find . -name '*.log' -delete
 	-find . -type f -name "*.DS_Store" -ls -delete
 	-find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf
@@ -38,7 +37,13 @@ clean: style
 	-find . | grep -E ".trash" | xargs rm -rf
 
 
-# Conda Virtual Environment
+# Conda virtual environment
 conda:
 	conda create -n $(VENV) python=3.9 -y
 	conda activate $(VENV) && pip install -r requirements.txt
+
+# Python virtual environment
+venv: 
+	python -m venv $(VENV)
+	source venv/bin/activate
+	pip install -r requirements.txt

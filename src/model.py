@@ -11,8 +11,6 @@ from spacy.lang.en import English
 
 import processor
 
-
-# os.environ["OPENAI_API_KEY"] = ""
 openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
 parser = English()
@@ -42,12 +40,8 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
         _description_
     """
     docs = []
-    ignore = ["__init__", "setup.py"]
     try:
         for file_name, raw_code in files.items():
-            if any(substr in file_name for substr in ignore):
-                continue
-
             model_engine = "text-davinci-003"
             prompt = f"Create a summary description for this code: {raw_code}"
             response = openai.Completion.create(

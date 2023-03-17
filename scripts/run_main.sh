@@ -1,8 +1,13 @@
 #!/bin/bash
-set +x
 
-#export OPENAI_API_KEY=""
+set -eo pipefail
 
-python -m spacy download en_core_web_sm
+# If you need to export environment variables, do it here
+# export OPENAI_API_KEY=""
 
+# Activate the conda environment
+eval "$(conda shell.bash hook)"
+conda activate readmeai
+
+# Run the Python script
 python src/main.py

@@ -1,1 +1,3 @@
-# tests/test_logger.py
+"""
+tests/test_logger.py
+"""

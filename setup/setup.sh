@@ -1,7 +1,14 @@
 #!/bin/bash
 
-conda env create -f setup/environment.yaml
-eval "$(conda shell.bash hook)"
-conda activate pydocsai
+# Create conda environment
+conda create --name readmeai python=3.9 -y
 
-export PYTHONPATH=${PYTHONPATH}:${pwd}/src
+# Activate conda environment
+eval "$(conda shell.bash hook)"
+conda activate readmeai
+
+# Install project dependencies
+pip install -e .
+
+# Download spacy language model
+python -m spacy download en_core_web_sm

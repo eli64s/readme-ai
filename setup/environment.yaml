@@ -3,119 +3,94 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - brotlipy=0.7.0=py39ha30fb19_1005
   - bzip2=1.0.8=h0d85af4_4
   - ca-certificates=2022.12.7=h033912b_0
-  - certifi=2022.12.7=pyhd8ed1ab_0
-  - cffi=1.15.1=py39h131948b_3
-  - charset-normalizer=2.1.1=pyhd8ed1ab_0
-  - colorama=0.4.6=pyhd8ed1ab_0
-  - conda=22.11.1=py39h6e9494a_1
-  - conda-package-handling=2.0.2=pyh38be061_0
-  - conda-package-streaming=0.7.0=pyhd8ed1ab_1
-  - cryptography=39.0.1=py39hbeae22c_0
-  - idna=3.4=pyhd8ed1ab_0
-  - libcxx=14.0.6=hccf4f1f_0
   - libffi=3.4.2=h0d85af4_5
   - libsqlite=3.40.0=ha978bb4_0
   - libzlib=1.2.13=hfd90126_4
   - ncurses=6.3=h96cf925_1
-  - openssl=3.0.8=hfd90126_0
+  - openssl=3.1.0=hfd90126_0
   - pip=23.0.1=pyhd8ed1ab_0
-  - pluggy=1.0.0=pyhd8ed1ab_5
-  - pycosat=0.6.4=py39ha30fb19_1
-  - pycparser=2.21=pyhd8ed1ab_0
-  - pyopenssl=23.0.0=pyhd8ed1ab_0
-  - pysocks=1.7.1=pyha2e5f31_6
   - python=3.9.16=h709bd14_0_cpython
-  - python_abi=3.9=3_cp39
   - readline=8.1.2=h3899abd_0
-  - requests=2.28.2=pyhd8ed1ab_0
-  - ruamel.yaml=0.17.21=py39ha30fb19_2
-  - ruamel.yaml.clib=0.2.7=py39ha30fb19_1
+  - setuptools=67.6.0=pyhd8ed1ab_0
   - tk=8.6.12=h5dbffcc_0
-  - toolz=0.12.0=pyhd8ed1ab_0
-  - tqdm=4.64.1=pyhd8ed1ab_0
   - tzdata=2022g=h191b570_0
-  - urllib3=1.26.14=pyhd8ed1ab_0
-  - wheel=0.38.4=pyhd8ed1ab_0
+  - wheel=0.40.0=pyhd8ed1ab_0
   - xz=5.2.6=h775f41a_0
-  - zstandard=0.19.0=py39h5bcbcff_1
-  - zstd=1.5.2=hbc0c0cd_6
   - pip:
       - aiohttp==3.8.4
       - aiosignal==1.3.1
       - async-timeout==4.0.2
       - attrs==22.2.0
-      - beautifulsoup4==4.11.2
       - black==23.1.0
       - blis==0.7.9
       - catalogue==2.0.8
+      - certifi==2022.12.7
+      - cffi==1.15.1
+      - charset-normalizer==3.1.0
       - click==8.1.3
       - colorlog==6.7.0
       - confection==0.0.4
-      - coverage==7.1.0
+      - coverage==7.2.2
       - cymem==2.0.7
-      - dacite==1.7.0
+      - dacite==1.8.0
       - deprecated==1.2.13
       - docopt==0.6.2
       - en-core-web-sm==3.5.0
-      - exceptiongroup==1.1.0
+      - exceptiongroup==1.1.1
       - flake8==6.0.0
       - frozenlist==1.3.3
       - gitdb==4.0.10
       - gitpython==3.1.31
-      - html2text==2020.1.16
-      - importlib-metadata==6.0.0
+      - idna==3.4
       - iniconfig==2.0.0
       - isort==5.12.0
       - jinja2==3.1.2
-      - joblib==1.2.0
       - langcodes==3.3.0
-      - markdown==3.4.1
       - markupsafe==2.1.2
       - mccabe==0.7.0
-      - mdutils==1.4.0
       - multidict==6.0.4
       - murmurhash==1.0.9
       - mypy-extensions==1.0.0
-      - nltk==3.8.1
       - numpy==1.24.2
-      - openai==0.26.1
+      - openai==0.27.2
       - packaging==23.0
-      - pandas==1.5.2
-      - pathspec==0.11.0
+      - pandas==1.5.3
+      - pathspec==0.11.1
       - pathy==0.10.1
       - pipreqs==0.4.11
-      - platformdirs==3.0.0
+      - platformdirs==3.1.1
+      - pluggy==1.0.0
       - preshed==3.0.8
       - pycodestyle==2.10.0
-      - pydantic==1.10.5
+      - pycparser==2.21
+      - pydantic==1.10.6
       - pyflakes==3.0.1
       - pygithub==1.58.0
       - pyjwt==2.6.0
       - pynacl==1.5.0
-      - pytest==7.2.1
+      - pytest==7.2.2
+      - pytest-cov==2.10.1
       - python-dateutil==2.8.2
       - pytz==2022.7.1
-      - regex==2022.10.31
-      - setuptools==66.1.1
+      - requests==2.28.2
       - six==1.16.0
       - smart-open==6.3.0
       - smmap==5.0.0
-      - soupsieve==2.4
-      - spacy==3.5.0
+      - spacy==3.5.1
       - spacy-legacy==3.0.12
       - spacy-loggers==1.0.4
-      - srsly==2.4.5
+      - srsly==2.4.6
       - tabulate==0.9.0
-      - thinc==8.1.7
+      - thinc==8.1.9
       - toml==0.10.2
       - tomli==2.0.1
+      - tqdm==4.65.0
       - typer==0.7.0
       - typing-extensions==4.5.0
+      - urllib3==1.26.15
       - wasabi==1.1.1
       - wrapt==1.15.0
       - yarg==0.1.9
       - yarl==1.8.2
-      - zipp==3.14.0

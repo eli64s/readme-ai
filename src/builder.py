@@ -7,7 +7,7 @@ import tempfile
 import git
 import pandas as pd
 
-from utils import FileFactory
+from src.utils import FileFactory
 
 
 def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:

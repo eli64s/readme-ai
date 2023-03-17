@@ -1,13 +1,7 @@
-# tests/conftest.py
+"""
+tests/conftest.py
+"""
+import sys
+from pathlib import Path
 
-import pytest
-
-
-@pytest.fixture(scope="function")
-def test_conf():
-    pass
-
-
-@pytest.fixture
-def my_fixture():
-    return [1, 2, 3, 4, 5]
+sys.path.insert(0, str(Path(__file__).parent.parent))

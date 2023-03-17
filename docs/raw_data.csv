@@ -1,10 +1,1 @@
 Module,Summary
-scripts/run_main.sh,This code is a Bash script that downloads the English language model for the spaCy library and then runs the main. py file from the src directory.
-scripts/test.sh,"This code activates a conda environment called ""myenv"", runs a pytest command with verbose and junitxml options, and then deactivates the conda environment."
-src/builder.py,"This code is a Python script that builds a Markdown file from a configuration object, a list of features, an introduction, a list of packages, a name, and a URL."
-src/conf.py,"This code defines a configuration constants object, AppConfig, which contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig."
-src/logger.py,This code creates a Logger class which provides methods for logging messages with different levels of severity. The messages are printed to the console with different colors depending on the severity.
-src/main.py,"This code is a Python script that uses the OpenAI API to generate a README. md file for a given project. It loads a configuration file, clones the project's codebase, and uses the OpenAI API to generate features, an introduction, and documentation for the project."
-src/model.py,This code is a Python module that provides functions for summarizing code and generating readme features. It uses the OpenAI API and the Spacy library to process text.
-src/processor.py,This code is a Python script that clones a Git repository and retrieves its contents. It also creates a conda environment file and parses the codebase to get the contents of each file with a specific file type.
-src/utils.py,"This code creates a FileFactory class that can be used to read and write data from different file types, such as CSV, JSON, HTML, MD, and TOML."
