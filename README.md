@@ -66,7 +66,7 @@ README-AI provides an automated way to generate a README Markdown files and crea
 
 |                                                                                                                                                               |                                                                                      |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| <br><br/><b>📍 Project Badges </b><br><br>Analyzes your project's dependencies and requirements, displaying them as badges<br> in the README's header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
+| <br><br/><b>📍 Project Badges </b><br><br>Extracts your project's dependencies and displays them as badges<br> in the README header section. | ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/head.png?raw=true) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Repository Tree</h1>
 <p align="center">Why not a tree as well? Visualize your project's GitHub directories and files.
@@ -84,8 +84,8 @@ README-AI provides an automated way to generate a README Markdown files and crea
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | <br><br/><b>📍 Environment Yaml File</b><br><br>Creates your project's environment yaml<br> file and generates an installation guide section for others can use your project easily! | ![getting_started](https://github.com/eli64s/README-AI/blob/main/docs/imgs/usage.png?raw=true) |
 
-<h1 align="center">5.<br>👇<br><br>🧩 Additional Sections</h1>
-<p align="center">Additional sections to build a robust README template for your project!
+<h1 align="center">5.<br>👇<br><br>🧩 Table of Contents, Contributing, and more!</h1>
+<p align="center">Generates additional sections to build a robust README template for your project!
 </p>
 
 |                                                                                                                                                                                      |                                                                                                |
