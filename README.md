@@ -24,7 +24,7 @@
 ## 🧩 Table of Contents
 
 - [🧩 Table of Contents](#-table-of-contents)
-- [👋 Introdcution](#-introdcution)
+- [👋 Introduction](#-introduction)
 - [🔮 Features](#-features)
 - [🏎💨 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
@@ -41,7 +41,7 @@
 
 ---
 
-## 👋 Introdcution
+## 👋 Introduction
 
 README-AI provides an automated way to generate a README Markdown files and create boilerplate documentation for your codebase. This project leverages OpenAI's GPT Davinci model to translate a given codebase to natural language, producing a structured project README template, including your codebase's metadata and boilerplate documentation.
 
