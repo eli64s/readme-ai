@@ -9,13 +9,12 @@ import subprocess
 import tempfile
 from collections import defaultdict
 from contextlib import contextmanager
+from pathlib import Path
 
 import requests
 import toml
 
-config = toml.load(
-    "/Users/k01101011/Documents/GitHub/readme-ai/conf/extensions_map.toml"
-)
+config = toml.load(Path("conf/file_extensions_map.toml").resolve())
 extension_map = config["extensions"]
 
 
@@ -81,10 +80,9 @@ def extract_dependencies(file_contents):
 
 
 def fetch_github_folder_contents(repo_name):
-    ignore_file_types = ["png", "md", "gitignore", "git", "txt", "csv"]
+    ignore_file_types = ["csv", "git", "gitignore", "md", "png", "txt"]
     ignore_file_names = ["LICENSE", "Makefile", "setup.py", "pyproject.toml"]
-    ignore_folder_names = ["docs", "setup", "tests", "conf"]
-
+    ignore_folder_names = ["conf", "docs", "setup", "tests"]
     base_url = f"https://api.github.com/repos/{repo_name}"
     folder_contents = {}
 
@@ -139,17 +137,14 @@ def fetch_github_folder_contents(repo_name):
     return folder_contents
 
 
-def generate_user_instructions(
-    md: str, repo_name: str, repo_url: str, language: str
-) -> str:
-    config = toml.load(
-        "/Users/k01101011/Documents/GitHub/readme-ai/conf/instructions.toml"
-    )
-    instructions = config["instructions"]
+def generate_user_instructions(md: str, name: str, url: str, language: str) -> str:
+    config = toml.load(Path("conf/language_instructions.toml").resolve())
+    instructions = config["language_instructions"]
 
-    if not repo_name:
+    if not name:
         print("Invalid GitHub repo URL.")
         return ""
+
     language_instructions = instructions.get(language)
     if not language_instructions:
         # logger.info(f"Instructions for {language} not found.")
@@ -157,8 +152,7 @@ def generate_user_instructions(
 
     install = language_instructions[0]
     running = language_instructions[1]
-    markdown = md.format(install=install, running=running, name=repo_name, url=repo_url
-    )
+    markdown = md.format(name=name, url=url, install=install, running=running)
     return markdown
 
 
@@ -212,7 +206,7 @@ def list_files_recursive(url):
                 elif item["type"] == "dir":
                     files.extend(list_files_recursive(item["url"]))
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching repo contents: {e}")
+        raise (f"Error fetching repo contents: {e}")
     return files
 
 
@@ -247,8 +241,8 @@ def dependencies_helper(repo_url):
     dependencies, file_extensions = list_dependencies_and_file_extensions(repo_url)
     for ext, _ in file_extensions.items():
         if ext:
-            dependencies.append(ext.strip("."))
-    return dependencies
+            dependencies.append(ext.lower().strip("."))
+    return [s.split("=")[0] for s in dependencies if "=" in s]
 
 
 def clone_repository_helper(md: str, repo_name: str, repo_url: str) -> str:

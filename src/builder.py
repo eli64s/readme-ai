@@ -11,24 +11,7 @@ import processor
 from utils import FileFactory
 
 
-def build(
-    cfg: object, features: str, output_file: str, pkgs: list, name: str, url: str
-) -> None:
-    """_summary_
-
-    Parameters
-    ----------
-    cfg
-        _description_
-    features
-        _description_
-    pkgs
-        _description_
-    name
-        _description_
-    url
-        _description_
-    """
+def build(badge_list: list, cfg: object, intro: str, name: str, url: str) -> None:
     docs_path = cfg.paths.docs
     docs_df = pd.read_csv(docs_path)
 
@@ -36,6 +19,7 @@ def build(
     md_body = cfg.md.body
     md_dropdown = cfg.md.dropdown
     md_modules = cfg.md.modules
+    md_setup = cfg.md.setup
     md_toc = cfg.md.toc
     md_tree = cfg.md.tree
 
@@ -44,16 +28,16 @@ def build(
     json_dict = json_file.read_file()
     badges = get_badges(json_dict)
 
-    md_badges = get_header(badges, pkgs)
-    md_body = md_body.format(features)
-    md_instructions = processor.clone_repository_helper(cfg.md.instructions, name, url)
+    md_badges = get_header(badges, badge_list)
+    md_body = md_body.format(intro)
     md_repo = get_tree(url)
+    md_setup = processor.clone_repository_helper(md_setup, name, url)
     md_tables = get_tables(docs_df, md_dropdown)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
 
     md = md.format(name, md_badges)
-    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_instructions}"
-    md_file = FileFactory(output_file).get_handler()
+    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_setup}"
+    md_file = FileFactory(cfg.paths.md).get_handler()
     md_file.write_file(md)
 
 

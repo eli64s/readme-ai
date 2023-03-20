@@ -50,13 +50,16 @@ README-AI
 ---
 ## 👋 Introduction
 
-> `[📌  INSERT-DESCRIPTION]`
+Open source project written in Python
+* Uses natural language processing to automatically generate a README.md file for a given codebase
+* Can be run from the command line
+* Supports English and Spanish
+* Generates a report of the most important keywords in the codebase
+* Includes a link to the original codebase repository
 
 ## 🔮 Feautres
 
-- The README-AI project is a tool that automatically generates a README file for your GitHub repositories. 
-- It includes a summary of your project, a list of features, a screenshot, and a link to the live site. 
-- README-AI is written in python and is available on GitHub.
+> `[📌  INSERT-DESCRIPTION]`
 
 ---
 

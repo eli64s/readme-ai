@@ -8,7 +8,7 @@ class OpenAI:
 
     api_key: str
     engine: str
-    prompt_features: str
+    prompt_intro: str
 
 
 @dataclass
@@ -24,9 +24,9 @@ class Markdown:
 
     body: str
     head: str
-    instructions: str
     dropdown: str
     modules: str
+    setup: str
     toc: str
     tree: str
 

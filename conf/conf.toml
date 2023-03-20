@@ -2,13 +2,11 @@
 [api]
 api_key = "<OPENAI-API-KEY>"
 engine = "text-davinci-003"
-prompt_features = """Create a list of codebase features to be used in a README.md 
-for the GiitHub project {}. Format the result string as Markdown code bullet list.
-"""
+prompt_intro = """Given the GiitHub project {} url, write a short summary of the codebase's capabilities."""
 
 # GitHub Repository
 [github]
-url = "https://github.com/eli64s/readme-ai" #"https://github.com/GokuMohandas/mlops-course" #
+url = "https://github.com/GokuMohandas/mlops-course" #"https://github.com/eli64s/readme-ai" #
 
 # File paths and directories
 [paths]
@@ -33,31 +31,32 @@ head = """\n<div align="center">
 > <p align="center">
 > {}
 > </p>
-\n</div>\n
+\n</div>
 \n---
 """
 
 toc = """
 \n## 📦 Table of Contents
 
-\n- [📦 Table of Contents](#-table-of-contents)
-\n- [👋 Introdcution](#-introdcution)
-\n- [🔮 Features](#-features)
-\n- [⚙️ Project Structure](#project-structure)
-\n- [🧩 Modules](#modules)
-\n- [🏎💨 Getting Started](#-getting-started)
-\n- [🗺 Roadmap](#-roadmap)
-\n- [🤝 Contributing](#-contributing)
-\n- [🪪 License](#-license)
-\n- [📫 Contact](#-contact)
-\n- [🙏 Acknowledgments](#-acknowledgments)
-\n---"""
+- [📦 Table of Contents](#-table-of-contents)
+- [👋 Introdcution](#-introdcution)
+- [🔮 Features](#-features)
+- [⚙️ Project Structure](#project-structure)
+- [🧩 Modules](#modules)
+- [🏎💨 Getting Started](#-getting-started)
+- [🗺 Roadmap](#-roadmap)
+- [🤝 Contributing](#-contributing)
+- [🪪 License](#-license)
+- [📫 Contact](#-contact)
+- [🙏 Acknowledgments](#-acknowledgments)
+\n---
+"""
 
 body = """
 \n## 👋 Introduction
-\n> `[📌  INSERT-DESCRIPTION]`
-\n## 🔮 Feautres
 \n{}
+\n## 🔮 Feautres
+\n> `[📌  INSERT-DESCRIPTION]`
 """
 
 modules = """\n---
@@ -71,27 +70,26 @@ tree = """\n---
 \n## ⚙️ Project Structure
 """
 
-instructions = """\n---
-\n## 🏎💨 Getting Started
+setup = """<hr>\n
+## 🏎💨 Getting Started
 
-\n### ✅ Prerequisites
+### ✅ Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
-\n- `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
+- `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
 
-\n### 💻 Installation
+### 💻 Installation
 \n1. Clone the {name} repository:
-\n```sh\ngit clone {url}\n```
+```sh\ngit clone {url}\n```
 \n2. Change to the project directory:
-\n```sh\ncd {name}\n```
+```sh\ncd {name}\n```
 \n3. Install the dependencies:
-\n```sh\n{install}\n```
+```sh\n{install}\n```
 
-\n### 🤖 Running {name}
-\n```sh\n{running}\n```
+### 🤖 Running {name}
+```sh\n{running}\n```
 
-\n### 🧪 Running Tests
-\n```sh\n# INSERT-HOW-TO-RUN-UNIT-TESTS\n```
-
+### 🧪 Running Tests
+```sh\n# INSERT-HOW-TO-RUN-UNIT-TESTS\n```
 \n---
 
 ## 🗺 Roadmap
@@ -142,3 +140,109 @@ If you have any questions or concerns, please open an issue on GitHub or contact
 \n `[📌  INSERT-DESCRIPTION]`
 \n---
 """
+
+# Map file extensions to programming languages.
+[extensions]
+    ".asm" = "Assembly"
+    ".c" = "C"
+    ".cfg" = "CFG"
+    ".cfg.lua" = "LÖVE2D"
+    ".cmake" = "CMake"
+    ".coffee" = "CoffeeScript"
+    ".cpp" = "C++"
+    ".cs" = "C#"
+    ".csproj" = "XML"
+    ".dart" = "Dart"
+    ".fs" = "F#"
+    ".fsi" = "F#"
+    ".go" = "Go"
+    ".groovy" = "Groovy"
+    ".h" = "C"
+    ".hpp" = "C++"
+    ".hs" = "Haskell"
+    ".html" = "HTML"
+    ".ipynb" = "Jupyter Notebook"
+    ".java" = "Java"
+    ".jl" = "Julia"
+    ".js" = "JavaScript"
+    ".json" = "JSON"
+    ".kt" = "Kotlin"
+    ".lua" = "Lua"
+    ".m" = "Objective-C"
+    ".md" = "Markdown"
+    ".mm" = "Objective-C++"
+    ".php" = "PHP"
+    ".pl" = "Perl"
+    ".ps1" = "PowerShell"
+    ".psm1" = "PowerShell"
+    ".py" = "Python"
+    ".r" = "R"
+    ".rb" = "Ruby"
+    ".rs" = "Rust"
+    ".rst" = "reStructuredText"
+    ".s" = "Assembly"
+    ".scala" = "Scala"
+    ".sh" = "Shell"
+    ".sql" = "SQL"
+    ".svg" = "SVG"
+    ".swift" = "Swift"
+    ".swiftdeps" = "Swift"
+    ".tex" = "TeX"
+    ".toml" = "TOML"
+    ".ts" = "TypeScript"
+    ".tsx" = "TypeScript"
+    ".txt" = "Text"
+    ".v" = "Verilog"
+    ".vh" = "Verilog"
+    ".xml" = "XML"
+    ".yaml" = "YAML"
+    ".yml" = "YAML"
+
+# Instruction guide for installation and running programming languages
+[language_instructions]
+ABAP = ["abap build", "abap run"]
+ActionScript = ["mxmlc main.as", "flashplayer main.swf"]
+Ada = ["gnatmake main.adb", "./main"]
+Apex = ["sfdx force:source:deploy -p force-app/main/default", "sfdx force:apex:execute -f main.apex"]
+Assembly = ["nasm -f elf64 main.asm && ld main.o -o myapp", "./myapp"]
+COBOL = ["cobc -x -o myapp main.cob", "./myapp"]
+C = ["gcc -o myapp main.c", "./myapp"]
+CPlusPlus = ["g++ -o myapp main.cpp", "./myapp"]
+CSharp = ["dotnet build", "dotnet run"]
+CoffeeScript = ["npm install", "coffee main.coffee"]
+Crystal = ["shards install", "./main"]
+D = ["dmd main.d", "./main"]
+Dart = ["pub get", "dart main.dart"]
+Delphi = ["dcc32 main.dpr", "main.exe"]
+Elixir = ["mix deps.get", "mix run main.exs"]
+FS = ["dotnet build", "dotnet run"]
+Forth = ["gforth main.fs"]
+Go = ["go build -o myapp", "./myapp"]
+Groovy = ["grape install", "groovy main.groovy"]
+Haskell = ["ghc -o myapp main.hs", "./myapp"]
+Java = ["mvn clean install", "java -jar target/myapp.jar"]
+JavaScript = ["npm install", "npm start"]
+Julia = ["julia --project -e 'import Pkg; Pkg.instantiate()'", "julia main.jl"]
+Kotlin = ["gradle build", "java -jar build/libs/myapp.jar"]
+Lua = ["luarocks install --only-deps myapp", "lua main.lua"]
+MATLAB = ["matlab -r main.m"]
+Objective-C = ["gcc -framework Foundation main.m -o myapp", "./myapp"]
+CPP = ["g++ -o myapp main.mm", "./myapp"]
+ObjectScript = ["zpm install", "do ##class(User.MyClass).Main()"]
+Perl = ["cpanm --installdeps .", "perl main.pl"]
+Perl6 = ["zef install .", "perl6 main.p6"]
+PHP = ["composer install", "php main.php"]
+PowerShell = ["pwsh main.ps1"]
+Prolog = ["swipl -g main -t halt -q main.pl"]
+Python = ["pip install -r requirements.txt", "python main.py"]
+R = ["Rscript install.R", "Rscript main.R"]
+Raku = ["zef install .", "raku main.raku"]
+Ruby = ["bundle install", "ruby main.rb"]
+Rust = ["cargo build", "cargo run"]
+Scala = ["sbt compile", "sbt run"]
+Scheme = ["csi -s main.scm"]
+Shell = ["chmod +x main.sh", "./main.sh"]
+Swift = ["swift build", ".build/debug/myapp"]
+TypeScript = ["npm install", "npm run build && node dist/main.js"]
+VBScript = ["cscript main.vbs"]
+VisualBasic = ["dotnet build", "dotnet run"]
