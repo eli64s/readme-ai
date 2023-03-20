@@ -17,7 +17,7 @@ markdown_data = {
     "modules": "test_modules",
     "toc": "test_toc",
     "tree": "test_tree",
-    "usage": "test_usage",
+    "instructions": "test_instructions",
 }
 paths_data = {"badges": "test_badges", "docs": "test_docs", "md": "test_md"}
 

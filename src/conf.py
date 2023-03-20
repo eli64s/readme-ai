@@ -24,11 +24,11 @@ class Markdown:
 
     body: str
     head: str
+    instructions: str
     dropdown: str
     modules: str
     toc: str
     tree: str
-    usage: str
 
 
 @dataclass

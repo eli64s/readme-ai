@@ -2,14 +2,13 @@
 [api]
 api_key = "<OPENAI-API-KEY>"
 engine = "text-davinci-003"
-prompt_features = """\
-Create a summary description for a README.md feature section for the GiitHub project - {}.
-Format the generated text as a bullet list in Markdown code.
+prompt_features = """Create a list of codebase features to be used in a README.md 
+for the GiitHub project {}. Format the result string as Markdown code bullet list.
 """
 
 # GitHub Repository
 [github]
-url = "https://github.com/eli64s/README-AI" #"https://github.com/GokuMohandas/mlops-course" #
+url = "https://github.com/eli64s/readme-ai" #"https://github.com/GokuMohandas/mlops-course" #
 
 # File paths and directories
 [paths]
@@ -44,7 +43,7 @@ toc = """
 \n- [📦 Table of Contents](#-table-of-contents)
 \n- [👋 Introdcution](#-introdcution)
 \n- [🔮 Features](#-features)
-\n- [⚙️ Repository Structure](#repository-structure)
+\n- [⚙️ Project Structure](#project-structure)
 \n- [🧩 Modules](#modules)
 \n- [🏎💨 Getting Started](#-getting-started)
 \n- [🗺 Roadmap](#-roadmap)
@@ -61,44 +60,45 @@ body = """
 \n{}
 """
 
-modules = """
-\n---
+modules = """\n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 \n## 🧩 Modules\n
 """
 dropdown = """\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
 
-tree = """
-\n---
+tree = """\n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## ⚙️ Repository Structure
+\n## ⚙️ Project Structure
 """
 
-usage = """\n<hr />\n
-## 🏎💨 Getting Started
-\n### Prerequisites
-\nBefore you begin, ensure that you have the following prerequisites installed:
+instructions = """\n---
+\n## 🏎💨 Getting Started
 
+\n### ✅ Prerequisites
+\nBefore you begin, ensure that you have the following prerequisites installed:
 \n- `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
 
-\n### Installation
+\n### 💻 Installation
 \n1. Clone the {name} repository:
+\n```sh\ngit clone {url}\n```
+\n2. Change to the project directory:
+\n```sh\ncd {name}\n```
+\n3. Install the dependencies:
+\n```sh\n{install}\n```
 
-\n```sh\ngit clone {url} && cd {name}\n```
-\n2. Create a new Conda environment and install the required dependencies:
-\n```sh\nconda env create -f setup/environment.yaml\nconda activate {name}\n```
-\n3. `[📌  insert-additional-steps]`
+\n### 🤖 Running {name}
+\n```sh\n{running}\n```
 
-\n```sh\n #... \n```
-\n### Running {name}
-\n```sh\n# ... \n```
+\n### 🧪 Running Tests
+\n```sh\n# INSERT-HOW-TO-RUN-UNIT-TESTS\n```
+
 \n---
 
 ## 🗺 Roadmap
 
-- [X] `[📌  INSERT-TASK-TODO]`
-- [ ] `[📌  INSERT-TASK-TODO]`
-- [ ] `[📌  INSERT-TASK-TODO]`
+- [X] `[📌  INSERT-TASK-COMPLETE]`
+- [ ] `[📌  INSERT-TASK-COMPLETE]`
+- [ ] `[📌  INSERT-TASK-COMPLETE]`
 \n---
 
 ## 🤝 Contributing

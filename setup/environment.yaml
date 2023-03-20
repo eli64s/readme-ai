@@ -3,31 +3,76 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - appnope=0.1.3=pyhd8ed1ab_0
+  - asttokens=2.2.1=pyhd8ed1ab_0
+  - backcall=0.2.0=pyh9f0ad1d_0
+  - backports=1.0=pyhd8ed1ab_3
+  - backports.functools_lru_cache=1.6.4=pyhd8ed1ab_0
   - bzip2=1.0.8=h0d85af4_4
   - ca-certificates=2022.12.7=h033912b_0
+  - debugpy=1.6.6=py39h7a8716b_0
+  - decorator=5.1.1=pyhd8ed1ab_0
+  - executing=1.2.0=pyhd8ed1ab_0
+  - importlib-metadata=6.1.0=pyha770c72_0
+  - importlib_metadata=6.1.0=hd8ed1ab_0
+  - ipykernel=6.15.0=pyh736e0ef_0
+  - ipython=8.11.0=pyhd1c38e8_0
+  - jedi=0.18.2=pyhd8ed1ab_0
+  - jupyter_client=8.0.3=pyhd8ed1ab_0
+  - jupyter_core=5.3.0=py39h6e9494a_0
+  - libcxx=15.0.7=h71dddab_0
   - libffi=3.4.2=h0d85af4_5
+  - libsodium=1.0.18=hbcb3906_1
   - libsqlite=3.40.0=ha978bb4_0
   - libzlib=1.2.13=hfd90126_4
+  - matplotlib-inline=0.1.6=pyhd8ed1ab_0
   - ncurses=6.3=h96cf925_1
+  - nest-asyncio=1.5.6=pyhd8ed1ab_0
   - openssl=3.1.0=hfd90126_0
+  - packaging=23.0=pyhd8ed1ab_0
+  - parso=0.8.3=pyhd8ed1ab_0
+  - pexpect=4.8.0=pyh1a96a4e_2
+  - pickleshare=0.7.5=py_1003
   - pip=23.0.1=pyhd8ed1ab_0
+  - platformdirs=3.1.1=pyhd8ed1ab_0
+  - prompt-toolkit=3.0.38=pyha770c72_0
+  - prompt_toolkit=3.0.38=hd8ed1ab_0
+  - psutil=5.9.4=py39ha30fb19_0
+  - ptyprocess=0.7.0=pyhd3deb0d_0
+  - pure_eval=0.2.2=pyhd8ed1ab_0
+  - pygments=2.14.0=pyhd8ed1ab_0
   - python=3.9.16=h709bd14_0_cpython
+  - python-dateutil=2.8.2=pyhd8ed1ab_0
+  - python_abi=3.9=3_cp39
+  - pyzmq=25.0.1=py39hed8f129_0
   - readline=8.1.2=h3899abd_0
   - setuptools=67.6.0=pyhd8ed1ab_0
+  - six=1.16.0=pyh6c4a22f_0
+  - stack_data=0.6.2=pyhd8ed1ab_0
   - tk=8.6.12=h5dbffcc_0
+  - tornado=6.2=py39ha30fb19_1
+  - traitlets=5.9.0=pyhd8ed1ab_0
+  - typing-extensions=4.5.0=hd8ed1ab_0
+  - typing_extensions=4.5.0=pyha770c72_0
   - tzdata=2022g=h191b570_0
+  - wcwidth=0.2.6=pyhd8ed1ab_0
   - wheel=0.40.0=pyhd8ed1ab_0
   - xz=5.2.6=h775f41a_0
+  - zeromq=4.3.4=he49afe7_1
+  - zipp=3.15.0=pyhd8ed1ab_0
   - pip:
       - aiohttp==3.8.4
       - aiosignal==1.3.1
       - async-timeout==4.0.2
       - attrs==22.2.0
+      - beautifulsoup4==4.11.2
       - black==23.1.0
       - blis==0.7.9
+      - bs4==0.0.1
       - catalogue==2.0.8
       - certifi==2022.12.7
       - cffi==1.15.1
+      - chardet==3.0.4
       - charset-normalizer==3.1.0
       - click==8.1.3
       - colorlog==6.7.0
@@ -37,17 +82,27 @@ dependencies:
       - dacite==1.8.0
       - deprecated==1.2.13
       - docopt==0.6.2
+      - emoji==2.2.0
       - en-core-web-sm==3.5.0
       - exceptiongroup==1.1.1
       - flake8==6.0.0
       - frozenlist==1.3.3
       - gitdb==4.0.10
       - gitpython==3.1.31
-      - idna==3.4
+      - googletrans==3.0.0
+      - h11==0.9.0
+      - h2==3.2.0
+      - hpack==3.0.0
+      - hstspreload==2023.1.1
+      - httpcore==0.9.1
+      - httpx==0.13.3
+      - hyperframe==5.2.0
+      - idna==2.10
       - iniconfig==2.0.0
       - isort==5.12.0
       - jinja2==3.1.2
       - langcodes==3.3.0
+      - langdetect==1.0.9
       - markupsafe==2.1.2
       - mccabe==0.7.0
       - multidict==6.0.4
@@ -55,12 +110,10 @@ dependencies:
       - mypy-extensions==1.0.0
       - numpy==1.24.2
       - openai==0.27.2
-      - packaging==23.0
       - pandas==1.5.3
       - pathspec==0.11.1
       - pathy==0.10.1
       - pipreqs==0.4.11
-      - platformdirs==3.1.1
       - pluggy==1.0.0
       - preshed==3.0.8
       - pycodestyle==2.10.0
@@ -72,12 +125,15 @@ dependencies:
       - pynacl==1.5.0
       - pytest==7.2.2
       - pytest-cov==2.10.1
-      - python-dateutil==2.8.2
       - pytz==2022.7.1
+      - pyyaml==6.0
       - requests==2.28.2
-      - six==1.16.0
+      - rfc3986==1.5.0
+      - scanner==0.1.0
       - smart-open==6.3.0
       - smmap==5.0.0
+      - sniffio==1.3.0
+      - soupsieve==2.4
       - spacy==3.5.1
       - spacy-legacy==3.0.12
       - spacy-loggers==1.0.4
@@ -88,7 +144,6 @@ dependencies:
       - tomli==2.0.1
       - tqdm==4.65.0
       - typer==0.7.0
-      - typing-extensions==4.5.0
       - urllib3==1.26.15
       - wasabi==1.1.1
       - wrapt==1.15.0

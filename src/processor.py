@@ -1,17 +1,22 @@
 """
 src/processor.py
 """
-import contextlib
+import collections
 import os
 import re
 import shutil
 import subprocess
 import tempfile
 from collections import defaultdict
-from pathlib import Path
+from contextlib import contextmanager
 
-import git
 import requests
+import toml
+
+config = toml.load(
+    "/Users/k01101011/Documents/GitHub/readme-ai/conf/extensions_map.toml"
+)
+extension_map = config["extensions"]
 
 
 def add_space_between_sentences(text):
@@ -19,72 +24,60 @@ def add_space_between_sentences(text):
     return re.sub(pattern, r"\1 \2", text)
 
 
-@contextlib.contextmanager
-def clone_in_temp_directory():
-    """Create a temporary directory.
+@contextmanager
+def clone_repository(repo_url: str):
+    _, repo_name = get_repo_name(repo_url)
+    if not repo_name:
+        print("Invalid GitHub repo URL.")
+        return ""
 
-    Yields:
-        str: The path to the temporary directory.
-    """
     temp_dir = tempfile.mkdtemp()
+    cloned_repo_path = os.path.join(temp_dir, repo_name)
+
     try:
-        yield temp_dir
+        subprocess.run(["git", "clone", repo_url, repo_name], cwd=temp_dir, check=True)
+        yield cloned_repo_path
+    except Exception as e:
+        print(f"Error: {e}")
     finally:
         shutil.rmtree(temp_dir)
 
 
-def clone_repository(repo_url):
-    """_summary_
-
-    Parameters
-    ----------
-    repo_url
-        _description_
-    """
-    cwd_dir = Path.cwd()
-    with clone_in_temp_directory() as temp_dir:
-        git.Repo.clone_from(repo_url, temp_dir)
-        create_environ_file(cwd_dir, temp_dir)
-
-
-def create_environ_file(repo_path, temp_dir):
-    """Create a conda environment file.
-
-    Args:
-        repo_path (str): The path to the repository.
-    """
-    file_name = "environment.yaml"
-    env_file = os.path.join(temp_dir, file_name)
-    if os.path.exists(env_file):
-        print(f"{env_file} already exists")
-        return
-
-    env_file = os.path.join(temp_dir, file_name)
-    if os.path.exists(env_file):
-        print(f"{env_file} already exists")
-        return
-
-    setup_dir = os.path.join(repo_path, "setup")
-    os.makedirs(setup_dir, exist_ok=True)
-    env_file = os.path.join(setup_dir, file_name)
-
+def detect_primary_language(repo_path: str) -> str:
+    # Get the output of the "git ls-files" command
     try:
-        subprocess.run(
-            f"conda env export > {env_file}", shell=True, check=True, cwd=repo_path
+        git_ls_files_output = subprocess.check_output(
+            ["git", "ls-files"], stderr=subprocess.DEVNULL, cwd=repo_path
         )
-        print(f"Created {env_file}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error creating {env_file}: {e}")
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return ""
+
+    # Convert the output to a list of file paths
+    file_paths = git_ls_files_output.decode("utf-8").strip().split("\n")
+
+    # Count the number of files for each extension
+    extensions_counts = collections.defaultdict(int)
+    for file_path in file_paths:
+        extension = os.path.splitext(file_path)[1]
+        extensions_counts[extension] += 1
+
+    # Count the number of files for each programming language
+    language_counts = collections.defaultdict(int)
+    for extension, count in extensions_counts.items():
+        if extension in extension_map:
+            language = extension_map[extension]
+            language_counts[language] += count
+
+    # Get the most common programming language based on the number of files
+    top_language = max(language_counts.items(), key=lambda x: x[1])[0]
+    return top_language
 
 
-def extract_user_repo_from_url(url):
-    pattern = r"github.com/([^/]+)/([^/]+)"
-    match = re.search(pattern, url)
-    if match:
-        user, repo = match.groups()
-        return f"{user}/{repo}", repo
-    else:
-        raise ValueError("Invalid GitHub URL.")
+def extract_dependencies(file_contents):
+    if "requirements.txt" in file_contents:
+        requirements = file_contents["requirements.txt"].split("\n")
+        return requirements
+    return []
 
 
 def fetch_github_folder_contents(repo_name):
@@ -146,11 +139,27 @@ def fetch_github_folder_contents(repo_name):
     return folder_contents
 
 
-def extract_dependencies(file_contents):
-    if "requirements.txt" in file_contents:
-        requirements = file_contents["requirements.txt"].split("\n")
-        return requirements
-    return []
+def generate_user_instructions(
+    md: str, repo_name: str, repo_url: str, language: str
+) -> str:
+    config = toml.load(
+        "/Users/k01101011/Documents/GitHub/readme-ai/conf/instructions.toml"
+    )
+    instructions = config["instructions"]
+
+    if not repo_name:
+        print("Invalid GitHub repo URL.")
+        return ""
+    language_instructions = instructions.get(language)
+    if not language_instructions:
+        # logger.info(f"Instructions for {language} not found.")
+        return ""
+
+    install = language_instructions[0]
+    running = language_instructions[1]
+    markdown = md.format(install=install, running=running, name=repo_name, url=repo_url
+    )
+    return markdown
 
 
 def get_file_contents(url, file_name):
@@ -169,8 +178,26 @@ def get_file_extensions(files):
     for file in files:
         _, ext = os.path.splitext(file["name"])
         if ext:
-            extensions[ext] += 1
+            ext_name = extension_map.get(ext.lower(), None)
+            extensions[ext_name] += 1
     return extensions
+
+
+def get_repo_language(repo_url: str) -> str:
+    with clone_repository(repo_url) as repo_path:
+        if repo_path:
+            primary_language = detect_primary_language(repo_path)
+        return primary_language
+
+
+def get_repo_name(url):
+    pattern = r"github.com/([^/]+)/([^/]+)"
+    match = re.search(pattern, url)
+    if match:
+        user, repo = match.groups()
+        return f"{user}/{repo}", repo
+    else:
+        raise ValueError("Invalid GitHub URL.")
 
 
 def list_files_recursive(url):
@@ -216,50 +243,21 @@ def list_dependencies_and_file_extensions(repo_url):
     return dependencies, file_extensions
 
 
-def get_file_extension_full_name(extension):
-    extension_map = {
-        ".py": "Python",
-        ".js": "JavaScript",
-        ".html": "HTML",
-        ".css": "CSS",
-        ".java": "Java",
-        ".cpp": "C++",
-        ".c": "C",
-        ".cs": "C#",
-        ".rb": "Ruby",
-        ".php": "PHP",
-        ".go": "Go",
-        ".swift": "Swift",
-        ".rs": "Rust",
-        ".ts": "TypeScript",
-        ".kt": "Kotlin",
-        ".m": "Objective-C",
-        ".scala": "Scala",
-        ".dart": "Dart",
-        ".groovy": "Groovy",
-        ".lua": "Lua",
-        ".sh": "Shell",
-        ".r": "R",
-        ".pl": "Perl",
-        ".hs": "Haskell",
-        ".coffee": "CoffeeScript",
-        ".sql": "SQL",
-        ".xml": "XML",
-        ".json": "JSON",
-        ".yaml": "YAML",
-        ".yml": "YAML",
-        ".md": "Markdown",
-        ".txt": "Text",
-    }
-    return extension_map.get(extension.lower(), None)
-
-
 def dependencies_helper(repo_url):
     dependencies, file_extensions = list_dependencies_and_file_extensions(repo_url)
     for ext, _ in file_extensions.items():
-        dependencies.append(ext.strip("."))
-        full_ext = get_file_extension_full_name(ext)
-        if full_ext:
-            dependencies.append(full_ext)
-    clone_repository(repo_url)
+        if ext:
+            dependencies.append(ext.strip("."))
     return dependencies
+
+
+def clone_repository_helper(md: str, repo_name: str, repo_url: str) -> str:
+    with clone_repository(repo_url) as repo_path:
+        if repo_path:
+            primary_language = detect_primary_language(repo_path)
+            md_instructions = generate_user_instructions(
+                md, repo_name, repo_url, primary_language
+            )
+        else:
+            print("Error cloning the repository.")
+        return md_instructions

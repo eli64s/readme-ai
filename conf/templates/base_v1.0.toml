@@ -1,4 +1,4 @@
-# README Template: base_py
+# README Markdown template: base_v1.0
 
 [md]
 head = """\n<div align="center">
@@ -26,7 +26,7 @@ toc = """
 \n- [📦 Table of Contents](#-table-of-contents)
 \n- [👋 Introdcution](#-introdcution)
 \n- [🔮 Features](#-features)
-\n- [⚙️ Repository Structure](#repository-structure)
+\n- [⚙️ Project Structure](#project-structure)
 \n- [🧩 Modules](#modules)
 \n- [🏎💨 Getting Started](#-getting-started)
 \n- [🗺 Roadmap](#-roadmap)
@@ -38,7 +38,7 @@ toc = """
 
 body = """
 \n## 👋 Introduction
-\n{}
+\n> `[📌  INSERT-DESCRIPTION]`
 \n## 🔮 Feautres
 \n{}
 """
@@ -53,7 +53,7 @@ dropdown = """\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
 tree = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## ⚙️ Repository Structure
+\n## ⚙️ Project Structure
 """
 
 usage = """\n<hr />\n

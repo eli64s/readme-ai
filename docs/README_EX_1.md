@@ -37,9 +37,10 @@ README-AI
 - [⚙️ Repository Structure](#️-repository-structure)
 - [🧩 Modules](#-modules)
 - [🏎💨 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Running README-AI](#running-readme-ai)
+  - [✅ Prerequisites](#-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🤖 Running readme-ai](#-running-readme-ai)
+  - [🧪 Running Tests](#-running-tests)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
@@ -146,46 +147,49 @@ README-AI
 <hr />
 
 ## 🏎💨 Getting Started
-
-### Prerequisites
-
+    
+### ✅ Prerequisites
+    
 Before you begin, ensure that you have the following prerequisites installed:
-
-
+    
 - `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
 
-
-### Installation
-
-1. Clone the README-AI repository:
-
-
+    
+### 💻 Installation
+    
+1. Clone the readme-ai repository:
+    
 ```sh
-git clone https://github.com/eli64s/README-AI && cd README-AI
+git clone https://github.com/eli64s/readme-ai
 ```
-
-2. Create a new Conda environment and install the required dependencies:
-
+    
+2. Change to the project directory:
+    
 ```sh
-conda env create -f setup/environment.yaml
-conda activate README-AI
+cd readme-ai
 ```
-
-3. `[📌  insert-additional-steps]`
-
-
+    
+3. Install the dependencies:
+    
 ```sh
- #... 
+pip install -r requirements.txt
 ```
-
-### Running README-AI
-
+    
+### 🤖 Running readme-ai
+    
 ```sh
-# ... 
+python main.py
 ```
-
+    
+### 🧪 Running Tests
+    
+```sh
+# INSERT-HOW-TO-RUN-UNIT-TESTS
+```
+    
 ---
 
+    
 ## 🗺 Roadmap
 
 - [X] `[📌  INSERT-TASK-TODO]`

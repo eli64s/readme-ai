@@ -7,10 +7,13 @@ import tempfile
 import git
 import pandas as pd
 
-from src.utils import FileFactory
+import processor
+from utils import FileFactory
 
 
-def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
+def build(
+    cfg: object, features: str, output_file: str, pkgs: list, name: str, url: str
+) -> None:
     """_summary_
 
     Parameters
@@ -35,24 +38,22 @@ def build(cfg: object, features: str, pkgs: list, name: str, url: str) -> None:
     md_modules = cfg.md.modules
     md_toc = cfg.md.toc
     md_tree = cfg.md.tree
-    md_usage = cfg.md.usage
 
     json_path = cfg.paths.badges
     json_file = FileFactory(json_path).get_handler()
     json_dict = json_file.read_file()
     badges = get_badges(json_dict)
 
-    pkgs.extend(["markdown"])
     md_badges = get_header(badges, pkgs)
     md_body = md_body.format(features)
+    md_instructions = processor.clone_repository_helper(cfg.md.instructions, name, url)
     md_repo = get_tree(url)
     md_tables = get_tables(docs_df, md_dropdown)
     md_toc = md_toc.format(name=name, name_lower=name.lower())
-    md_usage = md_usage.format(url=url, name=name)
 
     md = md.format(name, md_badges)
-    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_usage}"
-    md_file = FileFactory(cfg.paths.md).get_handler()
+    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_instructions}"
+    md_file = FileFactory(output_file).get_handler()
     md_file.write_file(md)
 
 
