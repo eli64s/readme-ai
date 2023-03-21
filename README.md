@@ -244,10 +244,6 @@ bash scripts/test.sh
 - [ ] Add additional models on top of OpenAI's to tune text.
 - [ ] Implement different configuration README templates.
 
-<p align="right">
-  <a href="#top"><b>🔝 Return 🎈</b></a>
-</p>
-
 ---
 
 ## 🤝 Contributing
@@ -274,19 +270,11 @@ git push origin new-feature-branch
 Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
-<p align="right">
-  <a href="#top"><b>🔝 Return 🎈</b></a>
-</p>
-
 ---
 
 ## 🪪 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-<p align="right">
-  <a href="#top"><b>🔝 Return 🎈</b></a>
-</p>
 
 ---
 
@@ -294,10 +282,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - If you have any questions or feedback about README-AI, feel free to start a [discussion!](https://github.com/eli64s/README-AI/discussions)
 - If you have identified a bug, open a [new issue!](https://github.com/eli64s/README-AI/issues)
-
-<p align="right">
-  <a href="#top"><b>🔝 Return 🎈</b></a>
-</p>
 
 ---
 
@@ -308,5 +292,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <p align="right">
   <a href="#top"><b>🔝 Return 🎈</b></a>
 </p>
+
+**[Back to top](#table-of-contents)**
 
 ---

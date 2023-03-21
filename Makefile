@@ -1,39 +1,34 @@
 SHELL = /bin/bash
 VENV := readmeai
 
-.PHONY: help api_key autodocs style clean conda
+.PHONY: help style clean conda venv
 
 # Help
 help:
 	@echo "Commands:"
-	@echo "venv    : creates a virtual environment."
-	@echo "style   : executes style formatting."
 	@echo "clean   : cleans all unnecessary files."
+	@echo "style   : executes style formatting."
+	@echo "conda   : creates a conda environment."
+	@echo "venv    : creates a virtual environment."
 
-# OpenAI API key
-api_key:
-ifndef OPENAI_API_KEY
-	$(error OPENAI_API_KEY is undefined)
-endif
-
-# Style
+# Style 
 .PHONY: style
 style:
 	-black .
 	-flake8
 	-isort .
 
-# Clean
+# Clean 
 .PHONY: clean
 clean: style
 	bash scripts/clean.sh
 
-# Conda virtual environment
+# Conda Environment
 conda:
 	conda create -n $(VENV) python=3.9 -y
 	conda activate $(VENV) && pip install -r requirements.txt
 
-# Python virtual environment
+# Python Virtual Environment
 venv: 
 	python -m venv $(VENV)
 	source venv/bin/activate

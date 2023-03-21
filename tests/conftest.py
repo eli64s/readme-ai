@@ -1,7 +1,12 @@
-"""
-tests/conftest.py
-"""
-import sys
-from pathlib import Path
+"""Pytest configuration file."""
+import tempfile
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+import pytest
+
+
+@pytest.fixture
+def config_file():
+    with tempfile.NamedTemporaryFile(mode="w", delete=False) as f:
+        f.write("SOME_CONFIG_VALUE=42\n")
+        f.flush()
+        yield f.name

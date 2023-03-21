@@ -50,12 +50,12 @@ def main() -> None:
     repo_url = conf.github.url
     repo_name = conf.github.repo_name
     file_names = conf_helper.file_names
-    repo_contents = processor.fetch_github_repo_files_recursive(repo_url)
-    dependencies = processor.create_dependency_list(file_names, repo_contents)
+    dependencies = processor.get_project_dependencies(file_names)
+    repo_contents = processor.clone_codebase(repo_url)
 
     LOGGER.info(f"Creating README.md for the repo: {repo_name}")
-    LOGGER.info(f"Total files to document: {len(dependencies)}")
-    LOGGER.info(f"Project dependencies and tools list: {dependencies}")
+    LOGGER.info(f"Total files to document: {len(repo_contents)}")
+    LOGGER.info(f"Project dependencies and tools list: {repo_contents}")
 
     # OpenAI API
     prompt = conf.api.prompt_intro

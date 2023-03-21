@@ -11,7 +11,35 @@ import processor
 from logger import Logger
 
 LOGGER = Logger("readme_ai_logger")
-IGNORE = ["__init__", "requirements", "setup", "test", "README", "LICENSE"]
+IGNORE = [
+    ".*"
+    "badges",
+    ".json",
+    ".md",
+    ".pyc",
+    ".txt",
+    ".yml",
+    ".yaml",
+    ".json",
+    ".config",
+    ".log",
+    ".ini",
+    ".cfg",
+    ".xml",
+    ".toml",
+    ".git",
+    ".idea",
+    "__pycache__",
+    "__init__",
+    "requirements",
+    "setup",
+    "test",
+    "README",
+    "LICENSE",
+    "Makefile",
+    "CONTRIBUTING",
+    "CODE_OF_CONDUCT",
+]
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
@@ -23,20 +51,21 @@ class OpenAIError(Exception):
 
 
 def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
-    repo_contents = []
-    prompt = "Generate summary documentation for code file: {}"
+    docs = []
     try:
-        for file_path, file_contents in files.items():
-            if any(fn in file_path for fn in IGNORE):
-                continue
-            if file_path.startswith("."):
+        for file_path, raw_code in files.items():
+            
+            if any(fn in str(file_path) for fn in IGNORE):
+                LOGGER.debug(f"File skipped: {file_path}")
                 continue
 
-            LOGGER.info(f"Generating summary text for file: {file_path}")
+            LOGGER.debug(f"Davinci processing: {file_path}")
 
+            model_engine = "text-davinci-003"
+            prompt = f"Create a summary description for this code: {raw_code}"
             response = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=prompt.format(file_contents),
+                model=model_engine,
+                prompt=prompt,
                 temperature=0,
                 max_tokens=100,
                 top_p=1,
@@ -48,22 +77,15 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
                 raise OpenAIError("OpenAI response missing 'choices' field")
 
             file_summary = response["choices"][0]["text"]
-
             summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
-
-            text_tuned = summarize_text_spacy(summary)
-
-            text_cleaned = processor.add_space_between_sentences(text_tuned)
-
-            if "\n" in text_cleaned:
-                text_cleaned = text_cleaned.split("\n")[1]
-
-            repo_contents.append((file_path, text_cleaned))
+            _summary = summarize_text_spacy(summary)
+            _summary = processor.add_space_between_sentences(_summary)
+            docs.append((file_path, _summary))
 
     except openai.error.APIError as api_err:
         raise OpenAIError(f"OpenAI error: {api_err}") from api_err
 
-    return repo_contents
+    return docs
 
 
 def generate_summary_text(prompt: str) -> str:

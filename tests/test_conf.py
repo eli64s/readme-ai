@@ -1,7 +1,7 @@
 """
 tests/test_conf.py
 """
-from src.conf import AppConfig, GitHub, Markdown, OpenAI, Paths
+from src.conf import AppConf, AppConfHelper, GitHub, Markdown, OpenAI, Paths
 
 # Test data for dataclass instances
 openai_data = {
@@ -11,13 +11,13 @@ openai_data = {
 }
 github_data = {"url": "https://github.com/test"}
 markdown_data = {
-    "body": "test_body",
+    "intro": "test_intro",
     "head": "test_head",
     "dropdown": "test_dropdown",
     "modules": "test_modules",
     "toc": "test_toc",
     "tree": "test_tree",
-    "instructions": "test_instructions",
+    "setup": "test_setup",
 }
 paths_data = {"badges": "test_badges", "docs": "test_docs", "md": "test_md"}
 
@@ -47,7 +47,7 @@ def test_paths_dataclass():
 
 
 def test_appconfig_dataclass():
-    app_config = AppConfig(
+    app_config = AppConf(
         api=OpenAI(**openai_data),
         github=GitHub(**github_data),
         md=Markdown(**markdown_data),

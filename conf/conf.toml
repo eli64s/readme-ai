@@ -12,7 +12,7 @@ presence_penalty = 0.0
 
 # GitHub Repository
 [github]
-url = "https://github.com/eli64s/readme-ai" #"https://github.com/GokuMohandas/mlops-course" #"https://github.com/nofoobar/JobBoard-Fastapi"
+url = "https://github.com/eli64s/readme-ai" # "https://github.com/eli64s/pyflink_scripts" #"https://github.com/nofoobar/JobBoard-Fastapi"#"https://github.com/GokuMohandas/mlops-course" #
 owner = ""
 repo_name = ""
 

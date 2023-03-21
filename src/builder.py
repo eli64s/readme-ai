@@ -32,7 +32,6 @@ def build(
     json_path = cwd_path / conf.paths.badges
     json_dict = handler.read(json_path)
 
-    df_cleaned = clean_df(df)
     df_cleaned = parse_pandas_cols(df)
     LOGGER.info(f"Add DataFrame Columns: {df_cleaned}")
 
@@ -128,14 +127,6 @@ def create_tables(df: pd.DataFrame, dropdown: str) -> str:
         table_wrapper = dropdown.format(dir_name.capitalize(), table)
         tables.append(table_wrapper)
     return "\n".join(tables)
-
-
-def clean_df(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-    for column in df.columns:
-        df[column] = df[column].str.replace(r"\\[\r\n\s]*", " ", regex=True)
-    df["Summary"] = df["Summary"].apply(lambda x: x.split("\n"))
-    df["Summary"].apply(lambda x: x.insert(1, ""))
 
 
 def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:

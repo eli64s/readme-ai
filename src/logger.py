@@ -1,6 +1,4 @@
-"""
-src/logger.py
-"""
+"""Logger class for the project."""
 import logging
 
 import colorlog

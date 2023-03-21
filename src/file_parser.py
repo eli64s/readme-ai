@@ -1,4 +1,5 @@
 """File parser module."""
+import os
 import re
 from typing import List
 
@@ -9,8 +10,12 @@ from logger import Logger
 LOGGER = Logger("readme_ai_logger")
 
 
-def parse_engine(file: str, file_path: str) -> List[str]:
-    pass
+def list_files(directory: str) -> List[str]:
+    file_list = []
+    for root, dirs, files in os.walk(directory):
+        for f in files:
+            file_list.append(os.path.join(root, f))
+    return file_list
 
 
 def parse_conda_env_file(file_path):
@@ -47,7 +52,6 @@ def parse_requirements_file(file_path):
 
 
 """
-
 def find_dependencies(file_names, directory_path):
     # Dictionary to store dependency parsers
     parsers = {
