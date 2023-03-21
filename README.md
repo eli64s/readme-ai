@@ -70,7 +70,7 @@ README-AI is a powerful command-line tool that automates the creation of README.
 
 |                                                                                                                                                               |                                                                                      |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| <br><br/><b>📍 Project Badges & Slogan </b><br><br>Extracts your project's dependencies and<br> displays them as badges<br> at the top of the README.<br><br>Additionally, OpenAI generates a short slogan for the header section!| ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/header.png?raw=true) |
+| <br><br/><b>📍 Project Badges & Slogan </b><br><br>Extracts your project's dependencies and<br> displays them as badges<br> at the top of the README.<br><br>Additionally, OpenAI generates a short slogan<br> for the header section!| ![badges](https://github.com/eli64s/README-AI/blob/main/docs/imgs/header.png?raw=true) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Repository Tree</h1>
 <p align="center">Why not a project structure tree as well?
