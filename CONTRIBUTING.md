@@ -21,16 +21,16 @@ Contributions are always welcome! Please follow these steps:
 ```sh
 git checkout -b new-feature-branch
 ```
-1. Make changes to the project's codebase.
-2. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
+4. Make changes to the project's codebase.
+5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
 ```sh
 git commit -m 'Implemented new feature.'
 ```
-1. Push your changes to your forked repository on GitHub using the following command
+6. Push your changes to your forked repository on GitHub using the following command
 ```sh
 git push origin new-feature-branch
 ```
-1. Create a [pull request](https://github.com/eli64s/README-AI/pulls) to the original repository.
+7. Create a [pull request](https://github.com/eli64s/readme-ai/pulls) to the original repository.
 
 Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
