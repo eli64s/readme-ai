@@ -16,6 +16,7 @@ class Logger:
         handler = logging.StreamHandler()
         handler.setFormatter(self._get_formatter())
         self.logger.addHandler(handler)
+        self.logger.handlers = [handler]
 
     def _get_formatter(self):
         return colorlog.ColoredFormatter(

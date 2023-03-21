@@ -2,90 +2,77 @@
 src/main.py
 """
 import argparse
-import sys
 from pathlib import Path
 
 import dacite
 import openai
+import pandas as pd
 
 import builder
 import model
 import processor
-from conf import AppConfig
+from conf import AppConf, load_conf_helper
+from file_factory import FileHandler
 from logger import Logger
-from utils import FileFactory
 
 CONF = "conf/conf.toml"
-LOGGER = Logger("readmeai_logger")
+CONF_HELPER = ["file_names.toml", "file_extensions.toml", "setup_guide.toml"]
+LOGGER = Logger("readme_ai_logger")
 
 
 def main() -> None:
     LOGGER.info("README-AI is now executing.")
 
-    # Load config file
-    conf_file = Path(CONF).resolve()
-    toml_file = FileFactory(conf_file).get_handler()
-    conf_dict = toml_file.read_file()
-    conf = dacite.from_dict(AppConfig, conf_dict)
+    # Configuration
+    conf_path = Path(CONF).resolve()
+    handler = FileHandler()
+    conf_dict = handler.read(conf_path)
+    conf = dacite.from_dict(AppConf, conf_dict)
+    conf_helper = load_conf_helper(CONF_HELPER)
 
     # Command line arguments
     parser = argparse.ArgumentParser(
         description="Generate a README.md file via OpenAI."
     )
-    parser.add_argument(
-        "-k", "--api_key", type=str, help="Provide your OpenAI API key.", default=None
-    )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        help="Provide an output file path.",
-        default=conf.paths.md,
-    )
-    parser.add_argument(
-        "-r",
-        "--repo",
-        type=str,
-        help="Provide an output file path.",
-        default=conf.github.url,
-    )
+    parser.add_argument("-k", "--api_key", type=str, help="Your OpenAI API key")
+    parser.add_argument("-o", "--output", type=str, help="Output file path")
+    parser.add_argument("-u", "--url", type=str, help="URL for the repository")
 
-    # Check argparse values
     args = parser.parse_args()
-    if not args.api_key:
-        sys.exit(1)
-    openai.api_key = args.api_key
+    if args.api_key:
+        openai.api_key = args.api_key
     if args.output:
         conf.paths.md = args.output
-    if args.repo:
-        conf.github.url = args.repo
+    if args.url:
+        conf.github.url = args.url
 
-    # Get project dependencies
+    # GitHub API
     repo_url = conf.github.url
-    repo_full_name, repo_name = processor.get_repo_name(repo_url)
-    files = processor.fetch_github_folder_contents(repo_full_name)
-    badges = processor.dependencies_helper(repo_url)
+    repo_name = conf.github.repo_name
+    file_names = conf_helper.file_names
+    repo_contents = processor.fetch_github_repo_files_recursive(repo_url)
+    dependencies = processor.create_dependency_list(file_names, repo_contents)
 
-    LOGGER.info(f"Creating README.md for the {repo_name} repo.")
-    LOGGER.info(f"Total files to summarize via OpenAI: {len(files)}")
-    LOGGER.info(f"Project dependencies and tools list: {badges}")
+    LOGGER.info(f"Creating README.md for the repo: {repo_name}")
+    LOGGER.info(f"Total files to document: {len(dependencies)}")
+    LOGGER.info(f"Project dependencies and tools list: {dependencies}")
 
     # OpenAI API
-    prompt_intro = conf.api.prompt_intro
-    intro_text = model.generate_readme_features(repo_url, prompt_intro)
-    code_docs = model.code_to_text(files)
+    prompt = conf.api.prompt_intro
+    prompt_slogan = conf.api.prompt_slogan
+    codebase_docs = model.code_to_text(repo_contents)
+    introduction = model.generate_summary_text(prompt.format(repo_url))
+    intro_slogan = model.generate_summary_text(prompt_slogan.format(repo_name))
+    conf.md.intro = conf.md.intro.format(introduction)
+    documentation = pd.DataFrame(codebase_docs, columns=["Module", "Summary"])
 
-    LOGGER.info(f"OpenAI generated text for README introduction section: {intro_text}")
-    LOGGER.info(f"OpenAI generated text for README modules section: {code_docs}")
+    LOGGER.info(f"OpenAI generated codebase summaries: {documentation}")
 
     # Build README.md
-    raw_docs = conf.paths.docs
-    csv_file = FileFactory(raw_docs).get_handler()
-    csv_file.write_file(code_docs)
-    builder.build(badges, conf, intro_text, repo_name, repo_url)
+    documentation.to_csv(conf.paths.docs, index=False)
+    builder.build(conf, conf_helper, dependencies, documentation, intro_slogan)
 
     LOGGER.info("README-AI execution complete.")
-    LOGGER.info(f"Find your documentation ➡️ {conf.paths.md}")
 
 
 if __name__ == "__main__":

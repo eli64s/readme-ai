@@ -19,7 +19,7 @@ setup(
     description="A tool to generate README files for your projects using the OpenAI API.",
     author="eli64s",
     author_email="",
-    url="https://github.com/eli64s/README-AI",
+    url="https://github.com/eli64s/readme-ai",
     python_requires=">=3.7",
     packages=find_namespace_packages(),
     install_requires=[required_packages],

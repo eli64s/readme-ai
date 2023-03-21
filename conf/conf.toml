@@ -1,20 +1,28 @@
 # OpenAI API
 [api]
-api_key = "<OPENAI-API-KEY>"
+api_key = ""
 engine = "text-davinci-003"
-prompt_intro = """Given the GiitHub project {} url, write a short summary of the codebase's capabilities."""
+prompt_intro = """Given the GitHub project {} url, write a short summary of the codebase's capabilities."""
+prompt_slogan = """Generate a slogan for the GitHub project {}."""
+temperature = 0.5
+max_tokens = 100
+top_p = 1.0
+frequency_penalty = 0.0
+presence_penalty = 0.0
 
 # GitHub Repository
 [github]
-url = "https://github.com/GokuMohandas/mlops-course" #"https://github.com/eli64s/readme-ai" #
+url = "https://github.com/eli64s/readme-ai" #"https://github.com/GokuMohandas/mlops-course" #"https://github.com/nofoobar/JobBoard-Fastapi"
+owner = ""
+repo_name = ""
 
-# File paths and directories
+# Paths
 [paths]
 badges = "conf/badges.json"
 docs = "docs/raw_data.csv"
 md = "docs/README.md"
 
-# Markdown template code
+# Markdown template
 [md]
 head = """\n<div align="center">
 <h1 align="center">
@@ -22,23 +30,18 @@ head = """\n<div align="center">
 <br>
 {}
 </h1>
-\n> <h3 align="center">
->
-> `[📌  INSERT-PROJECT-SUMMARY]`
->
-> </h3>
-> <h3 align="center">🚀 Developed using OpenAI's language model API and the software tools below.</h3>
-> <p align="center">
-> {}
-> </p>
+<h3 align="center">📍 {}</h3>
+<h3 align="center">🚀 Developed with the software and tools below.</h3>
+<p align="center">
+\n{}
+</p>
 \n</div>
 \n---
 """
 
 toc = """
-\n## 📦 Table of Contents
-
-- [📦 Table of Contents](#-table-of-contents)
+## 📍 Table of Contents
+- [📍 Table of Contents](#-table-of-contents)
 - [👋 Introdcution](#-introdcution)
 - [🔮 Features](#-features)
 - [⚙️ Project Structure](#project-structure)
@@ -52,74 +55,73 @@ toc = """
 \n---
 """
 
-body = """
-\n## 👋 Introduction
+intro = """
+\n## 👋 Introdcution
 \n{}
 \n## 🔮 Feautres
-\n> `[📌  INSERT-DESCRIPTION]`
-"""
-
-modules = """\n---
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-\n## 🧩 Modules\n
-"""
-dropdown = """\n<details closed><summary>{}</summary>\n\n{}\n\n</details>"""
-
-tree = """\n---
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## ⚙️ Project Structure
-"""
-
-setup = """<hr>\n
-## 🏎💨 Getting Started
-
-### ✅ Prerequisites
-\nBefore you begin, ensure that you have the following prerequisites installed:
-- `[📌  INSERT-PREREQUISITES-IF-NEEDED]`
-
-### 💻 Installation
-\n1. Clone the {name} repository:
-```sh\ngit clone {url}\n```
-\n2. Change to the project directory:
-```sh\ncd {name}\n```
-\n3. Install the dependencies:
-```sh\n{install}\n```
-
-### 🤖 Running {name}
-```sh\n{running}\n```
-
-### 🧪 Running Tests
-```sh\n# INSERT-HOW-TO-RUN-UNIT-TESTS\n```
+\n> `[📌  INSERT-PROJECT-FEATURES]`
 \n---
+"""
 
-## 🗺 Roadmap
+modules = """
+\n---
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
+\n## 🧩 Modules
+"""
+dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 
-- [X] `[📌  INSERT-TASK-COMPLETE]`
-- [ ] `[📌  INSERT-TASK-COMPLETE]`
-- [ ] `[📌  INSERT-TASK-COMPLETE]`
+tree = """
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
+\n## ⚙️ Project Structure\n
+"""
+
+setup = """<hr />
+\n## 🏎💨 Getting Started
+\n### ✅ Prerequisites
+\nBefore you begin, ensure that you have the following prerequisites installed:
+> `[📌  INSERT-PROJECT-PREREQUISITES]`
+\n### 💻 Installation
+\n1. Clone the {} repository:
+```sh\ngit clone {}\n```
+\n2. Change to the project directory:
+```sh\ncd {}\n```
+\n3. Install the dependencies:
+```sh\n{}\n```
+\n### 🤖 Running {}
+\n```sh\n{}\n```
+\n### 🧪 Running Tests
+```sh\n#run tests\n```
+\n<hr />
+"""
+
+close = """
+\n## 🗺 Roadmap
+
+- [X] [📌  INSERT-TASK-TODO]
+- [X] [📌  INSERT-TASK-TODO]
+- [ ] [📌  INSERT-TASK-TODO]
+- [ ] [📌  INSERT-TASK-TODO]
+
 \n---
 
 ## 🤝 Contributing
-
 Contributions are always welcome! Please follow these steps:
-
 1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
 2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
 3. Create a new branch with a descriptive name (e.g., `new-feature-branch` or `bugfix-issue-123`).
-   ```sh
-   git checkout -b new-feature-branch
-   ```
+```sh
+git checkout -b new-feature-branch
+```
 4. Make changes to the project's codebase.
 5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
-   ```sh
-   git commit -m 'Implemented new feature.'
-   ```
+```sh
+git commit -m 'Implemented new feature.'
+```
 6. Push your changes to your forked repository on GitHub using the following command
-   ```sh
-   git push origin new-feature-branch
-   ```
+```sh
+git push origin new-feature-branch
+```
 7. Create a pull request to the original repository.
-
 Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 \n---
@@ -127,122 +129,15 @@ The project maintainers will review your changes and provide feedback or merge t
 ## 🪪 License
 
 This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
-
 \n---
 
 ## 📫 Contact
 
-If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  your-email@example.com]`
-
+If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  INSERT-EMAIL-ADDRESS]`
 \n---
 
 ## 🙏 Acknowledgments
-\n `[📌  INSERT-DESCRIPTION]`
-\n---
+> `[📌  INSERT-DESCRIPTION]`
+
+\n---\n
 """
-
-# Map file extensions to programming languages.
-[extensions]
-    ".asm" = "Assembly"
-    ".c" = "C"
-    ".cfg" = "CFG"
-    ".cfg.lua" = "LÖVE2D"
-    ".cmake" = "CMake"
-    ".coffee" = "CoffeeScript"
-    ".cpp" = "C++"
-    ".cs" = "C#"
-    ".csproj" = "XML"
-    ".dart" = "Dart"
-    ".fs" = "F#"
-    ".fsi" = "F#"
-    ".go" = "Go"
-    ".groovy" = "Groovy"
-    ".h" = "C"
-    ".hpp" = "C++"
-    ".hs" = "Haskell"
-    ".html" = "HTML"
-    ".ipynb" = "Jupyter Notebook"
-    ".java" = "Java"
-    ".jl" = "Julia"
-    ".js" = "JavaScript"
-    ".json" = "JSON"
-    ".kt" = "Kotlin"
-    ".lua" = "Lua"
-    ".m" = "Objective-C"
-    ".md" = "Markdown"
-    ".mm" = "Objective-C++"
-    ".php" = "PHP"
-    ".pl" = "Perl"
-    ".ps1" = "PowerShell"
-    ".psm1" = "PowerShell"
-    ".py" = "Python"
-    ".r" = "R"
-    ".rb" = "Ruby"
-    ".rs" = "Rust"
-    ".rst" = "reStructuredText"
-    ".s" = "Assembly"
-    ".scala" = "Scala"
-    ".sh" = "Shell"
-    ".sql" = "SQL"
-    ".svg" = "SVG"
-    ".swift" = "Swift"
-    ".swiftdeps" = "Swift"
-    ".tex" = "TeX"
-    ".toml" = "TOML"
-    ".ts" = "TypeScript"
-    ".tsx" = "TypeScript"
-    ".txt" = "Text"
-    ".v" = "Verilog"
-    ".vh" = "Verilog"
-    ".xml" = "XML"
-    ".yaml" = "YAML"
-    ".yml" = "YAML"
-
-# Instruction guide for installation and running programming languages
-[language_instructions]
-ABAP = ["abap build", "abap run"]
-ActionScript = ["mxmlc main.as", "flashplayer main.swf"]
-Ada = ["gnatmake main.adb", "./main"]
-Apex = ["sfdx force:source:deploy -p force-app/main/default", "sfdx force:apex:execute -f main.apex"]
-Assembly = ["nasm -f elf64 main.asm && ld main.o -o myapp", "./myapp"]
-COBOL = ["cobc -x -o myapp main.cob", "./myapp"]
-C = ["gcc -o myapp main.c", "./myapp"]
-CPlusPlus = ["g++ -o myapp main.cpp", "./myapp"]
-CSharp = ["dotnet build", "dotnet run"]
-CoffeeScript = ["npm install", "coffee main.coffee"]
-Crystal = ["shards install", "./main"]
-D = ["dmd main.d", "./main"]
-Dart = ["pub get", "dart main.dart"]
-Delphi = ["dcc32 main.dpr", "main.exe"]
-Elixir = ["mix deps.get", "mix run main.exs"]
-FS = ["dotnet build", "dotnet run"]
-Forth = ["gforth main.fs"]
-Go = ["go build -o myapp", "./myapp"]
-Groovy = ["grape install", "groovy main.groovy"]
-Haskell = ["ghc -o myapp main.hs", "./myapp"]
-Java = ["mvn clean install", "java -jar target/myapp.jar"]
-JavaScript = ["npm install", "npm start"]
-Julia = ["julia --project -e 'import Pkg; Pkg.instantiate()'", "julia main.jl"]
-Kotlin = ["gradle build", "java -jar build/libs/myapp.jar"]
-Lua = ["luarocks install --only-deps myapp", "lua main.lua"]
-MATLAB = ["matlab -r main.m"]
-Objective-C = ["gcc -framework Foundation main.m -o myapp", "./myapp"]
-CPP = ["g++ -o myapp main.mm", "./myapp"]
-ObjectScript = ["zpm install", "do ##class(User.MyClass).Main()"]
-Perl = ["cpanm --installdeps .", "perl main.pl"]
-Perl6 = ["zef install .", "perl6 main.p6"]
-PHP = ["composer install", "php main.php"]
-PowerShell = ["pwsh main.ps1"]
-Prolog = ["swipl -g main -t halt -q main.pl"]
-Python = ["pip install -r requirements.txt", "python main.py"]
-R = ["Rscript install.R", "Rscript main.R"]
-Raku = ["zef install .", "raku main.raku"]
-Ruby = ["bundle install", "ruby main.rb"]
-Rust = ["cargo build", "cargo run"]
-Scala = ["sbt compile", "sbt run"]
-Scheme = ["csi -s main.scm"]
-Shell = ["chmod +x main.sh", "./main.sh"]
-Swift = ["swift build", ".build/debug/myapp"]
-TypeScript = ["npm install", "npm run build && node dist/main.js"]
-VBScript = ["cscript main.vbs"]
-VisualBasic = ["dotnet build", "dotnet run"]

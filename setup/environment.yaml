@@ -80,8 +80,10 @@ dependencies:
       - coverage==7.2.2
       - cymem==2.0.7
       - dacite==1.8.0
+      - deepmerge==1.1.0
       - deprecated==1.2.13
       - docopt==0.6.2
+      - edn-format==0.7.5
       - emoji==2.2.0
       - en-core-web-sm==3.5.0
       - exceptiongroup==1.1.1
@@ -115,6 +117,7 @@ dependencies:
       - pathy==0.10.1
       - pipreqs==0.4.11
       - pluggy==1.0.0
+      - ply==3.11
       - preshed==3.0.8
       - pycodestyle==2.10.0
       - pycparser==2.21
@@ -123,6 +126,7 @@ dependencies:
       - pygithub==1.58.0
       - pyjwt==2.6.0
       - pynacl==1.5.0
+      - pyrfc3339==1.1
       - pytest==7.2.2
       - pytest-cov==2.10.1
       - pytz==2022.7.1

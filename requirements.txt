@@ -8,7 +8,7 @@ isort
 openai
 pandas
 pipreqs
-PyGithub
+PyYAML
 pytest
 pytest-cov
 requests

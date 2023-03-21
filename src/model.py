@@ -1,6 +1,4 @@
-"""
-src/model.py
-"""
+"""OpenAI GPT-3 model for generating summary text."""
 import os
 import re
 from typing import Dict
@@ -10,6 +8,10 @@ import spacy
 from spacy.lang.en import English
 
 import processor
+from logger import Logger
+
+LOGGER = Logger("readme_ai_logger")
+IGNORE = ["__init__", "requirements", "setup", "test", "README", "LICENSE"]
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
@@ -21,32 +23,20 @@ class OpenAIError(Exception):
 
 
 def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
-    """_summary_
-
-    Parameters
-    ----------
-    files
-        _description_
-
-    Returns
-    -------
-        _description_
-
-    Raises
-    ------
-    OpenAIError
-        _description_
-    OpenAIError
-        _description_
-    """
-    docs = []
+    repo_contents = []
+    prompt = "Generate summary documentation for code file: {}"
     try:
-        for file_name, raw_code in files.items():
-            model_engine = "text-davinci-003"
-            prompt = f"Create a summary description for this code: {raw_code}"
+        for file_path, file_contents in files.items():
+            if any(fn in file_path for fn in IGNORE):
+                continue
+            if file_path.startswith("."):
+                continue
+
+            LOGGER.info(f"Generating summary text for file: {file_path}")
+
             response = openai.Completion.create(
-                model=model_engine,
-                prompt=prompt,
+                model="text-davinci-003",
+                prompt=prompt.format(file_contents),
                 temperature=0,
                 max_tokens=100,
                 top_p=1,
@@ -58,55 +48,38 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
                 raise OpenAIError("OpenAI response missing 'choices' field")
 
             file_summary = response["choices"][0]["text"]
+
             summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
-            _summary = summarize_text(summary)
-            _summary = processor.add_space_between_sentences(_summary)
-            docs.append((file_name, _summary))
+
+            text_tuned = summarize_text_spacy(summary)
+
+            text_cleaned = processor.add_space_between_sentences(text_tuned)
+
+            if "\n" in text_cleaned:
+                text_cleaned = text_cleaned.split("\n")[1]
+
+            repo_contents.append((file_path, text_cleaned))
 
     except openai.error.APIError as api_err:
         raise OpenAIError(f"OpenAI error: {api_err}") from api_err
 
-    return docs
+    return repo_contents
 
 
-def generate_readme_features(url: str, prompt: str) -> str:
-    """_summary_
-
-    Parameters
-    ----------
-    url
-        _description_
-    prompt
-        _description_
-
-    Returns
-    -------
-        _description_
-    """
-    model_engine = "text-davinci-002"
-    prompt = prompt.format(url)
+def generate_summary_text(prompt: str) -> str:
     completions = openai.Completion.create(
-        engine=model_engine, prompt=prompt, max_tokens=1024
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=44,
     )
     generated_text = completions.choices[0].text
     return generated_text.lstrip()
 
 
-def summarize_text(summary: str) -> str:
-    """_summary_
-
-    Parameters
-    ----------
-    summary
-        _description_
-
-    Returns
-    -------
-        _description_
-    """
-    doc = nlp(summary)
+def summarize_text_spacy(summary: str) -> str:
+    summaries = nlp(summary)
     summary_text = ""
-    for sent in doc.sents:
+    for sent in summaries.sents:
         summary_text += sent.text.strip()
         if len(summary_text) > 120:
             break

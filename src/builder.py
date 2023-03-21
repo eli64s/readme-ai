@@ -1,129 +1,116 @@
-"""
-src/format.py
-"""
+"""Builds the README.md file from the template and the data."""
 import subprocess
 import tempfile
+from pathlib import Path
 
 import git
 import pandas as pd
 
-import processor
-from utils import FileFactory
+from file_factory import FileHandler
+from logger import Logger
+
+LOGGER = Logger("readme_ai_logger")
 
 
-def build(badge_list: list, cfg: object, intro: str, name: str, url: str) -> None:
-    docs_path = cfg.paths.docs
-    docs_df = pd.read_csv(docs_path)
+def build(
+    conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame, intro: str
+) -> None:
+    name = conf.github.repo_name
+    url = conf.github.url
 
-    md = cfg.md.head
-    md_body = cfg.md.body
-    md_dropdown = cfg.md.dropdown
-    md_modules = cfg.md.modules
-    md_setup = cfg.md.setup
-    md_toc = cfg.md.toc
-    md_tree = cfg.md.tree
+    md_file = conf.md.head
+    md_close = conf.md.close
+    md_intro = conf.md.intro
+    md_dropdown = conf.md.dropdown
+    md_modules = conf.md.modules
+    md_setup = conf.md.setup
+    md_toc = conf.md.toc
+    md_tree = conf.md.tree
 
-    json_path = cfg.paths.badges
-    json_file = FileFactory(json_path).get_handler()
-    json_dict = json_file.read_file()
-    badges = get_badges(json_dict)
+    cwd_path = Path.cwd()
+    handler = FileHandler()
+    json_path = cwd_path / conf.paths.badges
+    json_dict = handler.read(json_path)
 
-    md_badges = get_header(badges, badge_list)
-    md_body = md_body.format(intro)
-    md_repo = get_tree(url)
-    md_setup = processor.clone_repository_helper(md_setup, name, url)
-    md_tables = get_tables(docs_df, md_dropdown)
-    md_toc = md_toc.format(name=name, name_lower=name.lower())
+    df_cleaned = clean_df(df)
+    df_cleaned = parse_pandas_cols(df)
+    LOGGER.info(f"Add DataFrame Columns: {df_cleaned}")
 
-    md = md.format(name, md_badges)
-    md = f"{md}{md_toc}{md_body}{md_tree}{md_repo}{md_modules}{md_tables}{md_setup}"
-    md_file = FileFactory(cfg.paths.md).get_handler()
-    md_file.write_file(md)
+    md_badges = get_badges(json_dict, dependencies)
+    md_tables = create_tables(df_cleaned, md_dropdown)
+    md_repo = create_directory_tree(url)
+    md_setup = create_setup_guide(conf, conf_helper, df_cleaned)
+    md_file = md_file.format(name, intro, md_badges)
+    md_file = f"{md_file}{md_toc}{md_intro}{md_tree}{md_repo}"
+    md_file = f"{md_file}{md_modules}{md_tables}{md_setup}{md_close}"
 
+    md_path = cwd_path / conf.paths.md
+    handler.write(md_path, md_file)
 
-def get_badges(json_dict):
-    """_summary_
-
-    Parameters
-    ----------
-    json_dict
-        _description_
-
-    Returns
-    -------
-        _description_
-    """
-    icon_map = {}
-    idx = 0
-    while True:
-        try:
-            row = json_dict["icons"][idx]
-            icon_map[row["name"].lower()] = row
-        except:
-            break
-        idx += 1
-    return icon_map
+    LOGGER.info(f"README.md file created at: {md_path}")
 
 
-def get_header(badges, pkgs):
-    """_summary_
-    Parameters
-    ----------
-    badges
-        _description_
-    pkgs
-        _description_
-    Returns
-    -------
-        _description_
-    """
-    header = ""
-    for pkg in pkgs:
-        if pkg in badges:
-            pkg_name = pkg.strip().lower()
-            if not pkg_name:
-                pkg_name = pkg.strip()
-            badge = badges[pkg_name]["src"]
-            header += f"\n> ![{pkg_name}]({badge})"
+def get_badges(data: dict, dependencies: list) -> str:
+    badges = []
+    icons_sorted = sorted(data["icons"], key=lambda x: x["color"])
+
+    for dep in dependencies:
+        for icon in icons_sorted:
+            if dep.lower() == icon["name"].lower():
+                badges.append(icon["src"])
+                break  # found a match, move to the next dependency
+
+    # Divide badges into lines
+    badge_lines = []
+    total_badges = len(badges)
+    badges_per_line = total_badges // 2 + (total_badges % 2)
+
+    for i in range(0, total_badges, badges_per_line):
+        line = "\n".join(
+            [
+                f'<img src="{badge}" alt="{dep}" />'
+                for dep, badge in zip(
+                    dependencies[i : i + badges_per_line],
+                    badges[i : i + badges_per_line],
+                )
+            ]
+        )
+        badge_lines.append(line)
+
+    # Combine badge lines into a single string
+    header = "\n\n".join([f"{line}" for line in badge_lines])
+
     return header
 
 
-def get_tables(docs_df: pd.DataFrame, dropdown: str) -> str:
-    """_summary_
+def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
+    install_guide = "<INSERT INSTALL GUIDE HERE>"
+    run_guide = "<INSERT RUN GUIDE HERE>"
 
-    Parameters
-    ----------
-    docs_df
-        _description_
+    name = conf.github.repo_name
+    url = conf.github.url
 
-    Returns
-    -------
-        _description_
-    """
-    docs_df = docs_df[~docs_df["Module"].isin(["extensions", "packages"])]
-    docs_df[["Directory", "File Name"]] = docs_df["Module"].str.rsplit(
-        "/", n=1, expand=True
+    df["Language"] = df["Module"].apply(lambda x: Path(x).suffix[1:])
+    top_language = df["Language"].value_counts().idxmax()
+    language_name = conf_helper.file_extensions[top_language]
+    language_setup = conf_helper.setup[language_name]
+
+    LOGGER.info(f"Top language: {top_language}")
+    LOGGER.info(f"Language name: {language_name}")
+    LOGGER.info(f"Language setup: {language_setup}")
+
+    if language_setup:
+        install_guide = language_setup[0]
+        run_guide = language_setup[1]
+
+    md_setup_guide = conf.md.setup.format(
+        name, url, name, install_guide, name, run_guide
     )
-    tables = []
-    for idx, group in docs_df.groupby("Directory"):
-        table = group[["File Name", "Summary"]].to_markdown(index=False)
-        table_wrapper = dropdown.format(idx.capitalize(), table)
-        tables.append(table_wrapper)
-    return "\n".join(tables)
+
+    return md_setup_guide
 
 
-def get_tree(url: str) -> str:
-    """_summary_
-
-    Parameters
-    ----------
-    url
-        _description_
-
-    Returns
-    -------
-        _description_
-    """
+def create_directory_tree(url: str) -> str:
     with tempfile.TemporaryDirectory() as tmp_dir:
         git.Repo.clone_from(url, tmp_dir)
         output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
@@ -132,3 +119,26 @@ def get_tree(url: str) -> str:
         tree_str = "\n".join(tree_lines)
         tree_md = f"```bash\n.\n{tree_str}```"
         return tree_md
+
+
+def create_tables(df: pd.DataFrame, dropdown: str) -> str:
+    tables = []
+    for dir_name, group in df.groupby("Directory"):
+        table = group[["File", "Summary"]].to_markdown(index=False)
+        table_wrapper = dropdown.format(dir_name.capitalize(), table)
+        tables.append(table_wrapper)
+    return "\n".join(tables)
+
+
+def clean_df(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+    for column in df.columns:
+        df[column] = df[column].str.replace(r"\\[\r\n\s]*", " ", regex=True)
+    df["Summary"] = df["Summary"].apply(lambda x: x.split("\n"))
+    df["Summary"].apply(lambda x: x.insert(1, ""))
+
+
+def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:
+    df["Directory"] = df["Module"].apply(lambda x: str(Path(x).parent))
+    df["File"] = df["Module"].apply(lambda x: str(Path(x).name))
+    return df

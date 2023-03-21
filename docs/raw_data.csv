@@ -1,1 +1,10 @@
 Module,Summary
+scripts/clean.sh,"This bash script is used to clean up Python cache files, remove build artifacts, remove Jupyter notebook checkpoints, and remove pytest cache."
+scripts/run.sh,"This Bash script activates a Conda environment and runs a Python script. It begins by setting the ""-eo pipefail"" flag, which causes the script to exit immediately if any command returns a non-zero exit code."
+src/builder.py,"format. py is a Python module that provides functions for formatting data for use in documentation. It contains functions for building markdown documents, getting badges, and getting a tree structure of a repository."
+src/conf.py,"This file contains the configuration constants for the project. It contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig."
+src/logger.py,Logger is a class that provides logging functionality with colored output. It is initialized with a name and a logging level (defaults to INFO).
+src/main.py,"This file contains the main function for the README-AI application. It is responsible for loading the configuration file, parsing command line arguments, fetching project dependencies, and generating the README. md file."
+src/model.py,"This file contains the model class for the OpenAI API. It provides functions for converting code to text, generating readme features, and summarizing text."
+src/processor.py,"This file contains the source code for the processor module. It contains functions for cloning a GitHub repository, detecting the primary language of the repository, extracting dependencies from the repository, and generating user instructions."
+src/utils.py,This file contains the FileFactory class and several FileHandler subclasses. The FileFactory class is used to create a FileHandler object based on the file type of the file path passed to it.
