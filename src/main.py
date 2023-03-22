@@ -16,7 +16,6 @@ from file_factory import FileHandler
 from logger import Logger
 
 CONF = "conf/conf.toml"
-CONF_HELPER = ["file_names.toml", "file_extensions.toml", "setup_guide.toml"]
 LOGGER = Logger("readme_ai_logger")
 
 
@@ -28,7 +27,7 @@ def main() -> None:
     handler = FileHandler()
     conf_dict = handler.read(conf_path)
     conf = dacite.from_dict(AppConf, conf_dict)
-    conf_helper = load_conf_helper(CONF_HELPER)
+    conf_helper = load_conf_helper(conf)
 
     # Command line arguments
     parser = argparse.ArgumentParser(
@@ -56,6 +55,7 @@ def main() -> None:
     LOGGER.info(f"Creating README.md for the repo: {repo_name}")
     LOGGER.info(f"Total files to document: {len(repo_contents)}")
     LOGGER.info(f"Project dependencies and tools list: {repo_contents}")
+    LOGGER.info(f"Project dependencies and tools list: {dependencies}")
 
     # OpenAI API
     prompt = conf.api.prompt_intro

@@ -3,48 +3,50 @@
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>
-pyflink_scripts
+readme-ai
 </h1>
-<h3 align="center">📍 Make your data pipeline great again!</h3>
+<h3 align="center">📍 The future of documentation is here.</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
-<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="xz" />
-<img src="https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white" alt="libsodium" />
-<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pyaml" />
-<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style=for-the-badge&logo=SciPy&logoColor=white" alt="platformdirs" />
-<img src="https://img.shields.io/badge/spaCy-09A3D5.svg?style=for-the-badge&logo=spaCy&logoColor=white" alt="decorator" />
-<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black" alt="dacite" />
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="toml" />
+<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="python-dateutil" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="pygments" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pandas" />
+<img src="https://img.shields.io/badge/ZeroMQ-DF0000.svg?style=for-the-badge&logo=ZeroMQ&logoColor=white" alt="matplotlib-inline" />
 
-<img src="https://img.shields.io/badge/OpenSSL-721412.svg?style=for-the-badge&logo=OpenSSL&logoColor=white" alt="libsqlite" />
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="coverage" />
-<img src="https://img.shields.io/badge/ZeroMQ-DF0000.svg?style=for-the-badge&logo=ZeroMQ&logoColor=white" alt="ncurses" />
-<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="scikit-learn" />
-<img src="https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white" alt="fastparquet" />
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="python-dateutil" />
+<img src="https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white" alt="pre-commit" />
+<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style=for-the-badge&logo=SciPy&logoColor=white" alt="platformdirs" />
+<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="dvc-s3" />
+<img src="https://img.shields.io/badge/spaCy-09A3D5.svg?style=for-the-badge&logo=spaCy&logoColor=white" alt="executing" />
+<img src="https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white" alt="sphinx" />
+
 </p>
 
 </div>
 
 ---
-## 📍 Table of Contents
-- [📍 Table of Contents](#-table-of-contents)
-- [👋 Introdcution](#-introdcution)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
-- [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+## 📚 Table of Contents
+- [📚 Table of Contents](#-table-of-contents)
+- [📍Overview](#overview)
+- [🔮 Feautres](#-feautres)
+- [⚙️ Project Structure](#️-project-structure)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
+  - [✅ Prerequisites](#-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🤖 Using readme-ai](#-using-readme-ai)
+  - [🧪 Running Tests](#-running-tests)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
 
-## 👋 Introdcution
+## 📍Overview
 
-This codebase includes scripts for interacting with the Apache Flink Python API. With these scripts, users can submit and manage Flink jobs, as well as query the state of Flink clusters.
+The Readme AI codebase allows for the conversion of Readme files into other formats such as PDF, HTML, and Markdown. This is done using a natural language processing approach that analyzes the Readme
 
 ## 🔮 Feautres
 
@@ -58,55 +60,96 @@ This codebase includes scripts for interacting with the Apache Flink Python API.
 
 ```bash
 .
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
 ├── conf
+│   ├── badges.json
 │   ├── conf.toml
-│   ├── flink-config.yaml
-│   └── my_flink_job.yaml
+│   ├── file_extensions.toml
+│   ├── file_names.toml
+│   ├── setup_guide.toml
+│   └── templates
+│       └── general.toml
+├── docs
+│   ├── README_EX_1.md
+│   ├── README_EX_1_new.md
+│   ├── README_EX_2.md
+│   ├── README_EX_3.md
+│   ├── README_EX_4.md
+│   ├── imgs
+│   │   ├── docs.png
+│   │   ├── header.png
+│   │   ├── misc.png
+│   │   ├── setup.png
+│   │   ├── toc.png
+│   │   └── tree.png
+│   └── raw_data.csv
+├── requirements.txt
 ├── scripts
-│   ├── project_setup.sh
-│   └── run.sh
+│   ├── clean.sh
+│   ├── py_script_header.sh
+│   ├── run.sh
+│   └── test.sh
 ├── setup
+│   ├── environment.yaml
 │   └── setup.sh
-└── src
-    ├── consumer.py
-    ├── kafka_snowflake_match.py
-    ├── main.py
-    ├── my_flink_consumer.py
-    ├── nrt_alerts.py
-    ├── send_alerts.py
-    └── sink.py
+├── setup.py
+├── src
+│   ├── __init__.py
+│   ├── builder.py
+│   ├── conf.py
+│   ├── file_factory.py
+│   ├── file_parser.py
+│   ├── logger.py
+│   ├── main.py
+│   ├── model.py
+│   └── processor.py
+└── tests
+    ├── conftest.py
+    ├── test_builder.py
+    ├── test_conf.py
+    ├── test_file_factory.py
+    ├── test_logger.py
+    ├── test_main.py
+    ├── test_model.py
+    └── test_processor.py
 
-5 directories, 13 files
+9 directories, 47 files
 ```
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## 🧩 Modules
+## 💻 Modules
 <details closed><summary>Scripts</summary>
 
-| File   | Summary                                                                                                          |
-|:-------|:-----------------------------------------------------------------------------------------------------------------|
-| run.sh | This code is a Bash script that starts a Flink cluster, submits a PyFlink job, and then stops the Flink cluster. |
+| File                | Summary                                                                                                                                                                  |
+|:--------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| py_script_header.sh | This code is a Bash script that iterates through all the . py files in a specified folder and adds a header to each file with the script name, author, and date updated. |
+| run.sh              | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables.                       |
+| clean.sh            | This code is a Bash script that cleans up Python cache files, removes build artifacts, Jupyter notebook checkpoints, and pytest cache.                                   |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File                     | Summary                                                                                                                                                                                                  |
-|:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| sink.py                  | This code creates a PyFlink application that consumes messages from a Kafka topic, checks if the data matches a Snowflake table, and then inserts the data into the Snowflake table if a match is found. |
-| my_flink_consumer.py     | This code sets up a Flink job pipeline to process XML data from a Kafka source and send alerts via an API call if the customer age is below a specified threshold.                                       |
-| nrt_alerts.py            | This code sets up a Flink job pipeline to process XML data from a Kafka source and send alerts via an API call if the customer age is below a specified threshold.                                       |
-| kafka_snowflake_match.py | This code creates a Flink job that reads messages from a Kafka topic, checks if the data matches a Snowflake table, and prints the results to the console.                                               |
-| send_alerts.py           | This code creates a stream pipeline that consumes data from a Kafka topic, processes it, and sends alerts via an API when a new booking is made for a hotel at a price below $100.                       |
-| consumer.py              | This code is a Flink-Kafka consumer script that reads messages from a Kafka topic, applies a custom mapper function to the messages, and prints the results to the console.                              |
-| main.py                  | This example uses Flink State to maintain a count of incoming Kafka messages. The `MyMapper` class is defined as a separate mapper function, which is invoked for each message in the stream.            |
+| File            | Summary                                                                                                                                                                                                                                                                                                                                                                      |
+|:----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| file_parser.py  | This is a file parser module that can be used to parse files in various formats and extract dependencies from them. It supports formats such as requirements. txt, conda. yml, Pipfile, Gemfile, Cargo. lock, Cargo. toml, build. gradle, build. sbt, composer. json, composer. lock, conda. yml, dependencies. yml, environment. yml, snapcraft. yaml, snap/snapcraft. yaml |
+| conf.py         | This code creates configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template code, and project file paths.                                                                                                                                                                                                       |
+| processor.py    | This code provides methods to process a GitHub repository. It clones the repository to a temporary directory, gets the file contents, creates a temporary directory, and gets the project dependencies.                                                                                                                                                                      |
+| logger.py       | Logger is a class for the project that provides logging capabilities with colored output. It supports logging levels such as DEBUG, INFO, WARNING, ERROR, and CRITICAL.                                                                                                                                                                                                      |
+| file_factory.py | This FileHandler class is a file factory module that provides methods to read and write files in markdown, toml, and json formats.                                                                                                                                                                                                                                           |
+| model.py        | This code uses OpenAI's GPT-3 model to generate summary text from code. It uses the text-davinci-003 model to create a prompt from the code, and then uses the text-davinci-002 model to generate a summary of the code.                                                                                                                                                     |
+| builder.py      | This code builds a README. md file from a template and data. It uses the pandas library to parse the data, the git library to clone a repository, and the subprocess library to create a directory tree.                                                                                                                                                                     |
+| main.py         | This code is a Python script that generates a README. md file for a given repository using OpenAI. It reads in configuration files, parses command line arguments, and uses the GitHub and OpenAI APIs to generate a summary of the codebase and a slogan for the repository.                                                                                                |
 
 </details>
 <hr />
 
-## 🏎💨 Getting Started
+## 🚀 Getting Started
 
 ### ✅ Prerequisites
 
@@ -115,14 +158,14 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 ### 💻 Installation
 
-1. Clone the pyflink_scripts repository:
+1. Clone the readme-ai repository:
 ```sh
-git clone https://github.com/eli64s/pyflink_scripts
+git clone https://github.com/eli64s/readme-ai
 ```
 
 2. Change to the project directory:
 ```sh
-cd pyflink_scripts
+cd readme-ai
 ```
 
 3. Install the dependencies:
@@ -130,7 +173,7 @@ cd pyflink_scripts
 pip install -r requirements.txt
 ```
 
-### 🤖 Running pyflink_scripts
+### 🤖 Using readme-ai
 
 ```sh
 python main.py
@@ -143,12 +186,10 @@ python main.py
 
 <hr />
 
-## 🗺 Roadmap
-
-- [X] [📌  INSERT-TASK-TODO]
-- [X] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
+## 🛠 Future Development
+- [X] [📌  COMPLETED-TASK]
+- [ ] [📌  INSERT-TASK]
+- [ ] [📌  INSERT-TASK]
 
 
 ---
@@ -182,14 +223,9 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ---
 
-## 📫 Contact
-
-If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  INSERT-EMAIL-ADDRESS]`
-
----
-
 ## 🙏 Acknowledgments
-> `[📌  INSERT-DESCRIPTION]`
+
+[📌  INSERT-DESCRIPTION]
 
 
 ---

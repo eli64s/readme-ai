@@ -26,16 +26,17 @@ class OpenAI:
 
 @dataclass
 class GitHub:
-    """GitHub repository."""
+    """GitHub repository details."""
 
     url: str
     owner: str = ""
     repo_name: str = ""
 
     def __post_init__(self):
-        """Extract owner and repository name from GitHub URL."""
-        if self.url.startswith("https://github.com/"):
-            path = self.url[len("https://github.com/") :]
+        """Extract user and repository name from GitHub URL."""
+        domain = "https://github.com/"
+        if self.url.startswith(domain):
+            path = self.url[len(domain) :]
             parts = path.split("/")
             if len(parts) >= 2:
                 self.owner = parts[0]
@@ -46,7 +47,7 @@ class GitHub:
 
 @dataclass
 class Markdown:
-    """Markdown template code."""
+    """Markdown template strings."""
 
     close: str
     head: str
@@ -60,8 +61,11 @@ class Markdown:
 
 @dataclass
 class Paths:
-    """Project file paths."""
+    """Project paths."""
 
+    file_extensions: str
+    file_names: str
+    setup_guide: str
     badges: str
     docs: str
     md: str
@@ -69,7 +73,7 @@ class Paths:
 
 @dataclass
 class AppConf:
-    """Configuration constants object."""
+    """Configuration constants."""
 
     api: OpenAI
     github: GitHub
@@ -79,12 +83,20 @@ class AppConf:
 
 @dataclass
 class AppConfHelper:
+    """Configuration helper constants."""
+
     file_names: List[str]
     file_extensions: dict
     setup: dict
 
 
-def load_conf_helper(conf_path_list: List[str]) -> AppConfHelper:
+def load_conf_helper(conf: object) -> AppConfHelper:
+    """Load configuration helper constants."""
+    conf_path_list = [
+        conf.paths.file_names,
+        conf.paths.file_extensions,
+        conf.paths.setup_guide,
+    ]
     handler = FileHandler()
     file_extensions = {}
     file_names = []

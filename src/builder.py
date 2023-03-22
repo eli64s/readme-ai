@@ -1,4 +1,5 @@
 """Builds the README.md file from the template and the data."""
+import math
 import subprocess
 import tempfile
 from pathlib import Path
@@ -33,8 +34,6 @@ def build(
     json_dict = handler.read(json_path)
 
     df_cleaned = parse_pandas_cols(df)
-    LOGGER.info(f"Add DataFrame Columns: {df_cleaned}")
-
     md_badges = get_badges(json_dict, dependencies)
     md_tables = create_tables(df_cleaned, md_dropdown)
     md_repo = create_directory_tree(url)
@@ -52,14 +51,12 @@ def build(
 def get_badges(data: dict, dependencies: list) -> str:
     badges = []
     icons_sorted = sorted(data["icons"], key=lambda x: x["color"])
-
     for dep in dependencies:
         for icon in icons_sorted:
             if dep.lower() == icon["name"].lower():
                 badges.append(icon["src"])
                 break  # found a match, move to the next dependency
 
-    # Divide badges into lines
     badge_lines = []
     total_badges = len(badges)
     badges_per_line = total_badges // 2 + (total_badges % 2)
@@ -76,15 +73,12 @@ def get_badges(data: dict, dependencies: list) -> str:
         )
         badge_lines.append(line)
 
-    # Combine badge lines into a single string
-    header = "\n\n".join([f"{line}" for line in badge_lines])
-
-    return header
+    return "\n\n".join([f"{line}" for line in badge_lines])
 
 
 def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
-    install_guide = "<INSERT INSTALL GUIDE HERE>"
-    run_guide = "<INSERT RUN GUIDE HERE>"
+    install_guide = "[INSERT INSTALL GUIDE HERE]"
+    run_guide = "[INSERT RUN GUIDE HERE]"
 
     name = conf.github.repo_name
     url = conf.github.url

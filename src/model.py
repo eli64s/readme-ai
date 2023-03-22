@@ -12,8 +12,7 @@ from logger import Logger
 
 LOGGER = Logger("readme_ai_logger")
 IGNORE = [
-    ".*"
-    "badges",
+    ".*" "badges",
     ".json",
     ".md",
     ".pyc",
@@ -54,7 +53,6 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
     docs = []
     try:
         for file_path, raw_code in files.items():
-            
             if any(fn in str(file_path) for fn in IGNORE):
                 LOGGER.debug(f"File skipped: {file_path}")
                 continue

@@ -2,7 +2,7 @@
 [api]
 api_key = ""
 engine = "text-davinci-003"
-prompt_intro = """Given the GitHub project {} url, write a short summary of the codebase's capabilities."""
+prompt_intro = """Generate a short summary that describes the capabilities of th GitHub project."""
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
 temperature = 0.5
 max_tokens = 100
@@ -12,12 +12,15 @@ presence_penalty = 0.0
 
 # GitHub Repository
 [github]
-url = "https://github.com/eli64s/readme-ai" # "https://github.com/eli64s/pyflink_scripts" #"https://github.com/nofoobar/JobBoard-Fastapi"#"https://github.com/GokuMohandas/mlops-course" #
+url = "https://github.com/eli64s/readme-ai" #"https://github.com/nofoobar/JobBoard-Fastapi"
 owner = ""
 repo_name = ""
 
 # Paths
 [paths]
+file_extensions = "file_extensions.toml"
+file_names = "file_names.toml"
+setup_guide = "setup_guide.toml"
 badges = "conf/badges.json"
 docs = "docs/raw_data.csv"
 md = "docs/README.md"
@@ -40,9 +43,9 @@ head = """\n<div align="center">
 """
 
 toc = """
-## 📍 Table of Contents
-- [📍 Table of Contents](#-table-of-contents)
-- [👋 Introdcution](#-introdcution)
+## 📚 Table of Contents
+- [📚 Table of Contents](#-table-of-contents)
+- [📍Overview](#-introdcution)
 - [🔮 Features](#-features)
 - [⚙️ Project Structure](#project-structure)
 - [🧩 Modules](#modules)
@@ -56,7 +59,7 @@ toc = """
 """
 
 intro = """
-\n## 👋 Introdcution
+\n## 📍Overview
 \n{}
 \n## 🔮 Feautres
 \n> `[📌  INSERT-PROJECT-FEATURES]`
@@ -66,7 +69,7 @@ intro = """
 modules = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-\n## 🧩 Modules
+\n## 💻 Modules
 """
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 
@@ -76,7 +79,7 @@ tree = """
 """
 
 setup = """<hr />
-\n## 🏎💨 Getting Started
+\n## 🚀 Getting Started
 \n### ✅ Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
 > `[📌  INSERT-PROJECT-PREREQUISITES]`
@@ -87,7 +90,7 @@ setup = """<hr />
 ```sh\ncd {}\n```
 \n3. Install the dependencies:
 ```sh\n{}\n```
-\n### 🤖 Running {}
+\n### 🤖 Using {}
 \n```sh\n{}\n```
 \n### 🧪 Running Tests
 ```sh\n#run tests\n```
@@ -95,12 +98,10 @@ setup = """<hr />
 """
 
 close = """
-\n## 🗺 Roadmap
-
-- [X] [📌  INSERT-TASK-TODO]
-- [X] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
+\n## 🛠 Future Development
+- [X] [📌  COMPLETED-TASK]
+- [ ] [📌  INSERT-TASK]
+- [ ] [📌  INSERT-TASK]
 
 \n---
 
@@ -131,13 +132,9 @@ The project maintainers will review your changes and provide feedback or merge t
 This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 \n---
 
-## 📫 Contact
-
-If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  INSERT-EMAIL-ADDRESS]`
-\n---
-
 ## 🙏 Acknowledgments
-> `[📌  INSERT-DESCRIPTION]`
+
+[📌  INSERT-DESCRIPTION]
 
 \n---\n
 """
