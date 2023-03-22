@@ -69,7 +69,7 @@ README-AI is a powerful command-line tool that automates the creation of README.
 
 |                                                                                                                                                               |                                                                                      |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| <br><br/><b>📍 Project Badges & Slogan </b><br><br>Extracts your project's dependencies and<br> displays them as badges<br> at the top of the README.<br><br>OpenAI API also creates a short slogan (the 1st sentence)<br> for the header section!| ![header](docs/imgs/head.png) |
+| <br><br/><b>📍 Project Badges & Slogan </b><br><br>Extracts your project's dependencies and<br> displays them as badges<br> at the top of the README.<br><br>OpenAI API also creates a short slogan (the 1st sentence)<br> for the header section!| ![header](docs/imgs/header.png) |
 
 <h1 align="center">⒊<br>👇<br><br>🌲 Repository Tree</h1>
 <p align="center">Why not a project structure tree as well?
@@ -157,7 +157,7 @@ Copy the url of your project's GitHub repository and update the [configuration f
 
 ```toml
 [github]
-url = [INSERT-GITHUB-REPO-URL]
+url = "INSERT-GITHUB-REPO-URL"
 ```
 
 #### 🔐 OpenAI API Setup
