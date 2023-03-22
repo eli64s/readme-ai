@@ -78,7 +78,7 @@ README-AI is a powerful command-line tool that automates the creation of README.
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
 | <br><br/><b>📍 Project Structure Tree/b><br><br>Uses the `tree` command to visualize<br> your project's files and directory structure in your README. | ![tree](docs/imgs/tree.png) |
 
-<h1 align="center">⒋<br>👇<br><br>📚 Table of Contents and Overview (OpenAI generated)</h1>
+<h1 align="center">⒋<br>👇<br><br>📚 Table of Contents and Overview</h1>
 <p align="center">Adds a table of contents, introduction, and features sections to the README file.
 </p>
 
