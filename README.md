@@ -183,8 +183,13 @@ git clone https://github.com/eli64s/README-AI.git && cd README-AI
 2. Create a Conda environment and install the required dependencies:
 
 ```sh
+# With Bash
+bash setup/setup.sh
+
+# With Conda
 conda env create -f setup/environment.yaml
 conda activate readmeai
+pip install -r requirements.txt
 ```
 
 3. Set up the OpenAI API key by creating an environment variable:

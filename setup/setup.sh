@@ -36,24 +36,25 @@ echo "Python version is compatible."
 
 # Create a new conda environment named 'readmeai'
 echo "Creating a new conda environment named 'readmeai' with Python 3.8..."
-conda create -n readmeai python=3.8 -y
+conda env create -f setup/environment.yaml
 
 # Activate the conda environment
 echo "Activating the 'readmeai' environment..."
 eval "$(conda shell.bash hook)"
 conda activate readmeai
 
-# Install the required packages
+# Add the Python path from the active conda environment to PATH
+echo "Adding Python path to the PATH environment variable..."
+export PATH="$(conda info --base)/envs/readmeai/bin:$PATH"
+
+# Install the required packages using pip
 echo "Installing required packages from 'requirements.txt'..."
 pip install -r requirements.txt
 
-echo "Packages installed successfully."
-
-# Download spacy language model
-echo "Downloading the spaCy language model 'en_core_web_sm'..."
+# Download the spaCy model
 python -m spacy download en_core_web_sm
 
-# Deactivate the conda environment when setup is complete
+# Deactivate the conda environment
 conda deactivate
 
 echo "Setup complete. Use 'conda activate readmeai' to activate the environment."
