@@ -29,7 +29,7 @@ readme-ai
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -48,9 +48,9 @@ readme-ai
 
 The Readme AI codebase allows for the conversion of Readme files into other formats such as PDF, HTML, and Markdown. This is done using a natural language processing approach that analyzes the Readme
 
-## 🔮 Feautres
+## 🔮 Features
 
-> `[📌  INSERT-PROJECT-FEATURES]`
+> `[📌  INSERT-PROJECT-Features]`
 
 ---
 
