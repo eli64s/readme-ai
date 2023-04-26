@@ -17,3 +17,6 @@ find . -type d -name ".ipynb_checkpoints" -exec rm -rf {} +
 
 # Remove pytest cache
 rm -rf .pytest_cache/
+
+# Remove benchmarks
+rm -rf .benchmarks/

@@ -1,6 +1,4 @@
-"""
-src/main.py
-"""
+"""README-AI is a tool that generates a README.md file for your repository."""
 import argparse
 from pathlib import Path
 
@@ -10,7 +8,7 @@ import pandas as pd
 
 import builder
 import model
-import processor
+import preprocess
 from conf import AppConf, load_conf_helper
 from file_factory import FileHandler
 from logger import Logger
@@ -33,36 +31,47 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Generate a README.md file via OpenAI."
     )
-    parser.add_argument("-k", "--api_key", type=str, help="Your OpenAI API key")
+    parser.add_argument("-k", "--api_key", type=str, help="OpenAI API key")
     parser.add_argument("-o", "--output", type=str, help="Output file path")
-    parser.add_argument("-u", "--url", type=str, help="URL for the repository")
+    parser.add_argument("-r", "--remote", type=str, help="Remote repository URL")
+    parser.add_argument("-l", "--local", type=str, help="Local directory path")
 
     args = parser.parse_args()
     if args.api_key:
         openai.api_key = args.api_key
     if args.output:
         conf.paths.md = args.output
-    if args.url:
-        conf.github.url = args.url
+    if args.local:
+        conf.github.local = args.local
+    if args.remote:
+        conf.github.remote = args.remote
 
-    # GitHub API
-    repo_url = conf.github.url
-    repo_name = conf.github.repo_name
+    # GitHub API / Local Directory
+    if args.local:
+        LOGGER.info(f"Using local directory: {conf.github.local}")
+        conf.github.path = conf.github.local
+        repo_contents = preprocess.get_local_codebase(conf.github.local)
+    else:
+        LOGGER.info(f"Using GitHub remote repository: {conf.github.remote}")
+        conf.github.path = conf.github.remote
+        repo_contents = preprocess.clone_codebase(conf.github.remote)
+
+    repo = conf.github.path
+    name = preprocess.get_repo_name(repo)
+    conf.github.name = name
     file_names = conf_helper.file_names
-    dependencies = processor.get_project_dependencies(file_names)
-    repo_contents = processor.clone_codebase(repo_url)
+    dependencies = preprocess.get_project_dependencies(file_names)
 
-    LOGGER.info(f"Creating README.md for the repo: {repo_name}")
+    LOGGER.info(f"Creating README.md for the repo: {name}")
     LOGGER.info(f"Total files to document: {len(repo_contents)}")
-    LOGGER.info(f"Project dependencies and tools list: {repo_contents}")
-    LOGGER.info(f"Project dependencies and tools list: {dependencies}")
+    LOGGER.info(f"\nProject dependencies and tools list: {dependencies}\n")
 
     # OpenAI API
     prompt = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
     codebase_docs = model.code_to_text(repo_contents)
-    introduction = model.generate_summary_text(prompt.format(repo_url))
-    intro_slogan = model.generate_summary_text(prompt_slogan.format(repo_name))
+    introduction = model.generate_summary_text(prompt.format(repo))
+    intro_slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(introduction)
     documentation = pd.DataFrame(codebase_docs, columns=["Module", "Summary"])
 

@@ -1,41 +1,37 @@
-"""File factory module."""
+"""File Factory module."""
 import json
 
 import toml
 
 
 class FileHandler:
+    def __init__(self):
+        self.file_actions = {
+            "md": {"read": self.read_markdown, "write": self.write_markdown},
+            "toml": {"read": self.read_toml, "write": self.write_toml},
+            "json": {"read": self.read_json, "write": self.write_json},
+        }
+
     def read(self, file_path):
         file_extension = str(file_path).split(".")[-1]
-        reader = self.get_reader(file_extension)
+        reader = self.get_action(file_extension, "read")
         return reader(file_path)
 
     def write(self, file_path, content):
         file_extension = str(file_path).split(".")[-1]
-        writer = self.get_writer(file_extension)
+        writer = self.get_action(file_extension, "write")
         writer(file_path, content)
 
-    def get_reader(self, file_extension):
-        readers = {
-            "md": self.read_markdown,
-            "toml": self.read_toml,
-            "json": self.read_json,
-        }
-        reader = readers.get(file_extension)
-        if not reader:
+    def get_action(self, file_extension, action_type):
+        file_actions = self.file_actions.get(file_extension)
+        if not file_actions:
             raise ValueError(f"Unsupported file type: {file_extension}")
-        return reader
 
-    def get_writer(self, file_extension):
-        writers = {
-            "md": self.write_markdown,
-            "toml": self.write_toml,
-            "json": self.write_json,
-        }
-        writer = writers.get(file_extension)
-        if not writer:
-            raise ValueError(f"Unsupported file type: {file_extension}")
-        return writer
+        action = file_actions.get(action_type)
+        if not action:
+            raise ValueError(f"Unsupported action type: {action_type}")
+
+        return action
 
     @staticmethod
     def read_markdown(file_path):

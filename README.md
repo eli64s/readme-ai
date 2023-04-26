@@ -149,11 +149,12 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 #### 📂 GitHub Repository
 
-Copy the url of your project's GitHub repository and update the [configuration file](https://github.com/eli64s/README-AI/conf/conf.toml) as seen in the code snippet below.
+Copy the url of your project's GitHub repository and update the [configuration file](https://github.com/eli64s/README-AI/conf/conf.toml) as seen in the code snippet below. Additionally, you can provide a local path to your repository if you are not using GitHub.
 
 ```toml
 [github]
-url = "INSERT-GITHUB-REPO-URL"
+local = "INSERT-LOCAL-REPO-PATH"
+remote = "INSERT-GITHUB-REPO-URL"
 ```
 
 #### 🔐 OpenAI API Setup
@@ -204,9 +205,10 @@ Use the command-line to provide the OpenAI API key (if not already set) and spec
 
 Options:
 
-- `-k, --api_key`: Provide your OpenAI API key (optional - only if the API key wasn't set during installation)
-- `-o, --output`: Provide an output file path (default path defined in configuration file)
-- `-u, --url`: Provide a GitHub repository url (default path defined in configuration file.)
+- `-k, --api_key`: Provide your OpenAI API key.
+- `-l, --local`: Provide a local repository directory path.
+- `-o, --output`: Provide an output file path.
+- `-r, --remote`: Provide a GitHub remote repository url.
 
 ```sh
 python src/main.py -k your_api_key -o docs/README_EX.md -r https://github.com/eli64s/readme-ai

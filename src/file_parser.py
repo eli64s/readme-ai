@@ -3,6 +3,7 @@ import os
 import re
 from typing import List
 
+import toml
 import yaml
 
 from logger import Logger
@@ -28,6 +29,26 @@ def parse_conda_env_file(file_path):
         elif isinstance(package, dict):
             for name, version in package.items():
                 dependencies.append(name)
+    return dependencies
+
+
+def parse_pipfile(file):
+    data = json.load(file)
+    dependencies = []
+    for section in ["packages", "dev-packages"]:
+        if section in data:
+            for package, version in data[section].items():
+                dependencies.append(package)
+    return dependencies
+
+
+def parse_pyproject_toml(file):
+    data = toml.load(file)
+    dependencies = []
+    for package in data.get("tool", {}).get("poetry", {}).get("dependencies", []):
+        dependencies.append(package)
+    for package in data.get("tool", {}).get("poetry", {}).get("dev-dependencies", []):
+        dependencies.append(package)
     return dependencies
 
 
@@ -161,14 +182,7 @@ def parse_conda_yaml(file):
     return dependencies
 
 
-def parse_pipfile(file):
-    data = json.load(file)
-    dependencies = []
-    for section in ["packages", "dev-packages"]:
-        if section in data:
-            for package, version in data[section].items():
-                dependencies.append(package)
-    return dependencies
+
 
 
 def parse_gemfile(file):
@@ -276,14 +290,6 @@ def parse_snapcraft_deps_lock_yaml(file):
     return dependencies
 
 
-def parse_pyproject_toml(file):
-    data = toml.load(file)
-    dependencies = []
-    for package in data.get("tool", {}).get("poetry", {}).get("dependencies", []):
-        dependencies.append(package)
-    for package in data.get("tool", {}).get("poetry", {}).get("dev-dependencies", []):
-        dependencies.append(package)
-    return dependencies
 
 
 def parse_mixfile(file):

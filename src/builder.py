@@ -1,5 +1,4 @@
 """Builds the README.md file from the template and the data."""
-import math
 import subprocess
 import tempfile
 from pathlib import Path
@@ -16,8 +15,8 @@ LOGGER = Logger("readme_ai_logger")
 def build(
     conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame, intro: str
 ) -> None:
-    name = conf.github.repo_name
-    url = conf.github.url
+    name = conf.github.name
+    url = conf.github.path
 
     md_file = conf.md.head
     md_close = conf.md.close
@@ -80,8 +79,8 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     install_guide = "[INSERT INSTALL GUIDE HERE]"
     run_guide = "[INSERT RUN GUIDE HERE]"
 
-    name = conf.github.repo_name
-    url = conf.github.url
+    name = conf.github.name
+    url = conf.github.path
 
     df["Language"] = df["Module"].apply(lambda x: Path(x).suffix[1:])
     top_language = df["Language"].value_counts().idxmax()

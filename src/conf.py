@@ -28,21 +28,11 @@ class OpenAI:
 class GitHub:
     """GitHub repository details."""
 
-    url: str
-    owner: str = ""
-    repo_name: str = ""
-
-    def __post_init__(self):
-        """Extract user and repository name from GitHub URL."""
-        domain = "https://github.com/"
-        if self.url.startswith(domain):
-            path = self.url[len(domain) :]
-            parts = path.split("/")
-            if len(parts) >= 2:
-                self.owner = parts[0]
-                self.repo_name = parts[1]
-        else:
-            raise ValueError(f"Invalid GitHub URL: {self.url}")
+    local: str
+    name: str
+    owner: str
+    path: str
+    remote: str
 
 
 @dataclass

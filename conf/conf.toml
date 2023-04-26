@@ -2,7 +2,7 @@
 [api]
 api_key = ""
 engine = "text-davinci-003"
-prompt_intro = """Generate a short summary that describes the capabilities of th GitHub project."""
+prompt_intro = """Generate a short summary that describes the capabilities of the GitHub project."""
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
 temperature = 0.5
 max_tokens = 100
@@ -12,9 +12,11 @@ presence_penalty = 0.0
 
 # GitHub Repository
 [github]
-url = "https://github.com/eli64s/readme-ai" #"https://github.com/nofoobar/JobBoard-Fastapi"
+local = ""
+name = ""
 owner = ""
-repo_name = ""
+path = ""
+remote = "https://github.com/eli64s/readme-ai"
 
 # Paths
 [paths]

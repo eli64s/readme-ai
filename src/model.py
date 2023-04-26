@@ -7,12 +7,13 @@ import openai
 import spacy
 from spacy.lang.en import English
 
-import processor
+import preprocess
 from logger import Logger
 
 LOGGER = Logger("readme_ai_logger")
 IGNORE = [
     ".*" "badges",
+    ".csv",
     ".json",
     ".md",
     ".pyc",
@@ -77,7 +78,7 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
             file_summary = response["choices"][0]["text"]
             summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
             _summary = summarize_text_spacy(summary)
-            _summary = processor.add_space_between_sentences(_summary)
+            _summary = preprocess.add_space_between_sentences(_summary)
             docs.append((file_path, _summary))
 
     except openai.error.APIError as api_err:
