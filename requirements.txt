@@ -1,12 +1,12 @@
 black==21.9b0
 click==8.0.1
-colorlog
 coverage
 dacite
 flake8
 GitPython
 httpx
 isort
+loguru
 openai
 pandas
 pipreqs
