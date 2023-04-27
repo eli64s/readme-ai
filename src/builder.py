@@ -1,4 +1,5 @@
 """Builds the README.md file from the template and the data."""
+
 import subprocess
 import tempfile
 from pathlib import Path
@@ -10,6 +11,25 @@ from file_factory import FileHandler
 from logger import Logger
 
 LOGGER = Logger("readme_ai_logger")
+IGNORE = [
+    "lock",
+    "pyc",
+    "yml",
+    "yaml",
+    "config",
+    "log",
+    "ini",
+    "cfg",
+    "xml",
+    "toml",
+    "git",
+    "idea",
+    "__pycache__",
+    "__init__",
+    "requirements",
+    "setup",
+    "test",
+]
 
 
 def build(
@@ -50,6 +70,7 @@ def build(
 def get_badges(data: dict, dependencies: list) -> str:
     badges = []
     icons_sorted = sorted(data["icons"], key=lambda x: x["color"])
+    dependencies = list(set(dependencies))
     for dep in dependencies:
         for icon in icons_sorted:
             if dep.lower() == icon["name"].lower():
@@ -58,7 +79,13 @@ def get_badges(data: dict, dependencies: list) -> str:
 
     badge_lines = []
     total_badges = len(badges)
-    badges_per_line = total_badges // 2 + (total_badges % 2)
+    if total_badges < 8:
+        badges_per_line = total_badges
+    else:
+        badges_per_line = total_badges // 2 + (total_badges % 2)
+
+    if badges_per_line == 0:
+        return ""
 
     for i in range(0, total_badges, badges_per_line):
         line = "\n".join(
@@ -80,23 +107,30 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     run_guide = "[INSERT RUN GUIDE HERE]"
 
     name = conf.github.name
-    url = conf.github.path
+    path = conf.github.path
 
-    df["Language"] = df["Module"].apply(lambda x: Path(x).suffix[1:])
+    df["Language"] = df["Module"].apply(
+        lambda x: Path(x).suffix[1:] if Path(x).suffix[1:] not in IGNORE else None
+    )
     top_language = df["Language"].value_counts().idxmax()
-    language_name = conf_helper.file_extensions[top_language]
-    language_setup = conf_helper.setup[language_name]
 
-    LOGGER.info(f"Top language: {top_language}")
-    LOGGER.info(f"Language name: {language_name}")
-    LOGGER.info(f"Language setup: {language_setup}")
+    try:
+        language_name = conf_helper.file_extensions[top_language]
+        language_setup = conf_helper.setup[language_name]
 
-    if language_setup:
-        install_guide = language_setup[0]
-        run_guide = language_setup[1]
+        LOGGER.info(f"Top language: {top_language}")
+        LOGGER.info(f"Language name: {language_name}")
+        LOGGER.info(f"Language setup: {language_setup}")
+
+        if language_setup:
+            install_guide = language_setup[0]
+            run_guide = language_setup[1]
+
+    except KeyError as ke:
+        LOGGER.warning(f"KeyError: {ke}. Using default install and run guides.")
 
     md_setup_guide = conf.md.setup.format(
-        name, url, name, install_guide, name, run_guide
+        name, path, name, install_guide, name, run_guide
     )
 
     return md_setup_guide

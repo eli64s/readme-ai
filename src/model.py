@@ -1,4 +1,5 @@
 """OpenAI GPT-3 model for generating summary text."""
+
 import os
 import re
 from typing import Dict
@@ -12,7 +13,7 @@ from logger import Logger
 
 LOGGER = Logger("readme_ai_logger")
 IGNORE = [
-    ".*" "badges",
+    "badges",
     ".csv",
     ".json",
     ".md",
@@ -20,7 +21,6 @@ IGNORE = [
     ".txt",
     ".yml",
     ".yaml",
-    ".json",
     ".config",
     ".log",
     ".ini",

@@ -20,3 +20,6 @@ rm -rf .pytest_cache/
 
 # Remove benchmarks
 rm -rf .benchmarks/
+
+# Remove docs/raw_data.csv
+rm -rf docs/raw_data.csv

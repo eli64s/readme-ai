@@ -91,7 +91,7 @@ README-AI is a powerful command-line tool that automates the creation of README.
 
 |                                                                                                                                                                                               |                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup guide for<br> others can use your project! Sections include dependencies, installation, and usage, and tests.<br> <br> | ![setup](docs/imgs/setup.png) |
+| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup guide for<br> others can use your project! Sections include dependencies, installation, and usage, and tests.<br><br>Currently works for Python, Rust, JavaScript.<br> | ![setup](docs/imgs/setup.png) |
 
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds three additional sections to build out a complete README file!</p>
@@ -108,25 +108,37 @@ README-AI is a powerful command-line tool that automates the creation of README.
       <th></th>
       <th>File</th>
       <th>GitHub</th>
-      <th>Size (kb)</th>
+      <th>Bytes</th>
     </tr>
     <tr>
       <td>1️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">README_1.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">README_1_PY.md</a></td>
       <td><a href="https://github.com/eli64s/readme-ai">readme-ai</a></td>
-      <td><p>10860</p>
+      <td><p>15459624</p>
     </tr>
     <tr>
       <td>2️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">README_2.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">README_2_PY.md</a></td>
       <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
-      <td><p>8891</p>
+      <td><p>8698890</p>
     </tr>
     <tr>
       <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">README_3.md</a></td>
-      <td><a href="https://github.com/nofoobar/JobBoard-Fastapi">JobBboard-Fastapi</a></td>
-      <td><p>73612</p>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_JS.md">README_3_JS.md</a></td>
+      <td><a href="https://github.com/philnash/react-web-audio">react-web-audio</a></td>
+      <td><p>533233</p>
+    </tr>
+    <tr>
+      <td>4️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_RUST.md">README_4_RUST.md</a></td>
+      <td><a href="https://github.com/MihaiBogdanEugen/contacts-cli">rust-contacts-cli</a></td>
+      <td><p>79104</p>
+    </tr>
+    <tr>
+      <td>5️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">README_5_FastAPI.md</a></td>
+      <td><a href="https://github.com/nofoobar/JobBoard-Fastapi">job-board-fastapi</a></td>
+      <td><p>75391521</p>
     </tr>
   </table>
 </div>
@@ -236,9 +248,10 @@ bash scripts/test.sh
 
 ## 🛠 Future Development
 
-- [x] Add compatibility for additional languages
-- [ ] Add additional models on top of OpenAI's to tune text.
-- [ ] Implement different configuration README templates.
+- [x] Add compatibility for additional languages (current - Python, Rust, JavaScript).
+- [ ] Add user interface to generate README files.
+- [ ] Add the ability to choose the language of the generated README file
+- [ ] Implement different configuration README template styles.
 
 ---
 

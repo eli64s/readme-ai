@@ -3,52 +3,47 @@
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>
-readme-ai
+README-AI
 </h1>
-<h3 align="center">📍 The future of documentation is here.</h3>
+<h3 align="center">📍 Making your READMEs smarter, one commit at a time.</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="" />
+<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="dacite" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="sample" />
+<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white" alt="flake8" />
 
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="black" />
-<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="colorlog" />
-<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="coverage" />
-<img src="https://img.shields.io/badge/spaCy-09A3D5.svg?style=for-the-badge&logo=spaCy&logoColor=white" alt="dacite" />
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="GitPython" />
-
-<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="GNU Bash" />
-<img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
-<img src="https://img.shields.io/badge/ZeroMQ-DF0000.svg?style=for-the-badge&logo=ZeroMQ&logoColor=white" alt="isort" />
-<img src="https://img.shields.io/badge/OpenSSL-721412.svg?style=for-the-badge&logo=OpenSSL&logoColor=white" alt="flake8" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white" alt="JSON" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="idx" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pandas" />
+<img src="https://img.shields.io/badge/spaCy-09A3D5.svg?style=for-the-badge&logo=spaCy&logoColor=white" alt="colorlog" />
+<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="json" />
 </p>
 
 </div>
 
-
 ---
-## 📍 Table of Contents
-- [📍 Table of Contents](#-table-of-contents)
-- [👋 Introdcution](#-introdcution)
+## 📚 Table of Contents
+- [📚 Table of Contents](#-table-of-contents)
+- [📍Overview](#overview)
 - [🔮 Feautres](#-feautres)
 - [⚙️ Project Structure](#️-project-structure)
-- [🧩 Modules](#-modules)
-- [🏎💨 Getting Started](#-getting-started)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
   - [✅ Prerequisites](#-prerequisites)
   - [💻 Installation](#-installation)
-  - [🤖 Running readme-ai](#-running-readme-ai)
+  - [🤖 Using README-AI](#-using-readme-ai)
   - [🧪 Running Tests](#-running-tests)
-- [🗺 Roadmap](#-roadmap)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
 
-## 👋 Introdcution
+## 📍Overview
 
-The Readme AI codebase allows for the conversion of Readme files into other formats such as PDF, HTML, and Markdown. This is done using a natural language processing approach that analyzes the Readme
+README-AI is a project that aims to improve the quality of README files on GitHub. It does this by using machine learning to automatically generate high-quality READMEs for new projects,
 
 ## 🔮 Feautres
 
@@ -62,29 +57,34 @@ The Readme AI codebase allows for the conversion of Readme files into other form
 
 ```bash
 .
+├── CONTRIBUTING.md
 ├── LICENSE
 ├── Makefile
 ├── README.md
 ├── conf
 │   ├── badges.json
 │   ├── conf.toml
-│   ├── file_extensions_map.toml
-│   └── language_instructions.toml
+│   ├── file_extensions.toml
+│   ├── file_names.toml
+│   ├── setup_guide.toml
+│   └── templates
+│       └── general.toml
 ├── docs
 │   ├── README_EX_1.md
 │   ├── README_EX_2.md
 │   ├── README_EX_3.md
-│   ├── imgs
-│   │   ├── docs.png
-│   │   ├── header.png
-│   │   ├── misc.png
-│   │   ├── setup.png
-│   │   ├── toc.png
-│   │   └── tree.png
-│   └── raw_data.csv
+│   ├── README_EX_4.md
+│   └── imgs
+│       ├── docs.png
+│       ├── header.png
+│       ├── misc.png
+│       ├── setup.png
+│       ├── toc.png
+│       └── tree.png
 ├── requirements.txt
 ├── scripts
 │   ├── clean.sh
+│   ├── py_script_header.sh
 │   ├── run.sh
 │   └── test.sh
 ├── setup
@@ -95,53 +95,56 @@ The Readme AI codebase allows for the conversion of Readme files into other form
 │   ├── __init__.py
 │   ├── builder.py
 │   ├── conf.py
+│   ├── file_factory.py
+│   ├── file_parser.py
 │   ├── logger.py
 │   ├── main.py
 │   ├── model.py
-│   ├── processor.py
-│   └── utils.py
+│   └── preprocess.py
 └── tests
     ├── conftest.py
     ├── test_builder.py
     ├── test_conf.py
+    ├── test_file_factory.py
     ├── test_logger.py
     ├── test_main.py
     ├── test_model.py
-    ├── test_processor.py
-    └── test_utils.py
+    └── test_processor.py
 
-8 directories, 40 files
+9 directories, 45 files
 ```
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## 🧩 Modules
+## 💻 Modules
 <details closed><summary>Scripts</summary>
 
-| File     | Summary                                                                                                                                                                                                         |
-|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| clean.sh | This bash script is used to clean up Python cache files, remove build artifacts, remove Jupyter notebook checkpoints, and remove pytest cache.                                                                  |
-| run.sh   | This Bash script activates a Conda environment and runs a Python script. It begins by setting the "-eo pipefail" flag, which causes the script to exit immediately if any command returns a non-zero exit code. |
+| File                | Summary                                                                                                                                                                  |
+|:--------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| py_script_header.sh | This code is a Bash script that iterates through all the . py files in a specified folder and adds a header to each file with the script name, author, and date updated. |
+| run.sh              | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables.                       |
+| clean.sh            | This code is a Bash script that cleans up Python cache files, removes build artifacts, Jupyter notebook checkpoints, pytest cache, and benchmarks.                       |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File         | Summary                                                                                                                                                                                                                                              |
-|:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| builder.py   | format. py is a Python file that contains functions to build a markdown file from a configuration object, a list of badges, an introduction string, a name, and a URL.                                                                               |
-| conf.py      | This file contains the configuration constants for the project. It contains five dataclasses: OpenAI, GitHub, Markdown, Paths, and AppConfig.                                                                                                        |
-| logger.py    | Logger is a class that provides logging functionality with colored output. It is initialized with a name and a logging level (defaults to INFO).                                                                                                     |
-| main.py      | This file contains the main function for the README-AI application. It is responsible for loading the configuration file, parsing command line arguments, fetching project dependencies, and generating the README. md file.                         |
-| model.py     | This file contains the model class for the OpenAI API. It provides functions for converting code to text, generating readme features, and summarizing text.                                                                                          |
-| processor.py | This file contains the source code for the processor module. It contains functions for cloning a GitHub repository, detecting the primary language of the repository, extracting dependencies from the repository, and generating user instructions. |
-| utils.py     | This file contains the FileFactory class and several FileHandler subclasses. The FileFactory class is used to create a FileHandler object based on the file type of the file path passed to it.                                                      |
+| File            | Summary                                                                                                                                                                                                  |
+|:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| preprocess.py   | This code provides methods to process a GitHub repository, such as cloning the repository to a temporary directory, getting the file contents, and getting the project dependencies.                     |
+| file_parser.py  | This is a file parser module which provides functions to parse various types of files and extract dependencies from them.                                                                                |
+| conf.py         | This code defines configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template strings, and project paths.                                     |
+| logger.py       | Logger is a class for the project that provides logging capabilities with colored output. It supports logging levels such as DEBUG, INFO, WARNING, ERROR, and CRITICAL.                                  |
+| file_factory.py | This File Factory module provides a class, FileHandler, which allows for the reading and writing of files in markdown, toml, and json formats.                                                           |
+| model.py        | This code uses the OpenAI GPT-3 model to generate summary text from code. It uses the OpenAI API to access the GPT-3 model, and the Spacy library to summarize the generated text.                       |
+| builder.py      | This code builds a README. md file from a template and data. It uses the pandas library to parse the data, the git library to clone a repository, and the subprocess library to create a directory tree. |
+| main.py         | README-AI is a tool that generates a README. md file for your repository. It uses OpenAI's API to generate summaries of the codebase, and a configuration file to customize the output.                  |
 
 </details>
 <hr />
 
-## 🏎💨 Getting Started
+## 🚀 Getting Started
 
 ### ✅ Prerequisites
 
@@ -150,14 +153,14 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 ### 💻 Installation
 
-1. Clone the readme-ai repository:
+1. Clone the README-AI repository:
 ```sh
-git clone https://github.com/eli64s/readme-ai
+git clone https://github.com/eli64s/README-AI
 ```
 
 2. Change to the project directory:
 ```sh
-cd readme-ai
+cd README-AI
 ```
 
 3. Install the dependencies:
@@ -165,7 +168,7 @@ cd readme-ai
 pip install -r requirements.txt
 ```
 
-### 🤖 Running readme-ai
+### 🤖 Using README-AI
 
 ```sh
 python main.py
@@ -178,12 +181,10 @@ python main.py
 
 <hr />
 
-## 🗺 Roadmap
-
-- [X] [📌  INSERT-TASK-TODO]
-- [X] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
+## 🛠 Future Development
+- [X] [📌  COMPLETED-TASK]
+- [ ] [📌  INSERT-TASK]
+- [ ] [📌  INSERT-TASK]
 
 
 ---
@@ -217,14 +218,9 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ---
 
-## 📫 Contact
-
-If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  INSERT-EMAIL-ADDRESS]`
-
----
-
 ## 🙏 Acknowledgments
-> `[📌  INSERT-DESCRIPTION]`
+
+[📌  INSERT-DESCRIPTION]
 
 
 ---

@@ -1,4 +1,5 @@
 """README-AI is a tool that generates a README.md file for your repository."""
+
 import argparse
 from pathlib import Path
 
@@ -13,30 +14,37 @@ from conf import AppConf, load_conf_helper
 from file_factory import FileHandler
 from logger import Logger
 
-CONF = "conf/conf.toml"
+CONFIG_FILE = "conf/conf.toml"
 LOGGER = Logger("readme_ai_logger")
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Generate a README.md file via OpenAI."
+    )
+    parser.add_argument("-k", "--api_key", type=str, help="OpenAI API key")
+    parser.add_argument("-l", "--local", type=str, help="Local directory path")
+    parser.add_argument("-o", "--output", type=str, help="Output file path")
+    parser.add_argument("-r", "--remote", type=str, help="Remote repository URL")
+    return parser.parse_args()
+
+
+def load_configuration(config_path):
+    handler = FileHandler()
+    conf_dict = handler.read(config_path)
+    return dacite.from_dict(AppConf, conf_dict)
 
 
 def main() -> None:
     LOGGER.info("README-AI is now executing.")
 
-    # Configuration
-    conf_path = Path(CONF).resolve()
-    handler = FileHandler()
-    conf_dict = handler.read(conf_path)
-    conf = dacite.from_dict(AppConf, conf_dict)
+    # Load configuration
+    conf_path = Path(CONFIG_FILE).resolve()
+    conf = load_configuration(conf_path)
     conf_helper = load_conf_helper(conf)
 
-    # Command line arguments
-    parser = argparse.ArgumentParser(
-        description="Generate a README.md file via OpenAI."
-    )
-    parser.add_argument("-k", "--api_key", type=str, help="OpenAI API key")
-    parser.add_argument("-o", "--output", type=str, help="Output file path")
-    parser.add_argument("-r", "--remote", type=str, help="Remote repository URL")
-    parser.add_argument("-l", "--local", type=str, help="Local directory path")
-
-    args = parser.parse_args()
+    # Parse command line arguments
+    args = parse_arguments()
     if args.api_key:
         openai.api_key = args.api_key
     if args.output:
@@ -46,7 +54,7 @@ def main() -> None:
     if args.remote:
         conf.github.remote = args.remote
 
-    # GitHub API / Local Directory
+    # Process repository
     if args.local:
         LOGGER.info(f"Using local directory: {conf.github.local}")
         conf.github.path = conf.github.local
@@ -59,18 +67,19 @@ def main() -> None:
     repo = conf.github.path
     name = preprocess.get_repo_name(repo)
     conf.github.name = name
+    file_exts = conf_helper.file_extensions
     file_names = conf_helper.file_names
-    dependencies = preprocess.get_project_dependencies(file_names)
+    dependencies = preprocess.get_project_dependencies(repo, file_exts, file_names)
 
     LOGGER.info(f"Creating README.md for the repo: {name}")
     LOGGER.info(f"Total files to document: {len(repo_contents)}")
     LOGGER.info(f"\nProject dependencies and tools list: {dependencies}\n")
 
-    # OpenAI API
-    prompt = conf.api.prompt_intro
+    # Use OpenAI API to generate documentation
+    prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
     codebase_docs = model.code_to_text(repo_contents)
-    introduction = model.generate_summary_text(prompt.format(repo))
+    introduction = model.generate_summary_text(prompt_intro.format(name))
     intro_slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(introduction)
     documentation = pd.DataFrame(codebase_docs, columns=["Module", "Summary"])
