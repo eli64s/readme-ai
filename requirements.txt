@@ -4,6 +4,7 @@ coverage
 dacite
 flake8
 GitPython
+httpx
 isort
 openai
 pandas

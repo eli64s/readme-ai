@@ -15,7 +15,6 @@ from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
 IGNORE = [
-    ".*",
     ".csv",
     ".json",
     ".md",
