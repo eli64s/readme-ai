@@ -1,4 +1,3 @@
-
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
@@ -74,6 +73,8 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 │   ├── README_EX_2.md
 │   ├── README_EX_3.md
 │   ├── README_EX_4.md
+│   ├── README_EX_JS.md
+│   ├── README_EX_RUST.md
 │   └── imgs
 │       ├── docs.png
 │       ├── header.png
@@ -84,7 +85,6 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 ├── requirements.txt
 ├── scripts
 │   ├── clean.sh
-│   ├── py_script_header.sh
 │   ├── run.sh
 │   └── test.sh
 ├── setup
@@ -96,11 +96,11 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 │   ├── builder.py
 │   ├── conf.py
 │   ├── file_factory.py
-│   ├── file_parser.py
 │   ├── logger.py
 │   ├── main.py
 │   ├── model.py
-│   └── preprocess.py
+│   ├── preprocess.py
+│   └── preprocess_helper.py
 └── tests
     ├── conftest.py
     ├── test_builder.py
@@ -111,7 +111,7 @@ README-AI is a project that aims to improve the quality of README files on GitHu
     ├── test_model.py
     └── test_processor.py
 
-9 directories, 45 files
+9 directories, 46 files
 ```
 ---
 
@@ -120,26 +120,25 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 ## 💻 Modules
 <details closed><summary>Scripts</summary>
 
-| File                | Summary                                                                                                                                                                  |
-|:--------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| py_script_header.sh | This code is a Bash script that iterates through all the . py files in a specified folder and adds a header to each file with the script name, author, and date updated. |
-| run.sh              | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables.                       |
-| clean.sh            | This code is a Bash script that cleans up Python cache files, removes build artifacts, Jupyter notebook checkpoints, pytest cache, and benchmarks.                       |
+| File     | Summary                                                                                                                                            |
+|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| run.sh   | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables. |
+| clean.sh | This code is a Bash script that cleans up files and directories related to Python, Jupyter notebooks, pytest, benchmarks, and a CSV file.          |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File            | Summary                                                                                                                                                                                                  |
-|:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| preprocess.py   | This code provides methods to process a GitHub repository, such as cloning the repository to a temporary directory, getting the file contents, and getting the project dependencies.                     |
-| file_parser.py  | This is a file parser module which provides functions to parse various types of files and extract dependencies from them.                                                                                |
-| conf.py         | This code defines configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template strings, and project paths.                                     |
-| logger.py       | Logger is a class for the project that provides logging capabilities with colored output. It supports logging levels such as DEBUG, INFO, WARNING, ERROR, and CRITICAL.                                  |
-| file_factory.py | This File Factory module provides a class, FileHandler, which allows for the reading and writing of files in markdown, toml, and json formats.                                                           |
-| model.py        | This code uses the OpenAI GPT-3 model to generate summary text from code. It uses the OpenAI API to access the GPT-3 model, and the Spacy library to summarize the generated text.                       |
-| builder.py      | This code builds a README. md file from a template and data. It uses the pandas library to parse the data, the git library to clone a repository, and the subprocess library to create a directory tree. |
-| main.py         | README-AI is a tool that generates a README. md file for your repository. It uses OpenAI's API to generate summaries of the codebase, and a configuration file to customize the output.                  |
+| File                 | Summary                                                                                                                                                                                                                                              |
+|:---------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| preprocess.py        | This code provides methods to process a GitHub repository, such as cloning the repository to a temporary directory, getting the file contents, and getting the project dependencies.                                                                 |
+| conf.py              | This code defines configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template strings, and project paths.                                                                                 |
+| preprocess_helper.py | This code provides helper functions for dependency parsing for readme. ai. It includes functions for parsing Conda environment files, Pipfiles, pyproject. toml, requirements files, Cargo. toml, Cargo. lock, package. json, and yarn. lock.        |
+| logger.py            | Logger is a class for the project that provides logging capabilities with colored output. It supports logging levels such as DEBUG, INFO, WARNING, ERROR, and CRITICAL.                                                                              |
+| file_factory.py      | This File Factory module provides a class, FileHandler, which allows for the reading and writing of files in markdown, toml, and json formats.                                                                                                       |
+| model.py             | This code uses the OpenAI GPT-3 model to generate summary text from code. It uses the OpenAI API to access the GPT-3 model, and the Spacy library to summarize the generated text.                                                                   |
+| builder.py           | This code builds a README. md file from a template and data, such as a pandas DataFrame, a configuration object, and a list of dependencies.                                                                                                         |
+| main.py              | README-AI is a tool that generates a README. md file for your repository using OpenAI's API. It takes in a repository URL or local directory path, and outputs a README. md file with a summary of the codebase, project dependencies, and a slogan. |
 
 </details>
 <hr />
