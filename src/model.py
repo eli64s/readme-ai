@@ -11,9 +11,9 @@ from spacy.lang.en import English
 import preprocess
 from logger import Logger
 
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 IGNORE = [
-    "badges",
+    ".*",
     ".csv",
     ".json",
     ".md",
@@ -60,10 +60,15 @@ def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
 
             LOGGER.debug(f"Davinci processing: {file_path}")
 
-            model_engine = "text-davinci-003"
             prompt = f"Create a summary description for this code: {raw_code}"
+            prompt_length = len(prompt.split())
+            if prompt_length > 4096:
+                LOGGER.warning(f"Prompt too long: {file_path}")
+                docs.append((file_path, "Prompt too long to generate summary."))
+                continue
+
             response = openai.Completion.create(
-                model=model_engine,
+                model="text-davinci-003",
                 prompt=prompt,
                 temperature=0,
                 max_tokens=100,

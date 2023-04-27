@@ -5,51 +5,48 @@
 <br>
 mlops-course
 </h1>
-<h3 align="center">📍 GitHub repo for a course on MLOps which covers topics such as data management, feature engineering, model training and deployment, and model monitoring.</h3>
-<h3 align="center">🚀 Developed using OpenAI's language model API and the software tools below.</h3>
+<h3 align="center">📍 The ultimate course for MlOps with Machine Learning!</h3>
+<h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
-> ![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
-> ![fastapi](https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white)
-> ![mlflow](https://img.shields.io/badge/MLflow-0194E2.svg?style=for-the-badge&logo=MLflow&logoColor=white)
-> ![numpy](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white)
-> ![pandas](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-> ![scikit-learn](https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
->
-> ![streamlit](https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white)
-> ![ipynb](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)
-> ![py](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white)
-> ![json](https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white)
-> ![dvc](https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white)
-> ![markdown](https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white)
+<img src="https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white" alt="typer" />
+<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="numpyencoder" />
+<img src="https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white" alt="css" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="py" />
+<img src="https://img.shields.io/badge/DVC-13ADC7.svg?style=for-the-badge&logo=DVC&logoColor=white" alt="" />
+<img src="https://img.shields.io/badge/MLflow-0194E2.svg?style=for-the-badge&logo=MLflow&logoColor=white" alt="numpy" />
 
-></p>
+<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="ipynb" />
+<img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white" alt="uvicorn" />
+<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white" alt="sample" />
+<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white" alt="dvc" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="rich" />
+</p>
 
 </div>
 
 ---
-## 📍 Table of Contents
-- [📍 Table of Contents](#-table-of-contents)
-- [👋 Introdcution](#-introdcution)
+## 📚 Table of Contents
+- [📚 Table of Contents](#-table-of-contents)
+- [📍Overview](#overview)
 - [🔮 Feautres](#-feautres)
-- [⚙️ Repository Structure](#️-repository-structure)
-- [🧩 Modules](#-modules)
-- [🏎💨 Getting Started](#-getting-started)
+- [⚙️ Project Structure](#️-project-structure)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
   - [✅ Prerequisites](#-prerequisites)
   - [💻 Installation](#-installation)
-  - [🤖 Running mlops-course](#-running-mlops-course)
+  - [🤖 Using mlops-course](#-using-mlops-course)
   - [🧪 Running Tests](#-running-tests)
-- [🗺 Roadmap](#-roadmap)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
 
-## 👋 Introdcution
+## 📍Overview
 
-This GitHub project provides code for a course on MLOps (Machine Learning Operations). The course covers topics such as data management, feature engineering, model training and deployment, and model monitoring.
+The GitHub project mlops-course is a course that teaches you how to use machine learning in your workflows.
 
 ## 🔮 Feautres
 
@@ -59,77 +56,78 @@ This GitHub project provides code for a course on MLOps (Machine Learning Operat
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
-## ⚙️ Repository Structure
+## ⚙️ Project Structure
+
 ```bash
 .
 ├── Dockerfile
 ├── Makefile
 ├── README.md
 ├── airflow
-│   ├── airflow.cfg
-│   ├── dags
-│   │   └── workflows.py
-│   └── webserver_config.py
+│   ├── airflow.cfg
+│   ├── dags
+│   │   └── workflows.py
+│   └── webserver_config.py
 ├── app
-│   ├── api.py
-│   ├── data.py
-│   ├── gunicorn.py
-│   └── schemas.py
+│   ├── api.py
+│   ├── data.py
+│   ├── gunicorn.py
+│   └── schemas.py
 ├── config
-│   ├── args.json
-│   ├── config.py
-│   ├── performance.json
-│   └── run_id.txt
+│   ├── args.json
+│   ├── config.py
+│   ├── performance.json
+│   └── run_id.txt
 ├── data
-│   ├── labeled_projects.csv.dvc
-│   ├── projects.csv.dvc
-│   └── tags.csv.dvc
+│   ├── labeled_projects.csv.dvc
+│   ├── projects.csv.dvc
+│   └── tags.csv.dvc
 ├── docs
-│   ├── index.md
-│   └── tagifai
-│       ├── data.md
-│       ├── evaluate.md
-│       ├── main.md
-│       ├── predict.md
-│       ├── train.md
-│       └── utils.md
+│   ├── index.md
+│   └── tagifai
+│       ├── data.md
+│       ├── evaluate.md
+│       ├── main.md
+│       ├── predict.md
+│       ├── train.md
+│       └── utils.md
 ├── mkdocs.yml
 ├── notebooks
-│   └── tagifai.ipynb
+│   └── tagifai.ipynb
 ├── pyproject.toml
 ├── requirements.txt
 ├── setup.py
 ├── streamlit
-│   └── app.py
+│   └── app.py
 ├── tagifai
-│   ├── data.py
-│   ├── evaluate.py
-│   ├── main.py
-│   ├── predict.py
-│   ├── train.py
-│   └── utils.py
+│   ├── data.py
+│   ├── evaluate.py
+│   ├── main.py
+│   ├── predict.py
+│   ├── train.py
+│   └── utils.py
 └── tests
     ├── code
-    │   ├── test_args.json
-    │   ├── test_data.py
-    │   ├── test_evaluate.py
-    │   ├── test_main.py
-    │   ├── test_predict.py
-    │   └── test_utils.py
+    │   ├── test_args.json
+    │   ├── test_data.py
+    │   ├── test_evaluate.py
+    │   ├── test_main.py
+    │   ├── test_predict.py
+    │   └── test_utils.py
     ├── great_expectations
-    │   ├── checkpoints
-    │   │   ├── labeled_projects.yml
-    │   │   ├── projects.yml
-    │   │   └── tags.yml
-    │   ├── expectations
-    │   │   ├── labeled_projects.json
-    │   │   ├── projects.json
-    │   │   └── tags.json
-    │   ├── great_expectations.yml
-    │   └── plugins
-    │       └── custom_data_docs
-    │           └── styles
-    │               └── data_docs_custom_styles.css
+    │   ├── checkpoints
+    │   │   ├── labeled_projects.yml
+    │   │   ├── projects.yml
+    │   │   └── tags.yml
+    │   ├── expectations
+    │   │   ├── labeled_projects.json
+    │   │   ├── projects.json
+    │   │   └── tags.json
+    │   ├── great_expectations.yml
+    │   └── plugins
+    │       └── custom_data_docs
+    │           └── styles
+    │               └── data_docs_custom_styles.css
     └── model
         └── test_behavioral.py
 
@@ -139,87 +137,91 @@ This GitHub project provides code for a course on MLOps (Machine Learning Operat
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## 🧩 Modules
+## 💻 Modules
+<details closed><summary>.</summary>
 
-
-<details closed><summary>AIRFLOW</summary>
-
-| File Name           | Summary                                                                                                                                                                                                            |
-|:--------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| webserver_config.py | This code is a configuration for the Apache Airflow webserver. It allows for the selection of an authentication type, such as OpenID, LDAP, OAuth, or Remote User, and the selection of a theme for the webserver. |
-
-</details>
-
-<details closed><summary>APP</summary>
-
-| File Name   | Summary                                                                                                                                                                                                          |
-|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| api.py      | This code is a FastAPI application that provides endpoints for classifying machine learning projects. It includes endpoints for health checks, performance metrics, arguments used for the run, and predictions. |
-| gunicorn.py | This is a Gunicorn config file which sets up the server socket, worker processes, server mechanics, logging, process naming, and server hooks.                                                                   |
-| schemas.py  | This code creates a class called PredictPayload which is used to store a list of Text objects. The Text class contains a string field called 'text' which must have a minimum length of 1.                       |
-| data.py     | This code provides functions to preprocess text data, replace out of scope (OOS) labels, replace minority labels, encode labels, and generate balanced data splits.                                              |
+| File       | Summary                                                                                                                                                                                                                                                                                                              |
+|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .flake8    | This code is a configuration for the Flake8 linter, which is used to detect and report errors in Python code. It excludes the venv directory from linting, and ignores errors related to line length (E501), line breaks before binary operators (W503), and missing white space around arithmetic operators (E226). |
+| Dockerfile | This code creates a Docker image for a machine learning application. It installs dependencies, copies files, pulls assets from S3, and exports ports.                                                                                                                                                                |
+| .dvcignore | This code allows users to add patterns of files that should be ignored by DVC, which can improve performance. For more information, please refer to the DVC user guide.                                                                                                                                              |
 
 </details>
 
-<details closed><summary>CODE</summary>
+<details closed><summary>.dvc</summary>
 
-| File Name        | Summary                                                                                                                                                                                                                                                    |
-|:-----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| test_utils.py    | This code tests the functions save_dict and set_seed from the utils module of the tagifai library. The save_dict function is tested by creating a dictionary and saving it to a filepath, then loading it back and asserting that the values are the same. |
-| test_predict.py  | This code tests the custom_predict function from the tagifai package. It tests the function with three different thresholds (0. 5, 0. 6, and 0. 75) and the corresponding expected output (0, 1, and 1).                                                   |
-| test_evaluate.py | This code tests the Tagifai evaluate module, which provides functions for evaluating the performance of a text classification model.                                                                                                                       |
-| test_data.py     | This code provides a set of tests for the tagifai data module. It tests the functions replace_oos_labels, replace_minority_labels, clean_text, preprocess, LabelEncoder, and get_data_splits.                                                              |
-| test_main.py     | This code tests the Tagifai application, which is used for text classification. It tests the functions elt-data, train-model, optimize, load-artifacts, and predict-tag.                                                                                   |
+| File   | Summary                                                                                     |
+|:-------|:--------------------------------------------------------------------------------------------|
+| config | This code sets up a remote connection to a storage location with the URL ". ./stores/blob". |
 
 </details>
 
-<details closed><summary>CONFIG</summary>
+<details closed><summary>Airflow</summary>
 
-| File Name   | Summary                                                                                                                                                                          |
-|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| config.py   | This code imports logging, sys, and pathlib, sets up URLs and directories, creates directories, sets up MLFlow model registry, sets up logging, and creates a list of stopwords. |
-
-</details>
-
-<details closed><summary>DAGS</summary>
-
-| File Name    | Summary                                                                                                                                                                                                                             |
-|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| workflows.py | This code creates a DAG (Directed Acyclic Graph) for MLOps tasks. It includes PythonOperator tasks to extract data from a BigQuery data warehouse, validate the data with GreatExpectations, optimize a model, and train the model. |
+| File                | Summary                                                                                                                                             |
+|:--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
+| webserver_config.py | This code provides the default configuration for the Airflow webserver, including enabling WTF_CSRF and setting the authentication type to AUTH_DB. |
 
 </details>
 
-<details closed><summary>MODEL</summary>
+<details closed><summary>Airflow/dags</summary>
 
-| File Name          | Summary                                                                                                                                                    |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| test_behavioral.py | This code tests the Tagifai machine learning model by running three types of tests: INVariance, DIRectional expectations, and Minimum Functionality Tests. |
-
-</details>
-
-<details closed><summary>STREAMLIT</summary>
-
-| File Name   | Summary                                                                                                                                |
-|:------------|:---------------------------------------------------------------------------------------------------------------------------------------|
-| app.py      | This code is a Streamlit app that allows users to view data, performance metrics, and make predictions using a machine learning model. |
+| File         | Summary                                                                                                                                                                                                              |
+|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| workflows.py | This code creates a MLOps workflow using Airflow, BigQuery, and Great Expectations. It extracts labeled data from a BigQuery data warehouse, validates it with Great Expectations, optimizes it, and trains a model. |
 
 </details>
 
-<details closed><summary>TAGIFAI</summary>
+<details closed><summary>App</summary>
 
-| File Name   | Summary                                                                                                                                                                                                      |
-|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| predict.py  | This code provides a function to predict tags for given texts using a vectorizer, model, and label encoder. It also includes a custom_predict function that defaults to an index if conditions are not met.  |
-| utils.py    | This code contains functions to load and save dictionaries from/to a JSON file, as well as set seeds for reproducibility.                                                                                    |
-| train.py    | This code is a training function for a supervised machine learning model. It uses the TfidfVectorizer to vectorize the data, RandomOverSampler to oversample the data, and SGDClassifier to train the model. |
-| evaluate.py | This code provides performance metrics for a given set of true and predicted labels, as well as metrics for slices of data generated by two slicing functions.                                               |
-| main.py     | This code is a CLI app that allows users to extract, load, and transform data assets, train a model, optimize hyperparameters, and predict tags for text.                                                    |
-| data.py     | This code provides functions to preprocess text data, replace out of scope (OOS) labels, replace minority labels, encode labels, and generate balanced data splits.                                          |
+| File        | Summary                                                                                                                                                                                                              |
+|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| api.py      | This code is for a FastAPI application that provides a web API for classifying machine learning projects. It includes endpoints for health checks, performance metrics, arguments used for the run, and predictions. |
+| gunicorn.py | This code sets up a web server with the port number taken from the environment variable PORT, or 8000 if PORT is not set.                                                                                            |
+| schemas.py  | This code creates a class called PredictPayload which is used to store a list of Text objects. The Text class contains a string field called 'text' which must have a minimum length of 1.                           |
+| data.py     | This code provides functions to preprocess text data, replace out of scope (OOS) labels, replace minority labels, encode labels, and generate balanced data splits.                                                  |
+
+</details>
+
+<details closed><summary>Config</summary>
+
+| File      | Summary                                                                                                                          |
+|:----------|:---------------------------------------------------------------------------------------------------------------------------------|
+| config.py | This code imports logging, sys, and pathlib, sets up directories and files, configures logging, and creates a list of stopwords. |
+
+</details>
+
+<details closed><summary>Notebooks</summary>
+
+| File          | Summary                              |
+|:--------------|:-------------------------------------|
+| tagifai.ipynb | Prompt too long to generate summary. |
+
+</details>
+
+<details closed><summary>Streamlit</summary>
+
+| File   | Summary                                                                                                                                                                                                                           |
+|:-------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| app.py | This code imports the Path, pandas, streamlit, and tagifai libraries, and uses them to create a web application that allows users to view data, performance metrics, and make predictions on text using a machine learning model. |
+
+</details>
+
+<details closed><summary>Tagifai</summary>
+
+| File        | Summary                                                                                                                                                                                                                                                                                                      |
+|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| predict.py  | This code provides a function to predict tags for given texts using a vectorizer, model, and label encoder. It also includes a custom_predict function that defaults to an index if conditions are not met.                                                                                                  |
+| utils.py    | This code provides functions to load and save dictionaries from/to a JSON file, as well as set a seed for reproducibility.                                                                                                                                                                                   |
+| train.py    | This code is a training function for a supervised machine learning model. It uses the TfidfVectorizer to vectorize the data, RandomOverSampler to oversample the data, and SGDClassifier to train the model.                                                                                                 |
+| evaluate.py | This code provides performance metrics for a given set of true and predicted labels, as well as metrics for slices of data generated by two slicing functions.                                                                                                                                               |
+| main.py     | This code is a command line application for training a model, optimizing hyperparameters, and predicting tags for text. It uses libraries such as joblib, mlflow, optuna, pandas, and typer to extract, load, and transform data assets, train a model, optimize hyperparameters, and predict tags for text. |
+| data.py     | This code provides functions to preprocess text data, replace out of scope (OOS) labels, replace minority labels, encode labels, and generate balanced data splits.                                                                                                                                          |
 
 </details>
 <hr />
 
-## 🏎💨 Getting Started
+## 🚀 Getting Started
 
 ### ✅ Prerequisites
 
@@ -243,7 +245,7 @@ cd mlops-course
 pip install -r requirements.txt
 ```
 
-### 🤖 Running mlops-course
+### 🤖 Using mlops-course
 
 ```sh
 python main.py
@@ -256,12 +258,10 @@ python main.py
 
 <hr />
 
-## 🗺 Roadmap
-
-- [X] [📌  INSERT-TASK-TODO]
-- [X] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
-- [ ] [📌  INSERT-TASK-TODO]
+## 🛠 Future Development
+- [X] [📌  COMPLETED-TASK]
+- [ ] [📌  INSERT-TASK]
+- [ ] [📌  INSERT-TASK]
 
 
 ---
@@ -295,14 +295,10 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ---
 
-## 📫 Contact
-
-If you have any questions or concerns, please open an issue on GitHub or contact the repo owner at `[📌  INSERT-EMAIL-ADDRESS]`
-
----
-
 ## 🙏 Acknowledgments
-> `[📌  INSERT-DESCRIPTION]`
+
+[📌  INSERT-DESCRIPTION]
 
 
 ---
+

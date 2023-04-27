@@ -1,4 +1,4 @@
-""" Methods to process the GitHub repository """
+"""Preprocesses the codebase to extract the README.md file and the code files."""
 
 import contextlib
 import os
@@ -14,7 +14,7 @@ import git
 import preprocess_helper as helper
 from logger import Logger
 
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 
 
 def add_space_between_sentences(text: str) -> str:
@@ -22,28 +22,7 @@ def add_space_between_sentences(text: str) -> str:
     return re.sub(pattern, r"\1 \2", text)
 
 
-def add_values_from_dict_to_list(keys_list, input_dict):
-    for key in keys_list:
-        if key in input_dict:
-            keys_list.append(input_dict[key])
-    return keys_list
-
-
 def clone_codebase(url: str) -> Dict[str, str]:
-    """Clone GitHub repository to a temporary
-        directory and return the file contents.
-
-    Parameters
-    ----------
-    cwd_path
-        cwd_path (str): current working directory path
-    url
-        url (str): the GitHub URL to clone
-
-    Returns
-    -------
-        Dict: a dictionary mapping file paths to their contents
-    """
     with make_temp_directory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
         files = get_file_contents(temp_dir)
@@ -72,7 +51,10 @@ def get_file_contents(directory: str, exclude: List[str] = []) -> Dict[str, str]
         if path.is_file() and not any(ex in path.parts for ex in exclude):
             try:
                 with path.open(encoding="utf-8") as f:
-                    contents[path.relative_to(directory)] = f.read()
+                    lines = f.readlines()
+                    if path.suffix == ".py":
+                        lines = remove_comments(lines)
+                    contents[path.relative_to(directory)] = "".join(lines)
             except UnicodeDecodeError:
                 contents[
                     path.relative_to(directory)
@@ -81,48 +63,13 @@ def get_file_contents(directory: str, exclude: List[str] = []) -> Dict[str, str]
 
 
 def get_local_codebase(local_directory: str) -> Dict[str, str]:
-    repo_contents = {}
-    base_path = Path(local_directory)
-
-    for file_path in base_path.rglob("*"):
-        if file_path.is_file():
-            try:
-                content = file_path.read_text(encoding="utf-8")
-                repo_contents[str(file_path)] = content
-            except UnicodeDecodeError:
-                # Skip non-text files
-                continue
-
-    return repo_contents
-
-
-def get_repo_name(path: Union[str, os.PathLike]) -> str:
-    if "github.com" in path:
-        # GitHub URL
-        repo_path = urlparse(path).path
-        repo_name = repo_path.split("/")[-1]
-        if repo_name.endswith(".git"):
-            repo_name = repo_name[:-4]
-    else:
-        # Local path
-        repo_name = os.path.basename(os.path.normpath(path))
-
-    return repo_name
-
-
-@contextlib.contextmanager
-def make_temp_directory() -> str:
-    try:
-        temp_dir = tempfile.mkdtemp()
-        yield temp_dir
-    finally:
-        shutil.rmtree(temp_dir)
+    return get_file_contents(local_directory)
 
 
 def get_project_dependencies(
     repo: str, file_ext: List[str], file_names: List[str]
 ) -> List[str]:
-    with tempfile.TemporaryDirectory(prefix="readme-ai-") as temp_dir:
+    with make_temp_directory() as temp_dir:
         if "github.com" in repo:
             git.Repo.clone_from(repo, temp_dir)
         elif os.path.isdir(repo):
@@ -157,9 +104,38 @@ def get_project_dependencies(
 
         # Get a set of file extensions from the repository
         ext_list = list({Path(f).suffix[1:] for f in all_files})
-        file_extensions = add_values_from_dict_to_list(ext_list, file_ext)
+        file_extensions = ext_list + [
+            file_ext[key] for key in ext_list if key in file_ext
+        ]
         dependencies.append(file_extensions)
 
         packages = sum(dependencies, [])
         packages = [p.lower() for p in packages]
         return list(set(packages))
+
+
+def get_repo_name(path: Union[str, os.PathLike]) -> str:
+    if "github.com" in path:
+        # GitHub URL
+        repo_path = urlparse(path).path
+        repo_name = repo_path.split("/")[-1]
+        if repo_name.endswith(".git"):
+            repo_name = repo_name[:-4]
+    else:
+        # Local path
+        repo_name = os.path.basename(os.path.normpath(path))
+
+    return repo_name
+
+
+@contextlib.contextmanager
+def make_temp_directory() -> str:
+    try:
+        temp_dir = tempfile.mkdtemp()
+        yield temp_dir
+    finally:
+        shutil.rmtree(temp_dir)
+
+
+def remove_comments(lines):
+    return [line for line in lines if not line.strip().startswith("#")]

@@ -1,4 +1,5 @@
 """Configuration constants."""
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List
@@ -6,7 +7,7 @@ from typing import List
 from file_factory import FileHandler
 from logger import Logger
 
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 
 
 @dataclass

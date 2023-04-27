@@ -10,7 +10,7 @@ import pandas as pd
 from file_factory import FileHandler
 from logger import Logger
 
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 IGNORE = [
     "lock",
     "pyc",
@@ -35,6 +35,7 @@ IGNORE = [
 def build(
     conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame, intro: str
 ) -> None:
+    intro = intro.strip('"')
     name = conf.github.name
     url = conf.github.path
 
@@ -75,7 +76,7 @@ def get_badges(data: dict, dependencies: list) -> str:
         for icon in icons_sorted:
             if dep.lower() == icon["name"].lower():
                 badges.append(icon["src"])
-                break  # found a match, move to the next dependency
+                break
 
     badge_lines = []
     total_badges = len(badges)

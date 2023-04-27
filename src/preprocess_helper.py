@@ -10,7 +10,7 @@ import yaml
 
 from logger import Logger
 
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 
 
 def list_files(directory: str) -> List[str]:

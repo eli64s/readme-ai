@@ -40,7 +40,7 @@
 
 ## 🤖 Overview
 
-README-AI is a powerful command-line tool that automates the creation of README.md files and generates comprehensive codebase documentation. This tool is designed to create visually appealing, well-structured, and informative README files for your codebase, making it easy for analysts, developers, and teams of **_all levels_** to produce baseline codebase documentation quickly.
+README-AI is a powerful, user-friendly tool that automatically generates high-quality README files for your GitHub repositories using OpenAI's language model APIs. By simply providing the path or url to your project's codebase, this tool will craft a well-structured and comprehensive README that highlights your project's features, installation steps, usage instructions, and more.
 
 > **Note:**
 >
@@ -155,7 +155,7 @@ README-AI is a powerful command-line tool that automates the creation of README.
 
 Before you begin, ensure that you have the following prerequisites installed:
 
-- Python 3.6 or higher
+- Python 3.7 or higher
 - Conda package manager (recommended)
 - Access to the OpenAI API (see OpenAI API Setup below)
 
@@ -249,9 +249,9 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [x] Add compatibility for additional languages (current - Python, Rust, JavaScript).
+- [ ] Implement different configuration README format and style templates.
+- [ ] Add ability to choose the language of the generated README file.
 - [ ] Add user interface to generate README files.
-- [ ] Add the ability to choose the language of the generated README file
-- [ ] Implement different configuration README template styles.
 
 ---
 

@@ -15,7 +15,7 @@ from file_factory import FileHandler
 from logger import Logger
 
 CONFIG_FILE = "conf/conf.toml"
-LOGGER = Logger("readme_ai_logger")
+LOGGER = Logger("readmeai_logger")
 
 
 def parse_arguments():

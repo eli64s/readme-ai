@@ -2,6 +2,7 @@
 tests/test_conf.py
 """
 from src.conf import AppConf, AppConfHelper, GitHub, Markdown, OpenAI, Paths
+from src.file_factory import FileHandler
 
 # Test data for dataclass instances
 openai_data = {
