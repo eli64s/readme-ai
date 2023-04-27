@@ -16,3 +16,5 @@ assets/icons
 .pytest_cache
 
 .vscode
+
+.benchmarks

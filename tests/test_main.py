@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from src import main
+from src import builder, main
 
 
 class TestReadmeAI(unittest.TestCase):

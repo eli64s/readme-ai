@@ -2,6 +2,7 @@
 
 import pytest
 
+from src import preprocess
 from src.model import (code_to_text, dummy_summary, fetch_summary,
                        generate_summary_text, summarize_text_spacy)
 
