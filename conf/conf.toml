@@ -1,7 +1,6 @@
 # OpenAI API language model parameters
 [api]
 api_key = ""
-engine = "text-davinci-003"
 prompt_intro = """Generate a short summary that describes the capabilities of the GitHub project {}."""
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
 temperature = 0.5

@@ -15,7 +15,6 @@ class OpenAI:
     """OpenAI API details."""
 
     api_key: str
-    engine: str
     prompt_intro: str
     prompt_slogan: str
     temperature: float

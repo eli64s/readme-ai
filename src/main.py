@@ -1,6 +1,7 @@
 """README-AI is a tool that generates a README.md file for your repository."""
 
 import argparse
+import asyncio
 from pathlib import Path
 
 import dacite
@@ -35,7 +36,7 @@ def load_configuration(config_path):
     return dacite.from_dict(AppConf, conf_dict)
 
 
-def main() -> None:
+async def main() -> None:
     LOGGER.info("README-AI is now executing.")
 
     # Load configuration
@@ -78,7 +79,7 @@ def main() -> None:
     # Use OpenAI API to generate documentation
     prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
-    codebase_docs = model.code_to_text(repo_contents)
+    codebase_docs = await model.code_to_text(repo_contents)
     introduction = model.generate_summary_text(prompt_intro.format(name))
     intro_slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(introduction)
@@ -94,4 +95,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
