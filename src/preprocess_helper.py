@@ -1,8 +1,8 @@
-"""Dependency parsing helper functions for readme.ai"""
+"""Dependency parsing helper functions for README-AI."""
 
 import json
-import os
 import re
+from pathlib import Path
 from typing import List
 
 import toml
@@ -14,11 +14,13 @@ LOGGER = Logger("readmeai_logger")
 
 
 def list_files(directory: str) -> List[str]:
-    file_list = []
-    for root, dirs, files in os.walk(directory):
-        for f in files:
-            file_list.append(os.path.join(root, f))
-    return file_list
+    try:
+        path = Path(directory)
+        if not path.exists():
+            return []
+        return [str(p) for p in path.glob("**/*") if p.is_file()]
+    except (OSError, TypeError):
+        return []
 
 
 # Python
@@ -112,3 +114,44 @@ def parse_yarn_lock(file):
     regex = re.compile(r"^(\w[\w\-]*\w)@", re.MULTILINE)
     dependencies = regex.findall(content)
     return list(set(dependencies))
+
+
+# Go
+def parse_go_mod(file_path: str) -> List[str]:
+    """
+    Extracts dependencies from a Go module file.
+
+    Parameters:
+        file_path (str): The path to the Go module file.
+
+    Returns:
+        List[str]: A list of the extracted dependencies.
+    """
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    # Find all lines starting with "require" and extract the module name
+    regex = re.compile(r"^require (.+)$", re.MULTILINE)
+    dependencies = regex.findall(content)
+
+    return dependencies
+
+
+def parse_go_sum(file_path: str) -> List[str]:
+    """
+    Extracts dependencies from a Go sum file.
+
+    Parameters:
+        file_path (str): The path to the Go sum file.
+
+    Returns:
+        List[str]: A list of the extracted dependencies.
+    """
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    # Find all lines starting with the module name and extract the version
+    regex = re.compile(r"^([^\s]+)\s([^@]+)", re.MULTILINE)
+    dependencies = [match.group(1) for match in regex.finditer(content)]
+
+    return dependencies

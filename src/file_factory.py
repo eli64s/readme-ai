@@ -1,4 +1,5 @@
-"""File Factory module."""
+"""File i/o factory module."""
+
 import json
 
 import toml
@@ -13,14 +14,21 @@ class FileHandler:
         }
 
     def read(self, file_path):
-        file_extension = str(file_path).split(".")[-1]
-        reader = self.get_action(file_extension, "read")
-        return reader(file_path)
+        try:
+            file_extension = str(file_path).split(".")[-1]
+            reader = self.get_action(file_extension, "read")
+            return reader(file_path)
+        except Exception as e:
+            print(f"Failed to read file {file_path}: {e}")
+            return None
 
     def write(self, file_path, content):
-        file_extension = str(file_path).split(".")[-1]
-        writer = self.get_action(file_extension, "write")
-        writer(file_path, content)
+        try:
+            file_extension = str(file_path).split(".")[-1]
+            writer = self.get_action(file_extension, "write")
+            writer(file_path, content)
+        except Exception as e:
+            print(f"Failed to write file {file_path}: {e}")
 
     def get_action(self, file_extension, action_type):
         file_actions = self.file_actions.get(file_extension)

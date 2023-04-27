@@ -59,11 +59,11 @@ async def main() -> None:
     if args.local:
         LOGGER.info(f"Using local directory: {conf.github.local}")
         conf.github.path = conf.github.local
-        repo_contents = preprocess.get_local_codebase(conf.github.local)
+        repo_contents = preprocess.get_codebase_local(conf.github.local)
     else:
         LOGGER.info(f"Using GitHub remote repository: {conf.github.remote}")
         conf.github.path = conf.github.remote
-        repo_contents = preprocess.clone_codebase(conf.github.remote)
+        repo_contents = preprocess.get_codebase_remote(conf.github.remote)
 
     repo = conf.github.path
     name = preprocess.get_repo_name(repo)
@@ -86,13 +86,13 @@ async def main() -> None:
     conf.md.intro = conf.md.intro.format(introduction)
     documentation = pd.DataFrame(codebase_docs, columns=["Module", "Summary"])
 
-    LOGGER.info(f"OpenAI generated codebase summaries: {documentation}")
+    LOGGER.info(f"OpenAI generated codebase summaries:\n\n{documentation}\n")
 
     # Build README.md
     documentation.to_csv(conf.paths.docs, index=False)
     builder.build(conf, conf_helper, dependencies, documentation, intro_slogan)
 
-    LOGGER.info("README-AI execution complete.")
+    LOGGER.info("README-AI execution complete.\n")
 
 
 if __name__ == "__main__":

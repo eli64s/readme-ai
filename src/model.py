@@ -1,4 +1,4 @@
-"""OpenAI GPT3.5 model for generating summary text."""
+"""OpenAI API handler for generating text for the README.md file."""
 
 import asyncio
 import os
@@ -59,15 +59,15 @@ async def code_to_text(
     tasks = []
     for file_path, raw_code in files.items():
         if any(fn in str(file_path) for fn in ignore_files):
-            LOGGER.debug(f"File skipped: {file_path}")
+            LOGGER.debug(f"Skipping file: {file_path}")
             continue
 
-        LOGGER.debug(f"Davinci processing: {file_path}")
+        LOGGER.info(f"Davinci processing: {file_path}")
 
         prompt = f"Create a summary description for this code: {raw_code}"
         prompt_length = len(prompt.split())
         if prompt_length > 4096:
-            LOGGER.warning(f"Prompt too long: {file_path}")
+            LOGGER.debug(f"Prompt too long: {file_path}")
             tasks.append(
                 asyncio.create_task(
                     dummy_summary(file_path, "Prompt too long to generate summary.")
@@ -134,6 +134,10 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
         headers={"Authorization": f"Bearer {openai.api_key}"},
     )
 
+    if response.status_code != 200:
+        LOGGER.error(f"Error fetching summary for {file_path}: {response.text}")
+        return (file_path, "Error fetching summary.")
+
     response.raise_for_status()
     data = response.json()
 
@@ -142,7 +146,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
 
     file_summary = data["choices"][0]["text"]
     summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
-    summary_spacy = summarize_text_spacy(summary)
+    summary_spacy = spacy_text_processor(summary)
     summary_spacy = preprocess.add_space_between_sentences(summary_spacy)
     return (file_path, summary_spacy)
 
@@ -171,7 +175,7 @@ def generate_summary_text(prompt: str) -> str:
     return generated_text.lstrip()
 
 
-def summarize_text_spacy(summary: str) -> str:
+def spacy_text_processor(summary: str) -> str:
     """
     Summarize text using the SpaCy library.
 

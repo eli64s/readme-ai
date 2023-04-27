@@ -21,32 +21,30 @@ def add_space_between_sentences(text: str) -> str:
     return re.sub(pattern, r"\1 \2", text)
 
 
-def clone_codebase(url: str) -> Dict[str, str]:
+def get_codebase_local(local_directory: str) -> Dict[str, str]:
+    return get_file_contents(local_directory)
+
+
+def get_codebase_remote(url: str) -> Dict[str, str]:
     with tempfile.TemporaryDirectory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
         files = get_file_contents(temp_dir)
     return files
 
 
-def get_file_contents(directory: str, exclude: List[str] = []) -> Dict[str, str]:
+def get_file_contents(directory: str) -> Dict[str, str]:
     contents = {}
     for path in Path(directory).rglob("*"):
-        if path.is_file() and not any(p.match(str(path)) for p in exclude):
+        if path.is_file():
             try:
                 with open(path, encoding="utf-8") as f:
                     lines = f.readlines()
-                    if path.suffix == ".py":
-                        lines = remove_comments(lines)
                     contents[path.relative_to(directory)] = "".join(lines)
             except UnicodeDecodeError:
                 contents[
                     path.relative_to(directory)
-                ] = "Could not decode content: non-text or non-UTF-8 file"
+                ] = "Could not decode content: non-text or non-UTF-8 file."
     return contents
-
-
-def get_local_codebase(local_directory: str) -> Dict[str, str]:
-    return get_file_contents(local_directory)
 
 
 def get_project_dependencies(
@@ -67,6 +65,8 @@ def get_project_dependencies(
         file_parsers = {
             "cargo.toml": helper.parse_cargo_toml,
             "cargo.lock": helper.parse_cargo_lock,
+            "go.mod": helper.parse_go_mod,
+            "go.sum": helper.parse_go_sum,
             "requirements.txt": helper.parse_requirements_file,
             "environment.yaml": helper.parse_conda_env_file,
             "environment.yml": helper.parse_conda_env_file,
@@ -109,7 +109,3 @@ def get_repo_name(path: Union[str, os.PathLike]) -> str:
         repo_name = os.path.basename(os.path.normpath(str(path)))
 
     return repo_name
-
-
-def remove_comments(lines):
-    return (line for line in lines if not line.strip().startswith("#"))

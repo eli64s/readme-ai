@@ -23,3 +23,6 @@ rm -rf .benchmarks/
 
 # Remove docs/raw_data.csv
 rm -rf docs/raw_data.csv
+
+# Remove logs
+rm -rf *.log

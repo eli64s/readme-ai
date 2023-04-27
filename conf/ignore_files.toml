@@ -3,7 +3,6 @@
 [ignore_files]
 ignore = [
     # Build artifacts
-    "build",
     "dist",
     "*.egg-info",
     ".eggs",
@@ -62,6 +61,7 @@ ignore = [
     ".p12",
 
     # Compiled code
+    "__init__",
     "__pycache__",
     "*.pyc",
     "*.pyo",
@@ -75,6 +75,7 @@ ignore = [
     ".cvs",
 
     # Editor and IDE settings
+    ".github/workflows",
     ".vscode",
     ".idea",
     "*.sublime-*",

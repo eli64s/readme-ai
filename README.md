@@ -91,7 +91,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 |                                                                                                                                                                                               |                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently works for:<br>Python, Rust, JavaScript.<br> | ![setup](docs/imgs/setup.png) |
+| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently works for:<br>Python, Go, Rust, JavaScript.<br> | ![setup](docs/imgs/setup.png) |
 
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds three additional sections to build out a complete README file!</p>
