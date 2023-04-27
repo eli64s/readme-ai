@@ -17,11 +17,6 @@ class OpenAI:
     api_key: str
     prompt_intro: str
     prompt_slogan: str
-    temperature: float
-    max_tokens: int
-    top_p: float
-    frequency_penalty: float
-    presence_penalty: float
 
 
 @dataclass
@@ -30,7 +25,6 @@ class GitHub:
 
     local: str
     name: str
-    owner: str
     path: str
     remote: str
 
@@ -55,6 +49,7 @@ class Paths:
 
     file_extensions: str
     file_names: str
+    ignore_files: str
     setup_guide: str
     badges: str
     docs: str
@@ -77,6 +72,7 @@ class AppConfHelper:
 
     file_names: List[str]
     file_extensions: dict
+    ignore_files: List[str]
     setup: dict
 
 
@@ -85,16 +81,21 @@ def load_conf_helper(conf: object) -> AppConfHelper:
     conf_path_list = [
         conf.paths.file_names,
         conf.paths.file_extensions,
+        conf.paths.ignore_files,
         conf.paths.setup_guide,
     ]
     handler = FileHandler()
     file_extensions = {}
     file_names = []
+    ignore_files = []
     setup = {}
 
     for path in conf_path_list:
         path = Path("conf/").joinpath(path).resolve()
         conf_dict = handler.read(path)
+
+        if "ignore_files" in conf_dict:
+            file_names.extend(conf_dict["ignore_files"].get("name", []))
 
         if "file_names" in conf_dict:
             file_names.extend(conf_dict["file_names"].get("name", []))
@@ -106,5 +107,8 @@ def load_conf_helper(conf: object) -> AppConfHelper:
             setup.update(conf_dict["setup"])
 
     return AppConfHelper(
-        file_names=file_names, file_extensions=file_extensions, setup=setup
+        file_names=file_names,
+        file_extensions=file_extensions,
+        setup=setup,
+        ignore_files=ignore_files,
     )

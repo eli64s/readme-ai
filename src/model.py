@@ -15,6 +15,8 @@ from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
 IGNORE = [
+    ".flake8",
+    ".dvcignore",
     ".csv",
     ".json",
     ".md",
@@ -40,6 +42,7 @@ IGNORE = [
     "Makefile",
     "CONTRIBUTING",
     "CODE_OF_CONDUCT",
+    "Dockerfile",
 ]
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -58,7 +61,11 @@ class OpenAIError(Exception):
     """
 
 
-async def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
+async def code_to_text(
+    files: Dict[str, str],
+    timeout=30,
+    limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
+) -> Dict[str, str]:
     """
     Generate summary text for code files using OpenAI's GPT-3.
 
@@ -66,6 +73,10 @@ async def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
     ----------
     files : Dict[str, str]
         A dictionary where the keys are file paths and values are raw code.
+    timeout : float
+        The timeout value for HTTP requests.
+    limits : httpx.Limits
+        The limits for the number of HTTP connections.
 
     Returns
     -------
@@ -73,9 +84,7 @@ async def code_to_text(files: Dict[str, str]) -> Dict[str, str]:
         A dictionary where the keys are file paths and values are summary text.
     """
 
-    async with httpx.AsyncClient(
-        timeout=30.0
-    ) as client:  # Adjust the timeout value here
+    async with httpx.AsyncClient(timeout=timeout, limits=limits) as client:
         tasks = []
         for file_path, raw_code in files.items():
             if any(fn in str(file_path) for fn in IGNORE):
@@ -183,7 +192,7 @@ def generate_summary_text(prompt: str) -> str:
     """
 
     completions = openai.Completion.create(
-        engine="text-davinci-002",
+        engine="text-davinci-003",
         prompt=prompt,
         max_tokens=44,
     )

@@ -31,24 +31,8 @@ def clone_codebase(url: str) -> Dict[str, str]:
 
 def get_file_contents(directory: str, exclude: List[str] = []) -> Dict[str, str]:
     contents = {}
-    exclude += [
-        ".gitignore",
-        ".md",
-        "__init__.py",
-        "badges",
-        "CODE_OF_CONDUCT.md",
-        "CONTRIBUTING",
-        "LICENSE",
-        "README.md",
-        "conf",
-        "docs",
-        "imgs",
-        "setup",
-        "setup.py",
-        "tests",
-    ]
     for path in Path(directory).rglob("*"):
-        if path.is_file() and not any(ex in path.parts for ex in exclude):
+        if path.is_file() and not any([p.match(path) for p in exclude]):
             try:
                 with path.open(encoding="utf-8") as f:
                     lines = f.readlines()

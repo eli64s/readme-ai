@@ -3,17 +3,11 @@
 api_key = ""
 prompt_intro = """Generate a short summary that describes the capabilities of the GitHub project {}."""
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
-temperature = 0.5
-max_tokens = 100
-top_p = 1.0
-frequency_penalty = 0.0
-presence_penalty = 0.0
 
 # Repository (local and remote)
 [github]
 local = ""
 name = ""
-owner = ""
 path = ""
 remote = "https://github.com/eli64s/readme-ai"
 
@@ -21,6 +15,7 @@ remote = "https://github.com/eli64s/readme-ai"
 [paths]
 file_extensions = "file_extensions.toml"
 file_names = "file_names.toml"
+ignore_files = "ignore_files.toml"
 setup_guide = "setup_guide.toml"
 badges = "conf/badges.json"
 docs = "docs/raw_data.csv"

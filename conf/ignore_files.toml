@@ -1,0 +1,37 @@
+# Files to ignore when parsing repository contents.
+
+[ignore_files]
+ignore = [
+  ".json",
+  ".gitignore",
+  ".env",
+  ".csv",
+  ".json",
+  ".md",
+  ".pyc",
+  ".txt",
+  ".yml",
+  ".yaml",
+  ".config",
+  ".log",
+  "lock",
+  ".ini",
+  ".cfg",
+  ".xml",
+  ".toml",
+  ".git",
+  ".idea",
+  ".png",
+  ".gif",
+  "__pycache__",
+  "__init__",
+  "requirements",
+  "setup",
+  "test",
+  "README",
+  "LICENSE",
+  "Makefile",
+  "CONTRIBUTING",
+  "CODE_OF_CONDUCT",
+  "requirements.txt"
+]
