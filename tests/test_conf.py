@@ -1,61 +1,35 @@
-"""
-tests/test_conf.py
-"""
-from src.conf import AppConf, AppConfHelper, GitHub, Markdown, OpenAI, Paths
-from src.file_factory import FileHandler
+"""Unit tests for conf.py"""
 
-# Test data for dataclass instances
-openai_data = {
-    "api_key": "test_key",
-    "engine": "test_engine",
-    "prompt_features": "test_features",
-}
-github_data = {"url": "https://github.com/test"}
-markdown_data = {
-    "intro": "test_intro",
-    "head": "test_head",
-    "dropdown": "test_dropdown",
-    "modules": "test_modules",
-    "toc": "test_toc",
-    "tree": "test_tree",
-    "setup": "test_setup",
-}
-paths_data = {"badges": "test_badges", "docs": "test_docs", "md": "test_md"}
+import pytest
+
+from src.conf import AppConf, AppConfHelper, load_conf_helper
 
 
-def test_openai_dataclass():
-    openai = OpenAI(**openai_data)
-    for key, value in openai_data.items():
-        assert getattr(openai, key) == value
-
-
-def test_github_dataclass():
-    github = GitHub(**github_data)
-    for key, value in github_data.items():
-        assert getattr(github, key) == value
-
-
-def test_markdown_dataclass():
-    markdown = Markdown(**markdown_data)
-    for key, value in markdown_data.items():
-        assert getattr(markdown, key) == value
-
-
-def test_paths_dataclass():
-    paths = Paths(**paths_data)
-    for key, value in paths_data.items():
-        assert getattr(paths, key) == value
-
-
-def test_appconfig_dataclass():
-    app_config = AppConf(
-        api=OpenAI(**openai_data),
-        github=GitHub(**github_data),
-        md=Markdown(**markdown_data),
-        paths=Paths(**paths_data),
+def test_appconf():
+    conf = AppConf()
+    assert conf.api.api_key == ""
+    assert (
+        conf.api.prompt_intro
+        == """Generate a short summary that describes the capabilities of the GitHub project {}."""
     )
+    assert conf.api.prompt_slogan == """Generate a slogan for the GitHub project {}."""
+    assert conf.github.local == ""
+    assert conf.github.name == ""
+    assert conf.github.path == ""
+    assert conf.github.remote == "https://github.com/eli64s/readme-ai"
+    assert conf.paths.file_extensions == "file_extensions.toml"
+    assert conf.paths.file_names == "file_names.toml"
+    assert conf.paths.ignore_files == "ignore_files.toml"
+    assert conf.paths.setup_guide == "setup_guide.toml"
+    assert conf.paths.badges == "conf/badges.json"
+    assert conf.paths.docs == "docs/raw_data.csv"
+    assert conf.paths.md == "docs/README.md"
 
-    assert app_config.api == OpenAI(**openai_data)
-    assert app_config.github == GitHub(**github_data)
-    assert app_config.md == Markdown(**markdown_data)
-    assert app_config.paths == Paths(**paths_data)
+
+def test_appconfhelper():
+    conf = AppConfHelper()
+    helper = load_conf_helper(conf)
+    assert isinstance(helper.file_names, list)
+    assert isinstance(helper.file_extensions, dict)
+    assert isinstance(helper.ignore_files, list)
+    assert isinstance(helper.setup, dict)

@@ -14,36 +14,6 @@ import preprocess
 from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
-IGNORE = [
-    ".flake8",
-    ".dvcignore",
-    ".csv",
-    ".json",
-    ".md",
-    ".pyc",
-    ".txt",
-    ".yml",
-    ".yaml",
-    ".config",
-    ".log",
-    ".ini",
-    ".cfg",
-    ".xml",
-    ".toml",
-    ".git",
-    ".idea",
-    "__pycache__",
-    "__init__",
-    "requirements",
-    "setup",
-    "test",
-    "README",
-    "LICENSE",
-    "Makefile",
-    "CONTRIBUTING",
-    "CODE_OF_CONDUCT",
-    "Dockerfile",
-]
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
@@ -62,6 +32,7 @@ class OpenAIError(Exception):
 
 
 async def code_to_text(
+    ignore_files: list,
     files: Dict[str, str],
     timeout=30,
     limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
@@ -87,7 +58,7 @@ async def code_to_text(
     async with httpx.AsyncClient(timeout=timeout, limits=limits) as client:
         tasks = []
         for file_path, raw_code in files.items():
-            if any(fn in str(file_path) for fn in IGNORE):
+            if any(fn in str(file_path) for fn in ignore_files):
                 LOGGER.debug(f"File skipped: {file_path}")
                 continue
 

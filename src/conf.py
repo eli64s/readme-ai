@@ -94,14 +94,14 @@ def load_conf_helper(conf: object) -> AppConfHelper:
         path = Path("conf/").joinpath(path).resolve()
         conf_dict = handler.read(path)
 
-        if "ignore_files" in conf_dict:
-            file_names.extend(conf_dict["ignore_files"].get("name", []))
-
         if "file_names" in conf_dict:
             file_names.extend(conf_dict["file_names"].get("name", []))
 
         if "file_extensions" in conf_dict:
             file_extensions.update(conf_dict["file_extensions"])
+
+        if "ignore_files" in conf_dict:
+            ignore_files.extend(conf_dict["ignore_files"].get("ignore", []))
 
         if "setup" in conf_dict:
             setup.update(conf_dict["setup"])
@@ -109,6 +109,6 @@ def load_conf_helper(conf: object) -> AppConfHelper:
     return AppConfHelper(
         file_names=file_names,
         file_extensions=file_extensions,
-        setup=setup,
         ignore_files=ignore_files,
+        setup=setup,
     )

@@ -70,6 +70,7 @@ async def main() -> None:
     conf.github.name = name
     file_exts = conf_helper.file_extensions
     file_names = conf_helper.file_names
+    ignore_files = conf_helper.ignore_files
     dependencies = preprocess.get_project_dependencies(repo, file_exts, file_names)
 
     LOGGER.info(f"Creating README.md for the repo: {name}")
@@ -79,7 +80,7 @@ async def main() -> None:
     # Use OpenAI API to generate documentation
     prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
-    codebase_docs = await model.code_to_text(repo_contents)
+    codebase_docs = await model.code_to_text(ignore_files, repo_contents)
     introduction = model.generate_summary_text(prompt_intro.format(name))
     intro_slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(introduction)
