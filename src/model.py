@@ -1,4 +1,4 @@
-"""OpenAI GPT-3 model for generating summary text."""
+"""OpenAI GPT3.5 model for generating summary text."""
 
 import asyncio
 import os
@@ -19,6 +19,13 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 nlp = spacy.load("en_core_web_sm")
 parser = English()
 
+# Use connection pooling
+http_client = httpx.AsyncClient(
+    http2=True,
+    timeout=30,
+    limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
+)
+
 
 class OpenAIError(Exception):
     """
@@ -34,8 +41,6 @@ class OpenAIError(Exception):
 async def code_to_text(
     ignore_files: list,
     files: Dict[str, str],
-    timeout=30,
-    limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
 ) -> Dict[str, str]:
     """
     Generate summary text for code files using OpenAI's GPT-3.
@@ -44,10 +49,6 @@ async def code_to_text(
     ----------
     files : Dict[str, str]
         A dictionary where the keys are file paths and values are raw code.
-    timeout : float
-        The timeout value for HTTP requests.
-    limits : httpx.Limits
-        The limits for the number of HTTP connections.
 
     Returns
     -------
@@ -55,29 +56,29 @@ async def code_to_text(
         A dictionary where the keys are file paths and values are summary text.
     """
 
-    async with httpx.AsyncClient(timeout=timeout, limits=limits) as client:
-        tasks = []
-        for file_path, raw_code in files.items():
-            if any(fn in str(file_path) for fn in ignore_files):
-                LOGGER.debug(f"File skipped: {file_path}")
-                continue
+    tasks = []
+    for file_path, raw_code in files.items():
+        if any(fn in str(file_path) for fn in ignore_files):
+            LOGGER.debug(f"File skipped: {file_path}")
+            continue
 
-            LOGGER.debug(f"Davinci processing: {file_path}")
+        LOGGER.debug(f"Davinci processing: {file_path}")
 
-            prompt = f"Create a summary description for this code: {raw_code}"
-            prompt_length = len(prompt.split())
-            if prompt_length > 4096:
-                LOGGER.warning(f"Prompt too long: {file_path}")
-                tasks.append(
-                    asyncio.create_task(
-                        dummy_summary(file_path, "Prompt too long to generate summary.")
-                    )
+        prompt = f"Create a summary description for this code: {raw_code}"
+        prompt_length = len(prompt.split())
+        if prompt_length > 4096:
+            LOGGER.warning(f"Prompt too long: {file_path}")
+            tasks.append(
+                asyncio.create_task(
+                    dummy_summary(file_path, "Prompt too long to generate summary.")
                 )
-                continue
+            )
+            continue
 
-            tasks.append(asyncio.create_task(fetch_summary(client, file_path, prompt)))
+        # Use async client with connection pooling
+        tasks.append(asyncio.create_task(fetch_summary(file_path, prompt)))
 
-        results = await asyncio.gather(*tasks)
+    results = await asyncio.gather(*tasks)
 
     return results
 
@@ -102,14 +103,12 @@ async def dummy_summary(file_path: str, summary: str) -> Tuple[str, str]:
     return (file_path, summary)
 
 
-async def fetch_summary(client, file_path: str, prompt: str) -> Tuple[str, str]:
+async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     """
     Fetch summary text for a given file path using OpenAI's GPT-3 API.
 
     Parameters
     ----------
-    client : httpx.AsyncClient
-        The HTTPX async client instance.
     file_path : str
         The file path for which to fetch summary text.
     prompt : str
@@ -121,12 +120,13 @@ async def fetch_summary(client, file_path: str, prompt: str) -> Tuple[str, str]:
         A tuple containing the file path and the generated summary text.
     """
 
-    response = await client.post(
+    # Use async client with connection pooling
+    response = await http_client.post(
         "https://api.openai.com/v1/engines/text-davinci-003/completions",
         json={
             "prompt": prompt,
             "temperature": 0,
-            "max_tokens": 100,
+            "max_tokens": 99,
             "top_p": 1,
             "frequency_penalty": 0.0,
             "presence_penalty": 0.0,

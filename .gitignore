@@ -1,20 +1,43 @@
-# gitignore
+# Ignore compiled Python files
+*.pyc
+*.pyo
+__pycache__/
 
-assets/
+# Ignore compiled Cython files
+*.so
+*.c
 
-src/__pycache__
-tests/__pycache__
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
 
+# Ignore temporary files
+*~
+
+# Ignore test coverage results
+htmlcov/
+.coverage
+.coverage.*
+
+# Ignore log files
+logs/
+*.log
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore Jupyter Notebook checkpoints and outputs
+.ipynb_checkpoints/
 outputs/
+notebooks/
 
-notebooks
+# Ignore VSCode workspace settings
+.vscode/
 
-assets/icons
+# Ignore Pytest cache
+.pytest_cache/
 
-.ipynb_checkpoints
-
-.pytest_cache
-
-.vscode
-
-.benchmarks
+# Ignore benchmarks
+.benchmarks/

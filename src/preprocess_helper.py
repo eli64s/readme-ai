@@ -23,7 +23,7 @@ def list_files(directory: str) -> List[str]:
 
 # Python
 def parse_conda_env_file(file_path):
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         data = yaml.safe_load(f)
     dependencies = []
     for package in data.get("dependencies", []):
@@ -56,7 +56,7 @@ def parse_pyproject_toml(file):
 
 
 def parse_requirements_file(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path) as file:
         lines = file.readlines()
 
     module_names = []
@@ -96,7 +96,7 @@ def parse_cargo_lock(file):
 
 # Javascript
 def parse_package_json(file):
-    with open(file, "r") as f:
+    with open(file) as f:
         data = json.load(f)
     dependencies = []
     for section in ["dependencies", "devDependencies"]:
@@ -107,7 +107,7 @@ def parse_package_json(file):
 
 
 def parse_yarn_lock(file):
-    with open(file, "r") as f:
+    with open(file) as f:
         content = f.read()
     regex = re.compile(r"^(\w[\w\-]*\w)@", re.MULTILINE)
     dependencies = regex.findall(content)

@@ -1,6 +1,5 @@
 """Preprocesses the codebase to extract the README.md file and the code files."""
 
-import contextlib
 import os
 import re
 import shutil
@@ -23,7 +22,7 @@ def add_space_between_sentences(text: str) -> str:
 
 
 def clone_codebase(url: str) -> Dict[str, str]:
-    with make_temp_directory() as temp_dir:
+    with tempfile.TemporaryDirectory() as temp_dir:
         git.Repo.clone_from(url, temp_dir)
         files = get_file_contents(temp_dir)
     return files
@@ -32,9 +31,9 @@ def clone_codebase(url: str) -> Dict[str, str]:
 def get_file_contents(directory: str, exclude: List[str] = []) -> Dict[str, str]:
     contents = {}
     for path in Path(directory).rglob("*"):
-        if path.is_file() and not any([p.match(path) for p in exclude]):
+        if path.is_file() and not any(p.match(str(path)) for p in exclude):
             try:
-                with path.open(encoding="utf-8") as f:
+                with open(path, encoding="utf-8") as f:
                     lines = f.readlines()
                     if path.suffix == ".py":
                         lines = remove_comments(lines)
@@ -53,7 +52,7 @@ def get_local_codebase(local_directory: str) -> Dict[str, str]:
 def get_project_dependencies(
     repo: str, file_ext: List[str], file_names: List[str]
 ) -> List[str]:
-    with make_temp_directory() as temp_dir:
+    with tempfile.TemporaryDirectory() as temp_dir:
         if "github.com" in repo:
             git.Repo.clone_from(repo, temp_dir)
         elif os.path.isdir(repo):
@@ -99,27 +98,18 @@ def get_project_dependencies(
 
 
 def get_repo_name(path: Union[str, os.PathLike]) -> str:
-    if "github.com" in path:
+    if "github.com" in str(path):
         # GitHub URL
-        repo_path = urlparse(path).path
+        repo_path = urlparse(str(path)).path
         repo_name = repo_path.split("/")[-1]
         if repo_name.endswith(".git"):
             repo_name = repo_name[:-4]
     else:
         # Local path
-        repo_name = os.path.basename(os.path.normpath(path))
+        repo_name = os.path.basename(os.path.normpath(str(path)))
 
     return repo_name
 
 
-@contextlib.contextmanager
-def make_temp_directory() -> str:
-    try:
-        temp_dir = tempfile.mkdtemp()
-        yield temp_dir
-    finally:
-        shutil.rmtree(temp_dir)
-
-
 def remove_comments(lines):
-    return [line for line in lines if not line.strip().startswith("#")]
+    return (line for line in lines if not line.strip().startswith("#"))

@@ -98,7 +98,7 @@ def test_build(conf, conf_helper, dependencies, df, intro):
     md_path = Path.cwd() / conf.paths.md
     assert md_path.exists()
 
-    with open(md_path, "r") as f:
+    with open(md_path) as f:
         md_contents = f.read()
 
     assert "my_project" in md_contents

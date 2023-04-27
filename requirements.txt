@@ -1,4 +1,5 @@
-black
+black==21.9b0
+click==8.0.1
 colorlog
 coverage
 dacite
@@ -9,6 +10,7 @@ isort
 openai
 pandas
 pipreqs
+pre-commit==2.15.0
 PyYAML
 pytest
 pytest-cov

@@ -11,14 +11,14 @@ help:
 	@echo "conda   : creates a conda environment."
 	@echo "venv    : creates a virtual environment."
 
-# Style 
+# Style
 .PHONY: style
 style:
 	-black .
 	-flake8
 	-isort .
 
-# Clean 
+# Clean
 .PHONY: clean
 clean: style
 	bash scripts/clean.sh
@@ -29,7 +29,7 @@ conda:
 	conda activate $(VENV) && pip install -r requirements.txt
 
 # Python Virtual Environment
-venv: 
+venv:
 	python -m venv $(VENV)
 	source venv/bin/activate
 	pip install -r requirements.txt

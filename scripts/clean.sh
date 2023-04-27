@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Backup files
-find . -type f -name "*.py-e" -delete 
+find . -type f -name "*.py-e" -delete
 
 # Clean up Python cache files
 find . -type f -name "*.DS_Store" -ls -delete

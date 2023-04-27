@@ -12,20 +12,23 @@ ignore = [
     ".pytest_cache",
     "htmlcov",
     ".tox",
-    
+
     # Data files
     "data",
     ".csv",
     ".json",
     ".pickle",
+    ".pkl",
+    ".sav",
+    ".toml",
     ".h5",
-    
+
     # Documentation
     "docs",
     ".pdf",
     ".docx",
     ".md",
-    
+
     # Images and media
     "imgs",
     "media",
@@ -35,8 +38,9 @@ ignore = [
     ".jpg",
     ".gif",
     ".mp4",
-    
+
     # Configuration files and credentials
+    "lock",
     ".env",
     ".env.local",
     ".env.*.local",
@@ -56,28 +60,28 @@ ignore = [
     ".cert",
     ".csr",
     ".p12",
-    
+
     # Compiled code
     "__pycache__",
     "*.pyc",
     "*.pyo",
     "*.class",
     "*.o",
-    
+
     # Version control
     ".git",
     ".svn",
     ".hg",
     ".cvs",
-    
+
     # Editor and IDE settings
     ".vscode",
     ".idea",
     "*.sublime-*",
     "*.swp",
-    
+
     # Test and utility files
-    "test",
+    #"test",
     "tests",
     "testing",
     "tools",

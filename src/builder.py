@@ -11,25 +11,6 @@ from file_factory import FileHandler
 from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
-IGNORE = [
-    "lock",
-    "pyc",
-    "yml",
-    "yaml",
-    "config",
-    "log",
-    "ini",
-    "cfg",
-    "xml",
-    "toml",
-    "git",
-    "idea",
-    "__pycache__",
-    "__init__",
-    "requirements",
-    "setup",
-    "test",
-]
 
 
 def build(
@@ -107,11 +88,12 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     install_guide = "[INSERT INSTALL GUIDE HERE]"
     run_guide = "[INSERT RUN GUIDE HERE]"
 
+    ignore_files = conf_helper.ignore_files
     name = conf.github.name
     path = conf.github.path
 
     df["Language"] = df["Module"].apply(
-        lambda x: Path(x).suffix[1:] if Path(x).suffix[1:] not in IGNORE else None
+        lambda x: Path(x).suffix[1:] if Path(x).suffix[1:] not in ignore_files else None
     )
     top_language = df["Language"].value_counts().idxmax()
 
@@ -149,10 +131,13 @@ def create_directory_tree(url: str) -> str:
 
 
 def create_tables(df: pd.DataFrame, dropdown: str) -> str:
+    df["Sub-Directory"] = df["Module"].apply(
+        lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Top Level"
+    )
     tables = []
-    for dir_name, group in df.groupby("Directory"):
-        table = group[["File", "Summary"]].to_markdown(index=False)
-        table_wrapper = dropdown.format(dir_name.capitalize(), table)
+    for sub_dir_name, group in df.groupby("Sub-Directory"):
+        table = group[["File", "Summary", "Module"]].to_markdown(index=False)
+        table_wrapper = dropdown.format(sub_dir_name, table)
         tables.append(table_wrapper)
     return "\n".join(tables)
 

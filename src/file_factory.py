@@ -35,19 +35,19 @@ class FileHandler:
 
     @staticmethod
     def read_markdown(file_path):
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             return file.read()
 
     @staticmethod
     def read_toml(file_path):
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             data = toml.load(file)
         data_cleaned = {key.lower(): value for key, value in data.items()}
         return data_cleaned
 
     @staticmethod
     def read_json(file_path):
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
     @staticmethod

@@ -284,7 +284,7 @@ git commit -m 'Implemented new feature.'
 git push origin new-feature-branch
 ```
 7. Create a pull request to the original repository.
-Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary. 
+Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
 ---
@@ -301,4 +301,3 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 
 ---
-
