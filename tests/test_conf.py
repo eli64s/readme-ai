@@ -5,8 +5,16 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.conf import (AppConf, AppConfHelper, GitHub, Markdown, OpenAI, Paths,
-                      load_conf_helper, read_config_file)
+from src.conf import (
+    AppConf,
+    AppConfHelper,
+    GitHub,
+    Markdown,
+    OpenAI,
+    Paths,
+    load_conf_helper,
+    read_config_file,
+)
 
 
 @pytest.fixture
