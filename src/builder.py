@@ -216,6 +216,9 @@ def create_directory_tree(url: str) -> str:
         except subprocess.CalledProcessError as e:
             LOGGER.warning(f"Error running 'tree' command: {e}")
             return ""
+        except Exception as e:
+            LOGGER.warning(f"Error creating directory tree: {e}")
+            return ""
 
 
 def create_tables(df: pd.DataFrame, dropdown: str) -> str:
