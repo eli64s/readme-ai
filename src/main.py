@@ -55,21 +55,15 @@ async def generate_readme(api_key: str, local: str, output: str, remote: str) ->
     if output:
         conf.paths.md = output
     if local:
-        conf.github.local = local
-    if remote:
-        conf.github.remote = remote
-
-    # Process repository
-    if local:
+        conf.github.path, conf.github.local = local, local
         LOGGER.info(f"Using local directory: {conf.github.local}")
-        conf.github.path = conf.github.local
-        repo_contents = preprocess.get_codebase_local(conf.github.local)
-    else:
+    if remote:
+        conf.github.path, conf.github.remote = remote, remote
         LOGGER.info(f"Using GitHub remote repository: {conf.github.remote}")
-        conf.github.path = conf.github.remote
-        repo_contents = preprocess.get_codebase_remote(conf.github.remote)
 
     repo = conf.github.path
+    repo_contents = preprocess.get_codebase(repo)
+
     name = preprocess.get_repo_name(repo)
     conf.github.name = name
     file_exts = conf_helper.file_extensions

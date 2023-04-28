@@ -1,113 +1,88 @@
 """Unit tests for the builder.py module."""
 
-from pathlib import Path
+import os
+from unittest.mock import MagicMock, patch
 
 import pandas as pd
 import pytest
 
-from src import builder
+import src.builder as build
 
 
-@pytest.fixture
-def conf():
-    class Conf:
-        paths = type("", (), {"md": "README.md"})
-        github = type(
-            "", (), {"name": "my_project", "path": "https://github.com/me/my_project"}
-        )
-        md = type(
-            "",
-            (),
-            {
-                "head": "# {0}\n\n{1}\n\n{2}",
-                "close": "\n\n---\n\n## Contributions\n\nAll contributions, bug reports, bug fixes, documentation improvements, enhancements and ideas are welcome.",
-                "intro": "A brief introduction to my awesome project.",
-                "dropdown": "<details>\n<summary>{0}</summary>\n\n{1}\n</details>\n",
-                "modules": "## Modules\n\nThe following modules are included in this project:\n",
-                "setup": "## Setup\n\n### Installing Dependencies\n\n{3}\n\n### Running the Project\n\n{5}\n",
-            },
-        )
-        paths = type("", (), {"badges": "badges.json"})
-
-    return Conf()
-
-
-@pytest.fixture
-def conf_helper():
-    class ConfHelper:
-        file_extensions = {
-            "py": "Python",
-            "r": "R",
-            "jl": "Julia",
-            "js": "JavaScript",
-            "go": "Go",
-        }
-        setup = {
-            "Python": [
-                "pip install -r requirements.txt",
-                "python main.py",
-            ],
-            "R": [
-                "Rscript requirements.R",
-                "Rscript main.R",
-            ],
-            "Julia": [
-                "julia requirements.jl",
-                "julia main.jl",
-            ],
-            "JavaScript": [
-                "npm install",
-                "npm start",
-            ],
-            "Go": [
-                "go mod download",
-                "go run main.go",
-            ],
-        }
-
-    return ConfHelper()
-
-
-@pytest.fixture
-def dependencies():
-    return ["pandas", "numpy", "matplotlib"]
-
-
-@pytest.fixture
-def df():
-    return pd.DataFrame(
-        {
-            "Module": [
-                "my_project/utils.py",
-                "my_project/main.py",
-                "my_project/data/load.py",
-            ],
-            "Summary": ["Utility functions", "Main script", "Data loading functions"],
-        }
+def test_get_badges():
+    data = {
+        "icons": [
+            {"name": "Python", "src": "https://path.to/python.svg"},
+            {"name": "Django", "src": "https://path.to/django.svg"},
+        ]
+    }
+    dependencies = ["Python", "Django"]
+    expected_result = (
+        '<img src="https://path.to/python.svg" alt="Python" />\n\n'
+        '<img src="https://path.to/django.svg" alt="Django" />'
     )
+    assert build.get_badges(data, dependencies) == expected_result
 
 
-@pytest.fixture
-def intro():
-    return "This is my awesome project."
+def test_format_badges():
+    badges = [
+        "https://path.to/python.svg",
+        "https://path.to/django.svg",
+        "https://path.to/flask.svg",
+    ]
+    dependencies = ["Python", "Django", "Flask"]
+    expected_result = (
+        '<img src="https://path.to/python.svg" alt="Python" />\n'
+        '<img src="https://path.to/django.svg" alt="Django" />\n'
+        '<img src="https://path.to/flask.svg" alt="Flask" />'
+    )
+    assert build.format_badges(badges, dependencies) == expected_result
 
 
-def test_build(conf, conf_helper, dependencies, df, intro):
-    builder(conf, conf_helper, dependencies, df, intro)
+@patch("build.git.Repo.clone_from")
+@patch("build.subprocess.check_output")
+def test_create_directory_tree(mock_check_output, mock_clone_from):
+    mock_check_output.return_value = b"repo\n|-- file.py\n`-- dir\n    `-- file2.py"
+    url = "https://github.com/test/repo.git"
+    expected_result = "```bash\nrepo\n|-- file.py\n`-- dir\n    `-- file2.py```"
+    assert build.create_directory_tree(url) == expected_result
 
-    md_path = Path.cwd() / conf.paths.md
-    assert md_path.exists()
 
-    with open(md_path) as f:
-        md_contents = f.read()
+@patch("build.git.Repo.clone_from")
+@patch("build.subprocess.check_output")
+def test_create_directory_tree_error(mock_check_output, mock_clone_from):
+    mock_check_output.side_effect = Exception("Test error")
+    url = "https://github.com/test/repo.git"
+    assert build.create_directory_tree(url) == ""
 
-    assert "my_project" in md_contents
-    assert "This is my awesome project." in md_contents
-    assert "## Modules" in md_contents
-    assert "my_project/utils.py" in md_contents
-    assert "my_project/main.py" in md_contents
-    assert "my_project/data/load.py" in md_contents
-    assert "## Setup" in md_contents
-    assert "Installing Dependencies" in md_contents
-    assert "Running the Project" in md_contents
-    assert "## Contributions" in md_contents
+
+def test_create_tables():
+    data = {
+        "Module": ["src/file.py", "file2.py"],
+        "Summary": ["Summary 1", "Summary 2"],
+    }
+    df = pd.DataFrame(data)
+    dropdown = "<details>\n<summary>{0}</summary>\n\n{1}\n</details>\n\n"
+    expected_result = (
+        "<details>\n<summary>Root</summary>\n\n|    File |   Summary |\n"
+        "|---------|-----------|\n| file2.py | Summary 2 |\n</details>\n\n"
+        "<details>\n<summary>Src</summary>\n\n|    File |   Summary |\n"
+        "|---------|-----------|\n| file.py | Summary 1 |\n</details>\n\n"
+    )
+    assert build.create_tables(df, dropdown) == expected_result
+
+
+def test_parse_pandas_cols():
+    data = {
+        "Module": ["src/file.py", "file2.py"],
+        "Summary": ["Summary 1", "Summary 2"],
+    }
+    df = pd.DataFrame(data)
+    expected_data = {
+        "Module": ["src/file.py", "file2.py"],
+        "Summary": ["Summary 1", "Summary 2"],
+        "Directory": ["src", "."],
+        "File": ["file.py", "file2.py"],
+    }
+    expected_df = pd.DataFrame(expected_data)
+    pd.testing.assert_frame_equal(parse_pandas_cols(df), expected_df)

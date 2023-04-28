@@ -6,10 +6,15 @@ from loguru import logger
 
 
 class Logger:
-    def __init__(self, name, level="DEBUG"):
-        self.name = name
-        self.level = level
-        self._configure_logger()
+    _instance = None
+
+    def __new__(cls, name, level="DEBUG"):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.name = name
+            cls._instance.level = level
+            cls._instance._configure_logger()
+        return cls._instance
 
     def _configure_logger(self):
         logger.configure(

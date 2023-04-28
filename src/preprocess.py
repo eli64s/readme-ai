@@ -1,4 +1,4 @@
-"""Preprocesses the codebase to extract the README.md file and the code files."""
+"""Handles preprocessing of the input codebase."""
 
 import os
 import re
@@ -17,22 +17,112 @@ LOGGER = Logger("readmeai_logger")
 
 
 def add_space_between_sentences(text: str) -> str:
+    """
+    Add a space between sentences in the input text.
+
+    Parameters
+    ----------
+    text : str
+        The input text.
+
+    Returns
+    -------
+    str
+        The text with a space between sentences.
+    """
     pattern = re.compile(r"([.!?])(\S)")
     return pattern.sub(r"\1 \2", text)
 
 
-def get_codebase_local(local_directory: str) -> Dict[str, str]:
-    return get_file_contents(local_directory)
+def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
+    """
+    Clones a git repository from the provided URL to a temporary
+    directory or copies a local directory to the temporary
+    directory if the provided URL is a directory.
+
+    Parameters
+    ----------
+    repo : str
+        The URL or local path of the repository to clone or copy.
+    temp_dir : str
+        The path of the temporary directory to which the repository
+        ill be cloned or copied.
+
+    Raises
+    ------
+    ValueError
+        If the provided repository link is not valid.
+    """
+
+    if "github.com" in repo:
+        git.Repo.clone_from(repo, temp_dir)
+    elif os.path.isdir(repo):
+        shutil.copytree(repo, temp_dir)
+    else:
+        raise ValueError("Repository link is not valid.")
 
 
-def get_codebase_remote(url: str) -> Dict[str, str]:
-    with tempfile.TemporaryDirectory() as temp_dir:
-        git.Repo.clone_from(url, temp_dir)
-        files = get_file_contents(temp_dir)
-    return files
+def get_codebase(repo_path: str) -> Dict[str, str]:
+    """
+    Get the contents of all the files in a directory or a remote repository.
+
+    Parameters
+    ----------
+    local : str
+        The path to the local directory.
+    remote: str, optional
+        The URL of the remote repository, by default None.
+
+    Returns
+    -------
+    Dict[str, str]
+        A dictionary where the keys are file paths and
+        values are the contents of the files.
+    """
+
+    if valid_url(repo_path):
+        return _get_codebase_remote(repo_path)
+    return _get_file_contents(repo_path)
 
 
-def get_file_contents(directory: str) -> Dict[str, str]:
+def _get_codebase_remote(url: str) -> Dict[str, str]:
+    """
+    Clone a remote repository and get the contents of all the files.
+
+    Parameters
+    ----------
+    url : str
+        The URL of the remote repository.
+
+    Returns
+    -------
+    Dict[str, str]
+        A dictionary where the keys are file paths and values are the contents of the files.
+    """
+    try:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            git.Repo.clone_from(url, temp_dir, depth=1)
+            files = _get_file_contents(temp_dir)
+            return files
+    except git.GitCommandError as e:
+        print(f"Error cloning repository from {url}: {e}")
+        return {}
+
+
+def _get_file_contents(directory: str) -> Dict[str, str]:
+    """
+    Get the contents of all the files in a directory.
+
+    Parameters
+    ----------
+    directory : str
+        The path to the directory.
+
+    Returns
+    -------
+    Dict[str, str]
+        A dictionary where the keys are file paths and values are the contents of the files.
+    """
     contents = {}
     for path in Path(directory).rglob("*"):
         if path.is_file():
@@ -47,35 +137,62 @@ def get_file_contents(directory: str) -> Dict[str, str]:
     return contents
 
 
+def _get_file_extensions(all_files: List[str], file_ext: Dict[str, str]) -> List[str]:
+    """
+    Returns a list of unique file extensions present in the provided list
+    of file paths, along with any additional file extensions defined in
+    the file_ext dictionary.
+
+    Parameters
+    ----------
+    all_files : List[str]
+        A list of file paths.
+    file_ext : Dict[str, str]
+        A dictionary mapping file extensions to additional file extensions.
+
+    Returns
+    -------
+    List[str]
+        A list of unique file extensions present in the provided list of
+        file paths, along with any additional file extensions defined in
+        sthe file_ext dictionary.
+    """
+
+    ext_list = list({Path(f).suffix[1:] for f in all_files})
+    file_extensions = ext_list + [file_ext[key] for key in ext_list if key in file_ext]
+    return file_extensions
+
+
 def get_project_dependencies(
     repo: str, file_ext: List[str], file_names: List[str]
 ) -> List[str]:
-    with tempfile.TemporaryDirectory() as temp_dir:
-        if "github.com" in repo:
-            git.Repo.clone_from(repo, temp_dir)
-        elif os.path.isdir(repo):
-            shutil.copytree(repo, temp_dir)
-        else:
-            raise ValueError("Repository link is not valid.")
+    """
+    Get the dependencies of a project.
 
-        # Get list of files from the remote or local repository
+    Parameters
+    ----------
+    repo : str
+        The URL of the repository or the path to the local directory.
+    file_ext : List[str]
+        A list of file extensions to consider.
+    file_names : List[str]
+        A list of file names to consider.
+
+    Returns
+    -------
+    List[str]
+        A list of dependencies.
+    """
+    if not repo:
+        return []
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        _clone_or_copy_repository(repo, temp_dir)
+
         all_files = helper.list_files(temp_dir)
         dependency_files = [f for f in all_files if Path(f).name in file_names]
 
-        file_parsers = {
-            "cargo.toml": helper.parse_cargo_toml,
-            "cargo.lock": helper.parse_cargo_lock,
-            "go.mod": helper.parse_go_mod,
-            "go.sum": helper.parse_go_sum,
-            "requirements.txt": helper.parse_requirements_file,
-            "environment.yaml": helper.parse_conda_env_file,
-            "environment.yml": helper.parse_conda_env_file,
-            "Pipfile": helper.parse_pipfile,
-            "pyproject.toml": helper.parse_pyproject_toml,
-            "package.json": helper.parse_package_json,
-            "yarn.lock": helper.parse_yarn_lock,
-        }
-
+        file_parsers = _get_file_parsers()
         dependencies = []
 
         for f in dependency_files:
@@ -85,11 +202,7 @@ def get_project_dependencies(
                 packages = parse_fn(f)
                 dependencies.append(packages)
 
-        # Get a set of file extensions from the repository
-        ext_list = list({Path(f).suffix[1:] for f in all_files})
-        file_extensions = ext_list + [
-            file_ext[key] for key in ext_list if key in file_ext
-        ]
+        file_extensions = _get_file_extensions(all_files, file_ext)
         dependencies.append(file_extensions)
 
         packages = sum(dependencies, [])
@@ -97,7 +210,45 @@ def get_project_dependencies(
         return list(set(packages))
 
 
+def _get_file_parsers() -> Dict[str, callable]:
+    """
+    Returns a dictionary containing file parsers for various file types.
+
+    Returns
+    -------
+    Dict[str, callable]
+        A dictionary containing file parsers for various file types.
+    """
+    return {
+        "cargo.toml": helper.parse_cargo_toml,
+        "cargo.lock": helper.parse_cargo_lock,
+        "go.mod": helper.parse_go_mod,
+        "go.sum": helper.parse_go_sum,
+        "requirements.txt": helper.parse_requirements_file,
+        "environment.yaml": helper.parse_conda_env_file,
+        "environment.yml": helper.parse_conda_env_file,
+        "Pipfile": helper.parse_pipfile,
+        "pyproject.toml": helper.parse_pyproject_toml,
+        "package.json": helper.parse_package_json,
+        "yarn.lock": helper.parse_yarn_lock,
+    }
+
+
 def get_repo_name(path: Union[str, os.PathLike]) -> str:
+    """
+    Returns the name of a repository from its URL or local path.
+
+    Parameters
+    ----------
+    path : Union[str, os.PathLike]
+        The URL or local path of the repository.
+
+    Returns
+    -------
+    str
+        The name of the repository.
+    """
+
     if "github.com" in str(path):
         repo_path = urlparse(str(path)).path
         repo_name = repo_path.split("/")[-1]
@@ -107,3 +258,40 @@ def get_repo_name(path: Union[str, os.PathLike]) -> str:
         repo_name = os.path.basename(os.path.normpath(str(path)))
 
     return repo_name
+
+
+def valid_url(s: str) -> bool:
+    """
+    Check if a given string is a valid URL.
+
+    Parameters
+    ----------
+    s : str
+        The string to check.
+
+    Returns
+    -------
+    bool
+        Returns True if the string is a valid URL, False otherwise.
+
+    Raises
+    ------
+    None
+
+    Examples
+    --------
+    >>> is_url("https://www.google.com/")
+    True
+    >>> is_url("ftp://ftp.example.com/")
+    True
+    >>> is_url("www.example.com")
+    False
+    """
+    regex = re.compile(
+        r"^(?:http|ftp)s?://"  # http:// or https:// or ftp:// or ftps://
+        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,63}|[A-Z]{2,63}\.[A-Z]{2,63}))"
+        r"(?::\d+)?"  # optional port number
+        r"(?:/?|[/?]\S+)$",
+        re.IGNORECASE,
+    )
+    return bool(regex.match(s))

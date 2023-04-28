@@ -1,84 +1,55 @@
 """Unit tests for the model.py module."""
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 
-from src import preprocess
-from src.model import (code_to_text, dummy_summary, fetch_summary,
-                       generate_summary_text, summarize_text_spacy)
+from src.model import code_to_text, fetch_summary
 
 
-def test_code_to_text():
-    """Test the code_to_text function."""
-
-    files = {
-        "file1.py": """
-def foo():
-    return 1
-""",
-        "file2.md": """
-This is a markdown file.
-""",
-    }
-
-    expected_results = {
-        "file1.py": "This function returns 1.",
-        "file2.md": "This is a markdown file.",
-    }
-
-    results = code_to_text(files)
-
-    assert results == expected_results
+@pytest.fixture
+def mock_http_client():
+    with patch("openai_handler.http_client") as mock_client:
+        yield mock_client
 
 
-def test_dummy_summary():
-    """Test the dummy_summary function."""
-
-    expected_result = "This is a dummy summary."
-
-    result = dummy_summary("file.py", "This is a dummy summary.")
-
-    assert result == expected_result
+@pytest.fixture
+def mock_response():
+    response = MagicMock()
+    response.status_code = 200
+    response.json.return_value = {"choices": [{"text": "generated text"}]}
+    return response
 
 
-def test_fetch_summary():
-    """Test the fetch_summary function."""
-
-    response = """
-{
-    "choices": [
-        {
-            "id": "da567890-1234-5678-90ab-cdef01234567",
-            "text": "This is a summary.",
-            "score": 1.0,
-        }
-    ]
-}
-"""
-
-    with pytest.mock.patch("requests.post") as mock_post:
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = response
-
-        result = fetch_summary("file.py", "This is a prompt.")
-
-        assert result == ("file.py", "This is a summary.")
+@pytest.mark.asyncio
+async def test_fetch_summary(mock_http_client, mock_response):
+    mock_http_client.post.return_value = mock_response
+    file_path = "tests/sample_code.py"
+    prompt = "Create a summary description for this code: def test(): pass"
+    result = await fetch_summary(file_path, prompt)
+    assert result == (file_path, "generated text")
 
 
-def test_generate_summary_text():
-    """Test the generate_summary_text function."""
-
-    expected_result = "This is a summary."
-
-    result = generate_summary_text("This is a prompt.")
-
-    assert result == expected_result
+@pytest.mark.asyncio
+async def test_code_to_text_ignore_files():
+    ignore_files = ["test.py"]
+    files = {"tests/sample_code.py": "def test(): pass"}
+    result = await code_to_text(ignore_files, files)
+    assert result == {}
 
 
-def test_summarize_text_spacy():
-    """Test the summarize_text_spacy function."""
+@pytest.mark.asyncio
+async def test_code_to_text_max_length(mock_http_client):
+    ignore_files = []
+    files = {"tests/sample_code.py": "a" * 5000}
+    result = await code_to_text(ignore_files, files)
+    assert result == {"tests/sample_code.py": "Prompt too long to generate summary."}
 
-    expected_result = "This is a summary."
 
-    result = summarize_text_spacy("This is a prompt.")
-
-    assert result == expected_result
+@pytest.mark.asyncio
+async def test_code_to_text(mock_http_client, mock_response):
+    mock_http_client.post.return_value = mock_response
+    ignore_files = []
+    files = {"tests/sample_code.py": "def test(): pass"}
+    result = await code_to_text(ignore_files, files)
+    assert result == {"tests/sample_code.py": "generated text"}

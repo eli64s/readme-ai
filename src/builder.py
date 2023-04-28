@@ -1,6 +1,6 @@
 """
 Builds the README.md file using the configuration
-template and OpenAI API language models.
+Markdown template and OpenAI API language models.
 """
 
 import subprocess
@@ -19,6 +19,23 @@ LOGGER = Logger("readmeai_logger")
 def build(
     conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame, intro: str
 ) -> None:
+    """
+    Main function to build the README.md file using the provided configuration,
+    dependencies, and data. This function formats the content and saves it to file.
+
+    Parameters
+    ----------
+    conf : object
+        Configuration object containing GitHub and markdown configurations.
+    conf_helper : object
+        Configuration helper object containing file extensions and setup guides.
+    dependencies : list
+        List of project dependencies.
+    df : pd.DataFrame
+        DataFrame containing parsed information from project files.
+    intro : str
+        Introduction text for the README.md file.
+    """
     intro = intro.strip('"')
     name = conf.github.name
     url = conf.github.path
@@ -53,19 +70,45 @@ def build(
 
 
 def get_badges(data: dict, dependencies: list) -> str:
-    badges = []
-    icons_sorted = sorted(data["icons"], key=lambda x: x["color"])
-    dependencies = list(set(dependencies))
-    for dep in dependencies:
-        for icon in icons_sorted:
-            if dep.lower() == icon["name"].lower():
-                badges.append(icon["src"])
-                break
+    """
+    Generates badge icons for each dependency in the project.
 
+    Parameters
+    ----------
+    data : dict
+        Dictionary containing available icons and their src.
+    dependencies : list
+        List of project dependencies.
+
+    Returns
+    -------
+    str
+        Formatted string containing badge icons for dependencies.
+    """
+    badges = []
+    icons_dict = {icon["name"].lower(): icon["src"] for icon in data["icons"]}
+    for dep in dependencies:
+        if dep.lower() in icons_dict:
+            badges.append(icons_dict[dep.lower()])
     return format_badges(badges, dependencies)
 
 
 def format_badges(badges: list, dependencies: list) -> str:
+    """
+    Formats the badges into a string with a maximum of 8 badges per line.
+
+    Parameters
+    ----------
+    badges : list
+        List of badge icons.
+    dependencies : list
+        List of project dependencies.
+
+    Returns
+    -------
+    str
+        Formatted string with badge icons arranged.
+    """
     badge_lines = []
     total_badges = len(badges)
     if total_badges < 8:
@@ -92,6 +135,23 @@ def format_badges(badges: list, dependencies: list) -> str:
 
 
 def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
+    """
+    Creates a setup guide for the project based on the top used language.
+
+    Parameters
+    ----------
+    conf : object
+        Configuration object containing GitHub and markdown configurations.
+    conf_helper : object
+        Configuration helper object containing file extensions and setup guides.
+    df : pd.DataFrame
+        DataFrame containing parsed information from project files.
+
+    Returns
+    -------
+    str
+        Formatted string with setup guide.
+    """
     install_guide = "[INSERT-INSTALL-GUIDE-HERE]"
     run_guide = "[INSERT-RUN-GUIDE-HERE]"
 
@@ -127,29 +187,82 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
 
 
 def create_directory_tree(url: str) -> str:
+    """
+    Creates a directory tree structure of the project based on its repository URL.
+
+    Parameters
+    ----------
+    url : str
+        URL of the project's GitHub repository.
+
+    Returns
+    -------
+    str
+        Formatted string representing the project's directory tree structure.
+    """
     with tempfile.TemporaryDirectory() as tmp_dir:
-        git.Repo.clone_from(url, tmp_dir)
-        output_bytes = subprocess.check_output(["tree", "-n", tmp_dir])
-        tree_str = output_bytes.decode("utf-8")
-        tree_lines = tree_str.split("\n")[1:]
-        tree_str = "\n".join(tree_lines)
-        tree_md = f"```bash\n.\n{tree_str}```"
-        return tree_md
+        repo_path = Path(tmp_dir) / "repo"
+        try:
+            git.Repo.clone_from(url, repo_path)
+            tree_bytes = subprocess.check_output(["tree", "-n", repo_path])
+            tree_str = tree_bytes.decode("utf-8")
+            tree_lines = tree_str.split("\n")[1:]
+            tree_str = "\n".join(tree_lines)
+            tree_md = f"```bash\n{repo_path.name}\n{tree_str}```"
+            return tree_md
+        except git.exc.GitCommandError as e:
+            LOGGER.warning(f"Error cloning repository: {e}")
+            return ""
+        except subprocess.CalledProcessError as e:
+            LOGGER.warning(f"Error running 'tree' command: {e}")
+            return ""
 
 
 def create_tables(df: pd.DataFrame, dropdown: str) -> str:
+    """
+    Creates markdown tables for each sub-directory in the project.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        DataFrame containing parsed information from project files.
+    dropdown : str
+        Markdown template for a dropdown menu.
+
+    Returns
+    -------
+    str
+        Formatted string with markdown tables for each sub-directory.
+    """
     df["Sub-Directory"] = df["Module"].apply(
         lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Root"
     )
-    tables = []
-    for sub_dir_name, group in df.groupby("Sub-Directory"):
-        table = group[["File", "Summary", "Module"]].to_markdown(index=False)
-        table_wrapper = dropdown.format(sub_dir_name, table)
-        tables.append(table_wrapper)
-    return "\n".join(tables)
+    groups = df.groupby("Sub-Directory")
+    tables = [
+        group[["File", "Summary", "Module"]].to_markdown(index=False)
+        for _, group in groups
+    ]
+    table_wrappers = [
+        dropdown.format(sub_dir_name, table)
+        for sub_dir_name, table in zip(groups.groups.keys(), tables)
+    ]
+    return "\n".join(table_wrappers)
 
 
 def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Processes the DataFrame by extracting file and directory information from the 'Module' column.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        DataFrame containing parsed information from project files.
+
+    Returns
+    -------
+    pd.DataFrame
+        Processed DataFrame with additional columns.
+    """
     df["Directory"] = df["Module"].apply(lambda x: str(Path(x).parent))
     df["File"] = df["Module"].apply(lambda x: str(Path(x).name))
     return df

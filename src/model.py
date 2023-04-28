@@ -3,22 +3,21 @@
 import asyncio
 import os
 import re
-from functools import lru_cache
 from typing import Dict, Tuple
 
 import httpx
 import openai
 import spacy
-from spacy.lang.en import English
 
 import preprocess
 from logger import Logger
 
+ENGINE_ID = "text-davinci-002"
+ENGINE = f"https://api.openai.com/v1/engines/{ENGINE_ID}/completions"
 LOGGER = Logger("readmeai_logger")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+NLP = spacy.load("en_core_web_sm")
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-nlp = spacy.load("en_core_web_sm")
-parser = English()
 
 # Use connection pooling
 http_client = httpx.AsyncClient(
@@ -39,10 +38,7 @@ class OpenAIError(Exception):
     """
 
 
-async def code_to_text(
-    ignore_files: list,
-    files: Dict[str, str],
-) -> Dict[str, str]:
+async def code_to_text(ignore_files: list, files: Dict[str, str]) -> Dict[str, str]:
     """
     Generate summary text for code files using OpenAI's GPT-3.
 
@@ -123,16 +119,16 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
 
     # Use async client with connection pooling
     response = await http_client.post(
-        "https://api.openai.com/v1/engines/text-davinci-003/completions",
+        ENGINE,
         json={
             "prompt": prompt,
             "temperature": 0,
-            "max_tokens": 99,
+            "max_tokens": 69,
             "top_p": 1,
             "frequency_penalty": 0.0,
             "presence_penalty": 0.0,
         },
-        headers={"Authorization": f"Bearer {openai.api_key}"},
+        headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
     )
 
     if response.status_code != 200:
@@ -152,7 +148,6 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     return (file_path, summary_spacy)
 
 
-@lru_cache(maxsize=100)
 def generate_summary_text(prompt: str) -> str:
     """
     Generate summary text from a given prompt using OpenAI's GPT-3 API.
@@ -169,33 +164,28 @@ def generate_summary_text(prompt: str) -> str:
     """
 
     completions = openai.Completion.create(
-        engine="text-davinci-003",
+        engine=ENGINE_ID,
         prompt=prompt,
-        max_tokens=44,
+        max_tokens=40,
     )
     generated_text = completions.choices[0].text
     return generated_text.lstrip()
 
 
-def spacy_text_processor(summary: str) -> str:
+def spacy_text_processor(text: str) -> str:
     """
-    Summarize text using the SpaCy library.
+    Process a text string using Spacy's NLP pipeline.
 
     Parameters
     ----------
-    summary : str
-        The text to be summarized.
+    text : str
+        The text to process.
 
     Returns
     -------
     str
-        The summarized text.
+        The processed text.
     """
-
-    summaries = nlp(summary)
-    summary_text = ""
-    for sent in summaries.sents:
-        summary_text += sent.text.strip()
-        if len(summary_text) > 120:
-            break
-    return summary_text
+    doc = NLP(text)
+    processed_text = " ".join([token.text for token in doc])
+    return processed_text

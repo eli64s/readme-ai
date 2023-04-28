@@ -250,8 +250,8 @@ bash scripts/test.sh
 
 - [x] Add compatibility for additional languages (current - Python, Rust, JavaScript, Go).
 - [ ] Implement different configuration README format and style templates.
+- [ ] Add user interface and backend with FastAPI to improve user experience.
 - [ ] Add ability to choose the language of the generated README file.
-- [ ] Add user interface to generate README files.
 
 ---
 

@@ -13,4 +13,4 @@ find . -type d -name ".ipynb_checkpoints" -exec rm -rf {} + # remove Jupyter not
 rm -rf .pytest_cache/ # remove pytest cache
 rm -rf .benchmarks/ # remove benchmarks
 rm -rf docs/raw_data.csv # remove raw data file
-rm -rf *.log *.txt *.out # remove log files
+rm -rf *.log *.out *.rdb # remove log files
