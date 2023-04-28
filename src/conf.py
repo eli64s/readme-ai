@@ -1,8 +1,10 @@
-"""Configuration constants."""
+"""Configuration constants for the application."""
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
+from typing import Dict, List
+
+from cachetools import TTLCache, cached
 
 from file_factory import FileHandler
 from logger import Logger
@@ -12,8 +14,6 @@ LOGGER = Logger("readmeai_logger")
 
 @dataclass
 class OpenAI:
-    """OpenAI API details."""
-
     api_key: str
     prompt_intro: str
     prompt_slogan: str
@@ -21,8 +21,6 @@ class OpenAI:
 
 @dataclass
 class GitHub:
-    """GitHub repository details."""
-
     local: str
     name: str
     path: str
@@ -31,8 +29,6 @@ class GitHub:
 
 @dataclass
 class Markdown:
-    """Markdown template strings."""
-
     close: str
     head: str
     intro: str
@@ -45,8 +41,6 @@ class Markdown:
 
 @dataclass
 class Paths:
-    """Project paths."""
-
     file_extensions: str
     file_names: str
     ignore_files: str
@@ -58,8 +52,6 @@ class Paths:
 
 @dataclass
 class AppConf:
-    """Configuration constants."""
-
     api: OpenAI
     github: GitHub
     md: Markdown
@@ -68,12 +60,16 @@ class AppConf:
 
 @dataclass
 class AppConfHelper:
-    """Configuration helper constants."""
-
     file_names: List[str]
-    file_extensions: dict
+    file_extensions: Dict[str, str]
     ignore_files: List[str]
-    setup: dict
+    setup: Dict[str, str]
+
+
+@cached(TTLCache(maxsize=1024, ttl=300))
+def read_config_file(path: Path) -> Dict[str, str]:
+    handler = FileHandler()
+    return handler.read(path)
 
 
 def load_conf_helper(conf: object) -> AppConfHelper:

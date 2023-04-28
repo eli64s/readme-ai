@@ -17,8 +17,8 @@ LOGGER = Logger("readmeai_logger")
 
 
 def add_space_between_sentences(text: str) -> str:
-    pattern = r"([.!?])(\S)"
-    return re.sub(pattern, r"\1 \2", text)
+    pattern = re.compile(r"([.!?])(\S)")
+    return pattern.sub(r"\1 \2", text)
 
 
 def get_codebase_local(local_directory: str) -> Dict[str, str]:
@@ -99,13 +99,11 @@ def get_project_dependencies(
 
 def get_repo_name(path: Union[str, os.PathLike]) -> str:
     if "github.com" in str(path):
-        # GitHub URL
         repo_path = urlparse(str(path)).path
         repo_name = repo_path.split("/")[-1]
         if repo_name.endswith(".git"):
             repo_name = repo_name[:-4]
     else:
-        # Local path
         repo_name = os.path.basename(os.path.normpath(str(path)))
 
     return repo_name

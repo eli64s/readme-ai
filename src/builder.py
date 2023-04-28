@@ -1,4 +1,7 @@
-"""Builds the README.md file from the template and the data."""
+"""
+Builds the README.md file using the configuration
+template and OpenAI API language models.
+"""
 
 import subprocess
 import tempfile
@@ -59,6 +62,10 @@ def get_badges(data: dict, dependencies: list) -> str:
                 badges.append(icon["src"])
                 break
 
+    return format_badges(badges, dependencies)
+
+
+def format_badges(badges: list, dependencies: list) -> str:
     badge_lines = []
     total_badges = len(badges)
     if total_badges < 8:
@@ -85,8 +92,8 @@ def get_badges(data: dict, dependencies: list) -> str:
 
 
 def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
-    install_guide = "[INSERT INSTALL GUIDE HERE]"
-    run_guide = "[INSERT RUN GUIDE HERE]"
+    install_guide = "[INSERT-INSTALL-GUIDE-HERE]"
+    run_guide = "[INSERT-RUN-GUIDE-HERE]"
 
     ignore_files = conf_helper.ignore_files
     name = conf.github.name
@@ -101,9 +108,9 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
         language_name = conf_helper.file_extensions[top_language]
         language_setup = conf_helper.setup[language_name]
 
-        LOGGER.info(f"Top language: {top_language}")
-        LOGGER.info(f"Language name: {language_name}")
-        LOGGER.info(f"Language setup: {language_setup}")
+        LOGGER.info(f"Top project language: {top_language}")
+        LOGGER.info(f"Top project language name: {language_name}")
+        LOGGER.info(f"{language_name} installation and setup: {language_setup}")
 
         if language_setup:
             install_guide = language_setup[0]
@@ -132,7 +139,7 @@ def create_directory_tree(url: str) -> str:
 
 def create_tables(df: pd.DataFrame, dropdown: str) -> str:
     df["Sub-Directory"] = df["Module"].apply(
-        lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Top Level"
+        lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Root"
     )
     tables = []
     for sub_dir_name, group in df.groupby("Sub-Directory"):

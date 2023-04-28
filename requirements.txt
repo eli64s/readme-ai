@@ -1,10 +1,13 @@
 black==21.9b0
 click==8.0.1
+cache
+cachetools
 coverage
 dacite
 flake8
 GitPython
 httpx
+h2
 isort
 loguru
 openai
@@ -16,6 +19,8 @@ pytest
 pytest-cov
 requests
 setuptools
+snakeviz
 spacy
 tabulate
 toml
+typer

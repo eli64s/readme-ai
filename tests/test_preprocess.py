@@ -5,15 +5,10 @@ import os
 import git
 import pytest
 
-from src.preprocess_helper import (
-    add_space_between_sentences,
-    get_file_contents,
-    get_local_codebase,
-    get_project_dependencies,
-    get_repo_name,
-    make_temp_directory,
-    remove_comments,
-)
+from src.preprocess_helper import (add_space_between_sentences,
+                                   get_file_contents, get_local_codebase,
+                                   get_project_dependencies, get_repo_name,
+                                   make_temp_directory, remove_comments)
 
 
 def test_add_space_between_sentences():

@@ -1,10 +1,11 @@
+
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>
 README-AI
 </h1>
-<h3 align="center">📍 Making your READMEs smarter, one commit at a time.</h3>
+<h3 align="center">📍 Unlock the Power of Automation with README-AI</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
@@ -17,6 +18,7 @@ README-AI
 <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pandas" />
 <img src="https://img.shields.io/badge/spaCy-09A3D5.svg?style=for-the-badge&logo=spaCy&logoColor=white" alt="colorlog" />
 <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="json" />
+<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black" alt="spacy" />
 </p>
 
 </div>
@@ -42,7 +44,7 @@ README-AI
 
 ## 📍Overview
 
-README-AI is a project that aims to improve the quality of README files on GitHub. It does this by using machine learning to automatically generate high-quality READMEs for new projects,
+README-AI is a machine learning project that generates template-based README files for GitHub repositories. It automates the process of creating a README and reduces the time needed to write a README.
 
 ## 🔮 Feautres
 
@@ -65,6 +67,7 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 │   ├── conf.toml
 │   ├── file_extensions.toml
 │   ├── file_names.toml
+│   ├── ignore_files.toml
 │   ├── setup_guide.toml
 │   └── templates
 │       └── general.toml
@@ -72,7 +75,7 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 │   ├── README_EX_1.md
 │   ├── README_EX_2.md
 │   ├── README_EX_3.md
-│   ├── README_EX_4.md
+│   ├── README_EX_GO.md
 │   ├── README_EX_JS.md
 │   ├── README_EX_RUST.md
 │   └── imgs
@@ -109,9 +112,10 @@ README-AI is a project that aims to improve the quality of README files on GitHu
     ├── test_logger.py
     ├── test_main.py
     ├── test_model.py
-    └── test_processor.py
+    ├── test_preprocess.py
+    └── test_preprocess_helper.py
 
-9 directories, 46 files
+9 directories, 48 files
 ```
 ---
 
@@ -120,25 +124,26 @@ README-AI is a project that aims to improve the quality of README files on GitHu
 ## 💻 Modules
 <details closed><summary>Scripts</summary>
 
-| File     | Summary                                                                                                                                            |
-|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| run.sh   | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables. |
-| clean.sh | This code is a Bash script that cleans up files and directories related to Python, Jupyter notebooks, pytest, benchmarks, and a CSV file.          |
+| File     | Summary                                                                                                                                                                                                                    | Module           |
+|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| run.sh   | This code is a Bash script that activates a Conda environment and runs a Python script. It also allows for the exporting of environment variables.                                                                         | scripts/run.sh   |
+| clean.sh | This code is a Bash script that deletes files and directories related to Python, Jupyter notebooks, pytest, benchmarks, logs, and a CSV file.                                                                              | scripts/clean.sh |
+| test.sh  | This code is a Bash script that activates a conda environment, sets the directories to include and exclude in a coverage report, generates the coverage report and saves it to a file, and then removes files and folders. | scripts/test.sh  |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File                 | Summary                                                                                                                                                                                                                                              |
-|:---------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| preprocess.py        | This code provides methods to process a GitHub repository, such as cloning the repository to a temporary directory, getting the file contents, and getting the project dependencies.                                                                 |
-| conf.py              | This code defines configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template strings, and project paths.                                                                                 |
-| preprocess_helper.py | This code provides helper functions for dependency parsing for readme. ai. It includes functions for parsing Conda environment files, Pipfiles, pyproject. toml, requirements files, Cargo. toml, Cargo. lock, package. json, and yarn. lock.        |
-| logger.py            | Logger is a class for the project that provides logging capabilities with colored output. It supports logging levels such as DEBUG, INFO, WARNING, ERROR, and CRITICAL.                                                                              |
-| file_factory.py      | This File Factory module provides a class, FileHandler, which allows for the reading and writing of files in markdown, toml, and json formats.                                                                                                       |
-| model.py             | This code uses the OpenAI GPT-3 model to generate summary text from code. It uses the OpenAI API to access the GPT-3 model, and the Spacy library to summarize the generated text.                                                                   |
-| builder.py           | This code builds a README. md file from a template and data, such as a pandas DataFrame, a configuration object, and a list of dependencies.                                                                                                         |
-| main.py              | README-AI is a tool that generates a README. md file for your repository using OpenAI's API. It takes in a repository URL or local directory path, and outputs a README. md file with a summary of the codebase, project dependencies, and a slogan. |
+| File                 | Summary                                                                                                                                                                                                                                                                          | Module                   |
+|:---------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| preprocess.py        | This code preprocesses a codebase to extract the README. md file and other code files. It clones the codebase from a remote repository or uses a local directory, then parses the files to extract the contents.                                                                 | src/preprocess.py        |
+| conf.py              | This code defines configuration constants for an application, including OpenAI API details, GitHub repository details, Markdown template strings, and project paths.                                                                                                             | src/conf.py              |
+| preprocess_helper.py | This code provides helper functions for dependency parsing for README-AI. It includes functions for parsing Conda environment files, Pipfiles, pyproject. toml, requirements files, Cargo. toml, Cargo. lock, package. json, yarn. lock, Go module files, and Go sum files.      | src/preprocess_helper.py |
+| logger.py            | This code is a custom logger module using loguru for README-AI. It provides functions for logging messages at different levels, such as info, debug, warning, error, critical, trace, success, and exception.                                                                    | src/logger.py            |
+| file_factory.py      | This module provides a FileHandler class that can read and write files in markdown, toml, and json formats. It provides methods to read and write files in these formats, as well as a get_action method to retrieve the appropriate read or write action for a given file type. | src/file_factory.py      |
+| model.py             | This code is an OpenAI API handler for generating text for the README. md file. It uses the OpenAI GPT-3 API to generate summary descriptions for code files, and the SpaCy library to summarize text.                                                                           | src/model.py             |
+| builder.py           | This code builds a README. md file from a template and data, such as a pandas DataFrame, a configuration object, and a list of dependencies.                                                                                                                                     | src/builder.py           |
+| main.py              | README-AI is a tool that uses OpenAI's API to generate a README. md file for a given repository. It collects information from the repository, such as project dependencies and codebase summaries, and uses this data to create a comprehensive README. md file.                 | src/main.py              |
 
 </details>
 <hr />

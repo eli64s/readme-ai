@@ -1,12 +1,13 @@
-"""README-AI is a tool that generates a README.md file for your repository."""
+"""Automate README.md generation for your codebase using OpenAI's API."""
 
-import argparse
 import asyncio
+import os
 from pathlib import Path
 
 import dacite
 import openai
 import pandas as pd
+import typer
 
 import builder
 import model
@@ -15,28 +16,32 @@ from conf import AppConf, load_conf_helper
 from file_factory import FileHandler
 from logger import Logger
 
+app = typer.Typer()
 CONFIG_FILE = "conf/conf.toml"
 LOGGER = Logger("readmeai_logger")
 
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(
-        description="Generate a README.md file via OpenAI."
-    )
-    parser.add_argument("-k", "--api_key", type=str, help="OpenAI API key")
-    parser.add_argument("-l", "--local", type=str, help="Local directory path")
-    parser.add_argument("-o", "--output", type=str, help="Output file path")
-    parser.add_argument("-r", "--remote", type=str, help="Remote repository URL")
-    return parser.parse_args()
+@app.command()
+def main(
+    api_key: str = typer.Option(None, help="Your OpenAI API key."),
+    local: str = typer.Option(None, help="Path to local codebase directory."),
+    output: str = typer.Option("docs/README.md", help="Path to output README.md file."),
+    remote: str = typer.Option(None, help="URL of remote GitHub repository."),
+):
+    if not os.getenv("OPENAI_API_KEY") and not api_key:
+        typer.echo("Error: Please provide your OpenAI API key.")
+        raise typer.Exit(code=1)
+
+    if not local and not remote:
+        typer.echo(
+            "Error: Please provide either a local directory path or a remote repository URL."
+        )
+        raise typer.Exit(code=1)
+
+    asyncio.run(generate_readme(api_key, local, output, remote))
 
 
-def load_configuration(config_path):
-    handler = FileHandler()
-    conf_dict = handler.read(config_path)
-    return dacite.from_dict(AppConf, conf_dict)
-
-
-async def main() -> None:
+async def generate_readme(api_key: str, local: str, output: str, remote: str) -> None:
     LOGGER.info("README-AI is now executing.")
 
     # Load configuration
@@ -44,19 +49,18 @@ async def main() -> None:
     conf = load_configuration(conf_path)
     conf_helper = load_conf_helper(conf)
 
-    # Parse command line arguments
-    args = parse_arguments()
-    if args.api_key:
-        openai.api_key = args.api_key
-    if args.output:
-        conf.paths.md = args.output
-    if args.local:
-        conf.github.local = args.local
-    if args.remote:
-        conf.github.remote = args.remote
+    # Set command line arguments
+    if api_key:
+        openai.api_key = api_key
+    if output:
+        conf.paths.md = output
+    if local:
+        conf.github.local = local
+    if remote:
+        conf.github.remote = remote
 
     # Process repository
-    if args.local:
+    if local:
         LOGGER.info(f"Using local directory: {conf.github.local}")
         conf.github.path = conf.github.local
         repo_contents = preprocess.get_codebase_local(conf.github.local)
@@ -73,9 +77,9 @@ async def main() -> None:
     ignore_files = conf_helper.ignore_files
     dependencies = preprocess.get_project_dependencies(repo, file_exts, file_names)
 
-    LOGGER.info(f"Creating README.md for the repo: {name}")
+    LOGGER.info(f"Creating README.md for the repository: {name}")
     LOGGER.info(f"Total files to document: {len(repo_contents)}")
-    LOGGER.info(f"\nProject dependencies and tools list: {dependencies}\n")
+    LOGGER.info(f"\nProject dependencies list: {dependencies}\n")
 
     # Use OpenAI API to generate documentation
     prompt_intro = conf.api.prompt_intro
@@ -95,5 +99,11 @@ async def main() -> None:
     LOGGER.info("README-AI execution complete.\n")
 
 
+def load_configuration(config_path):
+    handler = FileHandler()
+    conf_dict = handler.read(config_path)
+    return dacite.from_dict(AppConf, conf_dict)
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    app()

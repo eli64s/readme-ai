@@ -3,6 +3,7 @@
 import asyncio
 import os
 import re
+from functools import lru_cache
 from typing import Dict, Tuple
 
 import httpx
@@ -151,6 +152,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     return (file_path, summary_spacy)
 
 
+@lru_cache(maxsize=100)
 def generate_summary_text(prompt: str) -> str:
     """
     Generate summary text from a given prompt using OpenAI's GPT-3 API.

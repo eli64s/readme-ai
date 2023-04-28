@@ -1,28 +1,16 @@
 #!/bin/bash
 
-# Backup files
-find . -type f -name "*.py-e" -delete
+# Remove unwanted files and directories
 
-# Clean up Python cache files
-find . -type f -name "*.DS_Store" -ls -delete
+find . -type f -name "*.py-e" -delete # remove backup files
+find . -type f -name "*.DS_Store" -ls -delete # remove Python cache files
 find . -type f -name "*.py[co]" -delete
-find . -type d -name "__pycache__" -exec rm -rf {} +
+find . -type d -name "__pycache__" -exec rm -rf {} + # remove Python cache directories
 find src -type d -name "__pycache__" -exec rm -r {} \;
 
-# Remove build artifacts
-rm -rf build/ dist/ *.egg-info/
-
-# Remove Jupyter notebook checkpoints
-find . -type d -name ".ipynb_checkpoints" -exec rm -rf {} +
-
-# Remove pytest cache
-rm -rf .pytest_cache/
-
-# Remove benchmarks
-rm -rf .benchmarks/
-
-# Remove docs/raw_data.csv
-rm -rf docs/raw_data.csv
-
-# Remove logs
-rm -rf *.log
+rm -rf build/ dist/ *.egg-info/ # remove build artifacts
+find . -type d -name ".ipynb_checkpoints" -exec rm -rf {} + # remove Jupyter notebook checkpoints
+rm -rf .pytest_cache/ # remove pytest cache
+rm -rf .benchmarks/ # remove benchmarks
+rm -rf docs/raw_data.csv # remove raw data file
+rm -rf *.log *.txt *.out # remove log files

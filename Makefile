@@ -1,15 +1,17 @@
 SHELL = /bin/bash
 VENV := readmeai
 
-.PHONY: help style clean conda venv
+.PHONY: help style clean conda venv mem_profile profile
 
 # Help
 help:
 	@echo "Commands:"
-	@echo "clean   : cleans all unnecessary files."
-	@echo "style   : executes style formatting."
-	@echo "conda   : creates a conda environment."
-	@echo "venv    : creates a virtual environment."
+	@echo "clean      : cleans all unnecessary files."
+	@echo "style      : executes style formatting."
+	@echo "conda      : creates a conda environment."
+	@echo "venv       : creates a virtual environment."
+	@echo "profile    : runs cProfile on the CLI script."
+	@echo "snakeviz   : runs SnakeViz on the profile.out file."
 
 # Style
 .PHONY: style
@@ -33,3 +35,13 @@ venv:
 	python -m venv $(VENV)
 	source venv/bin/activate
 	pip install -r requirements.txt
+
+# cProfile
+profile:
+	@echo "Running cProfile on CLI script"
+	python -m cProfile -o profile.out -s cumulative src/main.py --output docs/README_001.md --remote https://github.com/eli64s/README-AI
+
+# SnakeViz
+snakeviz:
+	@echo "Running SnakeViz on profile.out file"
+	snakeviz profile.out

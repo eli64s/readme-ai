@@ -1,85 +1,126 @@
-import unittest
-from unittest.mock import Mock, patch
+"""Unit tests for main module."""
 
-from src import builder, main
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+
+import pandas as pd
+import pytest
+
+from src import main
+from src.file_factory import FileHandler
+from src.model import code_to_text, generate_summary_text
+from tests.test_data import mock_repo_contents
+
+pytestmark = pytest.mark.asyncio
 
 
-class TestReadmeAI(unittest.TestCase):
-    def test_parse_arguments(self):
-        with patch("argparse.ArgumentParser.parse_args") as mock_parse_args:
-            mock_parse_args.return_value = Mock(
-                api_key="test_key",
-                local="test_path",
-                output="output_path",
-                remote="remote_repo",
-            )
-            args = main.parse_arguments()
-            self.assertEqual(args.api_key, "test_key")
-            self.assertEqual(args.local, "test_path")
-            self.assertEqual(args.output, "output_path")
-            self.assertEqual(args.remote, "remote_repo")
+@pytest.fixture
+def config_file(tmp_path):
+    config = {
+        "api": {
+            "api_key": "",
+            "prompt_intro": "Project {0} documentation",
+            "prompt_slogan": "Codebase summaries for {0}",
+        },
+        "github": {
+            "local": "",
+            "name": "",
+            "path": "",
+            "remote": "",
+        },
+        "md": {
+            "close": "",
+            "head": "",
+            "intro": "## {0}\n",
+            "dropdown": "",
+            "modules": "",
+            "setup": "",
+            "toc": "",
+            "tree": "",
+        },
+        "paths": {
+            "file_extensions": "",
+            "file_names": "",
+            "ignore_files": "",
+            "setup_guide": "",
+            "badges": "",
+            "docs": "",
+            "md": "",
+        },
+    }
+    config_file_path = tmp_path / "conf" / "conf.toml"
+    config_file_path.parent.mkdir(parents=True)
+    FileHandler().write(config, config_file_path)
+    return config_file_path
 
-    def test_load_configuration(self):
-        test_conf = {
-            "api": {"endpoint": "test_endpoint"},
-            "paths": {"md": "test_md_path"},
-            "github": {"local": "test_local"},
+
+@patch("openai.api_key", new="")
+@patch("preprocess.get_codebase_local", MagicMock(return_value=mock_repo_contents))
+async def test_generate_readme_with_local(config_file, tmp_path):
+    # Set command line arguments
+    api_key = "test_api_key"
+    local = str(tmp_path / "repo")
+    output = str(tmp_path / "docs" / "README.md")
+
+    # Generate README
+    await main.generate_readme(api_key, local, output, None)
+
+    # Check that the README file is created
+    assert Path(output).exists()
+
+    # Check that the generated documentation matches the expected output
+    codebase_docs = await code_to_text([], mock_repo_contents)
+    intro_text = generate_summary_text("Project TestRepo documentation")
+    slogan_text = generate_summary_text("Codebase summaries for TestRepo")
+    expected_df = pd.DataFrame(
+        {
+            "Module": ["main", "preprocess"],
+            "Summary": ["This is the main module", "This is the preprocess module"],
         }
+    )
+    expected_df.set_index("Module", inplace=True)
+    expected_intro = "## TestRepo\n"
+    expected_intro += intro_text + "\n\n" + slogan_text + "\n\n"
+    expected_docs = expected_df.to_csv(index=False)
+    with open(output) as f:
+        actual_text = f.read()
 
-        with patch("main.FileHandler.read") as mock_read:
-            mock_read.return_value = test_conf
-            conf = main.load_configuration("test_config_path")
-            self.assertEqual(conf.api.endpoint, "test_endpoint")
-            self.assertEqual(conf.paths.md, "test_md_path")
-            self.assertEqual(conf.github.local, "test_local")
-
-    def test_main(self):
-        with patch("main.load_configuration") as mock_load_configuration:
-            with patch("main.parse_arguments") as mock_parse_arguments:
-                with patch(
-                    "main.preprocess.get_local_codebase"
-                ) as mock_get_local_codebase:
-                    with patch("main.preprocess.get_repo_name") as mock_get_repo_name:
-                        with patch(
-                            "main.preprocess.get_project_dependencies"
-                        ) as mock_get_project_dependencies:
-                            with patch("main.model.code_to_text") as mock_code_to_text:
-                                with patch(
-                                    "main.model.generate_summary_text"
-                                ) as mock_generate_summary_text:
-                                    with patch(
-                                        "main.builder.build"
-                                    ) as mock_builder_build:
-                                        # Setup mocks
-                                        mock_load_configuration.return_value = Mock()
-                                        mock_parse_arguments.return_value = Mock(
-                                            local="test_path"
-                                        )
-                                        mock_get_local_codebase.return_value = []
-                                        mock_get_repo_name.return_value = "test_repo"
-                                        mock_get_project_dependencies.return_value = []
-                                        mock_code_to_text.return_value = []
-                                        mock_generate_summary_text.side_effect = [
-                                            "test_introduction",
-                                            "test_intro_slogan",
-                                        ]
-                                        mock_builder_build.return_value = None
-
-                                        # Execute main function
-                                        main.asyncio.run(main.main())
-
-                                        # Check if all mocks have been called
-                                        mock_load_configuration.assert_called_once()
-                                        mock_parse_arguments.assert_called_once()
-                                        mock_get_local_codebase.assert_called_once()
-                                        mock_get_repo_name.assert_called_once()
-                                        mock_get_project_dependencies.assert_called_once()
-                                        mock_code_to_text.assert_called_once()
-                                        self.assertEqual(
-                                            mock_generate_summary_text.call_count, 2
-                                        )
-                                        mock_builder_build.assert_called_once()
+    assert expected_intro in actual_text
+    assert expected_docs in actual_text
+    assert isinstance(codebase_docs, list)
 
 
-if __name__ == "__main__":
-    unittest.main()
+@patch("openai.api_key", new="")
+@patch("preprocess.get_codebase_remote", MagicMock(return_value=mock_repo_contents))
+async def test_generate_readme_with_remote(config_file, tmp_path):
+    # Set command line arguments
+    api_key = "test_api_key"
+    remote = "https://github.com/testuser/testrepo"
+    output = str(tmp_path / "docs" / "README.md")
+
+    # Generate README
+    await main.generate_readme(api_key, None, output, remote)
+
+    # Check that the README file is created
+    assert Path(output).exists()
+
+    # Check that the generated documentation matches the expected output
+    codebase_docs = await code_to_text([], mock_repo_contents)
+    intro_text = generate_summary_text("Project TestRepo documentation")
+    slogan_text = generate_summary_text("Codebase summaries for TestRepo")
+    expected_df = pd.DataFrame(
+        {
+            "Module": ["main", "preprocess"],
+            "Summary": ["This is the main module", "This is the preprocess module"],
+        }
+    )
+    expected_df.set_index("Module", inplace=True)
+    expected_intro = "## TestRepo\n"
+    expected_intro += intro_text + "\n\n" + slogan_text + "\n\n"
+    expected_docs = expected_df.to_csv(index=False)
+    with open(output) as f:
+        actual_text = f.read()
+
+    assert expected_intro in actual_text
+    assert expected_docs in actual_text
+    assert isinstance(codebase_docs, list)
