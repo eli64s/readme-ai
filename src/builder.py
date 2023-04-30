@@ -17,7 +17,7 @@ LOGGER = Logger("readmeai_logger")
 
 
 def build(
-    conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame, intro: str
+    conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame
 ) -> None:
     """
     Main function to build the README.md file using the provided configuration,
@@ -33,10 +33,8 @@ def build(
         List of project dependencies.
     df : pd.DataFrame
         DataFrame containing parsed information from project files.
-    intro : str
-        Introduction text for the README.md file.
     """
-    intro = intro.strip('"')
+
     name = conf.github.name
     url = conf.github.path
 
@@ -46,6 +44,7 @@ def build(
     md_dropdown = conf.md.dropdown
     md_modules = conf.md.modules
     md_setup = conf.md.setup
+    md_slogan = conf.md.slogan.strip('"')
     md_toc = conf.md.toc
     md_tree = conf.md.tree
 
@@ -59,7 +58,7 @@ def build(
     md_tables = create_tables(df_cleaned, md_dropdown)
     md_repo = create_directory_tree(url)
     md_setup = create_setup_guide(conf, conf_helper, df_cleaned)
-    md_file = md_file.format(name, intro, md_badges)
+    md_file = md_file.format(name, md_slogan, md_badges)
     md_file = f"{md_file}{md_toc}{md_intro}{md_tree}{md_repo}"
     md_file = f"{md_file}{md_modules}{md_tables}{md_setup}{md_close}"
 
@@ -202,6 +201,7 @@ def create_directory_tree(url: str) -> str:
     """
     with tempfile.TemporaryDirectory() as tmp_dir:
         repo_path = Path(tmp_dir) / "repo"
+
         try:
             git.Repo.clone_from(url, repo_path)
             tree_bytes = subprocess.check_output(["tree", "-n", repo_path])
@@ -210,12 +210,15 @@ def create_directory_tree(url: str) -> str:
             tree_str = "\n".join(tree_lines)
             tree_md = f"```bash\n{repo_path.name}\n{tree_str}```"
             return tree_md
+
         except git.exc.GitCommandError as e:
             LOGGER.warning(f"Error cloning repository: {e}")
             return ""
+
         except subprocess.CalledProcessError as e:
             LOGGER.warning(f"Error running 'tree' command: {e}")
             return ""
+
         except Exception as e:
             LOGGER.warning(f"Error creating directory tree: {e}")
             return ""

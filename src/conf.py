@@ -35,6 +35,7 @@ class Markdown:
     dropdown: str
     modules: str
     setup: str
+    slogan: str
     toc: str
     tree: str
 
@@ -72,15 +73,28 @@ def read_config_file(path: Path) -> Dict[str, str]:
     return handler.read(path)
 
 
-def load_conf_helper(conf: object) -> AppConfHelper:
-    """Load configuration helper constants."""
+def load_conf_helper(conf: AppConf) -> AppConfHelper:
+    handler = FileHandler()
+    file_names, file_extensions, ignore_files, setup = read_helper_configurations(
+        handler, conf
+    )
+
+    return AppConfHelper(
+        file_names=file_names,
+        file_extensions=file_extensions,
+        ignore_files=ignore_files,
+        setup=setup,
+    )
+
+
+def read_helper_configurations(handler: FileHandler, conf: AppConf):
     conf_path_list = [
         conf.paths.file_names,
         conf.paths.file_extensions,
         conf.paths.ignore_files,
         conf.paths.setup_guide,
     ]
-    handler = FileHandler()
+
     file_extensions = {}
     file_names = []
     ignore_files = []
@@ -89,22 +103,24 @@ def load_conf_helper(conf: object) -> AppConfHelper:
     for path in conf_path_list:
         path = Path("conf/").joinpath(path).resolve()
         conf_dict = handler.read(path)
+        update_helper_configurations(
+            file_names, file_extensions, ignore_files, setup, conf_dict
+        )
 
-        if "file_names" in conf_dict:
-            file_names.extend(conf_dict["file_names"].get("name", []))
+    return file_names, file_extensions, ignore_files, setup
 
-        if "file_extensions" in conf_dict:
-            file_extensions.update(conf_dict["file_extensions"])
 
-        if "ignore_files" in conf_dict:
-            ignore_files.extend(conf_dict["ignore_files"].get("ignore", []))
+def update_helper_configurations(
+    file_names, file_extensions, ignore_files, setup, conf_dict
+):
+    if "file_names" in conf_dict:
+        file_names.extend(conf_dict["file_names"].get("name", []))
 
-        if "setup" in conf_dict:
-            setup.update(conf_dict["setup"])
+    if "file_extensions" in conf_dict:
+        file_extensions.update(conf_dict["file_extensions"])
 
-    return AppConfHelper(
-        file_names=file_names,
-        file_extensions=file_extensions,
-        ignore_files=ignore_files,
-        setup=setup,
-    )
+    if "ignore_files" in conf_dict:
+        ignore_files.extend(conf_dict["ignore_files"].get("ignore", []))
+
+    if "setup" in conf_dict:
+        setup.update(conf_dict["setup"])

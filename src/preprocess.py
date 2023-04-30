@@ -1,6 +1,5 @@
 """Handles preprocessing of the input codebase."""
 
-import os
 import re
 import shutil
 import tempfile
@@ -13,25 +12,8 @@ import git
 import preprocess_helper as helper
 from logger import Logger
 
+ALLOWED_HOSTS = ["github.com"]
 LOGGER = Logger("readmeai_logger")
-
-
-def add_space_between_sentences(text: str) -> str:
-    """
-    Add a space between sentences in the input text.
-
-    Parameters
-    ----------
-    text : str
-        The input text.
-
-    Returns
-    -------
-    str
-        The text with a space between sentences.
-    """
-    pattern = re.compile(r"([.!?])(\S)")
-    return pattern.sub(r"\1 \2", text)
 
 
 def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
@@ -46,43 +28,25 @@ def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
         The URL or local path of the repository to clone or copy.
     temp_dir : str
         The path of the temporary directory to which the repository
-        ill be cloned or copied.
+        will be cloned or copied.
 
     Raises
     ------
     ValueError
         If the provided repository link is not valid.
     """
+    temp_dir = Path(temp_dir)
+    parsed_url = urlparse(repo)
 
-    if "github.com" in repo:
+    if parsed_url.hostname in ALLOWED_HOSTS:
         git.Repo.clone_from(repo, temp_dir)
-    elif os.path.isdir(repo):
+        return
+
+    if Path(repo).is_dir():
         shutil.copytree(repo, temp_dir)
-    else:
-        raise ValueError("Repository link is not valid.")
+        return
 
-
-def get_codebase(repo_path: str) -> Dict[str, str]:
-    """
-    Get the contents of all the files in a directory or a remote repository.
-
-    Parameters
-    ----------
-    local : str
-        The path to the local directory.
-    remote: str, optional
-        The URL of the remote repository, by default None.
-
-    Returns
-    -------
-    Dict[str, str]
-        A dictionary where the keys are file paths and
-        values are the contents of the files.
-    """
-
-    if valid_url(repo_path):
-        return _get_codebase_remote(repo_path)
-    return _get_file_contents(repo_path)
+    raise ValueError("Repository path or URL is not valid.")
 
 
 def _get_codebase_remote(url: str) -> Dict[str, str]:
@@ -163,6 +127,53 @@ def _get_file_extensions(all_files: List[str], file_ext: Dict[str, str]) -> List
     return file_extensions
 
 
+def _get_file_parsers() -> Dict[str, callable]:
+    """
+    Returns a dictionary containing file parsers for various file types.
+
+    Returns
+    -------
+    Dict[str, callable]
+        A dictionary containing file parsers for various file types.
+    """
+    return {
+        "cargo.toml": helper.parse_cargo_toml,
+        "cargo.lock": helper.parse_cargo_lock,
+        "go.mod": helper.parse_go_mod,
+        "go.sum": helper.parse_go_sum,
+        "requirements.txt": helper.parse_requirements_file,
+        "environment.yaml": helper.parse_conda_env_file,
+        "environment.yml": helper.parse_conda_env_file,
+        "Pipfile": helper.parse_pipfile,
+        "pyproject.toml": helper.parse_pyproject_toml,
+        "package.json": helper.parse_package_json,
+        "yarn.lock": helper.parse_yarn_lock,
+    }
+
+
+def get_codebase(repo_path: str) -> Dict[str, str]:
+    """
+    Get the contents of all the files in a directory or a remote repository.
+
+    Parameters
+    ----------
+    local : str
+        The path to the local directory.
+    remote: str, optional
+        The URL of the remote repository, by default None.
+
+    Returns
+    -------
+    Dict[str, str]
+        A dictionary where the keys are file paths and
+        values are the contents of the files.
+    """
+
+    if valid_url(repo_path):
+        return _get_codebase_remote(repo_path)
+    return _get_file_contents(repo_path)
+
+
 def get_project_dependencies(
     repo: str, file_ext: List[str], file_names: List[str]
 ) -> List[str]:
@@ -210,37 +221,13 @@ def get_project_dependencies(
         return list(set(packages))
 
 
-def _get_file_parsers() -> Dict[str, callable]:
-    """
-    Returns a dictionary containing file parsers for various file types.
-
-    Returns
-    -------
-    Dict[str, callable]
-        A dictionary containing file parsers for various file types.
-    """
-    return {
-        "cargo.toml": helper.parse_cargo_toml,
-        "cargo.lock": helper.parse_cargo_lock,
-        "go.mod": helper.parse_go_mod,
-        "go.sum": helper.parse_go_sum,
-        "requirements.txt": helper.parse_requirements_file,
-        "environment.yaml": helper.parse_conda_env_file,
-        "environment.yml": helper.parse_conda_env_file,
-        "Pipfile": helper.parse_pipfile,
-        "pyproject.toml": helper.parse_pyproject_toml,
-        "package.json": helper.parse_package_json,
-        "yarn.lock": helper.parse_yarn_lock,
-    }
-
-
-def get_repo_name(path: Union[str, os.PathLike]) -> str:
+def get_repo_name(path: Union[str, Path]) -> str:
     """
     Returns the name of a repository from its URL or local path.
 
     Parameters
     ----------
-    path : Union[str, os.PathLike]
+    path : Union[str, Path]
         The URL or local path of the repository.
 
     Returns
@@ -249,15 +236,34 @@ def get_repo_name(path: Union[str, os.PathLike]) -> str:
         The name of the repository.
     """
 
-    if "github.com" in str(path):
-        repo_path = urlparse(str(path)).path
+    parsed_url = urlparse(str(path))
+
+    if parsed_url.hostname in ALLOWED_HOSTS:
+        repo_path = parsed_url.path
         repo_name = repo_path.split("/")[-1]
         if repo_name.endswith(".git"):
             repo_name = repo_name[:-4]
     else:
-        repo_name = os.path.basename(os.path.normpath(str(path)))
+        repo_name = Path(path).name
 
     return repo_name
+
+
+def format_sentence(text: str) -> str:
+    """
+    Remove space between comma and period in a given string.
+
+    Parameters
+    ----------
+    text : str
+        The input string.
+
+    Returns
+    -------
+    str
+        The input string with spaces between comma and period removed.
+    """
+    return re.sub(r",\s*\.", ",.", text)
 
 
 def valid_url(s: str) -> bool:

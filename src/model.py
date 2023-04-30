@@ -9,10 +9,10 @@ import httpx
 import openai
 import spacy
 
-import preprocess
 from logger import Logger
+from preprocess import format_sentence
 
-ENGINE_ID = "text-davinci-002"
+ENGINE_ID = "text-davinci-003"
 ENGINE = f"https://api.openai.com/v1/engines/{ENGINE_ID}/completions"
 LOGGER = Logger("readmeai_logger")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -123,7 +123,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
         json={
             "prompt": prompt,
             "temperature": 0,
-            "max_tokens": 69,
+            "max_tokens": 50,
             "top_p": 1,
             "frequency_penalty": 0.0,
             "presence_penalty": 0.0,
@@ -144,7 +144,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     file_summary = data["choices"][0]["text"]
     summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
     summary_spacy = spacy_text_processor(summary)
-    summary_spacy = preprocess.add_space_between_sentences(summary_spacy)
+    summary_spacy = format_sentence(summary_spacy)
     return (file_path, summary_spacy)
 
 

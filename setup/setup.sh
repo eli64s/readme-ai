@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Install tree command if it's not installed
+if ! command -v tree &> /dev/null
+then
+    if [ "$(uname)" == "Darwin" ]; then
+        # macOS
+        brew install tree
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        # Linux
+        sudo apt-get update && sudo apt-get install tree
+    elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
+        # Windows
+        choco install tree
+    fi
+fi
+
 # Welcome message
 echo "Welcome to the README-AI environment setup script!"
 

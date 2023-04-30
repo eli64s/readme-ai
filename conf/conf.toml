@@ -93,6 +93,8 @@ setup = """<hr />
 \n<hr />
 """
 
+slogan = "{}"
+
 close = """
 \n## 🛠 Future Development
 - [X] [📌  COMPLETED-TASK]

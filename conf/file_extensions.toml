@@ -54,34 +54,3 @@ vh = "Verilog"
 xml = "XML"
 yaml = "YAML"
 yml = "YAML"
-
-# Files to ignore.
-[ignore]
-file_extensions = [
-    ".*",
-    ".csv",
-    ".json",
-    ".md",
-    ".pyc",
-    ".txt",
-    ".yml",
-    ".yaml",
-    ".config",
-    ".log",
-    ".ini",
-    ".cfg",
-    ".xml",
-    ".toml",
-    ".git",
-    ".idea",
-    "__pycache__",
-    "__init__",
-    "requirements",
-    "setup",
-    "test",
-    "README",
-    "LICENSE",
-    "Makefile",
-    "CONTRIBUTING",
-    "CODE_OF_CONDUCT",
-]

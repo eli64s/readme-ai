@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 import pandas as pd
 import pytest
 
-import src.builder as build
+from src import builder
 
 
 def test_get_badges():
@@ -21,7 +21,7 @@ def test_get_badges():
         '<img src="https://path.to/python.svg" alt="Python" />\n\n'
         '<img src="https://path.to/django.svg" alt="Django" />'
     )
-    assert build.get_badges(data, dependencies) == expected_result
+    assert builder.get_badges(data, dependencies) == expected_result
 
 
 def test_format_badges():
@@ -36,24 +36,24 @@ def test_format_badges():
         '<img src="https://path.to/django.svg" alt="Django" />\n'
         '<img src="https://path.to/flask.svg" alt="Flask" />'
     )
-    assert build.format_badges(badges, dependencies) == expected_result
+    assert builder.format_badges(badges, dependencies) == expected_result
 
 
-@patch("build.git.Repo.clone_from")
-@patch("build.subprocess.check_output")
+@patch("git.Repo.clone_from")
+@patch("subprocess.check_output")
 def test_create_directory_tree(mock_check_output, mock_clone_from):
     mock_check_output.return_value = b"repo\n|-- file.py\n`-- dir\n    `-- file2.py"
     url = "https://github.com/test/repo.git"
     expected_result = "```bash\nrepo\n|-- file.py\n`-- dir\n    `-- file2.py```"
-    assert build.create_directory_tree(url) == expected_result
+    assert builder.create_directory_tree(url) == expected_result
 
 
-@patch("build.git.Repo.clone_from")
-@patch("build.subprocess.check_output")
+@patch("git.Repo.clone_from")
+@patch("subprocess.check_output")
 def test_create_directory_tree_error(mock_check_output, mock_clone_from):
     mock_check_output.side_effect = Exception("Test error")
     url = "https://github.com/test/repo.git"
-    assert build.create_directory_tree(url) == ""
+    assert builder.create_directory_tree(url) == ""
 
 
 def test_create_tables():
@@ -69,7 +69,7 @@ def test_create_tables():
         "<details>\n<summary>Src</summary>\n\n|    File |   Summary |\n"
         "|---------|-----------|\n| file.py | Summary 1 |\n</details>\n\n"
     )
-    assert build.create_tables(df, dropdown) == expected_result
+    assert builder.create_tables(df, dropdown) == expected_result
 
 
 def test_parse_pandas_cols():
@@ -85,4 +85,4 @@ def test_parse_pandas_cols():
         "File": ["file.py", "file2.py"],
     }
     expected_df = pd.DataFrame(expected_data)
-    pd.testing.assert_frame_equal(parse_pandas_cols(df), expected_df)
+    pd.testing.assert_frame_equal(builder.parse_pandas_cols(df), expected_df)
