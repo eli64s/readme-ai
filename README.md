@@ -203,7 +203,11 @@ bash setup/setup.sh
 conda env create -f setup/environment.yaml
 conda activate readmeai
 pip install -r requirements.txt
+python3 -m spacy download en_core_web_sm
+
 ```
+
+
 
 3. Set up the OpenAI API key by creating an environment variable:
 
@@ -217,19 +221,19 @@ Use the command-line to provide the OpenAI API key (if not already set) and spec
 
 Command-Line Arguments:
 
-- `--api_key` : Provide your OpenAI API key.
+- `--api-key` : Provide your OpenAI API key.
 - `--local`  : Provide the full path of a local repository.
 - `--output` : Provide a path where to write the output file.
 - `--remote` : Provide a URL of a remote GitHub repository.
 
 ```sh
-python src/main.py --api_key skabc0123456789 --output docs/README.md --remote https://github.com/eli64s/readme-ai
+python src/main.py --api-key skabc0123456789 --output docs/README.md --remote https://github.com/eli64s/readme-ai
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.
 
 ```sh
-bash scripts/run_main.sh
+bash scripts/run.sh
 ```
 
 ### 🧪 Running Tests
