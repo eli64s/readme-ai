@@ -229,7 +229,7 @@ python src/main.py --api_key skabc0123456789 --output docs/README.md --remote ht
 Alternatively, run the bash script to run README-AI with the default configuration.
 
 ```sh
-bash scripts/run_main.sh
+bash scripts/run.sh
 ```
 
 ### 🧪 Running Tests
