@@ -43,6 +43,8 @@ def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
         return
 
     if Path(repo).is_dir():
+        if temp_dir.exists() and temp_dir.is_dir():
+            shutil.rmtree(temp_dir)
         shutil.copytree(repo, temp_dir)
         return
 

@@ -20,22 +20,25 @@ react-web-audio
 ---
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
-- [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+- [📍Overview](#overview)
+- [🔮 Feautres](#-feautres)
+- [⚙️ Project Structure](#️-project-structure)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
+  - [✅ Prerequisites](#-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🤖 Using react-web-audio](#-using-react-web-audio)
+  - [🧪 Running Tests](#-running-tests)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
 
 ## 📍Overview
 
-GitHub is a web-based hosting service for software development projects that use the Git revision control system. It is written in Ruby on Rails and has a liberal, permissive license. GitHub offers both paid
+React-Web-Audio is a React component library that provides an easy-to-use API for creating advanced audio applications on the web.
 
 ## 🔮 Feautres
 

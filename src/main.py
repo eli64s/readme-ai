@@ -32,7 +32,9 @@ def main(
     asyncio.run(generate_readme(api_key, local, output, remote))
 
 
-async def generate_readme(api_key: Optional[str], local: Optional[str], output: str, remote: Optional[str]) -> None:
+async def generate_readme(
+    api_key: Optional[str], local: Optional[str], output: str, remote: Optional[str]
+) -> None:
     LOGGER.info("README-AI is now executing.")
 
     conf = load_configuration(CONFIG_FILE)
