@@ -4,7 +4,7 @@
     <br>README-AI</h1>
 
 > <h3 align="center">🚀 Generate aesthetic, structured, and informative README.md files </h3>
-> <h3 align="center">⚙️ Powered by OpenAI's language model API and the software below</h3>
+> <h3 align="center">⚙️ Powered by OpenAI's GPT language model APIs and the software below</h3>
 >  <p align="center">
 >   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 >   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
@@ -91,7 +91,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 |                                                                                                                                                                                               |                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently works for:<br>Python, Go, Rust, JavaScript.<br> | ![setup](./docs/imgs/setup.png) |
+| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently works for:<br>Python, Go, Rust, Java, JavaScript.<br> | ![setup](./docs/imgs/setup.png) |
 
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds three additional sections to build out a complete README file!</p>
@@ -229,7 +229,7 @@ Command-Line Arguments:
 - `--remote` : Provide a URL of a remote GitHub repository.
 
 ```sh
-python src/main.py --api_key skabc123 --output README_AI.md --remote https://github.com/eli64s/readme-ai
+python src/main.py --api_key skabc123 --output README_AI.md --remote https://github.com/eli64s/README-AI
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.
@@ -254,10 +254,11 @@ bash scripts/test.sh
 
 ## 🛠 Future Development
 
-- [x] Add compatibility for additional languages (current - Python, Rust, JavaScript, Go).
-- [ ] Implement different configuration README format and style templates.
-- [ ] Add user interface and backend with FastAPI to improve user experience.
-- [ ] Add ability to choose the language of the generated README file.
+- [X] Add additional language setup guides for populating the `🚀 Getting Started` README section.
+  - Currently compatible with codebases written in: `Python, Go, Rust, Java, JavaScript.`
+- [ ] Implement multiple README templates with different formats and styling.
+- [ ] Add feature to select the language of text written to the README file.
+- [ ] Add UI and robust backend with FastAPI to improve user experience.
 
 ---
 
