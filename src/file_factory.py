@@ -5,6 +5,14 @@ import json
 import toml
 
 
+class ReadFileError(Exception):
+    pass
+
+
+class WriteFileError(Exception):
+    pass
+
+
 class FileHandler:
     def __init__(self):
         self.file_actions = {
@@ -26,8 +34,7 @@ class FileHandler:
             self.cache[file_path] = content
             return content
         except Exception as e:
-            print(f"Failed to read file {file_path}: {e}")
-            return None
+            raise ReadFileError(f"Failed to read file {file_path}: {e}")
 
     def write(self, file_path, content):
         """Writes the content to a file."""
@@ -36,7 +43,7 @@ class FileHandler:
             writer = self.get_action(file_extension, "write")
             writer(file_path, content)
         except Exception as e:
-            print(f"Failed to write file {file_path}: {e}")
+            raise WriteFileError(f"Failed to write file {file_path}: {e}")
 
     def get_action(self, file_extension, action_type):
         """Gets the appropriate action for a given file extension and action type."""

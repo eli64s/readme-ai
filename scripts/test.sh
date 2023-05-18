@@ -17,3 +17,4 @@ coverage report --show-missing --fail-under=90
 find . -type d -name "__pycache__" -exec rm -r {} +
 rm -rf .pytest_cache
 rm -rf .coverage
+rm -rf tests/*local_dir*

@@ -1,158 +1,164 @@
 """Unit tests for preprocess.py."""
 
-from pathlib import Path
-from unittest.mock import patch
+import sys
 
+sys.path.append("src")
+
+
+import os
+import shutil
+
+import git
 import pytest
 
-import src.preprocess as preprocess
+from src.preprocess import (
+    _clone_or_copy_repository,
+    _get_codebase_remote,
+    _get_file_contents,
+    _get_file_extensions,
+    _get_file_parsers,
+    get_codebase,
+    get_project_dependencies,
+    get_repo_name,
+    reformat_sentence,
+    valid_url,
+)
 
-"""Tests for the _clone_or_copy_repository function."""
-
-
-# Test valid github repository url
-def test_clone_valid_github(temp_dir):
-    repo = "https://github.com/pytest-dev/pytest"
-    preprocess._clone_or_copy_repository(repo, temp_dir)
-    assert (temp_dir / "pytest").is_dir()
-
-
-# Test valid local directory
-def test_copy_valid_local_dir(temp_dir):
-    local_dir = "/path/to/local/dir"
-    Path(local_dir).mkdir(parents=True, exist_ok=True)
-    preprocess._clone_or_copy_repository(local_dir, temp_dir)
-    assert (temp_dir / "dir").is_dir()
-
-
-# Test invalid repository link
-def test_clone_invalid_link(temp_dir):
-    repo = "invalidlink"
-    with pytest.raises(ValueError):
-        preprocess._clone_or_copy_repository(repo, temp_dir)
+# Define test constants
+TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMP_DIR = os.path.join(TEST_DIR, "temp_dir")
+TEST_REPO = "https://github.com/example/test_repo.git"
+TEST_FILE_EXT = [".py", ".txt"]
+TEST_FILE_NAMES = ["requirements.txt", "Pipfile"]
 
 
-# Test function raises ValueError for invalid github repository url
-def test_clone_invalid_github(temp_dir):
-    repo = "https://github.com/invalid/repo"
-    with pytest.raises(ValueError):
-        preprocess._clone_or_copy_repository(repo, temp_dir)
+# Fixture to create a temporary directory
+@pytest.fixture(scope="module")
+def temp_directory():
+    os.makedirs(TEMP_DIR)
+    yield
+    shutil.rmtree(TEMP_DIR)
 
 
-# Test function raises ValueError for invalid local directory
-def test_copy_invalid_local_dir(temp_dir):
-    local_dir = "/path/to/invalid/dir"
-    with pytest.raises(ValueError):
-        preprocess._clone_or_copy_repository(local_dir, temp_dir)
+# Tests for helper functions
 
 
-# Test that git.Repo.clone_from is called with the correct arguments for a github url
-@patch("git.Repo.clone_from")
-def test_clone_from_called_for_github_url(mock_clone_from, temp_dir):
-    repo = "https://github.com/pytest-dev/pytest"
-    preprocess._clone_or_copy_repository(repo, temp_dir)
-    mock_clone_from.assert_called_once_with(repo, temp_dir)
+def test_clone_or_copy_repository_remote(temp_directory):
+    # Test cloning a remote repository
+    _clone_or_copy_repository(TEST_REPO, TEMP_DIR)
+    assert os.path.exists(os.path.join(TEMP_DIR, ".git"))
 
 
-# Test that shutil.copytree is called with the correct arguments for a local directory
-@patch("shutil.copytree")
-def test_copytree_called_for_local_dir(mock_copytree, temp_dir):
-    local_dir = "/path/to/local/dir"
-    Path(local_dir).mkdir(parents=True, exist_ok=True)
-    preprocess._clone_or_copy_repository(local_dir, temp_dir)
-    mock_copytree.assert_called_once_with(local_dir, temp_dir / "dir")
+def test_clone_or_copy_repository_local(temp_directory):
+    # Test copying a local directory
+    local_dir = os.path.join(TEST_DIR, "test_local_dir")
+    os.makedirs(local_dir)
+    with open(os.path.join(local_dir, "test_file.txt"), "w") as f:
+        f.write("Test file")
+    _clone_or_copy_repository(local_dir, TEMP_DIR)
+    assert os.path.exists(os.path.join(TEMP_DIR, "test_file.txt"))
 
 
-# Test that a ValueError is raised when the provided repository link is not valid
-def test_raise_value_error_for_invalid_repository_link(temp_dir):
-    with pytest.raises(ValueError):
-        preprocess._clone_or_copy_repository("invalidlink", temp_dir)
+def test_get_codebase_remote(temp_directory, monkeypatch):
+    # Test getting codebase from a remote repository
+    def mock_clone_from(url, temp_dir, depth=1):
+        os.makedirs(os.path.join(temp_dir, "subdir"))
+        with open(os.path.join(temp_dir, "subdir", "file.txt"), "w") as f:
+            f.write("Test file")
+
+    monkeypatch.setattr(git.Repo, "clone_from", mock_clone_from)
+
+    codebase = _get_codebase_remote(TEST_REPO)
+    assert "subdir/file.txt" in codebase
+    assert codebase["subdir/file.txt"] == "Test file"
 
 
-"""Tests for the _get_codebase_remote function."""
+def test_get_codebase_local(temp_directory):
+    # Test getting codebase from a local directory
+    local_dir = os.path.join(TEST_DIR, "test_local_dir")
+    os.makedirs(local_dir)
+    with open(os.path.join(local_dir, "test_file.txt"), "w") as f:
+        f.write("Test file")
+
+    codebase = get_codebase(local_dir)
+    assert "test_file.txt" in codebase
+    assert codebase["test_file.txt"] == "Test file"
 
 
-@pytest.fixture
-def remote_repo_url():
-    return "https://github.com/pytest-dev/pytest"
+def test_get_file_contents(temp_directory):
+    # Test getting file contents from a directory
+    os.makedirs(os.path.join(TEMP_DIR, "subdir"))
+    with open(os.path.join(TEMP_DIR, "subdir", "file.txt"), "w") as f:
+        f.write("Test file")
+
+    contents = _get_file_contents(TEMP_DIR)
+    assert "subdir/file.txt" in contents
+    assert contents["subdir/file.txt"] == "Test file"
 
 
-# Test that the function returns a dictionary
-def test_returns_dict(remote_repo_url):
-    result = preprocess._get_codebase_remote(remote_repo_url)
-    assert isinstance(result, dict)
+def test_get_file_extensions():
+    # Test getting file extensions
+    all_files = ["file1.py", "file2.txt", "file3.js"]
+    file_ext = {".py": ".py", ".js": ".js"}
+
+    file_extensions = _get_file_extensions(all_files, file_ext)
+    assert file_extensions == [".py", ".txt", ".js"]
 
 
-# Test that the function returns a non-empty dictionary
-def test_returns_non_empty_dict(remote_repo_url):
-    result = preprocess._get_codebase_remote(remote_repo_url)
-    assert len(result) > 0
+def test_get_file_parsers():
+    # Test getting file parsers
+    file_parsers = _get_file_parsers()
+    assert callable(file_parsers["requirements.txt"])
+    assert callable(file_parsers["Pipfile"])
 
 
-# Test that the function returns an empty dictionary for an invalid URL
-def test_returns_empty_dict_for_invalid_url():
-    invalid_url = "https://github.com/invalid/repo"
-    result = preprocess._get_codebase_remote(invalid_url)
-    assert len(result) == 0
+# Tests for main functions
 
 
-# Test that the function returns an empty dictionary for a non-existent URL
-def test_returns_empty_dict_for_non_existent_url():
-    non_existent_url = "https://github.com/non-existent/repo"
-    result = preprocess._get_codebase_remote(non_existent_url)
-    assert len(result) == 0
+def test_get_codebase_invalid_repo(temp_directory):
+    # Test getting codebase from an invalid repository
+    codebase = get_codebase("invalid_repo")
+    assert codebase == {}
 
 
-# Test that the function returns an empty dictionary for a non-Git URL
-def test_returns_empty_dict_for_non_git_url():
-    non_git_url = "https://www.google.com"
-    result = preprocess._get_codebase_remote(non_git_url)
-    assert len(result) == 0
+def test_get_project_dependencies(temp_directory, monkeypatch):
+    # Test getting project dependencies
+    def mock_clone_or_copy_repository(repo, temp_dir):
+        # Create dummy dependency files
+        for file_name in TEST_FILE_NAMES:
+            with open(os.path.join(temp_dir, file_name), "w") as f:
+                f.write("Test dependency")
+
+    monkeypatch.setattr(
+        "preprocess._clone_or_copy_repository", mock_clone_or_copy_repository
+    )
+    dependencies = get_project_dependencies(TEST_REPO, TEST_FILE_EXT, TEST_FILE_NAMES)
+    assert dependencies == ["Test dependency"] * 2 + TEST_FILE_EXT
 
 
-"""Tests for the _get_file_contents function."""
+def test_get_repo_name_remote():
+    # Test getting repository name from a remote URL
+    repo_name = get_repo_name(TEST_REPO)
+    assert repo_name == "test_repo"
 
 
-@pytest.fixture
-def test_dir(tmp_path):
-    test_file_1 = tmp_path / "test_file_1.txt"
-    test_file_2 = tmp_path / "test_file_2.bin"
-    test_file_1.write_text("Test file 1\n")
-    test_file_2.write_bytes(b"\x00\x01\x02")
-    return tmp_path
+def test_get_repo_name_local():
+    # Test getting repository name from a local path
+    local_path = os.path.join(TEST_DIR, "local_dir")
+    os.makedirs(local_path)
+    repo_name = get_repo_name(local_path)
+    assert repo_name == "local_dir"
 
 
-# Test that the function returns a dictionary
-def test_returns_dict(test_dir):
-    result = preprocess._get_file_contents(test_dir)
-    assert isinstance(result, dict)
+def test_reformat_sentence():
+    # Test reformatting a sentence
+    sentence = "Hello ,   world  !"
+    formatted_sentence = reformat_sentence(sentence)
+    assert formatted_sentence == "Hello, world!"
 
 
-# Test that the function returns a non-empty dictionary
-def test_returns_non_empty_dict(test_dir):
-    result = preprocess._get_file_contents(test_dir)
-    assert len(result) > 0
-
-
-# Test that the function returns an empty dictionary for an empty directory
-def test_returns_empty_dict_for_empty_directory(tmp_path):
-    result = preprocess._get_file_contents(tmp_path)
-    assert len(result) == 0
-
-
-# Test that the function returns an empty dictionary for a non-existent directory
-def test_returns_empty_dict_for_non_existent_directory():
-    result = preprocess._get_file_contents("non-existent-directory")
-    assert len(result) == 0
-
-
-# Test that the function returns file contents as expected
-def test_returns_file_contents(test_dir):
-    result = preprocess._get_file_contents(test_dir)
-    assert "Test file 1\n" in result.values()
-
-
-# Test that the function handles non-text or non-UTF-8 files gracefully
-def test_handles_non_text_or_non_utf8_files(test_dir):
-    result = preprocess._get_file_contents(test_dir)
-    assert "Could not decode content: non-text or non-UTF-8 file." in result.values()
+def test_valid_url():
+    # Test valid URL detection
+    assert valid_url("https://www.google.com/")
+    assert valid_url("ftp://ftp.example.com/")
+    assert not valid_url("www.example.com")

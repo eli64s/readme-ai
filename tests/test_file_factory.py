@@ -4,12 +4,12 @@ import os
 import tempfile
 import unittest
 
-from src import file_factory
+from src.file_factory import FileHandler, ReadFileError, WriteFileError
 
 
 class TestFileHandler(unittest.TestCase):
     def setUp(self):
-        self.file_handler = file_factory.FileHandler()
+        self.file_handler = FileHandler()
 
     def test_read_write_markdown(self):
         content = "# Markdown File\nThis is a test markdown file."
@@ -51,13 +51,21 @@ class TestFileHandler(unittest.TestCase):
         with tempfile.NamedTemporaryFile(
             mode="w+", delete=False, suffix=".txt"
         ) as temp:
-            with self.assertRaises(ValueError):
+            with self.assertRaises(ReadFileError):
                 self.file_handler.read(temp.name)
             os.remove(temp.name)
 
     def test_unsupported_action_type(self):
         with self.assertRaises(ValueError):
             self.file_handler.get_action("md", "invalid_action_type")
+
+    def test_read_failure(self):
+        with self.assertRaises(ReadFileError):
+            self.file_handler.read("nonexistent_file.txt")
+
+    def test_write_failure(self):
+        with self.assertRaises(WriteFileError):
+            self.file_handler.write("/path/does/not/exist/test.txt", "Content")
 
 
 if __name__ == "__main__":
