@@ -51,7 +51,7 @@ ignore = [
     ".ini",
     ".yml",
     ".yaml",
-    ".xml",
+    #".xml",
     ".properties",
     ".secret",
     ".key",

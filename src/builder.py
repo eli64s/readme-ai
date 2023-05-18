@@ -142,7 +142,7 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     conf : object
         Configuration object containing GitHub and markdown configurations.
     conf_helper : object
-        Configuration helper object containing file extensions and setup guides.
+        Configuration helper object containing file extensions and setup guide.
     df : pd.DataFrame
         DataFrame containing parsed information from project files.
 
@@ -159,7 +159,9 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     path = conf.github.path
 
     df["Language"] = df["Module"].apply(
-        lambda x: Path(x).suffix[1:] if Path(x).suffix[1:] not in ignore_files else None
+        lambda x: Path(x).suffix[1:]
+        if Path(x).suffix[1:] not in ignore_files and Path(x).suffix != ".xml"
+        else None
     )
     top_language = df["Language"].value_counts().idxmax()
 
@@ -169,14 +171,14 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
 
         LOGGER.info(f"Top project language: {top_language}")
         LOGGER.info(f"Top project language name: {language_name}")
-        LOGGER.info(f"{language_name} installation and setup: {language_setup}")
+        LOGGER.info(f"{language_name} installation & setup: {language_setup}")
 
         if language_setup:
             install_guide = language_setup[0]
             run_guide = language_setup[1]
 
     except KeyError as ke:
-        LOGGER.warning(f"KeyError: {ke}. Using default install and run guides.")
+        LOGGER.warning(f"KeyError: {ke}. Using default install and run guide.")
 
     md_setup_guide = conf.md.setup.format(
         name, path, name, install_guide, name, run_guide
@@ -187,7 +189,8 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
 
 def create_directory_tree(url: str) -> str:
     """
-    Creates a directory tree structure of the project based on its repository URL.
+    Creates a directory tree structure for the README.md
+    file based on the provided repository path or URL.
 
     Parameters
     ----------

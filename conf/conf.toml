@@ -1,7 +1,7 @@
 # OpenAI API language model parameters
 [api]
 api_key = ""
-prompt_intro = """Generate a short summary that describes the capabilities of the GitHub project {}."""
+prompt_intro = """Generate a 2-3 sentence summary that describes the capabilities of the GitHub project {}."""
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
 
 # Repository (local and remote)

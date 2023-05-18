@@ -139,6 +139,8 @@ def _get_file_parsers() -> Dict[str, callable]:
         A dictionary containing file parsers for various file types.
     """
     return {
+        "build.gradle": helper.parse_gradle,
+        "pom.xml": helper.parse_maven,
         "cargo.toml": helper.parse_cargo_toml,
         "cargo.lock": helper.parse_cargo_lock,
         "go.mod": helper.parse_go_mod,
@@ -251,9 +253,9 @@ def get_repo_name(path: Union[str, Path]) -> str:
     return repo_name
 
 
-def format_sentence(text: str) -> str:
+def reformat_sentence(text: str) -> str:
     """
-    Remove space between comma and period in a given string.
+    Remove extra spaces between punctuation marks
 
     Parameters
     ----------
@@ -265,7 +267,7 @@ def format_sentence(text: str) -> str:
     str
         The input string with spaces between comma and period removed.
     """
-    return re.sub(r",\s*\.", ",.", text)
+    return re.sub(r"\s*([.,:;?!])\s*", r"\1 ", text)
 
 
 def valid_url(s: str) -> bool:

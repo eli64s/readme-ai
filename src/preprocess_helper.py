@@ -155,3 +155,31 @@ def parse_go_sum(file_path: str) -> List[str]:
     dependencies = [match.group(1) for match in regex.finditer(content)]
 
     return dependencies
+
+
+# Java
+def parse_gradle(file_path):
+    with open(file_path) as file:
+        content = file.read()
+
+    regex = re.compile(r"implementation\s+['\"]([^'\"]+)['\"]")
+    dependencies = regex.findall(content)
+
+    return dependencies
+
+
+def parse_maven(file_path):
+    with open(file_path) as file:
+        content = file.read()
+
+    regex = re.compile(
+        r"<dependency>\s*<groupId>([^<]+)</groupId>\s*<artifactId>([^<]+)</artifactId>\s*<version>([^<]+)</version>"
+    )
+    dependencies = []
+    matches = regex.findall(content)
+    for match in matches:
+        group_id, artifact_id, version = match
+        dependency = f"{group_id}:{artifact_id}:{version}"
+        dependencies.append(dependency)
+
+    return dependencies

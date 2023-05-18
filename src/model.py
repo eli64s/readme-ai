@@ -10,7 +10,7 @@ import openai
 import spacy
 
 from logger import Logger
-from preprocess import format_sentence
+from preprocess import reformat_sentence
 
 ENGINE_ID = "text-davinci-003"
 ENGINE = f"https://api.openai.com/v1/engines/{ENGINE_ID}/completions"
@@ -123,7 +123,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
         json={
             "prompt": prompt,
             "temperature": 0,
-            "max_tokens": 50,
+            "max_tokens": 69,
             "top_p": 1,
             "frequency_penalty": 0.0,
             "presence_penalty": 0.0,
@@ -144,7 +144,7 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     file_summary = data["choices"][0]["text"]
     summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
     summary_spacy = spacy_text_processor(summary)
-    summary_spacy = format_sentence(summary_spacy)
+    summary_spacy = reformat_sentence(summary_spacy)
     return (file_path, summary_spacy)
 
 
@@ -166,7 +166,7 @@ def generate_summary_text(prompt: str) -> str:
     completions = openai.Completion.create(
         engine=ENGINE_ID,
         prompt=prompt,
-        max_tokens=40,
+        max_tokens=69,
     )
     generated_text = completions.choices[0].text
     return generated_text.lstrip()
