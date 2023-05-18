@@ -142,7 +142,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>6️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">README_6_JAVA.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_6_JAVA.md">README_6_JAVA.md</a></td>
       <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
       <td><p>18,240,095</p>
     </tr>
