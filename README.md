@@ -113,7 +113,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     <tr>
       <td>1️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">README_1_PY.md</a></td>
-      <td><a href="https://github.com/eli64s/readme-ai">readme-ai</a></td>
+      <td><a href="https://github.com/eli64s/README-AI">readme-ai</a></td>
       <td><p>15,459,624</p>
     </tr>
     <tr>
@@ -229,7 +229,7 @@ Command-Line Arguments:
 - `--remote` : Provide a URL of a remote GitHub repository.
 
 ```sh
-python src/main.py --api_key skabc0123456789 --output docs/README.md --remote https://github.com/eli64s/readme-ai
+python src/main.py --api_key skabc123 --output README_AI.md --remote https://github.com/eli64s/readme-ai
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.
@@ -275,7 +275,9 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## 🙏 Acknowledgments
 
-- Badge Icons: [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+*SVG Icons*
+  - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+  - [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>

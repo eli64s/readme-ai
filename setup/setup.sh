@@ -8,7 +8,22 @@ then
         brew install tree
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         # Linux
-        sudo apt-get update && sudo apt-get install tree
+        if [ -x "$(command -v apt-get)" ]; then
+            # Debian/Ubuntu
+            sudo apt-get update && sudo apt-get install tree
+        elif [ -x "$(command -v yum)" ]; then
+            # CentOS
+            sudo yum install tree
+        elif [ -x "$(command -v pacman)" ]; then
+            # Arch Linux
+            sudo pacman -S tree
+        elif [ -x "$(command -v zypper)" ]; then
+            # OpenSUSE
+            sudo zypper install tree
+        else
+            echo "Your Linux distribution's package manager is not supported. Please install 'tree' manually."
+            exit 1
+        fi
     elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
         # Windows
         choco install tree
