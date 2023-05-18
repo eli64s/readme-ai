@@ -114,31 +114,37 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <td>1️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">README_1_PY.md</a></td>
       <td><a href="https://github.com/eli64s/readme-ai">readme-ai</a></td>
-      <td><p>15459624</p>
+      <td><p>15,459,624</p>
     </tr>
     <tr>
       <td>2️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">README_2_PY.md</a></td>
       <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
-      <td><p>8698890</p>
+      <td><p>8,698,890</p>
     </tr>
     <tr>
       <td>3️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_JS.md">README_3_JS.md</a></td>
       <td><a href="https://github.com/philnash/react-web-audio">react-web-audio</a></td>
-      <td><p>533233</p>
+      <td><p>533,233</p>
     </tr>
     <tr>
       <td>4️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_RUST.md">README_4_RUST.md</a></td>
       <td><a href="https://github.com/MihaiBogdanEugen/contacts-cli">rust-contacts-cli</a></td>
-      <td><p>79104</p>
+      <td><p>79,104</p>
     </tr>
     <tr>
       <td>5️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">README_5_FastAPI.md</a></td>
       <td><a href="https://github.com/nofoobar/JobBoard-Fastapi">job-board-fastapi</a></td>
-      <td><p>75391521</p>
+      <td><p>75,391,521</p>
+    </tr>
+    <tr>
+      <td>6️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_6_JAVA.md">README_6_JAVA.md</a></td>
+      <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
+      <td><p>18,240,095</p>
     </tr>
   </table>
 </div>
