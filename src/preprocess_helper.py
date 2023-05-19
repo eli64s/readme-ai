@@ -24,8 +24,8 @@ def list_files(directory: str) -> List[str]:
 
 
 # Python
-def parse_conda_env_file(file_path):
-    with open(file_path) as f:
+def parse_conda_env_file(file):
+    with open(file) as f:
         data = yaml.safe_load(f)
     dependencies = []
     for package in data.get("dependencies", []):
@@ -38,12 +38,19 @@ def parse_conda_env_file(file_path):
 
 
 def parse_pipfile(file):
-    data = json.load(file)
+    with open(file) as f:
+        data = toml.load(f)
+
+    packages = data.get("packages", {})
+    dev_packages = data.get("dev-packages", {})
+
     dependencies = []
-    for section in ["packages", "dev-packages"]:
-        if section in data:
-            for package, version in data[section].items():
-                dependencies.append(package)
+    for package, version in packages.items():
+        dependencies.append(package)
+
+    for package, version in dev_packages.items():
+        dependencies.append(package)
+
     return dependencies
 
 
@@ -57,9 +64,9 @@ def parse_pyproject_toml(file):
     return dependencies
 
 
-def parse_requirements_file(file_path):
-    with open(file_path) as file:
-        lines = file.readlines()
+def parse_requirements_file(file):
+    with open(file) as f:
+        lines = f.readlines()
 
     module_names = []
     for line in lines:

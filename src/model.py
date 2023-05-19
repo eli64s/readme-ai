@@ -10,12 +10,13 @@ import openai
 import spacy
 
 from logger import Logger
-from preprocess import reformat_sentence
+from utils import reformat_sentence
 
 ENGINE_ID = "text-davinci-003"
 ENGINE = f"https://api.openai.com/v1/engines/{ENGINE_ID}/completions"
 LOGGER = Logger("readmeai_logger")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+MAX_TOKENS = 4096
 NLP = spacy.load("en_core_web_sm")
 
 
@@ -63,7 +64,7 @@ async def code_to_text(ignore_files: list, files: Dict[str, str]) -> Dict[str, s
 
         prompt = f"Create a summary description for this code: {raw_code}"
         prompt_length = len(prompt.split())
-        if prompt_length > 4096:
+        if prompt_length > MAX_TOKENS:
             LOGGER.debug(f"Prompt too long: {file_path}")
             tasks.append(
                 asyncio.create_task(
@@ -169,7 +170,7 @@ def generate_summary_text(prompt: str) -> str:
         max_tokens=69,
     )
     generated_text = completions.choices[0].text
-    return generated_text.lstrip()
+    return generated_text.lstrip().strip('"')
 
 
 def spacy_text_processor(text: str) -> str:

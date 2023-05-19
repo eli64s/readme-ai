@@ -44,7 +44,6 @@ async def generate_readme(
 
     repo = conf.github.path
     repo_contents = preprocess.get_codebase(repo)
-
     name = preprocess.get_repo_name(repo)
     conf.github.name = name
     file_exts = conf_helper.file_extensions
@@ -76,9 +75,7 @@ def check_arguments(
         raise typer.Exit(code=1)
 
     if not local and not remote:
-        typer.echo(
-            "Error: Please provide either a local directory path or a remote repository URL."
-        )
+        typer.echo("Error: Please provide either a local path or remote URL.")
         raise typer.Exit(code=1)
 
 

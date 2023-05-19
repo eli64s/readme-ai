@@ -20,15 +20,14 @@ def build(
     conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame
 ) -> None:
     """
-    Main function to build the README.md file using the provided configuration,
-    dependencies, and data. This function formats the content and saves it to file.
+    Handles the logic that builds the README.md file for your codebase.
 
     Parameters
     ----------
     conf : object
         Configuration object containing GitHub and markdown configurations.
     conf_helper : object
-        Configuration helper object containing file extensions and setup guides.
+        Configuration helper object containing file extensions and setup guide.
     dependencies : list
         List of project dependencies.
     df : pd.DataFrame
@@ -44,7 +43,7 @@ def build(
     md_dropdown = conf.md.dropdown
     md_modules = conf.md.modules
     md_setup = conf.md.setup
-    md_slogan = conf.md.slogan.strip('"')
+    md_slogan = conf.md.slogan
     md_toc = conf.md.toc
     md_tree = conf.md.tree
 
@@ -58,9 +57,19 @@ def build(
     md_tables = create_tables(df_cleaned, md_dropdown)
     md_repo = create_directory_tree(url)
     md_setup = create_setup_guide(conf, conf_helper, df_cleaned)
-    md_file = md_file.format(name, md_slogan, md_badges)
-    md_file = f"{md_file}{md_toc}{md_intro}{md_tree}{md_repo}"
-    md_file = f"{md_file}{md_modules}{md_tables}{md_setup}{md_close}"
+
+    # Store intermediate results and perform a single write operation
+    md_file_parts = []
+    md_file_parts.append(md_file.format(name, md_slogan, md_badges))
+    md_file_parts.append(md_toc)
+    md_file_parts.append(md_intro)
+    md_file_parts.append(md_tree)
+    md_file_parts.append(md_repo)
+    md_file_parts.append(md_modules)
+    md_file_parts.append(md_tables)
+    md_file_parts.append(md_setup)
+    md_file_parts.append(md_close)
+    md_file = "\n".join(md_file_parts)
 
     md_path = cwd_path / conf.paths.md
     handler.write(md_path, md_file)
@@ -243,6 +252,7 @@ def create_tables(df: pd.DataFrame, dropdown: str) -> str:
     str
         Formatted string with markdown tables for each sub-directory.
     """
+
     df["Sub-Directory"] = df["Module"].apply(
         lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Root"
     )
@@ -272,6 +282,7 @@ def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame
         Processed DataFrame with additional columns.
     """
+
     df["Directory"] = df["Module"].apply(lambda x: str(Path(x).parent))
     df["File"] = df["Module"].apply(lambda x: str(Path(x).name))
     return df

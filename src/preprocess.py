@@ -1,6 +1,5 @@
 """Handles preprocessing of the input codebase."""
 
-import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -11,6 +10,7 @@ import git
 
 import preprocess_helper as helper
 from logger import Logger
+from utils import valid_url
 
 ALLOWED_HOSTS = ["github.com"]
 LOGGER = Logger("readmeai_logger")
@@ -87,7 +87,7 @@ def _get_file_contents(directory: str) -> Dict[str, str]:
     Returns
     -------
     Dict[str, str]
-        A dictionary where the keys are file paths and values are the contents of the files.
+        Hashmap of file paths and their contents.
     """
     contents = {}
     for path in Path(directory).rglob("*"):
@@ -251,57 +251,3 @@ def get_repo_name(path: Union[str, Path]) -> str:
         repo_name = Path(path).name
 
     return repo_name
-
-
-def reformat_sentence(text: str) -> str:
-    """
-    Remove extra spaces between punctuation marks
-
-    Parameters
-    ----------
-    text : str
-        The input string.
-
-    Returns
-    -------
-    str
-        The input string with spaces between comma and period removed.
-    """
-    return re.sub(r"\s*([.,:;?!])\s*", r"\1 ", text)
-
-
-def valid_url(s: str) -> bool:
-    """
-    Check if a given string is a valid URL.
-
-    Parameters
-    ----------
-    s : str
-        The string to check.
-
-    Returns
-    -------
-    bool
-        Returns True if the string is a valid URL, False otherwise.
-
-    Raises
-    ------
-    None
-
-    Examples
-    --------
-    >>> is_url("https://www.google.com/")
-    True
-    >>> is_url("ftp://ftp.example.com/")
-    True
-    >>> is_url("www.example.com")
-    False
-    """
-    regex = re.compile(
-        r"^(?:http|ftp)s?://"  # http:// or https:// or ftp:// or ftps://
-        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,63}|[A-Z]{2,63}\.[A-Z]{2,63}))"
-        r"(?::\d+)?"  # optional port number
-        r"(?:/?|[/?]\S+)$",
-        re.IGNORECASE,
-    )
-    return bool(regex.match(s))

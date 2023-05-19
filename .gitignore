@@ -41,3 +41,6 @@ notebooks/
 
 # Ignore benchmarks
 .benchmarks/
+
+# Files in progress
+conf/templates/hackathon.md

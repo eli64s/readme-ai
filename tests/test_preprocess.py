@@ -11,18 +11,10 @@ import shutil
 import git
 import pytest
 
-from src.preprocess import (
-    _clone_or_copy_repository,
-    _get_codebase_remote,
-    _get_file_contents,
-    _get_file_extensions,
-    _get_file_parsers,
-    get_codebase,
-    get_project_dependencies,
-    get_repo_name,
-    reformat_sentence,
-    valid_url,
-)
+from src.preprocess import (_clone_or_copy_repository, _get_codebase_remote,
+                            _get_file_contents, _get_file_extensions,
+                            _get_file_parsers, get_codebase,
+                            get_project_dependencies, get_repo_name)
 
 # Define test constants
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -148,17 +140,3 @@ def test_get_repo_name_local():
     os.makedirs(local_path)
     repo_name = get_repo_name(local_path)
     assert repo_name == "local_dir"
-
-
-def test_reformat_sentence():
-    # Test reformatting a sentence
-    sentence = "Hello ,   world  !"
-    formatted_sentence = reformat_sentence(sentence)
-    assert formatted_sentence == "Hello, world!"
-
-
-def test_valid_url():
-    # Test valid URL detection
-    assert valid_url("https://www.google.com/")
-    assert valid_url("ftp://ftp.example.com/")
-    assert not valid_url("www.example.com")

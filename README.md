@@ -136,9 +136,9 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>5️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3.md">README_5_FastAPI.md</a></td>
-      <td><a href="https://github.com/nofoobar/JobBoard-Fastapi">job-board-fastapi</a></td>
-      <td><p>75,391,521</p>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3_FastAPI.md">README_5_FastAPI.md</a></td>
+      <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
+      <td><p>285,998</p>
     </tr>
     <tr>
       <td>6️⃣</td>
