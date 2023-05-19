@@ -43,4 +43,4 @@ notebooks/
 .benchmarks/
 
 # Files in progress
-conf/templates/hackathon.md
+docs/templates

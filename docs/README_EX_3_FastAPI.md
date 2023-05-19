@@ -42,7 +42,7 @@ async-ml-inference
 
 ## 📍Overview
 
-Async-ml-inference is a library created by Microsoft that facilitates the deployment of lightweight Python models directly to existing servers or the cloud. This library provides an easy to use API that offers a range of data handling, batching and streaming capabilities from the cloud or any inference server. It enables users to deploy models with a range of
+Async-ml-inference is a library created by Microsoft that facilitates the deployment of lightweight Python models directly to existing servers or the cloud. This library provides an easy to use API that offers a range of data handling, batching and streaming capabilities from the cloud or any inference server.
 
 ## 🔮 Feautres
 
