@@ -5,7 +5,7 @@ prompt_intro = """Generate a 2-3 sentence summary that describes the capabilitie
 prompt_slogan = """Generate a slogan for the GitHub project {}."""
 
 # Repository (local and remote)
-[github]
+[git]
 local = ""
 name = ""
 path = ""
