@@ -34,8 +34,8 @@ def build(
         DataFrame containing parsed information from project files.
     """
 
-    name = conf.github.name
-    url = conf.github.path
+    name = conf.git.name
+    url = conf.git.path
 
     md_file = conf.md.head
     md_close = conf.md.close
@@ -164,8 +164,8 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     run_guide = "[INSERT-RUN-GUIDE-HERE]"
 
     ignore_files = conf_helper.ignore_files
-    name = conf.github.name
-    path = conf.github.path
+    name = conf.git.name
+    path = conf.git.path
 
     df["Language"] = df["Module"].apply(
         lambda x: Path(x).suffix[1:]

@@ -20,7 +20,7 @@ class OpenAI:
 
 
 @dataclass
-class GitHub:
+class Git:
     local: str
     name: str
     path: str
@@ -54,7 +54,7 @@ class Paths:
 @dataclass
 class AppConf:
     api: OpenAI
-    github: GitHub
+    git: Git
     md: Markdown
     paths: Paths
 

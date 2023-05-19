@@ -42,10 +42,10 @@ async def generate_readme(
 
     set_command_line_arguments(api_key, conf, local, output, remote)
 
-    repo = conf.github.path
+    repo = conf.git.path
     repo_contents = preprocess.get_codebase(repo)
     name = preprocess.get_repo_name(repo)
-    conf.github.name = name
+    conf.git.name = name
     file_exts = conf_helper.file_extensions
     file_names = conf_helper.file_names
     ignore_files = conf_helper.ignore_files
@@ -91,11 +91,11 @@ def set_command_line_arguments(
     if output:
         conf.paths.md = output
     if local:
-        conf.github.path, conf.github.local = local, local
-        LOGGER.info(f"Using local directory: {conf.github.local}")
+        conf.git.path, conf.git.local = local, local
+        LOGGER.info(f"Using local directory: {conf.git.local}")
     if remote:
-        conf.github.path, conf.github.remote = remote, remote
-        LOGGER.info(f"Using GitHub remote repository: {conf.github.remote}")
+        conf.git.path, conf.git.remote = remote, remote
+        LOGGER.info(f"Using GitHub remote repository: {conf.git.remote}")
 
 
 async def generate_codebase_docs(

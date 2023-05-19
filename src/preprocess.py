@@ -12,7 +12,7 @@ import preprocess_helper as helper
 from logger import Logger
 from utils import valid_url
 
-ALLOWED_HOSTS = ["github.com"]
+ALLOWED_HOSTS = ["github.com", "gitlab.com"]
 LOGGER = Logger("readmeai_logger")
 
 
