@@ -56,7 +56,7 @@ def build(
     summaries = parse_pandas_cols(summaries)
     md_badges = get_badges(json_dict, dependency_list)
     md_tables = create_tables(summaries, md_dropdown)
-    md_repo = create_directory_tree(conf.git.path)
+    md_repo = create_directory_tree(conf.git.repository)
     md_setup = create_setup_guide(conf, conf_helper, summaries)
 
     # Store intermediate results and perform a single write operation
@@ -168,7 +168,7 @@ def create_setup_guide(
     run_guide = "[INSERT-RUN_INSTRUCTIONS_HERE]"
     ignore_files = conf_helper.ignore_files
     name = conf.git.name
-    path = conf.git.path
+    source = conf.git.repository
 
     summaries["Language"] = summaries["Module"].apply(
         lambda x: Path(x).suffix[1:]
@@ -192,7 +192,7 @@ def create_setup_guide(
         LOGGER.warning(f"KeyError: {ke}. Using default setup guide.")
 
     md_setup_guide = conf.md.setup.format(
-        name, path, name, install_guide, name, run_guide
+        name, source, name, install_guide, name, run_guide
     )
 
     return md_setup_guide

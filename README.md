@@ -229,12 +229,11 @@ Use the command-line to provide the OpenAI API key (if not already set) and spec
 Command-Line Arguments:
 
 - `--api_key` : Provide your OpenAI API key.
-- `--local`  : Provide the full path of a local repository.
 - `--output` : Provide a path where to write the output file.
-- `--remote` : Provide a URL of a remote Git repository.
+- `--repository` : Provide a remote Git URL or a local directory on your machine.
 
 ```sh
-python src/main.py --api_key skabc123 --output README_AI.md --remote https://github.com/eli64s/README-AI
+python src/main.py --api_key skabc123 --output README_AI.md --repository https://github.com/eli64s/README-AI
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.

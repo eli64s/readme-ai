@@ -134,7 +134,7 @@ async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
         raise OpenAIError("OpenAI response missing 'choices' field.")
 
     file_summary = data["choices"][0]["text"]
-    
+
     summary = spacy_text_processor(file_summary)
     summary = reformat_sentence(summary)
 

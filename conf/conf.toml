@@ -7,10 +7,8 @@ prompt_code_to_text = """Generate a robust, yet succint summary for this code: {
 
 # Repository (local and remote)
 [git]
-local = ""
-path = ""
 name = ""
-remote = "https://github.com/eli64s/readme-ai"
+repository = "https://github.com/eli64s/readme-ai"
 
 # Paths
 [paths]

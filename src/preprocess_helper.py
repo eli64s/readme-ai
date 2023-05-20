@@ -2,7 +2,6 @@
 
 import json
 import re
-from pathlib import Path
 from typing import List
 
 import toml
@@ -11,16 +10,6 @@ import yaml
 from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
-
-
-def list_files(directory: str) -> List[str]:
-    try:
-        path = Path(directory)
-        if not path.exists():
-            return []
-        return [str(p) for p in path.glob("**/*") if p.is_file()]
-    except (OSError, TypeError):
-        return []
 
 
 # Python

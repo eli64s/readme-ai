@@ -51,59 +51,9 @@ def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
     raise ValueError("Repository path or URL is not valid.")
 
 
-def _get_codebase_remote(url: str) -> Dict[str, str]:
-    """
-    Clone a remote repository and get the contents of all the files.
-
-    Parameters
-    ----------
-    url : str
-        The URL of the remote repository.
-
-    Returns
-    -------
-    Dict[str, str]
-        A dictionary where the keys are file paths and values are the contents of the files.
-    """
-    try:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            git.Repo.clone_from(url, temp_dir, depth=1)
-            files = _get_file_contents(temp_dir)
-            return files
-    except git.GitCommandError as e:
-        print(f"Error cloning repository from {url}: {e}")
-        return {}
-
-
-def _get_file_contents(directory: str) -> Dict[str, str]:
-    """
-    Get the contents of all the files in a directory.
-
-    Parameters
-    ----------
-    directory : str
-        The path to the directory.
-
-    Returns
-    -------
-    Dict[str, str]
-        Hashmap of file paths and their contents.
-    """
-    contents = {}
-    for path in Path(directory).rglob("*"):
-        if path.is_file():
-            try:
-                with open(path, encoding="utf-8") as f:
-                    lines = f.readlines()
-                    contents[path.relative_to(directory)] = "".join(lines)
-            except UnicodeDecodeError:
-                contents[
-                    path.relative_to(directory)
-                ] = "Could not decode content: non-text or non-UTF-8 file."
-    return contents
-
-
-def _get_file_extensions(files: List[str], language_names: Dict[str, str]) -> List[str]:
+def _extract_programming_languages(
+    files: List[str], language_names: Dict[str, str]
+) -> List[str]:
     """
     Returns a list of unique file extensions present in the provided list
     of file paths, along with any additional file extensions defined in
@@ -111,7 +61,7 @@ def _get_file_extensions(files: List[str], language_names: Dict[str, str]) -> Li
 
     Parameters
     ----------
-    all_files : List[str]
+    files : List[str]
         A list of file paths.
     language_names : Dict[str, str]
         A dictionary mapping file extensions to their full name.
@@ -123,12 +73,39 @@ def _get_file_extensions(files: List[str], language_names: Dict[str, str]) -> Li
         file paths, along with any additional file extensions defined in
         sthe language_names dictionary.
     """
-
     ext_list = list({Path(f).suffix[1:] for f in files})
     languages = ext_list + [
         language_names[key] for key in ext_list if key in language_names
     ]
     return languages
+
+
+def _extract_repository_contents(source: str) -> Dict[str, str]:
+    """
+    Retrieve the contents of all the files from a local or remote repository.
+
+    Parameters
+    ----------
+    source : str
+        The path or url to the repository.
+
+    Returns
+    -------
+    Dict[str, str]
+        Hashmap of file paths and their contents.
+    """
+    contents = {}
+    for path in Path(source).rglob("*"):
+        if path.is_file():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    lines = f.readlines()
+                    contents[path.relative_to(source)] = "".join(lines)
+            except UnicodeDecodeError:
+                contents[
+                    path.relative_to(source)
+                ] = "Could not decode content: non-text or non-UTF-8 file."
+    return contents
 
 
 def _get_file_parsers() -> Dict[str, callable]:
@@ -161,76 +138,113 @@ def _get_file_parsers() -> Dict[str, callable]:
     }
 
 
-def get_codebase(repo_path: str) -> Dict[str, str]:
+def _get_remote_repository(url: str) -> Dict[str, str]:
     """
-    Get the contents of all the files in a directory or a remote repository.
+    Clone a remote repository and get the contents of all the files.
 
     Parameters
     ----------
-    local : str
-        The path to the local directory.
-    remote: str, optional
-        The URL of the remote repository, by default None.
+    url : str
+        The URL of the remote repository.
 
     Returns
     -------
     Dict[str, str]
-        A dictionary where the keys are file paths and
-        values are the contents of the files.
+        A dictionary where the keys are file paths and values are the contents of the files.
     """
+    try:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            git.Repo.clone_from(url, temp_dir, depth=1)
+            files = _extract_repository_contents(temp_dir)
+            return files
+    except git.GitCommandError as e:
+        print(f"Error cloning repository from {url}: {e}")
+        return {}
 
-    if valid_url(repo_path):
-        return _get_codebase_remote(repo_path)
-    else:
-        return _get_file_contents(repo_path)
 
-
-def get_project_dependencies(
-    repo: str, language_names: List[str], dependency_files: List[str]
+def extract_dependencies(
+    dependency_files: List[str], languages: List[str], repository: str
 ) -> List[str]:
     """
-    Get the dependencies of a project.
+    Extract the dependencies of a project.
 
     Parameters
     ----------
-    repo : str
-        The URL of the repository or the path to the local directory.
-    language_names : List[str]
-        A list of file extensions to consider.
-    dependency_files : List[str]
+    dependency_file_names : List[str]
         A list of file names to consider.
+    languages : List[str]
+        A list of file extensions to consider.
+    repository : str
+        The URL of the repository or the path to the local directory.
 
     Returns
     -------
     List[str]
-        A list of dependencies.
+        List of project dependencies and software packages.
     """
-    if not repo:
+    if not repository:
         return []
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        _clone_or_copy_repository(repo, temp_dir)
+        _clone_or_copy_repository(repository, temp_dir)
 
         file_parsers = _get_file_parsers()
-        files = helper.list_files(temp_dir)
+        all_files = get_repository_files(temp_dir)
 
         dependencies = []
-        dependency_files = [f for f in files if Path(f).name in dependency_files]
-        for f in dependency_files:
-            parse_fn = file_parsers.get(Path(f).name)
-            if parse_fn:
-                packages = parse_fn(f)
-                dependencies.append(packages)
+        dependency_file_set = set(dependency_files)
+        relevant_files = [
+            file for file in all_files if Path(file).name in dependency_file_set
+        ]
+        for file in relevant_files:
+            parser = file_parsers.get(Path(file).name)
+            if parser:
+                dependencies.append(parser(file))
 
-        languages = _get_file_extensions(files, language_names)
+        languages = _extract_programming_languages(all_files, languages)
         dependencies.append(languages)
-        technologies = sum(dependencies, [])
-        technologies = [p.lower() for p in technologies]
+        packages = [tech.lower() for sublist in dependencies for tech in sublist]
 
-        return list(set(technologies))
+        return list(set(packages))
 
 
-def get_repo_name(path: Union[str, Path]) -> str:
+def get_repository(source: str) -> Dict[str, str]:
+    """
+    Retrieves the contents of all the files from a local or remote repository.
+
+    Parameters
+    ----------
+    source : str
+        The path or url to the repository.
+    Returns
+    -------
+    Dict[str, str]
+        Hashmap of file paths and their contents.
+    """
+
+    if valid_url(source):
+        return _get_remote_repository(source)
+    else:
+        return _extract_repository_contents(source)
+
+
+def get_repository_files(directory: str) -> List[str]:
+    """Returns a list of file names in the provided directory."""
+    file_list = []
+    try:
+        path = Path(directory)
+        if not path.exists():
+            LOGGER.error(f"Invalid repository path: {directory}.")
+        else:
+            file_list = [str(p) for p in path.glob("**/*") if p.is_file()]
+
+    except (OSError, TypeError) as err:
+        LOGGER.error(f"Error reading repository contents: {err}")
+
+    return file_list
+
+
+def get_repository_name(path: Union[str, Path]) -> str:
     """
     Returns the name of a repository from its URL or local path.
 

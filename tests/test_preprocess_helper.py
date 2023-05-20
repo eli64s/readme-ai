@@ -1,20 +1,12 @@
 """Unit tests for preprocess_helper.py."""
 
 import json
-import os
 from tempfile import NamedTemporaryFile
 
 import toml
 import yaml
 
 from src.preprocess_helper import *
-
-
-# Test list_files function
-def test_list_files():
-    temp_dir = os.path.dirname(os.path.abspath(__file__))
-    files = list_files(temp_dir)
-    assert isinstance(files, list)
 
 
 # Test parse_conda_env_file function

@@ -21,7 +21,10 @@ def reformat_sentence(text: str) -> str:
     text = re.sub(r"^[^a-zA-Z]*", "", text)
 
     # Remove extra white space around punctuation
-    reformatted_text = re.sub(r"\s*([()'.,!?;:-])(?!\.\s*\w)", r"\1", text)
+    reformatted_text = re.sub(r"\s*([()'.,!?;:])(?!\.\s*\w)", r"\1", text)
+
+    # Remove extra white space around hyphens
+    reformatted_text = re.sub(r"\s*-\s*", "-", reformatted_text)
 
     return reformatted_text
 

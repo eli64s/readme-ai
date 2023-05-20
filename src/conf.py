@@ -26,10 +26,8 @@ class OpenAIConfig:
 class GitConfig:
     """Git configuration."""
 
-    local: str
     name: str
-    path: str
-    remote: str
+    repository: str
 
 
 @dataclass

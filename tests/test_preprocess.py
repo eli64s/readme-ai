@@ -10,10 +10,12 @@ import shutil
 import git
 import pytest
 
-from src.preprocess import (_clone_or_copy_repository, _get_codebase_remote,
-                            _get_file_contents, _get_file_extensions,
-                            _get_file_parsers, get_codebase,
-                            get_project_dependencies, get_repo_name)
+from src.preprocess import (_clone_or_copy_repository,
+                            _extract_programming_languages,
+                            _extract_repository_contents, _get_file_parsers,
+                            _get_remote_repository, extract_dependencies,
+                            get_repository, get_repository_files,
+                            get_repository_name)
 
 # Define test constants
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -50,7 +52,7 @@ def test_clone_or_copy_repository_local(temp_directory):
     assert os.path.exists(os.path.join(TEMP_DIR, "test_file.txt"))
 
 
-def test_get_codebase_remote(temp_directory, monkeypatch):
+def test_get_remote_repository(temp_directory, monkeypatch):
     # Test getting codebase from a remote repository
     def mock_clone_from(url, temp_dir, depth=1):
         os.makedirs(os.path.join(temp_dir, "subdir"))
@@ -59,40 +61,40 @@ def test_get_codebase_remote(temp_directory, monkeypatch):
 
     monkeypatch.setattr(git.Repo, "clone_from", mock_clone_from)
 
-    codebase = _get_codebase_remote(TEST_REPO)
+    codebase = _get_remote_repository(TEST_REPO)
     assert "subdir/file.txt" in str(codebase)
     assert codebase["subdir/file.txt"] == "Test file"
 
 
-def test_get_codebase_local(temp_directory):
+def test_get_repository_local(temp_directory):
     # Test getting codebase from a local directory
     local_dir = os.path.join(TEST_DIR, "test_local_dir")
     os.makedirs(local_dir)
     with open(os.path.join(local_dir, "test_file.txt"), "w") as f:
         f.write("Test file")
 
-    codebase = get_codebase(local_dir)
+    codebase = get_repository(local_dir)
     assert "test_file.txt" in codebase
     assert codebase["test_file.txt"] == "Test file"
 
 
-def test_get_file_contents(temp_directory):
+def test_extract_repository_contents(temp_directory):
     # Test getting file contents from a directory
     os.makedirs(os.path.join(TEMP_DIR, "subdir"))
     with open(os.path.join(TEMP_DIR, "subdir", "file.txt"), "w") as f:
         f.write("Test file")
 
-    contents = _get_file_contents(TEMP_DIR)
+    contents = _extract_repository_contents(TEMP_DIR)
     assert "subdir/file.txt" in contents
     assert contents["subdir/file.txt"] == "Test file"
 
 
-def test_get_file_extensions():
+def test_extract_programming_language():
     # Test getting file extensions
     all_files = ["file1.py", "file2.txt", "file3.js"]
     file_ext = {".py": ".py", ".js": ".js"}
 
-    file_extensions = _get_file_extensions(all_files, file_ext)
+    file_extensions = _extract_programming_language(all_files, file_ext)
     assert file_extensions == [".py", ".txt", ".js"]
 
 
@@ -106,13 +108,13 @@ def test_get_file_parsers():
 # Tests for main functions
 
 
-def test_get_codebase_invalid_repo(temp_directory):
+def test_get_repository_invalid_repo(temp_directory):
     # Test getting codebase from an invalid repository
-    codebase = get_codebase("invalid_repo")
+    codebase = get_repository("invalid_repo")
     assert codebase == {}
 
 
-def test_get_project_dependencies(temp_directory, monkeypatch):
+def test_extract_dependencies(temp_directory, monkeypatch):
     # Test getting project dependencies
     def mock_clone_or_copy_repository(repo, temp_dir):
         # Create dummy dependency files
@@ -123,19 +125,25 @@ def test_get_project_dependencies(temp_directory, monkeypatch):
     monkeypatch.setattr(
         "preprocess._clone_or_copy_repository", mock_clone_or_copy_repository
     )
-    dependencies = get_project_dependencies(TEST_REPO, TEST_FILE_EXT, TEST_FILE_NAMES)
+    dependencies = extract_dependencies(TEST_REPO, TEST_FILE_EXT, TEST_FILE_NAMES)
     assert dependencies == ["Test dependency"] * 2 + TEST_FILE_EXT
 
 
-def test_get_repo_name_remote():
+def test_get_repository_name_remote():
     # Test getting repository name from a remote URL
-    repo_name = get_repo_name(TEST_REPO)
+    repo_name = get_repository_name(TEST_REPO)
     assert repo_name == "test_repo"
 
 
-def test_get_repo_name_local():
+def test_get_repository_name_local():
     # Test getting repository name from a local path
     local_path = os.path.join(TEST_DIR, "local_dir")
     os.makedirs(local_path)
-    repo_name = get_repo_name(local_path)
+    repo_name = get_repository_name(local_path)
     assert repo_name == "local_dir"
+
+
+def test_get_repository_files():
+    temp_dir = os.path.dirname(os.path.abspath(__file__))
+    files = get_repository_files(temp_dir)
+    assert isinstance(files, list)

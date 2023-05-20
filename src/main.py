@@ -2,6 +2,7 @@
 
 import asyncio
 import os
+from pathlib import Path
 from typing import Optional
 
 import dacite
@@ -17,95 +18,80 @@ from file_factory import FileHandler
 from logger import Logger
 
 app = typer.Typer()
-CONFIG_FILE = "conf/conf.toml"
+CONFIG = Path("conf/conf.toml")
 LOGGER = Logger("readmeai_logger")
+
+
+def validate_repository(repository: Optional[str]) -> None:
+    """Validates the repository argument."""
+    if repository:
+        if not repository.startswith("http"):
+            if not Path(repository).exists():
+                typer.echo("Error: Path to repository does not exist.")
+                raise typer.Exit(code=1)
+    else:
+        typer.echo("Error: Invalid or missing repository URL or path.")
+        raise typer.Exit(code=1)
+
+
+def set_api_key(api_key: Optional[str]) -> None:
+    """Sets the OpenAI API key."""
+    if api_key or os.getenv("OPENAI_API_KEY"):
+        openai.api_key = api_key
+    else:
+        typer.echo("Error: Invalid or missing OpenAI API key.")
+        raise typer.Exit(code=1)
 
 
 @app.command()
 def main(
     api_key: Optional[str] = typer.Option(None, help="Your OpenAI API key."),
-    local: Optional[str] = typer.Option(None, help="Path to local repository."),
     output: str = typer.Option("README_AI.md", help="Path to your README file."),
-    remote: Optional[str] = typer.Option(None, help="URL to remote repository."),
+    repository: Optional[str] = typer.Option(None, help="Repository url or path."),
 ) -> None:
     """Generates README.md file for your repository using OpenAI's GPT APIs."""
-    check_arguments(api_key, local, remote)
-    asyncio.run(generate_readme(api_key, local, output, remote))
+    set_api_key(api_key)
+    validate_repository(repository)
+    asyncio.run(generate_readme(output, repository))
 
 
-def check_arguments(
-    api_key: Optional[str], local: Optional[str], remote: Optional[str]
-) -> None:
-    """Validates the command line arguments."""
-    if not os.getenv("OPENAI_API_KEY") and not api_key:
-        typer.echo("Error: Please provide your OpenAI API key.")
-        raise typer.Exit(code=1)
-
-    if not local and not remote:
-        typer.echo("Error: Please provide a local path or remote url.")
-        raise typer.Exit(code=1)
-
-
-async def generate_readme(
-    api_key: Optional[str], local: Optional[str], output: str, remote: Optional[str]
-) -> None:
+async def generate_readme(output: str, repository: str) -> None:
     """Orchestrates the execution of the README-AI application."""
     LOGGER.info("README-AI is now executing.")
 
-    conf = load_configuration(CONFIG_FILE)
+    conf = load_configuration(CONFIG)
     conf_helper = load_configuration_helper(conf)
 
-    set_command_line_arguments(api_key, conf, local, output, remote)
-
-    repo = conf.git.path
-    repo_contents = preprocess.get_codebase(repo)
-    conf.git.name = preprocess.get_repo_name(repo)
-    dependency_list = preprocess.get_project_dependencies(
-        repo, conf_helper.language_names, conf_helper.dependency_files
+    conf.paths.md = output
+    conf.git.repository = repository
+    conf.git.name = preprocess.get_repository_name(repository)
+    file_contents = preprocess.get_repository(repository)
+    dependency_list = preprocess.extract_dependencies(
+        conf_helper.dependency_files, conf_helper.language_names, repository
     )
 
-    LOGGER.info(f"Total files to document: {len(repo_contents)}")
+    LOGGER.info(f"Total files to document: {len(file_contents)}")
     LOGGER.info(f"\nProject dependencies list: {dependency_list}\n")
 
-    summaries = await generate_code_summaries(
-        conf, conf_helper.ignore_files, repo_contents
-    )
+    summaries = await llm_text_generation(conf, file_contents, conf_helper.ignore_files)
     summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
+
     LOGGER.info(f"OpenAI LLM generated code summaries:\n\n{summaries}\n")
 
-    build_readme(conf, conf_helper, summaries, dependency_list)
+    build_readme(conf, conf_helper, dependency_list, summaries)
+
     LOGGER.info("README-AI execution complete.\n")
 
 
-def set_command_line_arguments(
-    api_key: Optional[str],
-    conf: AppConfig,
-    local: Optional[str],
-    output: str,
-    remote: Optional[str],
-) -> None:
-    """Validates and sets the command line arguments accordingly."""
-    if api_key:
-        openai.api_key = api_key
-    if output:
-        conf.paths.md = output
-    if local:
-        conf.git.path, conf.git.local = local, local
-        LOGGER.info(f"Using local repository: {conf.git.local}")
-    if remote:
-        conf.git.path, conf.git.remote = remote, remote
-        LOGGER.info(f"Using remote repository: {conf.git.remote}")
-
-
-async def generate_code_summaries(
-    conf: AppConfig, ignore_files: list, repo_contents: list
+async def llm_text_generation(
+    conf: AppConfig, file_contents: list, ignore_files: list
 ) -> list:
     """Generate code summaries for all files in a repository."""
     name = conf.git.name
     prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
     prompt_code = conf.api.prompt_code_to_text
-    code_summaries = await model.code_to_text(ignore_files, repo_contents, prompt_code)
+    code_summaries = await model.code_to_text(ignore_files, file_contents, prompt_code)
     intro = model.generate_summary_text(prompt_intro.format(name))
     slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(intro)
@@ -117,8 +103,8 @@ async def generate_code_summaries(
 def build_readme(
     conf: AppConfig,
     conf_helper: ConfigHelper,
-    summaries: pd.DataFrame,
     dependency_list: list,
+    summaries: pd.DataFrame,
 ) -> None:
     """Builds the README Markdown file."""
     summaries.to_csv(conf.paths.docs, index=False)
