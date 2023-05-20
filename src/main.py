@@ -22,6 +22,22 @@ CONFIG = Path("conf/conf.toml")
 LOGGER = Logger("readmeai_logger")
 
 
+def set_api_key(api_key: Optional[str]) -> None:
+    """
+    Validate OpenAI API key exists as an
+    environment variable or as an argument.
+    """
+    if api_key:
+        openai.api_key = api_key
+    else:
+        api_key = os.environ["OPENAI_API_KEY"]
+        if api_key:
+            openai.api_key = api_key
+        else:
+            typer.echo("Error: Invalid or missing OpenAI API key.")
+            raise typer.Exit(code=1)
+
+
 def validate_repository(repository: Optional[str]) -> None:
     """Validates the repository argument."""
     if repository:
@@ -31,15 +47,6 @@ def validate_repository(repository: Optional[str]) -> None:
                 raise typer.Exit(code=1)
     else:
         typer.echo("Error: Invalid or missing repository URL or path.")
-        raise typer.Exit(code=1)
-
-
-def set_api_key(api_key: Optional[str]) -> None:
-    """Sets the OpenAI API key."""
-    if api_key or os.getenv("OPENAI_API_KEY"):
-        openai.api_key = api_key
-    else:
-        typer.echo("Error: Invalid or missing OpenAI API key.")
         raise typer.Exit(code=1)
 
 

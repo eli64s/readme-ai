@@ -6,21 +6,18 @@ from typing import Dict, Tuple
 
 import httpx
 import openai
-import spacy
 from cachetools import TTLCache
 
 from logger import Logger
 from utils import reformat_sentence
 
+LOGGER = Logger("readmeai_logger")
 ENGINE = "text-davinci-003"
-ENDPOINT = f"https://api.openai.com/v1/engines/{ENGINE}/completions"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MAX_TOKENS = 4096
 
-NLP = spacy.load("en_core_web_sm")
-LOGGER = Logger("readmeai_logger")
 
-# Add TTLCache with maximum size of 500 items and 600 seconds of TTL.
+# Add TTLCache with a maximum size of 500 items and 600 seconds of TTL.
 cache = TTLCache(maxsize=500, ttl=600)
 
 http_client = httpx.AsyncClient(
@@ -55,6 +52,7 @@ async def code_to_text(
         A dictionary where the keys are file paths and values are raw code.
     prompt : str
         The prompt to send to OpenAI's GPT API.
+
     Returns
     -------
     Dict[str, str]
@@ -68,20 +66,17 @@ async def code_to_text(
             LOGGER.debug(f"Skipping file: {path}")
             continue
 
-        LOGGER.info(f"Davinci processing: {path}")
-
         prompt_code = prompt.format(contents)
-        prompt_length = len(prompt_code.split())
+        prompt_len = len(prompt_code.split())
 
-        if prompt_length > MAX_TOKENS:
+        if prompt_len > MAX_TOKENS:
             err = "Prompt exceeds max token limit: {}"
             tasks.append(
-                asyncio.create_task(null_summary(path, err.format(prompt_length)))
+                asyncio.create_task(null_summary(path, err.format(prompt_len)))
             )
             LOGGER.debug(err.format(prompt_code))
             continue
 
-        # Use async client with connection pooling
         tasks.append(asyncio.create_task(fetch_summary(path, prompt_code)))
 
     results = await asyncio.gather(*tasks)
@@ -106,42 +101,44 @@ async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
         A tuple containing the file path and the generated summary text.
     """
 
-    # Use cache if the same prompt has already been fetched
     if prompt in cache:
         return (file, cache[prompt])
 
-    response = await http_client.post(
-        ENDPOINT,
-        json={
-            "prompt": prompt,
-            "temperature": 0,
-            "max_tokens": 69,
-            "top_p": 1,
-            "frequency_penalty": 0.0,
-            "presence_penalty": 0.0,
-        },
-        headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
-    )
+    try:
+        LOGGER.info(f"Davinci processing: {file}")
 
-    if response.status_code != 200:
-        LOGGER.error(f"Error fetching summary for {file}: {response.text}")
+        response = await http_client.post(
+            f"https://api.openai.com/v1/engines/{ENGINE}/completions",
+            json={
+                "prompt": prompt,
+                "temperature": 0,
+                "max_tokens": 1024,
+                "top_p": 1,
+                "frequency_penalty": 0.0,
+                "presence_penalty": 0.0,
+            },
+            headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
+        )
+
+        if response.status_code != 200:
+            LOGGER.error(f"Error fetching summary for {file}: {response.text}")
+            return (file, "Error generating file summary.")
+
+        response.raise_for_status()
+        data = response.json()
+
+        if "choices" not in data or len(data["choices"]) == 0:
+            raise OpenAIError("OpenAI response missing 'choices' field.")
+
+        summary = data["choices"][0]["text"]
+        summary = reformat_sentence(summary)
+        cache[prompt] = summary
+
+        return (file, summary)
+
+    except Exception as e:
+        LOGGER.error(f"Error fetching summary for {file}: {str(e)}")
         return (file, "Error generating file summary.")
-
-    response.raise_for_status()
-    data = response.json()
-
-    if "choices" not in data or len(data["choices"]) == 0:
-        raise OpenAIError("OpenAI response missing 'choices' field.")
-
-    file_summary = data["choices"][0]["text"]
-
-    summary = spacy_text_processor(file_summary)
-    summary = reformat_sentence(summary)
-
-    # Add file summary to cache
-    cache[prompt] = summary
-
-    return (file, summary)
 
 
 def generate_summary_text(prompt: str) -> str:
@@ -172,7 +169,7 @@ def generate_summary_text(prompt: str) -> str:
 async def null_summary(file: str, summary: str) -> Tuple[str, str]:
     """
     Provides a placeholder summary tuple for scenarios when the
-    the OpenAI API fails to generate a summary from the prompt.
+    OpenAI API fails to generate a summary from the prompt.
 
     Parameters
     ----------
@@ -188,22 +185,3 @@ async def null_summary(file: str, summary: str) -> Tuple[str, str]:
     """
 
     return (file, summary)
-
-
-def spacy_text_processor(text: str) -> str:
-    """
-    Process a text string using Spacy's NLP pipeline.
-
-    Parameters
-    ----------
-    text : str
-        The text to process.
-
-    Returns
-    -------
-    str
-        The processed text.
-    """
-    doc = NLP(text)
-    processed_text = " ".join([token.text for token in doc])
-    return processed_text

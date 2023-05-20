@@ -2,6 +2,10 @@
 
 import re
 
+import spacy
+
+NLP = spacy.load("en_core_web_sm")
+
 
 def reformat_sentence(text: str) -> str:
     """
@@ -27,6 +31,25 @@ def reformat_sentence(text: str) -> str:
     reformatted_text = re.sub(r"\s*-\s*", "-", reformatted_text)
 
     return reformatted_text
+
+
+def spacy_text_processor(text: str) -> str:
+    """
+    Process a text string using Spacy's NLP pipeline.
+
+    Parameters
+    ----------
+    text : str
+        The text to process.
+
+    Returns
+    -------
+    str
+        The processed text.
+    """
+    doc = NLP(text)
+    processed_text = " ".join([token.text for token in doc])
+    return processed_text
 
 
 def valid_url(s: str) -> bool:

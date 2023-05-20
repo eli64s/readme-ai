@@ -69,6 +69,10 @@ ignore_files = [
     "*.o",
 
     # Version control
+    ".flake8",
+    ".dvc",
+    ".dvcignore",
+    ".gitignore",
     ".git",
     ".svn",
     ".hg",
