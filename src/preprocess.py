@@ -103,17 +103,17 @@ def _get_file_contents(directory: str) -> Dict[str, str]:
     return contents
 
 
-def _get_file_extensions(all_files: List[str], file_ext: Dict[str, str]) -> List[str]:
+def _get_file_extensions(files: List[str], language_names: Dict[str, str]) -> List[str]:
     """
     Returns a list of unique file extensions present in the provided list
     of file paths, along with any additional file extensions defined in
-    the file_ext dictionary.
+    the language_names configuration.
 
     Parameters
     ----------
     all_files : List[str]
         A list of file paths.
-    file_ext : Dict[str, str]
+    language_names : Dict[str, str]
         A dictionary mapping file extensions to additional file extensions.
 
     Returns
@@ -121,12 +121,14 @@ def _get_file_extensions(all_files: List[str], file_ext: Dict[str, str]) -> List
     List[str]
         A list of unique file extensions present in the provided list of
         file paths, along with any additional file extensions defined in
-        sthe file_ext dictionary.
+        sthe language_names dictionary.
     """
 
-    ext_list = list({Path(f).suffix[1:] for f in all_files})
-    file_extensions = ext_list + [file_ext[key] for key in ext_list if key in file_ext]
-    return file_extensions
+    ext_list = list({Path(f).suffix[1:] for f in files})
+    languages = ext_list + [
+        language_names[key] for key in ext_list if key in language_names
+    ]
+    return languages
 
 
 def _get_file_parsers() -> Dict[str, callable]:
@@ -152,6 +154,10 @@ def _get_file_parsers() -> Dict[str, callable]:
         "pyproject.toml": helper.parse_pyproject_toml,
         "package.json": helper.parse_package_json,
         "yarn.lock": helper.parse_yarn_lock,
+        "CMakeLists.txt": helper.parse_cmake,
+        "Makefile": helper.parse_makefile,
+        "Makefile.am": helper.parse_makefile_am,
+        "configure.ac": helper.parse_configure_ac,
     }
 
 
@@ -179,7 +185,7 @@ def get_codebase(repo_path: str) -> Dict[str, str]:
 
 
 def get_project_dependencies(
-    repo: str, file_ext: List[str], file_names: List[str]
+    repo: str, language_names: List[str], dependency_files: List[str]
 ) -> List[str]:
     """
     Get the dependencies of a project.
@@ -188,9 +194,9 @@ def get_project_dependencies(
     ----------
     repo : str
         The URL of the repository or the path to the local directory.
-    file_ext : List[str]
+    language_names : List[str]
         A list of file extensions to consider.
-    file_names : List[str]
+    dependency_files : List[str]
         A list of file names to consider.
 
     Returns
@@ -204,25 +210,23 @@ def get_project_dependencies(
     with tempfile.TemporaryDirectory() as temp_dir:
         _clone_or_copy_repository(repo, temp_dir)
 
-        all_files = helper.list_files(temp_dir)
-        dependency_files = [f for f in all_files if Path(f).name in file_names]
-
         file_parsers = _get_file_parsers()
-        dependencies = []
+        files = helper.list_files(temp_dir)
 
+        dependencies = []
+        dependency_files = [f for f in files if Path(f).name in dependency_files]
         for f in dependency_files:
             parse_fn = file_parsers.get(Path(f).name)
-
             if parse_fn:
                 packages = parse_fn(f)
                 dependencies.append(packages)
 
-        file_extensions = _get_file_extensions(all_files, file_ext)
-        dependencies.append(file_extensions)
+        languages = _get_file_extensions(files, language_names)
+        dependencies.append(languages)
+        technologies = sum(dependencies, [])
+        technologies = [p.lower() for p in technologies]
 
-        packages = sum(dependencies, [])
-        packages = [p.lower() for p in packages]
-        return list(set(packages))
+        return list(set(technologies))
 
 
 def get_repo_name(path: Union[str, Path]) -> str:

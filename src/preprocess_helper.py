@@ -210,7 +210,7 @@ def parse_makefile(file):
 
 
 # CMakeLists.txt
-def parse_cmake_lists(file):
+def parse_cmake(file):
     with open(file) as f:
         content = f.read()
 

@@ -151,7 +151,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 
 <h1 align="center">⒏<br>👇<br><br>📜 Custom templates and styles coming soon!</h1>
-<p align="center">Developing a feature that allows the user to select from a variety of README formats and styles.</p> 
+<p align="center">Developing a feature that allows the user to select from a variety of README formats and styles.</p>
 <p align="center">Example template options include data and ML focused, research, hackathons, minimal, and more!</p>
 
 <p align="right">

@@ -7,8 +7,8 @@ prompt_slogan = """Generate a slogan for the GitHub project {}."""
 # Repository (local and remote)
 [git]
 local = ""
-name = ""
 path = ""
+name = ""
 remote = "https://github.com/eli64s/readme-ai"
 
 # Paths

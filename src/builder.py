@@ -10,6 +10,7 @@ from pathlib import Path
 import git
 import pandas as pd
 
+from conf import AppConfig, ConfigHelper
 from file_factory import FileHandler
 from logger import Logger
 
@@ -17,26 +18,25 @@ LOGGER = Logger("readmeai_logger")
 
 
 def build(
-    conf: object, conf_helper: object, dependencies: list, df: pd.DataFrame
+    conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFrame, dependencies: list
 ) -> None:
     """
     Handles the logic that builds the README.md file for your codebase.
 
     Parameters
     ----------
-    conf : object
+    conf : AppConfig
         Configuration object containing GitHub and markdown configurations.
-    conf_helper : object
+    conf_helper : ConfigHelper
         Configuration helper object containing file extensions and setup guide.
-    dependencies : list
-        List of project dependencies.
     df : pd.DataFrame
         DataFrame containing parsed information from project files.
+    dependencies : list
+        List of project dependencies.
     """
 
     name = conf.git.name
     url = conf.git.path
-
     md_file = conf.md.head
     md_close = conf.md.close
     md_intro = conf.md.intro
@@ -142,7 +142,7 @@ def format_badges(badges: list, dependencies: list) -> str:
     return "\n\n".join([f"{line}" for line in badge_lines])
 
 
-def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
+def create_setup_guide(conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFrame):
     """
     Creates a setup guide for the project based on the top used language.
 
@@ -160,9 +160,8 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     str
         Formatted string with setup guide.
     """
-    install_guide = "[INSERT-INSTALL-GUIDE-HERE]"
-    run_guide = "[INSERT-RUN-GUIDE-HERE]"
-
+    install_guide = "[INSERT_INSTALLATION_STEPS_HERE]"
+    run_guide = "[INSERT-RUN_INSTRUCTIONS_HERE]"
     ignore_files = conf_helper.ignore_files
     name = conf.git.name
     path = conf.git.path
@@ -172,9 +171,9 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
         if Path(x).suffix[1:] not in ignore_files and Path(x).suffix != ".xml"
         else None
     )
-    top_language = df["Language"].value_counts().idxmax()
 
     try:
+        top_language = df["Language"].value_counts().idxmax()
         language_name = conf_helper.language_names[top_language]
         language_setup = conf_helper.language_setup[language_name]
 
@@ -270,12 +269,13 @@ def create_tables(df: pd.DataFrame, dropdown: str) -> str:
 
 def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Processes the DataFrame by extracting file and directory information from the 'Module' column.
+    Parses the Module field to create two additional DataFrame
+    columns to be displayed in the README code summary tables.
 
     Parameters
     ----------
     df : pd.DataFrame
-        DataFrame containing parsed information from project files.
+        DataFrame containing parsed details from project files.
 
     Returns
     -------

@@ -11,10 +11,16 @@ import shutil
 import git
 import pytest
 
-from src.preprocess import (_clone_or_copy_repository, _get_codebase_remote,
-                            _get_file_contents, _get_file_extensions,
-                            _get_file_parsers, get_codebase,
-                            get_project_dependencies, get_repo_name)
+from src.preprocess import (
+    _clone_or_copy_repository,
+    _get_codebase_remote,
+    _get_file_contents,
+    _get_file_extensions,
+    _get_file_parsers,
+    get_codebase,
+    get_project_dependencies,
+    get_repo_name,
+)
 
 # Define test constants
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))

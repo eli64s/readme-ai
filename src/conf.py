@@ -13,7 +13,7 @@ LOGGER = Logger("readmeai_logger")
 
 
 @dataclass
-class OpenAI:
+class OpenAIConfig:
     """OpenAI API configuration."""
 
     api_key: str
@@ -22,7 +22,7 @@ class OpenAI:
 
 
 @dataclass
-class Git:
+class GitConfig:
     """Git configuration."""
 
     local: str
@@ -32,7 +32,7 @@ class Git:
 
 
 @dataclass
-class Markdown:
+class MarkdownConfig:
     """Markdown configuration."""
 
     close: str
@@ -47,7 +47,7 @@ class Markdown:
 
 
 @dataclass
-class Paths:
+class PathsConfig:
     """Paths to configuration files."""
 
     dependency_files: str
@@ -60,17 +60,17 @@ class Paths:
 
 
 @dataclass
-class AppConf:
+class AppConfig:
     """README-AI application configuration."""
 
-    api: OpenAI
-    git: Git
-    md: Markdown
-    paths: Paths
+    api: OpenAIConfig
+    git: GitConfig
+    md: MarkdownConfig
+    paths: PathsConfig
 
 
 @dataclass
-class AppConfHelper:
+class ConfigHelper:
     """README-AI application helper configuration."""
 
     dependency_files: List[str]
@@ -85,7 +85,7 @@ def read_config_file(path: Path) -> Dict[str, str]:
     return handler.read(path)
 
 
-def load_conf_helper(conf: AppConf) -> AppConfHelper:
+def load_configuration_helper(conf: AppConfig) -> ConfigHelper:
     handler = FileHandler()
     (
         dependency_files,
@@ -94,7 +94,7 @@ def load_conf_helper(conf: AppConf) -> AppConfHelper:
         language_setup,
     ) = read_helper_configurations(handler, conf)
 
-    return AppConfHelper(
+    return ConfigHelper(
         dependency_files=dependency_files,
         ignore_files=ignore_files,
         language_names=language_names,
@@ -102,7 +102,7 @@ def load_conf_helper(conf: AppConf) -> AppConfHelper:
     )
 
 
-def read_helper_configurations(handler: FileHandler, conf: AppConf):
+def read_helper_configurations(handler: FileHandler, conf: AppConfig):
     conf_path_list = [
         conf.paths.dependency_files,
         conf.paths.ignore_files,
