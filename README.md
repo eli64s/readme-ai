@@ -172,12 +172,12 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 #### 📂 Git Repository
 
-Copy the url of your project's GitHub or GitLab repository and update the [configuration file](./conf/conf.toml) as seen in the code snippet below. Additionally, the tool accepts local directory paths to your codebase.
+Most user's will run README-AI using the command-line interface, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./conf/conf.toml) with your repository's remote URL (GitHub, GitLab) or local directory pat on your machine.
 
 ```toml
 [git]
-name = [AUTO-POPULATED-BY-THE-README-AI-TOOL]
-repository = [INSERT-REMOTE-REPO-URL-OR-LOCAL-PATH]
+name = "AUTO-POPULATED BY THE README-AI TOOL"
+repository = "INSERT A REMOTE GIT URL OR LOCAL DIRECTORY PATH"
 ```
 
 #### 🔐 OpenAI API Setup
