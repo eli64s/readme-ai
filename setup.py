@@ -1,4 +1,4 @@
-"""Setup file for the project."""
+"""Setup.py for the README-AI application."""
 
 from pathlib import Path
 
@@ -16,10 +16,10 @@ test_packages = ["pytest==7.1.2", "pytest-cov==2.10.1", "great-expectations==0.1
 setup(
     name="readmeai",
     version="0.1",
-    description="Automated README generation using OpenAI's language model APIs.",
+    description="Command-line tool that generates README.md files, powered by OpenAI's LLM APIs.",
     author="eli64s",
     author_email="",
-    url="https://github.com/eli64s/readme-ai",
+    url="https://github.com/eli64s/README-AI",
     python_requires=">=3.7",
     packages=find_namespace_packages(),
     install_requires=required_packages,
@@ -47,7 +47,7 @@ setup(
         "gpt-4",
     ],
     project_urls={
-        "Documentation": "https://github.com/eli64s/readme-ai/blob/main/README.md",
-        "Source Code": "https://github.com/eli64s/readme-ai",
+        "Documentation": "https://github.com/eli64s/README-AI/blob/main/README.md",
+        "Source Code": "https://github.com/eli64s/README-AI",
     },
 )

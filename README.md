@@ -176,8 +176,8 @@ Copy the url of your project's GitHub or GitLab repository and update the [confi
 
 ```toml
 [git]
-local = "INSERT-LOCAL-REPO-PATH"
-remote = "INSERT-GIT-REPO-URL"
+name = [AUTO-POPULATED-BY-THE-README-AI-TOOL]
+repository = [INSERT-REMOTE-REPO-URL-OR-LOCAL-PATH]
 ```
 
 #### 🔐 OpenAI API Setup
@@ -230,7 +230,7 @@ Command-Line Arguments:
 
 - `--api_key` : Provide your OpenAI API key.
 - `--output` : Provide a path where to write the output file.
-- `--repository` : Provide a remote Git URL or a local directory on your machine.
+- `--repository` : Provide a remote Git URL or a local directory.
 
 ```sh
 python src/main.py --api_key skabc123 --output README_AI.md --repository https://github.com/eli64s/README-AI

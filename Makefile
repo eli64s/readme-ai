@@ -1,3 +1,5 @@
+# Makefile for README-AI
+
 SHELL = /bin/bash
 VENV := readmeai
 
@@ -39,9 +41,9 @@ venv:
 # cProfile
 profile:
 	@echo "Running cProfile on CLI script"
-	python -m cProfile -o profile.out -s cumulative src/main.py --output docs/README_001.md --remote https://github.com/eli64s/README-AI
+	python -m cProfile -o profile.out -s cumulative src/main.py --output docs/README_AI.md --remote https://github.com/eli64s/README-AI
 
-# SnakeViz
+# SnakeViz (pip install snakeviz)
 snakeviz:
 	@echo "Running SnakeViz on profile.out file"
 	snakeviz profile.out

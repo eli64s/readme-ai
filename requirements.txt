@@ -20,7 +20,6 @@ pytest-cov
 requests
 responses
 setuptools
-snakeviz
 spacy
 tabulate
 toml
