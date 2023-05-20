@@ -190,3 +190,58 @@ def parse_maven(file_path):
         dependencies.append(dependency)
 
     return dependencies
+
+
+# C/C++
+# Makefile
+def parse_makefile(file):
+    with open(file) as f:
+        content = f.read()
+
+    regex = re.compile(r"^\w+\s*[:+]?=\s*(.+)$", re.MULTILINE)
+    dependencies = []
+    matches = regex.findall(content)
+    for match in matches:
+        # Split the line by spaces and filter out empty strings
+        deps = filter(None, match.split())
+        dependencies.extend(deps)
+
+    return dependencies
+
+
+# CMakeLists.txt
+def parse_cmake_lists(file):
+    with open(file) as f:
+        content = f.read()
+
+    regex = re.compile(r"add_executable\([^)]+\s+([^)]+)\)")
+    dependencies = regex.findall(content)
+
+    return dependencies
+
+
+# configure.ac
+def parse_configure_ac(file):
+    with open(file) as f:
+        content = f.read()
+
+    regex = re.compile(r"AC_CHECK_LIB\([^)]+\s+([^)]+)\)")
+    dependencies = regex.findall(content)
+
+    return dependencies
+
+
+# Makefile.am
+def parse_makefile_am(file):
+    with open(file) as f:
+        content = f.read()
+
+    regex = re.compile(r"bin_PROGRAMS\s*=\s*(.+)")
+    dependencies = []
+    matches = regex.findall(content)
+    for match in matches:
+        # Split the line by spaces and filter out empty strings
+        deps = filter(None, match.split())
+        dependencies.extend(deps)
+
+    return dependencies

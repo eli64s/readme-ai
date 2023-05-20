@@ -13,13 +13,13 @@ remote = "https://github.com/eli64s/readme-ai"
 
 # Paths
 [paths]
-file_extensions = "file_extensions.toml"
-file_names = "file_names.toml"
+dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
-setup_guide = "setup_guide.toml"
+language_names = "language_names.toml"
+language_setup = "language_setup.toml"
 badges = "conf/badges.json"
 docs = "docs/raw_data.csv"
-md = "docs/README.md"
+md = "README_AI.md"
 
 # Markdown template
 [md]

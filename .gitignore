@@ -38,6 +38,7 @@ notebooks/
 
 # Ignore Pytest cache
 .pytest_cache/
+.ruff_cache/
 
 # Ignore benchmarks
 .benchmarks/

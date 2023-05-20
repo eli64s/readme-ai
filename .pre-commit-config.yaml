@@ -1,4 +1,4 @@
-# .pre-commit-config.yaml
+# Pre-commit hooks configuration file
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

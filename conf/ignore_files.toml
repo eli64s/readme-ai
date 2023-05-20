@@ -1,7 +1,7 @@
 # Files to ignore when parsing repository contents.
 
 [ignore_files]
-ignore = [
+ignore_files = [
     # Build artifacts
     "dist",
     "*.egg-info",
@@ -51,7 +51,7 @@ ignore = [
     ".ini",
     ".yml",
     ".yaml",
-    #".xml",
+    ".xml",
     ".properties",
     ".secret",
     ".key",
@@ -86,7 +86,7 @@ ignore = [
     "tests",
     "testing",
     "tools",
-    "utils",
+    #"utils",
     "requirements",
     "setup",
     "Makefile",

@@ -175,8 +175,8 @@ def create_setup_guide(conf: object, conf_helper: object, df: pd.DataFrame):
     top_language = df["Language"].value_counts().idxmax()
 
     try:
-        language_name = conf_helper.file_extensions[top_language]
-        language_setup = conf_helper.setup[language_name]
+        language_name = conf_helper.language_names[top_language]
+        language_setup = conf_helper.language_setup[language_name]
 
         LOGGER.info(f"Top project language: {top_language}")
         LOGGER.info(f"Top project language name: {language_name}")

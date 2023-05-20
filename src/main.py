@@ -24,12 +24,24 @@ LOGGER = Logger("readmeai_logger")
 @app.command()
 def main(
     api_key: Optional[str] = typer.Option(None, help="Your OpenAI API key."),
-    local: Optional[str] = typer.Option(None, help="Path to local codebase directory."),
-    output: str = typer.Option("docs/README.md", help="Path to output README.md file."),
-    remote: Optional[str] = typer.Option(None, help="URL of remote GitHub repository."),
+    local: Optional[str] = typer.Option(None, help="Path to local repository."),
+    output: str = typer.Option("README_AI.md", help="Path to your README.md file."),
+    remote: Optional[str] = typer.Option(None, help="URL to remote repository."),
 ) -> None:
     check_arguments(api_key, local, remote)
     asyncio.run(generate_readme(api_key, local, output, remote))
+
+
+def check_arguments(
+    api_key: Optional[str], local: Optional[str], remote: Optional[str]
+) -> None:
+    if not os.getenv("OPENAI_API_KEY") and not api_key:
+        typer.echo("Error: Please provide your OpenAI API key.")
+        raise typer.Exit(code=1)
+
+    if not local and not remote:
+        typer.echo("Error: Please provide either a local path or remote URL.")
+        raise typer.Exit(code=1)
 
 
 async def generate_readme(
@@ -46,8 +58,8 @@ async def generate_readme(
     repo_contents = preprocess.get_codebase(repo)
     name = preprocess.get_repo_name(repo)
     conf.git.name = name
-    file_exts = conf_helper.file_extensions
-    file_names = conf_helper.file_names
+    file_exts = conf_helper.language_names
+    file_names = conf_helper.dependency_files
     ignore_files = conf_helper.ignore_files
     dependencies = preprocess.get_project_dependencies(repo, file_exts, file_names)
 
@@ -67,18 +79,6 @@ async def generate_readme(
     LOGGER.info("README-AI execution complete.\n")
 
 
-def check_arguments(
-    api_key: Optional[str], local: Optional[str], remote: Optional[str]
-) -> None:
-    if not os.getenv("OPENAI_API_KEY") and not api_key:
-        typer.echo("Error: Please provide your OpenAI API key.")
-        raise typer.Exit(code=1)
-
-    if not local and not remote:
-        typer.echo("Error: Please provide either a local path or remote URL.")
-        raise typer.Exit(code=1)
-
-
 def set_command_line_arguments(
     api_key: Optional[str],
     conf: AppConf,
@@ -92,10 +92,10 @@ def set_command_line_arguments(
         conf.paths.md = output
     if local:
         conf.git.path, conf.git.local = local, local
-        LOGGER.info(f"Using local directory: {conf.git.local}")
+        LOGGER.info(f"Using local repository: {conf.git.local}")
     if remote:
         conf.git.path, conf.git.remote = remote, remote
-        LOGGER.info(f"Using GitHub remote repository: {conf.git.remote}")
+        LOGGER.info(f"Using remote Git repository: {conf.git.remote}")
 
 
 async def generate_codebase_docs(

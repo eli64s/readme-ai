@@ -91,7 +91,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 |                                                                                                                                                                                                                                                                       |                                 |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
-| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently compatible with:<br>Python, Go, Rust, Java, JavaScript.<br> | ![setup](./docs/imgs/setup.png) |
+| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently compatible with:<br>Python, Rust, Go, C, Java, JavaScript.<br> | ![setup](./docs/imgs/setup.png) |
 
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds three additional sections to build out a complete README file!</p>
@@ -260,7 +260,7 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [X] Add additional language setup guides for populating the `🚀 Getting Started` README section.
-  - Currently compatible with codebases written in: `Python, Go, Rust, Java, JavaScript.`
+  - Currently compatible with codebases written in: `Python, Rust, Go, C, Java, JavaScript.`
 - [ ] Implement multiple README templates with different formats and styling.
 - [ ] Add feature to select the language of text written to the README file.
 - [ ] Add UI and robust backend with FastAPI to improve user experience.

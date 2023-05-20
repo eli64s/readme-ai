@@ -5,7 +5,7 @@
 <br>
 xmpp-rs
 </h1>
-<h3 align="center">📍 Git xmpp-rs: Developing Your XMPP Solution with Rust".</h3>
+<h3 align="center">📍 Developing Your XMPP Solution with Rust</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
@@ -21,15 +21,18 @@ xmpp-rs
 
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
-- [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+- [📍Overview](#overview)
+- [🔮 Feautres](#-feautres)
+- [⚙️ Project Structure](#️-project-structure)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
+  - [✅ Prerequisites](#-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🤖 Using xmpp-rs](#-using-xmpp-rs)
+  - [🧪 Running Tests](#-running-tests)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -37,7 +40,7 @@ xmpp-rs
 
 ## 📍Overview
 
-Git project xmpp-rs is an open source Rust library providing an API and implementation for the XMPP protocol. It offers a full implementation, providing a complete set of features for network communications, messaging, presence, and error reporting. Additionally, it also supports a wide variety of XMPP extensions, making it a
+Git project xmpp-rs is an open source Rust library providing an API and implementation for the XMPP protocol. It offers a full implementation, providing a complete set of features for network communications, messaging, presence, and error reporting.
 
 ## 🔮 Feautres
 
