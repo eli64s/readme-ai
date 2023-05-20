@@ -14,10 +14,11 @@ from utils import reformat_sentence
 
 ENGINE = "text-davinci-003"
 ENDPOINT = f"https://api.openai.com/v1/engines/{ENGINE}/completions"
-LOGGER = Logger("readmeai_logger")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MAX_TOKENS = 4096
+
 NLP = spacy.load("en_core_web_sm")
+LOGGER = Logger("readmeai_logger")
 
 # Add TTLCache with maximum size of 500 items and 600 seconds of TTL.
 cache = TTLCache(maxsize=500, ttl=600)
@@ -133,11 +134,12 @@ async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
         raise OpenAIError("OpenAI response missing 'choices' field.")
 
     file_summary = data["choices"][0]["text"]
-    summary_spacy = spacy_text_processor(file_summary)
-    summary = reformat_sentence(summary_spacy)
+    
+    summary = spacy_text_processor(file_summary)
+    summary = reformat_sentence(summary)
 
-    # Add to cache
-    cache[prompt] = summary_spacy
+    # Add file summary to cache
+    cache[prompt] = summary
 
     return (file, summary)
 

@@ -114,7 +114,7 @@ def _get_file_extensions(files: List[str], language_names: Dict[str, str]) -> Li
     all_files : List[str]
         A list of file paths.
     language_names : Dict[str, str]
-        A dictionary mapping file extensions to additional file extensions.
+        A dictionary mapping file extensions to their full name.
 
     Returns
     -------
@@ -181,7 +181,8 @@ def get_codebase(repo_path: str) -> Dict[str, str]:
 
     if valid_url(repo_path):
         return _get_codebase_remote(repo_path)
-    return _get_file_contents(repo_path)
+    else:
+        return _get_file_contents(repo_path)
 
 
 def get_project_dependencies(

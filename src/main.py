@@ -29,7 +29,6 @@ def main(
     remote: Optional[str] = typer.Option(None, help="URL to remote repository."),
 ) -> None:
     """Generates README.md file for your repository using OpenAI's GPT APIs."""
-
     check_arguments(api_key, local, remote)
     asyncio.run(generate_readme(api_key, local, output, remote))
 
@@ -38,7 +37,6 @@ def check_arguments(
     api_key: Optional[str], local: Optional[str], remote: Optional[str]
 ) -> None:
     """Validates the command line arguments."""
-
     if not os.getenv("OPENAI_API_KEY") and not api_key:
         typer.echo("Error: Please provide your OpenAI API key.")
         raise typer.Exit(code=1)
@@ -52,7 +50,6 @@ async def generate_readme(
     api_key: Optional[str], local: Optional[str], output: str, remote: Optional[str]
 ) -> None:
     """Orchestrates the execution of the README-AI application."""
-
     LOGGER.info("README-AI is now executing.")
 
     conf = load_configuration(CONFIG_FILE)
@@ -74,11 +71,9 @@ async def generate_readme(
         conf, conf_helper.ignore_files, repo_contents
     )
     summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
-
     LOGGER.info(f"OpenAI LLM generated code summaries:\n\n{summaries}\n")
 
     build_readme(conf, conf_helper, summaries, dependency_list)
-
     LOGGER.info("README-AI execution complete.\n")
 
 
@@ -90,7 +85,6 @@ def set_command_line_arguments(
     remote: Optional[str],
 ) -> None:
     """Validates and sets the command line arguments accordingly."""
-
     if api_key:
         openai.api_key = api_key
     if output:
@@ -107,7 +101,6 @@ async def generate_code_summaries(
     conf: AppConfig, ignore_files: list, repo_contents: list
 ) -> list:
     """Generate code summaries for all files in a repository."""
-
     name = conf.git.name
     prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
@@ -128,14 +121,12 @@ def build_readme(
     dependency_list: list,
 ) -> None:
     """Builds the README Markdown file."""
-
     summaries.to_csv(conf.paths.docs, index=False)
     builder.build(conf, conf_helper, dependency_list, summaries)
 
 
 def load_configuration(config_path: str) -> AppConfig:
     """Loads the configuration file."""
-
     handler = FileHandler()
     conf_dict = handler.read(config_path)
     return dacite.from_dict(AppConfig, conf_dict)
