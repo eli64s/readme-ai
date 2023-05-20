@@ -5,7 +5,7 @@ import re
 
 def reformat_sentence(text: str) -> str:
     """
-    Removes extra white space from a given string.
+    Removes extra white space and non-letter characters from a string.
 
     Parameters
     ----------
@@ -17,6 +17,10 @@ def reformat_sentence(text: str) -> str:
     str
         Reformatted text string.
     """
+    # Remove non-letter characters from beginning of string
+    text = re.sub(r"^[^a-zA-Z]*", "", text)
+
+    # Remove extra white space around punctuation
     reformatted_text = re.sub(r"\s*([()'.,!?;:-])(?!\.\s*\w)", r"\1", text)
 
     return reformatted_text

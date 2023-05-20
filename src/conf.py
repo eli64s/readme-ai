@@ -19,6 +19,7 @@ class OpenAIConfig:
     api_key: str
     prompt_intro: str
     prompt_slogan: str
+    prompt_code_to_text: str
 
 
 @dataclass

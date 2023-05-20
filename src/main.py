@@ -73,11 +73,11 @@ async def generate_readme(
     summaries = await generate_code_summaries(
         conf, conf_helper.ignore_files, repo_contents
     )
-    code_summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
+    summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
 
-    LOGGER.info(f"OpenAI LLM generated code summaries:\n\n{code_summaries}\n")
+    LOGGER.info(f"OpenAI LLM generated code summaries:\n\n{summaries}\n")
 
-    build_readme(conf, conf_helper, code_summaries, dependency_list)
+    build_readme(conf, conf_helper, summaries, dependency_list)
 
     LOGGER.info("README-AI execution complete.\n")
 
@@ -89,7 +89,7 @@ def set_command_line_arguments(
     output: str,
     remote: Optional[str],
 ) -> None:
-    """Set the command line arguments according."""
+    """Validates and sets the command line arguments accordingly."""
 
     if api_key:
         openai.api_key = api_key
@@ -111,8 +111,8 @@ async def generate_code_summaries(
     name = conf.git.name
     prompt_intro = conf.api.prompt_intro
     prompt_slogan = conf.api.prompt_slogan
-
-    code_summaries = await model.code_to_text(ignore_files, repo_contents)
+    prompt_code = conf.api.prompt_code_to_text
+    code_summaries = await model.code_to_text(ignore_files, repo_contents, prompt_code)
     intro = model.generate_summary_text(prompt_intro.format(name))
     slogan = model.generate_summary_text(prompt_slogan.format(name))
     conf.md.intro = conf.md.intro.format(intro)
@@ -124,13 +124,13 @@ async def generate_code_summaries(
 def build_readme(
     conf: AppConfig,
     conf_helper: ConfigHelper,
-    docs: pd.DataFrame,
-    dependencies: list,
+    summaries: pd.DataFrame,
+    dependency_list: list,
 ) -> None:
-    """Generates the README.md file."""
+    """Builds the README Markdown file."""
 
-    docs.to_csv(conf.paths.docs, index=False)
-    builder.build(conf, conf_helper, docs, dependencies)
+    summaries.to_csv(conf.paths.docs, index=False)
+    builder.build(conf, conf_helper, dependency_list, summaries)
 
 
 def load_configuration(config_path: str) -> AppConfig:

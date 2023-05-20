@@ -18,6 +18,7 @@ PyYAML
 pytest
 pytest-cov
 requests
+responses
 setuptools
 snakeviz
 spacy

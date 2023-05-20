@@ -2,25 +2,26 @@
 
 import asyncio
 import os
-import re
 from typing import Dict, Tuple
 
 import httpx
 import openai
 import spacy
+from cachetools import TTLCache
 
 from logger import Logger
 from utils import reformat_sentence
 
-ENGINE_ID = "text-davinci-003"
-ENGINE = f"https://api.openai.com/v1/engines/{ENGINE_ID}/completions"
+ENGINE = "text-davinci-003"
+ENDPOINT = f"https://api.openai.com/v1/engines/{ENGINE}/completions"
 LOGGER = Logger("readmeai_logger")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MAX_TOKENS = 4096
 NLP = spacy.load("en_core_web_sm")
 
+# Add TTLCache with maximum size of 500 items and 600 seconds of TTL.
+cache = TTLCache(maxsize=500, ttl=600)
 
-# Use connection pooling
 http_client = httpx.AsyncClient(
     http2=True,
     timeout=30,
@@ -39,75 +40,61 @@ class OpenAIError(Exception):
     """
 
 
-async def code_to_text(ignore_files: list, files: Dict[str, str]) -> Dict[str, str]:
+async def code_to_text(
+    ignore_files: list, files: Dict[str, str], prompt: str
+) -> Dict[str, str]:
     """
     Generate summary text for code files using OpenAI's GPT-3.
 
     Parameters
     ----------
+    ignore_files : list
+        A list of file names to ignore when generating summaries.
     files : Dict[str, str]
         A dictionary where the keys are file paths and values are raw code.
-
+    prompt : str
+        The prompt to send to OpenAI's GPT API.
     Returns
     -------
     Dict[str, str]
-        A dictionary where the keys are file paths and values are summary text.
+       Processed summary text for each file.
     """
 
     tasks = []
-    for file_path, raw_code in files.items():
-        if any(fn in str(file_path) for fn in ignore_files):
-            LOGGER.debug(f"Skipping file: {file_path}")
+
+    for path, contents in files.items():
+        if any(fn in str(path) for fn in ignore_files):
+            LOGGER.debug(f"Skipping file: {path}")
             continue
 
-        LOGGER.info(f"Davinci processing: {file_path}")
+        LOGGER.info(f"Davinci processing: {path}")
 
-        prompt = f"Create a summary description for this code: {raw_code}"
-        prompt_length = len(prompt.split())
+        prompt_code = prompt.format(contents)
+        prompt_length = len(prompt_code.split())
+
         if prompt_length > MAX_TOKENS:
-            LOGGER.debug(f"Prompt too long: {file_path}")
+            err = "Prompt exceeds max token limit: {}"
             tasks.append(
-                asyncio.create_task(
-                    dummy_summary(file_path, "Prompt too long to generate summary.")
-                )
+                asyncio.create_task(null_summary(path, err.format(prompt_length)))
             )
+            LOGGER.debug(err.format(prompt_code))
             continue
 
         # Use async client with connection pooling
-        tasks.append(asyncio.create_task(fetch_summary(file_path, prompt)))
+        tasks.append(asyncio.create_task(fetch_summary(path, prompt_code)))
 
     results = await asyncio.gather(*tasks)
 
     return results
 
 
-async def dummy_summary(file_path: str, summary: str) -> Tuple[str, str]:
-    """
-    Create a dummy summary for a given file path.
-
-    Parameters
-    ----------
-    file_path : str
-        The file path for which to create a dummy summary.
-    summary : str
-        The dummy summary to be returned.
-
-    Returns
-    -------
-    Tuple[str, str]
-        A tuple containing the file path and the dummy summary.
-    """
-
-    return (file_path, summary)
-
-
-async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
+async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
     """
     Fetch summary text for a given file path using OpenAI's GPT-3 API.
 
     Parameters
     ----------
-    file_path : str
+    file : str
         The file path for which to fetch summary text.
     prompt : str
         The prompt to send to OpenAI's GPT-3 API.
@@ -118,9 +105,12 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
         A tuple containing the file path and the generated summary text.
     """
 
-    # Use async client with connection pooling
+    # Use cache if the same prompt has already been fetched
+    if prompt in cache:
+        return (file, cache[prompt])
+
     response = await http_client.post(
-        ENGINE,
+        ENDPOINT,
         json={
             "prompt": prompt,
             "temperature": 0,
@@ -133,44 +123,69 @@ async def fetch_summary(file_path: str, prompt: str) -> Tuple[str, str]:
     )
 
     if response.status_code != 200:
-        LOGGER.error(f"Error fetching summary for {file_path}: {response.text}")
-        return (file_path, "Error fetching summary.")
+        LOGGER.error(f"Error fetching summary for {file}: {response.text}")
+        return (file, "Error generating file summary.")
 
     response.raise_for_status()
     data = response.json()
 
     if "choices" not in data or len(data["choices"]) == 0:
-        raise OpenAIError("OpenAI response missing 'choices' field")
+        raise OpenAIError("OpenAI response missing 'choices' field.")
 
     file_summary = data["choices"][0]["text"]
-    summary = re.sub(r"^[^a-zA-Z]*", "", file_summary)
-    summary_spacy = spacy_text_processor(summary)
-    summary_spacy = reformat_sentence(summary_spacy)
-    return (file_path, summary_spacy)
+    summary_spacy = spacy_text_processor(file_summary)
+    summary = reformat_sentence(summary_spacy)
+
+    # Add to cache
+    cache[prompt] = summary_spacy
+
+    return (file, summary)
 
 
 def generate_summary_text(prompt: str) -> str:
     """
-    Generate summary text from a given prompt using OpenAI's GPT-3 API.
+    Prompts the OpenAI large language model API to
+    generate summaries for each file in the repository.
 
     Parameters
     ----------
     prompt : str
-        The prompt to send to OpenAI's GPT-3 API.
+        The prompt to send to OpenAI's GPT API.
 
     Returns
     -------
     str
-        The generated summary text.
+        Text generated by OpenAI's GPT API.
     """
 
     completions = openai.Completion.create(
-        engine=ENGINE_ID,
+        engine=ENGINE,
         prompt=prompt,
         max_tokens=69,
     )
     generated_text = completions.choices[0].text
     return generated_text.lstrip().strip('"')
+
+
+async def null_summary(file: str, summary: str) -> Tuple[str, str]:
+    """
+    Provides a placeholder summary tuple for scenarios when the
+    the OpenAI API fails to generate a summary from the prompt.
+
+    Parameters
+    ----------
+    file : str
+        The file path for which to create a null summary.
+    summary : str
+        The null summary to be returned.
+
+    Returns
+    -------
+    Tuple[str, str]
+        A tuple containing the file path and the null summary.
+    """
+
+    return (file, summary)
 
 
 def spacy_text_processor(text: str) -> str:

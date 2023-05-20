@@ -7,10 +7,13 @@ conda activate readmeai
 source_dir="src"
 
 # Set the directories to exclude from the coverage report
-omit_dir="tests, src/__init__.py"
+omit_dir="tests"
+
+# Exclude __init__.py specifically
+omit_file="src/__init__.py"
 
 # Generate the coverage report and save it to a file
-coverage run --source="$source_dir" --omit="$omit_dir" -m pytest
+coverage run --source="$source_dir" --omit="$omit_dir" --omit="$omit_file" -m pytest
 coverage report --show-missing --fail-under=90
 
 # Remove files and folders

@@ -18,7 +18,10 @@ LOGGER = Logger("readmeai_logger")
 
 
 def build(
-    conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFrame, dependencies: list
+    conf: AppConfig,
+    conf_helper: ConfigHelper,
+    dependency_list: list,
+    summaries: pd.DataFrame,
 ) -> None:
     """
     Handles the logic that builds the README.md file for your codebase.
@@ -29,14 +32,12 @@ def build(
         Configuration object containing GitHub and markdown configurations.
     conf_helper : ConfigHelper
         Configuration helper object containing file extensions and setup guide.
-    df : pd.DataFrame
-        DataFrame containing parsed information from project files.
-    dependencies : list
+    dependency_list : list
         List of project dependencies.
+    summaries : pd.DataFrame
+        DataFrame containing parsed information from project files.
     """
 
-    name = conf.git.name
-    url = conf.git.path
     md_file = conf.md.head
     md_close = conf.md.close
     md_intro = conf.md.intro
@@ -52,15 +53,15 @@ def build(
     json_path = cwd_path / conf.paths.badges
     json_dict = handler.read(json_path)
 
-    df_cleaned = parse_pandas_cols(df)
-    md_badges = get_badges(json_dict, dependencies)
-    md_tables = create_tables(df_cleaned, md_dropdown)
-    md_repo = create_directory_tree(url)
-    md_setup = create_setup_guide(conf, conf_helper, df_cleaned)
+    summaries = parse_pandas_cols(summaries)
+    md_badges = get_badges(json_dict, dependency_list)
+    md_tables = create_tables(summaries, md_dropdown)
+    md_repo = create_directory_tree(conf.git.path)
+    md_setup = create_setup_guide(conf, conf_helper, summaries)
 
     # Store intermediate results and perform a single write operation
     md_file_parts = []
-    md_file_parts.append(md_file.format(name, md_slogan, md_badges))
+    md_file_parts.append(md_file.format(conf.git.name, md_slogan, md_badges))
     md_file_parts.append(md_toc)
     md_file_parts.append(md_intro)
     md_file_parts.append(md_tree)
@@ -77,15 +78,15 @@ def build(
     LOGGER.info(f"README.md file created at: {md_path}")
 
 
-def get_badges(data: dict, dependencies: list) -> str:
+def get_badges(badge_metadata: dict, dependency_list: list) -> str:
     """
     Generates badge icons for each dependency in the project.
 
     Parameters
     ----------
-    data : dict
+    badge_metadata : dict
         Dictionary containing available icons and their src.
-    dependencies : list
+    ddependency_list : list
         List of project dependencies.
 
     Returns
@@ -94,11 +95,12 @@ def get_badges(data: dict, dependencies: list) -> str:
         Formatted string containing badge icons for dependencies.
     """
     badges = []
-    icons_dict = {icon["name"].lower(): icon["src"] for icon in data["icons"]}
-    for dep in dependencies:
-        if dep.lower() in icons_dict:
-            badges.append(icons_dict[dep.lower()])
-    return format_badges(badges, dependencies)
+    icons_dict = {icon["name"].lower(): icon["src"] for icon in badge_metadata["icons"]}
+    for dependency in dependency_list:
+        dependency = dependency.lower()
+        if dependency in icons_dict:
+            badges.append(icons_dict[dependency])
+    return format_badges(badges, dependency_list)
 
 
 def format_badges(badges: list, dependencies: list) -> str:
@@ -142,7 +144,9 @@ def format_badges(badges: list, dependencies: list) -> str:
     return "\n\n".join([f"{line}" for line in badge_lines])
 
 
-def create_setup_guide(conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFrame):
+def create_setup_guide(
+    conf: AppConfig, conf_helper: ConfigHelper, summaries: pd.DataFrame
+):
     """
     Creates a setup guide for the project based on the top used language.
 
@@ -152,7 +156,7 @@ def create_setup_guide(conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFr
         Configuration object containing GitHub and markdown configurations.
     conf_helper : object
         Configuration helper object containing file extensions and setup guide.
-    df : pd.DataFrame
+    summaries : pd.DataFrame
         DataFrame containing parsed information from project files.
 
     Returns
@@ -166,27 +170,26 @@ def create_setup_guide(conf: AppConfig, conf_helper: ConfigHelper, df: pd.DataFr
     name = conf.git.name
     path = conf.git.path
 
-    df["Language"] = df["Module"].apply(
+    summaries["Language"] = summaries["Module"].apply(
         lambda x: Path(x).suffix[1:]
         if Path(x).suffix[1:] not in ignore_files and Path(x).suffix != ".xml"
         else None
     )
 
     try:
-        top_language = df["Language"].value_counts().idxmax()
+        top_language = summaries["Language"].value_counts().idxmax()
         language_name = conf_helper.language_names[top_language]
         language_setup = conf_helper.language_setup[language_name]
 
         LOGGER.info(f"Top project language: {top_language}")
-        LOGGER.info(f"Top project language name: {language_name}")
-        LOGGER.info(f"{language_name} installation & setup: {language_setup}")
+        LOGGER.info(f"{language_name} setup guide: {language_setup}")
 
         if language_setup:
             install_guide = language_setup[0]
             run_guide = language_setup[1]
 
     except KeyError as ke:
-        LOGGER.warning(f"KeyError: {ke}. Using default install and run guide.")
+        LOGGER.warning(f"KeyError: {ke}. Using default setup guide.")
 
     md_setup_guide = conf.md.setup.format(
         name, path, name, install_guide, name, run_guide
