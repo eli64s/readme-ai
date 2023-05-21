@@ -130,7 +130,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>4️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Rust_C.md">README_Rust_C.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README_Rust_C.md</a></td>
       <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
       <td><p>72,750</p>
     </tr>
@@ -154,7 +154,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>8️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README_Apache_Flink.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README_Apache_Flink.md</a></td>
       <td>Apache Flink local directory</td>
       <td><p>------------</p>
     </tr>
