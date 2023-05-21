@@ -130,7 +130,7 @@ def format_badges(badges: list, dependencies: list) -> str:
     for i in range(0, total_badges, badges_per_line):
         line = "\n".join(
             [
-                f'<img src="{badge}" alt="{dep}" />'
+                f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}" />'
                 for dep, badge in zip(
                     dependencies[i : i + badges_per_line],
                     badges[i : i + badges_per_line],

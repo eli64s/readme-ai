@@ -91,7 +91,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 |                                                                                                                                                                                                                                                                       |                                 |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
-| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently compatible with:<br>Python, Rust, Go, C, Java, JavaScript.<br> | ![setup](./docs/imgs/setup.png) |
+| <br><br/><b>📍 Getting Started </b><br><br>Dynamically creates a setup<br> guide for others can use your project! Sections include dependencies,<br> installation, and usage, and tests.<br><br>Currently compatible with:<br>Python, Rust, Go, C, Java, JavaScript, TypeScript.<br> | ![setup](./docs/imgs/setup.png) |
 
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds three additional sections to build out a complete README file!</p>
@@ -113,56 +113,63 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>1️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Python.md">README_Python.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Python.md">README-Python.md</a></td>
       <td><a href="https://github.com/eli64s/README-AI">readme-ai</a></td>
       <td>Python</td>
       <td><p>15,459,624</p>
     </tr>
       <td>2️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README_JavaScript.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README-TypeScript.md</a></td>
+      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">typescript-react-chatgpt-app</a></td>
+      <td>TypeScript, JavaScript, React</td>
+      <td><p>770,708</p>
+    </tr>
+    </tr>
+      <td>3️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README-JavaScript.md</a></td>
       <td><a href="https://github.com/cometchat-pro/javascript-react-chat-app">react-chat-app</a></td>
-      <td>JavaScript, React</td>
+      <td>JavaScript, React, Redux</td>
       <td><p>64,860,374</p>
     </tr>
     <tr>
     <tr>
-      <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_FastAPI_Redis.md">README_FastAPI_Redis.md</a></td>
+      <td>4️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_FastAPI_Redis.md">README-FastAPI-Redis.md</a></td>
       <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
       <td>Python, FastAPI, Redis</td>
       <td><p>285,998</p>
     </tr>
     <tr>
-      <td>4️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README_Rust_C.md</a></td>
+      <td>5️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README-Rust-C.md</a></td>
       <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
       <td>Rust, C</td>
       <td><p>72,750</p>
     </tr>
     <tr>
-      <td>5️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Java.md">README_Java.md</a></td>
+      <td>6️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Java.md">README-Java.md</a></td>
       <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
       <td>Java</td>
       <td><p>18,240,095</p>
     </tr>
       <tr>
-      <td>6️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Go.md">README_Go.md</a></td>
+      <td>7️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Go.md">README-Go.md</a></td>
       <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
       <td>Go</td>
       <td><p>70,707</p>
     </tr>
     <tr>
-      <td>7️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README_Python_MLOps.md</a></td>
+      <td>8️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README-Python-MLOps.md</a></td>
       <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
       <td>Python, Jupyter</td>
       <td><p>8,698,890</p>
     </tr>
     <tr>
-      <td>8️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README_Apache_Flink.md</a></td>
+      <td>9️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README-Apache-Flink.md</a></td>
       <td>local directory</td>
       <td>PyFlink</td>
       <td><p>------------</p>
@@ -280,7 +287,6 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [X] Add additional language setup guides for populating the `🚀 Getting Started` README section.
-  - Currently compatible with codebases written in: `Python, Rust, Go, C, Java, JavaScript.`
 - [ ] Implement multiple README templates with different formats and styling.
 - [ ] Add feature to select the language of text written to the README file.
 - [ ] Add UI and robust backend with FastAPI to improve user experience.

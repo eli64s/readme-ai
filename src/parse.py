@@ -107,17 +107,27 @@ def parse_cargo_lock(file):
     return dependencies
 
 
-# Javascript
+# Javascript and TypeScript
 
 
 def parse_package_json(file):
-    """Extracts dependencies from a package.json file."""
+    """
+    Extracts dependencies from a package.json
+    file for both JavaScript and TypeScript.
+    """
     data = FILE_HANDLER.read_json(file)
     dependencies = []
-    for section in ["dependencies", "devDependencies"]:
+    for section in ["dependencies", "devDependencies", "peerDependencies"]:
         if section in data:
             for package, _ in data[section].items():
-                dependencies.append(package)
+                # For TypeScript, only keep packages that start with '@types/',
+                # and remove the '@types/' prefix from the package name
+                if section == "peerDependencies" and package.startswith(
+                    "@types/"
+                ):
+                    dependencies.append(package[7:])
+                else:
+                    dependencies.append(package)
     return dependencies
 
 
@@ -127,6 +137,16 @@ def parse_yarn_lock(file):
     regex = re.compile(r"^(\w[\w\-]*\w)@", re.MULTILINE)
     dependencies = regex.findall(data)
     return list(set(dependencies))
+
+
+def parse_package_lock_json(file):
+    """Extracts TypeScript dependencies from a package-lock.json file."""
+    data = FILE_HANDLER.read_json(file)
+    dependencies = []
+    for package, details in data.get("dependencies", {}).items():
+        if package.startswith("@types/"):
+            dependencies.append(package[7:])  # Remove '@types/' prefix
+    return dependencies
 
 
 # Go

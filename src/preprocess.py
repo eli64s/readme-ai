@@ -135,6 +135,7 @@ def _get_file_parsers() -> Dict[str, callable]:
         "pyproject.toml": parse.parse_pyproject_toml,
         "package.json": parse.parse_package_json,
         "yarn.lock": parse.parse_yarn_lock,
+        "package-lock.json": parse.parse_package_lock_json,
         "CMakeLists.txt": parse.parse_cmake,
         "Makefile": parse.parse_makefile,
         "Makefile.am": parse.parse_makefile_am,
