@@ -106,19 +106,22 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
   <table align="center">
     <tr>
       <th></th>
-      <th>File</th>
-      <th>GitHub</th>
+      <th>Example File</th>
+      <th>Repository</th>
+      <th>Language</th>
       <th>Bytes</th>
     </tr>
     <tr>
       <td>1️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Python.md">README_Python.md</a></td>
       <td><a href="https://github.com/eli64s/README-AI">readme-ai</a></td>
+      <td>Python</td>
       <td><p>15,459,624</p>
     </tr>
       <td>2️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README_JavaScript.md</a></td>
       <td><a href="https://github.com/cometchat-pro/javascript-react-chat-app">react-chat-app</a></td>
+      <td>JavaScript, React</td>
       <td><p>64,860,374</p>
     </tr>
     <tr>
@@ -126,36 +129,42 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <td>3️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_FastAPI_Redis.md">README_FastAPI_Redis.md</a></td>
       <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
+      <td>Python, FastAPI, Redis</td>
       <td><p>285,998</p>
     </tr>
     <tr>
       <td>4️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README_Rust_C.md</a></td>
       <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
+      <td>Rust, C</td>
       <td><p>72,750</p>
     </tr>
     <tr>
       <td>5️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Java.md">README_Java.md</a></td>
       <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
+      <td>Java</td>
       <td><p>18,240,095</p>
     </tr>
       <tr>
       <td>6️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Go.md">README_Go.md</a></td>
       <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
+      <td>Go</td>
       <td><p>70,707</p>
     </tr>
     <tr>
       <td>7️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README_Python_MLOps.md</a></td>
       <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
+      <td>Python, Jupyter</td>
       <td><p>8,698,890</p>
     </tr>
     <tr>
       <td>8️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README_Apache_Flink.md</a></td>
-      <td>Apache Flink local directory</td>
+      <td>local directory</td>
+      <td>PyFlink</td>
       <td><p>------------</p>
     </tr>
   </table>
