@@ -1,7 +1,4 @@
-"""
-Builds the README.md file using the configuration
-Markdown template and OpenAI API language models.
-"""
+"""Builds the README Markdown file for your codebase."""
 
 import subprocess
 import tempfile
@@ -95,7 +92,9 @@ def get_badges(badge_metadata: dict, dependency_list: list) -> str:
         Formatted string containing badge icons for dependencies.
     """
     badges = []
-    icons_dict = {icon["name"].lower(): icon["src"] for icon in badge_metadata["icons"]}
+    icons_dict = {
+        icon["name"].lower(): icon["src"] for icon in badge_metadata["icons"]
+    }
     for dependency in dependency_list:
         dependency = dependency.lower()
         if dependency in icons_dict:
@@ -256,7 +255,9 @@ def create_tables(df: pd.DataFrame, dropdown: str) -> str:
     """
 
     df["Sub-Directory"] = df["Module"].apply(
-        lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Root"
+        lambda x: str(x).split("/")[-2].capitalize()
+        if "/" in str(x)
+        else "Root"
     )
     groups = df.groupby("Sub-Directory")
     tables = [

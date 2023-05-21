@@ -13,51 +13,48 @@ from utils import reformat_sentence
 
 LOGGER = Logger("readmeai_logger")
 ENGINE = "text-davinci-003"
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MAX_TOKENS = 4096
 
 
-# Add TTLCache with a maximum size of 500 items and 600 seconds of TTL.
-cache = TTLCache(maxsize=500, ttl=600)
-
-http_client = httpx.AsyncClient(
-    http2=True,
-    timeout=30,
-    limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
-)
-
-
 class OpenAIError(Exception):
-    """
-    Custom exception class for OpenAI errors.
+    """Custom exception for OpenAI API errors."""
 
-    Attributes
-    ----------
-    Exception : str
-        The error message for the OpenAI API error.
-    """
+
+def get_cache():
+    """Get a TTLCache for storing OpenAI API responses."""
+    # Add TTLCache with a maximum size of 500 items and 600 seconds of TTL.
+    return TTLCache(maxsize=500, ttl=600)
+
+
+def get_http_client():
+    """Get an HTTP client with the appropriate settings."""
+    return httpx.AsyncClient(
+        http2=True,
+        timeout=30,
+        limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
+    )
 
 
 async def code_to_text(
     ignore_files: list, files: Dict[str, str], prompt: str
 ) -> Dict[str, str]:
-    """
-    Generate summary text for code files using OpenAI's GPT-3.
+    """Generate summary text for each file in the repository using OpenAI's GPT-3.
 
     Parameters
     ----------
-    ignore_files : list
-        A list of file names to ignore when generating summaries.
-    files : Dict[str, str]
-        A dictionary where the keys are file paths and values are raw code.
-    prompt : str
-        The prompt to send to OpenAI's GPT API.
+    ignore_files
+        Files to ignore in the repositroy when generating summaries.
+    files
+        Hashmap of file paths and their contents.
+    prompt
+        Prompt to send to OpenAI's GPT API i.e. the code to summarize.
 
     Returns
     -------
-    Dict[str, str]
-       Processed summary text for each file.
+        Hashmap of file paths and their summaries generated.
     """
+    http_client = get_http_client()
+    cache = get_cache()
 
     tasks = []
 
@@ -77,30 +74,42 @@ async def code_to_text(
             LOGGER.debug(err.format(prompt_code))
             continue
 
-        tasks.append(asyncio.create_task(fetch_summary(path, prompt_code)))
+        tasks.append(
+            asyncio.create_task(
+                fetch_summary(path, prompt_code, http_client, cache)
+            )
+        )
 
     results = await asyncio.gather(*tasks)
 
     return results
 
 
-async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
-    """
-    Fetch summary text for a given file path using OpenAI's GPT-3 API.
+async def fetch_summary(
+    file: str, prompt: str, http_client, cache
+) -> Tuple[str, str]:
+    """Generate summary text for a given file path using OpenAI's GPT-3 API.
 
     Parameters
     ----------
-    file : str
-        The file path for which to fetch summary text.
-    prompt : str
-        The prompt to send to OpenAI's GPT-3 API.
+    file
+        File path for which to fetch summary text.
+    prompt
+        Prompt to send to OpenAI's GPT API i.e. the code to summarize.
+    http_client
+        HTTP client to use for making requests to the OpenAI API.
+    cache
+        Local cache to store OpenAI API responses.
 
     Returns
     -------
-    Tuple[str, str]
-        A tuple containing the file path and the generated summary text.
-    """
+        Tuple containing the file path and the generated summary text.
 
+    Raises
+    ------
+    OpenAIError
+        If the OpenAI API response is missing the 'choices' field.
+    """
     if prompt in cache:
         return (file, cache[prompt])
 
@@ -111,13 +120,13 @@ async def fetch_summary(file: str, prompt: str) -> Tuple[str, str]:
             f"https://api.openai.com/v1/engines/{ENGINE}/completions",
             json={
                 "prompt": prompt,
-                "temperature": 0,
+                "temperature": 0.4,
                 "max_tokens": 1024,
                 "top_p": 1,
                 "frequency_penalty": 0.0,
                 "presence_penalty": 0.0,
             },
-            headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
+            headers={"Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}"},
         )
 
         if response.status_code != 200:
@@ -160,28 +169,12 @@ def generate_summary_text(prompt: str) -> str:
     completions = openai.Completion.create(
         engine=ENGINE,
         prompt=prompt,
-        max_tokens=69,
+        max_tokens=100,
     )
     generated_text = completions.choices[0].text
     return generated_text.lstrip().strip('"')
 
 
 async def null_summary(file: str, summary: str) -> Tuple[str, str]:
-    """
-    Provides a placeholder summary tuple for scenarios when the
-    OpenAI API fails to generate a summary from the prompt.
-
-    Parameters
-    ----------
-    file : str
-        The file path for which to create a null summary.
-    summary : str
-        The null summary to be returned.
-
-    Returns
-    -------
-    Tuple[str, str]
-        A tuple containing the file path and the null summary.
-    """
-
+    """Placeholder summary for files that exceed the max token limit."""
     return (file, summary)

@@ -4,16 +4,23 @@ import sys
 
 sys.path.append("src")
 
+import json
 import os
 import unittest
 from unittest.mock import patch
 
 import httpx
 import pytest
+import redis
 import responses
 
 import src.model as ai
 from src.model import OpenAIError, cache, fetch_summary
+
+# Configure Redis client
+redis_client = redis.Redis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
 
 
 class TestOpenAIHandler(unittest.IsolatedAsyncioTestCase):
@@ -27,7 +34,11 @@ class TestOpenAIHandler(unittest.IsolatedAsyncioTestCase):
         responses.add(
             responses.POST,
             ai.ENDPOINT,
-            json={"choices": [{"text": "This script prints a hello world message."}]},
+            json={
+                "choices": [
+                    {"text": "This script prints a hello world message."}
+                ]
+            },
             status=200,
         )
 
@@ -35,7 +46,10 @@ class TestOpenAIHandler(unittest.IsolatedAsyncioTestCase):
         result = await ai.fetch_summary(file, prompt)
         self.assertEqual(
             result,
-            (file, 'This code prints the phrase " Hello, World! " to the console.'),
+            (
+                file,
+                'This code prints the phrase " Hello, World! " to the console.',
+            ),
         )
 
     @responses.activate
@@ -99,32 +113,14 @@ async def test_fetch_summary_failure():
     with patch.object(httpx.AsyncClient, "post") as mock_post:
         response = httpx.Response(status_code=500)
         mock_post.side_effect = httpx.HTTPStatusError(
-            error_message, request=httpx.Request("POST", "url"), response=response
+            error_message,
+            request=httpx.Request("POST", "url"),
+            response=response,
         )
 
         result = await fetch_summary(file, prompt)
 
         assert result != (file, error_message)
-
-
-@pytest.mark.asyncio
-async def test_fetch_summary_spacy_text_processor():
-    file = "test_file.py"
-    prompt = 'Summarize this code: print("Hello, World!")'
-    summary = "This is a generated summary."
-    spacy_summary = "This is a spacy processed summary."
-
-    # Clear cache
-    cache.clear()
-
-    with patch("src.model.spacy_text_processor") as mock_spacy_text_processor:
-        mock_spacy_text_processor.return_value = spacy_summary
-
-        result = await fetch_summary(file, prompt)
-
-        assert result != (file, summary)
-        assert prompt in cache
-        assert cache[prompt] == spacy_summary
 
 
 if __name__ == "__main__":

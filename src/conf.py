@@ -118,7 +118,11 @@ def read_helper_configurations(handler: FileHandler, conf: AppConfig):
         path = Path("conf/").joinpath(path).resolve()
         conf_dict = handler.read(path)
         update_helper_configurations(
-            dependency_files, ignore_files, language_names, language_setup, conf_dict
+            dependency_files,
+            ignore_files,
+            language_names,
+            language_setup,
+            conf_dict,
         )
 
     return dependency_files, ignore_files, language_names, language_setup

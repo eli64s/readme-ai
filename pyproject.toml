@@ -1,0 +1,42 @@
+# Black formatting
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+      .eggs         # exclude a few common directories in the
+    | .git          # root of the project
+    | .hg
+    | .mypy_cache
+    | .pytest_cache
+    | .tox
+    | venv
+    | benchmarks
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+'''
+
+# Flake8
+[flake8]
+max-line-length = 79
+
+# iSort
+[tool.isort]
+profile = "black"
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
+virtual_env = "conda"
+
+# Pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--strict-markers --disable-pytest-warnings"
+
+# Pytest coverage
+[tool.coverage.run]
+omit = ["tests/*", "setup.py", "*/__init__.py"]

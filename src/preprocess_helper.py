@@ -46,9 +46,13 @@ def parse_pipfile(file):
 def parse_pyproject_toml(file):
     data = toml.load(file)
     dependencies = []
-    for package in data.get("tool", {}).get("poetry", {}).get("dependencies", []):
+    for package in (
+        data.get("tool", {}).get("poetry", {}).get("dependencies", [])
+    ):
         dependencies.append(package)
-    for package in data.get("tool", {}).get("poetry", {}).get("dev-dependencies", []):
+    for package in (
+        data.get("tool", {}).get("poetry", {}).get("dev-dependencies", [])
+    ):
         dependencies.append(package)
     return dependencies
 
@@ -134,15 +138,7 @@ def parse_go_mod(file_path: str) -> List[str]:
 
 
 def parse_go_sum(file_path: str) -> List[str]:
-    """
-    Extracts dependencies from a Go sum file.
-
-    Parameters:
-        file_path (str): The path to the Go sum file.
-
-    Returns:
-        List[str]: A list of the extracted dependencies.
-    """
+    """Extracts dependencies from a Go sum file."""
     with open(file_path, "r") as f:
         content = f.read()
 

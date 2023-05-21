@@ -6,15 +6,17 @@ from tempfile import NamedTemporaryFile
 import toml
 import yaml
 
-from src.preprocess_helper import *
+import src.preprocess_helper as helper
 
 
 # Test parse_conda_env_file function
 def test_parse_conda_env_file():
-    conda_env = {"dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]}
+    conda_env = {
+        "dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]
+    }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(yaml.dump(conda_env))
-    dependencies = parse_conda_env_file(temp_file.name)
+    dependencies = helper.parse_conda_env_file(temp_file.name)
     assert dependencies == ["numpy", "pandas", "scipy"]
 
 
@@ -26,7 +28,7 @@ def test_parse_pipfile():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(pipfile))
-    dependencies = parse_pipfile(temp_file)
+    dependencies = helper.parse_pipfile(temp_file)
     assert dependencies == ["requests", "numpy", "pytest"]
 
 
@@ -42,7 +44,7 @@ def test_parse_pyproject_toml():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pyproject_toml))
-    dependencies = parse_pyproject_toml(temp_file)
+    dependencies = helper.parse_pyproject_toml(temp_file)
     assert dependencies == ["numpy", "requests", "pytest"]
 
 
@@ -51,7 +53,7 @@ def test_parse_requirements_file():
     requirements = ["numpy==1.19.2", "# A comment", "", "requests>=2.25.1"]
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write("\n".join(requirements))
-    dependencies = parse_requirements_file(temp_file.name)
+    dependencies = helper.parse_requirements_file(temp_file.name)
     assert dependencies == ["numpy", "requests"]
 
 
@@ -66,7 +68,7 @@ def test_parse_cargo_toml():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(cargo_toml))
-    dependencies = parse_cargo_toml(temp_file)
+    dependencies = helper.parse_cargo_toml(temp_file)
     assert dependencies == ["serde", "tokio", "serde-test"]
 
 
@@ -80,7 +82,7 @@ def test_parse_cargo_lock():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(cargo_lock))
-    dependencies = parse_cargo_lock(temp_file)
+    dependencies = helper.parse_cargo_lock(temp_file)
     assert dependencies == ["serde", "tokio"]
 
 
@@ -92,7 +94,7 @@ def test_parse_package_json():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
-    dependencies = parse_package_json(temp_file)
+    dependencies = helper.parse_package_json(temp_file)
     assert dependencies == ["express", "lodash", "mocha"]
 
 
@@ -117,7 +119,7 @@ def test_parse_yarn_lock():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(yarn_lock)
-    dependencies = parse_yarn_lock(temp_file)
+    dependencies = helper.parse_yarn_lock(temp_file)
     assert dependencies == ["lodash", "express", "mocha"]
 
 
@@ -135,8 +137,11 @@ def test_parse_go_mod():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(go_mod)
-    dependencies = parse_go_mod(temp_file.name)
-    assert dependencies == ["github.com/gin-gonic/gin", "github.com/stretchr/testify"]
+    dependencies = helper.parse_go_mod(temp_file.name)
+    assert dependencies == [
+        "github.com/gin-gonic/gin",
+        "github.com/stretchr/testify",
+    ]
 
 
 # Test parse_go_sum function
@@ -149,8 +154,11 @@ def test_parse_go_sum():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(go_sum)
-    dependencies = parse_go_sum(temp_file.name)
-    assert dependencies == ["github.com/gin-gonic/gin", "github.com/stretchr/testify"]
+    dependencies = helper.parse_go_sum(temp_file.name)
+    assert dependencies == [
+        "github.com/gin-gonic/gin",
+        "github.com/stretchr/testify",
+    ]
 
 
 # Test parse_gradle function
@@ -163,8 +171,11 @@ def test_parse_gradle():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(gradle_file)
-    dependencies = parse_gradle(temp_file.name)
-    assert dependencies == ["com.google.guava:guava:30.1-jre", "junit:junit:4.13.2"]
+    dependencies = helper.parse_gradle(temp_file.name)
+    assert dependencies == [
+        "com.google.guava:guava:30.1-jre",
+        "junit:junit:4.13.2",
+    ]
 
 
 # Test parse_maven function
@@ -185,5 +196,8 @@ def test_parse_maven():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(maven_file)
-    dependencies = parse_maven(temp_file.name)
-    assert dependencies == ["com.google.guava:guava:30.1-jre", "junit:junit:4.13.2"]
+    dependencies = helper.parse_maven(temp_file.name)
+    assert dependencies == [
+        "com.google.guava:guava:30.1-jre",
+        "junit:junit:4.13.2",
+    ]

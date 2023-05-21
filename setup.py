@@ -11,7 +11,11 @@ with open(BASE_DIR / "requirements.txt") as file:
 
 docs_packages = ["mkdocs==1.3.0", "mkdocstrings==0.18.1"]
 style_packages = ["black==21.9b0", "flake8==3.9.2", "isort==5.10.1"]
-test_packages = ["pytest==7.1.2", "pytest-cov==2.10.1", "great-expectations==0.15.15"]
+test_packages = [
+    "pytest==7.1.2",
+    "pytest-cov==2.10.1",
+    "great-expectations==0.15.15",
+]
 
 setup(
     name="readmeai",
@@ -24,7 +28,10 @@ setup(
     packages=find_namespace_packages(),
     install_requires=required_packages,
     extras_require={
-        "dev": docs_packages + style_packages + test_packages + ["pre-commit==2.19.0"],
+        "dev": docs_packages
+        + style_packages
+        + test_packages
+        + ["pre-commit==2.19.0"],
         "test": test_packages,
     },
     classifiers=[

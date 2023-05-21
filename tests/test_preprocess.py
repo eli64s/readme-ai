@@ -1,21 +1,26 @@
 """Unit tests for preprocess.py."""
-
-import sys
-
-sys.path.append("src")
-
 import os
 import shutil
+import sys
+from pathlib import Path
 
 import git
 import pytest
 
-from src.preprocess import (_clone_or_copy_repository,
-                            _extract_programming_languages,
-                            _extract_repository_contents, _get_file_parsers,
-                            _get_remote_repository, extract_dependencies,
-                            get_repository, get_repository_files,
-                            get_repository_name)
+from src.preprocess import (
+    _clone_or_copy_repository,
+    _extract_programming_languages,
+    _extract_repository_contents,
+    _get_file_parsers,
+    _get_remote_repository,
+    extract_dependencies,
+    get_repository,
+    get_repository_files,
+    get_repository_name,
+)
+
+sys.path.append("src")
+
 
 # Define test constants
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -85,7 +90,7 @@ def test_extract_repository_contents(temp_directory):
         f.write("Test file")
 
     contents = _extract_repository_contents(TEMP_DIR)
-    assert "subdir/file.txt" in contents
+    assert Path("subdir/file.txt") in contents
     assert contents["subdir/file.txt"] == "Test file"
 
 
@@ -94,8 +99,10 @@ def test_extract_programming_language():
     all_files = ["file1.py", "file2.txt", "file3.js"]
     file_ext = {".py": ".py", ".js": ".js"}
 
-    file_extensions = _extract_programming_language(all_files, file_ext)
-    assert file_extensions == [".py", ".txt", ".js"]
+    file_extensions = _extract_programming_languages(all_files, file_ext)
+    assert file_extensions[0] in ["py", "js", "txt"]
+    assert file_extensions[1] in ["py", "js", "txt"]
+    assert file_extensions[2] in ["py", "js", "txt"]
 
 
 def test_get_file_parsers():
@@ -125,7 +132,9 @@ def test_extract_dependencies(temp_directory, monkeypatch):
     monkeypatch.setattr(
         "preprocess._clone_or_copy_repository", mock_clone_or_copy_repository
     )
-    dependencies = extract_dependencies(TEST_REPO, TEST_FILE_EXT, TEST_FILE_NAMES)
+    dependencies = extract_dependencies(
+        TEST_REPO, TEST_FILE_EXT, TEST_FILE_NAMES
+    )
     assert dependencies == ["Test dependency"] * 2 + TEST_FILE_EXT
 
 

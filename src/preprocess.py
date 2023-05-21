@@ -16,83 +16,48 @@ ALLOWED_HOSTS = ["github.com", "gitlab.com"]
 LOGGER = Logger("readmeai_logger")
 
 
-def _clone_or_copy_repository(repo: str, temp_dir: str) -> None:
-    """
-    Clones a git repository from the provided URL to a temporary
-    directory or copies a local directory to the temporary
-    directory if the provided URL is a directory.
+def _clone_or_copy_repository(source: str, temp_dir: str) -> None:
+    """Clone or copy a repository to a temporary directory.
 
     Parameters
     ----------
-    repo : str
-        The URL or local path of the repository to clone or copy.
-    temp_dir : str
-        The path of the temporary directory to which the repository
-        will be cloned or copied.
+    source
+        URL or path of the repository.
+    temp_dir
+        Path to the temporary directory.
 
     Raises
     ------
     ValueError
-        If the provided repository link is not valid.
+        If the repository path or URL is not valid.
     """
     temp_dir = Path(temp_dir)
-    parsed_url = urlparse(repo)
+    parsed_url = urlparse(source)
 
     if parsed_url.hostname in ALLOWED_HOSTS:
-        git.Repo.clone_from(repo, temp_dir)
+        git.Repo.clone_from(source, temp_dir)
         return
 
-    if Path(repo).is_dir():
+    if Path(source).is_dir():
         if temp_dir.exists() and temp_dir.is_dir():
             shutil.rmtree(temp_dir)
-        shutil.copytree(repo, temp_dir)
+        shutil.copytree(source, temp_dir)
         return
 
     raise ValueError("Repository path or URL is not valid.")
 
 
-def _extract_programming_languages(
-    files: List[str], language_names: Dict[str, str]
-) -> List[str]:
-    """
-    Returns a list of unique file extensions present in the provided list
-    of file paths, along with any additional file extensions defined in
-    the language_names configuration.
-
-    Parameters
-    ----------
-    files : List[str]
-        A list of file paths.
-    language_names : Dict[str, str]
-        A dictionary mapping file extensions to their full name.
-
-    Returns
-    -------
-    List[str]
-        A list of unique file extensions present in the provided list of
-        file paths, along with any additional file extensions defined in
-        sthe language_names dictionary.
-    """
-    ext_list = list({Path(f).suffix[1:] for f in files})
-    languages = ext_list + [
-        language_names[key] for key in ext_list if key in language_names
-    ]
-    return languages
-
-
 def _extract_repository_contents(source: str) -> Dict[str, str]:
-    """
-    Retrieve the contents of all the files from a local or remote repository.
+    """Extract the contents from the cloned or copied repository.
 
     Parameters
     ----------
-    source : str
-        The path or url to the repository.
+    source
+        Path to the repository.
 
     Returns
     -------
-    Dict[str, str]
-        Hashmap of file paths and their contents.
+        Hashmap of file paths and their contents from the repository.
     """
     contents = {}
     for path in Path(source).rglob("*"):
@@ -106,6 +71,45 @@ def _extract_repository_contents(source: str) -> Dict[str, str]:
                     path.relative_to(source)
                 ] = "Could not decode content: non-text or non-UTF-8 file."
     return contents
+
+
+def _get_file_extensions(files: List[str]) -> List[str]:
+    """Extract distinct file extensions that exist in the repository.
+
+    Parameters
+    ----------
+    files
+        List containing all file paths in the repository.
+
+    Returns
+    -------
+        List containing distinct file extensions in the repository.
+    """
+    ext_list = list({Path(f).suffix[1:] for f in files})
+    return ext_list
+
+
+def _map_extensions_to_languages(
+    ext_list: List[str], languages: Dict[str, str]
+) -> List[str]:
+    """Map file extensions to programming language names i.e. .py -> Python.
+
+    Parameters
+    ----------
+    ext_list
+        List containing distinct file extensions in the repository.
+    languages
+        Hashmap containing file extensions and their corresponding
+        programming language names.
+
+    Returns
+    -------
+        List containing programming language names in the repository.
+    """
+    lang_name = ext_list + [
+        languages[key] for key in ext_list if key in languages
+    ]
+    return lang_name
 
 
 def _get_file_parsers() -> Dict[str, callable]:
@@ -139,18 +143,16 @@ def _get_file_parsers() -> Dict[str, callable]:
 
 
 def _get_remote_repository(url: str) -> Dict[str, str]:
-    """
-    Clone a remote repository and get the contents of all the files.
+    """Clone a remote repository and return its contents.
 
     Parameters
     ----------
-    url : str
-        The URL of the remote repository.
+    url
+        URL of the remote repository.
 
     Returns
     -------
-    Dict[str, str]
-        A dictionary where the keys are file paths and values are the contents of the files.
+        Hashmap of file paths and their contents from the repository.
     """
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -165,22 +167,20 @@ def _get_remote_repository(url: str) -> Dict[str, str]:
 def extract_dependencies(
     dependency_files: List[str], languages: List[str], repository: str
 ) -> List[str]:
-    """
-    Extract the dependencies of a project.
+    """Search for dependency files in the repository and extract metadata.
 
     Parameters
     ----------
-    dependency_file_names : List[str]
-        A list of file names to consider.
-    languages : List[str]
-        A list of file extensions to consider.
-    repository : str
-        The URL of the repository or the path to the local directory.
+    dependency_files
+        Dependency files to search for in the repository.
+    languages
+        List of programming languages
+    repository
+        Path or URL of the repository.
 
     Returns
     -------
-    List[str]
-        List of project dependencies and software packages.
+        List of software and packages used by the codebase.
     """
     if not repository:
         return []
@@ -189,39 +189,32 @@ def extract_dependencies(
         _clone_or_copy_repository(repository, temp_dir)
 
         file_parsers = _get_file_parsers()
-        all_files = get_repository_files(temp_dir)
+        repo_files = get_repository_files(temp_dir)
 
         dependencies = []
         dependency_file_set = set(dependency_files)
         relevant_files = [
-            file for file in all_files if Path(file).name in dependency_file_set
+            file
+            for file in repo_files
+            if Path(file).name in dependency_file_set
         ]
         for file in relevant_files:
             parser = file_parsers.get(Path(file).name)
             if parser:
                 dependencies.append(parser(file))
 
-        languages = _extract_programming_languages(all_files, languages)
-        dependencies.append(languages)
-        packages = [tech.lower() for sublist in dependencies for tech in sublist]
+        file_exts = _get_file_extensions(repo_files)
+        lang_name = _map_extensions_to_languages(file_exts, languages)
+        dependencies.append(lang_name)
+        dependencies = [
+            name.lower() for sublist in dependencies for name in sublist
+        ]
 
-        return list(set(packages))
+        return list(set(dependencies))
 
 
 def get_repository(source: str) -> Dict[str, str]:
-    """
-    Retrieves the contents of all the files from a local or remote repository.
-
-    Parameters
-    ----------
-    source : str
-        The path or url to the repository.
-    Returns
-    -------
-    Dict[str, str]
-        Hashmap of file paths and their contents.
-    """
-
+    """Returns the contents of a repository from a URL or local path."""
     if valid_url(source):
         return _get_remote_repository(source)
     else:
@@ -245,20 +238,7 @@ def get_repository_files(directory: str) -> List[str]:
 
 
 def get_repository_name(path: Union[str, Path]) -> str:
-    """
-    Returns the name of a repository from its URL or local path.
-
-    Parameters
-    ----------
-    path : Union[str, Path]
-        The URL or local path of the repository.
-
-    Returns
-    -------
-    str
-        The name of the repository.
-    """
-
+    """Extracts the repository name from a URL or local path."""
     parsed_url = urlparse(str(path))
 
     if parsed_url.hostname in ALLOWED_HOSTS:
