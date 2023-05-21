@@ -20,6 +20,8 @@ ignore_files = [
     ".pkl",
     ".sav",
     ".toml",
+    ".tsv",
+    ".txt",
     ".h5",
 
     # Documentation
@@ -59,6 +61,7 @@ ignore_files = [
     ".cert",
     ".csr",
     ".p12",
+    ".sum",
 
     # Compiled code
     "__init__",
@@ -71,8 +74,6 @@ ignore_files = [
     # Version control
     ".flake8",
     ".dvc",
-    ".dvcignore",
-    ".gitignore",
     ".git",
     ".svn",
     ".hg",
@@ -103,4 +104,10 @@ ignore_files = [
     "Dockerfile",
     "Jenkinsfile",
     "Vagrantfile",
+
+    # Ignore File
+    ".gitignore",
+    ".dvcignore",
+    ".npmignore",
+    ".dockerignore",
 ]

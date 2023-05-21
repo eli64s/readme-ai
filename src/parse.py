@@ -1,19 +1,23 @@
 """Dependency parsing helper functions for README-AI."""
 
-import json
 import re
 from typing import List
 
 import toml
 import yaml
 
+from factory import FileHandler
 from logger import Logger
 
+FILE_HANDLER = FileHandler()
 LOGGER = Logger("readmeai_logger")
 
 
 # Python
+
+
 def parse_conda_env_file(file):
+    """Extracts dependencies from a conda environment file."""
     with open(file) as f:
         data = yaml.safe_load(f)
     dependencies = []
@@ -21,12 +25,13 @@ def parse_conda_env_file(file):
         if isinstance(package, str):
             dependencies.append(package.split("=")[0])
         elif isinstance(package, dict):
-            for name, version in package.items():
+            for name, _ in package.items():
                 dependencies.append(name)
     return dependencies
 
 
 def parse_pipfile(file):
+    """Extracts dependencies from a Pipfile."""
     with open(file) as f:
         data = toml.load(f)
 
@@ -34,16 +39,17 @@ def parse_pipfile(file):
     dev_packages = data.get("dev-packages", {})
 
     dependencies = []
-    for package, version in packages.items():
+    for package, _ in packages.items():
         dependencies.append(package)
 
-    for package, version in dev_packages.items():
+    for package, _ in dev_packages.items():
         dependencies.append(package)
 
     return dependencies
 
 
 def parse_pyproject_toml(file):
+    """Extracts dependencies from a pyproject.toml file."""
     data = toml.load(file)
     dependencies = []
     for package in (
@@ -58,6 +64,7 @@ def parse_pyproject_toml(file):
 
 
 def parse_requirements_file(file):
+    """Extracts dependencies from a requirements.txt file."""
     with open(file) as f:
         lines = f.readlines()
 
@@ -78,7 +85,10 @@ def parse_requirements_file(file):
 
 
 # Rust
+
+
 def parse_cargo_toml(file):
+    """Extracts dependencies from a Cargo.toml file."""
     data = toml.load(file)
     dependencies = []
     for package in data.get("dependencies", []):
@@ -89,6 +99,7 @@ def parse_cargo_toml(file):
 
 
 def parse_cargo_lock(file):
+    """Extracts dependencies from a Cargo.lock file."""
     data = toml.load(file)
     dependencies = []
     for package in data.get("package", []):
@@ -97,26 +108,30 @@ def parse_cargo_lock(file):
 
 
 # Javascript
+
+
 def parse_package_json(file):
-    with open(file) as f:
-        data = json.load(f)
+    """Extracts dependencies from a package.json file."""
+    data = FILE_HANDLER.read_json(file)
     dependencies = []
     for section in ["dependencies", "devDependencies"]:
         if section in data:
-            for package, version in data[section].items():
+            for package, _ in data[section].items():
                 dependencies.append(package)
     return dependencies
 
 
 def parse_yarn_lock(file):
-    with open(file) as f:
-        content = f.read()
+    """Extracts dependencies from a yarn.lock file."""
+    data = FILE_HANDLER.read(file)
     regex = re.compile(r"^(\w[\w\-]*\w)@", re.MULTILINE)
-    dependencies = regex.findall(content)
+    dependencies = regex.findall(data)
     return list(set(dependencies))
 
 
 # Go
+
+
 def parse_go_mod(file_path: str) -> List[str]:
     """
     Extracts dependencies from a Go module file.
@@ -130,7 +145,6 @@ def parse_go_mod(file_path: str) -> List[str]:
     with open(file_path, "r") as f:
         content = f.read()
 
-    # Find all lines starting with "require" and extract the module name
     regex = re.compile(r"^require (.+)$", re.MULTILINE)
     dependencies = regex.findall(content)
 
@@ -142,7 +156,6 @@ def parse_go_sum(file_path: str) -> List[str]:
     with open(file_path, "r") as f:
         content = f.read()
 
-    # Find all lines starting with the module name and extract the version
     regex = re.compile(r"^([^\s]+)\s([^@]+)", re.MULTILINE)
     dependencies = [match.group(1) for match in regex.finditer(content)]
 
@@ -150,6 +163,8 @@ def parse_go_sum(file_path: str) -> List[str]:
 
 
 # Java
+
+
 def parse_gradle(file_path):
     with open(file_path) as file:
         content = file.read()
@@ -178,6 +193,7 @@ def parse_maven(file_path):
 
 
 # C/C++
+
 # Makefile
 def parse_makefile(file):
     with open(file) as f:
@@ -187,7 +203,6 @@ def parse_makefile(file):
     dependencies = []
     matches = regex.findall(content)
     for match in matches:
-        # Split the line by spaces and filter out empty strings
         deps = filter(None, match.split())
         dependencies.extend(deps)
 
@@ -225,7 +240,6 @@ def parse_makefile_am(file):
     dependencies = []
     matches = regex.findall(content)
     for match in matches:
-        # Split the line by spaces and filter out empty strings
         deps = filter(None, match.split())
         dependencies.extend(deps)
 

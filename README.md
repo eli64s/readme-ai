@@ -112,39 +112,51 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
     <tr>
       <td>1️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_1.md">README_1_PY.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Python.md">README_Python.md</a></td>
       <td><a href="https://github.com/eli64s/README-AI">readme-ai</a></td>
       <td><p>15,459,624</p>
     </tr>
-    <tr>
       <td>2️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_2.md">README_2_PY.md</a></td>
-      <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
-      <td><p>8,698,890</p>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README_JavaScript.md</a></td>
+      <td><a href="https://github.com/cometchat-pro/javascript-react-chat-app">react-chat-app</a></td>
+      <td><p>64,860,374</p>
     </tr>
+    <tr>
     <tr>
       <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_JS.md">README_3_JS.md</a></td>
-      <td><a href="https://github.com/philnash/react-web-audio">react-web-audio</a></td>
-      <td><p>533,233</p>
-    </tr>
-    <tr>
-      <td>4️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_RUST.md">README_4_RUST.md</a></td>
-      <td><a href="https://github.com/MihaiBogdanEugen/contacts-cli">rust-contacts-cli</a></td>
-      <td><p>79,104</p>
-    </tr>
-    <tr>
-      <td>5️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_3_FastAPI.md">README_5_FastAPI.md</a></td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_FastAPI_Redis.md">README_FastAPI_Redis.md</a></td>
       <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
       <td><p>285,998</p>
     </tr>
     <tr>
-      <td>6️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_EX_6_JAVA.md">README_6_JAVA.md</a></td>
+      <td>4️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Rust_C.md">README_Rust_C.md</a></td>
+      <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
+      <td><p>72,750</p>
+    </tr>
+    <tr>
+      <td>5️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Java.md">README_Java.md</a></td>
       <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
       <td><p>18,240,095</p>
+    </tr>
+      <tr>
+      <td>6️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Go.md">README_Go.md</a></td>
+      <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
+      <td><p>70,707</p>
+    </tr>
+    <tr>
+      <td>7️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README_Python_MLOps.md</a></td>
+      <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
+      <td><p>8,698,890</p>
+    </tr>
+    <tr>
+      <td>8️⃣</td>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README_Apache_Flink.md</a></td>
+      <td>Apache Flink local directory</td>
+      <td><p>------------</p>
     </tr>
   </table>
 </div>

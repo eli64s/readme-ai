@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 import git
 
-import preprocess_helper as helper
+import parse
 from logger import Logger
 from utils import valid_url
 
@@ -122,23 +122,23 @@ def _get_file_parsers() -> Dict[str, callable]:
         A dictionary containing file parsers for various file types.
     """
     return {
-        "build.gradle": helper.parse_gradle,
-        "pom.xml": helper.parse_maven,
-        "cargo.toml": helper.parse_cargo_toml,
-        "cargo.lock": helper.parse_cargo_lock,
-        "go.mod": helper.parse_go_mod,
-        "go.sum": helper.parse_go_sum,
-        "requirements.txt": helper.parse_requirements_file,
-        "environment.yaml": helper.parse_conda_env_file,
-        "environment.yml": helper.parse_conda_env_file,
-        "Pipfile": helper.parse_pipfile,
-        "pyproject.toml": helper.parse_pyproject_toml,
-        "package.json": helper.parse_package_json,
-        "yarn.lock": helper.parse_yarn_lock,
-        "CMakeLists.txt": helper.parse_cmake,
-        "Makefile": helper.parse_makefile,
-        "Makefile.am": helper.parse_makefile_am,
-        "configure.ac": helper.parse_configure_ac,
+        "build.gradle": parse.parse_gradle,
+        "pom.xml": parse.parse_maven,
+        "cargo.toml": parse.parse_cargo_toml,
+        "cargo.lock": parse.parse_cargo_lock,
+        "go.mod": parse.parse_go_mod,
+        "go.sum": parse.parse_go_sum,
+        "requirements.txt": parse.parse_requirements_file,
+        "environment.yaml": parse.parse_conda_env_file,
+        "environment.yml": parse.parse_conda_env_file,
+        "Pipfile": parse.parse_pipfile,
+        "pyproject.toml": parse.parse_pyproject_toml,
+        "package.json": parse.parse_package_json,
+        "yarn.lock": parse.parse_yarn_lock,
+        "CMakeLists.txt": parse.parse_cmake,
+        "Makefile": parse.parse_makefile,
+        "Makefile.am": parse.parse_makefile_am,
+        "configure.ac": parse.parse_configure_ac,
     }
 
 
@@ -210,6 +210,9 @@ def extract_dependencies(
             name.lower() for sublist in dependencies for name in sublist
         ]
 
+        if has_dockerfile(repo_files):
+            dependencies.append("Docker")
+
         return list(set(dependencies))
 
 
@@ -250,3 +253,8 @@ def get_repository_name(path: Union[str, Path]) -> str:
         repo_name = Path(path).name
 
     return repo_name
+
+
+def has_dockerfile(paths):
+    """Checks if a Dockerfile exists in the repository."""
+    return any("Dockerfile" in path for path in paths)

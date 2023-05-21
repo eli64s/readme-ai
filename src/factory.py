@@ -3,14 +3,15 @@
 import json
 
 import toml
+import yaml
 
 
 class ReadFileError(Exception):
-    pass
+    """Exception raised when a file cannot be read."""
 
 
 class WriteFileError(Exception):
-    pass
+    """Exception raised when a file cannot be written."""
 
 
 class FileHandler:
@@ -19,6 +20,7 @@ class FileHandler:
             "md": {"read": self.read_markdown, "write": self.write_markdown},
             "toml": {"read": self.read_toml, "write": self.write_toml},
             "json": {"read": self.read_json, "write": self.write_json},
+            "yaml": {"read": self.read_yaml, "write": self.write_yaml},
         }
         self.cache = {}
 
@@ -94,3 +96,15 @@ class FileHandler:
         """Writes the content to a JSON file."""
         with open(file_path, "w", encoding="utf-8") as file:
             json.dump(content, file, ensure_ascii=False, indent=4)
+
+    @staticmethod
+    def read_yaml(file_path):
+        """Reads the content of a YAML file."""
+        with open(file_path, "r", encoding="utf-8") as file:
+            return yaml.safe_load(file)
+
+    @staticmethod
+    def write_yaml(file_path, content):
+        """Writes the content to a YAML file."""
+        with open(file_path, "w", encoding="utf-8") as file:
+            yaml.safe_dump(content, file)

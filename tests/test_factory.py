@@ -4,7 +4,7 @@ import os
 import tempfile
 import unittest
 
-from src.file_factory import FileHandler, ReadFileError, WriteFileError
+from src.factory import FileHandler, ReadFileError, WriteFileError
 
 
 class TestFileHandler(unittest.TestCase):

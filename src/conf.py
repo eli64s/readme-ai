@@ -6,7 +6,7 @@ from typing import Dict, List
 
 from cachetools import TTLCache, cached
 
-from file_factory import FileHandler
+from factory import FileHandler
 from logger import Logger
 
 LOGGER = Logger("readmeai_logger")

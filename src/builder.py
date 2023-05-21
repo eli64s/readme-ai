@@ -8,7 +8,7 @@ import git
 import pandas as pd
 
 from conf import AppConfig, ConfigHelper
-from file_factory import FileHandler
+from factory import FileHandler
 from logger import Logger
 
 LOGGER = Logger("readmeai_logger")
@@ -20,19 +20,18 @@ def build(
     dependency_list: list,
     summaries: pd.DataFrame,
 ) -> None:
-    """
-    Handles the logic that builds the README.md file for your codebase.
+    """Builds the README Markdown file for your codebase.
 
     Parameters
     ----------
-    conf : AppConfig
-        Configuration object containing GitHub and markdown configurations.
-    conf_helper : ConfigHelper
-        Configuration helper object containing file extensions and setup guide.
-    dependency_list : list
-        List of project dependencies.
-    summaries : pd.DataFrame
-        DataFrame containing parsed information from project files.
+    conf
+        Configuration data class containing Markdown template strings.
+    conf_helper
+        Helper data class containing metadata to populate the README.
+    dependency_list
+        List of project dependencies extracted from the user's repository.
+    summaries
+        List of code summaries generated for each file in the repository.
     """
 
     md_file = conf.md.head

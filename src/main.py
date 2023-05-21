@@ -14,7 +14,7 @@ import builder
 import model
 import preprocess
 from conf import AppConfig, load_configuration_helper
-from file_factory import FileHandler
+from factory import FileHandler
 from logger import Logger
 
 app = typer.Typer()

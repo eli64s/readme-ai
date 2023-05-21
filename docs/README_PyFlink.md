@@ -24,15 +24,18 @@ STREAM-ON
 
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
-- [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+- [📍Overview](#overview)
+- [🔮 Feautres](#-feautres)
+- [⚙️ Project Structure](#️-project-structure)
+- [💻 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
+  - [✅ Prerequisites](#-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🤖 Using STREAM-ON](#-using-stream-on)
+  - [🧪 Running Tests](#-running-tests)
+- [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
 - [🪪 License](#-license)
-- [📫 Contact](#-contact)
 - [🙏 Acknowledgments](#-acknowledgments)
 
 ---
@@ -82,14 +85,6 @@ repo
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
 ## 💻 Modules
-
-<details closed><summary>Root</summary>
-
-| File      | Summary                                                                                                           | Module    |
-|:----------|:------------------------------------------------------------------------------------------------------------------|:----------|
-| .DS_Store | This code is an error message indicating that a file could not be decoded because it is not a text or UTF-8 file. | .DS_Store |
-
-</details>
 
 <details closed><summary>Scripts</summary>
 
