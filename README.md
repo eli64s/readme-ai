@@ -120,7 +120,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
       <td>2️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README-TypeScript.md</a></td>
-      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">typescript-react-chatgpt-app</a></td>
+      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-ts</a></td>
       <td>TypeScript, JavaScript, React</td>
       <td><p>770,708</p>
     </tr>
