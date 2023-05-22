@@ -9,8 +9,8 @@ from urllib.parse import urlparse
 import git
 
 import parse
+import utils
 from logger import Logger
-from utils import valid_url
 
 ALLOWED_HOSTS = ["github.com", "gitlab.com"]
 LOGGER = Logger("readmeai_logger")
@@ -62,6 +62,8 @@ def _extract_repository_contents(source: str) -> Dict[str, str]:
     contents = {}
     for path in Path(source).rglob("*"):
         if path.is_file():
+            if str(path.relative_to(source)).startswith(".git/"):
+                continue
             try:
                 with open(path, encoding="utf-8") as f:
                     lines = f.readlines()
@@ -193,12 +195,10 @@ def extract_dependencies(
         repo_files = get_repository_files(temp_dir)
 
         dependencies = []
-        dependency_file_set = set(dependency_files)
         relevant_files = [
-            file
-            for file in repo_files
-            if Path(file).name in dependency_file_set
+            file for file in repo_files if Path(file).name in dependency_files
         ]
+
         for file in relevant_files:
             parser = file_parsers.get(Path(file).name)
             if parser:
@@ -211,15 +211,13 @@ def extract_dependencies(
             name.lower() for sublist in dependencies for name in sublist
         ]
 
-        if has_dockerfile(repo_files):
-            dependencies.append("Docker")
-
+        dependencies.extend(additional_dependencies(repo_files))
         return list(set(dependencies))
 
 
 def get_repository(source: str) -> Dict[str, str]:
     """Returns the contents of a repository from a URL or local path."""
-    if valid_url(source):
+    if utils.valid_url(source):
         return _get_remote_repository(source)
     else:
         return _extract_repository_contents(source)
@@ -256,6 +254,18 @@ def get_repository_name(path: Union[str, Path]) -> str:
     return repo_name
 
 
-def has_dockerfile(paths):
-    """Checks if a Dockerfile exists in the repository."""
-    return any("Dockerfile" in path for path in paths)
+def additional_dependencies(files: List[Path]) -> List[str]:
+    """Returns a list of additional dependencies."""
+    dependency_mapping = {
+        "docker": "docker",
+        "github/workflow": "github actions",
+    }
+
+    root_list = set()
+    misc_list = []
+    for key in files:
+        root_list.add(str(key).split("/")[0])
+        for substring, dependency in dependency_mapping.items():
+            if substring in str(key).lower():
+                misc_list.append(dependency)
+    return misc_list

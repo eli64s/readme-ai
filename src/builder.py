@@ -170,7 +170,7 @@ def create_setup_guide(
 
     summaries["Language"] = summaries["Module"].apply(
         lambda x: Path(x).suffix[1:]
-        if Path(x).suffix[1:] not in ignore_files and Path(x).suffix != ".xml"
+        if Path(x).suffix[1:] not in ignore_files
         else None
     )
 

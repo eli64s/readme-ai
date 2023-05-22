@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
-from cachetools import TTLCache, cached
+import dacite
 
 from factory import FileHandler
 from logger import Logger
@@ -17,9 +17,8 @@ class OpenAIConfig:
     """OpenAI API configuration."""
 
     api_key: str
-    prompt_intro: str
-    prompt_slogan: str
-    prompt_code_to_text: str
+    engine: str
+    tokens: int
 
 
 @dataclass
@@ -59,6 +58,16 @@ class PathsConfig:
 
 
 @dataclass
+class PromptsConfig:
+    """LLM prompts configuration."""
+
+    code_to_text: str
+    features: str
+    intro: str
+    slogan: str
+
+
+@dataclass
 class AppConfig:
     """README-AI application configuration."""
 
@@ -66,6 +75,7 @@ class AppConfig:
     git: GitConfig
     md: MarkdownConfig
     paths: PathsConfig
+    prompts: PromptsConfig
 
 
 @dataclass
@@ -78,20 +88,21 @@ class ConfigHelper:
     language_setup: Dict[str, str]
 
 
-@cached(TTLCache(maxsize=1024, ttl=300))
-def read_config_file(path: Path) -> Dict[str, str]:
+def load_config(path: Path) -> Dict[str, str]:
+    """Load configuration constants from TOML file."""
     handler = FileHandler()
-    return handler.read(path)
+    conf_dict = handler.read(path)
+    return dacite.from_dict(AppConfig, conf_dict)
 
 
-def load_configuration_helper(conf: AppConfig) -> ConfigHelper:
+def load_config_helper(conf: AppConfig) -> ConfigHelper:
     handler = FileHandler()
     (
         dependency_files,
         ignore_files,
         language_names,
         language_setup,
-    ) = read_helper_configurations(handler, conf)
+    ) = read_config_helper(handler, conf)
 
     return ConfigHelper(
         dependency_files=dependency_files,
@@ -101,7 +112,7 @@ def load_configuration_helper(conf: AppConfig) -> ConfigHelper:
     )
 
 
-def read_helper_configurations(handler: FileHandler, conf: AppConfig):
+def read_config_helper(handler: FileHandler, conf: AppConfig):
     conf_path_list = [
         conf.paths.dependency_files,
         conf.paths.ignore_files,
@@ -117,7 +128,7 @@ def read_helper_configurations(handler: FileHandler, conf: AppConfig):
     for path in conf_path_list:
         path = Path("conf/").joinpath(path).resolve()
         conf_dict = handler.read(path)
-        update_helper_configurations(
+        update_config_helper(
             dependency_files,
             ignore_files,
             language_names,
@@ -128,7 +139,7 @@ def read_helper_configurations(handler: FileHandler, conf: AppConfig):
     return dependency_files, ignore_files, language_names, language_setup
 
 
-def update_helper_configurations(
+def update_config_helper(
     dependency_files, ignore_files, language_names, language_setup, conf_dict
 ):
     if "dependency_files" in conf_dict:

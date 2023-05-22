@@ -80,7 +80,7 @@ ignore_files = [
     ".cvs",
 
     # Editor and IDE settings
-    ".github/workflows",
+    #".github/workflows",
     ".vscode",
     ".idea",
     "*.sublime-*",

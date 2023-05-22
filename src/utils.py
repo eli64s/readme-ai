@@ -29,33 +29,11 @@ def spacy_text_processor(text: str) -> str:
 
 
 def valid_url(s: str) -> bool:
-    """
-    Check if a given string is a valid URL.
-
-    Parameters
-    ----------
-    s : str
-        The string to check.
-
-    Returns
-    -------
-    bool
-        Returns True if the string is a valid URL, False otherwise.
-
-    Raises
-    ------
-    None
-
-    Examples
-    --------
-    is_url("https://www.google.com/") --> True
-    is_url("ftp://ftp.example.com/") --> True
-    is_url("www.example.com") --> False
-    """
+    """Check if a given string is a valid URL."""
     regex = re.compile(
-        r"^(?:http|ftp)s?://"  # http:// or https:// or ftp:// or ftps://
+        r"^(?:http|ftp)s?://"
         r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,63}|[A-Z]{2,63}\.[A-Z]{2,63}))"
-        r"(?::\d+)?"  # optional port number
+        r"(?::\d+)?"
         r"(?:/?|[/?]\S+)$",
         re.IGNORECASE,
     )

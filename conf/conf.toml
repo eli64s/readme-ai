@@ -1,14 +1,64 @@
-# OpenAI API language model parameters
+# Prompts
+[prompts]
+code_to_text = """
+Could you generate a robust yet succinct summary that captures the essence of this code script:
+
+{}
+
+Aim for a balance between brevity and completeness in your explanation.
+"""
+intro = """
+In a rapidly evolving technological landscape, the {} GitHub project is a beacon of innovation. 
+
+We invite you to explore and unravel the key features of this project. 
+
+The following are summaries of the code scripts that make up this project:
+Repository URL: {}
+Code Documentation: {}
+
+Kindly provide insights into:
+- The use-case and benefit of the projcet or tool. 
+- Focus on the user and the value it provides. 
+
+The response should be a short paragraph. Thank you!
+"""
+
+features = """
+In a rapidly evolving technological landscape, the {} GitHub project is a beacon of innovation. 
+
+We invite you to explore and unravel the key features of this project. 
+
+The following are summaries of the code scripts that make up this project:
+
+Repository URL: {}
+Code Documentation: {}
+
+Kindly provide insights into:
+
+- The user-centered design elements.
+- The architecture design and robust technologies fueling the project's functionality.
+- The unique features that make this project stand out from the rest.
+
+For clarity and ease of understanding, please structure each unique feature as a bullet point list.
+
+Your insights will not only enlighten us but will also empower others to understand the project better 
+and appreciate its depth and breadth - thank you!
+"""
+
+slogan = """
+Keeping in mind the unique features and purpose of the GitHub project: {}, can you generate a catchy and engaging slogan that encapsulates its essence?
+"""
+
+# OpenAI API Parameters
 [api]
 api_key = ""
-prompt_intro = """Generate a 2 to 3 sentence summary that describes the capabilities of the GitHub project: {}"""
-prompt_slogan = """Generate a slogan for the GitHub project: {}"""
-prompt_code_to_text = """Generate a robust, yet succint summary for this code: {}"""
+engine = "text-davinci-003"
+tokens = 1024
 
 # Repository (local and remote)
 [git]
-name = ""
-repository = "https://github.com/eli64s/readme-ai"
+name = "README-AI"
+repository = "https://github.com/eli64s/README-AI"
 
 # Paths
 [paths]
@@ -56,8 +106,9 @@ toc = """
 intro = """
 \n## 📍Overview
 \n{}
+\n---
 \n## 🔮 Feautres
-\n> `[📌  INSERT-PROJECT-FEATURES]`
+\n{}
 \n---
 """
 
