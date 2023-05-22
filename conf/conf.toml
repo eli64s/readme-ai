@@ -71,7 +71,6 @@ ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
 badges = "conf/badges.json"
-docs = "docs/raw_data.csv"
 md = "README_AI.md"
 
 # Markdown template

@@ -53,7 +53,6 @@ class PathsConfig:
     language_names: str
     language_setup: str
     badges: str
-    docs: str
     md: str
 
 
