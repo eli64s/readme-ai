@@ -20,7 +20,7 @@ Kindly provide insights into:
 - The use-case and benefit of the projcet or tool. 
 - Focus on the user and the value it provides. 
 
-The response should be a short paragraph. Thank you!
+Generate a response paragraph containing no more than 4 sentences. Thank you!
 """
 
 features = """
@@ -29,25 +29,29 @@ In a rapidly evolving technological landscape, the {} GitHub project is a beacon
 We invite you to explore and unravel the key features of this project. 
 
 The following are summaries of the code scripts that make up this project:
-
 Repository URL: {}
 Code Documentation: {}
 
 Kindly provide insights into:
-
-- The user-centered design elements.
-- The architecture design and robust technologies fueling the project's functionality.
+- The user-centered design elements and architecture. 
 - The unique features that make this project stand out from the rest.
 
-For clarity and ease of understanding, please structure each unique feature as a bullet point list.
+Please structure each unique feature as a bullet point list. Example Markdown Outline:
+
+### Distinctive Features
+
+1. **<FEATURE-DESCRIPTION>:** 
+2. **<FEATURE-DESCRIPTION>:**
+3. **<FEATURE-DESCRIPTION>:**
+- etc.
+
+---
 
 Your insights will not only enlighten us but will also empower others to understand the project better 
-and appreciate its depth and breadth - thank you!
+and appreciate its depth and breadth. Thank you!
 """
 
-slogan = """
-Keeping in mind the unique features and purpose of the GitHub project: {}, can you generate a catchy and engaging slogan that encapsulates its essence?
-"""
+slogan = """Generate a slogan for the GitHub project: {}"""
 
 # OpenAI API Parameters
 [api]

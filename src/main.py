@@ -6,13 +6,12 @@ from pathlib import Path
 from typing import Optional
 
 import openai
-import pandas as pd
 import typer
 
 import builder
 import model
 import preprocess
-from conf import AppConfig, load_config, load_config_helper
+from conf import load_config, load_config_helper
 from logger import Logger
 
 CONF = Path("conf/conf.toml")
@@ -72,18 +71,13 @@ async def generate_readme(repository: str) -> None:
     conf.git.name = preprocess.get_repository_name(repository)
     file_contents = preprocess.get_repository(repository)
     dependency_list = preprocess.extract_dependencies(
-        conf_helper.dependency_files, conf_helper.language_names, repository
+        conf_helper.language_names, repository
     )
 
     LOGGER.info(f"Total files to document: {len(file_contents)}")
     LOGGER.info(f"\nProject dependencies list: {dependency_list}\n")
 
     summaries = await generate_text(file_contents, conf_helper.ignore_files)
-    summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
-    summaries.to_csv(conf.paths.docs, index=False)
-
-    LOGGER.info(f"OpenAI LLM generated code summaries:\n\n{summaries}\n")
-
     builder.build(conf, conf_helper, dependency_list, summaries)
 
     LOGGER.info("README-AI execution complete.\n")

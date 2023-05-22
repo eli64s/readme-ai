@@ -18,7 +18,7 @@ def build(
     conf: AppConfig,
     conf_helper: ConfigHelper,
     dependency_list: list,
-    summaries: pd.DataFrame,
+    summaries: tuple,
 ) -> None:
     """Builds the README Markdown file for your codebase.
 
@@ -31,7 +31,7 @@ def build(
     dependency_list
         List of project dependencies extracted from the user's repository.
     summaries
-        List of code summaries generated for each file in the repository.
+        Tuple of code summaries generated for each file in the repository.
     """
 
     md_file = conf.md.head
@@ -49,7 +49,9 @@ def build(
     json_path = cwd_path / conf.paths.badges
     json_dict = handler.read(json_path)
 
+    summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
     summaries = parse_pandas_cols(summaries)
+
     md_badges = get_badges(json_dict, dependency_list)
     md_tables = create_tables(summaries, md_dropdown)
     md_repo = create_directory_tree(conf.git.repository)

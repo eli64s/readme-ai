@@ -167,9 +167,7 @@ def _get_remote_repository(url: str) -> Dict[str, str]:
         return {}
 
 
-def extract_dependencies(
-    dependency_files: List[str], languages: List[str], repository: str
-) -> List[str]:
+def extract_dependencies(languages: List[str], repository: str) -> List[str]:
     """Search for dependency files in the repository and extract metadata.
 
     Parameters
@@ -191,18 +189,19 @@ def extract_dependencies(
     with tempfile.TemporaryDirectory() as temp_dir:
         _clone_or_copy_repository(repository, temp_dir)
 
+        repo_files = []
+        for path in Path(temp_dir).rglob("*"):
+            if path.is_file():
+                repo_files.append(path)
+
         file_parsers = _get_file_parsers()
-        repo_files = get_repository_files(temp_dir)
 
         dependencies = []
-        relevant_files = [
-            file for file in repo_files if Path(file).name in dependency_files
-        ]
-
-        for file in relevant_files:
-            parser = file_parsers.get(Path(file).name)
-            if parser:
-                dependencies.append(parser(file))
+        for file in repo_files:
+            if file.name in file_parsers:
+                parser = file_parsers[file.name]
+                if parser:
+                    dependencies.append(parser(file))
 
         file_exts = _get_file_extensions(repo_files)
         lang_name = _map_extensions_to_languages(file_exts, languages)
@@ -210,8 +209,8 @@ def extract_dependencies(
         dependencies = [
             name.lower() for sublist in dependencies for name in sublist
         ]
-
         dependencies.extend(additional_dependencies(repo_files))
+
         return list(set(dependencies))
 
 
@@ -221,22 +220,6 @@ def get_repository(source: str) -> Dict[str, str]:
         return _get_remote_repository(source)
     else:
         return _extract_repository_contents(source)
-
-
-def get_repository_files(directory: str) -> List[str]:
-    """Returns a list of file names in the provided directory."""
-    file_list = []
-    try:
-        path = Path(directory)
-        if not path.exists():
-            LOGGER.error(f"Invalid repository path: {directory}.")
-        else:
-            file_list = [str(p) for p in path.glob("**/*") if p.is_file()]
-
-    except (OSError, TypeError) as err:
-        LOGGER.error(f"Error reading repository contents: {err}")
-
-    return file_list
 
 
 def get_repository_name(path: Union[str, Path]) -> str:

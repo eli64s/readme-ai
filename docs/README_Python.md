@@ -5,7 +5,7 @@
 <br>
 README-AI
 </h1>
-<h3 align="center">📍 Unlock the Power of AI: Read Anywhere with README-AI!</h3>
+<h3 align="center">📍 Make Your READMEs Smarter with README-AI!</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
@@ -22,6 +22,7 @@ README-AI
 <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
 </p>
 
+
 </div>
 
 ---
@@ -30,6 +31,7 @@ README-AI
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
 - [🔮 Feautres](#-feautres)
+  - [Distinctive Features](#distinctive-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -47,33 +49,24 @@ README-AI
 
 ## 📍Overview
 
-The README-AI GitHub project provides a powerful and intuitive tool for developers to automatically generate a comprehensive README.md file for their codebase. This helps to significantly reduce the time and effort needed to create a comprehensive README file for the project. By understanding the codebase structure and automatically generating summaries of code files, README-AI provides users with a simple, efficient, and concise way to share their codebase with others. Additionally, the project also helps users to keep track of their project's dependencies and codebase changes, resulting in a more organized and up-to-date codebase.
+The README-AI GitHub project is a powerful tool that helps developers create and maintain informative and accurate README files for their projects. By leveraging OpenAI's GPT-3 API, it automatically generates summaries of code files in a repository and builds a comprehensive README.md file for the user. This eliminates the tedious and time-consuming task of manually crafting a README file and streamlines repository maintenance. The README-AI project helps developers save time and ensure their repositories are up-to-date, giving users the valuable information they need to get started quickly.
 
 ---
 
 ## 🔮 Feautres
 
-User-Centered Design Elements:
+### Distinctive Features
 
-- Intuitive user interface for easy interaction, allowing users to select their repository and configuration options quickly and without confusion.
-- Automated summary generation, which greatly simplifies the process of creating a README for a repository.
-- In-built error checking and validation, ensuring a robust experience.
-
-Architecture Design & Robust Technologies:
-
-- The project is built on top of the OpenAI GPT-3 API, enabling it to generate summaries of code files.
-- A modular structure is employed, with individual code scripts for preprocessing, configuring, logging, parsing, testing, building, and main functions.
-- Caching is used to store API responses, configuration data, and file content, to improve performance.
-- Logging is implemented for debugging and tracking purposes, using the loguru library.
-
-Unique Features:
-
-- Automated dependency extraction, which enables the project to detect and extract metadata from dependency files.
-- Automated README building, which allows the project to quickly and easily generate a README for a repository.
-- Automated code summary generation, which enables the project to generate summaries of code files with OpenAI’s GPT-3 API.
-- Automated testing, which enables the project to run various tests and generate coverage reports.
+1. **User-Centered Design Elements:** This project has been designed with the user in mind, providing clear and easy-to-follow documentation, a streamlined user experience, and a comprehensive code base with scripts in multiple languages. 
+2. **Support for Multiple Programming Languages:** The preprocessing script is able to detect the programming language of each source code file, allowing users to read summaries of code written in any language. 
+3. **Flexible Dependency Parsing:** The dependency parsing script supports a wide variety of dependency file formats, allowing developers to accurately generate READMEs for any type of project.
+4. **OpenAI-Powered Summaries:** The project utilizes the OpenAI API to generate summaries for each file in a repository, resulting in comprehensive READMEs that accurately reflect the structure and contents of a codebase. 
+5. **Logging and Error Handling:** This project provides comprehensive logging and error handling, allowing users to easily debug any issues they may encounter. 
+6. **Custom FileHandler:** The FileHandler class helps to easily read and write different file types, such as Markdown, TOML, JSON, and YAML, adding to the project's flexibility. 
+7. **Git Integration:** The project also integrates with Git, allowing developers to easily clone repositories and update README.md files.
 
 ---
+
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
@@ -114,10 +107,10 @@ repo
 │   ├── README_TypeScript.md
 │   └── imgs
 │       ├── docs.png
+│       ├── features.png
 │       ├── header.png
 │       ├── misc.png
 │       ├── setup.png
-│       ├── toc.png
 │       └── tree.png
 ├── pyproject.toml
 ├── requirements.txt
@@ -164,27 +157,27 @@ repo
 
 <details closed><summary>Scripts</summary>
 
-| File     | Summary                                                                                                                                                                                                         | Module           |
-|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| run.sh   | This code script activates a conda environment and executes a Python script. It also sets environment variables, if needed, and uses the pipefail option to ensure that errors are caught correctly.            | scripts/run.sh   |
-| clean.sh | This script removes backup files, Python cache files, cache directories, Visual Studio Code settings, build artifacts, pytest cache, benchmarks, and specific files such as raw_data.csv, logs, outs, and rdbs. | scripts/clean.sh |
-| test.sh  | This code script activates a virtual environment, sets the directories to include and exclude from the coverage report, generates the coverage report, and removes files and folders.                           | scripts/test.sh  |
+| File     | Summary                                                                                                                                                                                                                                             | Module           |
+|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| run.sh   | This code script activates a Conda environment and then runs a Python script, ensuring any environment variables are correctly set.                                                                                                                 | scripts/run.sh   |
+| clean.sh | This script deletes unnecessary files, folders, and artifacts, including backup files, Python cache files, cache directories, VS Code settings, build artifacts, pytest cache, benchmarks, and specific files.                                      | scripts/clean.sh |
+| test.sh  | This script activates the Conda virtual environment and runs a coverage report, testing the source code in the specified directory while omitting specified files and folders. It then cleans up by deleting any generated cache files and folders. | scripts/test.sh  |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File          | Summary                                                                                                                                                                                                                                                                                                                                                                                                       | Module            |
-|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
-| preprocess.py | This code script handles preprocessing of an input codebase, by cloning or copying a repository to a temporary directory, extracting its contents, mapping distinct file extensions to programming language names, and searching for and extracting metadata from dependency files. It also checks if a Dockerfile is present in the repository.                                                              | src/preprocess.py |
-| conf.py       | This code script provides configuration constants for an application, including OpenAI API, Git, Markdown, and Paths configurations. It also includes a ConfigHelper class which reads in files from the conf/ directory, and updates helper configurations such as dependency_files, ignore_files, language_names, and language_setup.                                                                       | src/conf.py       |
-| logger.py     | This code script provides a custom logger module using loguru for README-AI that configures a logger with handlers and allows for logging of messages of varying levels.                                                                                                                                                                                                                                      | src/logger.py     |
-| factory.py    | This FileHandler class provides a factory module for reading and writing different file types, such as markdown, TOML, JSON, and YAML, with appropriate methods for handling each file type. It also provides exception classes for when a file cannot be read or written.                                                                                                                                    | src/factory.py    |
-| model.py      | This code script provides a handler for OpenAI API to generate text for the README.md file. It includes functions to get a TTLCache and HTTP client, convert code to text by using OpenAI's GPT-3 API, and generate summary text from a prompt. It also includes a placeholder summary for files that exceed the max token limit.                                                                             | src/model.py      |
-| builder.py    | This code script creates a README Markdown file for a codebase, which includes a table of contents, installation and run instructions, a directory tree, a list of project dependencies, and summaries of code files. It parses the project files to create additional columns in a DataFrame, generates badge icons for dependencies, and includes information from configuration data and helper classes.   | src/builder.py    |
-| utils.py      | This code script provides utility methods for the project. It includes functions to reformat a sentence generated by OpenAI's GPT API, process text using spaCy, and check if a given string is a valid URL.                                                                                                                                                                                                  | src/utils.py      |
-| parse.py      | This code script provides a set of functions for extracting dependencies from files in various languages(Python, Rust, JavaScript/TypeScript, Go, Java, C/C++). The files include Conda environment, Pipfile, pyproject.toml, requirements.txt, Cargo.toml, Cargo.lock, package.json, yarn.lock, package-lock.json, Go module, Go sum, Gradle, Maven, Makefile, CMakeLists.txt, configure.ac and Makefile.am. | src/parse.py      |
-| main.py       | This script uses OpenAI's GPT APIs to generate README.md files for repositories. It validates and sets the OpenAI API key, validates the repository URL or path, reads configuration from a TOML file, extracts dependencies, generates summary text for code files, and builds the README.md file.                                                                                                           | src/main.py       |
+| File          | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Module            |
+|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
+| preprocess.py | This code script handles the preprocessing of input codebases, including cloning or copying a repository to a temporary directory, extracting its contents, extracting distinct file extensions and mapping them to programming language names, and searching for dependencies and extracting their metadata. It also provides functions for extracting repository names from paths or URLs, and for getting a list of additional dependencies.                     | src/preprocess.py |
+| conf.py       | This script provides configuration constants for a README-AI application, defining OpenAI API, Git, Markdown, Paths, and Prompts configurations. Furthermore, it contains a helper method to load configuration constants from a TOML file and update the configuration helper.                                                                                                                                                                                     | src/conf.py       |
+| logger.py     | This code script implements a custom Logger module using loguru for README-AI. It provides functions for logging messages at different levels(e.g. debug, warning, error, etc.) with customizable formatting.                                                                                                                                                                                                                                                       | src/logger.py     |
+| factory.py    | This module provides a FileHandler class for handling different file types, such as Markdown, TOML, JSON, and YAML. It allows for reading and writing of these files, and contains methods to parse and write the content in the appropriate format. Additionally, it also provides two exceptions to raise when files cannot be read or written.                                                                                                                   | src/factory.py    |
+| model.py      | This code script handles the OpenAI API to generate summary text for each file in a repository, using the GPT-3 large language model. It includes functions for fetching summaries from the API, setting up an HTTP client and TTLCache, and generating summaries with a given prompt. It handles errors, ignores certain files, and has a max token limit of 4096.                                                                                                 | src/model.py      |
+| builder.py    | This code script builds the README Markdown file for a codebase, by collecting and formatting project information, such as dependencies, summaries, and code structure. It uses configuration and helper classes, as well as Git, Pandas and logging libraries, to create badges, tables, and a directory tree structure. Finally, it creates a setup guide based on the top used language in the project.                                                          | src/builder.py    |
+| utils.py      | This script provides utility methods for a project, including functions to reformat sentences, process text with spaCy, and verify if a string is a valid URL.                                                                                                                                                                                                                                                                                                      | src/utils.py      |
+| parse.py      | This script contains helper functions for dependency parsing used by the README-AI project. It provides functions for extracting dependencies from files such as conda environment files, Pipfiles, pyproject.toml files, requirements.txt files, Cargo.toml and Cargo.lock files, package.json files, yarn.lock files, package-lock.json files, Go module files, Go sum files, Gradle files, Maven files, Makefiles, CMakeLists.txt files, and configure.ac files. | src/parse.py      |
+| main.py       | This code script is a program that generates a README.md file for a user's repository using OpenAI's GPT APIs. It includes functions to validate and set the OpenAI API key provided by the user, validate the repository URL or path provided by the user, generate summary text for code files using OpenAI's GPT-3, and build the README.md file.                                                                                                                | src/main.py       |
 
 </details>
 

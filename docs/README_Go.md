@@ -5,13 +5,14 @@
 <br>
 docker-gs-ping
 </h1>
-<h3 align="center">📍 Dockerize for Greater Speed and Ping!</h3>
+<h3 align="center">📍 Ping up your Docker setup with docker-gs-ping!</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
-<img src="https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=Go&logoColor=white" alt="markdown" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="sum" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="" />
+<img src="https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=Go&logoColor=white" alt="Go" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
 
 </div>
@@ -22,6 +23,7 @@ docker-gs-ping
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
 - [🔮 Feautres](#-feautres)
+  - [Distinctive Features](#distinctive-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -39,11 +41,18 @@ docker-gs-ping
 
 ## 📍Overview
 
-Docker-gs-ping is a GitHub project that enables users to ping multiple servers simultaneously, and provides an interface for developers to measure response times for each server. It can be used to easily debug and monitor the performance of client-server communications.
+The docker-gs-ping GitHub project provides users with a tool to quickly and efficiently deploy and scale applications on Docker and Google Cloud Platform. It is a great resource for developers looking to quickly build and deploy applications in a streamlined manner. The project offers a robust set of features, such as basic routes, port configuration, and a unit testing function for the evaluation of an integer minimum. Overall, the docker-gs-ping GitHub project is a valuable resource for developers looking for an efficient tool to build and deploy applications.
+
+---
 
 ## 🔮 Feautres
 
-> `[📌  INSERT-PROJECT-FEATURES]`
+### Distinctive Features
+
+1. **User-Centered Design:** The project focuses on the user's needs, by providing routes such as "/" and "/health" and setting the port to 8080 if one is not provided. 
+2. **Dependency Management:** The project is written in Go 1.19 with various dependencies, including github.com/labstack/echo/v4 v4.10.2, jwt, gommon, bytebufferpool, fasttemplate, crypto, net, sys, text, and time. 
+3. **Unit Testing:** The script main_test.go is a demonstration of unit testing a function using the Go language; it tests a function called IntMin with two input parameters and evaluates the returned result against a set of expected values included in a table. 
+4. **Integration with Docker and Google Cloud Platform:** The project is designed for use with Docker and Google Cloud Platform. This enables users to take advantage of the scalability and flexibility of the cloud platform while using the powerful features of container technology.
 
 ---
 
@@ -75,11 +84,11 @@ repo
 
 <details closed><summary>Root</summary>
 
-| File         | Summary                                                                                                                                                                                                            | Module       |
-|:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------|
-| go.mod       | This module is written in Go 1.19 and requires the Echo v4.10.2 framework, as well as several other packages for indirect dependencies. It provides a Docker-based ping service for the Google Storage API.        | go.mod       |
-| main.go      | This code package creates an HTTP server that serves a "Hello, Docker! <3" message and a status of "OK" when a health check is requested. It also contains a simple implementation of an integer minimum function. | main.go      |
-| main_test.go | This code is an example of unit testing a function using the "testing" package in Go. It tests the IntMin() function with two different methods, a basic test and a table-driven test.                             | main_test.go |
+| File         | Summary                                                                                                                                                                                                                                                     | Module       |
+|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------|
+| go.mod       | This is a module written in Go 1.19 with various dependencies, including github.com/labstack/echo/v4 v4.10.2, jwt, gommon, bytebufferpool, fasttemplate, crypto, net, sys, text, and time. It is intended for use with Docker and Google Cloud Platform.    | go.mod       |
+| main.go      | This code script implements a web server using the echo library, allowing for basic routes such as "/" and "/health" and setting the port to 8080 if one is not provided. Additionally, the code contains an implementation of an integer minimum function. | main.go      |
+| main_test.go | This code script is a demonstration of unit testing a function using the Go language; it tests a function called IntMin with two input parameters and evaluates the returned result against a set of expected values included in a table.                   | main_test.go |
 
 </details>
 

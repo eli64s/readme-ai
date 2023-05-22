@@ -5,7 +5,7 @@
 <br>
 ChatGPT-App-React-Native-TypeScript
 </h1>
-<h3 align="center">📍 TypeScript your way into awesome chat-based apps with ChatGPT!</h3>
+<h3 align="center">📍 Bringing AI-Powered Conversation to Mobile with ChatGPT-App-React-Native-TypeScript!</h3>
 <h3 align="center">🚀 Developed with the software and tools below.</h3>
 <p align="center">
 
@@ -29,6 +29,7 @@ ChatGPT-App-React-Native-TypeScript
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
 - [🔮 Feautres](#-feautres)
+  - [Distinctive Features](#distinctive-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -46,11 +47,22 @@ ChatGPT-App-React-Native-TypeScript
 
 ## 📍Overview
 
-ChatGPT-App-React-Native-TypeScript is a React Native project that implements the OpenAI GPT-3 API in a mobile chat app. It provides an easy-to-use interface to interact with the OpenAI GPT-3 API and allows users to customize the appearance of the chat window. ChatGPT is perfect for creating demos and experimenting with OpenAI GPT-3 in a mobile environment.
+The ChatGPT-App-React-Native-TypeScript project is an innovative tool that makes it easier for users to communicate with a chatbot. By utilizing React Native, TypeScript, and OpenAI technologies, this project provides a user-friendly interface to easily interact with the chatbot. It also provides a wide range of features such as message type definitions, data providers, and data contexts. All these features make it easier for users to get the most out of their chatbot interactions. In short, this project is a great example of the power of technology to improve communication between machines and humans.
+
+---
 
 ## 🔮 Feautres
 
-> `[📌  INSERT-PROJECT-FEATURES]`
+### Distinctive Features
+
+1. **User-Centered Design:** This project has been designed with the user's experience in mind. It is easy to use, with intuitive controls and a responsive layout.
+2. **React Native and Typescript:** The project uses React Native and Typescript, two of the most popular modern frameworks. This allows the code to be more efficient and reliable.
+3. **Data Context and Data Provider:** The DataContext and DataProvider components allow for easy access to data from within the project. This allows for quick and easy access to information, and the ability to quickly update the data.
+4. **Input Message Form:** The InputMessage component allows for the user to easily submit messages, and validate the input. It also clears the text after submission.
+5. **ListMessage Component:** The ListMessage component is used to populate the FlatList with text input from the DataContext and messages from the database.
+6. **UseFetchMessage Hook:** The useFetchMessage hook is used to fetch a message from a helper function. It takes in a message string as an argument and returns an object containing the message data and a boolean flag for loading state.
+7. **GetMessage Helper:** The getMessage helper imports constants from its source and defines a type for the message. It then defines a function to get a message from an API, using the imported constants, the type, and an input message as parameters. The function sends a request to the API, and returns the response in the defined type. 
+8. **Styling:** The project also includes styling options for the different components, such as StyleSheet.create for the View, and the "styles" object for the InputMessage form. This allows for a consistent and attractive look and feel.
 
 ---
 
@@ -113,79 +125,79 @@ repo
 
 <details closed><summary>Components</summary>
 
-| File             | Summary                                                                                                                                                                                                                                                                                                                         | Module                      |
-|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
-| InputMessage.tsx | This code imports React, uuid, FontAwesome, and StyleSheet from React Native, as well as the MessageType and DataContext from other files. It then creates an InputMessage component that allows users to input text and send it as a message with a timestamp, avatar, and other data. The component is then exported for use. | components/InputMessage.tsx |
-| Layout.tsx       | This code imports React and React Native components, creates a Layout component which renders a StatusBar with a light-content style and a background color of #222f3e, and applies styling to the container View.                                                                                                              | components/Layout.tsx       |
-| Message.tsx      | This code imports React components and types, and creates a Message component that displays a message and allows the user to copy it to their clipboard. It also includes styling for the message, such as background color and font size.                                                                                      | components/Message.tsx      |
-| ListMessage.tsx  | This code imports React, React Native, and UUID, as well as components from a data provider and a custom hook, to create a FlatList component that displays a message based on a text input. It also has a refresh control that clears the messages when triggered.                                                             | components/ListMessage.tsx  |
+| File             | Summary                                                                                                                                                                                                                                                                                                                                                                                | Module                      |
+|:-----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
+| InputMessage.tsx | This code script imports the necessary components for React and React Native to create an input message form, which will store the message text, sender name, and token usage in a DataContext to be sent. The "handleSendMessage" function validates the input and sets the message data in the DataContext, then clears the input text. The form is styled with the "styles" object. | components/InputMessage.tsx |
+| Layout.tsx       | This code script imports React and related libraries, defines an interface with a React children property, and creates a layout view with a StatusBar and background color. The view contains the children and is styled with a flexbox.                                                                                                                                               | components/Layout.tsx       |
+| Message.tsx      | This code script renders a message, including the sender's profile image, name, and message text. When the text is tapped, it is copied to the clipboard and a Toast notification is displayed. The message box styling varies depending on whether the message is from "you" or the chatbot.                                                                                          | components/Message.tsx      |
+| ListMessage.tsx  | This code script creates a ListMessage component in React. It uses the useState, useContext, useEffect and useFetchMessage hooks to populate the FlatList with text input from a DataContext and messages from a database. The RefreshControl allows for refreshing of the FlatList.                                                                                                   | components/ListMessage.tsx  |
 
 </details>
 
 <details closed><summary>Constants</summary>
 
-| File         | Summary                                                                                                                                  | Module                 |
-|:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| constants.ts | This code exports a constant API_URL with the value of'http://10.0.2.2:3000', which can be used to access a server on the local network. | constants/constants.ts |
+| File         | Summary                                                                                                                                        | Module                 |
+|:-------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| constants.ts | This code script creates a constant named "API_URL" with the value "http://10.0.2.2:3000", used to define a server address for data retrieval. | constants/constants.ts |
 
 </details>
 
 <details closed><summary>Context</summary>
 
-| File             | Summary                                                                                                                                                                                                        | Module                   |
-|:-----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
-| DataProvider.tsx | This code creates a React Context Provider which provides a state object for textInput and a setter function for updating it. It is used to pass down data and functions to components in a React application. | context/DataProvider.tsx |
+| File             | Summary                                                                                                                                                                                                                                                                                                | Module                   |
+|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| DataProvider.tsx | This code script creates a DataContext and a DataProvider component which serves as a wrapper for any elements within it. The DataProvider component uses React's'useState' hook to store the user input as a MessageType object, and passes it to the DataContext for any child components to access. | context/DataProvider.tsx |
 
 </details>
 
 <details closed><summary>Helpers</summary>
 
-| File          | Summary                                                                                                                                                             | Module                |
-|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| getMessage.ts | This code is an async function that sends a POST request to an API URL with a message and other parameters as the body, and returns the response data as a promise. | helpers/getMessage.ts |
+| File          | Summary                                                                                                                                                                                                                                                                                                            | Module                |
+|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| getMessage.ts | This code script imports constants from its source and defines a type for the message. It then defines a function to get a message from an API, using the imported constants, the type, and an input message as parameters. The function sends a request to the API, and returns the response in the defined type. | helpers/getMessage.ts |
 
 </details>
 
 <details closed><summary>Hooks</summary>
 
-| File               | Summary                                                                                                                                                                                                                                                        | Module                   |
-|:-------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
-| useFetchMessage.ts | This code uses React's useState and useEffect hooks to fetch a message from an external source, and store the data and loading status in a state object. If an empty message is passed in, the state is set to an empty message and isLoading is set to false. | hooks/useFetchMessage.ts |
+| File               | Summary                                                                                                                                                                                                                                                                                                                                    | Module                   |
+|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| useFetchMessage.ts | This code script creates a'useFetchMessage' hook which is used to fetch a message from a helper function. It takes in a message string as an argument and returns an object containing the message data and a boolean flag for loading state. A conditional is used to ensure the message string is not empty before attempting the fetch. | hooks/useFetchMessage.ts |
 
 </details>
 
 <details closed><summary>Root</summary>
 
-| File        | Summary                                                                                                                                                                                                                                                                                                                                    | Module      |
-|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| App.tsx     | This code imports React, Text, TouchableOpacity, NavigationContainer, and createNativeStackNavigator from the React Native library, as well as a DataProvider and two screens from a local source. It then creates a stack navigator, and uses it to render the HomeScreen and Infomation screens, each with their own navigation options. | App.tsx     |
-| .prettierrc | This code sets formatting preferences for a programming language, including use of single quotes, tab width, trailing commas, and bracket spacing.                                                                                                                                                                                         | .prettierrc |
+| File        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                    | Module      |
+|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
+| App.tsx     | This code script imports React, Text, TouchableOpacity and NavigationContainer from'react-native' as well as createNativeStackNavigator and DataProvider from'./context/DataProvider' and HomeScreen and Infomation from'./screens'. It sets up a NavigationContainer with a Stack.Navigator which contains two screens, Home and Infomation, each with their own styling options. DataProvider is used within the script. | App.tsx     |
+| .prettierrc | This code script specifies formatting settings for JavaScript code, such as always using arrow parentheses, using single quotes, and setting tab width to 4. It also includes other settings regarding bracket spacing, whitespace sensitivity, and trailing commas.                                                                                                                                                       | .prettierrc |
 
 </details>
 
 <details closed><summary>Screens</summary>
 
-| File           | Summary                                                                                                                                                                                                                                                                 | Module                 |
-|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| Infomation.tsx | This code imports the React library, the StyleSheet, Text, View, and SliderComponent from the React Native library, and creates a component called Infomation which displays a Text element when rendered. It also creates a styles object to style the View container. | screens/Infomation.tsx |
-| HomeScreen.tsx | This code imports React, useState, Text, View, Layout, ListMessage, and InputMessage components from the React Native library and renders them in a Layout component.                                                                                                   | screens/HomeScreen.tsx |
+| File           | Summary                                                                                                                                                                                                                                                                                      | Module                 |
+|:---------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| Infomation.tsx | This code script creates a React component, Infomation, which renders a View and Text component. The View is styled using StyleSheet.create.                                                                                                                                                 | screens/Infomation.tsx |
+| HomeScreen.tsx | This script imports the React library and components from'react-native', then imports a Layout, ListMessage, and InputMessage component from a local directory. It then renders the Layout component, which includes the ListMessage and InputMessage components, in a HomeScreen component. | screens/HomeScreen.tsx |
 
 </details>
 
 <details closed><summary>Server</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                                        | Module           |
-|:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| index.js  | This code imports the Express framework, the CORS library, and the OpenAIApi library to create an application that listens on port 3000 and responds to GET and POST requests. When a POST request is sent, the code will generate a response using OpenAIApi and return a JSON object with the response data. | server/index.js  |
-| config.js | This code imports configuration variables from the environment and exports them as environment variables for use in the application.                                                                                                                                                                           | server/config.js |
+| File      | Summary                                                                                                                                                                                                                                                          | Module           |
+|:----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| index.js  | This code script creates a server using Express and CORS, configures OpenAI to use an organization and API key, and listens on port 3000. When a user sends a POST request to the'/api/chat' endpoint, it generates a response with text, model, and usage data. | server/index.js  |
+| config.js | This code imports configuration from a'dotenv' package and assigns them to environment variables so they can be used for the OpenAI API.                                                                                                                         | server/config.js |
 
 </details>
 
 <details closed><summary>Types</summary>
 
-| File       | Summary                                                                                                                                                                              | Module           |
-|:-----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| types.d.ts | This code defines an interface for a message type that contains the user's name, avatar, prompt tokens, completion tokens, total tokens, message id, creation time, model, and text. | types/types.d.ts |
+| File       | Summary                                                                                                                                                                                                                 | Module           |
+|:-----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| types.d.ts | This code script defines an interface for a message type, including the details of the user who sent it, when it was created, its model type, the text content, and usage details such as prompt and completion tokens. | types/types.d.ts |
 
 </details>
 
