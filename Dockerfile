@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.9-slim-buster
+FROM python:3.9-slim-buster as builder
 
 # Set working directory
 WORKDIR /src
@@ -12,8 +12,16 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt .
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential && \
-    pip install --no-cache-dir -r requirements.txt && \
-    apt-get remove -y build-essential && \
+    pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.9-slim-buster as runtime
+
+WORKDIR /src
+
+COPY --from=builder /src /src
+
+# Uninstall build-essential to keep the image slim
+RUN apt-get remove -y build-essential && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
@@ -24,4 +32,4 @@ COPY . .
 EXPOSE 5000
 
 # Run the application
-CMD ["python", "src/main.py"]
+CMD ["python", "main.py"]

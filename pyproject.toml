@@ -39,4 +39,8 @@ addopts = "--strict-markers --disable-pytest-warnings"
 
 # Pytest coverage
 [tool.coverage.run]
-omit = ["tests/*", "setup.py", "*/__init__.py"]
+omit = [
+    "tests/*",
+    "setup.py",
+    "*/__init__.py"
+]
