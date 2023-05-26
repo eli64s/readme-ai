@@ -9,7 +9,7 @@ There are many ways to contribute to our project. You can:
 - Submit bug fixes or code contributions
 
 ## Code of Conduct
-We expect all contributors to adhere to our code of conduct to ensure a respectful and inclusive environment for everyone. Our code of conduct can be found in the CODE_OF_CONDUCT.md file.
+We expect all contributors to adhere to our code of conduct to ensure a respectful and inclusive environment for everyone. Our code of conduct can be found in the [CODE_OF_CONDUCT](./CODE_OF_CONDUCT) file.
 
 ## How to Contribute
 

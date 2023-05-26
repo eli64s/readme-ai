@@ -67,9 +67,9 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
   </tr>
   <tr>
     <td>
-      <img src="./docs/imgs/closed_docs.png" alt="docs">
-      <h1 align="center">↕️</h1>
       <img src="./docs/imgs/open_docs.png" alt="docs">
+      <h1 align="center">↕️</h1>
+      <img src="./docs/imgs/closed_docs.png" alt="docs">
     </td>
   </tr>
 </table>
