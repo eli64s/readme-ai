@@ -1,7 +1,7 @@
 #!/bin/bash
 
 eval "$(conda shell.bash hook)"
-conda activate readmeai
+conda activate readme_ai
 
 # Set the directories to include in the coverage report
 source_dir="src"

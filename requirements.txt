@@ -10,7 +10,6 @@ h2
 isort
 loguru
 openai
-openapi-python-client
 pandas
 pre-commit==2.15.0
 PyYAML
@@ -19,5 +18,4 @@ pytest-cov
 responses
 setuptools
 tabulate
-toml
-typer
+typer==0.9.0
