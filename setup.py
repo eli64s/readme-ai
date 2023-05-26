@@ -18,9 +18,11 @@ test_packages = [
 ]
 
 setup(
-    name="readmeai",
+    name="readme_ai",
     version="0.1",
-    description="Command-line tool that generates README.md files, powered by OpenAI's LLM APIs.",
+    description="""
+        CLI tool that generates comprehensive README Markdown files,
+        powered by OpenAI's GPT language model APIs.""",
     author="eli64s",
     author_email="",
     url="https://github.com/eli64s/README-AI",

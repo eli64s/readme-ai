@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Function to check if a conda environment exists
+function conda_env_exists() {
+    local env_name="$1"
+    conda activate "$env_name" &> /dev/null
+    local activated=$?
+    conda deactivate &> /dev/null
+    return $activated
+}
+
 # Install tree command if it's not installed
 if ! command -v tree &> /dev/null
 then
@@ -39,10 +48,12 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
+: '
 # Clone the repository
 echo "Cloning the README-AI repository..."
 git clone https://github.com/eli64s/README-AI.git
 cd README-AI
+'
 
 # Check if conda is installed
 if ! command -v conda &> /dev/null; then
@@ -70,21 +81,26 @@ fi
 
 echo "Python version is compatible."
 
-# Create a new conda environment named 'readmeai'
-echo "Creating a new conda environment named 'readmeai' with Python 3.8..."
-conda env create -f setup/environment.yaml || {
-    echo "Error creating the 'readmeai' environment. Aborting."
-    exit 1
-}
+# Check if 'readme_ai' environment already exists
+if conda_env_exists "readme_ai"; then
+    echo "The 'readme_ai' environment already exists. Skipping environment creation."
+else
+    # Create a new conda environment named 'readme_ai'
+    echo "Creating a new conda environment named 'readme_ai' with Python 3.8..."
+    conda env create -f setup/environment.yaml -n readme_ai || {
+        echo "Error creating the 'readme_ai' environment. Aborting."
+        exit 1
+    }
+fi
 
 # Activate the conda environment
-echo "Activating the 'readmeai' environment..."
+echo "Activating the 'readme_ai' environment..."
 eval "$(conda shell.bash hook)"
-conda activate readmeai
+conda activate readme_ai
 
 # Add the Python path from the active conda environment to PATH
 echo "Adding Python path to the PATH environment variable..."
-export PATH="$(conda info --base)/envs/readmeai/bin:$PATH"
+export PATH="$(conda info --base)/envs/readme_ai/bin:$PATH"
 
 # Install the required packages using pip
 echo "Installing required packages from 'requirements.txt'..."
@@ -97,4 +113,4 @@ pip install -r requirements.txt || {
 # Deactivate the conda environment
 conda deactivate
 
-echo "Setup complete. Use 'conda activate readmeai' to activate the environment."
+echo "Setup complete. Use 'conda activate readme_ai' to activate the environment."

@@ -4,8 +4,8 @@ line-length = 79
 include = '\.pyi?$'
 exclude = '''
 /(
-      .eggs         # exclude a few common directories in the
-    | .git          # root of the project
+      .eggs     
+    | .git         
     | .hg
     | .mypy_cache
     | .pytest_cache

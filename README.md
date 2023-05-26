@@ -67,7 +67,9 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
   </tr>
   <tr>
     <td>
-      <img src="./docs/imgs/docs.png" alt="docs">
+      <img src="./docs/imgs/closed_docs.png" alt="docs">
+      <h1 align="center">↕️</h1>
+      <img src="./docs/imgs/open_docs.png" alt="docs">
     </td>
   </tr>
 </table>
@@ -227,7 +229,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README-Apache-Flink.md</a></td>
       <td>local directory</td>
       <td>PyFlink</td>
-      <td><p>------------</p>
+      <td><p>59,460</p>
     </tr>
   </table>
 </div>
@@ -295,7 +297,7 @@ bash setup/setup.sh
 
 # With Conda
 conda env create -f setup/environment.yaml
-conda activate readmeai
+conda activate readme_ai
 pip install -r requirements.txt
 ```
 

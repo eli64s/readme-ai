@@ -1,6 +1,5 @@
 black==21.9b0
 click==8.0.1
-cache
 cachetools
 coverage
 dacite
@@ -13,12 +12,10 @@ loguru
 openai
 openapi-python-client
 pandas
-pipreqs
 pre-commit==2.15.0
 PyYAML
 pytest
 pytest-cov
-requests
 responses
 setuptools
 tabulate
