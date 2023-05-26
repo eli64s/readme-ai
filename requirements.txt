@@ -11,6 +11,7 @@ h2
 isort
 loguru
 openai
+openapi-python-client
 pandas
 pipreqs
 pre-commit==2.15.0
@@ -20,7 +21,6 @@ pytest-cov
 requests
 responses
 setuptools
-spacy
 tabulate
 toml
 typer

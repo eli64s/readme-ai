@@ -1,35 +1,20 @@
-# Base image
-FROM python:3.9-slim-buster as builder
+# Use an official Python runtime as a parent image
+FROM python:3.9
 
-# Set working directory
-WORKDIR /src
+# Set the working directory in the container to /app
+WORKDIR /app
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Add the current directory contents into the container at /app
+ADD . /app
 
-# Install dependencies and basic packages
-COPY requirements.txt .
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential && \
-    pip install --no-cache-dir -r requirements.txt
+# Copy the requirements file into the working directory
+COPY requirements.txt /app/requirements.txt
 
-FROM python:3.9-slim-buster as runtime
+# Install the required packages using pip
+RUN pip3 install -r /app/requirements.txt
 
-WORKDIR /src
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
-COPY --from=builder /src /src
-
-# Uninstall build-essential to keep the image slim
-RUN apt-get remove -y build-essential && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy project files
-COPY . .
-
-# Expose port
-EXPOSE 5000
-
-# Run the application
-CMD ["python", "main.py"]
+# Run main.py when the container launches
+CMD ["python3", "/app/src/main.py", "--host=0.0.0.0"]

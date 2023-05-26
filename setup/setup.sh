@@ -94,14 +94,6 @@ pip install -r requirements.txt || {
     exit 1
 }
 
-# Download the spaCy model
-echo "Downloading the spaCy model..."
-python -m spacy download en_core_web_sm || {
-    echo "Error downloading the spaCy model. Aborting."
-    conda deactivate
-    exit 1
-}
-
 # Deactivate the conda environment
 conda deactivate
 

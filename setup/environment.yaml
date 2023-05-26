@@ -3,5 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python>=3.8,<3.11
+  - python>=3.9
   - pip
+  - pip:
+    - openapi-python-client
