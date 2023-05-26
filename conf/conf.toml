@@ -82,7 +82,7 @@ head = """\n<div align="center">
 {}
 </h1>
 <h3 align="center">📍 {}</h3>
-<h3 align="center">🚀 Developed with the software and tools below.</h3>
+<h3 align="center">🚀 Developed with the software and tools below:</h3>
 <p align="center">
 \n{}
 </p>
