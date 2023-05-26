@@ -177,16 +177,16 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
       <td>2️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_TypeScript.md">README-TypeScript.md</a></td>
-      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-ts</a></td>
-      <td>TypeScript, JavaScript, React</td>
+      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-typescript</a></td>
+      <td>TypeScript, React</td>
       <td><p>770,708</p>
     </tr>
     </tr>
       <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript.md">README-JavaScript.md</a></td>
-      <td><a href="https://github.com/cometchat-pro/javascript-react-chat-app">react-chat-app</a></td>
-      <td>JavaScript, React, Redux</td>
-      <td><p>64,860,374</p>
+      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript_GPT.md">README-JavaScript.md</a></td>
+      <td><a href="https://github.com/idosal/assistant-chat-gpt">assistant-chat-gpt-javascript</a></td>
+      <td>JavaScript, React</td>
+      <td><p>237,099</p>
     </tr>
     <tr>
     <tr>
@@ -200,7 +200,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <td>5️⃣</td>
       <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README-Rust-C.md</a></td>
       <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
-      <td>Rust, C</td>
+      <td>C, Rust</td>
       <td><p>72,750</p>
     </tr>
     <tr>
