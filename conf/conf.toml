@@ -47,8 +47,9 @@ Please structure each unique feature as a bullet point list. Example Markdown Ou
 
 ---
 
-Your insights will not only enlighten us but will also empower others to understand the project better 
-and appreciate its depth and breadth. Thank you!
+Your insights will not only enlighten us but will also empower others to understand the project better and appreciate its depth and breadth. 
+
+Thank you!
 """
 
 slogan = """Generate a slogan for the GitHub project: {}"""
@@ -57,21 +58,23 @@ slogan = """Generate a slogan for the GitHub project: {}"""
 [api]
 api_key = ""
 engine = "text-davinci-003"
+temperature = 0.7
 tokens = 1024
 
 # Repository (local and remote)
 [git]
+hosts = ["github.com", "gitlab.com"]
 name = "README-AI"
 repository = "https://github.com/eli64s/README-AI"
 
 # Paths
 [paths]
+badges = "conf/badges.json"
 dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
-badges = "conf/badges.json"
-md = "README_AI.md"
+readme = "README_AI.md"
 
 # Markdown template
 [md]

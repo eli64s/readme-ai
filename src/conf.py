@@ -18,6 +18,7 @@ class OpenAIConfig:
 
     api_key: str
     engine: str
+    temperature: float
     tokens: int
 
 
@@ -25,6 +26,7 @@ class OpenAIConfig:
 class GitConfig:
     """Git configuration."""
 
+    hosts: List[str]
     name: str
     repository: str
 
@@ -48,12 +50,13 @@ class MarkdownConfig:
 class PathsConfig:
     """Paths to configuration files."""
 
+    badges: str
     dependency_files: str
     ignore_files: str
     language_names: str
     language_setup: str
     badges: str
-    md: str
+    readme: str
 
 
 @dataclass

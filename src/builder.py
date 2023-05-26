@@ -70,7 +70,7 @@ def build(
     md_file_parts.append(md_close)
     md_file = "\n".join(md_file_parts)
 
-    md_path = cwd_path / conf.paths.md
+    md_path = cwd_path / conf.paths.readme
     handler.write(md_path, md_file)
 
     LOGGER.info(f"README.md file created at: {md_path}")

@@ -9,11 +9,13 @@ import openai
 from cachetools import TTLCache
 
 from logger import Logger
-from utils import reformat_sentence
+from utils import format_sentence
 
 LOGGER = Logger("readmeai_logger")
 ENGINE = "text-davinci-003"
 MAX_TOKENS = 4096
+TOKENS = 1024
+TEMPERATURE = 0.8
 
 
 class OpenAIError(Exception):
@@ -121,8 +123,8 @@ async def fetch_summary(
             f"https://api.openai.com/v1/engines/{ENGINE}/completions",
             json={
                 "prompt": prompt,
-                "temperature": 0.7,
-                "max_tokens": 1024,
+                "temperature": TEMPERATURE,
+                "max_tokens": TOKENS,
                 "top_p": 1,
                 "frequency_penalty": 0.0,
                 "presence_penalty": 0.0,
@@ -141,7 +143,7 @@ async def fetch_summary(
             raise OpenAIError("OpenAI response missing 'choices' field.")
 
         summary = data["choices"][0]["text"]
-        summary = reformat_sentence(summary)
+        summary = format_sentence(summary)
         cache[prompt] = summary
 
         return (file, summary)
@@ -169,8 +171,8 @@ def generate_summary_text(prompt: str) -> str:
     completions = openai.Completion.create(
         engine=ENGINE,
         prompt=prompt,
-        max_tokens=1024,
-        temperature=0.8,
+        max_tokens=TOKENS,
+        temperature=TEMPERATURE,
     )
     generated_text = completions.choices[0].text
 

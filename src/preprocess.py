@@ -12,11 +12,12 @@ import parse
 import utils
 from logger import Logger
 
-ALLOWED_HOSTS = ["github.com", "gitlab.com"]
 LOGGER = Logger("readmeai_logger")
 
 
-def _clone_or_copy_repository(source: str, temp_dir: str) -> None:
+def _clone_or_copy_repository(
+    hosts: List[str], source: str, temp_dir: str
+) -> None:
     """Clone or copy a repository to a temporary directory.
 
     Parameters
@@ -31,10 +32,12 @@ def _clone_or_copy_repository(source: str, temp_dir: str) -> None:
     ValueError
         If the repository path or URL is not valid.
     """
+
     temp_dir = Path(temp_dir)
+
     parsed_url = urlparse(source)
 
-    if parsed_url.hostname in ALLOWED_HOSTS:
+    if parsed_url.hostname in hosts:
         git.Repo.clone_from(source, temp_dir)
         return
 
@@ -167,7 +170,9 @@ def _get_remote_repository(url: str) -> Dict[str, str]:
         return {}
 
 
-def extract_dependencies(languages: List[str], repository: str) -> List[str]:
+def extract_dependencies(
+    hosts: List[str], languages: List[str], repository: str
+) -> List[str]:
     """Search for dependency files in the repository and extract metadata.
 
     Parameters
@@ -187,7 +192,7 @@ def extract_dependencies(languages: List[str], repository: str) -> List[str]:
         return []
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        _clone_or_copy_repository(repository, temp_dir)
+        _clone_or_copy_repository(hosts, repository, temp_dir)
 
         repo_files = []
         for path in Path(temp_dir).rglob("*"):
@@ -205,6 +210,7 @@ def extract_dependencies(languages: List[str], repository: str) -> List[str]:
 
         file_exts = _get_file_extensions(repo_files)
         lang_name = _map_extensions_to_languages(file_exts, languages)
+
         dependencies.append(lang_name)
         dependencies = [
             name.lower() for sublist in dependencies for name in sublist
@@ -222,11 +228,11 @@ def get_repository(source: str) -> Dict[str, str]:
         return _extract_repository_contents(source)
 
 
-def get_repository_name(path: Union[str, Path]) -> str:
+def get_repository_name(hosts: List[str], path: Union[str, Path]) -> str:
     """Extracts the repository name from a URL or local path."""
     parsed_url = urlparse(str(path))
 
-    if parsed_url.hostname in ALLOWED_HOSTS:
+    if parsed_url.hostname in hosts:
         repo_path = parsed_url.path
         repo_name = repo_path.split("/")[-1]
         if repo_name.endswith(".git"):

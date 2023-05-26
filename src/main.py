@@ -55,12 +55,11 @@ def main(
         None, help="Repository url or directory."
     ),
 ) -> None:
+    """CLI commands for README-AI, using the typer library."""
     set_openai_api_key(api_key)
     repository = validate_repository(repository)
-
     conf.git.repository = repository
-    conf.paths.output = output
-
+    conf.paths.readme = output
     asyncio.run(generate_readme(repository))
 
 
@@ -68,10 +67,11 @@ async def generate_readme(repository: str) -> None:
     """Generate README.md file for your repository using OpenAI's GPT APIs."""
     LOGGER.info("README-AI is now executing.")
 
-    conf.git.name = preprocess.get_repository_name(repository)
+    allowed_hosts = conf.git.hosts
+    conf.git.name = preprocess.get_repository_name(allowed_hosts, repository)
     file_contents = preprocess.get_repository(repository)
     dependency_list = preprocess.extract_dependencies(
-        conf_helper.language_names, repository
+        allowed_hosts, conf_helper.language_names, repository
     )
 
     LOGGER.info(f"Total files to document: {len(file_contents)}")
@@ -85,7 +85,6 @@ async def generate_readme(repository: str) -> None:
 
 async def generate_text(file_contents: list, ignore_files: list) -> list:
     """Generate summary text for code files using OpenAI's GPT-3."""
-
     code_to_text = conf.prompts.code_to_text
     intro = conf.prompts.intro
     features = conf.prompts.features
