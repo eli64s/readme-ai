@@ -1,4 +1,4 @@
-# Makefile for README-AI
+# Makefile commands for README-AI
 
 SHELL = /bin/bash
 VENV := readmeai

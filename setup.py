@@ -1,4 +1,4 @@
-"""Setup.py for the README-AI application."""
+"""Setup script for the README-AI package."""
 
 from pathlib import Path
 
@@ -9,17 +9,17 @@ BASE_DIR = Path(__file__).parent
 with open(BASE_DIR / "requirements.txt") as file:
     required_packages = [line.strip() for line in file]
 
-docs_packages = ["mkdocs==1.3.0", "mkdocstrings==0.18.1"]
-style_packages = ["black==21.9b0", "flake8==3.9.2", "isort==5.10.1"]
+docs_packages = ["mkdocs", "mkdocstrings"]
+style_packages = ["black==21.9b0", "flake8", "isort"]
 test_packages = [
-    "pytest==7.1.2",
-    "pytest-cov==2.10.1",
-    "great-expectations==0.15.15",
+    "pytest",
+    "pytest-cov",
+    "great-expectations",
 ]
 
 setup(
     name="readme_ai",
-    version="0.1",
+    version="1.0.0",
     description="""
         CLI tool that generates comprehensive README Markdown
         files, powered by OpenAI's GPT language model APIs.""",
@@ -33,7 +33,7 @@ setup(
         "dev": docs_packages
         + style_packages
         + test_packages
-        + ["pre-commit==2.19.0"],
+        + ["pre-commit==2.15.0"],
         "test": test_packages,
     },
     classifiers=[
@@ -42,18 +42,26 @@ setup(
         "Operating System :: OS Independent",
     ],
     keywords=[
-        "readme",
-        "readme-automation",
+        "ai",
+        "auto-documentation",
+        "auto-readme",
         "automated-readme",
-        "readme-generator",
-        "readme-generator-python",
-        "python-gpt3",
-        "openai-api",
-        "openai",
-        "openai-gpt3",
-        "ai-tools",
+        "badges",
+        "chatgpt-python",
+        "command-line-tool",
+        "documentation",
         "gpt-3",
         "gpt-4",
+        "nlp",
+        "openai",
+        "openai-api",
+        "openai-gpt3",
+        "python",
+        "readme",
+        "readme-automation",
+        "readme-generator",
+        "readme-generator-template",
+        "readme-template",
     ],
     project_urls={
         "Documentation": "https://github.com/eli64s/README-AI/blob/main/README.md",

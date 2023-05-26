@@ -104,7 +104,7 @@ export PATH="$(conda info --base)/envs/readme_ai/bin:$PATH"
 
 # Install the required packages using pip
 echo "Installing required packages from 'requirements.txt'..."
-pip install -r requirements.txt || {
+pip install . || {
     echo "Error installing packages from 'requirements.txt'. Aborting."
     conda deactivate
     exit 1
