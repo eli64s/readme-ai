@@ -21,7 +21,7 @@ Minimal-Todo
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -40,7 +40,7 @@ Minimal-Todo
 
 Minimal-Todo is an open-source, minimalistic to-do app that allows users to quickly and easily keep track of tasks and organize their day. It provides an easy-to-use, clean interface with drag and drop functionality for reordering lists, and supports synchronization across multiple devices.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

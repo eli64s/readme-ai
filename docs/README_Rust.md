@@ -35,7 +35,7 @@ contacts-cli
 
 The GitHub project is a powerful collaboration and code-sharing tool that enables developers to work together on software projects. The project also provides a platform for developers to share their code with others, and to create and manage
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

@@ -36,7 +36,7 @@ cache
 
 GitHub project cache is a powerful tool that stores project data as well as release files, allowing users to quickly access their projects and project data. Furthermore, users can access any previous version of the project,
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

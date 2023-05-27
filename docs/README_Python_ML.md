@@ -42,7 +42,7 @@ MLOps-Basics
 
 MLOps-Basics is a GitHub project that enables developers to quickly and easily incorporate MLOps best practices into their project flow. It provides tools and tutorials to help developers build and maintain ML applications, like automated
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

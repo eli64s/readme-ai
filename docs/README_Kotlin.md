@@ -23,7 +23,7 @@ file.io-Android-Client
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
   - [Distinctive Features](#distinctive-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
@@ -46,7 +46,7 @@ The file.io-Android-Client GitHub project is a great tool for those looking to q
 
 ---
 
-## 🔮 Feautres
+## 🔮 Features
 
 ### Distinctive Features
 

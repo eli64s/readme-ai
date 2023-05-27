@@ -21,7 +21,7 @@ react-web-audio
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -40,7 +40,7 @@ react-web-audio
 
 React-Web-Audio is a React component library that provides an easy-to-use API for creating advanced audio applications on the web.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

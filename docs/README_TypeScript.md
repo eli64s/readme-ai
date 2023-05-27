@@ -28,7 +28,7 @@ ChatGPT-App-React-Native-TypeScript
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
   - [Distinctive Features](#distinctive-features)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
@@ -51,7 +51,7 @@ The ChatGPT-App-React-Native-TypeScript project is an innovative tool that makes
 
 ---
 
-## 🔮 Feautres
+## 🔮 Features
 
 ### Distinctive Features
 
@@ -104,7 +104,7 @@ repo
 ├── package.json
 ├── screens
 │   ├── HomeScreen.tsx
-│   └── Infomation.tsx
+│   └── Information.tsx
 ├── server
 │   ├── config.js
 │   ├── index.js
@@ -170,7 +170,7 @@ repo
 
 | File        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                    | Module      |
 |:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| App.tsx     | This code script imports React, Text, TouchableOpacity and NavigationContainer from'react-native' as well as createNativeStackNavigator and DataProvider from'./context/DataProvider' and HomeScreen and Infomation from'./screens'. It sets up a NavigationContainer with a Stack.Navigator which contains two screens, Home and Infomation, each with their own styling options. DataProvider is used within the script. | App.tsx     |
+| App.tsx     | This code script imports React, Text, TouchableOpacity and NavigationContainer from'react-native' as well as createNativeStackNavigator and DataProvider from'./context/DataProvider' and HomeScreen and Information from'./screens'. It sets up a NavigationContainer with a Stack.Navigator which contains two screens, Home and Information, each with their own styling options. DataProvider is used within the script. | App.tsx     |
 | .prettierrc | This code script specifies formatting settings for JavaScript code, such as always using arrow parentheses, using single quotes, and setting tab width to 4. It also includes other settings regarding bracket spacing, whitespace sensitivity, and trailing commas.                                                                                                                                                       | .prettierrc |
 
 </details>
@@ -179,7 +179,7 @@ repo
 
 | File           | Summary                                                                                                                                                                                                                                                                                      | Module                 |
 |:---------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| Infomation.tsx | This code script creates a React component, Infomation, which renders a View and Text component. The View is styled using StyleSheet.create.                                                                                                                                                 | screens/Infomation.tsx |
+| Information.tsx | This code script creates a React component, Information, which renders a View and Text component. The View is styled using StyleSheet.create.                                                                                                                                                 | screens/Information.tsx |
 | HomeScreen.tsx | This script imports the React library and components from'react-native', then imports a Layout, ListMessage, and InputMessage component from a local directory. It then renders the Layout component, which includes the ListMessage and InputMessage components, in a HomeScreen component. | screens/HomeScreen.tsx |
 
 </details>

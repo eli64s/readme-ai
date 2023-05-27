@@ -25,7 +25,7 @@ STREAM-ON
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -45,7 +45,7 @@ STREAM-ON
 
 STREAM-ON is a GitHub project that enables a developer to quickly and easily build and deploy streaming applications in the cloud. It allows developers to access comprehensive tools for creating applications and managing data streams without having to manage any underlying cloud infrastructure. It provides performance monitoring and operational visibility, as well as log analysis and debugging capabilities.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

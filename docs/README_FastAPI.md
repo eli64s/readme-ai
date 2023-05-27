@@ -42,7 +42,7 @@ JobBoard-Fastapi
 
 JobBoard-Fastapi is an open-source project that allows developers to quickly create a job board marketplace with Python and FastAPI. It provides an easy-to-use API with authentication and authorization support and
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

@@ -40,7 +40,7 @@ OOP-Project
 
 The GitHub project OOP-Project is a powerful tool for developing object-oriented programming projects in Java. It is designed to help developers quickly create sophisticated programs with a library of reusable code. Additionally, it offers a powerful debugging system and a range of other useful features for the creation of efficient and reliable programs.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

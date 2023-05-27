@@ -22,7 +22,7 @@ xmpp-rs
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍Overview](#overview)
-- [🔮 Feautres](#-feautres)
+- [🔮 Features](#-feautres)
 - [⚙️ Project Structure](#️-project-structure)
 - [💻 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
@@ -42,7 +42,7 @@ xmpp-rs
 
 Git project xmpp-rs is an open source Rust library providing an API and implementation for the XMPP protocol. It offers a full implementation, providing a complete set of features for network communications, messaging, presence, and error reporting.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

@@ -47,7 +47,7 @@ lanarky
 
 Lanarky is a GitHub project designed to provide users with an organizational structure for their code repository. It provides additional features such as grouping multiple repositories in a single namespace, various alert options and more. Lanarky helps developers keep their code organized, while also giving them greater visibility and control over their repositories.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

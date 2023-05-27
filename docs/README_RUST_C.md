@@ -38,7 +38,7 @@ CallMon
 
 CallMon is a powerful GitHub project that enables developers to easily monitor their services for unhandled exception and application errors. It also provides detailed error analytics and automated notification of errors via email, Slack, or webhooks so developers can react quickly to any outages.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 

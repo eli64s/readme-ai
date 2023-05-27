@@ -41,7 +41,7 @@ javascript-react-chat-app
 
 This is a GitHub project that provides a tutorial for creating a JavaScript and React-based chat application with real-time messaging features such as file sharing, emoji support, and private messaging. The tutorial includes detailed instructions on how to set up the application as well as how to add additional features.
 
-## 🔮 Feautres
+## 🔮 Features
 
 > `[📌  INSERT-PROJECT-FEATURES]`
 
