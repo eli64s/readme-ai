@@ -14,6 +14,7 @@ pandas
 pre-commit==2.15.0
 PyYAML
 pytest
+pytest-asyncio
 pytest-cov
 pytest-mock
 responses
