@@ -28,8 +28,8 @@ def test_parse_pipfile():
         "dev-packages": {"pytest": "^6.2.2"},
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
-        temp_file.write(json.dumps(pipfile))
-    dependencies = parse.parse_pipfile(temp_file)
+        temp_file.write(toml.dumps(pipfile))
+    dependencies = parse.parse_pipfile(temp_file.name)
     assert dependencies == ["requests", "numpy", "pytest"]
 
 
@@ -44,7 +44,7 @@ def test_parse_pyproject_toml():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pyproject_toml))
-    dependencies = parse.parse_pyproject_toml(temp_file)
+    dependencies = parse.parse_pyproject_toml(temp_file.name)
     assert dependencies == ["numpy", "requests", "pytest"]
 
 
@@ -66,7 +66,7 @@ def test_parse_cargo_toml():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(cargo_toml))
-    dependencies = parse.parse_cargo_toml(temp_file)
+    dependencies = parse.parse_cargo_toml(temp_file.name)
     assert dependencies == ["serde", "tokio", "serde-test"]
 
 
@@ -79,7 +79,7 @@ def test_parse_cargo_lock():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(cargo_lock))
-    dependencies = parse.parse_cargo_lock(temp_file)
+    dependencies = parse.parse_cargo_lock(temp_file.name)
     assert dependencies == ["serde", "tokio"]
 
 
@@ -90,7 +90,7 @@ def test_parse_package_json():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
-    dependencies = parse.parse_package_json(temp_file)
+    dependencies = parse.parse_package_json(temp_file.name)
     assert dependencies == ["express", "lodash", "mocha"]
 
 
@@ -114,7 +114,7 @@ def test_parse_yarn_lock():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(yarn_lock)
-    dependencies = parse.parse_yarn_lock(temp_file)
+    dependencies = parse.parse_yarn_lock(temp_file.name)
     assert dependencies == ["lodash", "express", "mocha"]
 
 

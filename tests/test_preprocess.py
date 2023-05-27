@@ -42,19 +42,19 @@ def temp_directory():
 # Tests for helper functions
 
 
-def test_clone_or_copy_repository_remote(temp_directory):
+def test_clone_or_copy_repository_remote(config, temp_directory):
     # Test cloning a remote repository
-    _clone_or_copy_repository(TEST_REPO, TEMP_DIR)
+    _clone_or_copy_repository(config["git"]["hosts"], TEST_REPO, TEMP_DIR)
     assert os.path.exists(os.path.join(TEMP_DIR, ".git"))
 
 
-def test_clone_or_copy_repository_local(temp_directory):
+def test_clone_or_copy_repository_local(config, temp_directory):
     # Test copying a local directory
     local_dir = os.path.join(TEST_DIR, "test_local_dir")
     os.makedirs(local_dir)
     with open(os.path.join(local_dir, "test_file.txt"), "w") as f:
         f.write("Test file")
-    _clone_or_copy_repository(local_dir, TEMP_DIR)
+    _clone_or_copy_repository(config["git"]["hosts"], local_dir, TEMP_DIR)
     assert os.path.exists(os.path.join(TEMP_DIR, "test_file.txt"))
 
 
@@ -122,7 +122,7 @@ def test_get_repository_invalid_repo(temp_directory):
     assert codebase == {}
 
 
-def test_extract_dependencies(temp_directory, monkeypatch):
+def test_extract_dependencies(config, temp_directory, monkeypatch):
     # Test getting project dependencies
     def mock_clone_or_copy_repository(repo, temp_dir):
         # Create dummy dependency files
@@ -139,15 +139,15 @@ def test_extract_dependencies(temp_directory, monkeypatch):
     assert dependencies == ["Test dependency"] * 2 + TEST_FILE_EXT
 
 
-def test_get_repository_name_remote():
+def test_get_repository_name_remote(config):
     # Test getting repository name from a remote URL
-    repo_name = get_repository_name(TEST_REPO)
+    repo_name = get_repository_name(config["git"]["hosts"], TEST_REPO)
     assert repo_name == "test_repo"
 
 
-def test_get_repository_name_local():
+def test_get_repository_name_local(config):
     # Test getting repository name from a local path
     local_path = os.path.join(TEST_DIR, "local_dir")
     os.makedirs(local_path)
-    repo_name = get_repository_name(local_path)
+    repo_name = get_repository_name(config["git"]["hosts"], local_path)
     assert repo_name == "local_dir"

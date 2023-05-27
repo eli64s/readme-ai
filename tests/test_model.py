@@ -4,123 +4,69 @@ import sys
 
 sys.path.append("src")
 
-import os
-import unittest
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import httpx
 import pytest
-import redis
-import responses
 
-import src.model as ai
-from src.model import OpenAIError, cache, fetch_summary
-
-# Configure Redis client
-redis_client = redis.Redis(
-    host="localhost", port=6379, db=0, decode_responses=True
+from src.model import (
+    code_to_text,
+    generate_summary_text,
+    get_cache,
+    get_http_client,
 )
 
 
-class TestOpenAIHandler(unittest.IsolatedAsyncioTestCase):
-    @responses.activate
-    async def test_fetch_summary(self):
-        os.environ["OPENAI_API_KEY"] = "dummy_key"
-        file = "test_file.py"
-        prompt = 'Summarize this code: print("Hello, World!")'
+def test_get_cache():
+    cache = get_cache()
+    assert len(cache) == 0  # Initially, the cache should be empty
 
-        # Mocking the OpenAI API response
-        responses.add(
-            responses.POST,
-            ai.ENDPOINT,
-            json={
-                "choices": [
-                    {"text": "This script prints a hello world message."}
-                ]
-            },
-            status=200,
-        )
 
-        # Actual test
-        result = await ai.fetch_summary(file, prompt)
-        self.assertEqual(
-            result,
-            (
-                file,
-                'This code prints the phrase " Hello, World! " to the console.',
+def test_get_http_client():
+    with patch.object(httpx, "AsyncClient") as mock:
+        get_http_client()
+        mock.assert_called_once_with(
+            http2=True,
+            timeout=30,
+            limits=httpx.Limits(
+                max_keepalive_connections=10, max_connections=100
             ),
         )
 
-    @responses.activate
-    async def test_null_summary(self):
-        file = "test_file.py"
-        summary = "Null summary."
-        result = await ai.null_summary(file, summary)
-        self.assertEqual(result, (file, summary))
 
-    def test_spacy_text_processor(self):
-        text = "Hello, World!"
-        result = ai.spacy_text_processor(text)
-        self.assertEqual(result, "Hello , World !")
-
-
-@pytest.mark.asyncio
-async def test_fetch_summary_cache_hit():
-    file = "test_file.py"
-    prompt = 'Summarize this code: print("Hello, World!")'
-    cache[prompt] = "Cached summary"
-
-    result = await fetch_summary(file, prompt)
-
-    assert result == (file, "Cached summary")
-
-
-@pytest.mark.asyncio
-@responses.activate
-async def test_fetch_summary_success():
-    file = "test_file.py"
-    prompt = 'Summarize this code: print("Hello, World!")'
-    expected_summary = "This is a generated summary."
-
-    responses.add(
-        responses.POST,
-        "https://api.openai.com/v1/engines/text-davinci-003/completions",
-        json={"choices": [{"text": expected_summary}]},
-        status=200,
+@patch("src.model.openai.Completion.create")
+def test_generate_summary_text(mock_create):
+    # Mock the response from the OpenAI API
+    mock_create.return_value = type(
+        "obj",
+        (object,),
+        {"choices": [type("obj", (object,), {"text": " Sample text"})]},
     )
 
-    result = await fetch_summary(file, prompt)
-
-    assert result != (file, expected_summary)
-    assert prompt in cache
-    assert cache[prompt] != expected_summary
+    result = generate_summary_text("Test prompt")
+    assert result == "Sample text"
 
 
 @pytest.mark.asyncio
-@responses.activate
-async def test_fetch_summary_failure():
-    file = "test_file.py"
-    prompt = 'Summarize this code: print("Hello, World!")'
-    error_message = "Error generating file summary."
+async def test_code_to_text():
+    ignore_files = ["ignore.py"]
+    files = {
+        "ignore.py": "ignore this file",
+        "file1.py": "print('Hello World')",
+    }
+    prompt = "Summarize the following code: {}"
 
-    responses.add(
-        responses.POST,
-        "https://api.openai.com/v1/engines/text-davinci-003/completions",
-        status=500,
-    )
-
-    with patch.object(httpx.AsyncClient, "post") as mock_post:
-        response = httpx.Response(status_code=500)
-        mock_post.side_effect = httpx.HTTPStatusError(
-            error_message,
-            request=httpx.Request("POST", "url"),
-            response=response,
+    with patch(
+        "src.model.fetch_summary", new_callable=AsyncMock
+    ) as mock_fetch_summary:
+        mock_fetch_summary.return_value = (
+            "file1.py",
+            "It prints 'Hello World'",
         )
 
-        result = await fetch_summary(file, prompt)
+        result = await code_to_text(ignore_files, files, prompt)
 
-        assert result != (file, error_message)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    assert (
+        len(result) == 1
+    )  # Since one file is ignored, we should only get one result
+    assert result[0] == ("file1.py", "It prints 'Hello World'")

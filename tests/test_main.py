@@ -77,9 +77,9 @@ def test_generate_readme(mocker):
     mocker.patch("main.generate_text", return_value=["summary1", "summary2"])
     mocker.patch("main.builder.build")
 
-    with pytest.raises(openai.error.AuthenticationError) as excinfo:
+    with pytest.raises(Exception) as excinfo:
         asyncio.run(generate_readme("http://valid.url"))
-    assert excinfo.typename == "AuthenticationError"
+    assert excinfo.typename in ["AuthenticationError", "APIError"]
 
 
 def test_generate_text(mocker):

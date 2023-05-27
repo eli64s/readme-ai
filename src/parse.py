@@ -32,8 +32,7 @@ def parse_conda_env_file(file):
 
 def parse_pipfile(file):
     """Extracts dependencies from a Pipfile."""
-    with open(file) as f:
-        data = toml.load(f)
+    data = FILE_HANDLER.read_toml(file)
 
     packages = data.get("packages", {})
     dev_packages = data.get("dev-packages", {})
@@ -50,7 +49,7 @@ def parse_pipfile(file):
 
 def parse_pyproject_toml(file):
     """Extracts dependencies from a pyproject.toml file."""
-    data = toml.load(file)
+    data = FILE_HANDLER.read_toml(file)
     dependencies = []
     for package in (
         data.get("tool", {}).get("poetry", {}).get("dependencies", [])
@@ -89,7 +88,7 @@ def parse_requirements_file(file):
 
 def parse_cargo_toml(file):
     """Extracts dependencies from a Cargo.toml file."""
-    data = toml.load(file)
+    data = FILE_HANDLER.read_toml(file)
     dependencies = []
     for package in data.get("dependencies", []):
         dependencies.append(package)
@@ -100,7 +99,7 @@ def parse_cargo_toml(file):
 
 def parse_cargo_lock(file):
     """Extracts dependencies from a Cargo.lock file."""
-    data = toml.load(file)
+    data = FILE_HANDLER.read_toml(file)
     dependencies = []
     for package in data.get("package", []):
         dependencies.append(package["name"])
