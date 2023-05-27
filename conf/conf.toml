@@ -17,7 +17,7 @@ Repository URL: {}
 Code Documentation: {}
 
 Kindly provide insights into:
-- The use-case and benefit of the projcet or tool. 
+- The use-case and benefit of the project or tool. 
 - Focus on the user and the value it provides. 
 
 Generate a response paragraph containing no more than 4 sentences. Thank you!
@@ -96,7 +96,7 @@ head = """\n<div align="center">
 toc = """
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
+- [📍Overview](#-introduction)
 - [🔮 Features](#-features)
 - [⚙️ Project Structure](#project-structure)
 - [🧩 Modules](#modules)
@@ -113,7 +113,7 @@ intro = """
 \n## 📍Overview
 \n{}
 \n---
-\n## 🔮 Feautres
+\n## 🔮 Features
 \n{}
 \n---
 """

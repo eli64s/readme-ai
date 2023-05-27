@@ -303,7 +303,7 @@ git clone https://github.com/eli64s/README-AI.git && cd README-AI
 bash setup/setup.sh
 
 # With Conda
-conda env create -f setup/environment.yaml
+conda env create -f setup/environment.yaml -n readme_ai
 conda activate readme_ai
 pip install -r requirements.txt
 ```
