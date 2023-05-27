@@ -1,9 +1,8 @@
-"""Dependency parsing helper functions for README-AI."""
+"""Dependency parsing functions for different programming languages."""
 
 import re
 from typing import List
 
-import toml
 import yaml
 
 from factory import FileHandler
@@ -16,9 +15,9 @@ LOGGER = Logger("readmeai_logger")
 # Python
 
 
-def parse_conda_env_file(file):
+def parse_conda_env_file(file_path: str) -> List[str]:
     """Extracts dependencies from a conda environment file."""
-    with open(file) as f:
+    with open(file_path) as f:
         data = yaml.safe_load(f)
     dependencies = []
     for package in data.get("dependencies", []):
@@ -30,9 +29,9 @@ def parse_conda_env_file(file):
     return dependencies
 
 
-def parse_pipfile(file):
+def parse_pipfile(file_path: str) -> List[str]:
     """Extracts dependencies from a Pipfile."""
-    data = FILE_HANDLER.read_toml(file)
+    data = FILE_HANDLER.read_toml(file_path)
 
     packages = data.get("packages", {})
     dev_packages = data.get("dev-packages", {})
@@ -47,9 +46,9 @@ def parse_pipfile(file):
     return dependencies
 
 
-def parse_pyproject_toml(file):
+def parse_pyproject_toml(file_path: str) -> List[str]:
     """Extracts dependencies from a pyproject.toml file."""
-    data = FILE_HANDLER.read_toml(file)
+    data = FILE_HANDLER.read_toml(file_path)
     dependencies = []
     for package in (
         data.get("tool", {}).get("poetry", {}).get("dependencies", [])
@@ -62,9 +61,9 @@ def parse_pyproject_toml(file):
     return dependencies
 
 
-def parse_requirements_file(file):
+def parse_requirements_file(file_path: str) -> List[str]:
     """Extracts dependencies from a requirements.txt file."""
-    with open(file) as f:
+    with open(file_path) as f:
         lines = f.readlines()
 
     module_names = []
@@ -86,35 +85,32 @@ def parse_requirements_file(file):
 # Rust
 
 
-def parse_cargo_toml(file):
+def parse_cargo_toml(file_path: str) -> List[str]:
     """Extracts dependencies from a Cargo.toml file."""
-    data = FILE_HANDLER.read_toml(file)
-    dependencies = []
-    for package in data.get("dependencies", []):
-        dependencies.append(package)
-    for package in data.get("dev-dependencies", []):
-        dependencies.append(package)
-    return dependencies
+    data = FILE_HANDLER.read_toml(file_path)
+    dependencies = list(data.get("dependencies", {}).keys())
+    dev_dependencies = list(data.get("dev-dependencies", {}).keys())
+    package_names = dependencies + dev_dependencies
+    return package_names
 
 
-def parse_cargo_lock(file):
-    """Extracts dependencies from a Cargo.lock file."""
-    data = FILE_HANDLER.read_toml(file)
-    dependencies = []
-    for package in data.get("package", []):
-        dependencies.append(package["name"])
-    return dependencies
+def parse_cargo_lock(file_path: str) -> List[str]:
+    """Extracts package names from a Cargo.lock file."""
+    data = FILE_HANDLER.read_toml(file_path)
+    packages = data.get("package", [])
+    package_names = [package.get("name") for package in packages]
+    return package_names
 
 
-# Javascript and TypeScript
+# Javascript & TypeScript
 
 
-def parse_package_json(file):
+def parse_package_json(file_path: str) -> List[str]:
     """
     Extracts dependencies from a package.json
     file for both JavaScript and TypeScript.
     """
-    data = FILE_HANDLER.read_json(file)
+    data = FILE_HANDLER.read_json(file_path)
     dependencies = []
     for section in ["dependencies", "devDependencies", "peerDependencies"]:
         if section in data:
@@ -130,17 +126,18 @@ def parse_package_json(file):
     return dependencies
 
 
-def parse_yarn_lock(file):
-    """Extracts dependencies from a yarn.lock file."""
-    data = FILE_HANDLER.read(file)
-    regex = re.compile(r"^(\w[\w\-]*\w)@", re.MULTILINE)
-    dependencies = regex.findall(data)
-    return list(set(dependencies))
+def parse_yarn_lock(file_path: str) -> List[str]:
+    """Extracts package names from a yarn.lock file."""
+    with open(file_path, "r") as f:
+        content = f.read()
+
+    package_names = re.findall(r"(\S+)(?=@)", content)
+    return package_names
 
 
-def parse_package_lock_json(file):
+def parse_package_lock_json(file_path: str) -> List[str]:
     """Extracts TypeScript dependencies from a package-lock.json file."""
-    data = FILE_HANDLER.read_json(file)
+    data = FILE_HANDLER.read_json(file_path)
     dependencies = []
     for package, details in data.get("dependencies", {}).items():
         if package.startswith("@types/"):
@@ -159,63 +156,69 @@ def parse_go_mod(file_path: str) -> List[str]:
         file_path (str): The path to the Go module file.
 
     Returns:
-        List[str]: A list of the extracted dependencies.
+        str: A list of the extracted dependencies.
     """
     with open(file_path, "r") as f:
-        content = f.read()
+        content = f.readlines()
 
-    regex = re.compile(r"^require (.+)$", re.MULTILINE)
-    dependencies = regex.findall(content)
+    pattern = r"^\s*([\w\.\-_/]+)\s+v[\w\.\-_/]+"
+    regex = re.compile(pattern)
 
-    return dependencies
+    package_names = []
+    for line in content:
+        match = regex.match(line.strip())
+        if match:
+            last_segment = match.group(1).split("/")[-1]
+            package_names.append(last_segment)
 
-
-def parse_go_sum(file_path: str) -> List[str]:
-    """Extracts dependencies from a Go sum file."""
-    with open(file_path, "r") as f:
-        content = f.read()
-
-    regex = re.compile(r"^([^\s]+)\s([^@]+)", re.MULTILINE)
-    dependencies = [match.group(1) for match in regex.finditer(content)]
-
-    return dependencies
+    return package_names
 
 
 # Java
 
 
-def parse_gradle(file_path):
+def parse_gradle(file_path: str) -> List[str]:
+    """Extracts dependencies from a Gradle file."""
     with open(file_path) as file:
         content = file.read()
 
-    regex = re.compile(r"implementation\s+['\"]([^'\"]+)['\"]")
-    dependencies = regex.findall(content)
+    package_names = []
+    dependencies_pattern = r'implementation\([\'"]([^\'"]+):[^\'"]+[\'"]\)'
+    matches = re.findall(dependencies_pattern, content)
 
-    return dependencies
+    for match in matches:
+        package_name = match.split(":")[-2]
+        package_name = package_name.split(".")[-1]
+        package_names.append(package_name)
+
+    return package_names
 
 
-def parse_maven(file_path):
+def parse_maven(file_path: str) -> List[str]:
+    """Extracts dependencies from a Maven file."""
     with open(file_path) as file:
         content = file.read()
+
+    package_names = []
 
     regex = re.compile(
         r"<dependency>\s*<groupId>([^<]+)</groupId>\s*<artifactId>([^<]+)</artifactId>\s*<version>([^<]+)</version>"
     )
-    dependencies = []
+
     matches = regex.findall(content)
     for match in matches:
         group_id, artifact_id, version = match
         dependency = f"{group_id}:{artifact_id}:{version}"
-        dependencies.append(dependency)
+        package_names.append(dependency)
 
-    return dependencies
+    return package_names
 
 
 # C/C++
 
 # Makefile
-def parse_makefile(file):
-    with open(file) as f:
+def parse_makefile(file_path: str) -> List[str]:
+    with open(file_path) as f:
         content = f.read()
 
     regex = re.compile(r"^\w+\s*[:+]?=\s*(.+)$", re.MULTILINE)
@@ -229,8 +232,8 @@ def parse_makefile(file):
 
 
 # CMakeLists.txt
-def parse_cmake(file):
-    with open(file) as f:
+def parse_cmake(file_path: str) -> List[str]:
+    with open(file_path) as f:
         content = f.read()
 
     regex = re.compile(r"add_executable\([^)]+\s+([^)]+)\)")
@@ -240,8 +243,8 @@ def parse_cmake(file):
 
 
 # configure.ac
-def parse_configure_ac(file):
-    with open(file) as f:
+def parse_configure_ac(file_path: str) -> List[str]:
+    with open(file_path) as f:
         content = f.read()
 
     regex = re.compile(r"AC_CHECK_LIB\([^)]+\s+([^)]+)\)")
@@ -251,8 +254,8 @@ def parse_configure_ac(file):
 
 
 # Makefile.am
-def parse_makefile_am(file):
-    with open(file) as f:
+def parse_makefile_am(file_path: str) -> List[str]:
+    with open(file_path) as f:
         content = f.read()
 
     regex = re.compile(r"bin_PROGRAMS\s*=\s*(.+)")

@@ -14,8 +14,8 @@ from utils import format_sentence
 LOGGER = Logger("readmeai_logger")
 ENGINE = "text-davinci-003"
 MAX_TOKENS = 4096
-TOKENS = 1024
-TEMPERATURE = 0.8
+TOKENS = 500
+TEMPERATURE = 0.7
 
 
 class OpenAIError(Exception):

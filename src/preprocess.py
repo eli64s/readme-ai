@@ -132,7 +132,7 @@ def _get_file_parsers() -> Dict[str, callable]:
         "cargo.toml": parse.parse_cargo_toml,
         "cargo.lock": parse.parse_cargo_lock,
         "go.mod": parse.parse_go_mod,
-        "go.sum": parse.parse_go_sum,
+        "go.sum": parse.parse_go_mod,
         "requirements.txt": parse.parse_requirements_file,
         "environment.yaml": parse.parse_conda_env_file,
         "environment.yml": parse.parse_conda_env_file,
