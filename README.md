@@ -125,7 +125,6 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 |-------------------------------|
 | ![tree](./docs/imgs/tree.png) |
 
-
 <h1 align="center">⒌<br>👇<br><br>📦 Project Setup and User Guide</h1>
 <p align="center">Dynamically generates installation and run guides to help others explore and use your code!</p>
 
@@ -240,7 +239,6 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
     </tr>
   </table>
 </div>
-
 
 <h1 align="center">⒏<br>👇<br><br>📜 Custom templates and styles coming soon!</h1>
 <p align="center">Developing a feature that allows the user to select from a variety of README formats and styles.</p>
@@ -372,8 +370,9 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ## 🙏 Acknowledgments
 
 *SVG Icons*
-  - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
-  - [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
+
+- [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+- [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>
