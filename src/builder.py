@@ -84,7 +84,7 @@ def get_badges(badge_metadata: dict, dependency_list: list) -> str:
     ----------
     badge_metadata : dict
         Dictionary containing available icons and their src.
-    ddependency_list : list
+    dependency_list : list
         List of project dependencies.
 
     Returns

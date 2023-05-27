@@ -45,7 +45,7 @@ async def code_to_text(
     Parameters
     ----------
     ignore_files
-        Files to ignore in the repositroy when generating summaries.
+        Files to ignore in the repository when generating summaries.
     files
         Hashmap of file paths and their contents.
     prompt
