@@ -9,6 +9,7 @@ import unittest
 from tempfile import NamedTemporaryFile
 from unittest.mock import mock_open, patch
 
+import pytest
 import toml
 import yaml
 
@@ -18,14 +19,27 @@ from src.factory import FileHandler
 FILE_HANDLER = FileHandler()
 
 
-def test_parse_conda_env_file():
+def test_parse_conda_env_file_invalid_path():
+    with pytest.raises(FileNotFoundError):
+        parse.parse_conda_env_file("non_existent_file.yml")
+
+
+def test_parse_conda_env_file_invalid_content(temp_file):
+    temp_file.write("This is not valid YAML content".encode())
+    temp_file.seek(0)
+    with pytest.raises(ValueError):
+        parse.parse_conda_env_file(temp_file.name)
+
+
+def test_parse_conda_env_file(temp_file):
     conda_env = {
         "dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]
     }
-    with NamedTemporaryFile(mode="w", delete=False) as temp_file:
-        temp_file.write(yaml.dump(conda_env))
+    temp_file.write(yaml.dump(conda_env).encode())
+    temp_file.seek(0)
     dependencies = parse.parse_conda_env_file(temp_file.name)
     assert dependencies == ["numpy", "pandas", "scipy"]
+    assert len(dependencies) == 3
 
 
 def test_parse_pipfile():

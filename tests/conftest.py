@@ -1,9 +1,23 @@
 """Pytest configuration file."""
 
+import os
+import tempfile
 from pathlib import Path
 
 import pytest
 import toml
+
+
+@pytest.fixture
+def temp_file(request):
+    temp = tempfile.NamedTemporaryFile(delete=False)
+
+    def fin():
+        os.remove(temp.name)
+
+    request.addfinalizer(fin)
+
+    return temp
 
 
 @pytest.fixture(scope="session")

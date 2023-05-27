@@ -19,7 +19,8 @@ from src.model import (
 
 def test_get_cache():
     cache = get_cache()
-    assert len(cache) == 0  # Initially, the cache should be empty
+    # Initially, the cache should be empty
+    assert len(cache) == 0
 
 
 def test_get_http_client():
@@ -36,7 +37,6 @@ def test_get_http_client():
 
 @patch("src.model.openai.Completion.create")
 def test_generate_summary_text(mock_create):
-    # Mock the response from the OpenAI API
     mock_create.return_value = type(
         "obj",
         (object,),
@@ -66,7 +66,5 @@ async def test_code_to_text():
 
         result = await code_to_text(ignore_files, files, prompt)
 
-    assert (
-        len(result) == 1
-    )  # Since one file is ignored, we should only get one result
+    assert len(result) == 1
     assert result[0] == ("file1.py", "It prints 'Hello World'")

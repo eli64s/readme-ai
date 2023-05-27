@@ -1,15 +1,16 @@
 """Unit tests for the builder.py module."""
 
 import sys
+import unittest.mock as mock
+from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 sys.path.append("src")
 
-import unittest.mock as mock
 
 import pytest
 from pandas import DataFrame
 
-from conf import AppConfig, ConfigHelper
 from src.builder import (
     build,
     create_directory_tree,
@@ -19,6 +20,15 @@ from src.builder import (
     get_badges,
     parse_pandas_cols,
 )
+from src.conf import AppConfig, ConfigHelper, load_config, load_config_helper
+from src.factory import FileHandler
+
+FILE_HANDLER = FileHandler()
+CONF = Path("conf/conf.toml")
+conf = load_config(CONF)
+conf_helper = load_config_helper(conf)
+dependency_list = ["dependency1", "dependency2"]
+summaries = [("module1.py", "Summary 1"), ("module2.py", "Summary 2")]
 
 
 @pytest.fixture
@@ -150,3 +160,118 @@ def test_parse_pandas_cols():
 
     assert parsed_df["Directory"].tolist() == ["path/to", "path/to"]
     assert parsed_df["File"].tolist() == ["module1.py", "module2.py"]
+
+
+def test_build_calls_file_handler_write_with_correct_arguments(
+    config,
+    conf_helper=conf_helper,
+    dependency_list=dependency_list,
+    summaries=summaries,
+):
+    handler_mock = MagicMock(FileHandler)
+    config["md"]["head"] = "mock string"
+    config["md"]["close"] = "mock string"
+    config["md"]["intro"] = "mock string"
+    config["md"]["dropdown"] = "mock string"
+    config["md"]["modules"] = "mock string"
+    config["md"]["setup"] = "mock string"
+    config["md"]["slogan"] = "mock string"
+    config["md"]["toc"] = "mock string"
+    config["md"]["tree"] = "mock string"
+    config["paths"]["badges"] = "mock_path"
+    config["git"]["repository"] = "mock_repository"
+
+    handler_instance_mock = handler_mock.return_value
+    handler_instance_mock.read.return_value = {}
+    summaries_dataframe_mock = MagicMock()
+    parse_pandas_cols_mock = MagicMock()
+    get_badges_mock = MagicMock(return_value="mock_badges")
+    create_tables_mock = MagicMock(return_value="mock_tables")
+    create_directory_tree_mock = MagicMock(return_value="mock_repo")
+    create_setup_guide_mock = MagicMock(return_value="mock_setup")
+
+    with patch("src.builder.FileHandler", handler_mock):
+        with patch("pandas.DataFrame", summaries_dataframe_mock):
+            with patch(
+                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
+            ):
+                with patch("src.builder.get_badges", get_badges_mock):
+                    with patch(
+                        "src.builder.create_tables", create_tables_mock
+                    ):
+                        with patch(
+                            "src.builder.create_directory_tree",
+                            create_directory_tree_mock,
+                        ):
+                            with patch(
+                                "src.builder.create_setup_guide",
+                                create_setup_guide_mock,
+                            ):
+                                build(
+                                    conf,
+                                    conf_helper,
+                                    dependency_list,
+                                    summaries,
+                                )
+
+    handler_instance_mock.write.assert_called_once()
+
+
+def test_build_calls_logger_info_with_correct_argument(
+    config,
+    conf_helper=conf_helper,
+    dependency_list=dependency_list,
+    summaries=summaries,
+):
+    handler_mock = MagicMock(FileHandler)
+    config["md"]["head"] = "mock string"
+    config["md"]["close"] = "mock string"
+    config["md"]["intro"] = "mock string"
+    config["md"]["dropdown"] = "mock string"
+    config["md"]["modules"] = "mock string"
+    config["md"]["setup"] = "mock string"
+    config["md"]["slogan"] = "mock string"
+    config["md"]["toc"] = "mock string"
+    config["md"]["tree"] = "mock string"
+    config["paths"]["badges"] = "mock_path"
+    config["git"]["repository"] = "mock_repository"
+
+    handler_instance_mock = handler_mock.return_value
+    handler_instance_mock.read.return_value = {}
+    summaries_dataframe_mock = MagicMock()
+    parse_pandas_cols_mock = MagicMock()
+    get_badges_mock = MagicMock(return_value="mock_badges")
+    create_tables_mock = MagicMock(return_value="mock_tables")
+    create_directory_tree_mock = MagicMock(return_value="mock_repo")
+    create_setup_guide_mock = MagicMock(return_value="mock_setup")
+
+    with patch("src.builder.FileHandler", handler_mock):
+        with patch("pandas.DataFrame", summaries_dataframe_mock):
+            with patch(
+                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
+            ):
+                with patch("src.builder.get_badges", get_badges_mock):
+                    with patch(
+                        "src.builder.create_tables", create_tables_mock
+                    ):
+                        with patch(
+                            "src.builder.create_directory_tree",
+                            create_directory_tree_mock,
+                        ):
+                            with patch(
+                                "src.builder.create_setup_guide",
+                                create_setup_guide_mock,
+                            ):
+                                with patch(
+                                    "src.builder.LOGGER.info"
+                                ) as logger_info_mock:
+                                    build(
+                                        conf,
+                                        conf_helper,
+                                        dependency_list,
+                                        summaries,
+                                    )
+
+    logger_info_mock.assert_called_once_with(
+        f"README.md file created at: {Path.cwd() / config['paths']['readme']}"
+    )

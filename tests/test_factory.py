@@ -70,7 +70,3 @@ class TestFileHandler(unittest.TestCase):
     def test_write_failure(self):
         with self.assertRaises(WriteFileError):
             self.file_handler.write("/path/does/not/exist/test.txt", "Content")
-
-
-if __name__ == "__main__":
-    unittest.main()

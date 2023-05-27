@@ -1,9 +1,6 @@
 """Unit tests for preprocess.py."""
 
 import sys
-
-sys.path.append("src")
-
 from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import urlparse
@@ -11,6 +8,7 @@ from urllib.parse import urlparse
 import git
 import pytest
 
+sys.path.append("src")
 from src.preprocess import (
     _clone_or_copy_repository,
     _extract_repository_contents,
@@ -77,7 +75,6 @@ def test_invalid_source(tmp_path):
 
 
 def test_extract_repository_contents(tmp_path):
-    # Arrange
     (tmp_path / "test.txt").write_text("hello world!")
     (tmp_path / "test2.txt").write_text("hello again!")
     (tmp_path / ".git").mkdir()
@@ -92,7 +89,7 @@ def test_extract_repository_contents(tmp_path):
 
 
 def test_extract_repository_contents_with_non_utf8(tmp_path):
-    (tmp_path / "test.txt").write_bytes(b"\x80abc")  # non-UTF8 content
+    (tmp_path / "test.txt").write_bytes(b"\x80abc")
     contents = _extract_repository_contents(str(tmp_path))
     assert contents == {
         Path(

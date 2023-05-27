@@ -17,6 +17,10 @@ def parse_conda_env_file(file_path: str) -> List[str]:
     """Extracts dependencies from a conda environment file."""
     data = FILE_HANDLER.read_yaml(file_path)
     dependencies = []
+
+    if not isinstance(data, dict):
+        raise ValueError(f"Invalid content in repository file: {file_path}")
+
     for package in data.get("dependencies", []):
         if isinstance(package, str):
             dependencies.append(package.split("=")[0])
