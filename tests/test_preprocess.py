@@ -1,4 +1,5 @@
 """Unit tests for preprocess.py."""
+
 import os
 import shutil
 import sys
@@ -9,13 +10,13 @@ import pytest
 
 from src.preprocess import (
     _clone_or_copy_repository,
-    _extract_programming_languages,
     _extract_repository_contents,
+    _get_file_extensions,
     _get_file_parsers,
     _get_remote_repository,
+    _map_extensions_to_languages,
     extract_dependencies,
     get_repository,
-    get_repository_files,
     get_repository_name,
 )
 
@@ -99,7 +100,7 @@ def test_extract_programming_language():
     all_files = ["file1.py", "file2.txt", "file3.js"]
     file_ext = {".py": ".py", ".js": ".js"}
 
-    file_extensions = _extract_programming_languages(all_files, file_ext)
+    file_extensions = _get_file_extensions(all_files, file_ext)
     assert file_extensions[0] in ["py", "js", "txt"]
     assert file_extensions[1] in ["py", "js", "txt"]
     assert file_extensions[2] in ["py", "js", "txt"]
@@ -150,9 +151,3 @@ def test_get_repository_name_local():
     os.makedirs(local_path)
     repo_name = get_repository_name(local_path)
     assert repo_name == "local_dir"
-
-
-def test_get_repository_files():
-    temp_dir = os.path.dirname(os.path.abspath(__file__))
-    files = get_repository_files(temp_dir)
-    assert isinstance(files, list)

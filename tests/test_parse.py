@@ -1,5 +1,8 @@
 """Unit tests for preprocess_parse.py."""
 
+import sys
+
+sys.path.append("src")
 import json
 from tempfile import NamedTemporaryFile
 
@@ -9,7 +12,6 @@ import yaml
 from src import parse
 
 
-# Test parse_conda_env_file function
 def test_parse_conda_env_file():
     conda_env = {
         "dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]
@@ -20,7 +22,6 @@ def test_parse_conda_env_file():
     assert dependencies == ["numpy", "pandas", "scipy"]
 
 
-# Test parse_pipfile function
 def test_parse_pipfile():
     pipfile = {
         "packages": {"requests": "==2.25.1", "numpy": "~=1.19.2"},
@@ -32,7 +33,6 @@ def test_parse_pipfile():
     assert dependencies == ["requests", "numpy", "pytest"]
 
 
-# Test parse_pyproject_toml function
 def test_parse_pyproject_toml():
     pyproject_toml = {
         "tool": {
@@ -48,7 +48,6 @@ def test_parse_pyproject_toml():
     assert dependencies == ["numpy", "requests", "pytest"]
 
 
-# Test parse_requirements_file function
 def test_parse_requirements_file():
     requirements = ["numpy==1.19.2", "# A comment", "", "requests>=2.25.1"]
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
@@ -57,7 +56,6 @@ def test_parse_requirements_file():
     assert dependencies == ["numpy", "requests"]
 
 
-# Test parse_cargo_toml function
 def test_parse_cargo_toml():
     cargo_toml = {
         "dependencies": [
@@ -72,7 +70,6 @@ def test_parse_cargo_toml():
     assert dependencies == ["serde", "tokio", "serde-test"]
 
 
-# Test parse_cargo_lock function
 def test_parse_cargo_lock():
     cargo_lock = {
         "package": [
@@ -86,7 +83,6 @@ def test_parse_cargo_lock():
     assert dependencies == ["serde", "tokio"]
 
 
-# Test parse_package_json function
 def test_parse_package_json():
     package_json = {
         "dependencies": {"express": "^4.17.1", "lodash": "^4.17.21"},
@@ -98,7 +94,6 @@ def test_parse_package_json():
     assert dependencies == ["express", "lodash", "mocha"]
 
 
-# Test parse_yarn_lock function
 def test_parse_yarn_lock():
     yarn_lock = """
         # yarn lockfile v1
@@ -123,7 +118,6 @@ def test_parse_yarn_lock():
     assert dependencies == ["lodash", "express", "mocha"]
 
 
-# Test parse_go_mod function
 def test_parse_go_mod():
     go_mod = """
         module example.com/mymodule
@@ -144,7 +138,6 @@ def test_parse_go_mod():
     ]
 
 
-# Test parse_go_sum function
 def test_parse_go_sum():
     go_sum = """
         github.com/gin-gonic/gin v1.7.4 h1:abcdefg
@@ -161,7 +154,6 @@ def test_parse_go_sum():
     ]
 
 
-# Test parse_gradle function
 def test_parse_gradle():
     gradle_file = """
         dependencies {
@@ -178,7 +170,6 @@ def test_parse_gradle():
     ]
 
 
-# Test parse_maven function
 def test_parse_maven():
     maven_file = """
         <dependencies>

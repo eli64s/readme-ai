@@ -38,7 +38,8 @@ def validate_repository(repository: Optional[str]) -> str:
     if repository is None:
         repository = conf.git.repository
     if repository is None or (
-        not repository.startswith("http") and not Path(repository).exists()
+        not str(repository).startswith("http")
+        and not Path(str(repository)).exists()
     ):
         typer.echo("Error: Invalid or missing repository URL or path.")
         raise typer.Exit(code=1)

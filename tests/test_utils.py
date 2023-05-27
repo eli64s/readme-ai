@@ -1,50 +1,56 @@
 """Unit tests for utils.py"""
 
-import re
-from unittest.mock import MagicMock
+import pytest
 
-import spacy
-
-from src.utils import reformat_sentence, spacy_text_processor, valid_url
+from src.utils import format_sentence, valid_url
 
 
-def test_reformat_sentence():
-    sentence = "Hello ,   world  !"
-    formatted_sentence = reformat_sentence(sentence)
-    assert formatted_sentence == "Hello, world!"
+def test_format_sentence():
+    assert format_sentence("   !hello,world!   ") == "hello,world!"
+    assert format_sentence("   hello,    world!   ") == "hello, world!"
+    assert format_sentence("hello  -  world") == "hello-world"
+    assert format_sentence(" hello     world ") == "hello world"
+    assert format_sentence(" hello (  world ) ") == "hello (world)"
+    assert format_sentence("hello...  world") == "hello... world"
+    assert format_sentence("hello  .  world") == "hello. world"
+    assert format_sentence("hello  .world") == "hello.world"
+    assert format_sentence("   123hello,    world!   ") == "hello, world!"
+    assert format_sentence("   hello, 123   world!   ") == "hello, 123 world!"
+    assert format_sentence("") == ""
+    assert format_sentence("hello(world)") == "hello(world)"
+    assert format_sentence("hello!?world") == "hello!?world"
+    assert format_sentence("!! hello world !!") == "hello world!!"
+    assert format_sentence("   -hello world-   ") == "hello world-"
 
-
-def test_spacy_text_processor(mocker):
-    # mock the Spacy's NLP object and its return value when it's called
-    mock_nlp = mocker.patch.object(spacy, "load", return_value=MagicMock())
-    mock_token = MagicMock()
-    mock_token.text = "test"
-    mock_nlp.return_value.return_value = [mock_token]
-
-    # call the function with a test string
-    processed_text = spacy_text_processor("This is a test string")
-
-    # verify the return value
-    assert processed_text == "test"
-
-    # verify that the mock was called with the right parameters
-    mock_nlp.assert_called_once_with("en_core_web_sm")
-    mock_nlp.return_value.assert_called_once_with("This is a test string")
+    with pytest.raises(TypeError):
+        format_sentence(None)
+    with pytest.raises(TypeError):
+        format_sentence(123)
 
 
 def test_valid_url():
-    assert valid_url("https://www.google.com/")
-    assert valid_url("ftp://ftp.example.com/")
-    assert not valid_url("www.example.com")
+    assert valid_url("https://www.google.com") is True
+    assert valid_url("http://www.google.com") is True
+    assert valid_url("ftp://www.google.com") is True
+    assert valid_url("ftps://www.google.com") is True
+    assert valid_url("www.google.com") is False
+    assert valid_url("https://google") is False
+    assert valid_url("https://www.google") is True
+    assert valid_url("https://www.google.c") is False
+    assert valid_url("https://www.google.com/path") is True
+    assert valid_url("https://www.google.com/path/subpath") is True
+    assert valid_url("https://www.google.com?query=string") is True
+    assert valid_url("http://user:pass@www.google.com") is False
+    assert valid_url("http://www.google.com:8080") is True
+    assert valid_url("telnet://www.google.com") is False
+    assert valid_url("ssh://www.google.com") is False
+    assert (
+        valid_url("http://www.google.com?query=string_with_%20special%20chars")
+        is True
+    )
+    assert valid_url("") is False
 
-
-def test_reformat_sentence_with_non_letter_characters():
-    sentence = "1234Hello,   world!"
-    formatted_sentence = reformat_sentence(sentence)
-    assert formatted_sentence == "Hello, world!"
-
-
-def test_reformat_sentence_with_hyphens():
-    sentence = "Hello -   world!"
-    formatted_sentence = reformat_sentence(sentence)
-    assert formatted_sentence == "Hello-world!"
+    with pytest.raises(TypeError):
+        valid_url(None)
+    with pytest.raises(TypeError):
+        valid_url(123)

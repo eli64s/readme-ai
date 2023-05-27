@@ -9,8 +9,11 @@ def format_sentence(text: str) -> str:
     # Remove non-letter characters from beginning of string
     text = re.sub(r"^[^a-zA-Z]*", "", text)
 
-    # Remove extra white space around punctuation
-    text = re.sub(r"\s*([()'.,!?;:])(?!\.\s*\w)", r"\1", text)
+    # Remove extra white space around punctuation except for opening parentheses
+    text = re.sub(r"\s*([)'.!,?;:])(?!\.\s*\w)", r"\1", text)
+
+    # Remove extra white space before opening parentheses
+    text = re.sub(r"(\()\s*", r"\1", text)
 
     # Replace multiple consecutive spaces with a single space
     text = re.sub(" +", " ", text)
@@ -18,7 +21,7 @@ def format_sentence(text: str) -> str:
     # Remove extra white space around hyphens
     text = re.sub(r"\s*-\s*", "-", text)
 
-    return text
+    return text.strip()
 
 
 def valid_url(s: str) -> bool:
@@ -31,5 +34,4 @@ def valid_url(s: str) -> bool:
         r"(?:/?|[/?]\S+)$",
         re.IGNORECASE,
     )
-
     return bool(regex.match(s))

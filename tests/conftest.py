@@ -1,12 +1,18 @@
-"""Pytest configuration file for the tests directory."""
+"""Pytest configuration file."""
 
-import tempfile
 from pathlib import Path
 
 import pytest
+import toml
 
 
-@pytest.fixture
-def temp_dir():
-    with tempfile.TemporaryDirectory() as temp_dir:
-        yield Path(temp_dir)
+@pytest.fixture(scope="session")
+def config():
+    current_dir = Path(__file__).parent
+    parent_dir = current_dir.parent
+    config_path = parent_dir / "conf/conf.toml"
+
+    with open(config_path, "r") as file:
+        config = toml.load(file)
+
+    return config
