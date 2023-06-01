@@ -17,7 +17,7 @@ LOGGER = Logger("readmeai_logger")
 def build(
     conf: AppConfig,
     conf_helper: ConfigHelper,
-    dependency_list: list,
+    packages: list,
     summaries: tuple,
 ) -> None:
     """Builds the README Markdown file for your codebase.
@@ -28,63 +28,50 @@ def build(
         Configuration data class containing Markdown template strings.
     conf_helper
         Helper data class containing metadata to populate the README.
-    dependency_list
+    package_names
         List of project dependencies extracted from the user's repository.
     summaries
         Tuple of code summaries generated for each file in the repository.
     """
-
-    md_file = conf.md.head
-    md_close = conf.md.close
-    md_intro = conf.md.intro
-    md_dropdown = conf.md.dropdown
-    md_modules = conf.md.modules
-    md_setup = conf.md.setup
-    md_slogan = conf.md.slogan
-    md_toc = conf.md.toc
-    md_tree = conf.md.tree
-
+    name = conf.git.name
+    repo = conf.git.repository
     cwd_path = Path.cwd()
-    handler = FileHandler()
-    json_path = cwd_path / conf.paths.badges
-    json_dict = handler.read(json_path)
+    readme_path = cwd_path / conf.paths.readme
+    badges_path = cwd_path / conf.paths.badges
+    badges_dict = FileHandler().read(badges_path)
 
-    summaries = pd.DataFrame(summaries, columns=["Module", "Summary"])
-    summaries = parse_pandas_cols(summaries)
+    md_badges = get_badges(badges_dict, packages)
+    md_repository = create_directory_tree(repo)
+    summary_df = format_markdown_table(summaries)
+    md_tables = create_tables(summary_df, conf.md.dropdown)
+    md_setup = create_setup_guide(conf.md.setup, conf_helper, summary_df)
 
-    md_badges = get_badges(json_dict, dependency_list)
-    md_tables = create_tables(summaries, md_dropdown)
-    md_repo = create_directory_tree(conf.git.repository)
-    md_setup = create_setup_guide(conf, conf_helper, summaries)
-
-    # Store intermediate results and perform a single write operation
-    md_file_parts = []
-    md_file_parts.append(md_file.format(conf.git.name, md_slogan, md_badges))
-    md_file_parts.append(md_toc)
-    md_file_parts.append(md_intro)
-    md_file_parts.append(md_tree)
-    md_file_parts.append(md_repo)
-    md_file_parts.append(md_modules)
-    md_file_parts.append(md_tables)
-    md_file_parts.append(md_setup)
-    md_file_parts.append(md_close)
+    md_file_parts = [
+        conf.md.header,
+        conf.md.badges.format(md_badges),
+        conf.md.toc,
+        conf.md.intro,
+        conf.md.tree,
+        md_repository,
+        conf.md.modules,
+        md_tables,
+        md_setup.format("{0}", "{1}", name, repo),
+        conf.md.ending,
+    ]
     md_file = "\n".join(md_file_parts)
-
-    md_path = cwd_path / conf.paths.readme
-    handler.write(md_path, md_file)
-
-    LOGGER.info(f"README.md file created at: {md_path}")
+    FileHandler().write(readme_path, md_file)
+    LOGGER.info(f"README file generated at: {readme_path}")
 
 
-def get_badges(badge_metadata: dict, dependency_list: list) -> str:
+def get_badges(svg_icons: dict, dependencies: list) -> str:
     """
     Generates badge icons for each dependency in the project.
 
     Parameters
     ----------
-    badge_metadata : dict
+    svg_icons : dict
         Dictionary containing available icons and their src.
-    ddependency_list : list
+    ddependencies : list
         List of project dependencies.
 
     Returns
@@ -93,14 +80,21 @@ def get_badges(badge_metadata: dict, dependency_list: list) -> str:
         Formatted string containing badge icons for dependencies.
     """
     badges = []
-    icons_dict = {
-        icon["name"].lower(): icon["src"] for icon in badge_metadata["icons"]
-    }
-    for dependency in dependency_list:
+    for dependency in dependencies:
         dependency = dependency.lower()
-        if dependency in icons_dict:
-            badges.append(icons_dict[dependency])
-    return format_badges(badges, dependency_list)
+        if dependency in svg_icons:
+            badges.append(svg_icons[dependency])
+
+    LOGGER.info(f"SVG icons badges:\n\t{badges}")
+
+    # Sort badges by hex value (from light to dark color)
+    badges.sort(
+        key=lambda badge: int(badge[1], 16) if badge[1] else 0, reverse=True
+    )
+
+    badges = [badge[0] for badge in badges]
+
+    return format_badges(badges, dependencies)
 
 
 def format_badges(badges: list, dependencies: list) -> str:
@@ -145,18 +139,18 @@ def format_badges(badges: list, dependencies: list) -> str:
 
 
 def create_setup_guide(
-    conf: AppConfig, conf_helper: ConfigHelper, summaries: pd.DataFrame
+    md_setup: str, conf_helper: ConfigHelper, summary_df: pd.DataFrame
 ):
     """
     Creates a setup guide for the project based on the top used language.
 
     Parameters
     ----------
-    conf : object
-        Configuration object containing GitHub and markdown configurations.
-    conf_helper : object
+    md_setup : str
+        Markdown template string for the setup guide.
+    helper : object
         Configuration helper object containing file extensions and setup guide.
-    summaries : pd.DataFrame
+    summary_df : pd.DataFrame
         DataFrame containing parsed information from project files.
 
     Returns
@@ -164,38 +158,29 @@ def create_setup_guide(
     str
         Formatted string with setup guide.
     """
-    install_guide = "[INSERT_INSTALLATION_STEPS_HERE]"
-    run_guide = "[INSERT-RUN_INSTRUCTIONS_HERE]"
-    ignore_files = conf_helper.ignore_files
-    name = conf.git.name
-    source = conf.git.repository
-
-    summaries["Language"] = summaries["Module"].apply(
-        lambda x: Path(x).suffix[1:]
-        if Path(x).suffix[1:] not in ignore_files
-        else None
-    )
-
     try:
-        top_language = summaries["Language"].value_counts().idxmax()
+        md_install = md_run = "[📍 INSERT-INSTRUCTIONS_HERE]"
+
+        summary_df["Language"] = summary_df["Module"].apply(
+            lambda x: Path(x).suffix[1:]
+            if Path(x).suffix[1:] not in conf_helper.ignore_files
+            else None
+        )
+
+        top_language = summary_df["Language"].value_counts().idxmax()
         language_name = conf_helper.language_names[top_language]
         language_setup = conf_helper.language_setup[language_name]
-
-        LOGGER.info(f"Top project language: {top_language}")
+        LOGGER.info(f"Top repository language: {top_language.upper()}")
         LOGGER.info(f"{language_name} setup guide: {language_setup}")
 
         if language_setup:
-            install_guide = language_setup[0]
-            run_guide = language_setup[1]
+            md_install = language_setup[0]
+            md_run = language_setup[1]
 
-    except KeyError as ke:
-        LOGGER.warning(f"KeyError: {ke}. Using default setup guide.")
+    except Exception as exc:
+        LOGGER.debug(f"Error: {exc}\nUsing default setup: {md_run}")
 
-    md_setup_guide = conf.md.setup.format(
-        name, source, name, install_guide, name, run_guide
-    )
-
-    return md_setup_guide
+    return md_setup.format("{2}", "{3}", md_install, md_run)
 
 
 def create_directory_tree(url: str) -> str:
@@ -272,22 +257,26 @@ def create_tables(df: pd.DataFrame, dropdown: str) -> str:
     return "\n".join(table_wrappers)
 
 
-def parse_pandas_cols(df: pd.DataFrame) -> pd.DataFrame:
+def format_markdown_table(summaries: tuple) -> pd.DataFrame:
     """
     Parses the Module field to create two additional DataFrame
     columns to be displayed in the README code summary tables.
 
     Parameters
     ----------
-    df : pd.DataFrame
-        DataFrame containing parsed details from project files.
+    summaries : tuple
+        Tuple containing parsed information from project files.
 
     Returns
     -------
     pd.DataFrame
         Processed DataFrame with additional columns.
     """
-
-    df["Directory"] = df["Module"].apply(lambda x: str(Path(x).parent))
-    df["File"] = df["Module"].apply(lambda x: str(Path(x).name))
-    return df
+    summary_df = pd.DataFrame(summaries, columns=["Module", "Summary"])
+    summary_df["Directory"] = summary_df["Module"].apply(
+        lambda x: str(Path(x).parent)
+    )
+    summary_df["File"] = summary_df["Module"].apply(
+        lambda x: str(Path(x).name)
+    )
+    return summary_df

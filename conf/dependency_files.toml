@@ -105,4 +105,9 @@ dependency_files = [
 
     # Perl
     'cpanfile',
+
+    # Docker
+    "Dockerfile",
+    "docker-compose.yml",
+    "docker-compose.yaml",
 ]

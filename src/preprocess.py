@@ -3,7 +3,7 @@
 import shutil
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List
 from urllib.parse import urlparse
 
 import git
@@ -226,21 +226,6 @@ def get_repository(source: str) -> Dict[str, str]:
         return _get_remote_repository(source)
     else:
         return _extract_repository_contents(source)
-
-
-def get_repository_name(hosts: List[str], path: Union[str, Path]) -> str:
-    """Extracts the repository name from a URL or local path."""
-    parsed_url = urlparse(str(path))
-
-    if parsed_url.hostname in hosts:
-        repo_path = parsed_url.path
-        repo_name = repo_path.split("/")[-1]
-        if repo_name.endswith(".git"):
-            repo_name = repo_name[:-4]
-    else:
-        repo_name = Path(path).name
-
-    return repo_name
 
 
 def additional_dependencies(files: List[Path]) -> List[str]:

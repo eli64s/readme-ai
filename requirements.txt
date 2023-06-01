@@ -9,6 +9,8 @@ httpx
 h2
 isort
 loguru
+nbconvert
+nbformat
 openai
 pandas
 pre-commit==2.15.0
@@ -20,4 +22,6 @@ pytest-mock
 responses
 setuptools
 tabulate
+tenacity
+tiktoken
 typer==0.9.0

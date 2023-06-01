@@ -1,63 +1,7 @@
-# Prompts
-[prompts]
-code_to_text = """
-Could you generate a robust yet succinct summary that captures the essence of this code script:
-
-{}
-
-Aim for a balance between brevity and completeness in your explanation.
-"""
-intro = """
-In a rapidly evolving technological landscape, the {} GitHub project is a beacon of innovation. 
-
-We invite you to explore and unravel the key features of this project. 
-
-The following are summaries of the code scripts that make up this project:
-Repository URL: {}
-Code Documentation: {}
-
-Kindly provide insights into:
-- The use-case and benefit of the projcet or tool. 
-- Focus on the user and the value it provides. 
-
-Generate a response paragraph containing no more than 4 sentences. Thank you!
-"""
-
-features = """
-In a rapidly evolving technological landscape, the {} GitHub project is a beacon of innovation. 
-
-We invite you to explore and unravel the key features of this project. 
-
-The following are summaries of the code scripts that make up this project:
-Repository URL: {}
-Code Documentation: {}
-
-Kindly provide insights into:
-- The user-centered design elements and architecture. 
-- The unique features that make this project stand out from the rest.
-
-Please structure each unique feature as a bullet point list. Example Markdown Outline:
-
-### Distinctive Features
-
-1. **<FEATURE-DESCRIPTION>:** 
-2. **<FEATURE-DESCRIPTION>:**
-3. **<FEATURE-DESCRIPTION>:**
-- etc.
-
----
-
-Your insights will not only enlighten us but will also empower others to understand the project better and appreciate its depth and breadth. 
-
-Thank you!
-"""
-
-slogan = """Generate a slogan for the GitHub project: {}"""
-
 # OpenAI API Parameters
 [api]
-api_key = ""
-engine = "text-davinci-003"
+endpoint = "https://api.openai.com/v1/chat/completions"
+engine = "gpt-3.5-turbo"
 temperature = 0.7
 tokens = 1024
 
@@ -69,16 +13,52 @@ repository = "https://github.com/eli64s/README-AI"
 
 # Paths
 [paths]
-badges = "conf/badges.json"
+badges = "conf/svg/badges_compressed.json"
 dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
 readme = "README_AI.md"
 
+# Prompts
+[prompts]
+code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the provided code snippet: 
+\n{}\n
+Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity. 
+Limit your response to 3-4 sentences. 
+Thank you!
+"""
+features = """Please analyze the codebase located at {} and provide a list of important features. The following includes a list of the summaries of the files in the repository:
+\n{}\n
+Please consider the codebase as a whole and highlight its key characteristics, design patterns, architectural decisions, and any other noteworthy elements. 
+Generate your response as a Markdown table with the following columns:
+
+| Feature | Description |
+| --- | --- |
+| **🏗 Overall Structure and Organization** | (Place your analysis here) |
+| **📝 Code Documentation** | (Place your analysis here) |
+| **🧩 Dependency Management** | (Place your analysis here) |
+| **♻️ Code Modularity and Reusability** | (Place your analysis here) |
+| **✅ Testing and Quality Assurance** | (Place your analysis here) |
+| **⚡️ Performance and Optimization** | (Place your analysis here) |
+| **🔒 Security Measures** | (Place your analysis here) |
+| **🔄 Version Control and Collaboration** | (Place your analysis here) |
+| **🔌 External Integrations** | (Place your analysis here) |
+| **📈 Scalability and Extensibility** | (Place your analysis here) |
+
+Please provide a comprehensive analysis addressing the above features while excluding the specified files from the assessment.
+Limit each analysis to 1-2 sentences.
+"""
+overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject. 
+The following includes a list of the summaries of the files in the repository:
+\n{}\n
+Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition. 
+"""
+slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}"
+
 # Markdown template
 [md]
-head = """\n<div align="center">
+header = """\n<div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>
@@ -86,17 +66,19 @@ head = """\n<div align="center">
 </h1>
 <h3 align="center">📍 {}</h3>
 <h3 align="center">🚀 Developed with the software and tools below:</h3>
-<p align="center">
-\n{}
+"""
+
+badges = """<p align="center">
+{}
 </p>
-\n</div>
+</div>
 \n---
 """
 
 toc = """
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
+- [📍Overview](#-overview)
 - [🔮 Features](#-features)
 - [⚙️ Project Structure](#project-structure)
 - [🧩 Modules](#modules)
@@ -113,7 +95,7 @@ intro = """
 \n## 📍Overview
 \n{}
 \n---
-\n## 🔮 Feautres
+\n## 🔮 Features
 \n{}
 \n---
 """
@@ -136,22 +118,20 @@ setup = """<hr />
 \nBefore you begin, ensure that you have the following prerequisites installed:
 > `[📌  INSERT-PROJECT-PREREQUISITES]`
 \n### 💻 Installation
-\n1. Clone the {} repository:
-```sh\ngit clone {}\n```
+\n1. Clone the {0} repository:
+```sh\ngit clone {1}\n```
 \n2. Change to the project directory:
-```sh\ncd {}\n```
+```sh\ncd {0}\n```
 \n3. Install the dependencies:
-```sh\n{}\n```
-\n### 🤖 Using {}
-\n```sh\n{}\n```
+```sh\n{2}\n```
+\n### 🤖 Using {0}
+\n```sh\n{3}\n```
 \n### 🧪 Running Tests
-```sh\n#run tests\n```
+```sh\n# [INSERT-COMMAND-FOR-TESTS]\n```
 \n<hr />
 """
 
-slogan = "{}"
-
-close = """
+ending = """
 \n## 🛠 Future Development
 - [X] [📌  COMPLETED-TASK]
 - [ ] [📌  INSERT-TASK]

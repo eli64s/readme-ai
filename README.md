@@ -82,6 +82,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <h3>📍 Introduction, Badges, Table of Contents</h3>
       <ul>
         <li>Project dependencies and software visualized using beautiful SVG icon badges.</li>
+        <li>Badges are formatted to be sorted by hex, ordered from light to dark hues.</li>
         <li>The OpenAI API generates a 1-sentence phrase describing your project.</li>
         <li>A table of contents is also provided for your README.md file.</li>
         </li>
@@ -104,6 +105,8 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <h3>📍 Overview & Features</h3>
       <ul>
         <li>Generated using detailed prompts that are embedded with your repository metadata.</li>
+        <li>The Overview sections describes your project's use case and application.</li>
+        <li>The Features section highlights attributes of your codebase, formatted in a Markdown table.</li>
         <li>Working on fine-tuning the prompts to improve the accuracy and relevance to your project.</li>
       </ul>
     </td>

@@ -264,3 +264,14 @@ def parse_makefile_am(file_path: str) -> List[str]:
         package_names.extend(deps)
 
     return package_names
+
+
+# Docker
+
+
+def parse_docker_compose(file_path: str) -> List[str]:
+    data = FILE_HANDLER.read_yaml(file_path)
+    try:
+        return data["services"]["app"]["depends_on"]
+    except KeyError:
+        return []
