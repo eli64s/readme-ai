@@ -80,17 +80,17 @@ async def generate_readme(api_handler: model.OpenAIHandler) -> None:
     LOGGER.info(f"Total files to document: {len(file_contents)}")
     LOGGER.info(f"\nProject dependencies list: {dependencies}\n")
 
-    summaries, overview, features, slogan = None, None, None, None
+    code_summaries, overview, features, slogan = None, None, None, None
     try:
-        summaries = await generate_code_summaries(
+        code_summaries = await generate_code_summaries(
             file_contents, CONF.prompts.code_summary, api_handler
         )
-        prompts = [
-            CONF.prompts.overview.format(repository, summaries),
-            CONF.prompts.features.format(repository, summaries),
+        chat_prompts = [
+            CONF.prompts.overview.format(repository, code_summaries),
+            CONF.prompts.features.format(repository, code_summaries),
             CONF.prompts.slogan.format(name),
         ]
-        responses = await generate_summaries(prompts, api_handler)
+        responses = await generate_chat_text(chat_prompts, api_handler)
         overview, features, slogan = responses[:3]
 
     except openai.OpenAIError as exc:
@@ -104,7 +104,7 @@ async def generate_readme(api_handler: model.OpenAIHandler) -> None:
 
     CONF.md.header = CONF.md.header.format(name, slogan)
     CONF.md.intro = CONF.md.intro.format(overview, features)
-    builder.build(CONF, CONF_HELPER, dependencies, summaries)
+    builder.build(CONF, CONF_HELPER, dependencies, code_summaries)
 
     LOGGER.info("README-AI execution complete.\n")
 
@@ -119,11 +119,11 @@ async def generate_code_summaries(
     return summaries
 
 
-async def generate_summaries(
+async def generate_chat_text(
     prompt: str, api_handler: model.OpenAIHandler
 ) -> str:
     """Generate text using prompts and OpenAI's GPT-3."""
-    summary_text = await api_handler.summary_text_gen(prompt)
+    summary_text = await api_handler.chat_to_text(prompt)
     return summary_text
 
 

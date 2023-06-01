@@ -22,6 +22,8 @@ def _clone_or_copy_repository(
 
     Parameters
     ----------
+    hosts
+        List of supported Git hosting providers.
     source
         URL or path of the repository.
     temp_dir
@@ -32,11 +34,9 @@ def _clone_or_copy_repository(
     ValueError
         If the repository path or URL is not valid.
     """
-
     temp_dir = Path(temp_dir)
 
     parsed_url = urlparse(source)
-
     if parsed_url.hostname in hosts:
         git.Repo.clone_from(source, temp_dir)
         return
@@ -137,6 +137,7 @@ def _get_file_parsers() -> Dict[str, callable]:
         "environment.yaml": parse.parse_conda_env_file,
         "environment.yml": parse.parse_conda_env_file,
         "Pipfile": parse.parse_pipfile,
+        "Pipfile.lock": parse.parse_pipfile_lock,
         "pyproject.toml": parse.parse_pyproject_toml,
         "package.json": parse.parse_package_json,
         "yarn.lock": parse.parse_yarn_lock,
@@ -145,6 +146,7 @@ def _get_file_parsers() -> Dict[str, callable]:
         "Makefile": parse.parse_makefile,
         "Makefile.am": parse.parse_makefile_am,
         "configure.ac": parse.parse_configure_ac,
+        "docker-compose.yaml": parse.parse_docker_compose,
     }
 
 

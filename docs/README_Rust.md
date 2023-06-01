@@ -5,20 +5,21 @@
 <br>
 contacts-cli
 </h1>
-<h3 align="center">📍 GitHub project contacts-cli: Command line interface for your GitHub project contacts.</h3>
-<h3 align="center">🚀 Developed with the software and tools below.</h3>
+<h3 align="center">📍 Stay Connected with Ease: Manage Your Contacts with Contacts-CLI on GitHub!</h3>
+<h3 align="center">🚀 Developed with the software and tools below:</h3>
+
 <p align="center">
-
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="" />
-<img src="https://img.shields.io/badge/Rust-000000.svg?style=for-the-badge&logo=Rust&logoColor=white" alt="markdown" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/Rust-000000.svg?style=for-the-badge&logo=Rust&logoColor=white" alt="Rust" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
-
 </div>
 
 ---
+
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-introdcution)
+- [📍Overview](#-overview)
 - [🔮 Features](#-features)
 - [⚙️ Project Structure](#project-structure)
 - [🧩 Modules](#modules)
@@ -31,22 +32,38 @@ contacts-cli
 
 ---
 
+
 ## 📍Overview
 
-The GitHub project is a powerful collaboration and code-sharing tool that enables developers to work together on software projects. The project also provides a platform for developers to share their code with others, and to create and manage
-
-## 🔮 Feautres
-
-> `[📌  INSERT-PROJECT-FEATURES]`
+The project is a command-line interface for managing contacts that allows users to add, view, update, and delete contacts, and also to export and import them as JSON files. It provides functionality for connecting to a Redis database or using an in-memory data store. The project's value proposition is that it provides a simple and flexible way to manage contacts from the command line, with support for both persistent and in-memory storage options.
 
 ---
+
+## 🔮 Features
+
+Feature | Description |
+|---|---|
+| **🏗 Structure and Organization** | The codebase follows the standard Rust package structure, with separate directories for source files, tests, and documentation. The project's architecture is based on the repository pattern, with separate modules for contacts, Redis, and in-memory repository implementations. |
+| **📝 Code Documentation** | The codebase includes inline documentation with Rust's built-in documentation tool, as well as README.md files that provide general documentation, installation instructions, and usage examples. |
+| **🧩 Dependency Management** | The project uses Cargo for dependency management, with dependencies specified in the Cargo.toml file. The project relies on several external libraries including clap, dotenvy, redis, regex, serde, serde_json, and shlex. |
+| **♻️ Modularity and Reusability** | The codebase is highly modular, with separate modules for contacts, Redis, and in-memory repository implementations. The repository pattern allows for easy extension and reuse of repository implementations with different data sources. |
+| **✅ Testing and Quality Assurance** | The codebase includes unit tests for each module and integration tests that verify the interactions between modules, ensuring that the code functions as expected. The code is formatted using Rust's built-in formatter, and linted using the Clippy tool to ensure code quality and consistency. |
+| **⚡️ Performance and Optimization** | The codebase efficiently uses Redis as a data source, taking advantage of Redis's performance characteristics such as in-memory data storage, and optimized querying operations. |
+| **🔒 Security Measures** | The codebase uses Redis's built-in authentication mechanism to secure access to Redis instances. dotenv is used to securely manage sensitive environment variables. |
+| **🔄 Version Control and Collaboration** | The codebase is hosted on GitHub, and uses Git for version control. The repository includes a Makefile for easily managing build tasks, including starting and stopping a Redis instance using Docker Compose. |
+| **🔌 External Integrations** | The project integrates with Redis, a popular in-memory data store, and uses the Clap library for command-line argument parsing, making it easy to integrate with other command-line tools and scripts. |
+| **📈 Scalability and Extensibility** | The repository pattern used in the codebase allows for easy extension and reuse of repository implementations with different data sources. Redis's built-in scalability features enable the system to easily handle larger amounts of data and user load. |
+
+---
+
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
 ## ⚙️ Project Structure
 
+
 ```bash
-.
+repo
 ├── Cargo.toml
 ├── LICENSE
 ├── Makefile
@@ -65,46 +82,51 @@ The GitHub project is a powerful collaboration and code-sharing tool that enable
 
 4 directories, 12 files
 ```
+
 ---
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
 ## 💻 Modules
-<details closed><summary>.</summary>
 
-| File   | Summary                                                                                                                        |
-|:-------|:-------------------------------------------------------------------------------------------------------------------------------|
-| .env   | This code sets up the environment variables for a Redis server, with the hostname set to 'localhost' and the port set to 7480. |
+<details closed><summary>Models</summary>
+
+| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                              | Module                |
+|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| mod.rs     | The code snippet creates a module named "contact" that can be used to organize related functions, structs, and traits within a Rust program. This module can then be imported and used in other parts of the program as needed.                                                                                                                                                                      | src/models/mod.rs     |
+| contact.rs | The provided code defines a Contact struct with three fields: name as a String, phone_no as a u64 (unsigned 64-bit integer), and email as a String. The struct implements the Serialize and Deserialize traits from Serde, which allows it to be easily serialized and deserialized from various formats like JSON. The Clone trait is also implemented, enabling easy copying of Contact instances. | src/models/contact.rs |
+
+</details>
+
+<details closed><summary>Repositories</summary>
+
+| File                 | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                               | Module                                |
+|:---------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
+| contacts.rs          | The code snippet defines functions to validate and extract data for a contact. It also defines a trait `ContactsRepository` that outlines methods for managing and manipulating a collection of contacts, including adding, updating, and deleting contacts, as well as methods for exporting and importing contacts.                                                                                                                                 | src/repositories/contacts.rs          |
+| db_contacts.rs       | The code defines a struct `DbContactsRepository` that implements a `ContactsRepository` trait for performing CRUD operations on contacts stored in a Redis instance. The Redis connection is established upon creating a new instance of `DbContactsRepository`. The implementation also includes functionalities such as pagination, exporting and importing contacts to/from JSON format and counting the total number of contacts stored in Redis. | src/repositories/db_contacts.rs       |
+| mod.rs               | The provided code snippet contains three modules: "contacts", "db_contacts", and "inmemory_contacts". These modules likely contain code related to managing contacts in different ways, such as storing them in a database or in memory. It is not possible to determine the specific functionalities of these modules without further information.                                                                                                   | src/repositories/mod.rs               |
+| inmemory_contacts.rs | The code defines an in-memory repository for managing contacts, implementing the ContactsRepository trait. It provides functionality for adding, updating, deleting, and retrieving contacts, as well as exporting and importing contacts to/from JSON and pagination of the contacts list. The code also includes unit tests to verify the functionality of the repository.                                                                          | src/repositories/inmemory_contacts.rs |
+
+</details>
+
+<details closed><summary>Root</summary>
+
+| File                | Summary                                                                                                                                                                                                                                                                                                                                                                   | Module              |
+|:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|
+| Cargo.toml          | The code snippet includes a package file which specifies the name, version, and dependencies of the project. The project relies on several external libraries including clap, dotenvy, redis, regex, serde, serde_json, and shlex.                                                                                                                                        | Cargo.toml          |
+| docker-compose.yaml | This code defines a service running Redis 7 on an Alpine Linux container. It maps the container's port 6379 to a specified host port, and ensures that the service always restarts.                                                                                                                                                                                       | docker-compose.yaml |
+| Makefile            | This code snippet provides a set of Makefile commands for managing a Rust project, including compiling, updating dependencies, running binaries, checking code, releasing the package, formatting Rust files, running tests, and starting/stopping a database using Docker Compose. A "help" command is also available to display all available commands and their usage. | Makefile            |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File    | Summary                                                                                                                                                         |
-|:--------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| main.rs | This code is a command line application for managing contacts. It provides commands for adding, viewing, updating, deleting, exporting, and importing contacts. |
+| File    | Summary                                                                                                                                                                                                                                                                                                                                                                                   | Module      |
+|:--------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
+| main.rs | This code is a simple command line interface for a contacts application. It uses the Clap library to parse commands and arguments, and interacts with a database of contacts through a custom ContactsRepository. Users can add, view, update, and delete contacts, as well as export and import contacts to and from a JSON file. The application runs a REPL loop until the user quits. | src/main.rs |
 
 </details>
 
-<details closed><summary>Src/models</summary>
-
-| File       | Summary                                                                                                                                                                                                                                                         |
-|:-----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| mod.rs     | This code creates a public module called "contact" which can be used to store and manage contact information.                                                                                                                                                   |
-| contact.rs | This code creates a struct called Contact which contains three fields: name (String), phone_no (u64) and email (String). The struct is derived from the Serialize and Deserialize traits from the serde library, allowing it to be serialized and deserialized. |
-
-</details>
-
-<details closed><summary>Src/repositories</summary>
-
-| File                 | Summary                                                                                                                                                                                                                                                                                                      |
-|:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| contacts.rs          | This code provides a trait for a ContactsRepository, which provides methods for adding, updating, deleting, getting, listing, exporting to JSON, importing from JSON, and counting contacts.                                                                                                                 |
-| db_contacts.rs       | This code implements a ContactsRepository trait for a database-backed contacts repository. It provides methods for adding, updating, deleting, getting, listing, exporting to JSON, and importing from JSON contacts.                                                                                        |
-| mod.rs               | This code creates three modules: contacts, db_contacts, and inmemory_contacts. The contacts module provides a general interface for managing contacts, while the db_contacts and inmemory_contacts modules provide specific implementations for managing contacts in a database and in memory, respectively. |
-| inmemory_contacts.rs | This code implements an InMemoryContactsRepository struct which provides methods to add, update, delete, get, list, and count contacts, as well as export and import contacts from/to a JSON file.                                                                                                           |
-
-</details>
 <hr />
 
 ## 🚀 Getting Started
@@ -139,10 +161,11 @@ cargo run
 
 ### 🧪 Running Tests
 ```sh
-#run tests
+# [INSERT-COMMAND-FOR-TESTS]
 ```
 
 <hr />
+
 
 ## 🛠 Future Development
 - [X] [📌  COMPLETED-TASK]
@@ -183,7 +206,8 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ## 🙏 Acknowledgments
 
-[📌  INSERT-DESCRIPTION]
+`[📌  INSERT-REFERENCES-AND-RESOURCES]`
 
 
 ---
+

@@ -71,7 +71,7 @@ def get_badges(svg_icons: dict, dependencies: list) -> str:
     ----------
     svg_icons : dict
         Dictionary containing available icons and their src.
-    ddependencies : list
+    dependencies : list
         List of project dependencies.
 
     Returns
@@ -85,13 +85,10 @@ def get_badges(svg_icons: dict, dependencies: list) -> str:
         if dependency in svg_icons:
             badges.append(svg_icons[dependency])
 
-    LOGGER.info(f"SVG icons badges:\n\t{badges}")
-
     # Sort badges by hex value (from light to dark color)
     badges.sort(
         key=lambda badge: int(badge[1], 16) if badge[1] else 0, reverse=True
     )
-
     badges = [badge[0] for badge in badges]
 
     return format_badges(badges, dependencies)

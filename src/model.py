@@ -1,12 +1,19 @@
 """OpenAI API handler for generating text for the README.md file."""
 
 import asyncio
+import time
 from typing import Dict, List, Tuple
 
 import httpx
 import openai
 from cachetools import TTLCache
-from tenacity import retry, stop_after_attempt, wait_exponential
+from httpx import HTTPStatusError
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 
 import conf
 import utils
@@ -18,7 +25,12 @@ class OpenAIHandler:
 
     LOGGER = Logger("readmeai_logger")
     MAX_TOKENS = 4096
-    RATE_LIMIT = 5
+    RATE_LIMIT = 20
+
+    class RetryAfter(HTTPStatusError):
+        """Custom exception for HTTP errors."""
+
+        pass
 
     class OpenAIError(Exception):
         """Custom exception for OpenAI API errors."""
@@ -80,7 +92,6 @@ class OpenAIHandler:
 
             prompt_code = prompt.format(contents)
             prompt_len = len(prompt_code.split())
-
             if prompt_len > self.MAX_TOKENS:
                 err = "Prompt exceeds max token limit: {}"
                 tasks.append(
@@ -93,74 +104,15 @@ class OpenAIHandler:
 
             tasks.append(
                 asyncio.create_task(
-                    self.fetch_summary(self.http_client, path, prompt_code)
+                    self.generate_text(
+                        self.http_client, path, prompt_code, "file"
+                    )
                 )
             )
-
         results = await asyncio.gather(*tasks, return_exceptions=True)
-
         return results
 
-    @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=1, min=4, max=10),
-    )
-    async def fetch_summary(
-        self, client: httpx.AsyncClient, file: str, prompt: str
-    ) -> Tuple[str, str]:
-        """Generate a summary for a file using the OpenAI API."""
-        if prompt in self.cache:
-            self.LOGGER.warning(f"Using cached summary for {file}")
-            return (file, self.cache[prompt])
-
-        try:
-            async with self.rate_limit_semaphore:
-                response = await client.post(
-                    self.endpoint,
-                    headers={"Authorization": f"Bearer {openai.api_key}"},
-                    json={
-                        "messages": [
-                            {
-                                "role": "user",
-                                "content": prompt,
-                            }
-                        ],
-                        "model": self.engine,
-                        "temperature": self.temperature,
-                        "max_tokens": self.tokens,
-                    },
-                )
-
-                response.raise_for_status()
-                data = response.json()
-
-                summary = data["choices"][0]["message"]["content"]
-                summary = utils.format_sentence(summary)
-
-                self.LOGGER.info(f"Processing request: {file}")
-                self.LOGGER.info(f"Response: {summary}")
-                self.cache[prompt] = summary
-
-                return (file, summary)
-
-        except httpx.HTTPStatusError as exc:
-            if exc.response.status_code in [400, 429, 500, 502, 503, 504]:
-                retry_after = exc.response.headers.get("Retry-After", 10)
-                await asyncio.sleep(int(retry_after))
-            self.LOGGER.error(
-                f"HTTP {exc.response.status_code} error for {file}."
-            )
-            return await self.null_summary(
-                file,
-                f"HTTP {exc.response.status_code} error when fetching summary.",
-            )
-        except Exception as exc:
-            self.LOGGER.error(f"Error fetching summary for {file}: {str(exc)}")
-            return await self.null_summary(
-                file, f"Error generating file summary. Exception: {str(exc)}"
-            )
-
-    async def summary_text_gen(self, prompts: List[str]) -> List[str]:
+    async def chat_to_text(self, prompts: List[str]) -> List[str]:
         """Generate text using prompts and OpenAI's GPT-3.
 
         Parameters
@@ -172,82 +124,112 @@ class OpenAIHandler:
         -------
         A list of generated text.
         """
-        response_list = []
-
         if self.http_client.is_closed:
             self.http_client = httpx.AsyncClient()
 
         tasks = []
         for idx, prompt in enumerate(prompts):
             tasks.append(
-                asyncio.create_task(self.generate_summary(prompt, idx + 1))
+                asyncio.create_task(
+                    self.generate_text(
+                        self.http_client, idx + 1, prompt, "prompt"
+                    )
+                )
             )
 
-        results = await asyncio.gather(*tasks)
-        response_list = [summary for _, summary in sorted(results)]
+        results = []
+        while tasks:
+            done, pending = await asyncio.wait(
+                tasks, return_when=asyncio.FIRST_COMPLETED
+            )
+            for task in done:
+                result = await task
+                results.append(result)
+            tasks = pending
 
+        response_list = [summary for _, summary in sorted(results)]
         return response_list
 
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
+        retry=(
+            retry_if_exception_type(Exception)
+            | retry_if_exception_type(RetryAfter)
+        ),
     )
-    async def generate_summary(
-        self, prompt: str, index: int
-    ) -> Tuple[int, str]:
-        """Generate a summary for a single prompt using the OpenAI API."""
+    async def generate_text(
+        self,
+        client: httpx.AsyncClient,
+        identifier: str,
+        prompt: str,
+        type: str,
+    ) -> Tuple[str, str]:
+        """Generate a summary for a file using the OpenAI API."""
+        if prompt in self.cache:
+            self.LOGGER.warning(f"Using cached summary for {identifier}")
+            return (identifier, self.cache[prompt])
+
         try:
             async with self.rate_limit_semaphore:
-                response = await self.http_client.post(
+                response = await client.post(
                     self.endpoint,
                     headers={"Authorization": f"Bearer {openai.api_key}"},
                     json={
                         "messages": [
                             {
-                                "role": "user",
-                                "content": prompt,
-                            }
+                                "role": "system",
+                                "content": "You are a helpful assistant.",
+                            },
+                            {"role": "user", "content": prompt},
                         ],
                         "model": self.engine,
                         "temperature": self.temperature,
                         "max_tokens": self.tokens,
                     },
                 )
-
                 response.raise_for_status()
                 data = response.json()
-
                 summary = data["choices"][0]["message"]["content"]
                 summary = utils.format_sentence(summary)
 
-                self.LOGGER.info(f"Processing request: {prompt}")
-                self.LOGGER.info(f"Response: {summary}")
+                self.LOGGER.info(
+                    f"Processing...\n\tRequest: {identifier}\n\tSummary: {summary}"
+                )
+                self.cache[prompt] = summary
 
-                return (index, summary)
+                return (identifier, summary)
 
         except httpx.HTTPStatusError as exc:
-            if exc.response.status_code in [400, 429, 500, 502, 503, 504]:
+            if exc.response.status_code in [400, 429, 500, 503, 504]:
                 retry_after = exc.response.headers.get("Retry-After", 10)
-                await asyncio.sleep(int(retry_after))
+                retry_after = int(retry_after)
+                time.sleep(retry_after)
+                return await self.generate_text(
+                    client, identifier, prompt, type
+                )
+
             self.LOGGER.error(
-                f"HTTP {exc.response.status_code} error for {index}."
+                f"HTTP {exc.response.status_code} error for {identifier}."
             )
             return await self.null_summary(
-                index,
+                identifier,
                 f"HTTP {exc.response.status_code} error when fetching summary.",
             )
+
         except Exception as exc:
             self.LOGGER.error(
-                f"Error fetching summary for {index}: {str(exc)}"
+                f"Error fetching summary for {identifier}: {str(exc)}"
             )
             return await self.null_summary(
-                index, f"Error generating file summary. Exception: {str(exc)}"
+                identifier,
+                f"Error generating file summary. Exception: {str(exc)}",
             )
 
     @staticmethod
-    async def null_summary(file: str, summary: str) -> Tuple[str, str]:
+    async def null_summary(identifier: str, summary: str) -> Tuple[str, str]:
         """Placeholder summary for files that exceed the max token limit."""
-        return (file, summary)
+        return (identifier, summary)
 
     async def close(self):
         """Close the HTTP client when it's no longer needed."""

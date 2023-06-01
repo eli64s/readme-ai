@@ -33,18 +33,17 @@ def parse_conda_env_file(file_path: str) -> List[str]:
 def parse_pipfile(file_path: str) -> List[str]:
     """Extracts dependencies from a Pipfile."""
     data = FILE_HANDLER.read_toml(file_path)
+    packages = list(data["packages"].keys())
+    dev_packages = list(data["dev-packages"].keys())
+    return packages + dev_packages
 
-    packages = data.get("packages", {})
-    dev_packages = data.get("dev-packages", {})
 
-    dependencies = []
-    for package, _ in packages.items():
-        dependencies.append(package)
-
-    for package, _ in dev_packages.items():
-        dependencies.append(package)
-
-    return dependencies
+def parse_pipfile_lock(file_path: str) -> List[str]:
+    """Extracts dependencies from a Pipfile.lock."""
+    data = FILE_HANDLER.read_json(file_path)
+    packages = list(data.get("default", {}).keys())
+    dev_packages = list(data.get("develop", {}).keys())
+    return packages + dev_packages
 
 
 def parse_pyproject_toml(file_path: str) -> List[str]:
@@ -137,7 +136,7 @@ def parse_package_lock_json(file_path: str) -> List[str]:
     """Extracts TypeScript dependencies from a package-lock.json file."""
     data = FILE_HANDLER.read_json(file_path)
     package_names = []
-    for package, details in data.get("dependencies", {}).items():
+    for package, _ in data.get("dependencies", {}).items():
         if package.startswith("@types/"):
             package_names.append(package[7:])  # Remove '@types/' prefix
     return package_names
@@ -270,6 +269,7 @@ def parse_makefile_am(file_path: str) -> List[str]:
 
 
 def parse_docker_compose(file_path: str) -> List[str]:
+    """Extracts dependencies from a Docker Compose file."""
     data = FILE_HANDLER.read_yaml(file_path)
     try:
         return data["services"]["app"]["depends_on"]

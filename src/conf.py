@@ -39,7 +39,6 @@ class GitConfig:
     def get_repository_name(hosts: List[str], path: Union[str, Path]) -> str:
         """Extracts the repository name from a URL or local path."""
         parsed_url = urlparse(str(path))
-
         if parsed_url.hostname in hosts:
             repo_path = parsed_url.path
             name = repo_path.split("/")[-1]
@@ -75,7 +74,6 @@ class PathsConfig:
     ignore_files: str
     language_names: str
     language_setup: str
-    badges: str
     readme: str
 
 
