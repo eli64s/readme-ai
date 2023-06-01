@@ -54,7 +54,7 @@ class OpenAIHandler:
 
         Parameters
         ----------
-        ignore_files
+        ignore
             Files, directories, or file extensions to ignore.
         files
             The repository files to convert to text.

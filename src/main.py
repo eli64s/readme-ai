@@ -24,7 +24,7 @@ app = typer.Typer()
 def validate_api_key(api_key: Optional[str]) -> None:
     """Validates and sets the OpenAI API key provided by the user."""
     if api_key is None:
-        api_key = os.environ.get("OPENAI_API_KEY")
+        api_key = os.environ["OPENAI_API_KEY"]
     if api_key is None:
         typer.echo("Error: Invalid or missing OpenAI API key.")
         raise typer.Exit(code=1)
@@ -82,7 +82,7 @@ async def generate_readme(api_handler: model.OpenAIHandler) -> None:
 
     summaries, overview, features, slogan = None, None, None, None
     try:
-        summaries = await generate_text(
+        summaries = await generate_code_summaries(
             file_contents, CONF.prompts.code_summary, api_handler
         )
         prompts = [
@@ -90,7 +90,7 @@ async def generate_readme(api_handler: model.OpenAIHandler) -> None:
             CONF.prompts.features.format(repository, summaries),
             CONF.prompts.slogan.format(name),
         ]
-        responses = await get_summary_text(prompts, api_handler)
+        responses = await generate_summaries(prompts, api_handler)
         overview, features, slogan = responses[:3]
 
     except openai.OpenAIError as exc:
@@ -109,7 +109,7 @@ async def generate_readme(api_handler: model.OpenAIHandler) -> None:
     LOGGER.info("README-AI execution complete.\n")
 
 
-async def generate_text(
+async def generate_code_summaries(
     file_contents: list, prompt: str, api_handler: model.OpenAIHandler
 ) -> list:
     """Generate summary text for code files using OpenAI's GPT-3."""
@@ -119,7 +119,7 @@ async def generate_text(
     return summaries
 
 
-async def get_summary_text(
+async def generate_summaries(
     prompt: str, api_handler: model.OpenAIHandler
 ) -> str:
     """Generate text using prompts and OpenAI's GPT-3."""

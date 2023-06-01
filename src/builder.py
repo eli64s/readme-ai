@@ -28,7 +28,7 @@ def build(
         Configuration data class containing Markdown template strings.
     conf_helper
         Helper data class containing metadata to populate the README.
-    package_names
+    packages
         List of project dependencies extracted from the user's repository.
     summaries
         Tuple of code summaries generated for each file in the repository.
@@ -148,7 +148,7 @@ def create_setup_guide(
     ----------
     md_setup : str
         Markdown template string for the setup guide.
-    helper : object
+    conf_helper : object
         Configuration helper object containing file extensions and setup guide.
     summary_df : pd.DataFrame
         DataFrame containing parsed information from project files.
