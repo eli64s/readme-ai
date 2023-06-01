@@ -105,7 +105,7 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
       <h3>📍 Overview & Features</h3>
       <ul>
         <li>These sections are generated using detailed prompts, embedded with your repository metadata.</li>
-        <li>The <i>Overview</i> sections describes your project's use case and application.</li>
+        <li>The <i>Overview</i> section describes your project's use case and application.</li>
         <li>The <i>Features</i> section highlights attributes of your codebase, formatted in a Markdown table.</li>
         <li>Working on fine-tuning the prompts to improve the accuracy and relevance to your project.</li>
       </ul>
