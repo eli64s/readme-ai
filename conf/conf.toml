@@ -2,7 +2,7 @@
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
-temperature = 0.7
+temperature = 0.9
 tokens = 1024
 
 # Repository (local and remote)
@@ -35,10 +35,10 @@ Generate your response as a Markdown table with the following columns:
 
 | Feature | Description |
 | --- | --- |
-| **🏗 Overall Structure and Organization** | (Place your analysis here) |
+| **🏗 Structure and Organization** | (Place your analysis here) |
 | **📝 Code Documentation** | (Place your analysis here) |
 | **🧩 Dependency Management** | (Place your analysis here) |
-| **♻️ Code Modularity and Reusability** | (Place your analysis here) |
+| **♻️ Modularity and Reusability** | (Place your analysis here) |
 | **✅ Testing and Quality Assurance** | (Place your analysis here) |
 | **⚡️ Performance and Optimization** | (Place your analysis here) |
 | **🔒 Security Measures** | (Place your analysis here) |
@@ -168,7 +168,7 @@ This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See th
 
 ## 🙏 Acknowledgments
 
-[📌  INSERT-DESCRIPTION]
+`[📌  INSERT-REFERENCES-AND-RESOURCES]`
 
 \n---\n
 """
