@@ -1,11 +1,11 @@
-# OpenAI API Parameters
+# OpenAI API Configuration
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 temperature = 0.9
-tokens = 1024
+tokens = 500
 
-# Repository (local and remote)
+# Repository Configuration
 [git]
 hosts = ["github.com", "gitlab.com"]
 name = "README-AI"
@@ -39,7 +39,7 @@ Generate your response as a Markdown table with the following columns:
 | **📝 Code Documentation** | (Place your analysis here) |
 | **🧩 Dependency Management** | (Place your analysis here) |
 | **♻️ Modularity and Reusability** | (Place your analysis here) |
-| **✅ Testing and Quality Assurance** | (Place your analysis here) |
+| **✔️ Testing and Quality Assurance** | (Place your analysis here) |
 | **⚡️ Performance and Optimization** | (Place your analysis here) |
 | **🔒 Security Measures** | (Place your analysis here) |
 | **🔄 Version Control and Collaboration** | (Place your analysis here) |
@@ -56,8 +56,10 @@ Craft 3-4 sentences that encapsulate the core functionalities of the project, it
 """
 slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}"
 
-# Markdown template
+# Markdown Templates
 [md]
+default = "[📌  INSERT-DESCRIPTION]"
+dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 header = """\n<div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
@@ -65,59 +67,53 @@ header = """\n<div align="center">
 {}
 </h1>
 <h3 align="center">📍 {}</h3>
-<h3 align="center">🚀 Developed with the software and tools below:</h3>
+<h3 align="center">⚙️ Developed with the software and tools below:</h3>
 """
-
 badges = """<p align="center">
 {}
 </p>
 </div>
 \n---
 """
-
 toc = """
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-overview)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
+- [📍 Overview](#-overview)
+- [💫 Features](#-features)
+- [📂 Project Structure](#project-structure)
 - [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
+- [🚀 Getting Started](#-getting-started)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
-- [🪪 License](#-license)
-- [📫 Contact](#-contact)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [📄 License](#-license)
+- [👏 Acknowledgments](#-acknowledgments)
 \n---
 """
-
 intro = """
-\n## 📍Overview
+\n## 📍 Overview
 \n{}
 \n---
-\n## 🔮 Features
+\n## 💫 Features
 \n{}
 \n---
 """
-
+tree = """
+\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
+\n## 📂 Project Structure\n
+"""
 modules = """
 \n---
 \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-\n## 💻 Modules
+\n## 🧩 Modules
 """
-dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
-
-tree = """
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-\n## ⚙️ Project Structure\n
-"""
-
-setup = """<hr />
+setup = """---
 \n## 🚀 Getting Started
 \n### ✅ Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
-> `[📌  INSERT-PROJECT-PREREQUISITES]`
-\n### 💻 Installation
+> - [📌  PREREQUISITE-1]
+> - [📌  PREREQUISITE-2]
+> - ...
+\n### 🖥 Installation
 \n1. Clone the {0} repository:
 ```sh\ngit clone {1}\n```
 \n2. Change to the project directory:
@@ -127,19 +123,21 @@ setup = """<hr />
 \n### 🤖 Using {0}
 \n```sh\n{3}\n```
 \n### 🧪 Running Tests
-```sh\n# [INSERT-COMMAND-FOR-TESTS]\n```
-\n<hr />
+```sh\n{4}\n```
+\n---
 """
-
 ending = """
-\n## 🛠 Future Development
-- [X] [📌  COMPLETED-TASK]
-- [ ] [📌  INSERT-TASK]
-- [ ] [📌  INSERT-TASK]
+\n## 🗺 Roadmap
+
+> - [X] [📌  Task 1: Implement X]
+> - [ ] [📌  Task 2: Refactor Y]
+> - [ ] [📌  Task 3: Optimize Z]
+> - [ ] ...
 
 \n---
 
 ## 🤝 Contributing
+
 Contributions are always welcome! Please follow these steps:
 1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
 2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
@@ -159,16 +157,18 @@ git push origin new-feature-branch
 7. Create a pull request to the original repository.
 Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
-\n---
 
-## 🪪 License
+---
+
+## 📄 License
 
 This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
-\n---
 
-## 🙏 Acknowledgments
+---
 
-`[📌  INSERT-REFERENCES-AND-RESOURCES]`
+## 👏 Acknowledgments
 
-\n---\n
+> - [📌  List any resources, contributors, inspiration, etc.]
+
+---
 """

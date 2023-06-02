@@ -25,7 +25,7 @@ class OpenAIHandler:
 
     LOGGER = Logger("readmeai_logger")
     MAX_TOKENS = 4096
-    RATE_LIMIT = 20
+    RATE_LIMIT = 5
 
     class RetryAfter(HTTPStatusError):
         """Custom exception for HTTP errors."""
@@ -47,13 +47,14 @@ class OpenAIHandler:
         """
         self.http_client = httpx.AsyncClient(
             http2=True,
-            timeout=60,
+            timeout=30,
             limits=httpx.Limits(
                 max_keepalive_connections=10, max_connections=100
             ),
         )
         self.cache = TTLCache(maxsize=500, ttl=600)
         self.rate_limit_semaphore = asyncio.Semaphore(self.RATE_LIMIT)
+        self.last_request_time = time.monotonic()
         self.endpoint = conf.api.endpoint
         self.engine = conf.api.engine
         self.tokens = conf.api.tokens
@@ -104,9 +105,7 @@ class OpenAIHandler:
 
             tasks.append(
                 asyncio.create_task(
-                    self.generate_text(
-                        self.http_client, path, prompt_code, "file"
-                    )
+                    self.generate_text(path, prompt_code, "file")
                 )
             )
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -131,9 +130,7 @@ class OpenAIHandler:
         for idx, prompt in enumerate(prompts):
             tasks.append(
                 asyncio.create_task(
-                    self.generate_text(
-                        self.http_client, idx + 1, prompt, "prompt"
-                    )
+                    self.generate_text(idx + 1, prompt, "prompt")
                 )
             )
 
@@ -156,23 +153,26 @@ class OpenAIHandler:
         retry=(
             retry_if_exception_type(Exception)
             | retry_if_exception_type(RetryAfter)
+            | retry_if_exception_type(httpx.StreamClosed)
         ),
     )
     async def generate_text(
-        self,
-        client: httpx.AsyncClient,
-        identifier: str,
-        prompt: str,
-        type: str,
+        self, identifier: str, prompt: str, type: str
     ) -> Tuple[str, str]:
         """Generate a summary for a file using the OpenAI API."""
         if prompt in self.cache:
             self.LOGGER.warning(f"Using cached summary for {identifier}")
             return (identifier, self.cache[prompt])
 
+        # Rate limit
+        current_time = time.monotonic()
+        elapsed_time = current_time - self.last_request_time
+        if elapsed_time < 1 / self.RATE_LIMIT:
+            await asyncio.sleep(1 / self.RATE_LIMIT - elapsed_time)
+
         try:
-            async with self.rate_limit_semaphore:
-                response = await client.post(
+            async with self.rate_limit_semaphore:  # Keep the semaphore, it's not bad to have it
+                response = await self.http_client.post(
                     self.endpoint,
                     headers={"Authorization": f"Bearer {openai.api_key}"},
                     json={
@@ -200,31 +200,35 @@ class OpenAIHandler:
 
                 return (identifier, summary)
 
-        except httpx.HTTPStatusError as exc:
-            if exc.response.status_code in [400, 429, 500, 503, 504]:
+        except Exception as exc:
+            return await self.handle_exception(identifier, prompt, type, exc)
+
+        finally:
+            self.last_request_time = time.monotonic()
+
+    async def handle_exception(
+        self, identifier: str, prompt: str, type: str, exc
+    ):
+        self.LOGGER.error(
+            f"Error fetching summary for {identifier}: {str(exc)}"
+        )
+        if isinstance(exc, httpx.HTTPStatusError):
+            if exc.response.status_code in [429, 500, 503, 504]:
                 retry_after = exc.response.headers.get("Retry-After", 10)
                 retry_after = int(retry_after)
-                time.sleep(retry_after)
-                return await self.generate_text(
-                    client, identifier, prompt, type
+                await asyncio.sleep(retry_after)
+                return await self.generate_text(identifier, prompt, type)
+            else:
+                self.LOGGER.error(
+                    f"HTTP {exc.response.status_code} error for {identifier}."
                 )
-
+        elif isinstance(exc, httpx.StreamClosed):
             self.LOGGER.error(
-                f"HTTP {exc.response.status_code} error for {identifier}."
+                f"Stream was reset while fetching summary for {identifier}: {str(exc)}"
             )
-            return await self.null_summary(
-                identifier,
-                f"HTTP {exc.response.status_code} error when fetching summary.",
-            )
-
-        except Exception as exc:
-            self.LOGGER.error(
-                f"Error fetching summary for {identifier}: {str(exc)}"
-            )
-            return await self.null_summary(
-                identifier,
-                f"Error generating file summary. Exception: {str(exc)}",
-            )
+        return await self.null_summary(
+            identifier, f"Error generating file summary. Exception: {str(exc)}"
+        )
 
     @staticmethod
     async def null_summary(identifier: str, summary: str) -> Tuple[str, str]:

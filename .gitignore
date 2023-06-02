@@ -43,7 +43,7 @@ notebooks/
 # Ignore benchmarks
 .benchmarks/
 
-# Files in progress
+# Work In Progress
 docs/templates
-docs/prompts.md
 conf/templates
+notebooks/redis_client.py

@@ -5,13 +5,13 @@
 <br>
 CallMon
 </h1>
-<h3 align="center">📍 Stay connected with CallMon-your one-stop solution for call monitoring!</h3>
-<h3 align="center">🚀 Developed with the software and tools below:</h3>
+<h3 align="center">📍 Track every call with CallMon: Your all-in-one call monitoring solution!</h3>
+<h3 align="center">⚙️ Developed with the software and tools below:</h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/C-A8B9CC.svg?style=for-the-badge&logo=C&logoColor=black" alt="C" />
-<img src="https://img.shields.io/badge/Rust-000000.svg?style=for-the-badge&logo=Rust&logoColor=white" alt="Rust" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+<img src="https://img.shields.io/badge/Rust-000000.svg?style=for-the-badge&logo=Rust&logoColor=white" alt="Rust" />
 </p>
 </div>
 
@@ -19,47 +19,36 @@ CallMon
 
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-overview)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
+- [📍 Overview](#-overview)
+- [💫 Features](#-features)
+- [📂 Project Structure](#project-structure)
 - [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
+- [🚀 Getting Started](#-getting-started)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
-- [🪪 License](#-license)
-- [📫 Contact](#-contact)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [📄 License](#-license)
+- [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
 
-## 📍Overview
+## 📍 Overview
 
-CallMon is a Windows kernel-mode driver that monitors and intercepts system calls made by processes, allowing them to be added or removed from a list. The driver creates a named pipe to send data, which can be received by a GUI program that displays the list of monitored processes. The project provides a valuable tool for developers and security professionals to analyze and debug system calls made by processes.
+CallMon is a Windows kernel driver and UI application that monitors system calls made by processes. It captures the process ID, stack data, and KTRAP_FRAME pointer and sends it to the user-mode application via a named pipe. The tool provides the ability to add or remove processes from monitoring and displays the monitored calls and their arguments in a user-friendly GUI. Its value proposition lies in its ability to detect malicious processes or behavior by providing insight into system calls made by programs.
 
 ---
 
-## 🔮 Features
+## 💫 Features
 
-Feature | Description |
-|---|---|
-| **🏗 Overall Structure and Organization** | The codebase is divided into three main folders: Driver, Rust, and GUI, with the Rust folder containing the core driver code. The codebase follows a clear naming convention and separates utility functions from core functionality. |
-| **📝 Code Documentation** | The codebase lacks comprehensive documentation, with only a few comments and code snippets providing context for certain functions. |
-| **🧩 Dependency Management** | Dependencies are managed using Rust's package manager, Cargo, with various external dependencies used for printing to the kernel, memory allocation, and obfuscation. The build process is automated using a Makefile and signtool for signing the driver using a self-signed certificate. |
-| **♻️ Code Modularity and Reusability** | The codebase is structured to promote modularity and reusability, with functions separated into their own files and a clear separation of utility functions from core functionality. However, there is a lack of clear API documentation to promote reuse. |
-| **✅ Testing and Quality Assurance** | There is no evidence of unit tests or any other form of automated testing in the codebase. The code formatting is consistent and follows Rust's recommended style guidelines. |
-| **⚡️ Performance and Optimization** | The codebase utilizes various performance optimization techniques such as removing unused code and merging data sections in the post-linking phase. However, there is a lack of profiling or benchmarking to measure performance. |
-| **🔒 Security Measures** | The codebase lacks any clear security measures such as input validation or error handling. The use of a self-signed certificate for signing the driver may also pose a security risk. |
-| **🔄 Version Control and Collaboration** | The codebase is hosted on GitHub and follows a standard Git workflow with frequent commits and pull requests. However, there is no clear indication of a code review process in place. |
-| **🔌 External Integrations** | The codebase integrates with various Windows APIs for creating and manipulating devices, suspending and resuming processes, creating and writing to files, and referencing and dereferencing objects. |
-| **📈 Scalability and Extensibility** | The codebase is designed to handle monitoring and intercepting system calls made by processes and can be extended to include additional functionality. However, the lack of comprehensive documentation and testing may hinder scalability and extensibility. |
+Error generating file summary. Exception: Server error '502 Bad Gateway' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://httpstatuses.com/502
 
 ---
 
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
-## ⚙️ Project Structure
+## 📂 Project Structure
 
 
 ```bash
@@ -92,69 +81,68 @@ repo
 
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 
-## 💻 Modules
+## 🧩 Modules
 
 <details closed><summary>.cargo</summary>
 
-| File   | Summary                                                                                                                                                                                                                                                                                                                                                                         | Module             |
-|:-------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
-| config | The provided code snippet contains build configurations for a Rust project targeting the "x86_64-pc-windows-msvc" platform. It sets panic behavior to abort and includes pre and post-link arguments for the linker. The pre-link arguments specify various linker options while the post-link arguments optimize the binary by removing unused code and merging data sections. | Rust/.cargo/config |
+| File   | Summary                                                                                                                                                                                                                                                                                                                             | Module             |
+|:-------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
+| config | The provided code snippet is a configuration file for building Rust code targeting the x86_64-pc-windows-msvc platform. It specifies various pre and post link arguments, such as disabling logging, setting up the subsystem as a driver, and optimizing the binary by merging sections. It also sets the panic behavior to abort. | Rust/.cargo/config |
 
 </details>
 
 <details closed><summary>Driver</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                           | Module           |
-|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| AltCall.c | HTTP 429 error when fetching summary.                                                                                                                                                                                                                                                             | Driver/AltCall.c |
-| Extras.h  | The code snippet defines two structures: CUSTOM_HEADER and TOTAL_PACKET. CUSTOM_HEADER contains a process ID and an array of 16 stack data elements. TOTAL_PACKET includes a CUSTOM_HEADER and a KTRAP_FRAME structure. These structures can be used in conjunction with kernel mode programming. | Driver/Extras.h  |
+| File      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Module           |
+|:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| AltCall.c | The provided code is a Windows kernel-mode driver that registers a custom system call handler and provides functions to add and remove a process from monitoring. It uses IOCTLs to communicate with a user-mode application via a named pipe. When triggered, the custom system call handler captures the stack data of the calling thread and sends it to the user-mode application through the named pipe. The driver also creates a device and symbolic link for user-mode access. | Driver/AltCall.c |
+| Extras.h  | The code snippet defines two C structs: CUSTOM_HEADER which contains the process ID and stack data of a process, and TOTAL_PACKET which includes the CUSTOM_HEADER and a KTRAP_FRAME struct. These structs can be used to store and transfer data between different parts of a program.                                                                                                                                                                                                | Driver/Extras.h  |
 
 </details>
 
 <details closed><summary>Gui</summary>
 
-| File        | Summary                                                                                                                                                                                                                                                                                                                                                                | Module          |
-|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------|
-| Utils.h     | The code snippet includes functions for obtaining device access, creating and manipulating windows, loading a driver, and controlling processes. It also defines structures for passing data to and from the driver, as well as constants used in the code. The code is designed to monitor and intercept system calls made by processes.                              | GUI/Utils.h     |
-| Resource.rc | The provided code snippet is a Microsoft Visual C++ generated resource script that defines the layout and design of a GUI for a program called "CallMon". The GUI includes a configuration group box with various controls such as push buttons, edit text boxes, and a list view control. The script also includes design information and layout details for the GUI. | GUI/Resource.rc |
-| resource.h  | The provided code snippet defines the resource IDs for a dialog box interface in a Microsoft Visual C++ program. The interface includes buttons for initializing, adding, and removing items from a list, as well as a memo stack and a static label. The code also sets default values for new objects in the interface.                                              | GUI/resource.h  |
-| CallMon.c   | HTTP 400 error when fetching summary.                                                                                                                                                                                                                                                                                                                                  | GUI/CallMon.c   |
+| File        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Module          |
+|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------|
+| Utils.h     | The provided code snippet defines various constants and data structures and includes libraries necessary for interacting with a driver. It also contains functions to obtain the driver, create a pipe, add a process, get driver privilege, and load the driver. Additionally, it includes a helper function to insert a column into a list view.                                                                                                                                                                         | GUI/Utils.h     |
+| Resource.rc | The code snippet is a Microsoft Visual C++ generated resource script for a UI application called "CallMon". The script defines the layout, design, and functionality of the application's main dialog window, including configuration options, buttons to initialize, add or remove processes, a list view control to display information, and a stack capture feature.                                                                                                                                                    | GUI/Resource.rc |
+| resource.h  | The provided code snippet is a resource file generated by Microsoft Visual C++. It contains definitions for various UI elements like buttons, text boxes, and labels that can be used to create an interactive GUI application. The code also includes default values for new objects.                                                                                                                                                                                                                                     | GUI/resource.h  |
+| CallMon.c   | The code snippet contains a GUI application that monitors system calls made by processes. It includes functionality to initialize the monitoring, add or remove processes to monitor, and clear the list of monitored calls. The code uses various Windows libraries and APIs, includes a custom message handler, and uses multi-threading to listen for incoming data. The GUI is designed with a list view control to display the monitored calls and a memo control to display the arguments passed to a selected call. | GUI/CallMon.c   |
 
 </details>
 
 <details closed><summary>Rust</summary>
 
-| File          | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                | Module             |
-|:--------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
-| Makefile.toml | The code snippet defines three tasks: "build-driver" to build the driver binary using Cargo, "rename" to rename the built driver file to ".sys" extension, and "sign" to sign the driver using signtool with a self-signed certificate. The "sign" task also loads the Visual Studio Developer environment and creates a certificate if it does not exist. The script can be used to automate the driver building and signing process. | Rust/Makefile.toml |
-| Cargo.toml    | The provided code snippet is a configuration file for a Rust package called "AltCall". It specifies the package name, version, and dependencies, including ones for printing to the kernel, memory allocation, and obfuscation. The package also includes a build script that utilizes Windows API and requires the winreg and failure dependencies. The package is compiled as a dynamic library.                                     | Rust/Cargo.toml    |
-| rustfmt.toml  | The provided code snippet sets various configuration options for formatting Rust code using the Rustfmt tool. These options include the preferred brace style, color usage, function argument layout, and various other formatting preferences. The configuration aims to maintain a maximum line width of 120 characters and includes options for merging imports, reordering items, and using shorthand syntax where possible.       | Rust/rustfmt.toml  |
-| build.rs      | The code snippet provides functions for finding the path to the Windows Kits directory and kernel mode libraries. It then determines the architecture of the machine and specifies the search path for linking native Rust code. The main function determines whether to perform extra link search or internal link search based on the presence of a specific Cargo feature.                                                          | Rust/build.rs      |
+| File     | Summary                                                                                                                                                                                                                                                                                                                                                                   | Module        |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------|
+| build.rs | The code snippet contains functions for retrieving the path to the Windows Kits directory, finding the kernel mode libraries within the directory, and specifying search paths for linking during compilation. If a cargo feature for extra link search is enabled, the extra_link_search() function is called; otherwise, the internal_link_search() function is called. | Rust/build.rs |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                  | Module              |
-|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|
-| externs.rs | The code snippet provides a list of external functions available through the Windows Driver Model and Native API. These functions include creating and manipulating devices, suspending and resuming processes, creating and writing to files, and referencing and dereferencing objects. The functions are declared with their respective parameters and return values.                                 | Rust/src/externs.rs |
-| log.rs     | This code snippet provides a macro called "log" that allows for printing debug messages using the Windows Driver Model (WDM) DbgPrint function. The macro can take in a single string argument or multiple arguments using Rust's variadic syntax. The messages are formatted with a prefix of "[>]" and null-terminated before being passed to the DbgPrint function.                                   | Rust/src/log.rs     |
-| lib.rs     | This code is a Windows kernel-mode driver that creates a named pipe and allows processes to be added or removed from a list. It contains functions to initialize, add and remove processes, and a device dispatch function to handle IOCTL requests. The driver also registers a custom system call handler to write data to the named pipe using an assembly block.                                     | Rust/src/lib.rs     |
-| string.rs  | The code defines a function that takes a slice of u16 values and returns a UNICODE_STRING struct. The function calculates the length of the slice, determines the actual length based on whether the last value is a null terminator, and then populates the struct with the length, maximum length, and buffer pointer. The resulting struct can be used to represent a Unicode string in WinAPI calls. | Rust/src/string.rs  |
-| defines.rs | The code snippet defines custom structs and constants that are used in Windows kernel programming. These include structures for process and thread identification, access masks, trap frames, and custom headers. The code also includes unions for the trap frame structure and a total packet structure that combines a custom header and a trap frame.                                                | Rust/src/defines.rs |
+| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Module              |
+|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|
+| externs.rs | The provided code snippet contains a set of external functions from the Windows Driver Model API used for device driver development, process management, and file handling. These functions include creating devices and symbolic links, creating and writing to files, suspending and resuming processes, and obtaining process information. The code also includes memory management and object reference functions.                                                                                         | Rust/src/externs.rs |
+| log.rs     | The provided code snippet defines a macro for logging message strings using the `DbgPrint` function from the Windows kernel-mode `winapi` library. The macro accepts a string expression and optionally additional arguments to be formatted into the message string. The logged message is prefixed with "[>]" and terminated with a null character.                                                                                                                                                          | Rust/src/log.rs     |
+| lib.rs     | This code is for a Windows kernel driver that sets up a named pipe and handles IOCTL requests to add or remove processes from the driver's monitoring list. When a monitored process makes a system call, a trap handler captures the process ID, stack data, and the KTRAP_FRAME pointer, and writes it to the named pipe. The driver also uses PsRegisterAltSystemCallHandler to replace system call handlers with custom ones, allowing the driver to intercept and log all system calls made by a process. | Rust/src/lib.rs     |
+| string.rs  | This code snippet exports a public function called "create_unicode_string" which accepts a slice of u16 integers and returns a UNICODE_STRING structure with Length, MaximumLength, and Buffer fields. It computes the Length and MaximumLength values based on the input slice and assigns the Buffer field to the pointer of the input slice. It is used to create a Unicode string from a u16 buffer.                                                                                                       | Rust/src/string.rs  |
+| defines.rs | The provided code snippet contains various custom defines, structs and unions not present in the winapi crate. These include constants for file access, IOCTL codes, and structs such as KTRAP_FRAME and CUSTOM_HEADER. The code also includes a struct for TOTAL_PACKET which contains a CUSTOM_HEADER and KTRAP_FRAME, along with padding to account for differences between C and Rust versions of the struct.                                                                                              | Rust/src/defines.rs |
 
 </details>
 
-<hr />
+---
 
 ## 🚀 Getting Started
 
 ### ✅ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> `[📌  INSERT-PROJECT-PREREQUISITES]`
+> - [📌  PREREQUISITE-1]
+> - [📌  PREREQUISITE-2]
+> - ...
 
-### 💻 Installation
+### 🖥 Installation
 
 1. Clone the CallMon repository:
 ```sh
@@ -179,21 +167,24 @@ cargo run
 
 ### 🧪 Running Tests
 ```sh
-# [INSERT-COMMAND-FOR-TESTS]
+cargo test
 ```
 
-<hr />
+---
 
 
-## 🛠 Future Development
-- [X] [📌  COMPLETED-TASK]
-- [ ] [📌  INSERT-TASK]
-- [ ] [📌  INSERT-TASK]
+## 🗺 Roadmap
+
+> - [X] [📌  Task 1: Implement X]
+> - [ ] [📌  Task 2: Refactor Y]
+> - [ ] [📌  Task 3: Optimize Z]
+> - [ ] ...
 
 
 ---
 
 ## 🤝 Contributing
+
 Contributions are always welcome! Please follow these steps:
 1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
 2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
@@ -216,16 +207,14 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ---
 
-## 🪪 License
+## 📄 License
 
 This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
-## 🙏 Acknowledgments
+## 👏 Acknowledgments
 
-[📌  INSERT-DESCRIPTION]
-
+> - [📌  List any resources, contributors, inspiration, etc.]
 
 ---
-

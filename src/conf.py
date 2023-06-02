@@ -46,7 +46,6 @@ class GitConfig:
                 name = name[:-4]
         else:
             name = Path(path).name
-
         return name
 
 
@@ -55,6 +54,7 @@ class MarkdownConfig:
     """Markdown configuration."""
 
     badges: str
+    default: str
     dropdown: str
     ending: str
     header: str
