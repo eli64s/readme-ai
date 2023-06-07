@@ -95,13 +95,14 @@ async def generate_readme(api_handler: OpenAIHandler) -> None:
         summaries = await generate_code_summaries(
             file_contents, CONF.prompts.code_summary, api_handler
         )
+        LOGGER.info(f"Code summaries: {summaries}")
         chat_prompts = [
+            CONF.prompts.slogan.format(name),
             CONF.prompts.overview.format(repository, summaries),
             CONF.prompts.features.format(repository, summaries),
-            CONF.prompts.slogan.format(name),
         ]
         responses = await generate_chat_text(chat_prompts, api_handler)
-        overview, features, slogan = responses[:3]
+        slogan, overview, features = responses[:3]
 
     except openai.OpenAIError as exc:
         LOGGER.error(f"OpenAI API Error: {exc}")

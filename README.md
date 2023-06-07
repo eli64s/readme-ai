@@ -273,7 +273,6 @@ Most user's will run README-AI using the command-line interface, specifying thei
 ```toml
 # Repository Configuration
 [git]
-...
 repository = "INSERT YOUR REPOSITORY URL / PATH HERE"
 ```
 

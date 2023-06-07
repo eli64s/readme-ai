@@ -2,8 +2,8 @@
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
-temperature = 0.9
-tokens = 500
+temperature = 1.2
+tokens = 460
 
 # Repository Configuration
 [git]
