@@ -133,17 +133,14 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 
 <h1 align="center">⒌<br>👇<br><br>📦 Dynamic Setup User Guides</h1>
-<p align="center">Dynamically generates installation, usage, and testing sections to help others use your project!</p>
-
 <table>
   <tr>
     <td>
       <h3><b>📍 Install, Usage, and Tests</b></h3>
       <ul>
-        <li>
-          README-AI currently generates this section for codebases using the following languages:
-          <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i>
-        </li>
+        <li>Dynamically generates instructions for installing, using, and testing your codebase.</li>
+        <li>This README section helps others to easily setup and use your project!</li>
+        <li>README-AI currently supports this feature for the following languages: <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i></li>
       </ul>
     </td>
   </tr>
