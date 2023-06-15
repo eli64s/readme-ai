@@ -1,10 +1,13 @@
 <div align="center">
   <h1 align="center">
-    <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100" /><img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="100" />
-    <br>README-AI</h1>
+    <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
+    <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
+    <br>
+    README-AI
+  </h1>
 
-> <h3 align="center">🚀 Generate aesthetic, structured, and informative README.md files </h3>
-> <h3 align="center">⚙️ Powered by OpenAI's GPT language model APIs and the software below:</h3>
+> <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
+> <h3 align="center">⚙️ Powered by OpenAI's language model APIs and the tools below:</h3>
 >  <p align="center">
 >   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 >   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
@@ -29,7 +32,7 @@
     - [📂 Repository](#-repository)
     - [🔐 OpenAI API Setup](#-openai-api-setup)
   - [💻 Installation](#-installation)
-  - [🪄 Using README-AI](#-using-readme-ai)
+  - [🎮 Using README-AI](#-using-readme-ai)
   - [🧪 Running Tests](#-running-tests)
 - [🛠 Future Development](#-future-development)
 - [🤝 Contributing](#-contributing)
@@ -129,25 +132,22 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 | ![tree](./docs/imgs/tree.png) |
 
 
-<h1 align="center">⒌<br>👇<br><br>📦 Installation and Run Guides</h1>
-<p align="center">Dynamically generates installation and run guides to help others explore and use your code!</p>
+<h1 align="center">⒌<br>👇<br><br>📦 Dynamic Setup User Guides</h1>
+<p align="center">Dynamically generates installation, usage, and testing sections to help others use your project!</p>
 
 <table>
   <tr>
     <td>
-     <h3><b>📍 Setup</b></h3><br>
-      <p>Support for:</p>
+      <h3><b>📍 Install, Usage, and Tests</b></h3>
       <ul>
-        <li>Python</li>
-        <li>Rust</li>
-        <li>Go</li>
-        <li>C</li>
-        <li>Kotlin</li>
-        <li>Java</li>
-        <li>JavaScript</li>
-        <li>TypeScript</li>
+        <li>
+          README-AI currently generates this section for codebases using the following languages:
+          <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i>
+        </li>
       </ul>
     </td>
+  </tr>
+  <tr>
     <td>
       <img src="./docs/imgs/setup.png" alt="setup">
     </td>
@@ -262,9 +262,9 @@ README-AI is a powerful, user-friendly tool that automatically generates high-qu
 
 Before you begin, ensure that you have the following prerequisites installed:
 
-- Python 3.7 or higher
+- Python 3.8 or higher
 - Conda package manager (recommended)
-- Access to the OpenAI API (see OpenAI API Setup below)
+- Access to the OpenAI API (see OpenAI setup guide below)
 
 #### 📂 Repository
 
@@ -273,15 +273,14 @@ Most user's will run README-AI using the command-line interface, specifying thei
 ```toml
 # Repository Configuration
 [git]
-repository = "INSERT YOUR REPOSITORY URL / PATH HERE"
+repository = "INSERT YOUR REPOSITORY URL / LOCAL DIRECTORY"
 ```
 
 #### 🔐 OpenAI API Setup
 
-To use README-AI, you will need an API key for OpenAI. Follow the steps below to create an API key:
+To use the README-AI application, you will need to create an [OpenAI account](https://platform.openai.com/) and generate an API key. The steps below outline how to create an account and generate an API key:
 
-<details closed>
-<summary>User Guide - OpenAI API</summary>
+<details closed><summary>OpenAI API User Guide</summary>
 
 1. Go to the [OpenAI website](https://platform.openai.com/).
 2. Click the "Sign up for free" button.
@@ -291,6 +290,12 @@ To use README-AI, you will need an API key for OpenAI. Follow the steps below to
 6. Copy the API key and keep it in a secure place.
 
 </details>
+
+For the best README-AI experience, consider setting up a payment method on OpenAI's website. This allows you to use more performant language models such as `gpt-3.5-turbo`. With no payment method, you will be limited to the base `gpt-3` models, which may result in less accurate README files or errors during the generation process.
+
+> ⚠️ **Note:**
+>
+> If using a payment method, ensure that you have enough credits to run the README-AI application and be sure to continously monitor your API usage and costs with this link - [OpenAI API Usage Dashboard](https://platform.openai.com/account/usage). This API is not free to use, and **YOU WILL BE CHARGED FOR EACH REQUEST MADE TO THE API, WHICH CAN ADD UP VERY QUICKLY.** The README.md file generation should take less than 1 minute to execute, so please kill the process if it is taking longer than a few minutes.
 
 ### 💻 Installation
 
@@ -318,7 +323,7 @@ pip install -r requirements.txt
 export OPENAI_API_KEY=<your-api-key>
 ```
 
-### 🪄 Using README-AI
+### 🎮 Using README-AI
 
 Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository.
 
@@ -354,10 +359,10 @@ bash scripts/test.sh
 
 ## 🛠 Future Development
 
-- [X] Add additional language setup guides for populating the `🚀 Getting Started` README section.
-- [ ] Implement multiple README templates with different formats and styling.
-- [ ] Add feature to select the language of text written to the README file.
-- [ ] Add a UI using [Textual](https://github.com/Textualize/textual) or another framework to improve the user experience.
+- [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
+- [ ] Design and implement a variety of README template formats and styles.
+- [ ] Add feature to select the output language for the README file (e.g. CN, DE, ES, FR, JA, KO, PT, RU).
+- [ ] Create UI with [Textual](https://github.com/Textualize/textual) or another framework to improve user experience.
 
 ---
 

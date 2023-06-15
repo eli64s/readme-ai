@@ -3,7 +3,7 @@
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 temperature = 1.2
-tokens = 460
+tokens = 520
 
 # Repository Configuration
 [git]
@@ -22,15 +22,15 @@ readme = "README_AI.md"
 
 # Prompts
 [prompts]
-code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the provided code snippet: 
+code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the provided code snippet:
 \n{}\n
-Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity. 
-Limit your response to 3-4 sentences. 
+Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
+Limit your response to 3-4 sentences.
 Thank you!
 """
 features = """Please analyze the codebase located at {} and provide a list of important features. The following includes a list of the summaries of the files in the repository:
 \n{}\n
-Please consider the codebase as a whole and highlight its key characteristics, design patterns, architectural decisions, and any other noteworthy elements. 
+Please consider the codebase as a whole and highlight its key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
 
 | Feature | Description |
@@ -49,10 +49,10 @@ Generate your response as a Markdown table with the following columns:
 Please provide a comprehensive analysis addressing the above features while excluding the specified files from the assessment.
 Limit each analysis to 1-2 sentences.
 """
-overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject. 
+overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject.
 The following includes a list of the summaries of the files in the repository:
 \n{}\n
-Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition. 
+Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition.
 """
 slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}"
 
