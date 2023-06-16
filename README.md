@@ -26,6 +26,7 @@
 
 - [📍 Table of Contents](#-table-of-contents)
 - [🤖 Overview](#-overview)
+    - [🎯 *Project Motivations*](#-project-motivations)
 - [🔮 Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [✅ Dependencies](#-dependencies)
@@ -45,6 +46,7 @@
 
 README-AI is a powerful, user-friendly tool that generates extensive README markdown documents for your software and data projects. By simply providing a remote repository URL or directory path to your codebase, this tool will generate documention for your entire project, harnessing the capabilities of large language models via OpenAI's GPT APIs.
 
+#### 🎯 *Project Motivations*
 README-AI simplifies the process of writing and maintaining high-quality project documentation. My aim for this project is to provide a tool that supports developers, making software development more efficient and user-friendly. Ultimately, the goal of README-AI is to improve the adoption rate and usability of open-source projects, helping all skill levels better understand and use codebases, and allowing everyone to focus on tasks that matter most to you!
 
 > ⚠️ **Note:**
@@ -63,7 +65,7 @@ README-AI simplifies the process of writing and maintaining high-quality project
 <table>
   <tr>
     <td>
-      <h3>📍 Repository File Summaries</h3>
+      <h3>📍 Code-to-Text Summaries</h3>
       <ul>
         <li>Code summaries of each script in your repository are generated via OpenAI's large language model APIs, such as gpt-3.5-turbo.</li>
         <li>Your codebase is parsed and file contents are converted to natural language, and displayed in Markdown table format.</li>
@@ -103,16 +105,18 @@ README-AI simplifies the process of writing and maintaining high-quality project
 </table>
 </p>
 
-<h1 align="center">⒊<br>👇<br><br>🧚 Text Generation</h1>
+<h1 align="center">⒊<br>👇<br><br>🧚 Prompted Text Generation</h1>
 <table>
   <tr>
     <td>
-      <h3>📍 Project Feature Table</h3>
+      <h3>📍 Features Table & Overview</h3>
       <ul>
-        <li>These sections are generated using detailed prompts, embedded with your repository metadata.</li>
-        <li>The <i>Overview</i> section describes your project's use case and application.</li>
-        <li>The <i>Features</i> section highlights attributes of your codebase, formatted in a Markdown table.</li>
-        <li>Working on fine-tuning the prompts to improve the accuracy and relevance to your project.</li>
+        <li>The <i>Overview</i> section describes your project's use case and applications.</li>
+        <li>The <i>Features</i> table highlights various technical attributes of your codebase.</li>
+        <ul>
+          <li>README-AI uses detailed prompt templates, embedded with your repository's metadata, and passed to the OpenAI API.</li>
+          <li>Currently fine-tuning the prompts to improve the accuracy and relevance of the API responses.</li>
+        </ul>
       </ul>
     </td>
   </tr>
@@ -250,9 +254,9 @@ README-AI simplifies the process of writing and maintaining high-quality project
 </div>
 
 
-<h1 align="center">⒏<br>👇<br><br>📜 Custom templates and styles coming soon!</h1>
-<p align="center">Developing a feature that allows the user to select from a variety of README formats and styles.</p>
-<p align="center">Example template options include data and ML focused, research, hackathons, minimal, and more!</p>
+<h1 align="center">⒏<br>👇<br><br>📜 Custom README template formats coming soon!</h1>
+<p align="center">Developing a feature that allows users to select from a variety of README formats and styles.</p>
+<p align="center">Custom templates will focus on projects for data, AI & ML, research, hackathons, minimalism, and more!</p>
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>
@@ -365,7 +369,7 @@ bash scripts/test.sh
 
 - [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
 - [ ] Design and implement a variety of README template formats and styles.
-- [ ] Add feature to select the output language for the README file (e.g. CN, DE, ES, FR, JA, KO, PT, RU).
+- [ ] Add feature to select the output language of the README file (i.e. CN, ES, FR, JA, KO, RU).
 - [ ] Create UI with [Textual](https://github.com/Textualize/textual) or another framework to improve user experience.
 
 ---
