@@ -259,7 +259,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 <h1 align="center">⒏<br>👇<br><br>📜 Custom README template formats coming soon!</h1>
 <p align="center">Developing a feature that allows users to select from a variety of README formats and styles.</p>
-<p align="center">Custom templates will focus on README focused on data, ai & ml, research, minimal, and more!</p>
+<p align="center">Custom templates will be tailored for use-cases such as data, ai & ml, research, minimalistic, and more!</p>
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>
