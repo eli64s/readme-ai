@@ -1,10 +1,7 @@
 """Unit tests for main module."""
 
-import sys
-
-sys.path.append("src")
-
 import asyncio
+import sys
 
 import openai
 import pytest
@@ -17,6 +14,8 @@ from src.main import (
     set_openai_api_key,
     validate_repository,
 )
+
+sys.path.append("src")
 
 
 def test_set_openai_api_key(mocker):
@@ -54,9 +53,7 @@ def test_validate_repository(config):
 
 def test_main(config, mocker):
     mocker.patch("main.set_openai_api_key")
-    mocker.patch(
-        "main.validate_repository", return_value=config["git"]["repository"]
-    )
+    mocker.patch("main.validate_repository", return_value=config["git"]["repository"])
     mocker.patch("asyncio.run")
     with pytest.raises(typer.Exit) as excinfo:
         main()
@@ -64,16 +61,12 @@ def test_main(config, mocker):
 
 
 def test_generate_readme(mocker):
-    mocker.patch(
-        "main.preprocess.get_repository_name", return_value="repo_name"
-    )
+    mocker.patch("main.preprocess.get_repository_name", return_value="repo_name")
     mocker.patch(
         "main.preprocess.get_repository",
         return_value={"src/main.py": "def main():\nreturn 0"},
     )
-    mocker.patch(
-        "main.preprocess.extract_dependencies", return_value=["dep1", "dep2"]
-    )
+    mocker.patch("main.preprocess.extract_dependencies", return_value=["dep1", "dep2"])
     mocker.patch("main.generate_text", return_value=["summary1", "summary2"])
     mocker.patch("main.builder.build")
 
@@ -88,7 +81,5 @@ def test_generate_text(mocker):
         return_value={"src/main.py": "def main():\nreturn 0"},
     )
     mocker.patch("main.model.generate_summary_text", side_effect=lambda x: x)
-    code_summaries = asyncio.run(
-        generate_text(["src/main.py"], [".pyc", ".o"])
-    )
+    code_summaries = asyncio.run(generate_text(["src/main.py"], [".pyc", ".o"]))
     assert isinstance(code_summaries, dict)

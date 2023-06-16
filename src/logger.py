@@ -20,10 +20,14 @@ class Logger:
         logger.configure(
             handlers=[
                 {
-                    "sink": sys.stderr,
-                    "level": self.level,
-                    "colorize": True,
-                    "format": "<level>{time:YYYY-MM-DD HH:mm:ss}</level> | <level>{level}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - {message}",
+                    "sink":
+                        sys.stderr,
+                    "level":
+                        self.level,
+                    "colorize":
+                        True,
+                    "format":
+                        "<level>{time:YYYY-MM-DD HH:mm:ss}</level> | <level>{level}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>:{message}",
                 }
             ]
         )

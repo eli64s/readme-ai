@@ -43,7 +43,9 @@
 
 ## 🤖 Overview
 
-README-AI is a powerful, user-friendly tool that automatically generates high-quality README files for your Git repositories using OpenAI's language model APIs. By simply providing the path or url to your project's codebase, this tool will craft a well-structured and comprehensive README that highlights your project's features, installation steps, usage instructions, and more.
+README-AI is a powerful, user-friendly tool that generates extensive README markdown documents for your software and data projects. By simply providing a remote repository URL or directory path to your codebase, this tool will document your entire codebase, harnessing the capabilities of large language models via OpenAI's GPT APIs.  
+
+README-AI simplifies the process of writing and maintaining high-quality project documentation. My aim for this project is to provide a tool that supports developers, making software development more efficient and user-friendly. Ultimately, the goal of README-AI is to improve the adoption rate and usability of open-source projects, helping all skill levels better understand and use codebases, and allowing everyone to focus on tasks that matter most to you!
 
 > ⚠️ **Note:**
 >

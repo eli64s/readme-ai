@@ -1,6 +1,17 @@
-# Black formatting
+# Autoflake
+[tool.autoflake]
+ignore_pass_statements = true
+ignore-pass-after-docstring = true
+remove_all_unused_imports = true
+recursive = true
+
+# Autopep8
+[tool.autopep8]
+max-line-length = 88
+
+# Black
 [tool.black]
-line-length = 79
+line-length = 88
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -21,12 +32,14 @@ exclude = '''
 
 # Flake8
 [flake8]
-max-line-length = 79
+max-line-length = 88
+
 
 # iSort
 [tool.isort]
 profile = "black"
-line_length = 79
+line_length = 88
+lines_after_imports = 2
 multi_line_output = 3
 include_trailing_comma = true
 virtual_env = "conda"
@@ -37,10 +50,17 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 addopts = "--strict-markers --disable-pytest-warnings"
 
-# Pytest coverage
+# Pytest Coverage
 [tool.coverage.run]
 omit = [
     "tests/*",
     "setup.py",
     "*/__init__.py"
 ]
+
+# Yapf
+[tool.yapf]
+based_on_style = "google"
+column_limit = 88
+indent_width = 4
+dedent_closing_brackets = true

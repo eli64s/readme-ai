@@ -30,10 +30,7 @@ setup(
     packages=find_namespace_packages(),
     install_requires=required_packages,
     extras_require={
-        "dev": docs_packages
-        + style_packages
-        + test_packages
-        + ["pre-commit==2.15.0"],
+        "dev": docs_packages + style_packages + test_packages + ["pre-commit==2.15.0"],
         "test": test_packages,
     },
     classifiers=[

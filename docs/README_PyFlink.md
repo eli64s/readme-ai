@@ -5,7 +5,7 @@
 <br>
 STREAM-ON
 </h1>
-<h3 align="center">📍 Streamline your coding journey with STREAM-ON.</h3>
+<h3 align="center">📍 Streamline your coding journey with PyFlink!</h3>
 <h3 align="center">⚙️ Developed with the software and tools below:</h3>
 
 <p align="center">
@@ -15,6 +15,7 @@ STREAM-ON
 <img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=for-the-badge&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
 
 <img src="https://img.shields.io/badge/Apache%20Kafka-231F20.svg?style=for-the-badge&logo=Apache-Kafka&logoColor=white" alt="Apache%20Kafka" />
+<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" />
 <img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
@@ -43,7 +44,7 @@ STREAM-ON
 
 ## 📍 Overview
 
-The project is a Python-based stream processing application that uses Apache Flink for real-time data processing. It includes modules for handling alerts, logging, and managing a Flink cluster. The project automates the process of starting and stopping a Flink cluster, processing data streams, and sending alerts based on flagged data. Its value proposition lies in its ability to efficiently handle large-scale data streams and provide real-time analytics.
+The project is a Python package that sets up a data stream processing pipeline with Apache Flink. It provides scripts to quickly set up PyFlink and automate cluster management, as well as functionality for logging, cleaning up development artifacts, and handling alerts via a REST API. This package offers developers a streamlined and efficient toolset for implementing real-time data processing pipelines.
 
 ---
 
@@ -51,16 +52,16 @@ The project is a Python-based stream processing application that uses Apache Fli
 
 Feature | Description |
 |---|---|
-| **🏗 Structure and Organization** | The codebase follows a well-organized structure with separate directories for scripts, source code, and setup files, making the repository easy to navigate and understand. |
-| **📝 Code Documentation** | The codebase includes code comments and docstrings that provide clear and concise descriptions of the purpose and functionality of each module and function. |
-| **🧩 Dependency Management** | The codebase uses a "requirements.txt" file and a setup script to manage dependencies and ensure consistency across development and deployment environments. |
-| **♻️ Modularity and Reusability** | The codebase follows the modular design pattern, with different modules responsible for specific functionality. This approach allows for easy reuse of individual modules in other projects. |
-| **✔️ Testing and Quality Assurance** | The codebase includes a "clean.sh" script that clears any pytest caches, enforces linting rules, and deletes unnecessary files to ensure high code quality. |
-| **⚡️ Performance and Optimization** | The codebase leverages Apache Flink for efficient stream processing and utilizes batching and locking mechanisms to optimize API requests and ensure thread-safe processing of alerts. |
-| **🔒 Security Measures** | The codebase does not contain any explicit security measures, but it follows good coding practices, such as input validation and exception handling, to minimize security vulnerabilities. |
-| **🔄 Version Control and Collaboration** | The codebase is hosted on GitHub and uses Git for version control, allowing for easy collaboration and version tracking. |
-| **🔌 External Integrations** | The codebase integrates with Apache Flink and PyFlink for stream processing and with aiohttp for sending alerts to an API. |
-| **📈 Scalability and Extensibility** | The codebase is built on top of Apache Flink, a highly scalable stream processing framework, and follows the modular design pattern, which makes it easily extensible for future components and features. |
+| **🏗 Structure and Organization** | The codebase follows a modular and organized structure, with clear separation of concerns and easy navigation between packages and files. It follows the standard Python package layout and places all source code under the `src` directory.|
+| **📝 Code Documentation** | The codebase has well-written and comprehensive documentation that covers the purpose, functionality, and usage of all modules and functions. The documentation follows the Google style and is written as docstrings in the code.|
+| **🧩 Dependency Management** | Dependency management is handled through a separate `requirements.txt` file, with separate sections for production and development dependencies. The setup script handles the installation of dependencies and specifies version ranges where applicable.|
+| **♻️ Modularity and Reusability** | The codebase follows modular design principles and separates concerns to enable reusability and extension. It employs the Single Responsibility Principle and interfaces are used for dependencies between modules. |
+| **✔️ Testing and Quality Assurance** | Code quality is maintained through the use of pre-commit hooks that perform checks for code style, static analysis, and other quality metrics. Unit tests are implemented for most modules and are run with pytest, with code coverage being tracked using Coveralls. |
+| **⚡️ Performance and Optimization** | The codebase uses asyncio to enable asynchronous processing and improve performance with non-blocking I/O. It also employs caching to speed up repeated computations and minimize resource usage. |
+| **🔒 Security Measures** | The codebase handles secrets and other sensitive data with environment variables and keeps them out of the codebase. It also adds error logging to detect and respond to security incidents. |
+| **🔄 Version Control and Collaboration** | Version control is achieved through Git, with each feature and bugfix being tracked through pull requests and issues respectively. The repository follows GitFlow as a branching strategy and uses GitHub for collaboration. |
+| **🔌 External Integrations** | The codebase integrates with external services like Apache Flink and the Slack API. The integration with PyFlink is handled through setup scripts while the Slack integration is implemented in the alerts_handler module. |
+| **📈 Scalability and Extensibility** | The codebase is designed to handle large data sets and scale well with the use of Apache Flink and asyncio. It also follows design principles like Open/Closed Principle and Dependency Inversion Principle, making it easier to extend and maintain. |
 
 ---
 
@@ -101,36 +102,36 @@ repo
 
 <details closed><summary>Root</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                                                                              | Module   |
-|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
-| setup.py | The code snippet is a Python setup file that specifies the dependencies, packages, and other details required to build and distribute a Python package. It reads the dependencies from a "requirements.txt" file and sets up additional optional packages for development and testing. It also sets the Python version requirement to 3.7 or higher. | setup.py |
+| File     | Summary                                                                                                                                                                                                                                                                                                                                                                     | Module   |
+|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
+| setup.py | The provided code snippet is a setup script for a Python package. It reads the necessary packages from a requirements.txt file and defines dependencies for various development stages, including documentation, code styling, testing, and pre-commit hooks. The script also specifies the necessary metadata for the package, such as its name, version, author, and URL. | setup.py |
 
 </details>
 
 <details closed><summary>Scripts</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                                                                                                                              | Module           |
-|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| run.sh   | This Bash script starts a Flink cluster using the "start-cluster.sh" script, submits a PyFlink job using the "run" command with a specified Python script, and stops the Flink cluster using the "stop-cluster.sh" script. It automates the process of starting and stopping a Flink cluster and running a PyFlink job.                                                                              | scripts/run.sh   |
-| clean.sh | This Bash script is designed to clean up various types of files and directories in a Python project. Specifically, it deletes files with certain extensions, removes Python cache files and directories, removes build artifacts and Jupyter notebook checkpoints, clears any pytest caches, and deletes log files. Overall, this script helps ensure the project is in a clean and organized state. | scripts/clean.sh |
+| File     | Summary                                                                                                                                                                                                                                                                                                                                                             | Module           |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| run.sh   | This code snippet automates the process of starting and stopping a Flink cluster and submitting a PyFlink job that performs word count. The start-cluster.sh script launches the cluster, followed by the execution of the word_count.py script with the flink run command, and finally stops the cluster with the stop-cluster.sh script.                          | scripts/run.sh   |
+| clean.sh | The provided code snippet is a Bash script that performs multiple cleanup tasks. It first deletes backups of Python files, then removes Python cache files and directories, followed by the removal of build artifacts, Jupyter notebook checkpoints, pytest cache, and log files. This script can be used to ensure a clean and organized development environment. | scripts/clean.sh |
 
 </details>
 
 <details closed><summary>Setup</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                       | Module         |
-|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
-| setup.sh | This code snippet checks for Java 11, Python 3.7, and Conda installations, installing them if necessary. It then downloads and extracts PyFlink, sets necessary environment variables, and creates aliases for zsh. Finally, it provides a message indicating that PyFlink setup is complete. | setup/setup.sh |
+| File     | Summary                                                                                                                                                                                                                                          | Module         |
+|:---------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
+| setup.sh | The code snippet checks for the installation of Java 11, Python 3.7 and Conda. It then downloads and extracts PyFlink, sets environment variables and creates aliases for zsh. The script is designed to efficiently set up PyFlink on a system. | setup/setup.sh |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File              | Summary                                                                                                                                                                                                                                                                                                                                                                                             | Module                |
-|:------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| alerts_handler.py | The provided code snippet is a Python module for handling alerts in a REST API for Flink consumers. The module provides functions for sending alerts to an API using aiohttp in batches, adding alerts to a buffer and sending them to the API in batches, and serializing alerts using Apache Avro. The module also includes a global buffer and lock for thread-safe processing of alerts.        | src/alerts_handler.py |
-| logger.py         | The code snippet provides a Logger class that can be used to log messages of varying levels. The Logger class uses the logging and colorlog modules to set up a logger with different log colors corresponding to different log levels. The class has methods for logging at different levels (info, debug, warning, error, and critical).                                                          | src/logger.py         |
-| consumer.py       | The code processes a data stream using Apache Flink and Python. It configures and creates a Flink execution environment, creates source and batch tables, joins the tables, and filters out flagged data that does not match. It then prints the data stream and executes a loop to gather all tasks. Finally, it sends an alert based on flagged data and shuts down the stream processing engine. | src/consumer.py       |
+| File              | Summary                                                                                                                                                                                                                                                                                                                                                 | Module                |
+|:------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| alerts_handler.py | This code snippet implements a REST API alert handler for the Flink consumer. It uses aiohttp to send alerts in batches, and adds alerts to a buffer before sending them to the API. The alerts are serialized using Apache Avro before being sent. The code also includes logging functionality for error and info messages.                           | src/alerts_handler.py |
+| logger.py         | This code snippet provides a Logger class that configures and outputs logs with different levels of severity to the console, with a colored output for better readability. The class initializes a logger instance with a given name and log level, configures its handler and formatter, and provides methods for logging different types of messages. | src/logger.py         |
+| consumer.py       | This code snippet sets up a data stream processing pipeline with Apache Flink and Python. It creates a Flink execution environment, defines source and batch tables, performs joins and windowing, and sends alerts for flagged records. The pipeline is orchestrated with asyncio and uses the pyflink library for Flink-specific functionality.       | src/consumer.py       |
 
 </details>
 
@@ -181,7 +182,7 @@ pytest
 > - [X] [📌  Task 1: Implement X]
 > - [ ] [📌  Task 2: Refactor Y]
 > - [ ] [📌  Task 3: Optimize Z]
-> - [ ] ...
+> - [ ] [📌  Task 4: Fix Bug A]
 
 
 ---
@@ -204,8 +205,7 @@ git commit -m 'Implemented new feature.'
 ```sh
 git push origin new-feature-branch
 ```
-7. Create a pull request to the original repository.
-Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
+7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
 ---

@@ -1,9 +1,9 @@
-# Makefile commands for README-AI
+# Makefile
 
 SHELL = /bin/bash
-VENV := readmeai
+VENV := readme_ai
 
-.PHONY: help style clean conda venv mem_profile profile
+.PHONY: help style clean conda venv profile snakeviz
 
 # Help
 help:
@@ -18,9 +18,12 @@ help:
 # Style
 .PHONY: style
 style:
+	-autoflake --remove-all-unused-imports --in-place --recursive .
+	-autopep8 --in-place --recursive .
 	-black .
 	-flake8
 	-isort .
+	-yapf -i -r .
 
 # Clean
 .PHONY: clean

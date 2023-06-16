@@ -15,12 +15,25 @@ class WriteFileError(Exception):
 
 
 class FileHandler:
+
     def __init__(self):
         self.file_actions = {
-            "md": {"read": self.read_markdown, "write": self.write_markdown},
-            "toml": {"read": self.read_toml, "write": self.write_toml},
-            "json": {"read": self.read_json, "write": self.write_json},
-            "yaml": {"read": self.read_yaml, "write": self.write_yaml},
+            "md": {
+                "read": self.read_markdown,
+                "write": self.write_markdown
+            },
+            "toml": {
+                "read": self.read_toml,
+                "write": self.write_toml
+            },
+            "json": {
+                "read": self.read_json,
+                "write": self.write_json
+            },
+            "yaml": {
+                "read": self.read_yaml,
+                "write": self.write_yaml
+            },
         }
         self.cache = {}
 

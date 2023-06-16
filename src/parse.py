@@ -8,11 +8,8 @@ import toml
 import yaml
 
 from factory import FileHandler
-from logger import Logger
 
 FILE_HANDLER = FileHandler()
-LOGGER = Logger("readmeai_logger")
-
 
 # Docker
 
@@ -117,12 +114,8 @@ def parse_package_json(content: str) -> List[str]:
     for section in ["dependencies", "devDependencies", "peerDependencies"]:
         if section in data:
             for package, _ in data[section].items():
-                if section == "peerDependencies" and package.startswith(
-                    "@types/"
-                ):
-                    package_names.append(
-                        package[7:]
-                    )  # Remove '@types/' prefix
+                if section == "peerDependencies" and package.startswith("@types/"):
+                    package_names.append(package[7:])  # Remove '@types/' prefix
                 else:
                     package_names.append(package)
     return package_names
@@ -178,6 +171,7 @@ def parse_maven(content: str) -> List[str]:
 
 
 # C/C++
+
 
 # CMakeLists.txt
 def parse_cmake(file_path: str) -> List[str]:

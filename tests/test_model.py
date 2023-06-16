@@ -1,20 +1,14 @@
 """Unit tests for the model.py module."""
 
 import sys
-
-sys.path.append("src")
-
 from unittest.mock import AsyncMock, patch
 
 import httpx
 import pytest
 
-from src.model import (
-    code_to_text,
-    generate_summary_text,
-    get_cache,
-    get_http_client,
-)
+from src.model import code_to_text, generate_summary_text, get_cache, get_http_client
+
+sys.path.append("src")
 
 
 def test_get_cache():
@@ -29,9 +23,7 @@ def test_get_http_client():
         mock.assert_called_once_with(
             http2=True,
             timeout=30,
-            limits=httpx.Limits(
-                max_keepalive_connections=10, max_connections=100
-            ),
+            limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
         )
 
 
@@ -56,9 +48,7 @@ async def test_code_to_text():
     }
     prompt = "Summarize the following code: {}"
 
-    with patch(
-        "src.model.fetch_summary", new_callable=AsyncMock
-    ) as mock_fetch_summary:
+    with patch("src.model.fetch_summary", new_callable=AsyncMock) as mock_fetch_summary:
         mock_fetch_summary.return_value = (
             "file1.py",
             "It prints 'Hello World'",

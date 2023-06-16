@@ -2,8 +2,6 @@
 
 import sys
 
-sys.path.append("src")
-
 from src.conf import (
     AppConfig,
     ConfigHelper,
@@ -12,11 +10,11 @@ from src.conf import (
     OpenAIConfig,
     PathsConfig,
     PromptsConfig,
-    load_config_helper,
-    read_config_helper,
-    update_config_helper,
 )
-from src.utils import valid_url
+
+sys.path.append("src")
+
+pass
 
 
 def test_openai_config(config):
@@ -95,8 +93,14 @@ def test_config_helper():
     config_helper = ConfigHelper(
         dependency_files=["file1", "file2"],
         ignore_files=["ignore1", "ignore2"],
-        language_names={"lang1": "name1", "lang2": "name2"},
-        language_setup={"lang1": "setup1", "lang2": "setup2"},
+        language_names={
+            "lang1": "name1",
+            "lang2": "name2"
+        },
+        language_setup={
+            "lang1": "setup1",
+            "lang2": "setup2"
+        },
     )
     assert config_helper.dependency_files == ["file1", "file2"]
     assert config_helper.ignore_files == ["ignore1", "ignore2"]

@@ -1,11 +1,14 @@
-# OpenAI API Configuration
+# OpenAI API Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
-temperature = 1.2
-tokens = 520
+encoding = "cl100k_base"
+rate_limit = 5
+tokens = 600
+tokens_max = 4000
+temperature = 0.9
 
-# Repository Configuration
+# Repository
 [git]
 hosts = ["github.com", "gitlab.com"]
 name = "README-AI"
@@ -18,7 +21,7 @@ dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
-readme = "README_AI.md"
+readme = "readme_ai.md"
 
 # Prompts
 [prompts]
@@ -28,7 +31,7 @@ Aim for precision and conciseness in your explanation, ensuring a fine balance b
 Limit your response to 3-4 sentences.
 Thank you!
 """
-features = """Please analyze the codebase located at {} and provide a list of important features. The following includes a list of the summaries of the files in the repository:
+features = """Hello! Please analyze the codebase located at {} and provide a list of important features. The following includes a list of the summaries of the files in the repository:
 \n{}\n
 Please consider the codebase as a whole and highlight its key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
@@ -132,7 +135,7 @@ ending = """
 > - [X] [📌  Task 1: Implement X]
 > - [ ] [📌  Task 2: Refactor Y]
 > - [ ] [📌  Task 3: Optimize Z]
-> - [ ] ...
+> - [ ] [📌  Task 4: Fix Bug A]
 
 \n---
 
@@ -154,8 +157,7 @@ git commit -m 'Implemented new feature.'
 ```sh
 git push origin new-feature-branch
 ```
-7. Create a pull request to the original repository.
-Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
+7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
 ---

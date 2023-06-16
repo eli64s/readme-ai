@@ -70,9 +70,7 @@ def get_badges(svg_icons: dict, dependencies: list) -> str:
         if str(dependency).lower() in svg_icons
     ]
     # Sort badges by hex value (from light to dark color)
-    badges.sort(
-        key=lambda badge: int(badge[1], 16) if badge[1] else 0, reverse=True
-    )
+    badges.sort(key=lambda badge: int(badge[1], 16) if badge[1] else 0, reverse=True)
     badges = [badge[0] for badge in badges]
 
     return format_badges(badges)
@@ -94,7 +92,7 @@ def format_badges(badges: list) -> str:
         line = "\n".join(
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}" />'
-                for badge in badges[i : i + badges_per_line]
+                for badge in badges[i:i + badges_per_line]
             ]
         )
         badge_lines.append(line)
@@ -105,12 +103,8 @@ def format_badges(badges: list) -> str:
 def create_markdown_tables(summaries: tuple) -> pd.DataFrame:
     """Formats the generated code summaries into a DataFrame."""
     summary_df = pd.DataFrame(summaries, columns=["Module", "Summary"])
-    summary_df["Directory"] = summary_df["Module"].apply(
-        lambda x: str(Path(x).parent)
-    )
-    summary_df["File"] = summary_df["Module"].apply(
-        lambda x: str(Path(x).name)
-    )
+    summary_df["Directory"] = summary_df["Module"].apply(lambda x: str(Path(x).parent))
+    summary_df["File"] = summary_df["Module"].apply(lambda x: str(Path(x).name))
     return summary_df
 
 
@@ -123,8 +117,7 @@ def create_setup_guide(
 
         summary_df["Language"] = summary_df["Module"].apply(
             lambda x: Path(x).suffix[1:]
-            if Path(x).suffix[1:] not in conf_helper.ignore_files
-            else None
+            if Path(x).suffix[1:] not in conf_helper.ignore_files else None
         )
 
         top_language = summary_df["Language"].value_counts().idxmax()
@@ -147,9 +140,7 @@ def create_setup_guide(
 def create_tables(df: pd.DataFrame, dropdown: str) -> str:
     """Creates Markdown tables for each sub-directory in the project."""
     df["Sub-Directory"] = df["Module"].apply(
-        lambda x: str(x).split("/")[-2].capitalize()
-        if "/" in str(x)
-        else "Root"
+        lambda x: str(x).split("/")[-2].capitalize() if "/" in str(x) else "Root"
     )
     tables = []
     for sub_dir_name, group in df.groupby("Sub-Directory"):

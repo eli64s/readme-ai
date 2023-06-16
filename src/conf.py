@@ -1,4 +1,4 @@
-"""Configuration constants for the application."""
+"""Data classes to store README-AI configuration constants."""
 
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -8,9 +8,6 @@ from urllib.parse import urlparse
 import dacite
 
 from factory import FileHandler
-from logger import Logger
-
-LOGGER = Logger("readmeai_logger")
 
 
 @dataclass
@@ -19,8 +16,11 @@ class ApiConfig:
 
     endpoint: str
     engine: str
-    temperature: float
+    encoding: str
+    rate_limit: int
     tokens: int
+    tokens_max: int
+    temperature: float
 
 
 @dataclass

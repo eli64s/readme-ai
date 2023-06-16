@@ -5,16 +5,12 @@ import unittest.mock as mock
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-sys.path.append("src")
-
-
 import pytest
 from pandas import DataFrame
 
 from src.builder import (
     build,
     create_directory_tree,
-    create_setup_guide,
     create_tables,
     format_badges,
     get_badges,
@@ -22,6 +18,8 @@ from src.builder import (
 )
 from src.conf import AppConfig, ConfigHelper, load_config, load_config_helper
 from src.factory import FileHandler
+
+sys.path.append("src")
 
 FILE_HANDLER = FileHandler()
 CONF = Path("conf/conf.toml")
@@ -80,16 +78,17 @@ def test_build(mock_logger, mock_file_handler):
 
 def test_get_badges():
     badge_metadata = {
-        "icons": [
-            {
-                "name": "dependency1",
-                "src": "https://img.shields.io/badge/dependency1-src1",
-            },
-            {
-                "name": "dependency2",
-                "src": "https://img.shields.io/badge/dependency2-src2",
-            },
-        ]
+        "icons":
+            [
+                {
+                    "name": "dependency1",
+                    "src": "https://img.shields.io/badge/dependency1-src1",
+                },
+                {
+                    "name": "dependency2",
+                    "src": "https://img.shields.io/badge/dependency2-src2",
+                },
+            ]
     }
     dependency_list = ["dependency1", "dependency2"]
     badges = get_badges(badge_metadata, dependency_list)
@@ -192,13 +191,9 @@ def test_build_calls_file_handler_write_with_correct_arguments(
 
     with patch("src.builder.FileHandler", handler_mock):
         with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch(
-                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
-            ):
+            with patch("src.builder.parse_pandas_cols", parse_pandas_cols_mock):
                 with patch("src.builder.get_badges", get_badges_mock):
-                    with patch(
-                        "src.builder.create_tables", create_tables_mock
-                    ):
+                    with patch("src.builder.create_tables", create_tables_mock):
                         with patch(
                             "src.builder.create_directory_tree",
                             create_directory_tree_mock,
@@ -247,13 +242,9 @@ def test_build_calls_logger_info_with_correct_argument(
 
     with patch("src.builder.FileHandler", handler_mock):
         with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch(
-                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
-            ):
+            with patch("src.builder.parse_pandas_cols", parse_pandas_cols_mock):
                 with patch("src.builder.get_badges", get_badges_mock):
-                    with patch(
-                        "src.builder.create_tables", create_tables_mock
-                    ):
+                    with patch("src.builder.create_tables", create_tables_mock):
                         with patch(
                             "src.builder.create_directory_tree",
                             create_directory_tree_mock,

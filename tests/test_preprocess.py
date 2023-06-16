@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 import git
 import pytest
 
-sys.path.append("src")
 from src.preprocess import (
     _clone_or_copy_repository,
     _extract_repository_contents,
@@ -20,6 +19,8 @@ from src.preprocess import (
     get_repository,
     get_repository_name,
 )
+
+sys.path.append("src")
 
 
 @pytest.fixture
@@ -68,9 +69,7 @@ def test_copy_repository_dest_dir_exists(tmp_path):
 def test_invalid_source(tmp_path):
     invalid_path = "/invalid/path"
     hosts = ["github.com"]
-    with pytest.raises(
-        ValueError, match="Repository path or URL is not valid."
-    ):
+    with pytest.raises(ValueError, match="Repository path or URL is not valid."):
         _clone_or_copy_repository(hosts, invalid_path, tmp_path)
 
 
@@ -78,9 +77,7 @@ def test_extract_repository_contents(tmp_path):
     (tmp_path / "test.txt").write_text("hello world!")
     (tmp_path / "test2.txt").write_text("hello again!")
     (tmp_path / ".git").mkdir()
-    (tmp_path / ".git" / "config").write_text(
-        "[core]\n    repositoryformatversion = 0"
-    )
+    (tmp_path / ".git" / "config").write_text("[core]\n    repositoryformatversion = 0")
     contents = _extract_repository_contents(str(tmp_path))
     assert contents == {
         Path("test.txt"): "hello world!",
@@ -92,9 +89,7 @@ def test_extract_repository_contents_with_non_utf8(tmp_path):
     (tmp_path / "test.txt").write_bytes(b"\x80abc")
     contents = _extract_repository_contents(str(tmp_path))
     assert contents == {
-        Path(
-            "test.txt"
-        ): "Could not decode content: non-text or non-UTF-8 file."
+        Path("test.txt"): "Could not decode content: non-text or non-UTF-8 file."
     }
 
 
@@ -125,9 +120,8 @@ def test_map_extensions_to_languages():
         "JavaScript",
         "Java",
     ]
-    assert sorted(_map_extensions_to_languages(ext_list, languages)) == sorted(
-        expected_result
-    )
+    assert sorted(_map_extensions_to_languages(ext_list,
+                                               languages)) == sorted(expected_result)
 
 
 def test_get_file_parsers():
@@ -156,10 +150,7 @@ def test_get_repository(mocker):
 
 def test_get_repository_name():
     hosts = ["github.com", "gitlab.com"]
-    assert (
-        get_repository_name(hosts, "https://github.com/user/repo.git")
-        == "repo"
-    )
+    assert get_repository_name(hosts, "https://github.com/user/repo.git") == "repo"
     assert get_repository_name(hosts, "/local/path/to/repo") == "repo"
 
 

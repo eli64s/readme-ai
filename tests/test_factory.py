@@ -8,14 +8,13 @@ from src.factory import FileHandler, ReadFileError, WriteFileError
 
 
 class TestFileHandler(unittest.TestCase):
+
     def setUp(self):
         self.file_handler = FileHandler()
 
     def test_read_write_markdown(self):
         content = "# Markdown File\nThis is a test markdown file."
-        with tempfile.NamedTemporaryFile(
-            mode="w+", delete=False, suffix=".md"
-        ) as temp:
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".md") as temp:
             self.file_handler.write(temp.name, content)
             read_content = self.file_handler.read(temp.name)
             self.assertEqual(content, read_content)
@@ -43,9 +42,7 @@ class TestFileHandler(unittest.TestCase):
 
     def test_cache(self):
         content = "# Markdown File\nThis is a test markdown file."
-        with tempfile.NamedTemporaryFile(
-            mode="w+", delete=False, suffix=".md"
-        ) as temp:
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".md") as temp:
             self.file_handler.write(temp.name, content)
             _ = self.file_handler.read(temp.name)
             self.assertIn(temp.name, self.file_handler.cache)

@@ -8,11 +8,9 @@ from typing import Dict, List
 import pandas as pd
 import tiktoken
 
+import conf
 import parse
 import utils
-from logger import Logger
-
-LOGGER = Logger("readmeai_logger")
 
 
 class TempDirectory:
@@ -26,13 +24,39 @@ class TempDirectory:
         shutil.rmtree(self.temp_dir)
 
 
+class RepositoryParserWrapper:
+
+    def __init__(self, conf: conf.AppConfig, conf_helper: conf.ConfigHelper):
+        self.parser = RepositoryParser(
+            conf,
+            conf_helper.ignore_files["directories"],
+            conf_helper.ignore_files["files"],
+            conf_helper.ignore_files["extensions"],
+            conf_helper.language_names,
+            conf_helper.language_setup,
+        )
+
+    def get_unique_contents(self, contents, keys):
+        unique_contents = [contents[key].unique().tolist() for key in keys]
+        return list(set(utils.flatten_list(unique_contents)))
+
+    def get_file_contents(self, contents):
+        return contents.set_index("path")["content"].to_dict()
+
+    def get_dependencies(self, repository, is_remote=True):
+        contents = self.parser.analyze(repository, is_remote)
+        dependencies = self.parser.get_dependency_file_contents(contents)
+        attributes = ["extension", "language", "name"]
+        dependencies.extend(self.get_unique_contents(contents, attributes))
+        return dependencies, self.get_file_contents(contents)
+
+
 class RepositoryParser:
     """Analyzes a local or remote git repository."""
 
-    ENCODING_NAME = "cl100k_base"
-
     def __init__(
         self,
+        conf: conf.AppConfig,
         ignore_dirs: set,
         ignore_filenames: set,
         ignore_extensions: set,
@@ -44,14 +68,15 @@ class RepositoryParser:
         self.ignore_extensions = ignore_extensions
         self.language_names = language_names
         self.language_setup = language_setup
+        self.encoding_name = conf.api.encoding
 
     def is_file_valid(self, path: Path) -> bool:
         """Checks if a file is valid for processing."""
         return (
-            path.is_file()
-            and all(idir not in path.parts for idir in self.ignore_dirs)
-            and path.name not in self.ignore_filenames
-            and path.suffix not in self.ignore_extensions
+            path.is_file() and
+            all(idir not in path.parts for idir in self.ignore_dirs) and
+            path.name not in self.ignore_filenames and
+            path.suffix not in self.ignore_extensions
         )
 
     def generate_file_info(self, code_root: Path):
@@ -70,7 +95,7 @@ class RepositoryParser:
 
     def num_tokens_from_string(self, string: str) -> int:
         """Returns the number of tokens in a string."""
-        encoding = tiktoken.get_encoding(self.ENCODING_NAME)
+        encoding = tiktoken.get_encoding(self.encoding_name)
         return len(encoding.encode(string))
 
     def tokenize_content(self, df):
@@ -124,19 +149,32 @@ class RepositoryParser:
         df[["install", "run", "test"]] = pd.DataFrame.from_records(
             df["setup"].to_list(), columns=["install", "run", "test"]
         )
-        return df[
-            [
-                "name",
-                "tokens",
-                "content",
-                "install",
-                "run",
-                "test",
-                "extension",
-                "language",
-                "path",
-            ]
-        ]
+        return df[[
+            "name",
+            "tokens",
+            "content",
+            "install",
+            "run",
+            "test",
+            "extension",
+            "language",
+            "path",
+        ]]
+
+    def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
+        """Extracts dependency file contents from the dataframe."""
+        file_parsers = self._get_file_parsers()
+
+        dependency_files = df[df["name"].str.contains("|".join(file_parsers.keys()))]
+
+        parsed_contents = []
+        for _, row in dependency_files.iterrows():
+            parser = file_parsers[row["name"]]
+            content = row["content"]
+            parsed_content = parser(content)
+            parsed_contents.append(parsed_content)
+
+        return utils.flatten_list(parsed_contents)
 
     @staticmethod
     def _get_file_parsers() -> Dict[str, callable]:
@@ -162,22 +200,3 @@ class RepositoryParser:
             "configure.ac": parse.parse_configure_ac,
             "docker-compose.yaml": parse.parse_docker_compose,
         }
-
-    def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
-        """Extracts dependency file contents from the dataframe."""
-        file_parsers = self._get_file_parsers()
-
-        dependency_files = df[
-            df["name"].str.contains("|".join(file_parsers.keys()))
-        ]
-
-        parsed_contents = []
-        for _, row in dependency_files.iterrows():
-            parser = file_parsers[row["name"]]
-            content = row["content"]
-            parsed_content = parser(content)
-            parsed_contents.append(parsed_content)
-
-        packages = utils.flatten_list(parsed_contents)
-
-        return packages
