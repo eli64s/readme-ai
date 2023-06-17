@@ -186,70 +186,70 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
     </tr>
     <tr>
       <td>1️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Python.md">README-Python.md</a></td>
-      <td><a href="https://github.com/eli64s/README-AI">readme-ai</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-python.md">readme-python.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai">readme-ai</a></td>
       <td>Python</td>
       <td><p>19,839</p>
     </tr>
       <td>2️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_TypeScript.md">README-TypeScript.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-typescript.md">readme-typescript.md</a></td>
       <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-typescript</a></td>
       <td>TypeScript, React</td>
       <td><p>988</p>
     </tr>
     <tr>
       <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_JavaScript_GPT.md">README-JavaScript.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-javascript.md">readme-javascript.md</a></td>
       <td><a href="https://github.com/idosal/assistant-chat-gpt">assistant-chat-gpt-javascript</a></td>
       <td>JavaScript, React</td>
       <td><p>212</p>
     </tr>
     <tr>
       <td>4️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Kotlin.md">README-Kotlin.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-kotlin.md">readme-kotlin.md</a></td>
       <td><a href="https://github.com/rumaan/file.io-Android-Client">file.io-android-client</a></td>
       <td>Kotlin, Java, Android</td>
       <td><p>113,649</p>
     </tr>
     <tr>
       <td>5️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_RUST_C.md">README-Rust-C.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-rust-c.md">readme-rust-c.md</a></td>
       <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
       <td>C, Rust</td>
       <td><p>72</p>
     </tr>
     <tr>
       <td>6️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Go.md">README-Go.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-go.md">readme-go.md</a></td>
       <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
       <td>Go</td>
       <td><p>41</p>
     </tr>
     <tr>
       <td>7️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_Java.md">README-Java.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-java.md">readme-java.md</a></td>
       <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
       <td>Java</td>
       <td><p>17,725</p>
     </tr>
     <tr>
       <td>8️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_FastAPI_Redis.md">README-FastAPI-Redis.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-fastapi-redis.md">readme-fastapi-redis.md</a></td>
       <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
       <td>Python, FastAPI, Redis</td>
       <td><p>355</p>
     </tr>
     <tr>
       <td>9️⃣</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_MLOps.md">README-Python-MLOps.md</a></td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-mlops.md">readme-mlops.md</a></td>
       <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
       <td>Python, Jupyter</td>
       <td><p>8,524</p>
     </tr>
     <tr>
       <td>🔟</td>
-      <td><a href="https://github.com/eli64s/README-AI/blob/main/docs/README_PyFlink.md">README-Apache-Flink.md</a></td>
-      <td>local directory</td>
+      <td><a href="https://github.com/eli64s/readme-ai/blob/main/docs/readme-PyFlink.md">readme-pyflink.md</a></td>
+      <td><a href="https://github.com/eli64s/flink-flow">flink-flow</a></td>
       <td>PyFlink</td>
       <td><p>32</p>
     </tr>
@@ -319,7 +319,7 @@ To use the README-AI application, you will need to create an account with OpenAI
 1. Clone the README-AI repository:
 
 ```sh
-git clone https://github.com/eli64s/README-AI.git && cd README-AI
+git clone https://github.com/eli64s/readme-ai.git && cd README-AI
 ```
 
 2. Create a Conda environment and install the required dependencies:
@@ -351,7 +351,7 @@ Command-Line Arguments:
 - `--repository` : Provide a remote Git URL or a local directory.
 
 ```sh
-python src/main.py --api_key skabc123 --output README_AI.md --repository https://github.com/eli64s/README-AI
+python src/main.py --api_key skabc123 --output README_AI.md --repository https://github.com/eli64s/readme-ai
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.

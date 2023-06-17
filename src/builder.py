@@ -11,7 +11,8 @@ from conf import AppConfig, ConfigHelper
 from factory import FileHandler
 from logger import Logger
 
-LOGGER = Logger("readmeai_logger")
+
+LOGGER = Logger(__name__)
 
 
 def build_readme(
@@ -92,7 +93,7 @@ def format_badges(badges: list) -> str:
         line = "\n".join(
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}" />'
-                for badge in badges[i:i + badges_per_line]
+                for badge in badges[i : i + badges_per_line]
             ]
         )
         badge_lines.append(line)
@@ -117,7 +118,8 @@ def create_setup_guide(
 
         summary_df["Language"] = summary_df["Module"].apply(
             lambda x: Path(x).suffix[1:]
-            if Path(x).suffix[1:] not in conf_helper.ignore_files else None
+            if Path(x).suffix[1:] not in conf_helper.ignore_files
+            else None
         )
 
         top_language = summary_df["Language"].value_counts().idxmax()

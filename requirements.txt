@@ -1,5 +1,6 @@
 black==21.9b0
 click==8.0.1
+colorlog
 cachetools
 coverage
 dacite
@@ -8,7 +9,6 @@ GitPython
 httpx
 h2
 isort
-loguru
 nbconvert
 nbformat
 openai

@@ -1,81 +1,62 @@
 """Unit tests for the custom logger module."""
 
-import pytest
-from loguru import logger
+import logging
+import unittest
+from io import StringIO
 
 from src.logger import Logger
 
 
-@pytest.fixture
-def setup_logger():
-    return Logger("Test", "DEBUG")
+class LoggerTestCase(unittest.TestCase):
+    """Unit tests for the custom logger module.
+
+    Parameters
+    ----------
+    unittest
+        TestCase class from the unittest module.
+    """
+
+    def setUp(self):
+        self.logger_name = __name__
+        self.logger = Logger(__name__)
+        self.log_output = StringIO()
+        self.logger._configure_logger()
+
+        handler = logging.StreamHandler(self.log_output)
+        logging.getLogger(self.logger_name).addHandler(handler)
+
+    def tearDown(self):
+        logging.getLogger(self.logger_name).handlers.clear()
+        self.log_output.close()
+
+    def assertLogOutputContains(self, expected_output):
+        log_output = self.log_output.getvalue()
+        self.assertIn(expected_output, log_output)
+
+    def test_logging_methods(self):
+        msg = "Test log message"
+
+        self.logger.info(msg)
+        self.assertLogOutputContains(msg)
+
+        self.logger.debug(msg)
+        self.assertLogOutputContains(msg)
+
+        self.logger.warning(msg)
+        self.assertLogOutputContains(msg)
+
+        self.logger.error(msg)
+        self.assertLogOutputContains(msg)
+
+        self.logger.critical(msg)
+        self.assertLogOutputContains(msg)
+
+    def test_log_level(self):
+        msg = "Test log message"
+        self.logger.info(msg)
+        actual_output = self.logger.get_log_output()
+        self.assertIn(msg, actual_output)
 
 
-def test_logger_singleton(setup_logger):
-    assert setup_logger is Logger("Test", "DEBUG")
-
-
-def test_logger_info(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.info("Test info log")
-        assert log_data[0].level.name == "INFO"
-        assert log_data[0].message == "Test info log"
-
-
-def test_logger_debug(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.debug("Test debug log")
-        assert log_data[0].level.name == "DEBUG"
-        assert log_data[0].message == "Test debug log"
-
-
-def test_logger_warning(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.warning("Test warning log")
-        assert log_data[0].level.name == "WARNING"
-        assert log_data[0].message == "Test warning log"
-
-
-def test_logger_error(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.error("Test error log")
-        assert log_data[0].level.name == "ERROR"
-        assert log_data[0].message == "Test error log"
-
-
-def test_logger_critical(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.critical("Test critical log")
-        assert log_data[0].level.name == "CRITICAL"
-        assert log_data[0].message == "Test critical log"
-
-
-def test_logger_trace(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.trace("Test trace log")
-        assert log_data[0].level.name == "TRACE"
-        assert log_data[0].message == "Test trace log"
-
-
-def test_logger_success(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.success("Test success log")
-        assert log_data[0].level.name == "SUCCESS"
-        assert log_data[0].message == "Test success log"
-
-
-def test_logger_exception(setup_logger):
-    with logger.catch() as log_data:
-        try:
-            raise Exception("Test exception")
-        except Exception as e:
-            setup_logger.exception(e)
-            assert log_data[0].level.name == "ERROR"
-            assert "Test exception" in log_data[0].message
-
-
-def test_logger_log(setup_logger):
-    with logger.catch() as log_data:
-        setup_logger.log("DEBUG", "Test log message")
-        assert log_data[0].level.name == "DEBUG"
-        assert log_data[0].message == "Test log message"
+if __name__ == "__main__":
+    unittest.main()

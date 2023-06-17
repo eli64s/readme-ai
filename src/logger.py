@@ -1,8 +1,9 @@
-"""Custom logger module using loguru for README-AI."""
+"""Custom logger class for the project."""
 
+import logging
 import sys
 
-from loguru import logger
+from colorlog import ColoredFormatter
 
 
 class Logger:
@@ -17,44 +18,38 @@ class Logger:
         return cls._instance
 
     def _configure_logger(self):
-        logger.configure(
-            handlers=[
-                {
-                    "sink":
-                        sys.stderr,
-                    "level":
-                        self.level,
-                    "colorize":
-                        True,
-                    "format":
-                        "<level>{time:YYYY-MM-DD HH:mm:ss}</level> | <level>{level}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>:{message}",
-                }
-            ]
+        formatter = ColoredFormatter(
+            "%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s",
+            datefmt=None,
+            reset=True,
+            log_colors={
+                "DEBUG": "cyan",
+                "INFO": "green",
+                "WARNING": "yellow",
+                "ERROR": "red",
+                "CRITICAL": "red",
+            },
         )
+        handler = logging.StreamHandler(sys.stderr)
+        handler.setFormatter(formatter)
+        logger = logging.getLogger(self.name)
+        logger.addHandler(handler)
+        logger.setLevel(self.level)
 
     def info(self, msg, *args, **kwargs):
-        logger.info(msg, *args, **kwargs)
+        logging.getLogger(self.name).info(msg, *args, **kwargs)
 
     def debug(self, msg, *args, **kwargs):
-        logger.debug(msg, *args, **kwargs)
+        logging.getLogger(self.name).debug(msg, *args, **kwargs)
 
     def warning(self, msg, *args, **kwargs):
-        logger.warning(msg, *args, **kwargs)
+        logging.getLogger(self.name).warning(msg, *args, **kwargs)
 
     def error(self, msg, *args, **kwargs):
-        logger.error(msg, *args, **kwargs)
+        logging.getLogger(self.name).error(msg, *args, **kwargs)
 
     def critical(self, msg, *args, **kwargs):
-        logger.critical(msg, *args, **kwargs)
-
-    def trace(self, msg, *args, **kwargs):
-        logger.trace(msg, *args, **kwargs)
-
-    def success(self, msg, *args, **kwargs):
-        logger.success(msg, *args, **kwargs)
-
-    def exception(self, msg, *args, **kwargs):
-        logger.exception(msg, *args, **kwargs)
+        logging.getLogger(self.name).critical(msg, *args, **kwargs)
 
     def log(self, level, msg, *args, **kwargs):
-        logger.log(level, msg, *args, **kwargs)
+        logging.getLogger(self.name).log(level, msg, *args, **kwargs)
