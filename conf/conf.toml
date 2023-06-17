@@ -11,8 +11,8 @@ temperature = 0.9
 # Repository
 [git]
 hosts = ["github.com", "gitlab.com"]
-name = "README-AI"
-repository = "https://github.com/eli64s/README-AI"
+name = "readme-ai"
+repository = "https://github.com/eli64s/readme-ai"
 
 # Paths
 [paths]
