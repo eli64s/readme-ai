@@ -64,6 +64,11 @@ README-AI is currently under development and has an opinionated configuration an
 
 Additionally, remember to regularly monitor your API usage and costs by visiting the [OpenAI API Usage](https://platform.openai.com/account/usage).
 
+---
+
+## 👾 Demo
+
+https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11efb1b52520
 
 ---
 
