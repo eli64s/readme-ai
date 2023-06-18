@@ -9,6 +9,8 @@ import nbformat
 from nbconvert import PythonExporter
 from tiktoken import get_encoding
 
+import conf
+
 
 def clone_repository(url: str, repo_path: Path) -> None:
     """Clone a repository to a temporary directory."""
@@ -49,7 +51,18 @@ def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> i
     return adjusted_max_tokens
 
 
-def valid_url(url: str) -> bool:
+def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:
+    """Checks if a file is valid for processing."""
+    ignore_dirs = helper.ignore_files.get("directories", [])
+    ignore_files = helper.ignore_files.get("filenames", [])
+    ignore_extensions = helper.ignore_files.get("extensions", [])
+    return (
+        path.is_file() and all(dir not in path.parts for dir in ignore_dirs) and
+        path.name not in ignore_files and path.suffix not in ignore_extensions
+    )
+
+
+def is_valid_url(url: str) -> bool:
     """Check if a given string is a valid URL."""
     regex = re.compile(
         r"^(?:http|ftp)s?://"

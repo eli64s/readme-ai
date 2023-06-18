@@ -40,7 +40,7 @@ class OpenAIHandler:
 
         Parameters
         ----------
-        conf
+        conf : conf.AppConfig
             Configuration constant values.
         """
         self.endpoint = conf.api.endpoint
@@ -64,16 +64,17 @@ class OpenAIHandler:
 
         Parameters
         ----------
-        ignore
+        ignore : dict
             Files, directories, or file extensions to ignore.
-        files
+        files : Dict[str, str]
             The repository files to convert to text.
-        prompt
+        prompt : str
             The prompt to use for the OpenAI API calls.
 
         Returns
         -------
-        Dictionary of file paths and their corresponding summaries.
+        Dict[str, str]
+            Dictionary of file paths and their corresponding summaries.
         """
         tasks = []
         for path, contents in files.items():
@@ -106,12 +107,13 @@ class OpenAIHandler:
 
         Parameters
         ----------
-        prompts
+        prompts : List[str]
             The prompts to use for the OpenAI API calls.
 
         Returns
         -------
-        A list of generated text.
+        List[str]
+            A list of generated text.
         """
         if self.http_client.is_closed:
             self.http_client = httpx.AsyncClient()
@@ -142,36 +144,34 @@ class OpenAIHandler:
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         retry=(
-            retry_if_exception_type(Exception) | retry_if_exception_type(RetryAfter) |
-            retry_if_exception_type(httpx.StreamClosed)
+            retry_if_exception_type(Exception) |
+            retry_if_exception_type(httpx.HTTPStatusError)
         ),
     )
     async def generate_text(self, index: str, prompt: str, type: str,
                             tokens: int) -> Tuple[str, str]:
-        """Generate text using prompts via OpenAI's large language model APIs.
+        """Handles the request to the OpenAI API to generate text.
 
         Parameters
         ----------
         index
-            Unique identifier for the prompt.
+            Unique identifier for current prompt (i.e file path or index)
         prompt
-            The prompt to use in the API request.
+            The prompt to send to the language model.
         type
-            The type of prompt (i.e. code summary or general prompts.)
+            The type of prompt (i.e., code summary or general prompts).
         tokens
-            The number of tokens expected to be returned by the API.
+            The maximum number of tokens to generate.
 
         Returns
         -------
-            Tuple of the unique index and the generated text sumaary.
+            Tuple containing the identifier and model's generated text.
         """
         if prompt in self.cache:
-            self.LOGGER.warning(f"Using cached summary for {index}")
-            return (index, self.cache[prompt])
+            return index, self.cache[prompt]
 
-        # Rate limit
-        current_time = time.monotonic()
-        elapsed_time = current_time - self.last_request_time
+        # Add exponential backoff logic here
+        elapsed_time = time.monotonic() - self.last_request_time
         if elapsed_time < 1 / self.rate_limit:
             await asyncio.sleep(1 / self.rate_limit - elapsed_time)
 
@@ -204,10 +204,11 @@ class OpenAIHandler:
 
                 self.LOGGER.info(f"\nProcessing prompt: {index}\nResponse: {summary}")
                 self.cache[prompt] = summary
-                return (index, summary)
+                return index, summary
 
         except Exception as exc:
-            return await self.exception_handler(index, prompt, type, exc)
+            self.LOGGER.error(f"Error while making API request to OpenAI:\n{str(exc)}")
+            raise exc
 
         finally:
             self.last_request_time = time.monotonic()
@@ -218,40 +219,43 @@ class OpenAIHandler:
 
         Parameters
         ----------
-        index
+        index : str
             Unique identifier for the prompt.
-        prompt
+        prompt : str
             The prompt to use in the API request.
-        type
-            The type of prompt (i.e. code summary or general prompts.)
-        exc
+        type : str
+            The type of prompt (i.e., code summary or general prompts).
+        exc : Exception
             The exception raised by the API.
 
         Returns
         -------
-            Tuple of the unique index and the generated text sumaary.
+        Tuple[str, str]
+            Tuple of the unique index and the generated text summary.
         """
-        self.LOGGER.error(f"Error fetching summary: {index}: {str(exc)}")
+        self.LOGGER.error(f"Error while making API request to OpenAI:\n{str(exc)}")
+
         if isinstance(exc, httpx.HTTPStatusError):
-            if exc.response.status_code in [429, 500, 503, 504]:
-                retry_after = exc.response.headers.get("Retry-After", 10)
-                retry_after = int(retry_after)
+            status_code = exc.response.status_code
+            if status_code in [429, 500, 503, 504]:
+                retry_after = int(exc.response.headers.get("Retry-After", 10))
                 await asyncio.sleep(retry_after)
                 return await self.generate_text(index, prompt, type, self.tokens)
             else:
-                self.LOGGER.error(f"Error: {index}\n{exc.response.status_code}")
+                error_message = f"Error: {index}\n{status_code}"
         elif isinstance(exc, httpx.StreamClosed):
-            self.LOGGER.error(
-                f"Stream was reset while fetching summary: {index}\n{str(exc)}"
+            error_message = (
+                f"Stream reset while making request to OpenAI's API:\n{str(exc)}"
             )
-        return await self.null_summary(
-            index, f"Error while fetching summary: {index}\n{str(exc)}"
-        )
+        else:
+            error_message = f"Error while making API request to OpenAI:\n{str(exc)}"
+
+        return await self.null_summary(index, error_message)
 
     @staticmethod
     async def null_summary(index: str, summary: str) -> Tuple[str, str]:
-        """Handles exceptions raised by the OpenAI API when generating text."""
-        return (index, summary)
+        """Handles any exceptions raised while requesting the API."""
+        return index, summary
 
     async def close(self):
         """Close the HTTP client."""

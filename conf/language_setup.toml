@@ -41,3 +41,4 @@ TypeScript = ["npm install", "npm run build && node dist/main.js", "npm test"]
 VBScript = ["cscript main.vbs", "/* No common unit test framework in VBScript */"]
 VisualBasic = ["dotnet build", "dotnet run", "dotnet test"]
 vue = ["npm install", "npm run serve", "npm test"]
+

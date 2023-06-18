@@ -1,4 +1,4 @@
-"""File i/o factory module for handling different file types."""
+"""Factory class to handle file I/O operations."""
 
 import json
 

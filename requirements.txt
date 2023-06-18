@@ -2,7 +2,6 @@ black==21.9b0
 click==8.0.1
 colorlog
 cachetools
-coverage
 dacite
 flake8
 GitPython
@@ -16,12 +15,8 @@ pandas
 pre-commit==2.15.0
 PyYAML
 pytest
-pytest-asyncio
 pytest-cov
-pytest-mock
 responses
 setuptools
-tabulate
 tenacity
 tiktoken
-typer==0.9.0

@@ -1,6 +1,5 @@
 """Handles preprocessing of the input codebase."""
 
-import shutil
 import tempfile
 from pathlib import Path
 from typing import Dict, List
@@ -13,32 +12,19 @@ import parse
 import utils
 
 
-class TempDirectory:
-    """Creates a temporary directory."""
-
-    def __enter__(self):
-        self.temp_dir = tempfile.mkdtemp()
-        return self.temp_dir
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        shutil.rmtree(self.temp_dir)
-
-
 class RepositoryParserWrapper:
+    """Wrapper class for the RepositoryParser."""
 
     def __init__(self, conf: conf.AppConfig, conf_helper: conf.ConfigHelper):
         self.parser = RepositoryParser(
             conf,
-            conf_helper.ignore_files["directories"],
-            conf_helper.ignore_files["files"],
-            conf_helper.ignore_files["extensions"],
             conf_helper.language_names,
             conf_helper.language_setup,
         )
 
     def get_unique_contents(self, contents, keys):
         unique_contents = [contents[key].unique().tolist() for key in keys]
-        return list(set(utils.flatten_list(unique_contents)))
+        return utils.flatten_list(unique_contents)
 
     def get_file_contents(self, contents):
         return contents.set_index("path")["content"].to_dict()
@@ -48,7 +34,7 @@ class RepositoryParserWrapper:
         dependencies = self.parser.get_dependency_file_contents(contents)
         attributes = ["extension", "language", "name"]
         dependencies.extend(self.get_unique_contents(contents, attributes))
-        return dependencies, self.get_file_contents(contents)
+        return list(set(dependencies)), self.get_file_contents(contents)
 
 
 class RepositoryParser:
@@ -57,27 +43,12 @@ class RepositoryParser:
     def __init__(
         self,
         conf: conf.AppConfig,
-        ignore_dirs: set,
-        ignore_filenames: set,
-        ignore_extensions: set,
         language_names: dict,
         language_setup: dict,
     ):
-        self.ignore_dirs = ignore_dirs
-        self.ignore_filenames = ignore_filenames
-        self.ignore_extensions = ignore_extensions
         self.language_names = language_names
         self.language_setup = language_setup
         self.encoding_name = conf.api.encoding
-
-    def is_file_valid(self, path: Path) -> bool:
-        """Checks if a file is valid for processing."""
-        return (
-            path.is_file() and
-            all(idir not in path.parts for idir in self.ignore_dirs) and
-            path.name not in self.ignore_filenames and
-            path.suffix not in self.ignore_extensions
-        )
 
     def generate_file_info(self, code_root: Path):
         """Generates a tuple of file information."""
@@ -105,24 +76,17 @@ class RepositoryParser:
 
     def analyze(self, root_path: str, is_remote: bool = False) -> pd.DataFrame:
         """Analyzes a local or remote git repository."""
-        with TempDirectory() as temp_dir:
+        with tempfile.TemporaryDirectory() as temp_dir:
             if is_remote:
-                self.clone_remote_repo(root_path, temp_dir)
+                utils.clone_repository(root_path, temp_dir)
                 root_path = temp_dir
             df = self.generate_dataframe(root_path)
             df = self.tokenize_content(df)
             df = self.process_language_mapping(df)
         return df
 
-    def clone_remote_repo(self, remote_url, local_path):
-        """Clone a remote git repository."""
-        try:
-            utils.clone_repository(remote_url, local_path)
-        except Exception as exc:
-            raise (f"Error cloning repository {remote_url}: {exc}")
-
     def generate_dataframe(self, root_path):
-        """Generates a dataframe of file information."""
+        """Generates a DataFrame of file information."""
         code_root = Path(root_path)
         data = list(self.generate_file_info(code_root))
         df = pd.DataFrame(data, columns=["name", "path", "content"])
@@ -162,7 +126,7 @@ class RepositoryParser:
         ]]
 
     def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
-        """Extracts dependency file contents from the dataframe."""
+        """Extracts dependency file contents from the DataFrame."""
         file_parsers = self._get_file_parsers()
 
         dependency_files = df[df["name"].str.contains("|".join(file_parsers.keys()))]

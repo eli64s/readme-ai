@@ -1,24 +1,31 @@
+<div align="right">
+  <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai.svg" style="margin-right: 5px;">
+  <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai.svg" alt="GitHub Last Commit">
+  </a>
+  <a href="https://img.shields.io/github/license/eli64s/README-AI.svg" style="margin-right: 5px;">
+  <img src="https://img.shields.io/github/license/eli64s/README-AI.svg" alt="GitHub license">
+  </a>
+</div>
 <div align="center">
   <h1 align="center">
     <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
     <br>
-    README-AI
+    README-AI 
+    <br>
   </h1>
-
-> <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
-> <h3 align="center">⚙️ Powered by OpenAI's language model APIs and the tools below:</h3>
->  <p align="center">
->   <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
->   <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
->   <img src="https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" />
->   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
->   <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pytest" />
->   <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
->   <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
-> </p>
-
+  <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
+  <h3 align="center">⚙️ Powered by OpenAI's language model APIs and the tools below:</h3>
+  <p align="center">
+    <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+    <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
+    <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pytest" />
+    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
+    <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
+  </p>
 </div>
+
 
 ---
 
@@ -342,7 +349,7 @@ export OPENAI_API_KEY=<your-api-key>
 
 ### 🎮 Using README-AI
 
-Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository.
+Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository. You can also provide the output path in the [configuration file](./conf/conf.toml)
 
 Command-Line Arguments:
 
@@ -351,7 +358,7 @@ Command-Line Arguments:
 - `--repository` : Provide a remote Git URL or a local directory.
 
 ```sh
-python src/main.py --api_key skabc123 --output README_AI.md --repository https://github.com/eli64s/readme-ai
+python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
 
 Alternatively, run the bash script to run README-AI with the default configuration.

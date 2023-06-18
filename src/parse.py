@@ -7,11 +7,9 @@ from typing import List
 import toml
 import yaml
 
-from factory import FileHandler
+from logger import Logger
 
-FILE_HANDLER = FileHandler()
-
-# Docker
+LOGGER = Logger(__name__)
 
 
 def parse_docker_compose(content: str) -> List[str]:
@@ -22,9 +20,6 @@ def parse_docker_compose(content: str) -> List[str]:
     except KeyError as exc:
         LOGGER.error(f"Error: {str(exc)}")
         return []
-
-
-# Python
 
 
 def parse_conda_env_file(file_content: str) -> List[str]:
@@ -90,9 +85,6 @@ def parse_requirements_file(file_content: str) -> List[str]:
     return package_names
 
 
-# Rust
-
-
 def parse_cargo_toml(content: str) -> List[str]:
     """Extracts dependencies from a Cargo.toml file."""
     dependencies = re.findall(r"\[dependencies\.(.*?)\]", content)
@@ -103,9 +95,6 @@ def parse_cargo_lock(content: str) -> List[str]:
     data = toml.loads(content)
     packages = data.get("package", [])
     return [package.get("name") for package in packages]
-
-
-# Javascript & TypeScript
 
 
 def parse_package_json(content: str) -> List[str]:
@@ -134,9 +123,6 @@ def parse_package_lock_json(content: str) -> List[str]:
     ]
 
 
-# Go
-
-
 def parse_go_mod(content: str) -> List[str]:
     lines = content.split("\n")
     pattern = r"^\s*([\w\.\-_/]+)\s+v[\w\.\-_/]+"
@@ -146,9 +132,6 @@ def parse_go_mod(content: str) -> List[str]:
         for line in lines
         if regex.match(line.strip())
     ]
-
-
-# Java
 
 
 def parse_gradle(content: str) -> List[str]:
@@ -170,10 +153,6 @@ def parse_maven(content: str) -> List[str]:
     ]
 
 
-# C/C++
-
-
-# CMakeLists.txt
 def parse_cmake(file_path: str) -> List[str]:
     with open(file_path) as f:
         content = f.read()
@@ -184,7 +163,6 @@ def parse_cmake(file_path: str) -> List[str]:
     return package_names
 
 
-# configure.ac
 def parse_configure_ac(file_path: str) -> List[str]:
     with open(file_path) as f:
         content = f.read()
@@ -195,7 +173,6 @@ def parse_configure_ac(file_path: str) -> List[str]:
     return package_names
 
 
-# Makefile.am
 def parse_makefile_am(file_path: str) -> List[str]:
     with open(file_path) as f:
         content = f.read()

@@ -11,6 +11,7 @@ max-line-length = 88
 
 # Black
 [tool.black]
+target-version = ["py38", "py39", "py310"]
 line-length = 88
 include = '\.pyi?$'
 exclude = '''
@@ -33,7 +34,6 @@ exclude = '''
 # Flake8
 [flake8]
 max-line-length = 88
-
 
 # iSort
 [tool.isort]

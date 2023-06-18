@@ -3,7 +3,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Union
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 
 import dacite
 
@@ -27,21 +27,19 @@ class ApiConfig:
 class GitConfig:
     """Repository configuration."""
 
-    hosts: List[str]
-    repository: str
     name: str
+    repository: str
+    _hosts: List[str] = field(default_factory=lambda: ["github.com", "gitlab.com"])
 
     def __post_init__(self):
-        """Post-initialization steps to set the repository name."""
-        self.name = self.get_repository_name(self.hosts, self.repository)
+        self.name = self.get_repository_name(self.repository)
 
-    @staticmethod
-    def get_repository_name(hosts: List[str], path: Union[str, Path]) -> str:
-        """Extracts the repository name from a URL or local path."""
-        parsed_url = urlparse(str(path))
-        if parsed_url.hostname in hosts:
+    def get_repository_name(self, path: Union[str, Path]) -> str:
+        """Extract repository name from path."""
+        parsed_url = urlsplit(str(path))
+        if parsed_url.hostname in self._hosts:
             repo_path = parsed_url.path
-            name = repo_path.split("/")[-1]
+            name = repo_path.rsplit("/", 1)[-1] if "/" in repo_path else repo_path
             if name.endswith(".git"):
                 name = name[:-4]
         else:
@@ -109,7 +107,6 @@ class ConfigHelper:
     language_setup: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self):
-        """Post-initialization steps to load helper configuration files."""
         handler = FileHandler()
         conf_path_list = [
             self.conf.paths.dependency_files,
