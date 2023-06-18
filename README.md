@@ -75,6 +75,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
     <video src="./examples/imgs/demo.mov" height="800" controls></video>
 </div>
 
+
 ---
 ## 🔮 Features
 
