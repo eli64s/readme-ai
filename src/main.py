@@ -69,8 +69,9 @@ async def generate_readme(gpt: OpenAIHandler) -> None:
     LOGGER.info("README-AI execution complete.\n")
 
 
-def get_dependencies(scanner: preprocess.RepositoryParserWrapper,
-                     repository: str) -> Tuple[List[str], str]:
+def get_dependencies(
+    scanner: preprocess.RepositoryParserWrapper, repository: str
+) -> Tuple[List[str], str]:
     """Extracts dependencies and file_text using the scanner."""
     dependencies, file_text = scanner.get_dependencies(repository)
     LOGGER.info(f"Codebase dependencies: {dependencies}")
