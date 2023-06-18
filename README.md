@@ -64,19 +64,12 @@ README-AI is currently under development and has an opinionated configuration an
 
 Additionally, remember to regularly monitor your API usage and costs by visiting the [OpenAI API Usage](https://platform.openai.com/account/usage).
 
-<p align="right">
-  <a href="#top"><b>🔝 Return </b></a>
-</p>
+---
+
+<video src="https://eli64s.github.io/readme-ai/video.mp4" height="800" controls=""></video>
 
 ---
-## 👾 Demo
 
-<div align="center">
-    <video src="./examples/imgs/demo.mov" height="800" controls></video>
-</div>
-
-
----
 ## 🔮 Features
 
 <h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
