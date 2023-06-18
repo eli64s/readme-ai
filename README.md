@@ -122,7 +122,11 @@ https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11ef
   </tr>
   <tr>
     <td>
-      <img src="./examples/imgs/header.png" alt="header">
+      <video 
+        src="https://user-images.githubusercontent.com/43382407/246687011-77b3d608-dbd8-421f-a8a5-582f9a7fc8c9.mov"
+        data-canonical-src="https://user-images.githubusercontent.com/43382407/246687011-77b3d608-dbd8-421f-a8a5-582f9a7fc8c9.mov" 
+        controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px">
+        </video>
     </td>
   </tr>
 </table>
