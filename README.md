@@ -35,7 +35,6 @@
 - [🤖 Overview](#-overview)
     - [🎯 *Motivations*](#-motivations)
     - [⚠️ *Disclaimers*](#️-disclaimers)
-- [👾 Demo](#-demo)
 - [🔮 Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [✔️ Dependencies](#️-dependencies)
@@ -64,13 +63,6 @@ README-AI is currently under development and has an opinionated configuration an
 
 Additionally, remember to regularly monitor your API usage and costs by visiting the [OpenAI API Usage](https://platform.openai.com/account/usage).
 
----
-
-## 👾 Demo
-
-<div align="center">
-<video src="examples/imgs/demo.mov" width="800" controls=""></video>
-</div>
 
 ---
 
