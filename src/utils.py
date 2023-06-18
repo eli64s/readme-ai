@@ -5,8 +5,6 @@ from pathlib import Path
 from typing import List
 
 import git
-import nbformat
-from nbconvert import PythonExporter
 from tiktoken import get_encoding
 
 import conf
@@ -20,13 +18,11 @@ def clone_repository(url: str, repo_path: Path) -> None:
         raise ValueError(f"Error cloning repository: {exc}") from exc
 
 
-def convert_ipynb_to_py(ipynb_path: Path) -> str:
-    """Convert an IPython Notebook file to a Python script."""
-    with open(ipynb_path, "r", encoding="utf-8") as nb_file:
-        notebook = nbformat.read(nb_file, as_version=nbformat.NO_CONVERT)
-    exporter = PythonExporter()
-    python_code, metadata = exporter.from_notebook_node(notebook)
-    return python_code
+def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
+    """Adjust the maximum number of tokens based on the specific prompt."""
+    is_valid_prompt = prompt.strip().startswith(target.strip())
+    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 3
+    return adjusted_max_tokens
 
 
 def get_token_count(text: str, encoding_name: str) -> int:
@@ -42,13 +38,6 @@ def truncate_text_tokens(text: str, encoding_name: str, max_tokens: int) -> str:
     encoded_text = encoding.encode(text)[:max_tokens]
     truncated_text = encoding.decode(encoded_text)
     return truncated_text
-
-
-def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
-    """Adjust the maximum number of tokens based on the specific prompt."""
-    is_valid_prompt = prompt.strip().startswith(target.strip())
-    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 3
-    return adjusted_max_tokens
 
 
 def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:

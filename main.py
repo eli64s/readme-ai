@@ -109,18 +109,26 @@ if __name__ == "__main__":
         description="Generates a README.md file for a given repository."
     )
     parser.add_argument(
+        "-k",
         "--api-key",
         default=os.environ["OPENAI_API_KEY"],
         help="OpenAI API key.",
     )
     parser.add_argument(
+        "-o",
         "--output",
         default="readme_ai.md",
         help="README.md file output path.",
     )
     parser.add_argument(
+        "-r",
         "--repository",
         help="URL or path to repository.",
+    )
+    parser.add_argument(
+        "-t",
+        "--template",
+        help="Template to use for README.md file.",
     )
     args = parser.parse_args()
 

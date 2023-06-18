@@ -8,8 +8,6 @@ GitPython
 httpx
 h2
 isort
-nbconvert
-nbformat
 openai
 pandas
 pre-commit==2.15.0
@@ -18,5 +16,6 @@ pytest
 pytest-cov
 responses
 setuptools
+tabulate
 tenacity
 tiktoken

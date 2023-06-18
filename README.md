@@ -341,30 +341,28 @@ conda activate readme_ai
 pip install -r requirements.txt
 ```
 
-3. Set up the OpenAI API key by creating an environment variable:
-
-```sh
-export OPENAI_API_KEY=<your-api-key>
-```
-
 ### 🎮 Using README-AI
 
 Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository. You can also provide the output path in the [configuration file](./conf/conf.toml)
 
 Command-Line Arguments:
 
-- `--api_key` : Provide your OpenAI API key.
-- `--output` : Provide a path where to write the output file.
-- `--repository` : Provide a remote Git URL or a local directory.
+- `-k` or `--api-key`: Your OpenAI API key.
+- `-o` or `--output`: The output path for your README.md file.
+- `-r` or `--repository`: The URL or path to your code repository.
+- `-t` or `--template`: The README template format to use. (Coming soon!)
 
 ```sh
 python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
-
-Alternatively, run the bash script to run README-AI with the default configuration.
+Alternatively, export your OpenAI API key as an environment variable and run the following command:
 
 ```sh
-bash scripts/run.sh
+> conda activate readme_ai
+
+> export OPENAI_API_KEY=sk123abc456def7890
+
+> python src/main.py --o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ### 🧪 Running Tests
