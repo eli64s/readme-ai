@@ -11,7 +11,7 @@
     <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
     <br>
-    README-AI 
+    README-AI
     <br>
   </h1>
   <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
@@ -35,6 +35,7 @@
 - [🤖 Overview](#-overview)
     - [🎯 *Motivations*](#-motivations)
     - [⚠️ *Disclaimers*](#️-disclaimers)
+- [👾 Demo](#-demo)
 - [🔮 Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [✔️ Dependencies](#️-dependencies)
@@ -68,7 +69,13 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 </p>
 
 ---
+## 👾 Demo
 
+<div align="center">
+    <video src="./examples/imgs/demo.mov" height="800" controls></video>
+</div>
+
+---
 ## 🔮 Features
 
 <h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
@@ -85,8 +92,6 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   <tr>
     <td>
       <img src="./examples/imgs/open_docs.png" alt="docs">
-      <h1 align="center">↕️</h1>
-      <img src="./examples/imgs/closed_docs.png" alt="docs">
     </td>
   </tr>
 </table>

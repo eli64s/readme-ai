@@ -47,3 +47,4 @@ notebooks/
 docs/templates
 conf/templates
 notebooks/redis_client.py
+examples/imgs/readme-video.mov

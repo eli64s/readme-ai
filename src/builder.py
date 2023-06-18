@@ -14,7 +14,7 @@ from logger import Logger
 LOGGER = Logger(__name__)
 
 
-def build_readme(
+def build_markdown(
     conf: AppConfig,
     conf_helper: ConfigHelper,
     packages: list,
