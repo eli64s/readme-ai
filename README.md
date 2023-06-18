@@ -68,7 +68,9 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ## 👾 Demo
 
-<video src="https://eli64s.github.io/readme-ai/video.mp4" height="800" controls=""></video>
+<div align="center">
+<video src="examples/imgs/demo.mov" width="800" controls=""></video>
+</div>
 
 ---
 
