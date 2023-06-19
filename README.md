@@ -61,12 +61,13 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ## 👾 Demo
 
-<video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
+[![demo](./examples/imgs/demo.png)](https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4)
+
+---
 
 <h2>🔮 Features</h2>
 
 <h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
-<table style="width: 100%;">
   <tr>
     <td>
       <h3>📍 Code-To-Text Generation</h3>
@@ -78,7 +79,8 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   </tr>
   <tr>
     <td>
-      <video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
+      <img src="./examples/imgs/open_docs.png" alt="open_docs">
+    </td>
   </tr>
 </table>
 
