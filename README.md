@@ -46,7 +46,7 @@
 
 ## 🤖 Overview
 
-README-AI is a powerful, user-friendly tool that generates extensive README markdown documents for your software and data projects. By providing a remote repository URL or directory path to your codebase, this command-line tool will document your entire project, leveraging the capabilities of large language models and OpenAI's GPT APIs.
+README-AI is a powerful, user-friendly command-line tool that generates extensive README markdown documents for your software and data projects. By providing a remote repository URL or directory path to your codebase, this tool will document your entire project, leveraging the capabilities of large language models and OpenAI's GPT APIs.
 
 #### 🎯 *Motivations*
 
@@ -99,7 +99,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   </tr>
   <tr>
     <td>
-      
+
   [![demo](./examples/imgs/header.png)](https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4)
     </td>
   </tr>
@@ -381,7 +381,7 @@ bash scripts/test.sh
 
 ## 🤝 Contributing
 
-Contributions are welcomed and encouraged! Please follow these steps in the [Contributing Guidelines](./CONTRIBUTING.md), thank you!
+[Contributing Guidelines](./CONTRIBUTING.md)
 
 ---
 
