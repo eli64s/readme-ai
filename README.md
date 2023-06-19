@@ -2,34 +2,36 @@
   <h1 align="center">
     <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
-    <br>README-AI<br><br>
-
-  ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai)
-  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI)
-  ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI)
+    <br>README-AI
   </h1>
-  <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
-  <h3 align="center">⚙️ Powered by OpenAI's language model APIs and the tools below:</h3>
+  <h3>◦ Generate beautiful and informative README documents.</h3>
+  <h3>◦ Developed with OpenAI's GPT language model APIs.</h3>
+  <br>
   <p align="center">
-    <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
-    <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
-    <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
-    <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="pytest" />
-    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="Bash" />
-    <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
+    <img src="https://img.shields.io/badge/Markdown-000000.svg?stylee&logo=Markdown&logoColor=white" alt="Markdown" />
+    <img src="https://img.shields.io/badge/OpenAI-412991.svg?stylee&logo=OpenAI&logoColor=white" alt="OpenAI" />
+    <img src="https://img.shields.io/badge/Python-3776AB.svg?stylee&logo=Python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?stylee&logo=Pytest&logoColor=white" alt="pytest" />
+    <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?stylee&logo=GNU-Bash&logoColor=white" alt="Bash" />
+    <img src="https://img.shields.io/badge/Anaconda-44A833.svg?&logo=Anaconda&logoColor=white" alt="Anaconda" />
   </p>
+
+  ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI)
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai)
+  ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI)
 </div>
 
 ---
 
-## 📍 Table of Contents
+## 📒 Table of Contents
 
-- [📍 Table of Contents](#-table-of-contents)
-- [🤖 Overview](#-overview)
+- [📒 Table of Contents](#-table-of-contents)
+- [💫 Overview](#-overview)
     - [🎯 *Motivations*](#-motivations)
     - [⚠️ *Disclaimers*](#️-disclaimers)
 - [👾 Demo](#-demo)
+- [⚙️ Features](#️-features)
 - [🚀 Getting Started](#-getting-started)
   - [✔️ Dependencies](#️-dependencies)
     - [📂 Repository](#-repository)
@@ -44,7 +46,7 @@
 
 ---
 
-## 🤖 Overview
+## 💫 Overview
 
 README-AI is a powerful, user-friendly command-line tool that generates extensive README markdown documents for your software and data projects. By providing a remote repository URL or directory path to your codebase, this tool will document your entire project, leveraging the capabilities of large language models and OpenAI's GPT APIs.
 
@@ -65,24 +67,26 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ---
 
-<h2>🔮 Features</h2>
+## ⚙️ Features
 
-<h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
+<h1 align="center">1.<br>👇<br><br>📑 Codebase Documentation</h1>
+<table>
   <tr>
     <td>
-      <h3>📍 Code-To-Text Generation</h3>
+      <h3>◦ Repository File Summaries</h3>
       <ul>
-        <li>Code summaries are generated for each file via OpenAI's <em>gpt-3.5-turbo</em> engine.</li>
+        <li>Code summaries are generated for each file via OpenAI's `gpt-3.5-turbo` engine.</li>
         <li>The summaries are processed to check formatting and displayed in Markdown tables.</li>
       </ul>
     </td>
   </tr>
   <tr>
     <td>
-      <img src="./examples/imgs/open_docs.png" alt="open_docs">
+      <img src="./examples/imgs/open_docs.png" alt="docs">
     </td>
   </tr>
 </table>
+</p>
 
 <h1 align="center">⒉<br>👇<br><br>🎖 Badges</h1>
 <table style="width: 100%;">

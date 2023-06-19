@@ -36,31 +36,30 @@ Please consider the codebase as a whole and highlight its key characteristics, d
 Generate your response as a Markdown table with the following columns:
 
 | Feature | Description |
-| --- | --- |
-| **🏗 Structure and Organization** | (Place your analysis here) |
-| **📝 Code Documentation** | (Place your analysis here) |
-| **🧩 Dependency Management** | (Place your analysis here) |
-| **♻️ Modularity and Reusability** | (Place your analysis here) |
-| **✔️ Testing and Quality Assurance** | (Place your analysis here) |
-| **⚡️ Performance and Optimization** | (Place your analysis here) |
-| **🔒 Security Measures** | (Place your analysis here) |
-| **🔄 Version Control and Collaboration** | (Place your analysis here) |
-| **🔌 External Integrations** | (Place your analysis here) |
-| **📈 Scalability and Extensibility** | (Place your analysis here) |
+| ----- | ----- |
+| **🏗 Architecture** | Place a 1-3 sentence analysis here. |
+| **📑 Documentation** | Place a 1-3 sentence analysis here. |
+| **🧩 Dependencies** | Place a 1-3 sentence analysis here. |
+| **♻️ Modularity** | Place a 1-3 sentence analysis here. |
+| **✔️ Testing** | Place a 1-3 sentence analysis here. |
+| **⚡️ Performance** | Place a 1-3 sentence analysis here. |
+| **🔒 Security** | Place a 1-3 sentence analysis here. |
+| **🔀 Version Control** | Place a 1-3 sentence analysis here. |
+| **🔌 Integrations** | Place a 1-3 sentence analysis here. |
+| **📈 Scalability** | Place a 1-3 sentence analysis here. |
 
 Please provide a comprehensive analysis addressing the above features while excluding the specified files from the assessment.
-Limit each analysis to 1-2 sentences.
+Thank you!
 """
 overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject.
 The following includes a list of the summaries of the files in the repository:
 \n{}\n
 Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition.
 """
-slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}"
-
+slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}. Limit your response to 80 characters."
 # Markdown Templates
 [md]
-default = "[📌  INSERT-DESCRIPTION]"
+default = "[ℹ️  INSERT-DESCRIPTION]"
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 header = """\n<div align="center">
 <h1 align="center">
@@ -68,8 +67,8 @@ header = """\n<div align="center">
 <br>
 {}
 </h1>
-<h3 align="center">📍 {}</h3>
-<h3 align="center">⚙️ Developed with the software and tools below:</h3>
+<h3>◦ {}</h3>
+<h3>◦ Developed with the software and tools listed below.</h3>
 """
 badges = """<p align="center">
 {}
@@ -81,7 +80,7 @@ toc = """
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [💫 Features](#-features)
+- [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
 - [🧩 Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
@@ -95,26 +94,26 @@ intro = """
 \n## 📍 Overview
 \n{}
 \n---
-\n## 💫 Features
+\n## ⚙️ Features
 \n{}
 \n---
 """
+# \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 tree = """
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 \n## 📂 Project Structure\n
 """
+# \n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 modules = """
 \n---
-\n<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
 \n## 🧩 Modules
 """
 setup = """---
 \n## 🚀 Getting Started
 \n### ✅ Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
-> - [📌  PREREQUISITE-1]
-> - [📌  PREREQUISITE-2]
-> - ...
+> - [ℹ️ Requirement 1]
+> - [ℹ️ Requirement 2]
+> - [...]
 \n### 🖥 Installation
 \n1. Clone the {0} repository:
 ```sh\ngit clone {1}\n```
@@ -131,10 +130,9 @@ setup = """---
 ending = """
 \n## 🗺 Roadmap
 
-> - [X] [📌  Task 1: Implement X]
-> - [ ] [📌  Task 2: Refactor Y]
-> - [ ] [📌  Task 3: Optimize Z]
-> - [ ] [📌  Task 4: Fix Bug A]
+> - [X] [ℹ️  Task 1: Implement X]
+> - [ ] [ℹ️  Task 2: Refactor Y]
+> - [ ] [...]
 
 \n---
 
@@ -163,13 +161,13 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [📌  List any resources, contributors, inspiration, etc.]
+> - [ℹ️  List any resources, contributors, inspiration, etc.]
 
 ---
 """
