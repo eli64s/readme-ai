@@ -99,7 +99,8 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   </tr>
   <tr>
     <td>
-      <video src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
+      
+  [![demo](./examples/imgs/header.png)](https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4)
     </td>
   </tr>
 </table>
