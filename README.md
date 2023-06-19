@@ -62,12 +62,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ## 👾 Demo
 
-<video
-    src="https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11efb1b52520"
-    data-canonical-src="https://user-images.githubusercontent.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" controls="controls"
-    muted="muted"
-    class="d-block rounded-bottom-2 border-top width-fit"
-    style="max-height:640px; min-height: 200px">
+<video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit">
 </video>
 
 ---
@@ -89,7 +84,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   <tr>
   </tr>
     <td>
-      <video src="examples/mp4/code_summary.mp4" controls title="Title"></video>
+      <video src="file:///Users/k01101011/Documents/GitHub/readme-ai/code_summary.mp4" controls title="Title"></video>
       </video>
     </td>
   </tr>
