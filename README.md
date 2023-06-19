@@ -387,7 +387,7 @@ Contributions are welcomed and encouraged! Please follow these steps in the [Con
 
 ## 📄 License
 
-[MIT]](./LICENSE)
+[MIT](./LICENSE)
 
 ---
 
