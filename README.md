@@ -30,7 +30,6 @@
     - [🎯 *Motivations*](#-motivations)
     - [⚠️ *Disclaimers*](#️-disclaimers)
 - [👾 Demo](#-demo)
-- [🔮 Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [✔️ Dependencies](#️-dependencies)
     - [📂 Repository](#-repository)
@@ -62,36 +61,29 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ## 👾 Demo
 
-<video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit">
-</video>
+<video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
 
----
-
-## 🔮 Features
+<h2>🔮 Features</h2>
 
 <h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
-<table style="width: 50%;">
-<table>
+<table style="width: 100%;">
   <tr>
     <td>
       <h3>📍 Code-To-Text Generation</h3>
       <ul>
-        <li>Code summaries are generated for each file via OpenAI's *gpt-3.5-turbo* engine.</li>
-        <li>The summaries are processed to check formatting and displated in Markdown tables.</li>
+        <li>Code summaries are generated for each file via OpenAI's <em>gpt-3.5-turbo</em> engine.</li>
+        <li>The summaries are processed to check formatting and displayed in Markdown tables.</li>
       </ul>
     </td>
   </tr>
   <tr>
-  </tr>
     <td>
-      <video src="file:///Users/k01101011/Documents/GitHub/readme-ai/code_summary.mp4" controls title="Title"></video>
-      </video>
-    </td>
+      <video src="https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
   </tr>
 </table>
-</p>
+
 <h1 align="center">⒉<br>👇<br><br>🎖 Badges</h1>
-<table>
+<table style="width: 100%;">
   <tr>
     <td>
       <h3>📍 Introduction, Badges, Table of Contents</h3>
@@ -100,27 +92,24 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
         <li>Project dependencies and software visualized using beautiful SVG icon badges.</li>
         <li>Badges are sorted by hex code, displayed from light to dark hues.</li>
         <li>A table of contents is also provided for your README.md file.</li>
-        </li>
       </ul>
-      <br>
     </td>
   </tr>
   <tr>
     <td>
-      <video src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit">
-      </video>
+      <video src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
     </td>
   </tr>
 </table>
-</p>
 
 <h1 align="center">⒊<br>👇<br><br>🧚 Prompted Text Generation</h1>
+<table>
   <tr>
     <td>
       <h3>📍 Features Table & Overview</h3>
       <ul>
-        <li><i>Overview</i> section describes your project's use case and applications.</li>
-        <li><i>Features</i> table highlights various technical attributes of your codebase.</li>
+        <li><em>Overview</em> section describes your project's use case and applications.</li>
+        <li><em>Features</em> table highlights various technical attributes of your codebase.</li>
         <ul>
           <li>README-AI uses detailed prompt templates, embedded with your repository's metadata, and passed to the OpenAI API.</li>
           <li>Currently fine-tuning the prompts to improve the accuracy and relevance of the API responses.</li>
@@ -135,16 +124,17 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
     </td>
   </tr>
 </table>
-</p>
 
-<h1 align="center">⒋<br>👇<br><br>🌲 Repository Tree</h1>å
-<p align="center">Why not a directory tree as well? Visualize your codebase structure in your README.
-</p>
+<h1 align="center">⒋<br>👇<br><br>🌲 Repository Tree</h1>
+<p align="center">Why not a directory tree as well? Visualize your codebase structure in your README.</p>
 
-|                                   |
-|-----------------------------------|
-| ![tree](./examples/imgs/tree.png) |
-
+<table>
+  <tr>
+    <td>
+      <img src="./examples/imgs/tree.png" alt="tree">
+    </td>
+  </tr>
+</table>
 
 <h1 align="center">⒌<br>👇<br><br>📦 Dynamic User Setup Guides</h1>
 <table>
