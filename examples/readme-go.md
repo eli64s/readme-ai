@@ -5,12 +5,11 @@
 <br>
 docker-gs-ping
 </h1>
-<h3 align="center">📍 Stay connected with docker-gs-ping on GitHub, the ultimate ping tester!</h3>
-<h3 align="center">🚀 Developed with the software and tools below:</h3>
+<h3>◦ Ping like a pro with Docker</h3>
+<h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
 <img src="https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=Go&logoColor=white" alt="Go" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
@@ -20,47 +19,44 @@ docker-gs-ping
 
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
-- [📍Overview](#-overview)
-- [🔮 Features](#-features)
-- [⚙️ Project Structure](#project-structure)
+- [📍 Overview](#-overview)
+- [⚙️ Features](#-features)
+- [📂 Project Structure](#project-structure)
 - [🧩 Modules](#modules)
-- [🏎💨 Getting Started](#-getting-started)
+- [🚀 Getting Started](#-getting-started)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
-- [🪪 License](#-license)
-- [📫 Contact](#-contact)
-- [🙏 Acknowledgments](#-acknowledgments)
+- [📄 License](#-license)
+- [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
 
-## 📍Overview
+## 📍 Overview
 
-The docker-gs-ping project is a Golang application that can be built into a Docker image using one of two provided Dockerfiles. The application serves as a basic HTTP server that responds to GET requests with a "pong" message. The value proposition of the project is its ease of use and portability, allowing developers to quickly spin up a simple HTTP server in a Docker container. Additionally, the project includes automated testing and deployment workflows using GitHub Actions.
+The docker-gs-ping project is a Golang-based web application that provides endpoints to ping a Docker container and check its health status. It uses the Echo framework for HTTP server implementation and can be built and deployed easily using Docker. The project's main value proposition is its simplicity, reliability, and ease of use when it comes to monitoring Docker containers.
 
 ---
 
-## 🔮 Features
+## ⚙️ Features
 
 Feature | Description |
-|---|---|
-| **🏗 Overall Structure and Organization** | The codebase follows the standard organization structure for a Golang application, with separate directories for the main package, tests, and Dockerfiles. |
-| **📝 Code Documentation** | The codebase lacks comprehensive documentation, with only basic comments explaining the purpose of some functions. |
-| **🧩 Dependency Management** | The codebase uses Go modules for dependency management, with explicit version requirements for each package. |
-| **♻️ Code Modularity and Reusability** | The codebase demonstrates modularity and reusability, with separate functions for handling HTTP requests and responses, and reusable functions for error handling and logging. |
-| **✅ Testing and Quality Assurance** | The codebase includes unit tests for some functions and uses GitHub Actions for continuous integration and deployment. |
-| **⚡️ Performance and Optimization** | The codebase does not include any explicit performance optimization techniques, but using a lean distroless base image in the multistage Dockerfile can improve performance and reduce image size. |
-| **🔒 Security Measures** | The codebase does not include any explicit security measures, such as input validation or encryption, but using the distroless base image can improve security by reducing the attack surface. |
-| **🔄 Version Control and Collaboration** | The codebase uses Git for version control and GitHub for collaboration, with clear commit messages and pull request descriptions. |
-| **🔌 External Integrations** | The codebase integrates with Docker Hub for image hosting and uses the Echo framework for handling HTTP requests. |
-| **📈 Scalability and Extensibility** | The codebase demonstrates extensibility, with separate functions for handling different HTTP requests, and scalability, with the ability to deploy the application as a Docker container. |
+|-----|-----|
+| **🏗 Architecture** | The codebase follows a simple client-server architecture. It uses the Echo framework to create a lightweight HTTP server, which responds to GET requests on two endpoints. The endpoints return an HTML and JSON response, respectively. The Dockerfile(s) use a multistage build process to create a lean and efficient Docker image. |
+| **📑 Documentation** | The repository contains a clear and concise README file that provides information about the application, how to build and run the Docker image, and the endpoints exposed by the server. The README also includes a section on how to contribute to the codebase and a license. |
+| **🧩 Dependencies** | The Go module makes use of the Echo v4.10.2 framework, along with several other indirect dependencies such as jwt, crypto, and text. The Docker images are based on golang:1.17.1-alpine and debian:11, respectively. |
+| **♻️ Modularity** | The codebase is modular and follows the standard Go project structure. It contains a single main package that sets up the HTTP server and handles requests, with an additional main_test.go file for unit tests. The multistage Dockerfile builds the application from source and runs tests in a separate stage before creating a lean image. |
+| **✔️ Testing** | The codebase includes a single test file, main_test.go, with two unit tests for the IntMin function. The tests are well-written and cover basic functionality as well as a table-driven test for multiple inputs and expected outputs. The Dockerfile.multistage runs the tests before creating the image, ensuring that the binary deployed in the final image is tested and reliable. |
+| **⚡️ Performance** | The codebase is lightweight and efficient, using the Echo framework for creating a fast and scalable HTTP server. The multistage Dockerfile ensures that the final image is lean and optimized, reducing startup time and memory usage. |
+| **🔒 Security** | The Dockerfile.multistage creates a nonroot user and runs the application with the corresponding uid/gid to minimize security risks. The HTTP server has minimal attack surface, with just two simple endpoints, and doesn't handle any sensitive data. The Go modules used in the project are up-to-date and have no known security vulnerabilities. |
+| **🔀 Version Control** | The repository is well-organized and follows standard Git conventions. It includes a clear commit history, with informative commit messages that explain changes made to the codebase. The repository follows a "main" branch protection approach, requiring pull requests to be reviewed before merging into the main branch. |
+| **🔌 Integrations** | The codebase doesn't contain any external integrations or services. |
+| **📈 Scalability** | The codebase is designed to be scalable, with the Echo
 
 ---
 
 
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
-
-## ⚙️ Project Structure
+## 📂 Project Structure
 
 
 ```bash
@@ -79,41 +75,32 @@ repo
 
 ---
 
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-
-## 💻 Modules
+## 🧩 Modules
 
 <details closed><summary>Root</summary>
 
-| File                  | Summary                                                                                                                                                                                                                                                                                                                                                                                                                      | Module                |
-|:----------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| go.mod                | The code snippet is a Go module with a requirement for the Echo framework version 4.10.2. It also has indirect requirements for various other packages such as JWT, byte buffer pool, and crypto. The purpose and functionality of the module is not evident from the provided code.                                                                                                                                         | go.mod                |
-| Dockerfile            | This code snippet is a Dockerfile that builds a Docker image for a Golang application. It sets the working directory, downloads Go modules, copies the source code, builds the application, exposes a default TCP port, and sets the default command to run the application.                                                                                                                                                 | Dockerfile            |
-| Dockerfile.multistage | The code snippet is a Dockerfile that builds a Go application from source, runs tests in a container, and deploys the application binary into a lean image using distroless base image. The final image exposes port 8080 and sets a non-root user as the entrypoint for the application.                                                                                                                                    | Dockerfile.multistage |
-| main.go               | HTTP 429 error when fetching summary.                                                                                                                                                                                                                                                                                                                                                                                        | main.go               |
-| main_test.go          | The code snippet provides two functions for unit testing a function called IntMin. The first TestIntMinBasic function tests the IntMin function with specific inputs and checks if the output is as expected. The second TestIntMinTableDriven function uses a table-driven approach to test multiple inputs and expected outputs using a loop and the t.Run function. The testing package is imported to execute the tests. | main_test.go          |
+| File                  | Summary                                                                                                                                                                                                                                                                                                                                                                                              | Module                |
+|:----------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| go.mod                | The provided code is a Go module with a dependency on the Echo v4.10.2 framework. It also has several indirect dependencies on various packages, including jwt, crypto, and text. The module is used for pinging a Docker container and is available on GitHub under the olliefr/docker-gs-ping repository.                                                                                          | go.mod                |
+| Dockerfile            | This code snippet is a Dockerfile that sets up a Golang environment and builds an application. It copies the source code and Go modules, downloads dependencies, builds the application, exposes port 8080 for the application, and finally runs the application using CMD.                                                                                                                          | Dockerfile            |
+| Dockerfile.multistage | The code snippet is a Dockerfile that builds a Go application from source code, runs tests, and deploys the compiled binary into a lean image based on Debian 11. The image exposes port 8080 and runs the binary with the entrypoint "/docker-gs-ping" as a nonroot user.                                                                                                                           | Dockerfile.multistage |
+| main.go               | The code sets up a basic HTTP server using the Echo framework and listens on a default port "8080" or the port specified in the environment variable "PORT". It also includes two endpoints: "/" which returns an HTML response and "/health" which returns a JSON response with a status of "OK". Additionally, it includes a function to calculate the minimum integer value between two integers. | main.go               |
+| main_test.go          | This Go code snippet illustrates two different unit tests for the IntMin function. The first test is basic and checks if the function returns the minimum of two integers. The second test is table-driven and uses a table to test multiple inputs and expected outputs. Both tests use the testing package to report any errors in the function's logic.                                           | main_test.go          |
 
 </details>
 
-<details closed><summary>Workflows</summary>
-
-| File             | Summary                                                                                                                                                                                                                                                                                                                                                                  | Module                             |
-|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------|
-| ci-cd.yml        | The provided code snippet is a GitHub Actions workflow that executes when code is pushed to the main branch or a tag starting with "v". The workflow builds and tests a Docker image using a multistage Dockerfile and caches the layers for faster builds. If the tests pass, the workflow logs in to Docker Hub and pushes the image with appropriate labels and tags. | .github/workflows/ci-cd.yml        |
-| ci-smoketest.yml | The code snippet provides a GitHub Actions workflow that runs a smoke test on any push to the repository, or can be manually triggered. This workflow builds and tests a Go application directly in the GitHub runner. It includes steps for checking out the code, installing Go, fetching required Go modules, building, and testing the application.                  | .github/workflows/ci-smoketest.yml |
-
-</details>
-
-<hr />
+---
 
 ## 🚀 Getting Started
 
 ### ✅ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> `[📌  INSERT-PROJECT-PREREQUISITES]`
+> - [ℹ️ Requirement 1]
+> - [ℹ️ Requirement 2]
+> - [...]
 
-### 💻 Installation
+### 🖥 Installation
 
 1. Clone the docker-gs-ping repository:
 ```sh
@@ -138,21 +125,23 @@ go build -o myapp
 
 ### 🧪 Running Tests
 ```sh
-# [INSERT-COMMAND-FOR-TESTS]
+go test
 ```
 
-<hr />
+---
 
 
-## 🛠 Future Development
-- [X] [📌  COMPLETED-TASK]
-- [ ] [📌  INSERT-TASK]
-- [ ] [📌  INSERT-TASK]
+## 🗺 Roadmap
+
+> - [X] [ℹ️  Task 1: Implement X]
+> - [ ] [ℹ️  Task 2: Refactor Y]
+> - [ ] [...]
 
 
 ---
 
 ## 🤝 Contributing
+
 Contributions are always welcome! Please follow these steps:
 1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
 2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
@@ -169,22 +158,19 @@ git commit -m 'Implemented new feature.'
 ```sh
 git push origin new-feature-branch
 ```
-7. Create a pull request to the original repository.
-Open a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
+7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
 The project maintainers will review your changes and provide feedback or merge them into the main branch.
 
 ---
 
-## 🪪 License
+## 📄 License
 
-This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
-
----
-
-## 🙏 Acknowledgments
-
-[📌  INSERT-DESCRIPTION]
-
+This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
+## 👏 Acknowledgments
+
+> - [ℹ️  List any resources, contributors, inspiration, etc.]
+
+---

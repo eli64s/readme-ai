@@ -5,8 +5,8 @@
 <br>
 assistant-chat-gpt
 </h1>
-<h3 align="center">📍 Unleash the power of AI conversation with Assistant-Chat-GPT on GitHub!</h3>
-<h3 align="center">⚙️ Developed with the software and tools below:</h3>
+<h3>◦ Chat smarter with assistant-chat-gpt.</h3>
+<h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/esbuild-FFCF00.svg?style=for-the-badge&logo=esbuild&logoColor=black" alt="esbuild" />
@@ -26,7 +26,7 @@ assistant-chat-gpt
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [💫 Features](#-features)
+- [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
 - [🧩 Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
@@ -40,29 +40,27 @@ assistant-chat-gpt
 
 ## 📍 Overview
 
-The "assistant-chat-gpt" project is a browser extension that integrates OpenAI's GPT-3 natural language processing model to provide voice-activated chatbot functionality. It utilizes the Web Speech API to enable users to speak with the chatbot and receive spoken responses. The extension offers a customizable voice trigger phrase, voice dropdown menu to select a preferred voice, and a settings section that allows users to enable/disable filler words in the audio playback. The extension enhances user productivity by allowing them to interact with websites and applications hands-free, making it a valuable tool for individuals with disabilities or those frequently multitasking.
+This project, called ChassistantGPT, is a ChatGPT-based voice assistant for web browsers that utilizes React and various external modules. It provides users with a pop-up chat interface for interacting with the voice assistant and includes features such as speech recognition, speech synthesis, and the ability to toggle "filler" audio. The project's value proposition lies in its accessibility and ease of use, providing users with a natural language interface for search and assistance on the web.
 
 ---
 
-## 💫 Features
+## ⚙️ Features
 
 Feature | Description |
-|---|---|
-| **🏗 Structure and Organization** | The codebase follows a modular structure with each file focused on a specific feature or functionality, making it easy to navigate and understand. The organization of files is logical and intuitive, with clear separation between background and content scripts. |
-| **📝 Code Documentation** | The code is well documented with inline comments and clear, descriptive variable and function names. The documentation is especially helpful in the `audio.mjs` file, which implements a complex natural language processing system. |
-| **🧩 Dependency Management** | The codebase makes use of npm package manager to manage and install project dependencies. All external dependencies are listed in the `package.json` file, with the specific version specified. |
-| **♻️ Modularity and Reusability** | The code follows a modular approach that ensures reuse of code. Each module is well encapsulated with a well-defined API and a clear separation of concerns. |
-| **✔️ Testing and Quality Assurance** | The codebase appears to lack automated testing, which could impact its quality and maintainability. However, the code does include some safeguards, such as error-handling functions and guard clauses to prevent undefined variables. |
-| **⚡️ Performance and Optimization** | The codebase makes use of esbuild for efficient bundling, and the `audio.mjs` module includes optimizations for caching and reusing API responses. |
-| **🔒 Security Measures** | The codebase incorporates robust security features such as the use of HTTPS and secure cookies to protect users' sensitive data, and security measures to ensure the safe handling of API keys. |
-| **🔄 Version Control and Collaboration** | The project makes use of Git version control and GitHub for collaboration. The codebase has regular and informative commit messages. |
-| **🔌 External Integrations** | The codebase integrates with the OpenAI GPT-3 API, Google Chrome browser APIs, and the Web Speech API. |
-| **📈 Scalability and Extensibility** | The modularity and decoupling of the codebase ensure it is scalable and extensible, and new features and functionalities can easily be added without breaking existing code. The use of React and the Chat-UI-Kit-React library also facilitates easy modification of the user interface. |
+|-----|-----|
+| **🏗 Architecture** | The codebase follows a client-server architecture with the client written in Javascript and the backend server using OpenAI's ChatGPT API to provide responses to user queries. The architecture is modular, with each module handling a specific functionality like voice recognition or displaying chat UI. The extension uses the Chrome APIs and the Web Speech API to provide voice input/output and the extension popup window allows users to interact with the assistant. |
+| **📑 Documentation** | The codebase has good documentation in the form of comments, providing explanations of code snippets and module functionality. However, there is a lack of a comprehensive README file, explaining how to install and run the extension, contributing guidelines, and how it works in detail. |
+| **🧩 Dependencies** | The codebase has a minimalistic set of dependencies, with only the necessary packages being utilized for building, CSS styling, and HTTP requests. All dependencies are open-source and well-maintained. |
+| **♻️ Modularity** | The codebase is well-organized into subdirectories separating backend and frontend scripts, and modules handling specific functionalities, promoting code reusability and maintainability. Modules are well-defined with clear functions and separation of concerns. |
+| **✔️ Testing** | The codebase lacks any form of automated testing, which can lead to issues in maintaining the codebase and the extension in the long run. |
+| **⚡️ Performance** | The extension runs seamlessly, with no noticeable lag or performance issues. However, since the extension relies on a third-party API and continuously listens for user input, it may lead to a decrease in system performance and may require additional optimization as it scales. |
+| **🔒 Security** | The extension's security may be compromised since it has access to browser functionality and user interaction. Users must be careful while installing extensions from unverified sources. Additionally, the API key is public, which is not recommended for a production environment, and may lead to security risks. |
+| **🔀 Version Control** | The codebase is hosted on GitHub and uses Git for version control. It has a well-defined commit history, with commits made at regular intervals, providing a clear picture of the development process. |
+| **🔌 Integrations** | The codebase integrates with the Chrome API, Web Speech API, and OpenAI's ChatGPT API, making it easy to develop extensions for browsers and utilize APIs to provide better user experiences. |
+| **📈 Scalability** | The codebase is modular and well-organized, making it scalable to add new functionalities and features. However, since it relies on an external API for voice recognition and natural language processing, it may face scalability issues as it scales, requiring optimization and caching strategies. |
 
 ---
 
-
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-github-open.svg" width="80" />
 
 ## 📂 Project Structure
 
@@ -106,59 +104,57 @@ repo
 
 ---
 
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-src-open.svg" width="80" />
-
 ## 🧩 Modules
 
 <details closed><summary>Background</summary>
 
-| File      | Summary                                                                                                                                                                                    | Module                   |
-|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
-| index.mjs | The code snippet above adds an event listener to the Chrome runtime that logs a message to the console when the browser starts up. It also opens the options page of the Chrome extension. | src/background/index.mjs |
+| File      | Summary                                                                                                                                                                | Module                   |
+|:----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| index.mjs | The code snippet registers a listener for the event of Chrome starting up, which logs a message to the console. It also opens the options page for the Chrome runtime. | src/background/index.mjs |
 
 </details>
 
 <details closed><summary>Components</summary>
 
-| File              | Summary                                                                                                                                                                                                                                                                                                                                                                                                     | Module                           |
-|:------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------|
-| TriggerInput.jsx  | This code snippet defines a React component called VoiceDropdown that displays a text input field and allows users to set a voice trigger phrase. The current trigger phrase is initialized to'Hey girl' and can be updated by the user. When the trigger phrase is changed, the new value is saved using the setTriggerPhrase function from an external module.                                            | src/components/TriggerInput.jsx  |
-| Popup.jsx         | This code snippet is a React component that fetches chat history data from the Chrome extension background script and displays it using the Chat-UI-Kit-React library. The component has a timer that updates the chat history every second and automatically scrolls to the bottom of the chat history when new messages are added.                                                                        | src/components/Popup.jsx         |
-| Callout.jsx       | The code exports a React functional component called "Callout" that takes in two props: "type" and "children." It returns a div element with a class name of "callout" and the value of the "type" prop appended as a class name as well. The children of the component are rendered inside this div.                                                                                                       | src/components/Callout.jsx       |
-| Info.jsx          | This is a React component that displays an information page for a voice assistant called ChassistantGPT. The component checks if the user is using Chrome and if the microphone is enabled. It provides instructions on how to use the assistant, a settings section, and a privacy policy. The component also imports other custom components such as Callout, TriggerInput, VoiceDropdown, and Settings.  | src/components/Info.jsx          |
-| VoiceDropdown.jsx | The provided code snippet is a React component that renders a dropdown menu for selecting a voice for text-to-speech output. It uses the Web Speech API to obtain the available voices and updates the dropdown list accordingly. When a voice is selected, it triggers a callback function to send the selected voice to a background script. An additional button is provided to test the selected voice. | src/components/VoiceDropdown.jsx |
-| Settings.jsx      | This code snippet includes a React component that renders a settings toggle switch for enabling/disabling filler words in audio playback. The component uses useState hook to control the state of the toggle and onChange event to handle updates to the state. The setFillerEnabled function is used to set the value of the toggle in the audio file.                                                    | src/components/Settings.jsx      |
+| File              | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Module                           |
+|:------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------|
+| TriggerInput.jsx  | The code defines a React component called VoiceDropdown that displays a text input field and a label for a trigger phrase. The component uses React's useState to manage the trigger phrase, and invokes a setTriggerPhrase function when the value in the text input field changes. The component exports itself as the default export.                                                                                                                   | src/components/TriggerInput.jsx  |
+| Popup.jsx         | This code snippet is a React component that renders a chat popup UI using the Chat UI Kit library. It fetches message history through the Chrome API, sets it in the state, and updates the UI using the Message component from the Chat UI Kit library. The useEffect hook ensures that the message history is fetched every second.                                                                                                                      | src/components/Popup.jsx         |
+| Callout.jsx       | This code snippet exports a functional React component called "Callout". It takes in two props-"type" and "children". The function returns a div element with the class name "callout" appended with the "type" prop and the children of the component.                                                                                                                                                                                                    | src/components/Callout.jsx       |
+| Info.jsx          | This code snippet is a React component representing the Info section of an application called ChassistantGPT, which is a ChatGPT voice assistant. It includes conditional rendering based on whether the user is on Chrome, whether microphone permissions have been granted, and the state of the assistant. It also provides instructions on how to use the app and its privacy policy.                                                                  | src/components/Info.jsx          |
+| VoiceDropdown.jsx | This code snippet defines a React component called VoiceDropdown that renders a dropdown menu for selecting a voice and a button for testing the selected voice. The component uses the useState and useEffect hooks to manage the component's state and to get the system's available voices. When a voice is selected, the handleChange function is called to update the selected voice and set the voice in the background using the setVoice function. | src/components/VoiceDropdown.jsx |
+| Settings.jsx      | The code snippet is a React component that renders a toggle switch for enabling/disabling "filler" audio in a conversation. It uses state management via useState hook and calls functions from an external module to set the state of the filler setting. The component also includes styling for the toggle switch.                                                                                                                                      | src/components/Settings.jsx      |
 
 </details>
 
 <details closed><summary>Content</summary>
 
-| File                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                             | Module                                |
-|:--------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
-| index.html                | This is a code snippet for an HTML document that defines various CSS styles and layout properties for a web page. It defines custom color variables, media queries for dark mode, font styles, and spacing. It also includes a blinking dot animation and style classes for different callout messages. The HTML document includes links to an external CSS file and a JavaScript file.                                                             | src/content/index.html                |
-| audio.mjs                 | This code snippet is a JavaScript module that utilizes the Web Speech API to provide voice-activated chatbot functionality. It interfaces with OpenAI's GPT-3 natural language processing model to generate conversational responses, then uses text-to-speech to speak the response aloud. The module also includes features for automatically detecting speech triggers, displaying chat history, and preventing accidental browser tab closures. | src/content/audio.mjs                 |
-| fetch-sse.mjs             | The code exports a function called `fetchSSE` which takes in a resource and options as arguments, then fetches the resource using the options, and parses the response body using an eventsource-parser to extract messages. The messages are then passed to a provided `onMessage` callback for further processing.                                                                                                                                | src/content/fetch-sse.mjs             |
-| app.css                   | As an AI language model, I am not able to access the provided code snippet. Please provide me with the code snippet so that I can give you a comprehensive summary of its core functionalities.                                                                                                                                                                                                                                                     | src/content/app.css                   |
-| info.mjs                  | The provided code sets up a React root component on a specific HTML element with an ID of "root". It renders an instance of the Info component using the React.createElement function.                                                                                                                                                                                                                                                              | src/content/info.mjs                  |
-| index.mjs                 | The code imports all the functionalities from two modules named'info.mjs' and'audio.mjs' using the asterisk symbol. This allows the code to use all the exported variables, functions, and classes from these modules in the current file.                                                                                                                                                                                                          | src/content/index.mjs                 |
-| stream-async-iterable.mjs | This code snippet defines an async generator function that takes a stream as input. It creates a reader for the stream and continuously reads chunks of data from it until the stream is done. The function yields the data chunk by chunk and finally releases the reader's lock.                                                                                                                                                                  | src/content/stream-async-iterable.mjs |
+| File                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Module                                |
+|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
+| index.html                | The code snippet provides styling for a web page using CSS, including setting color schemes for different types of content, defining various classes for displaying callouts and buttons, and defining animation for a blinking dot. Additionally, it imports two JavaScript files, index.js and audio.js, and has a div with ID "root" where dynamic content may be rendered.                                                                                         | src/content/index.html                |
+| audio.mjs                 | This code snippet is a JavaScript module that interfaces with OpenAI's ChatGPT API to create a voice assistant capable of answering user questions. It also utilizes speech recognition to listen for user commands, and speech synthesis to respond back to the user. The code includes features such as automatically adding filler words during pauses, and maintaining chat history.                                                                               | src/content/audio.mjs                 |
+| fetch-sse.mjs             | The code defines a function, fetchSSE, which takes in a resource and options as parameters and returns a promise. It uses the fetch API to retrieve a server-sent event stream from the resource, parses the stream data using an eventsource-parser, and invokes a provided callback function with the parsed message data. Overall, the code retrieves and parses server-sent event streams from a specified resource using provided options and a message callback. | src/content/fetch-sse.mjs             |
+| app.css                   | As an AI language model, I am not able to see the provided code snippet to summarize its functionalities. Please provide the code snippet, so I can assist you better.                                                                                                                                                                                                                                                                                                 | src/content/app.css                   |
+| info.mjs                  | The provided code snippet is a React code that creates and renders a root element using ReactDOM. It imports an Info component which is then created using the React.createElement() method and rendered on the root element.                                                                                                                                                                                                                                          | src/content/info.mjs                  |
+| index.mjs                 | The code imports two modules, "info.mjs" and "audio.mjs", using the ES6 "import" statement and the wildcard operator. The imported modules contain functionalities related to information and audio, respectively.                                                                                                                                                                                                                                                     | src/content/index.mjs                 |
+| stream-async-iterable.mjs | This code defines a generator function that converts a stream into an asynchronous iterable. It reads chunks of data from the stream using a reader, and yields each chunk as it becomes available. Once the stream has been fully read, the reader is released.                                                                                                                                                                                                       | src/content/stream-async-iterable.mjs |
 
 </details>
 
 <details closed><summary>Popup</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                             | Module               |
-|:-----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------|
-| index.html | The provided code snippet is an HTML document that includes a stylesheet defining custom CSS variables for background colors, text colors, and various other colors for different states. It also includes a script file and a container div element with an ID of "app". This is likely designed for a web application or website. | src/popup/index.html |
-| index.mjs  | The code snippet imports the React and ReactDOM libraries and a Popup component. It then uses the createRoot method to render the Popup component to the DOM element with the ID "app". This creates a root React component that can efficiently update the Popup component without affecting other components in the DOM.          | src/popup/index.mjs  |
+| File       | Summary                                                                                                                                                                                                                                                                                                                            | Module               |
+|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------|
+| index.html | The code defines CSS variables for different colors based on light and dark mode preferences. It also sets a default background color and font for the body, as well as a width and margin for the main container. Finally, it imports a JavaScript file and renders its contents within a container element in the HTML document. | src/popup/index.html |
+| index.mjs  | The code imports React and ReactDOM, renders a Popup component using React.createElement and ReactDOM.createRoot, and appends the component to an HTML element with the ID "app". The Popup component is likely a modal or pop-up window with custom content.                                                                      | src/popup/index.mjs  |
 
 </details>
 
 <details closed><summary>Root</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                                                                                            | Module    |
-|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
-| build.mjs | The provided code snippet performs a build process for a browser extension using esbuild and zip archiving. It deletes the previous build directory, runs esbuild on specified entry points, generates common files and bundles them, and then zips them for both Chromium and Firefox browsers. The result is saved in a "build" directory in the project folder. | build.mjs |
+| File      | Summary                                                                                                                                                                                                                                                                                                                             | Module    |
+|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
+| build.mjs | The code snippet is a Node.js script that builds and compiles a web extension using esbuild with several entry points. It uses the archiver package to zip the extension files and create distributable packages for both Chrome and Firefox web stores. The script deletes the existing build directory before creating a new one. | build.mjs |
 
 </details>
 
@@ -169,9 +165,9 @@ repo
 ### ✅ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> - [📌  PREREQUISITE-1]
-> - [📌  PREREQUISITE-2]
-> - ...
+> - [ℹ️ Requirement 1]
+> - [ℹ️ Requirement 2]
+> - [...]
 
 ### 🖥 Installation
 
@@ -206,10 +202,9 @@ npm test
 
 ## 🗺 Roadmap
 
-> - [X] [📌  Task 1: Implement X]
-> - [ ] [📌  Task 2: Refactor Y]
-> - [ ] [📌  Task 3: Optimize Z]
-> - [ ] [📌  Task 4: Fix Bug A]
+> - [X] [ℹ️  Task 1: Implement X]
+> - [ ] [ℹ️  Task 2: Refactor Y]
+> - [ ] [...]
 
 
 ---
@@ -239,12 +234,12 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[📌  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [📌  List any resources, contributors, inspiration, etc.]
+> - [ℹ️  List any resources, contributors, inspiration, etc.]
 
 ---
