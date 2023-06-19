@@ -104,7 +104,7 @@ def parse_package_json(content: str) -> List[str]:
         if section in data:
             for package, _ in data[section].items():
                 if section == "peerDependencies" and package.startswith("@types/"):
-                    package_names.append(package[7:])  # Remove '@types/' prefix
+                    package_names.append(package[7:])
                 else:
                     package_names.append(package)
     return package_names

@@ -1,18 +1,13 @@
-<div align="right">
-  <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai.svg" style="margin-right: 5px;">
-  <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai.svg" alt="GitHub Last Commit">
-  </a>
-  <a href="https://img.shields.io/github/license/eli64s/README-AI.svg" style="margin-right: 5px;">
-  <img src="https://img.shields.io/github/license/eli64s/README-AI.svg" alt="GitHub license">
-  </a>
-</div>
 <div align="center">
   <h1 align="center">
     <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
-    <br>
-    README-AI
-    <br>
+    <br>README-AI<br><br>
+    
+  ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai) 
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI)
+  ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI)
   </h1>
   <h3 align="center">🚀 Generate beautiful and informative README Markdown files!</h3>
   <h3 align="center">⚙️ Powered by OpenAI's language model APIs and the tools below:</h3>
@@ -25,7 +20,6 @@
     <img src="https://img.shields.io/badge/Anaconda-44A833.svg?style=for-the-badge&logo=Anaconda&logoColor=white" alt="Anaconda" />
   </p>
 </div>
-
 
 ---
 
@@ -68,17 +62,11 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 
 ## 👾 Demo
 
-https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11efb1b52520
-
----
-
-## 👾 Demo
-
-<video 
-    src="https://user-images.githubusercontent.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" 
-    data-canonical-src="https://user-images.githubusercontent.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" controls="controls" 
-    muted="muted" 
-    class="d-block rounded-bottom-2 border-top width-fit" 
+<video
+    src="https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11efb1b52520"
+    data-canonical-src="https://user-images.githubusercontent.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4" controls="controls"
+    muted="muted"
+    class="d-block rounded-bottom-2 border-top width-fit"
     style="max-height:640px; min-height: 200px">
 </video>
 
@@ -87,24 +75,26 @@ https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11ef
 ## 🔮 Features
 
 <h1 align="center">1.<br>👇<br><br>🔖 Codebase Documentation</h1>
+<table style="width: 50%;">
 <table>
   <tr>
     <td>
-      <h3>📍 Code-to-Text Summaries</h3>
+      <h3>📍 Code-To-Text Generation</h3>
       <ul>
-        <li>Code summaries of each script in your repository are generated via OpenAI's large language model APIs, such as gpt-3.5-turbo.</li>
-        <li>Your codebase is parsed and file contents are converted to natural language, and displayed in Markdown table format.</li>
+        <li>Code summaries are generated for each file via OpenAI's *gpt-3.5-turbo* engine.</li>
+        <li>The summaries are processed to check formatting and displated in Markdown tables.</li>
       </ul>
     </td>
   </tr>
   <tr>
+  </tr>
     <td>
-      <img src="./examples/imgs/open_docs.png" alt="docs">
+      <video src="examples/mp4/code_summary.mp4" controls title="Title"></video>
+      </video>
     </td>
   </tr>
 </table>
 </p>
-
 <h1 align="center">⒉<br>👇<br><br>🎖 Badges</h1>
 <table>
   <tr>
@@ -122,20 +112,20 @@ https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11ef
   </tr>
   <tr>
     <td>
-      <img src="./examples/imgs/header.png" alt="header">
+      <video src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" data-canonical-src="https://user-images.githubusercontent.com/43382407/246707145-95b691b2-1d05-4a76-9435-593185067b15.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit">
+      </video>
     </td>
   </tr>
 </table>
 </p>
 
 <h1 align="center">⒊<br>👇<br><br>🧚 Prompted Text Generation</h1>
-<table>
   <tr>
     <td>
       <h3>📍 Features Table & Overview</h3>
       <ul>
-        <li>The <i>Overview</i> section describes your project's use case and applications.</li>
-        <li>The <i>Features</i> table highlights various technical attributes of your codebase.</li>
+        <li><i>Overview</i> section describes your project's use case and applications.</li>
+        <li><i>Features</i> table highlights various technical attributes of your codebase.</li>
         <ul>
           <li>README-AI uses detailed prompt templates, embedded with your repository's metadata, and passed to the OpenAI API.</li>
           <li>Currently fine-tuning the prompts to improve the accuracy and relevance of the API responses.</li>
@@ -152,12 +142,12 @@ https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11ef
 </table>
 </p>
 
-<h1 align="center">⒋<br>👇<br><br>🌲 Repository Tree</h1>
+<h1 align="center">⒋<br>👇<br><br>🌲 Repository Tree</h1>å
 <p align="center">Why not a directory tree as well? Visualize your codebase structure in your README.
 </p>
 
-|                               |
-|-------------------------------|
+|                                   |
+|-----------------------------------|
 | ![tree](./examples/imgs/tree.png) |
 
 
@@ -188,10 +178,10 @@ https://github.com/eli64s/readme-ai/assets/43382407/818e7346-209b-4def-9b93-11ef
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds additional standard sections to build out a robust README file!</p>
 
-|                               |
-|-------------------------------|
+|                                               |
+|-----------------------------------------------|
 | ![contribute](./examples/imgs/contribute.png) |
-| ![license](./examples/imgs/license.png) |
+| ![license](./examples/imgs/license.png)       |
 
 <h1 align="center">⒎<br>👇<br><br>💥 Example Files</h1>
 <p align="center">Markdown example files generated by the README-AI app!</p>
@@ -409,7 +399,7 @@ Contributions are welcomed and encouraged! Please follow these steps in the [Con
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+[MIT]](./LICENSE)
 
 ---
 
