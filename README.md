@@ -3,9 +3,9 @@
     <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80"/>
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
     <br>README-AI<br><br>
-    
+
   ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai) 
+  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai)
   ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI)
   ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI)
   </h1>
