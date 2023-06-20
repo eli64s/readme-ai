@@ -4,7 +4,7 @@ import argparse
 import asyncio
 import os
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import builder
 import conf
@@ -78,7 +78,7 @@ def get_dependencies(scanner: preprocess.RepositoryParserWrapper,
     return dependencies, file_text
 
 
-async def generate_code_to_text(gpt: OpenAIHandler, file_text: str) -> str:
+async def generate_code_to_text(gpt: OpenAIHandler, file_text: str) -> Dict[str, str]:
     """Generates code_to_text using gpt."""
     return await gpt.code_to_text(
         CONF_HELPER.ignore_files, file_text, CONF.prompts.code_summary

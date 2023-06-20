@@ -113,8 +113,8 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
     <td>
       <h3>📍 Features Table & Overview</h3>
       <ul>
-        <li><em>Overview</em> section describes your project's use case and applications.</li>
         <li><em>Features</em> table highlights various technical attributes of your codebase.</li>
+        <li><em>Overview</em> section describes your project's use case and applications.</li>
         <ul>
           <li>README-AI uses detailed prompt templates, embedded with your repository's metadata, and passed to the OpenAI API.</li>
           <li>Currently fine-tuning the prompts to improve the accuracy and relevance of the API responses.</li>
@@ -124,8 +124,8 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   </tr>
   <tr>
     <td>
-      <img src="./examples/imgs/overview.png" alt="overview">
       <img src="./examples/imgs/features.png" alt="features">
+      <img src="./examples/imgs/overview.png" alt="overview">
     </td>
   </tr>
 </table>

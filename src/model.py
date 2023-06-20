@@ -167,14 +167,6 @@ class OpenAIHandler:
         -------
             Tuple containing the identifier and model's generated text.
         """
-        if prompt in self.cache:
-            return index, self.cache[prompt]
-
-        # Add exponential backoff logic here
-        elapsed_time = time.monotonic() - self.last_request_time
-        if elapsed_time < 1 / self.rate_limit:
-            await asyncio.sleep(1 / self.rate_limit - elapsed_time)
-
         try:
             async with self.rate_limit_semaphore:
                 response = await self.http_client.post(
@@ -207,50 +199,13 @@ class OpenAIHandler:
                 return index, summary
 
         except Exception as exc:
-            self.LOGGER.error(f"Error while making API request to OpenAI:\n{str(exc)}")
-            raise exc
+            self.LOGGER.error(f"Exception calling OpenAI API:\n{str(exc)}")
+            exc_name = exc.__class__.__name__
+            exc_code = exc.response.status_code
+            return await self.null_summary(index, f"{exc_name}: {exc_code}")
 
         finally:
             self.last_request_time = time.monotonic()
-
-    async def exception_handler(self, index: str, prompt: str, type: str,
-                                exc) -> Tuple[str, str]:
-        """Method to handle exceptions raised by the OpenAI API.
-
-        Parameters
-        ----------
-        index : str
-            Unique identifier for the prompt.
-        prompt : str
-            The prompt to use in the API request.
-        type : str
-            The type of prompt (i.e., code summary or general prompts).
-        exc : Exception
-            The exception raised by the API.
-
-        Returns
-        -------
-        Tuple[str, str]
-            Tuple of the unique index and the generated text summary.
-        """
-        self.LOGGER.error(f"Error while making API request to OpenAI:\n{str(exc)}")
-
-        if isinstance(exc, httpx.HTTPStatusError):
-            status_code = exc.response.status_code
-            if status_code in [429, 500, 503, 504]:
-                retry_after = int(exc.response.headers.get("Retry-After", 10))
-                await asyncio.sleep(retry_after)
-                return await self.generate_text(index, prompt, type, self.tokens)
-            else:
-                error_message = f"Error: {index}\n{status_code}"
-        elif isinstance(exc, httpx.StreamClosed):
-            error_message = (
-                f"Stream reset while making request to OpenAI's API:\n{str(exc)}"
-            )
-        else:
-            error_message = f"Error while making API request to OpenAI:\n{str(exc)}"
-
-        return await self.null_summary(index, error_message)
 
     @staticmethod
     async def null_summary(index: str, summary: str) -> Tuple[str, str]:

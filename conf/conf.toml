@@ -3,7 +3,7 @@
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
-rate_limit = 5
+rate_limit = 4
 tokens = 600
 tokens_max = 4000
 temperature = 0.9
