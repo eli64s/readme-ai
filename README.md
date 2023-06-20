@@ -146,16 +146,16 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
   <tr>
     <td>
       <h3><b>📍 Installation, Usage, and Running Tests</b></h3>
+      <ul>
+        <li>Dynamically generates instructions for installing, using, and testing your codebase.</li>
+        <li>This section of your README.md will help others easily setup and use your project!</li>
+        <li>README-AI currently supports this feature for code written with:</li>
         <ul>
-          <li>Dynamically generates instructions for installing, using, and testing your codebase.</li>
-          <li>This section of your README.md will help others easily setup and use your project!</li>
-          <li>README-AI currently supports this feature for code written with:</li>
-          <ul>
-            <li>
-              <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i>
-            </li>
-          </ul>
+          <li>
+            <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i>
+          </li>
         </ul>
+      </ul>
     </td>
   </tr>
   <tr>
@@ -168,7 +168,7 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
 <h1 align="center">⒍<br>👇<br><br>👩‍💻Contributing Guidelines & more!</h1>
 <p align="center">Adds additional standard sections to build out a robust README file!</p>
 
-|                                               |
+| |
 |-----------------------------------------------|
 | ![contribute](./examples/imgs/closing.png) |
 
@@ -188,70 +188,80 @@ Additionally, remember to regularly monitor your API usage and costs by visiting
       <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-python.md">readme-python.md</a></td>
       <td><a href="https://github.com/eli64s/readme-ai">readme-ai</a></td>
       <td>Python</td>
-      <td><p>19,839</p>
+      <td>
+        <p>19,839</p>
     </tr>
-      <td>2️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-typescript.md">readme-typescript.md</a></td>
-      <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-typescript</a></td>
-      <td>TypeScript, React</td>
-      <td><p>988</p>
-    </tr>
-    <tr>
-      <td>3️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-javascript.md">readme-javascript.md</a></td>
-      <td><a href="https://github.com/idosal/assistant-chat-gpt">assistant-chat-gpt-javascript</a></td>
-      <td>JavaScript, React</td>
-      <td><p>212</p>
-    </tr>
-    <tr>
-      <td>4️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-kotlin.md">readme-kotlin.md</a></td>
-      <td><a href="https://github.com/rumaan/file.io-Android-Client">file.io-android-client</a></td>
-      <td>Kotlin, Java, Android</td>
-      <td><p>113,649</p>
-    </tr>
-    <tr>
-      <td>5️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-rust-c.md">readme-rust-c.md</a></td>
-      <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
-      <td>C, Rust</td>
-      <td><p>72</p>
-    </tr>
-    <tr>
-      <td>6️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-go.md">readme-go.md</a></td>
-      <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
-      <td>Go</td>
-      <td><p>41</p>
-    </tr>
-    <tr>
-      <td>7️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-java.md">readme-java.md</a></td>
-      <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
-      <td>Java</td>
-      <td><p>17,725</p>
-    </tr>
-    <tr>
-      <td>8️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-fastapi-redis.md">readme-fastapi-redis.md</a></td>
-      <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
-      <td>Python, FastAPI, Redis</td>
-      <td><p>355</p>
-    </tr>
-    <tr>
-      <td>9️⃣</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-mlops.md">readme-mlops.md</a></td>
-      <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
-      <td>Python, Jupyter</td>
-      <td><p>8,524</p>
-    </tr>
-    <tr>
-      <td>🔟</td>
-      <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-pyflink.md">readme-pyflink.md</a></td>
-      <td><a href="https://github.com/eli64s/flink-flow">flink-flow</a></td>
-      <td>PyFlink</td>
-      <td><p>32</p>
-    </tr>
+    <td>2️⃣</td>
+    <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-typescript.md">readme-typescript.md</a></td>
+    <td><a href="https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript">chatgpt-app-react-typescript</a></td>
+    <td>TypeScript, React</td>
+    <td>
+      <p>988</p>
+      </tr>
+      <tr>
+        <td>3️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-javascript.md">readme-javascript.md</a></td>
+        <td><a href="https://github.com/idosal/assistant-chat-gpt">assistant-chat-gpt-javascript</a></td>
+        <td>JavaScript, React</td>
+        <td>
+          <p>212</p>
+      </tr>
+      <tr>
+        <td>4️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-kotlin.md">readme-kotlin.md</a></td>
+        <td><a href="https://github.com/rumaan/file.io-Android-Client">file.io-android-client</a></td>
+        <td>Kotlin, Java, Android</td>
+        <td>
+          <p>113,649</p>
+      </tr>
+      <tr>
+        <td>5️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-rust-c.md">readme-rust-c.md</a></td>
+        <td><a href="https://github.com/DownWithUp/CallMon">rust-c-app</a></td>
+        <td>C, Rust</td>
+        <td>
+          <p>72</p>
+      </tr>
+      <tr>
+        <td>6️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-go.md">readme-go.md</a></td>
+        <td><a href="https://github.com/olliefr/docker-gs-ping">go-docker-app</a></td>
+        <td>Go</td>
+        <td>
+          <p>41</p>
+      </tr>
+      <tr>
+        <td>7️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-java.md">readme-java.md</a></td>
+        <td><a href="https://github.com/avjinder/Minimal-Todo">java-minimal-todo</a></td>
+        <td>Java</td>
+        <td>
+          <p>17,725</p>
+      </tr>
+      <tr>
+        <td>8️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-fastapi-redis.md">readme-fastapi-redis.md</a></td>
+        <td><a href="https://github.com/FerrariDG/async-ml-inference">async-ml-inference</a></td>
+        <td>Python, FastAPI, Redis</td>
+        <td>
+          <p>355</p>
+      </tr>
+      <tr>
+        <td>9️⃣</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-mlops.md">readme-mlops.md</a></td>
+        <td><a href="https://github.com/GokuMohandas/mlops-course">mlops-course</a></td>
+        <td>Python, Jupyter</td>
+        <td>
+          <p>8,524</p>
+      </tr>
+      <tr>
+        <td>🔟</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/readme-pyflink.md">readme-pyflink.md</a></td>
+        <td><a href="https://github.com/eli64s/flink-flow">flink-flow</a></td>
+        <td>PyFlink</td>
+        <td>
+          <p>32</p>
+      </tr>
   </table>
 </div>
 
