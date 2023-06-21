@@ -2,8 +2,6 @@
 
 # Example repository URLs
 repositories=(
-    "https://github.com/iusztinpaul/energy-forecasting"
-    "https://github.com/ajndkr/lanarky"
     "https://github.com/GokuMohandas/mlops-course"
     "https://github.com/FerrariDG/async-ml-inference"
     "https://github.com/avjinder/Minimal-Todo"

@@ -5,24 +5,29 @@
 <br>
 async-ml-inference
 </h1>
-<h3>◦ Real-time predictions at lightning speed with async-ml-inference!</h3>
+<h3>◦ Efficiently predict the future with async-ml-inference.</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="scikitlearn" />
-<img src="https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black" alt=".ENV" />
-<img src="https://img.shields.io/badge/Redis-DC382D.svg?style=for-the-badge&logo=Redis&logoColor=white" alt="Redis" />
-<img src="https://img.shields.io/badge/Jinja-B41717.svg?style=for-the-badge&logo=Jinja&logoColor=white" alt="Jinja" />
-<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style=for-the-badge&logo=SciPy&logoColor=white" alt="SciPy" />
-<img src="https://img.shields.io/badge/Celery-37814A.svg?style=for-the-badge&logo=Celery&logoColor=white" alt="Celery" />
+<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style&logo=scikit-learn&logoColor=white" alt="scikitlearn" />
+<img src="https://img.shields.io/badge/.ENV-ECD53F.svg?style&logo=dotenv&logoColor=black" alt=".ENV" />
+<img src="https://img.shields.io/badge/Redis-DC382D.svg?style&logo=Redis&logoColor=white" alt="Redis" />
+<img src="https://img.shields.io/badge/Jinja-B41717.svg?style&logo=Jinja&logoColor=white" alt="Jinja" />
+<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style&logo=SciPy&logoColor=white" alt="SciPy" />
+<img src="https://img.shields.io/badge/Celery-37814A.svg?style&logo=Celery&logoColor=white" alt="Celery" />
 
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white" alt="NumPy" />
-<img src="https://img.shields.io/badge/Numba-00A3E0.svg?style=for-the-badge&logo=Numba&logoColor=white" alt="Numba" />
-<img src="https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white" alt="FastAPI" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/NumPy-013243.svg?style&logo=NumPy&logoColor=white" alt="NumPy" />
+<img src="https://img.shields.io/badge/Numba-00A3E0.svg?style&logo=Numba&logoColor=white" alt="Numba" />
+<img src="https://img.shields.io/badge/FastAPI-009688.svg?style&logo=FastAPI&logoColor=white" alt="FastAPI" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
+
+![GitHub top language](https://img.shields.io/github/languages/top/FerrariDG/async-ml-inference?style&color=5D6D7E)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/FerrariDG/async-ml-inference?style&color=5D6D7E)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/FerrariDG/async-ml-inference?style&color=5D6D7E)
+![GitHub license](https://img.shields.io/github/license/FerrariDG/async-ml-inference?style&color=5D6D7E)
 </div>
 
 ---
@@ -44,7 +49,7 @@ async-ml-inference
 
 ## 📍 Overview
 
-The Async-ML-Inference project is a set of Python scripts that work together to provide an asynchronous machine learning inference API, allowing users to submit tasks for audio length extraction and EuroMillions lottery result scraping. The project is built using Celery and FastAPI, and utilizes RabbitMQ and Redis for message queuing and storage. The value proposition of the project is its ability to perform machine learning inference tasks asynchronously, allowing for greater scalability and efficiency.
+The async-ml-inference repository is a project that provides a web API for processing audio and EuroMillions lottery results asynchronously, using Celery and Redis for task queuing and result storage. The API can be accessed from a client application that sends requests with audio URLs and dates to the API for processing. The project aims to provide a scalable and efficient solution for handling large-scale audio processing and lottery result scraping, with the added benefit of handling tasks asynchronously.
 
 ---
 
@@ -52,16 +57,15 @@ The Async-ML-Inference project is a set of Python scripts that work together to 
 
 Feature | Description |
 |-----|-----|
-| **🏗 Architecture** | The codebase follows a microservices architecture, with separate workers for audio processing and EuroMillions lottery results scraping, and a FastAPI-based API for receiving requests and distributing the tasks. Celery and Redis are used for message queuing and backend processing, and RabbitMQ is used as a broker. The codebase also includes a Dockerfile for building a container for the API and workers. |
-| **📑 Documentation** | The codebase includes clear documentation, including README files in the root directory and the API and workers subdirectories, as well as comments throughout the code. The README files provide instructions for building and running the API and workers in a Docker environment, as well as descriptions of their functionality and configuration. |
-| **🧩 Dependencies** | The codebase includes a number of dependencies, including libraries for audio processing (librosa), web scraping (beautifulsoup4), and message queuing (Celery, RabbitMQ, Redis). The codebase also includes several development packages for linting (flake8) and diagramming (diagrams). |
-| **♻️ Modularity** | The codebase is modular, with separate subdirectories for the API and workers, and separate modules for task execution and configuration. The workers each have their own Dockerfile, and the API Dockerfile sets up the API separately from the workers. This modularity allows for easier maintenance and scaling. |
-| **✔️ Testing** | The codebase includes some basic unit tests for the Celery tasks, but additional testing could be added to improve test coverage. |
-| **⚡️ Performance** | The codebase is designed for high performance, utilizing asynchronous processing with Celery, RabbitMQ, and Redis to handle multiple tasks efficiently. The use of Docker containers also allows for easy scalability. |
-| **🔒 Security** | The codebase includes some security measures, such as using Redis for storing task results rather than exposing them in API responses, and using Celery's late ack feature to avoid processing a task more than once. However, further security measures such as authentication and authorization could be added to the API. |
-| **🔀 Version Control** | The codebase is version-controlled using git, with frequent commits and a clear commit history. The use of branches also allows for easier collaboration and development. |
-| **🔌 Integrations** | The codebase integrates several technologies, including RabbitMQ and Redis for message queuing and backend processing, and joblib for parallel processing. It also includes endpoints for audio processing and EuroMillions lottery results scraping. |
-| **📈 Scalability** | The codebase is designed for high scalability, with separate workers and an API that can be deployed in separate containers. The use of Celery, RabbitMQ, and Redis also allows for efficient handling of multiple tasks. However, further performance testing and
+| **🏗 Architecture** | The codebase follows a microservices architecture pattern with separate components for the API server and backend workers. Celery is used as the task queue for handling background tasks and Redis and RabbitMQ are used as the message broker and backend respectively. The code implements a robust and scalable architecture for handling audio and Euro data processing using decoupled components. |
+| **📑 Documentation** | The codebase includes a Pipfile for managing dependencies, and Dockerfiles for building the required containers. The code files are adequately commented and include docstrings, making it easy for new developers to understand the code. Additionally, the repository includes a README file with instructions on how to set up and run the API server and workers. |
+| **🧩 Dependencies** | The codebase relies on a number of third-party libraries for its functionality, including FastAPI, Celery, Redis, RabbitMQ, BeautifulSoup, and requests. All dependencies are declared in the Pipfile, simplifying the installation process. |
+| **♻️ Modularity** | The codebase is modular and follows the separation of concerns principle. The different components such as the API server, Celery tasks, configuration files, and worker implementations are separated into their respective directories. This improves readability and maintainability of the codebase. |
+| **✔️ Testing** | The codebase includes basic unit tests for the Celery tasks that are implemented. However, comprehensive tests for the API endpoints and worker functions are not included. Additional tests would improve the reliability and maintainability of the codebase. |
+| **⚡️ Performance** | The codebase is generally well optimized for performance. Celery is used to enable asynchronous task execution, and the codebase uses caching and retries to optimize the execution time of the tasks. However, additional performance optimizations may be needed as the size of the input data scales. |
+| **🔒 Security** | The codebase incorporates some security features, including the use of environment variables to store sensitive information, and the use of secure transport protocols such as HTTPS. However, the API endpoints do not include authentication or authorization mechanisms, and sensitive data such as Redis and RabbitMQ connection data are included in the codebase. Additional security measures are needed to improve the security of the codebase. |
+| **🔀 Version Control** | The codebase is hosted on GitHub and uses Git for version control. The code includes descriptive commit messages, making it easy to track changes to the codebase over time. However, there are no tags or releases for the codebase, which would improve the ease of collaboration and versioning. |
+| **🔌 Integrations** | The codebase includes integrations with third-party services such as Redis, RabbitMQ, and BeautifulSoup. However, additional integrations with services such as a cloud storage platform or audio processing libraries would be needed to further improve the functionality
 
 ---
 
@@ -111,55 +115,55 @@ repo
 
 <details closed><summary>Api</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                   | Module             |
-|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
-| Dockerfile | The code snippet sets up a Docker container for a Python API using the 3.7-slim-buster image. It installs the Python packages listed in requirements.txt and exposes ports for the API, Redis and RabbitMQ. Finally, it runs the API using the uvicorn server.                                                                                                            | src/api/Dockerfile |
-| api.py     | The provided code snippet is a Python program that utilizes Celery and FastAPI for asynchronous task processing and web API framework respectively. It includes functions to create audio and Euro results tasks, to get task results, and to send task results to somewhere. It also includes necessary configuration variables and Pydantic models for data validation. | src/api/api.py     |
+| File       | Summary                                                                                                                                                                                                                                                                                                                                  | Module             |
+|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
+| Dockerfile | The provided code snippet is a Dockerfile that sets up a Python 3.7 environment for a web API with dependencies listed in requirements.txt. It installs the dependencies, copies the API file, sets up port exposure, and defines the command to run the API using the Uvicorn server on port 5000.                                      | src/api/Dockerfile |
+| api.py     | The provided code snippet sets up a FastAPI that interacts with a Celery background task queue to process audio and Euro data. It also provides functionality to retrieve task results, and has options to send task results to an external service. The code reads environment variables for RabbitMQ and Redis connection information. | src/api/api.py     |
 
 </details>
 
 <details closed><summary>Audio</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                                                                                                                               | Module                      |
-|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
-| worker.py | The provided code snippet is a Celery worker for extracting the length of an audio file using librosa library. The worker is initiated with a broker and backend and the audio length extraction task is defined as a Celery task. The task loads the audio URL, extracts the audio length, and returns the result. Any exception raised during the task is handled and the task is marked as failed. | src/workers/audio/worker.py |
-| config.py | This code snippet sets configurations for a Celery worker responsible for Audio Length tasks. It enables the worker to acknowledge tasks only upon completion or failure, limits it to one task at a time and assigns a queue for those tasks. Additionally, it sets the Redis key time to live to 48 hours.                                                                                          | src/workers/audio/config.py |
+| File      | Summary                                                                                                                                                                                                                                                                                                                       | Module                      |
+|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
+| worker.py | This code defines a Celery task called "audio_length", which takes an audio URL as input and extracts the length of the audio file. The task checks if the backend and broker are running, and handles exceptions such as failure to load the audio file or network errors. The extracted length is returned as a dictionary. | src/workers/audio/worker.py |
+| config.py | This code snippet sets configurations for a Celery worker that processes audio length tasks. The worker is set to acknowledge tasks only when they are returned or fail due to unhandled exceptions. It also creates a queue for the worker to handle tasks and sets a time-to-live limit for Redis keys.                     | src/workers/audio/config.py |
 
 </details>
 
 <details closed><summary>Client</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                       | Module                |
-|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| Dockerfile | The provided code snippet is a Dockerfile for a Python client that copies the requirements.txt and client.py files into a working directory, installs the necessary dependencies, and runs the client.py file on port 5000. The Docker image ensures that pip is upgraded and the requirements are compiled and cached for more efficient execution, then removes unnecessary files to reduce the image size. | src/client/Dockerfile |
-| client.py  | The code sends requests to two endpoints in parallel using joblib, one for audio URL length and the other for Euro lottery results. The retrying module is used to handle cases where the API is still processing requests. The results are then printed for each task that completed successfully, otherwise, an error message is printed.                                                                   | src/client/client.py  |
+| File       | Summary                                                                                                                                                                                                                                                                                                      | Module                |
+|:-----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| Dockerfile | The code snippet sets up a Python 3.7 environment, installs dependencies listed in requirements.txt, copies client.py file, exposes port 5000, and runs the client.py file as the default command. The code executes in a slimmed-down Debian Buster container.                                              | src/client/Dockerfile |
+| client.py  | The provided code snippet sends a set of audio URLs and dates to a web API and retrieves the results using parallel processing. The code uses the requests library for making HTTP requests, joblib for parallel processing, and retrying for handling task retries. The results are printed to the console. | src/client/client.py  |
 
 </details>
 
 <details closed><summary>Euro</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                | Module                     |
-|:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------|
-| worker.py | This code is a Celery worker that scrapes Euromillions lottery results from a website using the Beautiful Soup library, and returns the numbers and stars for a given draw date as a tuple. The code includes error handling for cases where the website cannot be reached or if the numbers and stars are not found on the page. The Celery worker is connected to a broker and backend server through functions in external modules. | src/workers/euro/worker.py |
-| config.py | This code snippet is setting configurations for a worker that handles tasks related to EuroMillions results using the Celery library. It enables late acks for tasks, sets a prefetch multiplier of 1, defines a single queue for the task, and sets a result expiration time of 48 hours.                                                                                                                                             | src/workers/euro/config.py |
+| File      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Module                     |
+|:----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------|
+| worker.py | The provided code is a Celery worker that scrapes the EuroMillions lottery results from a given URL using BeautifulSoup. It checks if the broker and backend servers are running before executing the task. The `scrappy_result` function defined within the worker takes in a draw date as input parameter and returns a tuple of integers representing the drawn numbers and stars for that date. The function also handles exceptions and updates the state of the task accordingly. | src/workers/euro/worker.py |
+| config.py | This code snippet is a module with Celery configurations for a worker that processes Euromillions results. It sets the task_acks_late flag to True, resulting in delayed task acknowledgements, and a prefetch multiplier of 1. The worker is configured to use a single queue named "euro", and the results expire after 48 hours.                                                                                                                                                     | src/workers/euro/config.py |
 
 </details>
 
 <details closed><summary>Root</summary>
 
-| File    | Summary                                                                                                                                                                                                                                                                                                                                                                                    | Module   |
-|:--------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
-| Pipfile | The provided code snippet contains a configuration file that specifies dependencies and scripts for a Python project. It includes development packages such as diagrams and flake8, as well as packages like beautifulsoup4 and celery. The scripts section includes commands for starting a RabbitMQ broker, a Redis backend, and various Celery workers and Flower for monitoring tasks. | Pipfile  |
+| File    | Summary                                                                                                                                                                                                                                                                                         | Module   |
+|:--------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
+| Pipfile | The provided code snippet is a configuration file for a Python project. It lists dependencies and their versions under different categories such as dev-packages and packages. It also includes scripts for running the project and necessary services such as a broker and backend for Celery. | Pipfile  |
 
 </details>
 
 <details closed><summary>Workers</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                            | Module                 |
-|:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| backend.py | The provided code snippet defines several functions for retrieving configuration parameters related to connecting to Redis, and for checking if a Redis instance is running. The `get_backend_url()` function returns a Redis connection string based on the retrieved parameters. The `is_backend_running()` function attempts to connect to the Redis instance, and returns a boolean indicating whether the connection was successful.          | src/workers/backend.py |
-| Dockerfile | This code snippet creates a Docker image based on Python 3.7, installs the necessary dependencies and libraries, copies the code into the image, and exposes ports 6379 and 5672. It uses a requirements.txt file to install the required Python packages and removes unnecessary files to optimize the image. The resulting image can be used to run workers for tasks like message queuing and audio processing.                                 | src/workers/Dockerfile |
-| broker.py  | This code snippet provides functions for generating a broker URL and checking if the RabbitMQ instance is running. It uses the `os` and `kombu` modules to fetch environment variables and establish connections with the broker. The `get_broker_url()` function constructs a URL based on the retrieved variables and the `is_broker_running()` function attempts to establish a connection and returns a boolean indicating success or failure. | src/workers/broker.py  |
+| File       | Summary                                                                                                                                                                                                                                                                                                                                                                     | Module                 |
+|:-----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| backend.py | The code snippet defines functions to retrieve Redis configuration values, generate a backend URL based on these values, and check if a Redis instance is running. The Redis module is imported, and exceptions are handled appropriately. The code can thus be used to create a Redis client and check whether a connection can be established.                            | src/workers/backend.py |
+| Dockerfile | This code snippet is for building a Docker container for a Python application. It installs the necessary dependencies listed in requirements.txt, sets the working directory to /workers, and exposes ports 6379 and 5672. Additionally, it copies the application files to the container.                                                                                  | src/workers/Dockerfile |
+| broker.py  | The code snippet defines functions to retrieve connection details and check if a RabbitMQ instance is running. It uses Python's `os` module to get environment variables for the connection details and the `kombu` library to establish a connection. The `is_broker_running` function attempts to connect to RabbitMQ and return a boolean indicating success or failure. | src/workers/broker.py  |
 
 </details>
 

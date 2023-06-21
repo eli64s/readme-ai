@@ -5,18 +5,23 @@
 <br>
 flink-flow
 </h1>
-<h3>◦ Streamline your flow with Flink-Flow!</h3>
+<h3>◦ Streamline. Scale. Succeed. with flink-flow!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
-<img src="https://img.shields.io/badge/Apache%20Flink-E6526F.svg?style=for-the-badge&logo=Apache-Flink&logoColor=white" alt="Apache%20Flink" />
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=for-the-badge&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
-<img src="https://img.shields.io/badge/Apache%20Kafka-231F20.svg?style=for-the-badge&logo=Apache-Kafka&logoColor=white" alt="Apache%20Kafka" />
-<img src="https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
+<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
+<img src="https://img.shields.io/badge/Apache%20Flink-E6526F.svg?style&logo=Apache-Flink&logoColor=white" alt="Apache%20Flink" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
+<img src="https://img.shields.io/badge/Apache%20Kafka-231F20.svg?style&logo=Apache-Kafka&logoColor=white" alt="Apache%20Kafka" />
+<img src="https://img.shields.io/badge/pandas-150458.svg?style&logo=pandas&logoColor=white" alt="pandas" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
+
+![GitHub top language](https://img.shields.io/github/languages/top/eli64s/flink-flow?style&color=5D6D7E)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eli64s/flink-flow?style&color=5D6D7E)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/flink-flow?style&color=5D6D7E)
+![GitHub license](https://img.shields.io/github/license/eli64s/flink-flow?style&color=5D6D7E)
 </div>
 
 ---
@@ -42,7 +47,7 @@ flink-flow
 
 ## 📍 Overview
 
-Flink-Flow is a Python-based project that uses Apache Flink for distributed stream processing. Its core functionalities include setting up and configuring a Flink cluster, processing data streams, and raising alerts for flagged records. It offers a valuable solution for efficiently processing large amounts of data using distributed computing and providing a robust alerting system for identifying potential issues in real-time.
+The "flink-flow" project is a Python-based data stream processing application using Apache Flink. It enables users to join data from a real-time data source with historical data, filter it, and raise notifications in response to certain conditions. The project provides robust and efficient data processing capabilities, allowing users to gain insights and take actions in real-time.
 
 ---
 
@@ -50,16 +55,16 @@ Flink-Flow is a Python-based project that uses Apache Flink for distributed stre
 
 Feature | Description |
 |-----|-----|
-| **🏗 Architecture** | The repository contains code for processing data with Apache Flink and Python. It defines a system for processing data streams and raising alerts based on specific criteria. The system architecture is distributed and scalable, allowing for the processing of large amounts of data. |
-| **📑 Documentation** | The repository provides detailed documentation for setting up and running the system. The README file includes instructions for installation, configuration, and running the system. Additionally, the code includes inline comments and docstrings, providing insights into the purpose and functionality of various components. |
-| **🧩 Dependencies** | The system depends on several packages, including Apache Flink, aiohttp, PyFlink, and avro-python3. These packages enable the functionality of the system, from processing data streams to sending alerts. |
-| **♻️ Modularity** | The code is modular, with each file serving a distinct purpose within the system. For example, alerts_handler.py is responsible for handling alerts, consumer.py processes data streams, and logger.py provides logging capability. This modular design allows for easier maintenance, testing, and reuse of code components. |
-| **✔️ Testing** | The repository includes a tests directory containing several test files that test various components of the system. Tests are executed with pytest, and code coverage reports are generated using coverage.py. The tests verify the correctness of the system's components, ensuring that they function as expected. |
-| **⚡️ Performance** | The system is designed to process large amounts of data in a distributed manner, minimizing processing time and increasing performance. Additionally, the system uses techniques such as Checkpointing and time characteristics to increase efficiency, reduce redundancy, and improve performance. |
-| **🔒 Security** | The code does not appear to have any specific security measures implemented. However, the code is not exposed to the public, and the system is designed to be run in a private environment, minimizing potential security risks. |
-| **🔀 Version Control** | The repository uses Git for version control, with a branch-based workflow. The main branch contains stable code, while feature branches are used for developing new features or fixing bugs. Commits are frequent and well-documented, making it easy to track changes and revert if necessary. |
-| **🔌 Integrations** | The repository does not include any specific integrations. However, the system is designed for integration with external APIs or data sources, as demonstrated by the alerts_handler.py file. |
-| **📈 Scalability** | The system is designed to be scalable, using distributed computing with Apache Flink to process large amounts of data. Additionally, the system is modular, making it easier to add or remove components to suit changing demands. The system also uses techniques such as Checkpointing and time characteristics to increase scalability and efficiency. |
+| **🏗 Architecture** | The codebase uses a microservices architecture with components such as a Flink consumer, an alerts handler, and a logger. The code is modular and follows a clear separation of concerns. It uses REST APIs and batch processing to perform data processing tasks. |
+| **📑 Documentation** | The codebase has a README.md file that provides clear instructions on how to set up and run the project. It includes information on the various components and dependencies used in the project. The code also includes comments in key areas to help with code comprehension. |
+| **🧩 Dependencies** | The project uses several dependencies, including Apache Flink, Flask, aiohttp, and Avro. The dependencies are well documented and specified in a requirements.txt file. The setup script automatically installs the required dependencies when creating a new environment. |
+| **♻️ Modularity** | The codebase is modular and follows a clear separation of concerns. The various components, such as the Flink consumer, the alerts handler, and the logger, are implemented in separate files, making it easier to maintain each module. |
+| **✔️ Testing** | The codebase includes tests using the pytest framework. The tests cover key functionalities such as Avro serialization, buffering, logging, and the Flink consumer. The tests are well documented and provide good code coverage. |
+| **⚡️ Performance** | The codebase uses Apache Flink, a high-performance distributed computing framework, for data processing tasks. The code is designed to perform real-time data processing with low latency. The alerts handler component is designed to batch alerts and send them to an API in bulk, reducing the overhead of sending individual alerts. |
+| **🔒 Security** | The codebase does not include any sensitive information. The alerts handler module includes a logger to record errors and alert information, ensuring that exceptions and errors are visible for debugging purposes. |
+| **🔀 Version Control** | The codebase uses Git for version control and is hosted on GitHub. The repository includes a well-defined and documented Git workflow, including branching and merging strategies. Each commit message follows a clear format and provides a clear summary of the changes made. |
+| **🔌 Integrations** | The Flink consumer component integrates with Apache Flink for data processing tasks. The alerts handler component integrates with an API to send alerts in batches. The logger component uses popular logging and color modules to log messages with various levels of severity. |
+| **📈 Scalability** | The codebase is designed to perform distributed real-time data processing using Apache Flink, making it highly scalable. The alerts handler component buffers alerts and sends them in bulk, further enhancing its scalability. The modular design of the codebase makes it easier to add new components and scale the application further. |
 
 ---
 
@@ -96,36 +101,36 @@ repo
 
 <details closed><summary>Root</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                                                                                                                                          | Module   |
-|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
-| setup.py | The provided code snippet sets up the configuration for a Python package using setuptools. It includes the necessary packages and dependencies required to install and test the package. The configuration file defines the package name, version, author information, and a URL. Additionally, it specifies extra dependencies required for development and testing as defined in the "extras_require" section. | setup.py |
+| File     | Summary                                                                                                                                                                                                                                                                                                                               | Module   |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
+| setup.py | The provided code is a Python setup script that defines the metadata, dependencies, and extras for a package named "STREAM-ON". The dependencies are loaded from a requirements.txt file using pathlib, and extras are specified for development and testing purposes. It uses setuptools to find and include all namespace packages. | setup.py |
 
 </details>
 
 <details closed><summary>Scripts</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                                                                 | Module           |
-|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| run.sh   | The provided code snippet starts a Flink cluster, submits a PyFlink job called word_count.py, and then stops the Flink cluster. This allows for the processing of large amounts of data using distributed computing.                                                                                                                    | scripts/run.sh   |
-| clean.sh | This code snippet performs various cleanup tasks, such as deleting backup files and Python cache files, removing build artifacts, and deleting Jupyter notebook checkpoints and pytest cache. It achieves this by using the find command to locate specific file types and the rm command to delete them. Lastly, it deletes log files. | scripts/clean.sh |
+| File     | Summary                                                                                                                                                                                                                                                                                            | Module           |
+|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| run.sh   | This code snippet executes a script that starts a Flink cluster, runs a PyFlink job to perform word counting, and then stops the Flink cluster.                                                                                                                                                    | scripts/run.sh   |
+| clean.sh | This bash script has several functionalities to clean up a project directory. It deletes backup files, Python cache files, build artifacts, Jupyter notebook checkpoints, pytest cache, and log files. It uses the'find' command to search for specific file types and directories to delete them. | scripts/clean.sh |
 
 </details>
 
 <details closed><summary>Setup</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                 | Module         |
-|:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
-| setup.sh | This script checks for the installation of Java 11, Python 3.7, and Conda. If they are not installed, it installs them. It then downloads and extracts PyFlink and sets environment variables and aliases for zsh. Finally, it prints a message indicating the completion of the setup. | setup/setup.sh |
+| File     | Summary                                                                                                                                                                                                                                                       | Module         |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
+| setup.sh | The code snippet is a Bash script that checks for the installation of Java 11, Python 3.7, and Conda. It then downloads and extracts PyFlink, sets environment variables, and creates aliases for zsh. The script aims to set up PyFlink on the local system. | setup/setup.sh |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File              | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                | Module                |
-|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| alerts_handler.py | The provided code is a REST API alert handler for the Flink consumer. It uses aiohttp to send alerts to an API in batches, buffers alerts, and serializes alerts using Apache Avro. The code also includes a mock function to test and log alerts.                                                                                                                                                                                                     | src/alerts_handler.py |
-| logger.py         | The provided code snippet is a Logger class for a project, which initializes a logger object and sets its level to DEBUG by default. It configures a StreamHandler and a ColorFormatter with specific log colors for different levels of severity. The Logger class also provides methods for logging different types of messages at different levels of severity.                                                                                     | src/logger.py         |
-| consumer.py       | The provided code snippet uses the Apache Flink and Python to process data streams by defining tables, queries, and aggregations. It creates a source table and a batch view in the Flink table environment, performs join operations on the tables, and raises alerts for flagged records. It uses Checkpointing and sets time characteristics of streaming data. Finally, it prints the joined dataset and executes the Flink data stream processor. | src/consumer.py       |
+| File              | Summary                                                                                                                                                                                                                                                                                                                                                                                                                         | Module                |
+|:------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| alerts_handler.py | This code is a REST API alert handler for the Flink consumer that uses aiohttp to send alerts to an API in batches. It includes functions to buffer alerts and serialize them using Apache Avro. The code also has a logger to record information on alerts sent and any errors encountered.                                                                                                                                    | src/alerts_handler.py |
+| logger.py         | The provided code snippet is a Logger class that uses the logging and colorlog modules to log messages with different levels of severity (debug, info, warning, error, and critical) and corresponding colors. It initializes the logger with a specified name and level, configures the logger with a stream handler, and defines methods to log messages with different levels.                                               | src/logger.py         |
+| consumer.py       | This code snippet is for a data stream processing application using Apache Flink and Python. It creates a stream execution environment, defines a source table, and executes a SQL query to join the source table with a batch view table. The joined table is then filtered and processed to raise alerts using the alerts_handler module. Finally, the script runs the Flink data stream processor and shuts down the engine. | src/consumer.py       |
 
 </details>
 

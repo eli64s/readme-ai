@@ -5,21 +5,26 @@
 <br>
 ChatGPT-App-React-Native-TypeScript
 </h1>
-<h3>◦ Chat smarter, not harder with ChatGPT!</h3>
+<h3>◦ Connect, Collaborate, ChatGPT-Your ultimate communication solution!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" alt="JavaScript" />
-<img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style=for-the-badge&logo=Nodemon&logoColor=white" alt="Nodemon" />
-<img src="https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black" alt="React" />
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
-<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white" alt="TypeScript" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style&logo=JavaScript&logoColor=black" alt="JavaScript" />
+<img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style&logo=Nodemon&logoColor=white" alt="Nodemon" />
+<img src="https://img.shields.io/badge/React-61DAFB.svg?style&logo=React&logoColor=black" alt="React" />
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style&logo=OpenAI&logoColor=white" alt="OpenAI" />
+<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style&logo=TypeScript&logoColor=white" alt="TypeScript" />
 
-<img src="https://img.shields.io/badge/Expo-000020.svg?style=for-the-badge&logo=Expo&logoColor=white" alt="Expo" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown" />
-<img src="https://img.shields.io/badge/Express-000000.svg?style=for-the-badge&logo=Express&logoColor=white" alt="Express" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white" alt="JSON" />
+<img src="https://img.shields.io/badge/Expo-000020.svg?style&logo=Expo&logoColor=white" alt="Expo" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
+<img src="https://img.shields.io/badge/Express-000000.svg?style&logo=Express&logoColor=white" alt="Express" />
+<img src="https://img.shields.io/badge/JSON-000000.svg?style&logo=JSON&logoColor=white" alt="JSON" />
 </p>
+
+![GitHub top language](https://img.shields.io/github/languages/top/Yuberley/ChatGPT-App-React-Native-TypeScript?style&color=5D6D7E)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Yuberley/ChatGPT-App-React-Native-TypeScript?style&color=5D6D7E)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Yuberley/ChatGPT-App-React-Native-TypeScript?style&color=5D6D7E)
+![GitHub license](https://img.shields.io/github/license/Yuberley/ChatGPT-App-React-Native-TypeScript?style&color=5D6D7E)
 </div>
 
 ---
@@ -27,10 +32,14 @@ ChatGPT-App-React-Native-TypeScript
 ## 📚 Table of Contents
 - [📚 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [⚙️ Features](#️-features)
+- [📂 Project Structure](#-project-structure)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
+  - [✅ Prerequisites](#-prerequisites)
+  - [🖥 Installation](#-installation)
+  - [🤖 Using ChatGPT-App-React-Native-TypeScript](#-using-chatgpt-app-react-native-typescript)
+  - [🧪 Running Tests](#-running-tests)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
@@ -41,7 +50,7 @@ ChatGPT-App-React-Native-TypeScript
 
 ## 📍 Overview
 
-The ChatGPT-App-React-Native-TypeScript project is a messaging app that leverages OpenAI's GPT-3 model to generate automated responses. The app allows users to send and receive messages in a chat interface, which can be styled using custom components and layout options. The project provides a robust codebase that implements best practices in React Native development, including the use of TypeScript, a React context, and custom hooks to manage state and API calls. Overall, the project offers a valuable solution for automating messaging workflows and can be customized to suit different use cases.
+The ChatGPT-App-React-Native-TypeScript is a messaging application that uses OpenAI's text-davinci-003 to generate responses for user messages. The app features a stack of screens, including a HomeScreen that displays a list of messages and allows users to input new messages, and an Information screen. The app is built with React Native and TypeScript, and it utilizes a context DataProvider to manage the state of the app. Its value proposition lies in its ability to provide a seamless messaging experience with the help of AI-generated responses.
 
 ---
 
@@ -49,16 +58,16 @@ The ChatGPT-App-React-Native-TypeScript project is a messaging app that leverage
 
 Feature | Description |
 |-----|-----|
-| **🏗 Architecture** | The codebase follows a client-server architecture, with the React Native application acting as the client and the Node.js server serving as the backend. The frontend uses the context API and state management to manage user input and fetch chat messages from the server via API requests. The server uses Express.js to handle incoming requests, fetches data from OpenAI's GPT-3 model, and responds with JSON data. |
-| **📑 Documentation** | The codebase includes detailed documentation in the form of comments and README files to guide developers on how to set up and use the application. Additionally, the code uses TypeScript interfaces and type definitions for enhanced documentation and type checking. |
-| **🧩 Dependencies** | The codebase uses a variety of third-party dependencies, including @react-navigation/native for navigation, Axios for HTTP requests, dotenv for environment variables, and OpenAI API for language processing. The use of these dependencies enhances the functionality and modularity of the codebase. |
-| **♻️ Modularity** | The codebase is modular, with each component or module responsible for performing a specific task. The use of TypeScript interfaces, context API, and custom hooks promotes code reuse and maintainability. Additionally, the separation of the server and client-side code further enhances modularity and maintainability. |
-| **✔️ Testing** | The codebase does not include any unit tests or automated testing scripts. Implementing tests would greatly enhance code reliability and maintainability. |
-| **⚡️ Performance** | The React Native frontend uses the FlatList component to display chat messages, which optimizes performance by only rendering the visible elements on the screen. Additionally, the use of async/await and Axios for HTTP requests provides efficient data fetching. However, the use of the OpenAI API to process natural language may have a performance impact on the server. |
-| **🔒 Security** | The codebase does not implement any security measures such as authentication or data encryption. Transmitting data over HTTP instead of HTTPS also poses a security risk. Implementing security measures would greatly enhance the overall security of the application. |
-| **🔀 Version Control** | The codebase is version-controlled using Git, with detailed commit messages that provide insight into the changes made to the codebase. The use of branches also enhances collaboration and ensures code stability. However, the absence of a.gitignore file increases the risk of sensitive data being uploaded to the repository. |
-| **🔌 Integrations** | The codebase integrates with the OpenAI API to process natural language and Express.js to handle incoming requests. The use of these integrations enhances the functionality and performance of the application. |
-| **📈 Scalability** | The codebase is designed to be scalable, with the server handling incoming requests asynchronously and returning data in a structured JSON format. Additionally, the use of
+| **🏗 Architecture** | The codebase follows a standard React Native architecture with a focus on modularity and separation of concerns. It utilizes context and custom hooks to manage state and functionality across various components and screens. The server-side code uses Express to create an API endpoint for the AI chatbot and includes configuration files for environment variables. |
+| **📑 Documentation** | The codebase includes README files with instructions on running the app and server, as well as notes on dependencies and environment variables. The code itself includes comments explaining the purpose and functionality of each file and component. However, some of the comments are written in Spanish instead of English which could pose a challenge for non-Spanish-speaking developers. |
+| **🧩 Dependencies** | The codebase includes several dependencies, such as React Navigation for screen navigation, Axios for HTTP requests, and OpenAI API for the AI chatbot functionality. The dependencies are managed by npm and listed in the package.json file. |
+| **♻️ Modularity** | The codebase is highly modular, with components and screens separated into individual files and folders. The use of context and custom hooks allows for even further modularity and separation of concerns. Each file or folder contains only the necessary code for a specific feature or functionality, making the codebase easy to read and understand. |
+| **✔️ Testing** | There is no testing included in the codebase. |
+| **⚡️ Performance** | The performance of the app and server largely depend on the performance of the OpenAI API and the internet connection. The use of Axios for HTTP requests and the async/await pattern ensures that the app remains responsive while waiting for server responses. However, more performance optimization could be achieved by implementing features such as lazy loading and memoization of components. |
+| **🔒 Security** | The server-side code includes configurable environment variables for API keys and organizations, which is a good practice for securing sensitive information. However, there is no validation or sanitization of user input in the client-side code, which could pose a security risk if the app were exposed to malicious users. |
+| **🔀 Version Control** | The codebase uses Git for version control and is hosted on GitHub. Commits are regularly made with clear and descriptive messages, making it easy to track changes and understand the development history of the project. However, some commits are not pushed to the repository, which could make it difficult for other team members to access the latest codebase. |
+| **🔌 Integrations** | The codebase includes integration with the OpenAI API for the AI chatbot functionality. The API key and organization are configured using environment variables, allowing for easy integration with other APIs or services. |
+| **📈 Scalability** | The use of context and custom hooks makes it easy to add new features and functionality to the app without needing to
 
 ---
 
@@ -117,78 +126,78 @@ repo
 
 <details closed><summary>Components</summary>
 
-| File             | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Module                      |
-|:-----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
-| InputMessage.tsx | The provided code snippet is a React functional component that renders an input field and a send button. When the send button is pressed, the input text is sent to a context provider using a unique ID generated by the'react-uuid' package and other relevant data. The component also defines the styling of the input field and send button using the'StyleSheet' component from React Native.                                                                          | components/InputMessage.tsx |
-| Layout.tsx       | This code snippet defines a React Native component called Layout that renders a View container with specific style properties. It also sets a StatusBar with a specified background color and bar style. The Layout component takes in children as props to be rendered within the container.                                                                                                                                                                                | components/Layout.tsx       |
-| Message.tsx      | The provided code snippet defines a "Message" component in React Native that displays a message with an avatar, message text, author name, and a copy-to-clipboard function when the message is pressed. The component's styling is determined by the message sender's name, with different colors and alignment for "you" versus other senders. The component imports necessary modules including Clipboard and defines TypeScript type definitions for the message object. | components/Message.tsx      |
-| ListMessage.tsx  | This code snippet is a React Native component that renders a list of messages fetched from a remote API using the `useFetchMessage` hook. The component also utilizes the `useContext` hook to get input from a context provider and displays the messages in a `FlatList`. Additionally, the component has a refresh feature that clears the messages displayed when the user pulls down the list.                                                                          | components/ListMessage.tsx  |
+| File             | Summary                                                                                                                                                                                                                                                                                                                                                                                                                              | Module                      |
+|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
+| InputMessage.tsx | This code defines a functional component in React Native that displays an input field and a "send" button. When the button is pressed, it creates a new message object with a unique ID, timestamp, text, and user data, and passes it to a context provider for use in the app. The component also includes styling for the input field and button.                                                                                 | components/InputMessage.tsx |
+| Layout.tsx       | The provided code snippet defines a React Native component called Layout. It includes a view with some stylings, and a StatusBar component with specific background color and status bar style. This Layout component takes in a child component as a prop and renders it inside the defined view.                                                                                                                                   | components/Layout.tsx       |
+| Message.tsx      | The provided code snippet defines a React Native component for rendering chat messages. The component takes a message object as a prop and displays the message text along with the user avatar and name. It also allows the user to copy the message text to the clipboard by clicking on the message. The styling of the component varies based on whether the message was sent by the current user or received from another user. | components/Message.tsx      |
+| ListMessage.tsx  | The provided code is a React Native component that renders a list of messages. It uses state and context to fetch and display messages received from a server using a custom hook. The component also includes a refresh control feature and styles the list container.                                                                                                                                                              | components/ListMessage.tsx  |
 
 </details>
 
 <details closed><summary>Constants</summary>
 
-| File         | Summary                                                                                                                                                                                                                                                                                                            | Module                 |
-|:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| constants.ts | The code snippet exports a constant variable named API_URL that contains the URL pointing to a local server running on port 3000. The IP address used (10.0.2.2) is commonly used for android emulators to access the host machine's localhost. This constant can be imported and used in other parts of the code. | constants/constants.ts |
+| File         | Summary                                                                                                                                                                                                                                | Module                 |
+|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| constants.ts | The provided code snippet exports a constant variable named "API_URL" that has a value of'http://10.0.2.2:3000'. This variable is likely used in an application to specify the URL where the application sends requests to the server. | constants/constants.ts |
 
 </details>
 
 <details closed><summary>Context</summary>
 
-| File             | Summary                                                                                                                                                                                                                                                                                                                                                                             | Module                   |
-|:-----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
-| DataProvider.tsx | This code snippet defines a React context called DataContext that wraps around the provided children components. The DataProvider component is responsible for managing the state of a text input field and exposing it through the context to other components that need it. The use of useState hook and MessageType type ensure type safety and maintainability in the codebase. | context/DataProvider.tsx |
+| File             | Summary                                                                                                                                                                                                                                                                                                                                                | Module                   |
+|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| DataProvider.tsx | The code defines a DataContext using the createContext function from React and exports it. It also exports a DataProvider component that takes in children as props and provides the textInput state and setTextInput function to the DataContext. This allows components nested within the DataProvider to access and manipulate the textInput state. | context/DataProvider.tsx |
 
 </details>
 
 <details closed><summary>Helpers</summary>
 
-| File          | Summary                                                                                                                                                                                                                                                                                 | Module                |
-|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| getMessage.ts | This code exports a function called getMessage that takes a string argument'message'. The function sends a POST request to an API endpoint and returns a Promise that resolves with data of type MessageType. The request body contains a model, message, max_tokens and a temperature. | helpers/getMessage.ts |
+| File          | Summary                                                                                                                                                                                                                                             | Module                |
+|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| getMessage.ts | This code exports a function that sends a message to an AI chatbot through an API endpoint. It uses the fetch() method to send a POST request, passing in a JSON object as the request body. The response is then parsed and returned as a Promise. | helpers/getMessage.ts |
 
 </details>
 
 <details closed><summary>Hooks</summary>
 
-| File               | Summary                                                                                                                                                                                                                                                                                                                                                                                                                         | Module                   |
-|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
-| useFetchMessage.ts | This code exports a custom React hook called `useFetchMessage`, which takes a message as an argument and returns a state object containing the message data and a loading flag. It uses the `useState` and `useEffect` hooks to manage state and perform an asynchronous API call using the `getMessage` helper function. If an empty message is provided, the hook returns an empty object and sets the loading flag to false. | hooks/useFetchMessage.ts |
+| File               | Summary                                                                                                                                                                                                                                                                                                                                                                                                                               | Module                   |
+|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------|
+| useFetchMessage.ts | This code snippet defines a custom React Hook called `useFetchMessage` that fetches a message from an external API using the `getMessage` helper function. It also manages the loading state of the message and returns an object containing the message data and loading status. The hook takes a string parameter representing the message to be fetched and is triggered whenever the message changes due to the `useEffect` hook. | hooks/useFetchMessage.ts |
 
 </details>
 
 <details closed><summary>Root</summary>
 
-| File    | Summary                                                                                                                                                                                                                                                                                                                                                                                                         | Module   |
-|:--------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
-| App.tsx | The provided code is a React Native application that uses the `NavigationContainer` and `createNativeStackNavigator` components from the `@react-navigation/native` library to create a navigation system with two screens, `HomeScreen` and `Infomation`. The `DataProvider` component is also implemented, and a `TouchableOpacity` component is used to navigate between the two screens with a touch event. | App.tsx  |
+| File    | Summary                                                                                                                                                                                                                                                                                           | Module   |
+|:--------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------|
+| App.tsx | The provided code snippet is a React Native app that uses the react-navigation library to create a stack of screens. It has two screens, HomeScreen and Infomation, and a button in the header to navigate between them. The app also uses a context DataProvider to manage the state of the app. | App.tsx  |
 
 </details>
 
 <details closed><summary>Screens</summary>
 
-| File           | Summary                                                                                                                                                                                                                                                                                                                   | Module                 |
-|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
-| Infomation.tsx | This code defines a component called "Information" which displays a centered text element inside a container view. The view is styled using flexbox properties to ensure it occupies the full width and height of the parent container. The component is exported for use in other parts of the React Native application. | screens/Infomation.tsx |
-| HomeScreen.tsx | The provided code snippet is a React Native component that defines the HomeScreen for a messaging app. It imports and renders two custom components: ListMessage for displaying messages and InputMessage for entering new messages. These components are wrapped in a Layout component.                                  | screens/HomeScreen.tsx |
+| File           | Summary                                                                                                                                                                                                                                                                                                                              | Module                 |
+|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|
+| Infomation.tsx | The provided code is a React Native component that renders a view with centered text reading "Infomation". It also imports and applies a stylesheet with flexbox styling to center the view in the container. The SliderComponent import is unused and unnecessary.                                                                  | screens/Infomation.tsx |
+| HomeScreen.tsx | This code snippet is for a HomeScreen component in a React Native app. It imports the Layout, ListMessage, and InputMessage components, and displays these components when rendered. The ListMessage component is used to display a list of messages, while the InputMessage component is used to allow users to input new messages. | screens/HomeScreen.tsx |
 
 </details>
 
 <details closed><summary>Server</summary>
 
-| File      | Summary                                                                                                                                                                                                                                                                                                                                                                  | Module           |
-|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| index.js  | This code provides an API endpoint for a chatbot that communicates with OpenAI's GPT-3 model. The endpoint receives a message and some configuration options as a request payload, sends the message to the model, and returns the model's response as a JSON object. The endpoints use Express.js and the OpenAI API.                                                   | server/index.js  |
-| config.js | This code snippet imports the'dotenv' package and uses its'config' method to load environment variables from a '.env' file. It then exports an object that contains two properties-'OPENAI_API_KEY' and'OPENAI_ORGANIZATION'-which map to the corresponding environment variables. This allows other modules to access and use these variables without hard-coding them. | server/config.js |
+| File      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Module           |
+|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| index.js  | This code sets up an Express server with CORS enabled and connects to the OpenAI API using an API key and organization specified in the config file. It listens to incoming POST requests on'/api/chat' and sends a prompt to OpenAI's'text-davinci-003' model, generating a response which is then returned as a JSON object. The response includes the generated text, along with metadata such as the model used and the user who initiated the request. | server/index.js  |
+| config.js | This code snippet loads environment variables from a.env file using the dotenv library. It exports an object containing two environment variables, OPENAI_API_KEY and OPENAI_ORGANIZATION, which are retrieved from the process.env object. These variables can then be used throughout the application.                                                                                                                                                    | server/config.js |
 
 </details>
 
 <details closed><summary>Types</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                          | Module           |
-|:-----------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| types.d.ts | The code provides an interface definition for User and Usage objects, as well as a MessageType object that includes properties such as id, create, model, text, user (which is a User object), and usage (which is a Usage object). These interfaces can be used to define and enforce data types in TypeScript. | types/types.d.ts |
+| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                             | Module           |
+|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| types.d.ts | The code snippet defines three interfaces, "User" for user details, "Usage" for usage stats, and "MessageType" that combines these interfaces along with information about the message. The "MessageType" interface includes properties such as ID, creation time, message model, message text, user details, and usage stats. This code can be used to create and manage message types in a messaging application. | types/types.d.ts |
 
 </details>
 
