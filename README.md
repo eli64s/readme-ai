@@ -63,9 +63,10 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
 
 ## 👾 Demo
 
-[![demo](./examples/imgs/demo.png)](https://youtu.be/0wbgjL0FMxY)
+[![demo](./examples/imgs/demo.png)](https://youtu.be/0wbgjL0FMxY){:target="_blank"}
 
 ---
+
 
 ## ⚙️ Features
 
@@ -94,7 +95,7 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
       <h3>📍 Introduction, Badges, Table of Contents</h3>
       <ul>
         <li>The OpenAI API is prompted to create a 1-sentence phrase describing your project.</li>
-        <li>Project dependencies and tools visualized using SVG icon badges.</li>
+        <li>Project dependencies and metadata are visualized using <a href="https://shields.io/">Shields.io</a> badges.</li>
         <li>Badges are sorted by hex code, displayed from light to dark hues.</li>
       </ul>
     </td>
