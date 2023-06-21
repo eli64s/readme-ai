@@ -81,26 +81,26 @@ fi
 
 echo "Python version is compatible."
 
-# Check if 'readme_ai' environment already exists
-if conda_env_exists "readme_ai"; then
-    echo "The 'readme_ai' environment already exists. Skipping environment creation."
+# Check if 'readme_ai2' environment already exists
+if conda_env_exists "readme_ai2"; then
+    echo "The 'readme_ai2' environment already exists. Skipping environment creation."
 else
-    # Create a new conda environment named 'readme_ai'
-    echo "Creating a new conda environment named 'readme_ai' with Python 3.8..."
-    conda env create -f setup/environment.yaml -n readme_ai || {
-        echo "Error creating the 'readme_ai' environment. Aborting."
+    # Create a new conda environment named 'readme_ai2'
+    echo "Creating a new conda environment named 'readme_ai2' with Python 3.8..."
+    conda env create -f setup/environment.yaml -n readme_ai2 || {
+        echo "Error creating the 'readme_ai2' environment. Aborting."
         exit 1
     }
 fi
 
 # Activate the conda environment
-echo "Activating the 'readme_ai' environment..."
+echo "Activating the 'readme_ai2' environment..."
 eval "$(conda shell.bash hook)"
-conda activate readme_ai
+conda activate readme_ai2
 
 # Add the Python path from the active conda environment to PATH
 echo "Adding Python path to the PATH environment variable..."
-export PATH="$(conda info --base)/envs/readme_ai/bin:$PATH"
+export PATH="$(conda info --base)/envs/readme_ai2/bin:$PATH"
 
 # Install the required packages using pip
 echo "Installing required packages from 'requirements.txt'..."
@@ -113,4 +113,4 @@ pip install . || {
 # Deactivate the conda environment
 conda deactivate
 
-echo "Setup complete. Use 'conda activate readme_ai' to activate the environment."
+echo "Setup complete. Use 'conda activate readme_ai2' to activate the environment."
