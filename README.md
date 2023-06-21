@@ -63,7 +63,7 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
 
 ## 👾 Demo
 
-[![demo](./examples/imgs/demo.png)](https://youtu.be/0wbgjL0FMxY){:target="_blank"}
+[![demo](./examples/imgs/demo.png)](https://youtu.be/0wbgjL0FMxY)
 
 ---
 
