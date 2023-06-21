@@ -54,8 +54,11 @@ class RepositoryParser:
         """Generates a tuple of file information."""
         for p in code_root.rglob("*"):
             if p.is_file():
+                # Edge cases to handle, make more programmatic later
                 if str(p.relative_to(code_root)).startswith(".git/"):
                     continue
+                if ".github/workflows" in str(p.relative_to(code_root)):
+                    yield "github actions", p.relative_to(code_root), ""
                 try:
                     with p.open(encoding="utf-8") as file:
                         content = file.read()
@@ -116,17 +119,19 @@ class RepositoryParser:
         df[["install", "run", "test"]] = pd.DataFrame.from_records(
             df["setup"].to_list(), columns=["install", "run", "test"]
         )
-        return df[[
-            "name",
-            "tokens",
-            "content",
-            "install",
-            "run",
-            "test",
-            "extension",
-            "language",
-            "path",
-        ]]
+        return df[
+            [
+                "name",
+                "tokens",
+                "content",
+                "install",
+                "run",
+                "test",
+                "extension",
+                "language",
+                "path",
+            ]
+        ]
 
     def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
         """Extracts dependency file contents from the DataFrame."""
