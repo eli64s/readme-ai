@@ -87,7 +87,7 @@ if conda_env_exists "readme_ai"; then
 else
     # Create a new conda environment named 'readme_ai'
     echo "Creating a new conda environment named 'readme_ai' with Python 3.8..."
-    conda env create -f setup/environment.yaml -n readme_ai || {
+    conda env create -f setup/environment.yaml || {
         echo "Error creating the 'readme_ai' environment. Aborting."
         exit 1
     }

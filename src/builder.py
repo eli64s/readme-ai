@@ -37,6 +37,7 @@ def create_readme_parts(
     """Creates each section of the README Markdown file."""
     name = conf.git.name
     repo = conf.git.repository
+    user_repo = utils.extract_username_reponame(repo)
     cwd_path = Path.cwd()
     badges_path = cwd_path / conf.paths.badges
     badges_dict = FileHandler().read(badges_path)
@@ -49,7 +50,7 @@ def create_readme_parts(
 
     md_file_parts = [
         conf.md.header,
-        conf.md.badges.format(md_badges),
+        conf.md.badges.format(md_badges, user_repo),
         conf.md.toc,
         conf.md.intro,
         conf.md.tree,

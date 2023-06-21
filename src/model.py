@@ -7,7 +7,6 @@ from typing import Dict, List, Tuple
 import httpx
 import openai
 from cachetools import TTLCache
-from httpx import HTTPStatusError
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -24,16 +23,6 @@ class OpenAIHandler:
     """OpenAI API handler for generating text for the README.md file."""
 
     LOGGER = Logger(__name__)
-
-    class RetryAfter(HTTPStatusError):
-        """Custom exception for HTTP errors."""
-
-        pass
-
-    class OpenAIError(Exception):
-        """Custom exception for OpenAI API errors."""
-
-        pass
 
     def __init__(self, conf: conf.AppConfig):
         """Initialize the OpenAI API handler.

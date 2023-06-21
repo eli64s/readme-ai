@@ -110,6 +110,9 @@ class RepositoryParser:
         df["setup"] = df["setup"].apply(
             lambda x: x if isinstance(x, list) else [None, None]
         )
+        if "setup" not in df.columns:
+            df["setup"] = [None] * len(df)
+
         df[["install", "run", "test"]] = pd.DataFrame.from_records(
             df["setup"].to_list(), columns=["install", "run", "test"]
         )

@@ -18,6 +18,18 @@ def clone_repository(url: str, repo_path: Path) -> None:
         raise ValueError(f"Error cloning repository: {exc}") from exc
 
 
+def extract_username_reponame(url):
+    """Extract username and repository name from a GitHub URL."""
+    pattern = r'https?://github.com/([^/]+)/([^/]+)'
+    match = re.match(pattern, url)
+
+    if match:
+        username, reponame = match.groups()
+        return f"{username}/{reponame}"
+    else:
+        return "Invalid GitHub URL"
+
+
 def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())

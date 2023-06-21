@@ -57,6 +57,7 @@ The following includes a list of the summaries of the files in the repository:
 Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition.
 """
 slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}. Limit your response to 80 characters."
+
 # Markdown Templates
 [md]
 default = "[ℹ️  INSERT-DESCRIPTION]"
@@ -71,8 +72,12 @@ header = """\n<div align="center">
 <h3>◦ Developed with the software and tools listed below.</h3>
 """
 badges = """<p align="center">
-{}
+{0}
 </p>
+\n![GitHub top language](https://img.shields.io/github/languages/top/{1}?style&color=5D6D7E)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/{1}?style&color=5D6D7E)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/{1}?style&color=5D6D7E)
+![GitHub license](https://img.shields.io/github/license/{1}?style&color=5D6D7E)
 </div>
 \n---
 """

@@ -16,10 +16,10 @@
     <img src="https://img.shields.io/badge/Anaconda-44A833.svg?&logo=Anaconda&logoColor=white" alt="Anaconda" />
   </p>
 
-  ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI)
-  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai)
-  ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI)
+  ![GitHub top language](https://img.shields.io/github/languages/top/eli64s/README-AI?color=5D6D7E)
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/eli64s/README-AI?color=5D6D7E)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?color=5D6D7E)
+  ![GitHub license](https://img.shields.io/github/license/eli64s/README-AI?color=5D6D7E)
 </div>
 
 ---
@@ -63,7 +63,7 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
 
 ## 👾 Demo
 
-[![demo](./examples/imgs/demo.png)](https://github-production-user-asset-6210df.s3.amazonaws.com/43382407/246677587-818e7346-209b-4def-9b93-11efb1b52520.mp4)
+[![demo](./examples/imgs/demo.png)](https://youtu.be/0wbgjL0FMxY)
 
 ---
 
@@ -401,6 +401,7 @@ bash scripts/test.sh
 ## 👏 Acknowledgments
 
 *Badges*
+  - [Shields.io](https://shields.io/)
   - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
   - [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
 
