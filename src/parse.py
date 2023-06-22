@@ -1,3 +1,5 @@
+"""Methods for parsing files and extracting dependencies."""
+
 import json
 import re
 from typing import List

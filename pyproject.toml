@@ -1,11 +1,33 @@
 [tool.poetry]
 name = "readme-ai"
-version = "0.1.0"
+version = "0.0.1"
 description = "🚀 Generate awesome README files from the terminal, powered by OpenAI's GPT language model APIs 💫"
 authors = ["Eli <43382407+eli64s@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "src"}]
+homepage = "https://github.com/eli64s/README-AI"
+documentation = "https://github.com/eli64s/README-AI/blob/main/README.md"
+keywords = [
+    "markdown",
+    "readme",
+    "readme-badges",
+    "documentation-generator",
+    "markdown-generator",
+    "automated-documentation",
+    "awesome-readme",
+    "readme-generator",
+    "python-ai",
+    "gpt-3",
+    "openai-api",
+    "shieldsio-badges",
+    "gpt-4",
+    "llms",
+    "openai-python",
+    "chatgpt-python",
+    "llmops",
+    "openai-chatbot",
+    "gpt-35-turbo",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -32,6 +54,9 @@ openai = "^0.27.8"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+readme-ai = "readme_ai.main:main"
 
 # Autoflake
 [tool.autoflake]
