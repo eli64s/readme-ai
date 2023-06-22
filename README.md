@@ -367,30 +367,30 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (Coming soon!)
 
 ```sh
-$ python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
+python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
 Alternatively, export your OpenAI API key as an environment variable and run the following command:
 
 ```sh
-$ conda activate readme_ai
+conda activate readme_ai
 
-$ export OPENAI_API_KEY=sk123abc456def7890
+export OPENAI_API_KEY=sk123abc456def7890
 
-$ python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ```sh
 # With Poetry
-$ poetry shell
+poetry shell
 
-$ export OPENAI_API_KEY=sk123abc456def7890
+export OPENAI_API_KEY=sk123abc456def7890
 
-$ poetry run python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+poetry run python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ```sh
 # Run with Docker
-$ docker run -it -e OPENAI_API_KEY="your-api-key" -v "$(pwd)":/app -w /app zeroxeli/readme-ai:v0.1.0 \
+docker run -it -e OPENAI_API_KEY="your-api-key" -v "$(pwd)":/app -w /app zeroxeli/readme-ai:v0.1.0 \
 python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
@@ -399,7 +399,7 @@ python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 To run the unit-tests for README-AI, use the following command.
 
 ```bash
-$ bash scripts/test.sh
+bash scripts/test.sh
 ```
 
 <p align="right">

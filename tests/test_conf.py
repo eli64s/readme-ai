@@ -1,111 +1,145 @@
 """Unit tests for the configuration module."""
 
 import sys
+from unittest.mock import Mock
+
+import dacite
+import pytest
 
 from src.conf import (
+    ApiConfig,
     AppConfig,
-    ConfigHelper,
     GitConfig,
     MarkdownConfig,
-    OpenAIConfig,
     PathsConfig,
     PromptsConfig,
+    load_config,
+    load_config_helper,
 )
 
 sys.path.append("src")
 
-pass
+
+@pytest.fixture
+def git_config(config):
+    return GitConfig(name=config["git"]["name"], repository=config["git"]["repository"])
 
 
-def test_openai_config(config):
-    assert len(config["api"]["api_key"]) == 0
-    assert config["api"]["engine"] == "text-davinci-003"
-    assert isinstance(config["api"]["temperature"], float)
-    assert isinstance(config["api"]["tokens"], int)
-
-
-def test_git_config(config):
-    assert len(config["git"]["hosts"]) == 2
-    assert config["git"]["name"] == "README-AI"
-    assert config["git"]["repository"] is not None
-
-
-def test_markdown_config(config):
-    assert isinstance(config["md"]["close"], str)
-
-
-def test_paths_config(config):
-    assert isinstance(config["paths"]["dependency_files"], str)
-
-
-def test_app_config():
-    openai_config = OpenAIConfig(
-        api_key="test_key",
-        engine="test_engine",
-        temperature=0.5,
-        tokens=1024,
+@pytest.fixture
+def api_config():
+    return ApiConfig(
+        endpoint="https://api.openai.com",
+        engine="gpt-4",
+        encoding="utf-8",
+        rate_limit=10,
+        tokens=50,
+        tokens_max=60,
+        temperature=0.8,
     )
-    git_config = GitConfig(
-        hosts=["github.com", "gitlab.com"],
-        name="git_name",
-        repository="repo",
+
+
+@pytest.fixture
+def markdown_config():
+    return MarkdownConfig(
+        badges="",
+        default="",
+        dropdown="",
+        ending="",
+        header="",
+        intro="",
+        modules="",
+        setup="",
+        toc="",
+        tree="",
     )
-    markdown_config = MarkdownConfig(
-        close="close",
-        head="head",
-        intro="intro",
-        dropdown="dropdown",
-        modules="modules",
-        setup="setup",
-        slogan="slogan",
-        toc="toc",
-        tree="tree",
+
+
+@pytest.fixture
+def paths_config():
+    return PathsConfig(
+        badges="",
+        dependency_files="",
+        ignore_files="",
+        language_names="",
+        language_setup="",
+        readme="",
     )
-    paths_config = PathsConfig(
-        badges="badges",
-        dependency_files="deps",
-        ignore_files="ignore",
-        language_names="lang",
-        language_setup="setup",
-        readme="md",
+
+
+@pytest.fixture
+def prompts_config():
+    return PromptsConfig(code_summary="", features="", overview="", slogan="")
+
+
+@pytest.fixture
+def handler(mocker):
+    return mocker.Mock()
+
+
+@pytest.fixture
+def config_data(api_config, git_config, markdown_config, paths_config, prompts_config):
+    return {
+        "api": api_config,
+        "git": git_config,
+        "md": markdown_config,
+        "paths": paths_config,
+        "prompts": prompts_config,
+    }
+
+
+def test_get_repository_name(config, git_config):
+    url = config["git"]["repository"]
+    name = git_config.get_repository_name(url)
+    assert name == config["git"]["name"]
+
+
+def test_get_repository_name_with_unsupported_host(git_config):
+    url = "https://bitbucket.org/username/yourproject"
+    with pytest.raises(ValueError):
+        git_config.get_repository_name("not a url")
+
+
+def test_get_repository_name_with_invalid_url(git_config):
+    with pytest.raises(ValueError):
+        git_config.get_repository_name("not a url")
+
+
+def test_load_config(mocker, config_data):
+    get_config_dict_mock = mocker.patch(
+        "src.conf._get_config_dict", return_value=config_data
     )
-    prompt_config = PromptsConfig(
-        code_to_text="code_to_text",
-        features="features",
-        intro="intro",
-        slogan="slogan",
+    dacite_from_dict_mock = mocker.patch(
+        "src.conf.dacite.from_dict", return_value=Mock(spec=AppConfig)
     )
+    config = load_config("conf.toml")
+    get_config_dict_mock.assert_called_once_with(mocker.ANY, "conf.toml")
+    dacite_from_dict_mock.assert_called_once_with(AppConfig, config_data)
+
+
+def test_load_config_with_non_existent_file(mocker):
+    mocker.patch("src.conf._get_config_dict", side_effect=FileNotFoundError)
+    with pytest.raises(FileNotFoundError):
+        load_config("non_existent.toml")
+
+
+def test_load_config_with_invalid_data(mocker):
+    mocker.patch(
+        "src.conf._get_config_dict", return_value={"invalid": "data", "api": {}}
+    )
+    with pytest.raises(dacite.exceptions.MissingValueError):
+        load_config("invalid.toml")
+
+
+def test_load_config_helper(
+    mocker, api_config, git_config, markdown_config, paths_config, prompts_config
+):
     app_config = AppConfig(
-        api=openai_config,
+        api=api_config,
         git=git_config,
         md=markdown_config,
         paths=paths_config,
-        prompts=prompt_config,
+        prompts=prompts_config,
     )
-
-    assert app_config.api == openai_config
-    assert app_config.git == git_config
-    assert app_config.md == markdown_config
-    assert app_config.paths == paths_config
-
-
-def test_config_helper():
-    config_helper = ConfigHelper(
-        dependency_files=["file1", "file2"],
-        ignore_files=["ignore1", "ignore2"],
-        language_names={
-            "lang1": "name1",
-            "lang2": "name2"
-        },
-        language_setup={
-            "lang1": "setup1",
-            "lang2": "setup2"
-        },
-    )
-    assert config_helper.dependency_files == ["file1", "file2"]
-    assert config_helper.ignore_files == ["ignore1", "ignore2"]
-    assert config_helper.language_names == {"lang1": "name1", "lang2": "name2"}
-    assert config_helper.language_setup == {
-        "lang1": "setup1",
-        "lang2": "setup2",
-    }
+    config_helper_mock = mocker.patch("src.conf.ConfigHelper", return_value=Mock())
+    config_helper = load_config_helper(app_config)
+    config_helper_mock.assert_called_once_with(conf=app_config)

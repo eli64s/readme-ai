@@ -136,7 +136,6 @@ class RepositoryParser:
     def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
         """Extracts dependency file contents from the DataFrame."""
         file_parsers = self._get_file_parsers()
-
         dependency_files = df[df["name"].str.contains("|".join(file_parsers.keys()))]
 
         parsed_contents = []

@@ -1,6 +1,7 @@
 """Utility methods for the README-AI tool."""
 
 import re
+import tempfile
 from pathlib import Path
 from typing import List
 
@@ -8,6 +9,16 @@ import git
 from tiktoken import get_encoding
 
 import conf
+
+
+def is_valid_git_repo(url: str) -> bool:
+    """Check if a given URL is a valid git repository."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        try:
+            git.Repo.clone_from(url, temp_dir, depth=1)
+        except git.GitCommandError:
+            return False
+        return True
 
 
 def clone_repository(url: str, repo_path: Path) -> None:
@@ -20,7 +31,7 @@ def clone_repository(url: str, repo_path: Path) -> None:
 
 def extract_username_reponame(url):
     """Extract username and repository name from a GitHub URL."""
-    pattern = r'https?://github.com/([^/]+)/([^/]+)'
+    pattern = r"https?://github.com/([^/]+)/([^/]+)"
     match = re.match(pattern, url)
 
     if match:
@@ -58,8 +69,10 @@ def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:
     ignore_files = helper.ignore_files.get("filenames", [])
     ignore_extensions = helper.ignore_files.get("extensions", [])
     return (
-        path.is_file() and all(dir not in path.parts for dir in ignore_dirs) and
-        path.name not in ignore_files and path.suffix not in ignore_extensions
+        path.is_file()
+        and all(dir not in path.parts for dir in ignore_dirs)
+        and path.name not in ignore_files
+        and path.suffix not in ignore_extensions
     )
 
 

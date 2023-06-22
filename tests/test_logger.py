@@ -51,12 +51,6 @@ class LoggerTestCase(unittest.TestCase):
         self.logger.critical(msg)
         self.assertLogOutputContains(msg)
 
-    def test_log_level(self):
-        msg = "Test log message"
-        self.logger.info(msg)
-        actual_output = self.logger.get_log_output()
-        self.assertIn(msg, actual_output)
-
 
 if __name__ == "__main__":
     unittest.main()

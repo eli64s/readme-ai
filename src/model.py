@@ -47,8 +47,9 @@ class OpenAIHandler:
         self.last_request_time = time.monotonic()
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
 
-    async def code_to_text(self, ignore: dict, files: Dict[str, str],
-                           prompt: str) -> Dict[str, str]:
+    async def code_to_text(
+        self, ignore: dict, files: Dict[str, str], prompt: str
+    ) -> Dict[str, str]:
         """Converts code to natural language text using large language models.
 
         Parameters
@@ -68,9 +69,9 @@ class OpenAIHandler:
         tasks = []
         for path, contents in files.items():
             if not (
-                all(idir not in path.parts for idir in ignore.get("directories", [])
-                   ) and path.name not in ignore.get("files", []) and
-                path.suffix not in ignore.get("extensions", [])
+                all(idir not in path.parts for idir in ignore.get("directories", []))
+                and path.name not in ignore.get("files", [])
+                and path.suffix not in ignore.get("extensions", [])
             ):
                 self.LOGGER.warning(f"Ignoring file: {path}")
                 continue
@@ -133,12 +134,13 @@ class OpenAIHandler:
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         retry=(
-            retry_if_exception_type(Exception) |
-            retry_if_exception_type(httpx.HTTPStatusError)
+            retry_if_exception_type(Exception)
+            | retry_if_exception_type(httpx.HTTPStatusError)
         ),
     )
-    async def generate_text(self, index: str, prompt: str, type: str,
-                            tokens: int) -> Tuple[str, str]:
+    async def generate_text(
+        self, index: str, prompt: str, type: str, tokens: int
+    ) -> Tuple[str, str]:
         """Handles the request to the OpenAI API to generate text.
 
         Parameters
@@ -162,17 +164,13 @@ class OpenAIHandler:
                     self.endpoint,
                     headers={"Authorization": f"Bearer {openai.api_key}"},
                     json={
-                        "messages":
-                            [
-                                {
-                                    "role": "system",
-                                    "content": "You're a brilliant Tech Lead.",
-                                },
-                                {
-                                    "role": "user",
-                                    "content": prompt
-                                },
-                            ],
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You're a brilliant Tech Lead.",
+                            },
+                            {"role": "user", "content": prompt},
+                        ],
                         "model": self.engine,
                         "temperature": self.temperature,
                         "max_tokens": tokens,
@@ -187,11 +185,21 @@ class OpenAIHandler:
                 self.cache[prompt] = summary
                 return index, summary
 
+        except openai.OpenAIException as exc:
+            self.LOGGER.error(f"OpenAI API exception:\n{str(exc)}")
+            return await self.null_summary(
+                index, f"OpenAI API exception: {exc.response.status_code}"
+            )
+
+        except httpx.HTTPStatusError as exc:
+            self.LOGGER.error(f"HTTP status error:\n{str(exc)}")
+            return await self.null_summary(
+                index, f"HTTP status exception: {exc.response.status_code}"
+            )
+
         except Exception as exc:
-            self.LOGGER.error(f"Exception calling OpenAI API:\n{str(exc)}")
-            exc_name = exc.__class__.__name__
-            exc_code = exc.response.status_code
-            return await self.null_summary(index, f"{exc_name}: {exc_code}")
+            self.LOGGER.error(f"Unknown exception:\n{str(exc)}")
+            return await self.null_summary(index, f"Unknown exception:  {exc}")
 
         finally:
             self.last_request_time = time.monotonic()
