@@ -1,4 +1,5 @@
-"""Generates README.md file for your repository using OpenAI's GPT APIs."""
+#!/usr/bin/env python3
+"""Main entrypoint for README-AI application."""
 
 import argparse
 import asyncio
@@ -9,6 +10,7 @@ from typing import Dict, List, Optional, Tuple
 import builder
 import conf
 import preprocess
+import utils
 from logger import Logger
 from model import OpenAIHandler
 
@@ -28,6 +30,10 @@ def validate_repository(repository: str) -> None:
     """Handles validation of the user's repository URL or path."""
     if repository is None:
         repository = CONF.git.repository
+
+    if not utils.is_valid_git_repo(repository):
+        raise ValueError(f"Invalid git repository: {repository}")
+
     if not repository or (
         not str(repository).startswith("http") and not Path(str(repository)).exists()
     ):
@@ -69,8 +75,9 @@ async def generate_readme(gpt: OpenAIHandler) -> None:
     LOGGER.info("README-AI execution complete.\n")
 
 
-def get_dependencies(scanner: preprocess.RepositoryParserWrapper,
-                     repository: str) -> Tuple[List[str], str]:
+def get_dependencies(
+    scanner: preprocess.RepositoryParserWrapper, repository: str
+) -> Tuple[List[str], str]:
     """Extracts dependencies and file_text using the scanner."""
     dependencies, file_text = scanner.get_dependencies(repository)
     LOGGER.info(f"Codebase dependencies: {dependencies}")

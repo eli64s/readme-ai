@@ -322,22 +322,37 @@ To use the README-AI application, you will need to create an account with OpenAI
 
 ### 💻 Installation
 
-1. Clone the README-AI repository:
-
+1. Clone the README-AI repository to your local machine.
 ```sh
-git clone https://github.com/eli64s/readme-ai.git && cd README-AI
+git clone https://github.com/eli64s/README-AI
 ```
 
-2. Create a Conda environment and install the required dependencies:
+2. Navigate to the README-AI directory.
+```sh
+cd README-AI
+```
 
+3. Use one of the following methods to install the required dependencies:
 ```sh
 # With Bash
-bash setup/setup.sh
+$ bash setup/setup.sh
+```
 
+```sh
 # With Conda
-conda env create -f setup/environment.yaml
-conda activate readme_ai
-pip install -r requirements.txt
+$ conda env create -f setup/environment.yaml
+$ conda activate readme_ai
+$ pip install -r requirements.txt
+```
+
+```sh
+# With Poetry
+$ poetry install
+```
+
+```sh
+# With Docker
+$ docker pull zeroxeli/readme-ai:v0.1.0
 ```
 
 ### 🎮 Using README-AI
@@ -352,16 +367,31 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (Coming soon!)
 
 ```sh
-python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
+$ python src/main.py --api-key abc123 --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
 Alternatively, export your OpenAI API key as an environment variable and run the following command:
 
 ```sh
-> conda activate readme_ai
+$ conda activate readme_ai
 
-> export OPENAI_API_KEY=sk123abc456def7890
+$ export OPENAI_API_KEY=sk123abc456def7890
 
-> python src/main.py --o readme-ai.md -r https://github.com/eli64s/readme-ai
+$ python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+```
+
+```sh
+# With Poetry
+$ poetry shell
+
+$ export OPENAI_API_KEY=sk123abc456def7890
+
+$ poetry run python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+```
+
+```sh
+# Run with Docker
+$ docker run -it -e OPENAI_API_KEY="your-api-key" -v "$(pwd)":/app -w /app zeroxeli/readme-ai:v0.1.0 \
+python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ### 🧪 Running Tests
@@ -369,7 +399,7 @@ Alternatively, export your OpenAI API key as an environment variable and run the
 To run the unit-tests for README-AI, use the following command.
 
 ```bash
-bash scripts/test.sh
+$ bash scripts/test.sh
 ```
 
 <p align="right">

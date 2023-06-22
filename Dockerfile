@@ -1,20 +1,20 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9
+# Use a base image with Python installed
+FROM python:3.8-slim-buster
 
-# Set the working directory in the container to /app
+# Install system dependencies
+RUN apt-get update && apt-get install -y git
+
+# Set working directory
 WORKDIR /app
 
-# Add the current directory contents into the container at /app
-ADD . /app
+# Set environment variable for Git Python
+ENV GIT_PYTHON_REFRESH=quiet
 
-# Copy the requirements file into the working directory
-COPY requirements.txt /app/requirements.txt
+# Copy the project files to the container
+COPY . .
 
-# Install the required packages using pip
-RUN pip3 install -r /app/requirements.txt
+# Install project dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Run main.py when the container launches
-CMD ["python3", "/app/src/main.py", "--host=0.0.0.0"]
+# Set the command to run your project
+CMD ["python", "src/main.py"]
