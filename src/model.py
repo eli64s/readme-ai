@@ -86,9 +86,7 @@ class OpenAIHandler:
                 continue
 
             tasks.append(
-                asyncio.create_task(
-                    self.generate_text(path, prompt_code, "file", self.tokens)
-                )
+                asyncio.create_task(self.generate_text(path, prompt_code, self.tokens))
             )
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -121,9 +119,7 @@ class OpenAIHandler:
         for idx, prompt in enumerate(prompts):
             tokens = utils.adjust_max_tokens(self.tokens, prompt)
             tasks.append(
-                asyncio.create_task(
-                    self.generate_text(idx + 1, prompt, "prompt", tokens)
-                )
+                asyncio.create_task(self.generate_text(idx + 1, prompt, tokens))
             )
 
         results = []
@@ -148,7 +144,7 @@ class OpenAIHandler:
         ),
     )
     async def generate_text(
-        self, index: str, prompt: str, type: str, tokens: int
+        self, index: str, prompt: str, tokens: int
     ) -> Tuple[str, str]:
         """Handles the request to the OpenAI API to generate text.
 
