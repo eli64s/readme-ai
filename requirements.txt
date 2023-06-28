@@ -9,7 +9,6 @@ httpx
 h2
 isort
 openai
-pandas
 pre-commit==2.15.0
 PyYAML
 pytest

@@ -5,7 +5,7 @@
 <br>
 readme-ai
 </h1>
-<h3>◦ Let README-AI write your docs, while you code.</h3>
+<h3>◦ Smarter docs, powered by AI!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -15,6 +15,7 @@ readme-ai
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
 <img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
 
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
 <img src="https://img.shields.io/badge/pandas-150458.svg?style&logo=pandas&logoColor=white" alt="pandas" />
 <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style&logo=Pytest&logoColor=white" alt="Pytest" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
@@ -29,13 +30,17 @@ readme-ai
 
 ---
 
-## 📚 Table of Contents
-- [📚 Table of Contents](#-table-of-contents)
+## 📒 Table of Contents
+- [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [⚙️ Features](#️-features)
+- [📂 Project Structure](#-project-structure)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
+  - [✔️ Prerequisites](#️-prerequisites)
+  - [💻 Installation](#-installation)
+  - [🎮 Using readme-ai](#-using-readme-ai)
+  - [🧪 Running Tests](#-running-tests)
 - [🗺 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
@@ -46,24 +51,24 @@ readme-ai
 
 ## 📍 Overview
 
-The README-AI project is a tool that generates comprehensive README Markdown files for GitHub repositories using OpenAI's GPT language model APIs. It analyzes the codebase, extracts dependencies and file text, generates natural language summaries and markdown, and builds a README file. The tool automates the process of generating effective documentation for a codebase, saving valuable time for developers and improving code readability for users. The project is highly configurable with several options for API and Git configurations, making it adaptable to a wide range of use cases.
+The project README-AI is a tool that automatically generates high-level summaries for codebases using OpenAI's text generation model. It analyzes code repositories, extracts information about dependencies and file structure, and generates a Markdown file with a comprehensive summary of the codebase. The tool saves developers time by providing them with a ready-to-use README file that includes key information about the project. Its value proposition lies in its ability to quickly produce informative and standardized project documentation, making it easier for developers to understand, use, and collaborate on codebases.
 
 ---
 
 ## ⚙️ Features
 
-Feature | Description |
-|-----|-----|
-| **🏗 Architecture** | The codebase follows a modular architecture with separate files for handling different concerns such as preprocessing, building, logging, and file I/O, among others. The application also uses the Factory design pattern for handling file I/O operations. It uses Python 3.9 and standard libraries for most functionality and utilizes the OpenAI GPT API to generate text from code. |
-| **📑 Documentation** | The repository includes a well-written README file that provides an overview of the project and its features, as well as instructions for setting up and running the application. The repository also includes comments in the code for clarity and maintainability. |
-| **🧩 Dependencies** | The codebase uses several third-party libraries such as pandas, colorlog, and httpx for data manipulation, logging, and HTTP requests, respectively. It also uses the OpenAI GPT API for generating text from code. |
-| **♻️ Modularity** | The repository follows a modular design, separating concerns into different files for readability, maintainability, and reusability of code. The codebase adheres to the Single Responsibility Principle, with each module handling one specific responsibility. |
-| **✔️ Testing** | The repository includes test scripts for unit and integration testing using the pytest framework, with coverage reports generated using conda and pytest-cov. The repository also includes scripts to automate testing and coverage reporting. |
-| **⚡️ Performance** | The application uses asynchronous HTTP requests with the httpx library to interface with the OpenAI GPT API, improving performance by allowing for parallel requests. The code also includes caching of generated summaries to avoid repeating requests to the API. |
-| **🔒 Security** | The repository includes a script to ensure that the environment used for the application is secure, with the necessary packages and dependencies installed. The repository also includes instructions for setting up virtual environments using conda or Python virtualenv. |
-| **🔀 Version Control** | The repository is hosted on GitHub and includes a detailed commit history with informative commit messages. The repository also includes a Makefile for automating various tasks and scripts for automating testing and generating coverage reports. |
-| **🔌 Integrations** | The repository does not include integrations with other services or systems. |
-| **📈 Scalability** | The codebase uses asynchronous HTTP requests, which can be scaled to handle a larger number of requests concurrently. The code also includes caching of generated summaries, which helps to improve scalability by reducing the need for repeated requests to the OpenAI GPT API. |
+| Feature                | Description                                                                                                                                                    |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **⚙️ Architecture**    | The codebase follows a modular architecture, with different files and modules responsible for specific tasks. The use of factories, wrappers, and handlers promotes code organization and separation of concerns. |
+| **📖 Documentation**   | The codebase is well-documented, with detailed explanations of each file's purpose and functionality. The provided summaries are informative and help understand the codebase.                                        |
+| **🔗 Dependencies**    | The code relies on external libraries such as pandas and requests for data manipulation and HTTP requests. It uses Git, Python, conda, and additional tools like Tree and SnakeViz for development processes.                                                               |
+| **🧩 Modularity**      | The codebase demonstrates modularity by separating functionalities into different modules and classes. Each module focuses on one aspect of the project, which makes the codebase more maintainable and reusable.                     |
+| **✔️ Testing**         | The codebase has a testing strategy, as evidenced by the presence of a test script. It uses the pytest framework for generating a test coverage report and the SnakeViz tool for analyzing the profiled output.                             |
+| **⚡️ Performance**     | The overall performance of the codebase appears to be efficient. The code utilizes Pandas for data manipulation, performance profiling, and optimization techniques to ensure good performance.                          |
+| **🔐 Security**        | The codebase does not directly handle security-related functionality. However, it generates an OpenAI API key, and handling it securely is important to protect access to the AI model.                                    |
+| **🔀 Version Control** | The code repository uses Git for version control. It provides a version history, facilitates collaboration, and allows for easy branching and merging of code changes.                                                        |
+| **🔌 Integrations**    | The codebase integrates with external services and tools such as the OpenAI API, Git repositories, and Docker containers. These integrations enhance the functionality and flexibility of the application.                       |
+| **📶 Scalability**     | The codebase does not explicitly address scalability. However, by using modular design and external services, the application can potentially handle growth and can be extended to support additional features in the future.   |
 
 ---
 
@@ -118,6 +123,7 @@ repo
 │   ├── readme-rust-c.md
 │   ├── readme-rust.md
 │   └── readme-typescript.md
+├── poetry.lock
 ├── pyproject.toml
 ├── requirements.txt
 ├── scripts
@@ -153,7 +159,7 @@ repo
     ├── test_preprocess.py
     └── test_utils.py
 
-9 directories, 71 files
+9 directories, 72 files
 ```
 
 ---
@@ -162,46 +168,46 @@ repo
 
 <details closed><summary>Root</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                         | Module     |
-|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------|
-| Dockerfile | The code creates a Docker container using Python 3.9, sets the working directory to /app, and adds the contents of the current directory to it. The requirements.txt file is copied and the required packages are installed using pip. Port 80 is exposed to the outside world, and the main.py file is run using the specified command when the container is launched.         | Dockerfile |
-| Makefile   | This Makefile provides a set of commands to automate various tasks such as formatting code style, creating virtual environments (conda and python), running cProfile on a CLI script, and running SnakeViz on the generated profile. The'help' command provides an overview of available commands, and each command is executed by specifying its name after the'make' command. | Makefile   |
-| setup.py   | This code is a setup script for the README-AI package, which generates comprehensive README Markdown files using OpenAI's GPT language model APIs. The script includes package dependencies, author information, project URLs, and keywords. The script also specifies the Python version required and provides options for dev and test environments.                          | setup.py   |
-
-</details>
-
-<details closed><summary>Scripts</summary>
-
-| File         | Summary                                                                                                                                                                                                                                                                                                                                                           | Module               |
-|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------|
-| run_batch.sh | The provided code snippet is a Bash script that stores a list of GitHub repository URLs in an array variable and iterates through the array to execute a Python script that generates a README file in Markdown format for each repository. It uses the basename of each repository URL as part of the filename for each README file.                             | scripts/run_batch.sh |
-| run.sh       | This bash script activates a conda environment called "readme_ai" and runs a Python script located at "src/main.py". It also sets the "pipefail" option to ensure that any non-zero exit codes from commands within the script will cause the script to exit immediately. Additionally, an environment variable for the OpenAI API key can be exported if needed. | scripts/run.sh       |
-| clean.sh     | This code snippet removes various files and directories that are not needed in a project. It deletes backup files, Python cache files, cache directories, and VS Code settings. It also removes build artifacts, pytest cache, benchmarks, and specific files such as raw data and log files.                                                                     | scripts/clean.sh     |
-| test.sh      | This code snippet is a Bash script for generating test code coverage reports using Conda and pytest. It sets directories to include and exclude from the coverage report, generates the report, and sets a coverage failure threshold. It also removes certain files and folders after running the tests.                                                         | scripts/test.sh      |
+| File                                                                   | Summary                                                                                                                                                                                                            |
+| ---                                                                    | ---                                                                                                                                                                                                                |
+| [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile) | This Dockerfile sets up a Python environment in a container by installing Git and Python dependencies, copying project files, and running a main.py file as the entry point command.                               |
+| [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile)     | This makefile provides commands to facilitate code formatting, cleaning, creating conda and virtual environments, profiling code using cProfile, and analyzing the profiled output using SnakeViz.                 |
+| [setup.py](https://github.com/eli64s/readme-ai/blob/main/setup.py)     | The provided code is a setup script for the README-AI package. It defines the required packages, author information, project details, and dependencies. It also specifies keywords, classifiers, and project URLs. |
 
 </details>
 
 <details closed><summary>Setup</summary>
 
-| File     | Summary                                                                                                                                                                                                                                                                                                                                                                                    | Module         |
-|:---------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------|
-| setup.sh | The provided Bash script checks if the'tree' command is installed and installs it if not. It then checks for the presence of Git, Python 3.7 or higher, and the'readme_ai' environment. If the environment exists, it skips its creation, otherwise creates it and installs required packages from'requirements.txt'. Finally, it exports the Python path and deactivates the environment. | setup/setup.sh |
+| File                                                                     | Summary                                                                                                                                                                                                                                               |
+| ---                                                                      | ---                                                                                                                                                                                                                                                   |
+| [setup.sh](https://github.com/eli64s/readme-ai/blob/main/setup/setup.sh) | This code snippet checks if a conda environment exists, installs the "tree" command if it's not installed, ensures the presence of Git and Python 3.7+, creates a conda environment named "readme_ai" with Python 3.8 and installs required packages. |
+
+</details>
+
+<details closed><summary>Scripts</summary>
+
+| File                                                                               | Summary                                                                                                                                                                                                                                                                                                                 |
+| ---                                                                                | ---                                                                                                                                                                                                                                                                                                                     |
+| [run_batch.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run_batch.sh) | The code snippet is a Bash script that loops through a list of GitHub repository URLs and runs a Python script called "main.py" for each repository. The Python script takes the repository URL as input and generates a markdown file named "readme-[repository_name].md" as output.                                   |
+| [run.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run.sh)             | This code snippet is a Bash script that activates a conda environment named "readme_ai" and runs a Python script called "main.py". The script sets the options to exit on error and fail on pipe failures at the beginning. It also exports environment variables, if needed, and requires an OpenAI API key to be set. |
+| [clean.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/clean.sh)         | This code snippet is a Bash script that removes unwanted files and directories commonly found in a Python project. It deletes backup files, Python cache files, cache directories, VS Code settings, build artifacts, pytest cache, benchmark files, and specific files like logs and raw data.                         |
+| [test.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/test.sh)           | The provided code snippet activates a Conda environment named readme_ai. It generates a coverage report using pytest, excluding specified directories and files. It sets a minimum coverage threshold of 90%. After generating the report, it removes unnecessary files and folders.                                    |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File          | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Module            |
-|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
-| preprocess.py | The provided code snippet handles preprocessing of a codebase. It includes classes for analyzing a git repository, mapping file extensions to programming languages, and extracting dependency file contents. The code utilizes pandas for data manipulation and includes several file parser methods for different file types.                                                                                                                                                                                                               | src/preprocess.py |
-| conf.py       | The provided code snippet defines several data classes to store configuration constants for the README-AI application, including API, Git, Markdown, Paths, and Prompts configurations. It also includes a ConfigHelper to assist in loading and handling these configurations. The load_config and load_config_helper functions are used to load the configuration constants from TOML files.                                                                                                                                                | src/conf.py       |
-| logger.py     | The code provides a Logger class with methods for logging messages at different levels (info, debug, warning, error, and critical) and a custom log format using the colorlog library. The class is designed to be a singleton, ensuring that only one instance of the logger is used throughout the project, and can be configured with a specific logging level.                                                                                                                                                                            | src/logger.py     |
-| factory.py    | The code snippet provides a Factory class for handling file input/output operations. It supports reading and writing to Markdown, TOML, JSON, and YAML file formats. The code also includes error handling for cases where files cannot be read or written, and includes a caching mechanism for read operations.                                                                                                                                                                                                                             | src/factory.py    |
-| model.py      | The provided code snippet is an OpenAI API handler that generates natural language text from code and prompts. The `code_to_text` function converts code to text for a given prompt, while the `chat_to_text` function generates text from a list of prompts. The `generate_text` function handles the request to the OpenAI API to generate text and uses the `httpx` library for asynchronous HTTP requests. The handler also includes a cache to store the generated summaries and a rate limiter to avoid exceeding the API's rate limit. | src/model.py      |
-| builder.py    | This code snippet builds a README Markdown file for a codebase. It creates various sections of the README file, such as badges, a directory tree, a list of packages and dependencies, and markdown tables for each sub-directory in the project. Additionally, the snippet uses Pandas to format generated code summaries into a DataFrame. The resulting README file is written to the local file system.                                                                                                                                   | src/builder.py    |
-| utils.py      | The provided code snippet contains various utility functions for use with the README-AI tool. It includes functionality for cloning repositories, extracting username and repository name from GitHub URLs, adjusting the max number of tokens for a prompt, counting and truncating text by the number of tokens, checking if a file is valid for processing, checking if a URL is valid, flattening nested lists, and formatting generated text.                                                                                            | src/utils.py      |
-| parse.py      | This code snippet includes various functions to parse dependency files for different languages. These languages include Python, JavaScript, Rust, Java, C++, and C. Each function extracts and returns a list of dependencies from their respective file type. The parsing is done using various libraries such as `yaml`, `toml`, and `json`. Any errors during parsing are logged using the `Logger` class.                                                                                                                                 | src/parse.py      |
-| main.py       | This code generates a README file for a given repository using OpenAI's GPT APIs. It extracts dependencies and file text using a scanner, generates code-to-text and markdown text using GPT, and formats the resulting text into markdown. The resulting markdown is built into a README file.                                                                                                                                                                                                                                               | src/main.py       |
+| File                                                                             | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---                                                                              | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/src/preprocess.py) | The provided code snippet is a module for preprocessing a codebase. It includes classes for wrapping the repository parser, analyzing local or remote git repositories, generating file information, tokenizing content, mapping file extensions to programming languages, and extracting dependency file contents. The code handles various file formats and uses pandas for data manipulation.                                                                                                                                                                                               |
+| [conf.py](https://github.com/eli64s/readme-ai/blob/main/src/conf.py)             | The code snippet defines multiple data classes that store configuration constants for README-AI. It includes classes for API configuration, Git repository configuration, Markdown configuration, paths to configuration files, prompts configuration, and the main application configuration. Additionally, there is a helper class that loads and stores additional configuration settings from TOML files. Overall, the code organizes and manages configuration constants necessary for README-AI.                                                                                         |
+| [logger.py](https://github.com/eli64s/readme-ai/blob/main/src/logger.py)         | The provided code snippet defines a custom logger class that wraps the functionality of the logging module. It supports multiple log levels, such as info, debug, warning, error, and critical, and uses a colored formatter for log messages. The class ensures that only one instance of the logger is created and allows logging to be configured with different log levels.                                                                                                                                                                                                                |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/src/factory.py)       | This code snippet provides a factory class that handles file input/output operations. It supports reading and writing different file types such as Markdown, TOML, JSON, and YAML. It offers methods to read and write files, and it also handles caching to improve performance. It raises specific exceptions when there are errors in file operations.                                                                                                                                                                                                                                      |
+| [model.py](https://github.com/eli64s/readme-ai/blob/main/src/model.py)           | The provided code snippet is a handler for making requests to the OpenAI API to generate text for the README.md file. It includes functionality for converting code to natural language text and generating text using prompts. The code also handles rate limiting, caching, and error handling.                                                                                                                                                                                                                                                                                              |
+| [builder.py](https://github.com/eli64s/readme-ai/blob/main/src/builder.py)       | The code snippet builds a README Markdown file for a codebase. It creates different sections including badges, directory tree, modules, setup guide, and more. It uses information from the configuration file and generates Markdown tables from code summaries. It also retrieves and formats badges for project dependencies.                                                                                                                                                                                                                                                               |
+| [utils.py](https://github.com/eli64s/readme-ai/blob/main/src/utils.py)           | This code snippet provides utility methods for the README-AI tool. It includes functions for cloning and validating Git repositories, extracting username and repository name from GitHub URLs, adjusting maximum tokens for prompts, token counting, text truncation, file/url validation, list flattening, and text formatting.                                                                                                                                                                                                                                                              |
+| [parse.py](https://github.com/eli64s/readme-ai/blob/main/src/parse.py)           | The provided code snippet consists of a collection of methods that parse different file formats to extract dependencies. This includes files such as docker-compose.yaml, conda environment files, Pipfile, Pipfile.lock, pyproject.toml, requirements.txt, Cargo.toml, Cargo.lock, package.json, yarn.lock, package-lock.json, go.mod, build.gradle, pom.xml, CMakeLists.txt, configure.ac, and Makefile.am. The methods take the content of the files as input and return a list of dependencies extracted from the files. Each method handles the parsing logic for a specific file format. |
+| [main.py](https://github.com/eli64s/readme-ai/blob/main/src/main.py)             | This code snippet is the main entrypoint for the README-AI application. It takes command line arguments for the OpenAI API key, output file path, and repository URL or path. It validates the API key and repository, then it generates a README.md file by orchestrating the generation process using an OpenAI model. The generated README contains a code summary, slogan, overview, and features. Finally, it formats the text and builds the markdown file.                                                                                                                              |
 
 </details>
 
@@ -209,14 +215,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
+### ✔️ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> - [ℹ️ Requirement 1]
-> - [ℹ️ Requirement 2]
-> - [...]
+> - `ℹ️ Requirement 1`
+> - `ℹ️ Requirement 2`
+> - `ℹ️ ...`
 
-### 🖥 Installation
+### 💻 Installation
 
 1. Clone the readme-ai repository:
 ```sh
@@ -233,7 +239,7 @@ cd readme-ai
 pip install -r requirements.txt
 ```
 
-### 🤖 Using readme-ai
+### 🎮 Using readme-ai
 
 ```sh
 python main.py
@@ -249,9 +255,9 @@ pytest
 
 ## 🗺 Roadmap
 
-> - [X] [ℹ️  Task 1: Implement X]
-> - [ ] [ℹ️  Task 2: Refactor Y]
-> - [ ] [...]
+> - [X] `ℹ️  Task 1: Implement X`
+> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️ ...`
 
 
 ---
@@ -281,12 +287,12 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [ℹ️  List any resources, contributors, inspiration, etc.]
+> - `ℹ️  List any resources, contributors, inspiration, etc.`
 
 ---

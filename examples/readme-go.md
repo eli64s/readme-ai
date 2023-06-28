@@ -5,7 +5,7 @@
 <br>
 docker-gs-ping
 </h1>
-<h3>◦ Keep your containers alive with docker-gs-ping!</h3>
+<h3>◦ Seamless pinging with docker-gs-ping!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -23,8 +23,8 @@ docker-gs-ping
 
 ---
 
-## 📚 Table of Contents
-- [📚 Table of Contents](#-table-of-contents)
+## 📒 Table of Contents
+- [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
@@ -40,24 +40,24 @@ docker-gs-ping
 
 ## 📍 Overview
 
-The "docker-gs-ping" project is a simple Golang web server that serves two endpoints: a greeting message and a health check. The project includes Dockerfiles for easy containerization and deployment in a production environment. The value proposition of this project lies in its simplicity and ease of use, making it an ideal starting point for building more complex web applications.
+The project is a Dockerized Go server that responds to HTTP requests using the Echo framework. It serves as a basic web server with middleware setup, customizable routes, and the ability to handle different HTTP methods. The project's value proposition lies in providing a lightweight, scalable, and easily deployable server solution, allowing developers to quickly set up and handle HTTP requests with minimal configuration.
 
 ---
 
 ## ⚙️ Features
 
-Feature | Description |
-|-----|-----|
-| **🏗 Architecture** | The codebase follows a microservice architecture pattern, where a lightweight Golang web application is containerized with Docker for easy deployment, scaling, and maintenance. The application also uses a minimalist approach to software design, with only two endpoints and a single function used in the source code. |
-| **📑 Documentation** | The codebase has well-organized documentation using clear and concise language, including the README file and function's comments. The documentation covers the code's purpose, architecture, testing, and deployment instructions. |
-| **🧩 Dependencies** | The codebase has minimal dependencies using the Go module system, with only one direct dependency (Echo framework) and several other indirect dependencies required for functionality. The use of a single framework ensures code readability and maintainability. |
-| **♻️ Modularity** | The codebase is well-structured and divided into small modular files, each with a single-purpose function. The use of modular design allows developers to understand, maintain, and scale the application better. |
-| **✔️ Testing** | The codebase includes unit tests using Go's built-in testing package, providing coverage for the application's critical logic. The tests use table-driven testing to execute multiple test cases stored in an array. The testing approach ensures confidence in the code's accuracy and reliability. |
-| **⚡️ Performance** | The codebase uses Golang's ability to provide native performance to the web application, enabling the application to serve HTTP requests quickly and efficiently. Additionally, the implementation of a single function to compute the minimum value of two integers is optimized for performance. |
-| **🔒 Security** | The codebase has no apparent security vulnerabilities or flaws, with secure configuration settings and practices for the Docker image. Additionally, the web application uses SSL on any exposed ports, protecting data in transit from potential attackers. |
-| **🔀 Version Control** | The codebase uses Git for version control, hosted on Github, providing source code management, version release, and collaboration with other developers. The codebase has a clear commit history and follows a pull-request-based workflow, allowing for code review and collaboration. |
-| **🔌 Integrations** | The codebase uses a containerization approach with Docker, allowing integration with various cloud-based services and infrastructure. The codebase also uses a minimalist approach to software architecture, making integration with other systems easier to manage and maintain. |
-| **📈 Scalability** | The codebase can scale the application horizontally, by using containerization and load balancers services. The use of minimalist design makes it easier to manage and add new features when necessary. Additionally, the application uses a microservice architecture, making it easier to scale individual services independently. |
+| Feature                | Description                                                                                                                             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **⚙️ Architecture**    | The codebase follows a simple and straightforward architectural design, with a single web server using the Echo framework to handle HTTP requests.                                                  |
+| **📖 Documentation**   | The documentation is limited, with only brief summaries of each file in the repository. It would be beneficial to have more detailed documentation, including instructions on setup and usage. |
+| **🔗 Dependencies**    | The codebase relies on external libraries, such as Echo for the web framework, and other Go modules managed through the go.mod file.      |
+| **🧩 Modularity**      | The system is organized into smaller components, with separate files for the main server, unit tests, Dockerfiles, and the go.mod file. The modularity allows for easy extensibility and maintenance. |
+| **✔️ Testing**         | The code includes automated unit tests using Go's testing package, covering different scenarios and assertions for the main server and the IntMin function.                                         |
+| **⚡️ Performance**     | The system's performance depends on the underlying Go framework and the hardware it is deployed on. The minimalistic Dockerfile ensures a lean image, minimizing resource usage.            |
+| **🔐 Security**        | The codebase doesn't explicitly implement security measures. However, being a straightforward server, implementing additional security measures would depend on the deployment and specific requirements. |
+| **🔀 Version Control** | The codebase is version-controlled using Git, hosted on GitHub. The repository can be cloned or forked, and any changes can be tracked and managed effectively using Git methodologies. |
+| **🔌 Integrations**    | The system does not have explicit integrations, but it can be easily integrated with other systems or services through HTTP endpoints provided by the Echo framework.                |
+| **📶 Scalability**     | The system's scalability depends on the underlying Go framework and the infrastructure it is deployed on. Being a simple web server, it can handle a moderate level of concurrent requests.   |
 
 ---
 
@@ -85,13 +85,13 @@ repo
 
 <details closed><summary>Root</summary>
 
-| File                  | Summary                                                                                                                                                                                                                                                                                                                                                                                        | Module                |
-|:----------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| go.mod                | The code snippet is a Go module that requires the "echo" package and several indirect packages for functionality. The module is named "docker-gs-ping" and is hosted on Github under the username "olliefr." The version of Go required by the module is 1.19.                                                                                                                                 | go.mod                |
-| Dockerfile            | The code snippet is a Dockerfile script for building a Golang application image. It downloads the required Go modules, copies the source code, builds the application, sets the default exposed TCP port, and runs the application. This allows for easy deployment and scaling of the Golang application in a containerized environment.                                                      | Dockerfile            |
-| Dockerfile.multistage | This Dockerfile builds a Golang application from source, runs tests, and deploys a lean production image. It uses a multi-stage build to minimize the final image size, and runs the application as a non-root user on port 8080.                                                                                                                                                              | Dockerfile.multistage |
-| main.go               | This is a basic Golang web server that listens on a specified port and serves two endpoints: `/` and `/health`. Endpoint `/` returns an HTTP response containing the message "Hello, Docker! <3" as an HTML payload. Endpoint `/health` returns an HTTP response containing the JSON object `{"Status": "OK"}`. The code also includes a simple implementation of an integer minimum function. | main.go               |
-| main_test.go          | The code snippet demonstrates two unit tests for a function called IntMin that returns the minimum value between two integers. The first test uses basic assertion while the second test uses table-driven testing to execute multiple test cases stored in an array. The testing package is imported and utilized for the test functions and error reporting.                                 | main_test.go          |
+| File                                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                                       |
+| [go.mod](https://github.com/olliefr/docker-gs-ping/blob/main/go.mod)                               | The code snippet is a Go module that uses the Echo framework to build a server that responds to HTTP requests. It has various dependencies managed with version requirements.                                                                                                                                                                                                                             |
+| [Dockerfile](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile)                       | The provided code snippet builds a Docker image for a Go application. It downloads Go modules, copies the source code, builds the application, and exposes port 8080. Finally, it sets the command to run the built application.                                                                                                                                                                          |
+| [Dockerfile.multistage](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile.multistage) | The provided code snippet is a Dockerfile that builds a Go application, runs tests, and creates a lean image for deployment. It first builds the application, downloads dependencies, and compiles the binary. Then, it runs tests in a separate stage. Finally, it creates an image using a minimal base, copies the binary, opens a port, sets a non-root user, and sets the entry point as the binary. |
+| [main.go](https://github.com/olliefr/docker-gs-ping/blob/main/main.go)                             | This code snippet is a basic web server built with the Echo framework. It sets up middleware, defines two routes ("/" and "/health"), and starts the server on a specified port (defaulting to 8080). It also includes a simple function for finding the minimum of two integers.                                                                                                                         |
+| [main_test.go](https://github.com/olliefr/docker-gs-ping/blob/main/main_test.go)                   | The code snippet is a demonstration of automated unit testing in Go. It includes two test functions, one using basic assertions and the other using table-driven testing. The functions test the IntMin function by comparing its output with expected values and reporting any mismatches.                                                                                                               |
 
 </details>
 
@@ -99,14 +99,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
+### ✔️ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> - [ℹ️ Requirement 1]
-> - [ℹ️ Requirement 2]
-> - [...]
+> - `ℹ️ Requirement 1`
+> - `ℹ️ Requirement 2`
+> - `ℹ️ ...`
 
-### 🖥 Installation
+### 💻 Installation
 
 1. Clone the docker-gs-ping repository:
 ```sh
@@ -123,7 +123,7 @@ cd docker-gs-ping
 go build -o myapp
 ```
 
-### 🤖 Using docker-gs-ping
+### 🎮 Using docker-gs-ping
 
 ```sh
 ./myapp
@@ -139,9 +139,9 @@ go test
 
 ## 🗺 Roadmap
 
-> - [X] [ℹ️  Task 1: Implement X]
-> - [ ] [ℹ️  Task 2: Refactor Y]
-> - [ ] [...]
+> - [X] `ℹ️  Task 1: Implement X`
+> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️ ...`
 
 
 ---
@@ -171,12 +171,12 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [ℹ️  List any resources, contributors, inspiration, etc.]
+> - `ℹ️  List any resources, contributors, inspiration, etc.`
 
 ---

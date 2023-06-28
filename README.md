@@ -4,7 +4,7 @@
     <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80"/>
     <br>README-AI
   </h1>
-  <h3>◦ Generate beautiful and informative README documents.</h3>
+  <h3>◦ Generate beautiful and informative README.md documents.</h3>
   <h3>◦ Developed with OpenAI's GPT language model APIs.</h3>
   <br>
   <p align="center">
@@ -342,7 +342,7 @@ $ bash setup/setup.sh
 ```sh
 # With Conda
 $ conda env create -f setup/environment.yaml
-$ conda activate readme_ai
+$ conda activate readmeai
 $ pip install -r requirements.txt
 ```
 
@@ -373,7 +373,7 @@ python src/main.py --api-key abc123 --output readme-ai.md --repository https://g
 Alternatively, export your OpenAI API key as an environment variable and run the following command:
 
 ```sh
-conda activate readme_ai
+conda activate readmeai
 
 export OPENAI_API_KEY=sk123abc456def7890
 

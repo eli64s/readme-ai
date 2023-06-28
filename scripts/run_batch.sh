@@ -10,7 +10,6 @@ repositories=(
     "https://github.com/rumaan/file.io-Android-Client"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
     "https://github.com/idosal/assistant-chat-gpt"
-    "https://github.com/rumaan/file.io-Android-Client"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/eli64s/flink-flow"
 )

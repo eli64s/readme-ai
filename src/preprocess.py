@@ -1,11 +1,7 @@
 """Handles preprocessing of the input codebase."""
 
-import tempfile
 from pathlib import Path
-from typing import Dict, List
-
-import pandas as pd
-import tiktoken
+from typing import Dict, Generator, List, Tuple
 
 import conf
 import parse
@@ -17,19 +13,24 @@ class RepositoryParserWrapper:
 
     def __init__(self, conf: conf.AppConfig, conf_helper: conf.ConfigHelper):
         self.parser = RepositoryParser(
-            conf,
-            conf_helper.language_names,
-            conf_helper.language_setup,
+            conf, conf_helper.language_names, conf_helper.language_setup
         )
 
-    def get_unique_contents(self, contents, keys):
-        unique_contents = [contents[key].unique().tolist() for key in keys]
-        return utils.flatten_list(unique_contents)
+    def get_unique_contents(self, contents: Dict, keys: List[str]) -> List[str]:
+        """Extracts the unqiue contents from the list of dicts."""
+        unique_contents = []
+        for key in keys:
+            unique_contents += list(set([data[key] for data in contents]))
+        return unique_contents
 
-    def get_file_contents(self, contents):
-        return contents.set_index("path")["content"].to_dict()
+    def get_file_contents(self, contents: Dict) -> Dict[str, str]:
+        """Extracts the file contents from the list of dicts."""
+        return {content["path"]: content["content"] for content in contents}
 
-    def get_dependencies(self, repository, is_remote=True):
+    def get_dependencies(
+        self, repository: str, is_remote: bool = True
+    ) -> Tuple[List[str], Dict[str, str]]:
+        """Extracts the dependencies and software used in the user's repository."""
         contents = self.parser.analyze(repository, is_remote)
         dependencies = self.parser.get_dependency_file_contents(contents)
         attributes = ["extension", "language", "name"]
@@ -43,14 +44,57 @@ class RepositoryParser:
     def __init__(
         self,
         conf: conf.AppConfig,
-        language_names: dict,
-        language_setup: dict,
+        language_names: Dict[str, str],
+        language_setup: Dict[str, str],
     ):
         self.language_names = language_names
         self.language_setup = language_setup
         self.encoding_name = conf.api.encoding
 
-    def generate_file_info(self, code_root: Path):
+    def analyze(self, root_path: str, is_remote: bool = False) -> List[Dict]:
+        """Analyzes a local or remote git repository."""
+        with utils.tempfile.TemporaryDirectory() as temp_dir:
+            if is_remote:
+                utils.clone_repository(root_path, temp_dir)
+                root_path = temp_dir
+            contents = self.generate_contents(root_path)
+            contents = self.tokenize_content(contents)
+            contents = self.process_language_mapping(contents)
+        return contents
+
+    def generate_contents(self, root_path: str) -> List[Dict]:
+        """Generates a List of Dict of file information."""
+        code_root = utils.Path(root_path)
+        data = list(self.generate_file_info(code_root))
+
+        contents = []
+        for name, path, content in data:
+            extension = utils.Path(name).suffix.lstrip(".")
+            contents.append(
+                {"name": name, "path": path, "content": content, "extension": extension}
+            )
+        return contents
+
+    def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
+        """Extracts dependency file contents from the list of dicts."""
+        file_parsers = self._get_file_parsers()
+        dependency_files = [
+            content
+            for content in contents
+            if any(file_name in content["name"] for file_name in file_parsers.keys())
+        ]
+
+        parsed_contents = []
+        for content in dependency_files:
+            parser = file_parsers[content["name"]]
+            parsed_content = parser(content["content"])
+            parsed_contents.append(parsed_content)
+
+        return utils.flatten_list(parsed_contents)
+
+    def generate_file_info(
+        self, code_root: Path
+    ) -> Generator[Tuple[str, Path, str], None, None]:
         """Generates a tuple of file information."""
         for p in code_root.rglob("*"):
             if p.is_file():
@@ -67,85 +111,26 @@ class RepositoryParser:
                 except UnicodeDecodeError:
                     continue
 
-    def num_tokens_from_string(self, string: str) -> int:
-        """Returns the number of tokens in a string."""
-        encoding = tiktoken.get_encoding(self.encoding_name)
-        return len(encoding.encode(string))
-
-    def tokenize_content(self, df):
+    def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
         """Tokenizes the content of each file."""
-        df["tokens"] = df["content"].map(self.num_tokens_from_string)
-        return df
+        for content in contents:
+            content["tokens"] = utils.get_token_count(
+                content["content"], self.encoding_name
+            )
+        return contents
 
-    def analyze(self, root_path: str, is_remote: bool = False) -> pd.DataFrame:
-        """Analyzes a local or remote git repository."""
-        with tempfile.TemporaryDirectory() as temp_dir:
-            if is_remote:
-                utils.clone_repository(root_path, temp_dir)
-                root_path = temp_dir
-            df = self.generate_dataframe(root_path)
-            df = self.tokenize_content(df)
-            df = self.process_language_mapping(df)
-        return df
-
-    def generate_dataframe(self, root_path):
-        """Generates a DataFrame of file information."""
-        code_root = Path(root_path)
-        data = list(self.generate_file_info(code_root))
-        df = pd.DataFrame(data, columns=["name", "path", "content"])
-        df["extension"] = df["name"].map(lambda x: Path(x).suffix.lstrip("."))
-        return df
-
-    def process_language_mapping(self, df: pd.DataFrame) -> pd.DataFrame:
+    def process_language_mapping(self, contents: List[Dict]) -> List[Dict]:
         """Maps file extensions to their programming languages."""
-        language_map = pd.DataFrame.from_records(
-            list(self.language_names.items()),
-            columns=["extension", "language"],
-        )
-        language_map["language"] = language_map["language"].str.lower()
-        language_setup = pd.DataFrame.from_records(
-            list(self.language_setup.items()), columns=["language", "setup"]
-        )
-        language_setup["language"] = language_setup["language"].str.lower()
-
-        df = df.merge(language_map, on="extension", how="left")
-        df = df.merge(language_setup, on="language", how="left")
-        df["setup"] = df["setup"].apply(
-            lambda x: x if isinstance(x, list) else [None, None]
-        )
-        if "setup" not in df.columns:
-            df["setup"] = [None] * len(df)
-
-        df[["install", "run", "test"]] = pd.DataFrame.from_records(
-            df["setup"].to_list(), columns=["install", "run", "test"]
-        )
-        return df[
-            [
-                "name",
-                "tokens",
-                "content",
-                "install",
-                "run",
-                "test",
-                "extension",
-                "language",
-                "path",
-            ]
-        ]
-
-    def get_dependency_file_contents(self, df: pd.DataFrame) -> List[str]:
-        """Extracts dependency file contents from the DataFrame."""
-        file_parsers = self._get_file_parsers()
-        dependency_files = df[df["name"].str.contains("|".join(file_parsers.keys()))]
-
-        parsed_contents = []
-        for _, row in dependency_files.iterrows():
-            parser = file_parsers[row["name"]]
-            content = row["content"]
-            parsed_content = parser(content)
-            parsed_contents.append(parsed_content)
-
-        return utils.flatten_list(parsed_contents)
+        for content in contents:
+            content["language"] = self.language_names.get(
+                content["extension"], ""
+            ).lower()
+            setup = self.language_setup.get(content["language"], "")
+            setup = setup if isinstance(setup, list) else [None, None]
+            while len(setup) < 3:  # Ensure there are three elements in the list
+                setup.append(None)
+            content["install"], content["run"], content["test"] = setup
+        return contents
 
     @staticmethod
     def _get_file_parsers() -> Dict[str, callable]:

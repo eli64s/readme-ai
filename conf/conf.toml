@@ -3,10 +3,10 @@
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
-rate_limit = 4
+rate_limit = 5
 tokens = 600
 tokens_max = 4000
-temperature = 0.9
+temperature = 1.1
 
 # Repository
 [git]
@@ -27,29 +27,27 @@ readme = "readme_ai.md"
 code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the provided code snippet:
 \n{}\n
 Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
-Limit your response to 3-4 sentences.
-Thank you!
+Limit your response to a maximum of 350 characters (including spaces).
 """
 features = """Hello! Please analyze the codebase located at {} and provide a list of important features. The following includes a list of the summaries of the files in the repository:
 \n{}\n
 Please consider the codebase as a whole and highlight its key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
 
-| Feature | Description |
-| ----- | ----- |
-| **🏗 Architecture** | Place a 1-3 sentence analysis here. |
-| **📑 Documentation** | Place a 1-3 sentence analysis here. |
-| **🧩 Dependencies** | Place a 1-3 sentence analysis here. |
-| **♻️ Modularity** | Place a 1-3 sentence analysis here. |
-| **✔️ Testing** | Place a 1-3 sentence analysis here. |
-| **⚡️ Performance** | Place a 1-3 sentence analysis here. |
-| **🔒 Security** | Place a 1-3 sentence analysis here. |
-| **🔀 Version Control** | Place a 1-3 sentence analysis here. |
-| **🔌 Integrations** | Place a 1-3 sentence analysis here. |
-| **📈 Scalability** | Place a 1-3 sentence analysis here. |
+| Feature                | Description                           |
+| ---------------------- | ------------------------------------- |
+| **⚙️ Architecture**    | Analyze the structural design of the system here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **📖 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **✔️ Testing**         | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **⚡️ Performance**     | 	Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 300 characters (including spaces).    |
 
 Please provide a comprehensive analysis addressing the above features while excluding the specified files from the assessment.
-Thank you!
 """
 overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject.
 The following includes a list of the summaries of the files in the repository:
@@ -60,7 +58,7 @@ slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}
 
 # Markdown Templates
 [md]
-default = "[ℹ️  INSERT-DESCRIPTION]"
+default = "`ℹ️  INSERT-DESCRIPTION`"
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 header = """\n<div align="center">
 <h1 align="center">
@@ -82,8 +80,8 @@ badges = """<p align="center">
 \n---
 """
 toc = """
-## 📚 Table of Contents
-- [📚 Table of Contents](#-table-of-contents)
+## 📒 Table of Contents
+- [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
@@ -114,19 +112,19 @@ modules = """
 """
 setup = """---
 \n## 🚀 Getting Started
-\n### ✅ Prerequisites
+\n### ✔️ Prerequisites
 \nBefore you begin, ensure that you have the following prerequisites installed:
-> - [ℹ️ Requirement 1]
-> - [ℹ️ Requirement 2]
-> - [...]
-\n### 🖥 Installation
+> - `ℹ️ Requirement 1`
+> - `ℹ️ Requirement 2`
+> - `ℹ️ ...`
+\n### 💻 Installation
 \n1. Clone the {0} repository:
 ```sh\ngit clone {1}\n```
 \n2. Change to the project directory:
 ```sh\ncd {0}\n```
 \n3. Install the dependencies:
 ```sh\n{2}\n```
-\n### 🤖 Using {0}
+\n### 🎮 Using {0}
 \n```sh\n{3}\n```
 \n### 🧪 Running Tests
 ```sh\n{4}\n```
@@ -135,9 +133,9 @@ setup = """---
 ending = """
 \n## 🗺 Roadmap
 
-> - [X] [ℹ️  Task 1: Implement X]
-> - [ ] [ℹ️  Task 2: Refactor Y]
-> - [ ] [...]
+> - [X] `ℹ️  Task 1: Implement X`
+> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️ ...`
 
 \n---
 
@@ -166,13 +164,13 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [ℹ️  List any resources, contributors, inspiration, etc.]
+> - `ℹ️  List any resources, contributors, inspiration, etc.`
 
 ---
 """

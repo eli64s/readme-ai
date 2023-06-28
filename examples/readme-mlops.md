@@ -5,7 +5,7 @@
 <br>
 mlops-course
 </h1>
-<h3>◦ MLOps made easy with mlops-course</h3>
+<h3>◦ Unlock the power of MLOps!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -14,6 +14,7 @@ mlops-course
 <img src="https://img.shields.io/badge/Jupyter-F37626.svg?style&logo=Jupyter&logoColor=white" alt="Jupyter" />
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
 <img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
 <img src="https://img.shields.io/badge/pandas-150458.svg?style&logo=pandas&logoColor=white" alt="pandas" />
 
 <img src="https://img.shields.io/badge/DVC-13ADC7.svg?style&logo=DVC&logoColor=white" alt="DVC" />
@@ -32,8 +33,8 @@ mlops-course
 
 ---
 
-## 📚 Table of Contents
-- [📚 Table of Contents](#-table-of-contents)
+## 📒 Table of Contents
+- [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
@@ -49,23 +50,24 @@ mlops-course
 
 ## 📍 Overview
 
-The git repository, mlops-course, contains a machine learning project called Tagifai that classifies machine learning projects. It offers a containerized environment using Docker, Makefile automation for common tasks, a FastAPI application and Streamlit web interface for text inference, and Python scripts for data preprocessing, model training, and artifact management. The project is valuable for structuring, logging, and automating machine learning workflows, as well as providing a streamlined machine learning pipeline for text classification tasks.
+The project is a Machine Learning Operations (MLOps) course that includes various code snippets and examples for building and deploying machine learning models. It covers topics such as data preprocessing, model training and evaluation, web application development, and Docker containerization. The project's purpose is to provide a comprehensive guide to implementing best practices in managing and deploying machine learning models, enabling developers to build efficient and scalable ML pipelines. Its value proposition lies in offering practical examples and templates that can be easily adapted and extended in real-world MLOps projects.
 
 ---
 
 ## ⚙️ Features
 
-Feature | Description |
-|-----|-----|
-| **🏗 Architecture** | The codebase is structured following a modular architecture with clear separation of concerns between different components. The use of DVC for asset versioning and managing dependencies, as well as the use of Docker for containerizing the application, allows for easy reproducibility and portability. The architecture also incorporates MLFlow for tracking experiments and model performance. |
-| **📑 Documentation** | The codebase includes comprehensive documentation in the form of README files detailing the purpose and functionality of each component, as well as instructions for setting up and running the application. Documentation is also provided in the codebase with clear and concise comments throughout the code. |
-| **🧩 Dependencies** | The codebase includes a clearly defined set of dependencies listed in a requirements.txt file, which can be easily installed using pip. The Makefile includes a target to create and activate a virtual environment for the project to ensure consistent dependencies across different systems. |
-| **♻️ Modularity** | The codebase follows a modular design pattern with separate components responsible for specific tasks, such as data preprocessing, training, and inference. This allows for easy maintenance, testing, and scaling of different parts of the application. The use of Pydantic models for validating and handling incoming requests in the FastAPI application adds an additional layer of modularity and validation. |
-| **✔️ Testing** | The codebase includes a comprehensive suite of tests using Pytest and Great Expectations. Tests are included for code, data, and models, ensuring the entire application is rigorously tested. The Makefile includes a target for running tests, which can be integrated into a CI/CD pipeline. |
-| **⚡️ Performance** | The codebase includes several optimizations for performance, such as using Stochastic Gradient Descent for training the model, using FastAPI for building a high-performance API, and using Gunicorn as a web server. Additionally, the use of MLFlow for tracking experiments and performance allows for easy comparison of different models and configurations. |
-| **🔒 Security** | The codebase includes several security measures, such as using Pydantic models for input validation in the API, using a secure and random secret key for authentication in the Airflow webserver, and explicitly setting permissions for files and directories in the Dockerfile. However, additional security measures, such as input sanitization, password hashing, and using HTTPS for API endpoints, could be implemented depending on the specific use case. |
-| **🔀 Version Control** | The codebase uses Git for version control and is hosted on GitHub. Clear commit messages and pull request descriptions are used to provide context and explain changes, making it easy for collaborators to review and contribute to the project. The use of DVC for versioning assets and dependencies further streamlines the version control process. |
-| **🔌 Integrations** | The codebase includes
+| Feature                | Description                                                                                                                                                                                                                                                       |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **⚙️ Architecture**    | The codebase follows a modular architecture with separate directories for different components such as app, tagifai, configs, etc. It uses popular frameworks like FastAPI, Streamlit, and Gunicorn to build web applications and APIs.                             |
+| **📖 Documentation**   | The codebase includes README files, inline comments, and docstrings for code explanation. The documentation is well-structured, providing instructions for installation, usage, and development.                                                                     |
+| **🔗 Dependencies**    | The codebase relies on a variety of dependencies such as FastAPI, SciKit-Learn, Pydantic, Optuna, Streamlit, Gunicorn, MLflow, DVC, and other standard libraries. These dependencies enable building robust ML applications with efficient data handling and experimentation. |
+| **🧩 Modularity**      | The codebase promotes modularity by separating functionalities into separate files and directories. Each component has well-defined responsibilities and can be independently developed, tested, and deployed.                                                        |
+| **✔️ Testing**         | The codebase includes a "Makefile" with commands for running tests. It is structured to test code, data, and models, ensuring comprehensive test coverage. The code adheres to best practices in terms of unit testing and test data handling.                         |
+| **⚡️ Performance**     | The codebase leverages optimized libraries and techniques to achieve high-performance and resource efficiency. It uses TF-IDF vectorization, SGD classifier, efficient preprocessing, and data balancing techniques to train models on large datasets effectively.         |
+| **🔐 Security**        | The codebase does not explicitly address security measures in the provided files. However, the use of proven libraries and frameworks like FastAPI and Gunicorn can provide a strong foundation for implementing security measures such as JWT authentication and HTTPS. |
+| **🔀 Version Control** | The codebase utilizes Git for version control, as indicated by the GitHub repository. Git provides a robust version control system, allowing for tracking changes, merging code, collaboration, and rolling back to previous versions.                                     |
+| **🔌 Integrations**    | The codebase integrates with MLflow for experiment tracking and artifact management. It provides support for Airflow, Streamlit, DVC, and other tools, enabling better workflow automation and experimentation.                                                          |
+| **📶 Scalability**     | The codebase demonstrates good scalability by using scalable frameworks like FastAPI, allowing for horizontal scaling across multiple instances. The modular structure also enables easier scaling of individual components as necessary.                                       |
 
 ---
 
@@ -153,77 +155,77 @@ repo
 
 ## 🧩 Modules
 
-<details closed><summary>Airflow</summary>
-
-| File                | Summary                                                                                                                                                                                                                                                                                                                       | Module                      |
-|:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------|
-| webserver_config.py | The provided code snippet contains default configuration settings for the Airflow webserver, including authentication configuration options such as AUTH_DB and AUTH_REMOTE_USER, as well as theme configuration options. It also includes commented-out code for other authentication methods like AUTH_LDAP and AUTH_OAUTH. | airflow/webserver_config.py |
-
-</details>
-
-<details closed><summary>App</summary>
-
-| File        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Module          |
-|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------|
-| api.py      | The provided code snippet is a FastAPI application that provides endpoints to classify machine learning projects using TagIfAI. The application loads artifacts on startup and includes endpoints for health check, retrieving performance metrics, getting arguments used for the run, and predicting tags for a list of texts. The responses are constructed in JSON format with metadata such as message, method, status code, timestamp, and URL.                                                                                                                    | app/api.py      |
-| gunicorn.py | The provided code snippet is a Gunicorn config file that sets up the server socket, worker processes, server mechanics, logging, process naming, and server hooks for a Python web application. It allows customization of various parameters such as the number of worker processes, worker class, timeout, log level, and server hooks for users to optimize the application's performance and behavior. It also provides useful functions such as post_fork, pre_fork, and pre_exec for server customization.                                                         | app/gunicorn.py |
-| schemas.py  | The provided code defines two Pydantic models-Text and PredictPayload-that are used for validating and handling incoming requests in a FastAPI application. The Text model includes a string field with a minimum length requirement and the PredictPayload model includes a list of Text objects, which must not be empty, along with an example request schema. The @validator decorator is used to add custom validation logic to the PredictPayload model.                                                                                                           | app/schemas.py  |
-| data.py     | The provided code snippet offers various functions for preprocessing text and labels in a DataFrame, encoding labels into unique indices, and generating balanced data splits. The functions include replacing out of scope labels, replacing minority labels, cleaning text by removing non-alphanumeric characters, stop words, and stemming, and performing train-test splits on data. The code also includes a LabelEncoder class that can encode and decode labels, save and load label encodings from a JSON file, and provide useful meta-data about the encoder. | app/data.py     |
-
-</details>
-
-<details closed><summary>Config</summary>
-
-| File      | Summary                                                                                                                                                                                                                                                                                                                                         | Module           |
-|:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| config.py | The code snippet defines several directories and stores for a machine learning project, sets up logging with rich output to console and rotating files, and defines a list of stopwords. It also sets up MLFlow tracking to a local directory. The provided code is useful for structuring a machine learning project and logging its progress. | config/config.py |
-
-</details>
-
-<details closed><summary>Dags</summary>
-
-| File         | Summary                                                                                                                                                                                                                                                                                                     | Module                    |
-|:-------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
-| workflows.py | This code snippet sets up an Airflow DAG for MLOps workflows. It includes tasks for extracting labeled data from BigQuery, validating the data using Great Expectations, optimizing hyperparameters using Tagifai, and training a model using Tagifai. The tasks are linked using a simple linear pipeline. | airflow/dags/workflows.py |
-
-</details>
-
-<details closed><summary>Notebooks</summary>
-
-| File          | Summary                                 | Module                  |
-|:--------------|:----------------------------------------|:------------------------|
-| tagifai.ipynb | Prompt exceeds max token limit: 214676. | notebooks/tagifai.ipynb |
-
-</details>
-
 <details closed><summary>Root</summary>
 
-| File       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Module     |
-|:-----------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------|
-| Dockerfile | This Dockerfile sets up a Python 3.7-slim environment, installs dependencies, copies files and directories, pulls assets from S3 and exposes port 8000. It uses gunicorn and uvicorn to start the application. The purpose of this code snippet is to provide a containerized environment for a Python app called Tagifai that uses DVC to manage assets.                                                                                                             | Dockerfile |
-| Makefile   | This is a Makefile that includes several targets for automating common tasks in a Python project. The'venv' target creates a virtual environment and installs dependencies, the'style' target formats code using black, flake8, and isort. The'clean' target deletes unnecessary files, and the'test' target runs tests on code, data, and models using pytest and great_expectations. The'dvc' target adds data files to DVC and pushes them to a remote repository. | Makefile   |
-| setup.py   | The code defines a package "tagifai" with version number 0.1, which classifies machine learning projects. Required packages are loaded from a "requirements.txt" file. The package has three optional extras: "dev", "docs", and "test", with corresponding packages for development, documentation, and testing. The package can be installed using setuptools.                                                                                                      | setup.py   |
+| File                                                                            | Summary                                                                                                                                                                                                                                                                                                                  |
+| ---                                                                             | ---                                                                                                                                                                                                                                                                                                                      |
+| [Dockerfile](https://github.com/GokuMohandas/mlops-course/blob/main/Dockerfile) | The given code snippet builds a Docker container with a Python 3.7-slim base image. It installs dependencies, copies necessary files, pulls assets from S3 using DVC, and exposed port 8000. Finally, it starts the app using Gunicorn as the server with UvicornWorker and the specified configuration.                 |
+| [Makefile](https://github.com/GokuMohandas/mlops-course/blob/main/Makefile)     | The code snippet is a Makefile script that provides several commands:-"venv" to create a virtual environment and set it up with necessary dependencies.-"style" to execute code styling and formatting.-"clean" to remove unnecessary files.-"test" to run tests on code, data, and models.                              |
+| [setup.py](https://github.com/GokuMohandas/mlops-course/blob/main/setup.py)     | This code snippet is a setup script for a Python package. It loads packages from a requirements.txt file, defines the package details (name, version, description), and specifies package dependencies. It also includes optional extra requirements for different development scenarios (e.g., documentation, testing). |
 
 </details>
 
 <details closed><summary>Streamlit</summary>
 
-| File   | Summary                                                                                                                                                                                                                                                                                                                                           | Module           |
-|:-------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| app.py | This code snippet imports required libraries and files, and then displays data, performance, and allows text inference using Streamlit. It loads a CSV file of labeled projects and displays it. It also displays the overall performance and performance by class and slice, along with allowing text input for inference using a trained model. | streamlit/app.py |
+| File                                                                              | Summary                                                                                                                                                                                                                   |
+| ---                                                                               | ---                                                                                                                                                                                                                       |
+| [app.py](https://github.com/GokuMohandas/mlops-course/blob/main/streamlit/app.py) | This code snippet uses the Streamlit library to create a web application. It loads and displays data from a CSV file, shows performance metrics, and allows users to input text for prediction using a pre-trained model. |
+
+</details>
+
+<details closed><summary>App</summary>
+
+| File                                                                                  | Summary                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                   | ---                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [api.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/api.py)           | The provided code snippet is a FastAPI web application that provides several endpoints. It allows users to check the health of the application, get performance metrics, retrieve run arguments, and make predictions using a machine learning model. The code defines helper functions for constructing JSON responses and loads necessary artifacts on application startup.                         |
+| [gunicorn.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/gunicorn.py) | The provided code snippet is a Gunicorn configuration file. It defines various options such as server socket, worker processes, server mechanics, logging, process naming, and server hooks. These options control the behavior and settings of Gunicorn, an HTTP server for running Python web applications.                                                                                         |
+| [schemas.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/schemas.py)   | The provided code defines two Pydantic models, "Text" and "PredictPayload", for handling input data. The "Text" model represents a single text and includes validation for a non-empty string. The "PredictPayload" model represents a list of "Text" objects and includes validation for a non-empty list. Each model also includes example data and extra configuration for documentation purposes. |
+| [data.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/data.py)         | This code snippet provides several functions for preprocessing and encoding data. It includes functions for replacing out of scope labels and minority labels, cleaning text, and generating data splits. It also includes a LabelEncoder class for encoding labels into unique indices.                                                                                                              |
+
+</details>
+
+<details closed><summary>Config</summary>
+
+| File                                                                                 | Summary                                                                                                                                                                                                                                                                                                         |
+| ---                                                                                  | ---                                                                                                                                                                                                                                                                                                             |
+| [config.py](https://github.com/GokuMohandas/mlops-course/blob/main/config/config.py) | The provided code snippet sets up the necessary directories and logging configuration for a machine learning project. It also initializes the MLFlow model registry and defines a list of stopwords. Overall, the code organizes the project structure and sets up logging for tracking and debugging purposes. |
 
 </details>
 
 <details closed><summary>Tagifai</summary>
 
-| File        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Module              |
-|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|
-| predict.py  | This code snippet includes two functions, "custom_predict" and "predict". The custom_predict function takes a numpy array of predicted probabilities, a threshold value, and an index, and returns an array of predicted label indices based on the input. The predict function takes a list of input texts and a dictionary of artifacts, applies the custom_predict function on the artifacts, and returns a list of dictionaries with the input text and predicted tag for each input text. The artifacts include a trained model, a vectorizer, and a label encoder. | tagifai/predict.py  |
-| utils.py    | The code snippet provides three functions: load_dict() to load a dictionary from a JSON file, save_dict() to save a dictionary to a specific file location in JSON format, and set_seeds() to set a seed for reproducibility using numpy and random libraries. The load_dict() function takes a file path as an argument, while the save_dict() function takes a dictionary to save and file path to save the dictionary. Sort_keys and encoder can be specified optionally in the save_dict() function. The set_seeds() function takes an integer seed value.           | tagifai/utils.py    |
-| train.py    | The code defines a function `train()` that trains a machine learning model using Stochastic Gradient Descent on text data. The model is optimized using Optuna with early stopping, and the performance is evaluated using metrics like precision and recall. The code also includes an `objective()` function that defines the trial parameters for optimization.                                                                                                                                                                                                       | tagifai/train.py    |
-| evaluate.py | The provided code snippet offers a collection of functions to generate performance metrics for classification tasks. The `get_metrics` function computes precision, recall, and F1 score for multiple classes, as well as performance across defined slices of data. Slicing functions, such as `nlp_cnn` and `short_text`, are used to create these slices. The `get_slice_metrics` function is utilized to generate metrics for each defined slice.                                                                                                                    | tagifai/evaluate.py |
-| main.py     | The provided code is a Python script with command line interfaces implemented using Typer. It contains four main functions: elt_data() for data extraction, loading and transformation, train_model() for model training with hyperparameter optimization, optimize() for hyperparameter search using Optuna, and predict_tag() for predicting tags for new text data using saved artifacts from a trained model. The script also uses MLflow for logging and tracking model runs and Optuna for hyperparameter optimization.                                            | tagifai/main.py     |
-| data.py     | This code snippet provides functions for preprocessing text data, replacing out of scope and minority labels, generating balanced data splits, and encoding labels into unique indices. It also includes a class for saving and loading label encoder instances as JSON files. The functions and class aim to facilitate efficient and effective text classification tasks.                                                                                                                                                                                              | tagifai/data.py     |
+| File                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ---                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| [predict.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/predict.py)   | The code provides two functions: "custom_predict" and "predict". "custom_predict" takes predicted probabilities and a threshold value, and returns predicted label indices based on conditions. "predict" uses the "custom_predict" function to make predictions for a list of input texts using a set of artifacts. The function transforms the texts using a vectorizer, predicts probabilities using a model, applies the custom predict function, and then decodes the predicted labels. Finally, it returns a list of dictionaries containing predictions for each input text. |
+| [utils.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/utils.py)       | This code snippet provides functions to load and save dictionaries from/to JSON files, as well as a function to set a seed for reproducibility in random number generation. The code uses the json library to handle JSON data and the numpy library to set a seed value.                                                                                                                                                                                                                                                                                                           |
+| [train.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/train.py)       | This code snippet implements the functionality to train a text classification model using the SGD classifier and perform hyperparameter optimization using Optuna. It preprocesses the data, applies TF-IDF vectorization, oversamples the training data, trains the model, and evaluates its performance. The objective of the optimization trial is to maximize the F1 score of the model.                                                                                                                                                                                        |
+| [evaluate.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/evaluate.py) | This code snippet provides functionality for generating performance metrics for classification models. It includes slicing functions for generating metrics on specific slices of data (e.g., projects with NLP and CNN), and overall and per-class metrics. Additionally, it supports generating slice metrics using a Pandas DataFrame. The code promotes modularity and extensibility by using functions and parameterization.                                                                                                                                                   |
+| [main.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/main.py)         | This code snippet represents a Python CLI application that extracts, transforms, and loads data, trains a machine learning model, optimizes hyperparameters, and makes predictions. It integrates with MLflow for experiment tracking and artifact management.                                                                                                                                                                                                                                                                                                                      |
+| [data.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/data.py)         | The provided code snippet includes functions to preprocess text data, replace out of scope (OOS) and minority labels, and perform label encoding. It also includes a function to generate balanced data splits for training, validation, and testing. The code follows best practices for modularization and includes type hints for better code readability.                                                                                                                                                                                                                       |
+
+</details>
+
+<details closed><summary>Airflow</summary>
+
+| File                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                         |
+| ---                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                             |
+| [webserver_config.py](https://github.com/GokuMohandas/mlops-course/blob/main/airflow/webserver_config.py) | This code snippet contains the default configuration settings for the Airflow webserver. It includes authentication configuration options, such as the authentication type and authentication providers like database, LDAP, and OAuth. It also includes settings for user self-registration, recaptcha, email configuration, and themes for the web interface. |
+
+</details>
+
+<details closed><summary>Dags</summary>
+
+| File                                                                                             | Summary                                                                                                                                                                                                                               |
+| ---                                                                                              | ---                                                                                                                                                                                                                                   |
+| [workflows.py](https://github.com/GokuMohandas/mlops-course/blob/main/airflow/dags/workflows.py) | This code snippet creates a DAG (Directed Acyclic Graph) in Airflow for MLOps tasks. It connects to a BigQuery data warehouse, extracts labeled data, validates it using Great Expectations, optimizes a model, and trains the model. |
+
+</details>
+
+<details closed><summary>Notebooks</summary>
+
+| File                                                                                            | Summary                                 |
+| ---                                                                                             | ---                                     |
+| [tagifai.ipynb](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb) | Prompt exceeds max token limit: 214679. |
 
 </details>
 
@@ -231,14 +233,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
+### ✔️ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> - [ℹ️ Requirement 1]
-> - [ℹ️ Requirement 2]
-> - [...]
+> - `ℹ️ Requirement 1`
+> - `ℹ️ Requirement 2`
+> - `ℹ️ ...`
 
-### 🖥 Installation
+### 💻 Installation
 
 1. Clone the mlops-course repository:
 ```sh
@@ -255,7 +257,7 @@ cd mlops-course
 pip install -r requirements.txt
 ```
 
-### 🤖 Using mlops-course
+### 🎮 Using mlops-course
 
 ```sh
 python main.py
@@ -271,9 +273,9 @@ pytest
 
 ## 🗺 Roadmap
 
-> - [X] [ℹ️  Task 1: Implement X]
-> - [ ] [ℹ️  Task 2: Refactor Y]
-> - [ ] [...]
+> - [X] `ℹ️  Task 1: Implement X`
+> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️ ...`
 
 
 ---
@@ -303,12 +305,12 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [ℹ️  List any resources, contributors, inspiration, etc.]
+> - `ℹ️  List any resources, contributors, inspiration, etc.`
 
 ---

@@ -1,4 +1,4 @@
-name: readme_ai
+name: readmeai
 channels:
   - conda-forge
   - defaults

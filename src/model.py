@@ -179,7 +179,7 @@ class OpenAIHandler:
                 response.raise_for_status()
                 data = response.json()
                 summary = data["choices"][0]["message"]["content"]
-                summary = utils.format_sentence(summary)
+                summary = utils.format_sentence(summary) if index != 3 else summary
 
                 self.LOGGER.info(f"\nProcessing prompt: {index}\nResponse: {summary}")
                 self.cache[prompt] = summary

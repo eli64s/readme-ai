@@ -71,8 +71,16 @@ async def generate_readme(gpt: OpenAIHandler) -> None:
         await gpt.close()
 
     format_text_to_markdown(name, slogan, overview, features)
-    builder.build_markdown(CONF, CONF_HELPER, dependencies, code_summary)
+    builder.build_markdown_file(CONF, CONF_HELPER, dependencies, code_summary)
     LOGGER.info("README-AI execution complete.\n")
+
+
+def format_text_to_markdown(
+    name: str, slogan: str, overview: str, features: str
+) -> None:
+    """Updates CONF.md.header and CONF.md.intro."""
+    CONF.md.header = CONF.md.header.format(name, slogan)
+    CONF.md.intro = CONF.md.intro.format(overview, features)
 
 
 def get_dependencies(
@@ -103,14 +111,6 @@ async def generate_markdown_text(
     ]
     responses = await gpt.chat_to_text(prompts)
     return responses[:3]
-
-
-def format_text_to_markdown(
-    name: str, slogan: str, overview: str, features: str
-) -> None:
-    """Updates CONF.md.header and CONF.md.intro."""
-    CONF.md.header = CONF.md.header.format(name, slogan)
-    CONF.md.intro = CONF.md.intro.format(overview, features)
 
 
 if __name__ == "__main__":

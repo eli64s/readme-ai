@@ -11,16 +11,6 @@ from tiktoken import get_encoding
 import conf
 
 
-def is_valid_git_repo(url: str) -> bool:
-    """Check if a given URL is a valid git repository."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        try:
-            git.Repo.clone_from(url, temp_dir, depth=1)
-        except git.GitCommandError:
-            return False
-        return True
-
-
 def clone_repository(url: str, repo_path: Path) -> None:
     """Clone a repository to a temporary directory."""
     try:
@@ -29,7 +19,12 @@ def clone_repository(url: str, repo_path: Path) -> None:
         raise ValueError(f"Error cloning repository: {exc}") from exc
 
 
-def extract_username_reponame(url):
+def get_github_file_link(file: str, user_repo_name: str) -> str:
+    """Returns the GitHub URL for a given file."""
+    return f"https://github.com/{user_repo_name}/blob/main/{file}"
+
+
+def get_user_repository_name(url):
     """Extract username and repository name from a GitHub URL."""
     pattern = r"https?://github.com/([^/]+)/([^/]+)"
     match = re.match(pattern, url)
@@ -76,6 +71,16 @@ def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:
     )
 
 
+def is_valid_git_repo(url: str) -> bool:
+    """Check if a given URL is a valid git repository."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        try:
+            git.Repo.clone_from(url, temp_dir, depth=1)
+        except git.GitCommandError:
+            return False
+        return True
+
+
 def is_valid_url(url: str) -> bool:
     """Check if a given string is a valid URL."""
     regex = re.compile(
@@ -101,6 +106,9 @@ def flatten_list(nested_list: List) -> List:
 
 def format_sentence(text: str) -> str:
     """Clean and format the generated text from the model."""
+    # Remove newlines and tabs
+    text = text.replace("\n", "").replace("\t", "")
+
     # Remove non-letter characters from the beginning of the string
     text = re.sub(r"^[^a-zA-Z]*", "", text)
 
@@ -111,7 +119,7 @@ def format_sentence(text: str) -> str:
     text = re.sub(r"(\()\s*", r"\1", text)
 
     # Replace multiple consecutive spaces with a single space
-    text = re.sub(" +", " ", text)
+    text = re.sub(r" +", " ", text)
 
     # Remove extra white space around hyphens
     text = re.sub(r"\s*-\s*", "-", text)
