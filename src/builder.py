@@ -41,7 +41,14 @@ def create_markdown_sections(
     badges_path = cwd_path / conf.paths.badges
     badges_dict = FileHandler().read(badges_path)
 
-    markdown_badges = get_badges(badges_dict, packages)
+    markdown_badges = conf.md.badges.format(
+        get_badges(badges_dict, packages), user_repo
+    )
+    markdown_badges = (
+        utils.remove_between(markdown_badges)
+        if "invalid" in user_repo.lower()
+        else markdown_badges
+    )
     markdown_repository = create_directory_tree(repository)
     markdown_tables = create_tables(
         create_markdown_tables(summaries), conf.md.dropdown, user_repo
@@ -50,7 +57,7 @@ def create_markdown_sections(
 
     markdown_sections = [
         conf.md.header,
-        conf.md.badges.format(markdown_badges, user_repo),
+        markdown_badges,
         conf.md.toc,
         conf.md.intro,
         conf.md.tree,
@@ -173,8 +180,11 @@ def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
     for row in data:
         module, summary = row
         filename = str(Path(module).name)
-        github_url = utils.get_github_file_link(module, user_repo_name)
-        link = f"[{filename}]({github_url})"
+        if "invalid" in user_repo_name.lower():
+            link = filename
+        else:
+            github_url = utils.get_github_file_link(module, user_repo_name)
+            link = f"[{filename}]({github_url})"
         lines.append([link, summary])
 
     max_len = [max(len(str(row[i])) for row in lines) for i in range(len(headers))]

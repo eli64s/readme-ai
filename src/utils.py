@@ -1,4 +1,4 @@
-"""Utility methods for the README-AI tool."""
+"""Utility methods for the readme-ai application."""
 
 import re
 import tempfile
@@ -24,7 +24,7 @@ def get_github_file_link(file: str, user_repo_name: str) -> str:
     return f"https://github.com/{user_repo_name}/blob/main/{file}"
 
 
-def get_user_repository_name(url):
+def get_user_repository_name(url) -> str:
     """Extract username and repository name from a GitHub URL."""
     pattern = r"https?://github.com/([^/]+)/([^/]+)"
     match = re.match(pattern, url)
@@ -33,7 +33,7 @@ def get_user_repository_name(url):
         username, reponame = match.groups()
         return f"{username}/{reponame}"
     else:
-        return "Invalid GitHub URL"
+        return "Invalid remote git URL."
 
 
 def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
@@ -76,7 +76,7 @@ def is_valid_git_repo(url: str) -> bool:
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
             git.Repo.clone_from(url, temp_dir, depth=1)
-        except git.GitCommandError:
+        except Exception:
             return False
         return True
 
@@ -125,3 +125,10 @@ def format_sentence(text: str) -> str:
     text = re.sub(r"\s*-\s*", "-", text)
 
     return text.strip().strip('"')
+
+
+def remove_between(input_string: str) -> str:
+    """Remove text between HTML tags."""
+    pattern = r"</p>.*?</div>"
+    output_string = re.sub(pattern, "</p>\n</div>", input_string, flags=re.DOTALL)
+    return output_string
