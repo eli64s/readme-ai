@@ -1,4 +1,4 @@
-"""OpenAI API handler for generating text for the README.md file."""
+"""OpenAI API handler, generates text for the README.md file."""
 
 import asyncio
 import time
@@ -8,6 +8,7 @@ import httpx
 import openai
 from cachetools import TTLCache
 from tenacity import (
+    RetryError,
     retry,
     retry_if_exception_type,
     stop_after_attempt,
@@ -90,7 +91,15 @@ class OpenAIHandler:
                 )
             )
         results = await asyncio.gather(*tasks, return_exceptions=True)
-        return results
+
+        filter_results = []
+        for result in results:
+            if isinstance(result, Exception):
+                self.LOGGER.error(f"Task failed with exception: {result}")
+            else:
+                filter_results.append(result)
+
+        return filter_results
 
     async def chat_to_text(self, prompts: List[str]) -> List[str]:
         """Generate text using prompts and OpenAI's GPT-3.
@@ -185,21 +194,24 @@ class OpenAIHandler:
                 self.cache[prompt] = summary
                 return index, summary
 
-        except openai.OpenAIException as exc:
-            self.LOGGER.error(f"OpenAI API exception:\n{str(exc)}")
+        except openai.OpenAIException as excinfo:
+            self.LOGGER.error(f"OpenAI Exception:\n{str(excinfo)}")
             return await self.null_summary(
-                index, f"OpenAI API exception: {exc.response.status_code}"
+                index, f"OpenAI exception: {excinfo.response.status_code}"
             )
 
-        except httpx.HTTPStatusError as exc:
-            self.LOGGER.error(f"HTTP status error:\n{str(exc)}")
+        except httpx.HTTPStatusError as excinfo:
+            self.LOGGER.error(f"HTTPStatus Exception:\n{str(excinfo)}")
             return await self.null_summary(
-                index, f"HTTP status exception: {exc.response.status_code}"
+                index, f"HTTPStatus Exception: {excinfo.response.status_code}"
             )
+        except RetryError as excinfo:
+            self.LOGGER.error(f"RetryError Exception:\n{str(excinfo)}")
+            return await self.null_summary(index, f"RetryError Exception: {excinfo}")
 
-        except Exception as exc:
-            self.LOGGER.error(f"Unknown exception:\n{str(exc)}")
-            return await self.null_summary(index, f"Unknown exception:  {exc}")
+        except Exception as excinfo:
+            self.LOGGER.error(f"Exception:\n{str(excinfo)}")
+            return await self.null_summary(index, f"Exception: {excinfo}")
 
         finally:
             self.last_request_time = time.monotonic()

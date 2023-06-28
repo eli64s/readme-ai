@@ -77,7 +77,7 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
       <h3>◦ Repository File Summaries</h3>
       <ul>
         <li>Code summaries are generated for each file via OpenAI's <i>gpt-3.5-turbo</i> engine.</li>
-        <li>Summaries are processed to check formatting and displayed in Markdown tables.</li>
+        <li>The File column in the markdown table contains a link to the file on GitHub.</li>
       </ul>
     </td>
   </tr>

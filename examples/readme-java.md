@@ -5,13 +5,13 @@
 <br>
 Minimal-Todo
 </h1>
-<h3>◦ Maximize productivity, minimize clutter with Minimal-Todo.</h3>
+<h3>◦ Maximize productivity, minimize clutter!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/Gradle-02303A.svg?style&logo=Gradle&logoColor=white" alt="Gradle" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style&logo=openjdk&logoColor=white" alt="java" />
+<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 <img src="https://img.shields.io/badge/JSON-000000.svg?style&logo=JSON&logoColor=white" alt="JSON" />
 </p>
 
@@ -23,8 +23,8 @@ Minimal-Todo
 
 ---
 
-## 📚 Table of Contents
-- [📚 Table of Contents](#-table-of-contents)
+## 📒 Table of Contents
+- [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [⚙️ Features](#-features)
 - [📂 Project Structure](#project-structure)
@@ -40,23 +40,24 @@ Minimal-Todo
 
 ## 📍 Overview
 
-Minimal-Todo is an open-source Android to-do list app that allows users to create and manage tasks, set reminders, and customize their experience. The app's value proposition lies in its minimalist design, ease-of-use, and flexibility. Its core functionalities include data storage, notification handling, and analytics tracking. The app is designed to provide a simple and efficient solution for managing the user's tasks and keeping track of their progress.
+The Minimal-Todo project is an Android app that allows users to create and manage a list of to-do items. It provides features such as creating and editing reminders, setting custom colors for items, and storing data locally. The app focuses on simplicity and minimalism, offering a clean and intuitive user interface. Its value proposition lies in its ability to help users stay organized and conveniently manage their tasks on their mobile devices.
 
 ---
 
 ## ⚙️ Features
 
-Feature | Description |
-|-----|-----|
-| **🏗 Architecture** | The application follows the Model-View-Controller (MVC) architectural pattern where the UI components are separated from the business logic and data storage. The codebase is organized into separate modules for each functionality and follows a modular approach, making it easy to maintain and scale. |
-| **📑 Documentation** | The codebase includes documentation in the form of comments throughout the code, which improves its readability and maintainability. The use of clear and concise variable/object names further enhances the clarity and readability of the codebase. |
-| **🧩 Dependencies** | The application uses a number of libraries including ButterKnife, Material Design components, Gson, OkHttp, and Google Analytics. These libraries provide additional functionality and simplify the development process. However, the use of too many dependencies can increase the app size and potentially slow down the performance. |
-| **♻️ Modularity** | The codebase follows a modular approach, with each functionality separated into separate modules. This makes it easy to maintain, test, and scale the application, as each module can be developed and tested independently. Additionally, the separation of concerns makes the codebase more organized and easier to understand. |
-| **✔️ Testing** | The codebase includes both unit and integration tests to ensure the functionality and reliability of the application. The tests cover features such as data storage, notification creation, and To-Do item creation, and are located in separate test files for each functionality. However, there are some missing test files, such as AddToDoFragment and MainFragment, which could impact the reliability of the application. |
-| **⚡️ Performance** | The app's performance is optimized through the use of techniques such as data storage using JSON, lazy loading of images, and the optimization of RecyclerView scrolling. The use of the OkHttp library also improves the app's network performance. However, the app may experience slow performance on lower-end devices due to the implementation of some features such as RecyclerView animations. |
-| **🔒 Security** | The codebase includes secure coding practices such as the use of SharedPreferences for sensitive user data and the use of the ProGuard tool for code obfuscation and minification. The app's network connections are also secured through the use of HTTPS connections, which encrypt the data that is transmitted between the app and its server. |
-| **🔀 Version Control** | The codebase is hosted on GitHub and utilizes Git for version control, allowing for easy collaboration and version control management. The codebase includes a well-organized Git commit history and commit messages that provide clear descriptions of the changes made. |
-| **🔌 Integrations** | The codebase includes integrations with third-party services such as Google Analytics for user behavior tracking and Firebase for database functionality. These integrations improve the functionality and reliability of the application, but the use of too many integrations can increase
+| Feature                | Description                                                                                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **⚙️ Architecture**    | The system follows the Model-View-Presenter (MVP) architectural pattern. The MVP pattern separates the concerns and provides better maintainability and testability.                                       |
+| **📖 Documentation**   | The codebase includes some documentation in the form of comments, but it could be improved in terms of clarity and coverage.                                |
+| **🔗 Dependencies**    | The project relies on external libraries like ButterKnife for view binding and Google services for various functionalities.                                |
+| **🧩 Modularity**      | The system is well organized into smaller components like activities, fragments, and utility classes. The modular structure facilitates reusability and maintainability.                                    |
+| **✔️ Testing**         | The codebase includes test classes that cover various use cases, such as data storage and manipulation. The tests are written using the JUnit and Espresso frameworks, ensuring functional correctness. |
+| **⚡️ Performance**     | The system performs well, with no significant performance issues reported. It uses efficient data structures and follows best practices for resource handling.                                              |
+| **🔐 Security**        | The system uses secure data storage methods and does not expose sensitive information. However, further measures, such as encryption, could enhance security.                                                   |
+| **🔀 Version Control** | The system is version controlled using Git, and the codebase is hosted on GitHub. It allows for collaborative development and easy tracking of changes and bug fixes.                                            |
+| **🔌 Integrations**    | The system integrates with Google Analytics to track user actions. It also interacts with Android's built-in notification system and preferences for enhanced user experience.                        |
+| **📶 Scalability**     | The system's modular design and efficient resource handling make it capable of handling growth. However, further optimizations may be required for larger datasets and increased user traffic.                          |
 
 ---
 
@@ -301,111 +302,109 @@ repo
 
 ## 🧩 Modules
 
-<details closed><summary>About</summary>
+<details closed><summary>Root</summary>
 
-| File               | Summary                                                                                                                                                                                                                                                                                                                                                                                     | Module                                                                                 |
-|:-------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------|
-| AboutActivity.java | The provided code snippet is an implementation of the AboutActivity class, which extends from the AppDefaultActivity class. It sets the theme based on the user's preference, retrieves the app version, and initializes the toolbar. It also overrides the onOptionsItemSelected method to handle the "home" action, allowing the user to navigate up to the parent activity if available. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/About/AboutActivity.java |
-| AboutFragment.java | The code creates an AboutFragment for an Android app that displays app version and allows the user to provide feedback. It extends an AppDefaultFragment and utilizes a Toolbar and AnalyticsApplication to send user data. The layout is defined by a fragment_about.xml file.                                                                                                             | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/About/AboutFragment.java |
-
-</details>
-
-<details closed><summary>Addtodo</summary>
-
-| File                 | Summary                                                                                                                                                                                                                                                                                           | Module                                                                                     |
-|:---------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
-| AddToDoFragment.java | HTTPStatusError: 400                                                                                                                                                                                                                                                                              | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AddToDo/AddToDoFragment.java |
-| AddToDoActivity.java | The provided code snippet is for an AddToDoActivity in an Android app, which extends a custom AppDefaultActivity. It sets the layout for the activity and creates an instance of AddToDoFragment as the initial fragment. The code also includes the necessary lifecycle methods for an activity. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AddToDo/AddToDoActivity.java |
-
-</details>
-
-<details closed><summary>Analytics</summary>
-
-| File                      | Summary                                                                                                                                                                                                                                                                                                      | Module                                                                                            |
-|:--------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------|
-| AnalyticsApplication.java | The provided code is an Android Analytics Application that uses Google Analytics to track user behavior. It creates a Tracker object, which sends screen view and event data to Google Analytics. It includes methods for sending screen views with optional parameters such as category, action, and label. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Analytics/AnalyticsApplication.java |
+| File                                                                                  | Summary                                                                                                                                                                                                                                   |
+| ---                                                                                   | ---                                                                                                                                                                                                                                       |
+| [build.gradle](https://github.com/avjinder/Minimal-Todo/blob/main/build.gradle)       | The code snippet configures the build settings for an Android project, including adding dependencies, repositories, and plugins. It utilizes Gradle to manage the build process and includes support for Google services and ButterKnife. |
+| [gradlew.bat](https://github.com/avjinder/Minimal-Todo/blob/main/gradlew.bat)         | This code snippet is a Gradle startup script for Windows that sets up the environment, finds Java, and executes Gradle with the specified command line arguments.                                                                         |
+| [settings.gradle](https://github.com/avjinder/Minimal-Todo/blob/main/settings.gradle) | The provided code snippet includes the':app' module, indicating that it includes the main application code for the project.                                                                                                               |
 
 </details>
 
 <details closed><summary>App</summary>
 
-| File         | Summary                                                                                                                                                                                                                                                                                                                                                                  | Module           |
-|:-------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| build.gradle | The code snippet is for an Android application that includes various dependencies such as Material Design components, text drawable, and Google Analytics. It sets up signing configurations for release builds and specifies the minimum and target SDK versions, version code, and version name. The build type is also defined, with proguard files for minification. | app/build.gradle |
-
-</details>
-
-<details closed><summary>Appdefault</summary>
-
-| File                    | Summary                                                                                                                                                                                                                                                                                                                                                                        | Module                                                                                           |
-|:------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------|
-| AppDefaultFragment.java | The code defines an abstract class'AppDefaultFragment' that extends the Fragment class. It contains a method to inflate the layout defined in its subclass, and a method to specify the layout resource ID. The class is designed for developers to create custom fragments with a consistent app-wide appearance and functionality.                                           | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AppDefault/AppDefaultFragment.java |
-| AppDefaultActivity.java | The provided code snippet is an abstract class that serves as a base for creating activities in an Android application. It sets up the initial fragment and defines abstract methods for specifying the layout and fragment for each activity. It utilizes the AppCompatActivity and Fragment classes to enable creating activities with modern UI features and functionality. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AppDefault/AppDefaultActivity.java |
-
-</details>
-
-<details closed><summary>Main</summary>
-
-| File                                  | Summary                                                                                                                                                                                                                                                                                      | Module                                                                                                   |
-|:--------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------|
-| MainActivity.java                     | This code defines the MainActivity class, which sets up the toolbar and options menu in the app. It includes methods for creating the initial fragment, inflating the options menu, and handling menu item selections for navigating to other activities within the app.                     | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Main/MainActivity.java                     |
-| CustomRecyclerScrollViewListener.java | The code snippet provides an abstract class that extends the RecyclerView class and listens for scrolling events. It logs the scrolling distance and hides/shows the view depending on the scroll state. The show() and hide() methods are abstract and must be implemented by the subclass. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Main/CustomRecyclerScrollViewListener.java |
-| MainFragment.java                     | HTTPStatusError: 400                                                                                                                                                                                                                                                                         | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Main/MainFragment.java                     |
+| File                                                                                | Summary                                                                                                                                                                                                                                                                                                     |
+| ---                                                                                 | ---                                                                                                                                                                                                                                                                                                         |
+| [build.gradle](https://github.com/avjinder/Minimal-Todo/blob/main/app/build.gradle) | This code snippet sets up an Android application. It defines the app's configuration, including the application ID, version info, and minimum/target SDK versions. It configures the release build type with minification and proguard. It also sets up dependencies for various libraries used in the app. |
 
 </details>
 
 <details closed><summary>Minimaltodo</summary>
 
-| File                       | Summary                                                                                                                                                                                                                                                                                                                                                                                  | Module                                                                                          |
-|:---------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------|
-| TestStoreRetrieveData.java | The provided code snippet contains test cases for the StoreRetrieveData class. It tests whether data can be written to and retrieved from the data storage, as well as ensures that an empty data storage is present at the start of the tests. It also tests the conversion of ArrayList to JSONArray.                                                                                  | app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/TestStoreRetrieveData.java |
-| ApplicationTest.java       | The provided code defines a basic testing class for an Android application. It extends the ApplicationTestCase class and takes the application as a parameter for testing. The purpose of this code is to provide a starting point for writing unit tests for an Android app using the Android Testing Support Library.                                                                  | app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/ApplicationTest.java       |
-| TestTodoItem.java          | This is a code snippet for JUnit tests to verify the functionality of the ToDoItem class in a minimalistic Todo app. The tests include verifying the ability to construct ToDoItem objects and marshall/unmarshall ToDoItem objects to JSON format. The provided code adheres to the MIT License, and the testing seeks to ensure the correctness and reliability of the ToDoItem class. | app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/TestTodoItem.java          |
-
-</details>
-
-<details closed><summary>Reminder</summary>
-
-| File                  | Summary                                                                                                                                                                                                                                                                                                                               | Module                                                                                       |
-|:----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| ReminderFragment.java | The provided code snippet is a Java class for a reminder feature in a to-do list app. It includes functionalities such as displaying the reminder text, snoozing the reminder for a specified time period, marking a to-do item as done, and removing to-do items from the list. It also handles data storage and analytics tracking. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Reminder/ReminderFragment.java |
-| ReminderActivity.java | The code snippet defines an activity for displaying reminders in the MinimalToDo app which extends AppDefaultActivity. It sets the layout and creates an instance of the ReminderFragment to display the reminders.                                                                                                                   | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Reminder/ReminderActivity.java |
-
-</details>
-
-<details closed><summary>Root</summary>
-
-| File            | Summary                                                                                                                                                                                                                                                                                                                                    | Module          |
-|:----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------|
-| build.gradle    | The provided code snippet contains configurations for the top-level build file of an Android project. It defines repositories for dependencies and includes plugins such as butterknife-gradle-plugin and google-services. The code also specifies that application dependencies should be placed in individual module build.gradle files. | build.gradle    |
-| gradlew.bat     | This is a Windows batch script used to start a Gradle build. It sets default JVM options and finds the location of Java in the system environment. The script executes the Gradle wrapper with the appropriate classpath and command-line arguments.                                                                                       | gradlew.bat     |
-| settings.gradle | The provided code snippet includes the main app module in an Android project. This module contains the core functionalities of the app, such as the user interface, logic, and resources.                                                                                                                                                  | settings.gradle |
+| File                                                                                                                                                                             | Summary                                                                                                                                                                                                                                                                 |
+| ---                                                                                                                                                                              | ---                                                                                                                                                                                                                                                                     |
+| [TestStoreRetrieveData.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/TestStoreRetrieveData.java) | The code snippet is a set of test cases for the StoreRetrieveData class. It tests the functionality of writing and reading data to/from storage, as well as the conversion of ArrayList to JSONArray.                                                                   |
+| [ApplicationTest.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/ApplicationTest.java)             | This code snippet is an Android application testing class that extends the ApplicationTestCase class. It is used for fundamental testing of the application's functions and components.                                                                                 |
+| [TestTodoItem.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/androidTest/java/com/example/avjindersinghsekhon/minimaltodo/TestTodoItem.java)                   | This code snippet is a test class that verifies the functionality of the ToDoItem class. It includes tests for constructing a ToDoItem, marshalling to JSON, and unmarshalling from JSON. The tests verify that the correct data is set and retrieved in each scenario. |
 
 </details>
 
 <details closed><summary>Settings</summary>
 
-| File                  | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Module                                                                                       |
-|:----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| SettingsFragment.java | The given code snippet is a SettingsFragment that implements SharedPreferences.OnSharedPreferenceChangeListener, which listens for changes made in the app's shared preferences. It includes the creation of a preference screen and the implementation of a logic that handles a specific preference change, in this case, the night mode preference. It also registers and unregisters the preference change listener in onResume() and onPause() respectively. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Settings/SettingsFragment.java |
-| SettingsActivity.java | The provided code snippet is an implementation of a settings activity in an Android app. It sets up the toolbar and allows for navigation to the parent activity. It also incorporates analytics functionality. Finally, it replaces the container with a SettingsFragment, which is the main content of the activity.                                                                                                                                            | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Settings/SettingsActivity.java |
+| File                                                                                                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                                                                                                      | ---                                                                                                                                                                                                                                                                                                                                                                                       |
+| [SettingsFragment.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Settings/SettingsFragment.java) | The code snippet defines a SettingsFragment class that extends PreferenceFragment. It creates preferences layout from preferences_layout.xml file and initializes some variables. It listens for changes in shared preferences and handles the night mode preference by updating the theme and recreating the activity. It also registers and unregisters the preference change listener. |
+| [SettingsActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Settings/SettingsActivity.java) | This code snippet is for a SettingsActivity class in an Android app. It sets the theme based on user preferences, sets up the toolbar with a back arrow, and displays the SettingsFragment. It also handles the home button click to navigate up.                                                                                                                                         |
+
+</details>
+
+<details closed><summary>Reminder</summary>
+
+| File                                                                                                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                    |
+| ---                                                                                                                                                                      | ---                                                                                                                                                                                                                                                                                                                                        |
+| [ReminderFragment.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Reminder/ReminderFragment.java) | This code snippet is for a ReminderFragment in a to-do list app. It handles the creation, editing, and removal of reminders for individual to-do items. It also provides options for snoozing reminders and saving data. The code includes functionality for setting the theme, handling button clicks, and navigating between activities. |
+| [ReminderActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Reminder/ReminderActivity.java) | The provided code snippet is a class for the ReminderActivity in an Android app. It extends AppDefaultActivity and implements methods for creating the layout and initial fragment for the activity. The layout is set to reminder_layout and the initial fragment is created from the ReminderFragment class.                             |
+
+</details>
+
+<details closed><summary>About</summary>
+
+| File                                                                                                                                                            | Summary                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---                                                                                                                                                             | ---                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| [AboutActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/About/AboutActivity.java) | The provided code snippet represents an Android activity class called "AboutActivity." It is responsible for displaying information about the application. The activity includes functionality for retrieving and displaying the app version, setting the toolbar with a back arrow, handling menu item selection events, and navigating back to the parent activity. It also includes theme handling based on user preferences. |
+| [AboutFragment.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/About/AboutFragment.java) | This code snippet represents an implementation of an About Fragment in an Android app. It sets up the UI elements, such as a toolbar and contact me button, and sets the app version. It also initializes analytics functionality and sends events when the contact me button is clicked.                                                                                                                                        |
+
+</details>
+
+<details closed><summary>Addtodo</summary>
+
+| File                                                                                                                                                                  | Summary                                                                                                                                                                                                                    |
+| ---                                                                                                                                                                   | ---                                                                                                                                                                                                                        |
+| [AddToDoActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AddToDo/AddToDoActivity.java) | The code snippet is for an Android activity called AddToDoActivity. It extends a custom AppDefaultActivity and overrides methods for handling the activity's creation, content view layout, and initial fragment creation. |
+
+</details>
+
+<details closed><summary>Main</summary>
+
+| File                                                                                                                                                                                                 | Summary                                                                                                                                                                                                                                                                                                                                                                                       |
+| ---                                                                                                                                                                                                  | ---                                                                                                                                                                                                                                                                                                                                                                                           |
+| [MainActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Main/MainActivity.java)                                         | The code snippet is for the MainActivity of a Minimal Todo app. It sets up the toolbar, inflates the layout, creates the initial fragment, and handles menu item clicks for about me and preferences.                                                                                                                                                                                         |
+| [CustomRecyclerScrollViewListener.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Main/CustomRecyclerScrollViewListener.java) | This code snippet defines an abstract class called CustomRecyclerScrollViewListener that extends RecyclerView.OnScrollListener. It implements scroll behavior for RecyclerView, allowing the hiding and showing of elements based on scroll distance. The abstract methods show() and hide() need to be implemented by subclasses to define specific actions when showing or hiding elements. |
+
+</details>
+
+<details closed><summary>Analytics</summary>
+
+| File                                                                                                                                                                              | Summary                                                                                                                                                                                                                                                                                                                                                  |
+| ---                                                                                                                                                                               | ---                                                                                                                                                                                                                                                                                                                                                      |
+| [AnalyticsApplication.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Analytics/AnalyticsApplication.java) | This code snippet defines an Application class that implements Google Analytics. It tracks user actions and sends analytics events to the server. The class provides methods to send screen views and events with optional parameters like category, action, and label. It also sets up the analytics tracker with the app name and exception reporting. |
+
+</details>
+
+<details closed><summary>Appdefault</summary>
+
+| File                                                                                                                                                                           | Summary                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                                                                                                            | ---                                                                                                                                                                                                                                                                                                       |
+| [AppDefaultFragment.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AppDefault/AppDefaultFragment.java) | The code snippet is a base class called AppDefaultFragment that extends the Fragment class. It provides a common implementation for onCreateView() and onDestroy() methods. The abstract method layoutRes() is used to get the layout resource for the fragment.                                          |
+| [AppDefaultActivity.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/AppDefault/AppDefaultActivity.java) | The provided code snippet is a template for creating an activity in an Android app. It extends the AppCompatActivity class and sets the content view layout for the activity. It also provides methods to set up the initial fragment and define the layout resource and initial fragment for subclasses. |
 
 </details>
 
 <details closed><summary>Utility</summary>
 
-| File                           | Summary                                                                                                                                                                                                                                                                                                                                                                                                                       | Module                                                                                               |
-|:-------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------|
-| TodoNotificationService.java   | The provided code is an Android IntentService class that handles creating and displaying notifications for to-do items. It extracts the to-do text and UUID from the intent, creates a notification with a title, icon, and sound, and sets up pending intents for both the notification and its delete action. Finally, it uses a NotificationManager to display the notification.                                           | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/TodoNotificationService.java   |
-| ScrollingFABBehaviour.java     | This code snippet is a custom behavior for a Floating Action Button in Android, that allows it to move up and down in response to user interaction with other UI elements (such as a Snackbar or a Toolbar). The behavior is implemented as a sub-class of the CoordinatorLayout.Behavior class, and includes methods for determining layout dependencies and changing the position of the FloatingActionButton accordingly.  | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ScrollingFABBehaviour.java     |
-| ToDoItem.java                  | The code defines a ToDoItem class with properties such as text, description, reminder, color, date, and identifier. It also provides methods to create and parse JSON objects and set/get the property values. The class implements the Serializable interface to allow the class instances to be serialized and deserialized.                                                                                                | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ToDoItem.java                  |
-| CustomTextInputLayout.java     | The provided code snippet is a custom implementation of the Android TextInputLayout that stores the hint value of an EditText child view and resets it on the parent view. It also handles programmatic changes of the hint text and ensures that the hint is properly set in the layout.                                                                                                                                     | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/CustomTextInputLayout.java     |
-| StoreRetrieveData.java         | The StoreRetrieveData class provides methods to save and load a to-do item list from a local file using JSON. The toJSONArray method converts an ArrayList of ToDoItem objects into a JSONArray object. The saveToFile method writes this JSONArray to a file, while the loadFromFile method reads the JSON data from the file and converts it back into an ArrayList of ToDoItem objects.                                    | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/StoreRetrieveData.java         |
-| Utils.java                     | The code provides a utility function to get the toolbar height in Android. It does so by fetching the attribute value of the `actionBarSize` attribute and returning its dimension. It cleans up by recycling the TypedArray.                                                                                                                                                                                                 | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/Utils.java                     |
-| DeleteNotificationService.java | The provided code snippet is an Android service that deletes a notification and its corresponding to-do item from the app's storage. It receives the unique ID of the item as an intent extra and retrieves the item from the storage. If found, the item is removed from the storage and the app's data changed flag is set to true. Finally, the updated items list is saved to the storage.                                | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/DeleteNotificationService.java |
-| ItemTouchHelperClass.java      | This code snippet defines an ItemTouchHelperClass that can be used to handle swiping and dragging of items in a RecyclerView. It implements the ItemTouchHelper.Callback interface and provides methods for enabling long press drag and item view swipe, setting movement flags, and handling item movements and removal. There is also a commented out onChildDraw method that can be used to draw custom swipe animations. | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ItemTouchHelperClass.java      |
-| PreferenceKeys.java            | This code defines a class called PreferenceKeys that contains a single variable'night_mode_pref_key'. The variable is initialized with a string value that corresponds to a resource defined in the R class of the app. The constructor of the class takes a parameter of type Resources which is used to fetch the value of the resource.                                                                                    | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/PreferenceKeys.java            |
-| RecyclerViewEmptySupport.java  | The given code is for a custom RecyclerView class called RecyclerViewEmptySupport, with a method to show an empty view if the adapter for the RecyclerView is empty. It registers an observer to the adapter to listen for changes in data set and update the empty view accordingly. The class extends the RecyclerView class from the Android support library.                                                              | app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/RecyclerViewEmptySupport.java  |
+| File                                                                                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                       |
+| [TodoNotificationService.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/TodoNotificationService.java)     | The provided code snippet represents a service that generates and displays a notification. It receives a to-do text and a unique identifier as input, creates a notification with the to-do text as its content, and sets up a pending intent for handling the notification interactions. The service also includes a delete intent for deleting the notification.                                        |
+| [ScrollingFABBehaviour.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ScrollingFABBehaviour.java)         | The code snippet defines a custom behavior for a FloatingActionButton in a CoordinatorLayout. It allows the FAB to react to changes in its dependent views (Snackbar and Toolbar) by adjusting its translation based on their positions.                                                                                                                                                                  |
+| [ToDoItem.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ToDoItem.java)                                   | The provided code snippet is a class called ToDoItem. It represents a todo item with properties such as todo text, reminder status, description, color, date, and unique identifier. It has methods to initialize, serialize and deserialize the todo item as a JSON object.                                                                                                                              |
+| [CustomTextInputLayout.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/CustomTextInputLayout.java)         | The provided code snippet is for a custom TextInputLayout widget that extends the original TextInputLayout from the support library. It overrides some methods, such as addView() and onDraw(), in order to handle the setting and resetting of hint values for EditTexts and ensure that the hint is displayed correctly. Overall, it customizes the behavior of TextInputLayout for specific use cases. |
+| [StoreRetrieveData.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/StoreRetrieveData.java)                 | The code snippet provides a class called StoreRetrieveData which supports storing and retrieving data from a file in JSON format. It can convert a list of ToDoItems into a JSONArray, save it to a file, and load it back into an ArrayList. The class uses Android's Context for file operations.                                                                                                       |
+| [Utils.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/Utils.java)                                         | The provided code defines a utility class that contains a method to obtain the toolbar height from the application's context. It retrieves the toolbar height by accessing the "actionBarSize" attribute from the app's theme resources. The method returns the obtained toolbar height.                                                                                                                  |
+| [DeleteNotificationService.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/DeleteNotificationService.java) | The provided code is a service that deletes a notification identified by a UUID from a list of ToDoItems. It loads the list from storage, identifies the item to be deleted, removes it from the list, saves the updated list, and notifies the application that the data has changed.                                                                                                                    |
+| [ItemTouchHelperClass.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/ItemTouchHelperClass.java)           | This code snippet defines a class called `ItemTouchHelperClass` that extends `ItemTouchHelper.Callback`. It provides functionality for dragging and swiping items in a `RecyclerView`. It implements methods for moving items, removing items, and configuring the drag and swipe behaviors.                                                                                                              |
+| [PreferenceKeys.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/PreferenceKeys.java)                       | The code snippet defines a class that manages the preferences keys used in the app. The main functionality is to retrieve and store the resource key for the night mode preference.                                                                                                                                                                                                                       |
+| [RecyclerViewEmptySupport.java](https://github.com/avjinder/Minimal-Todo/blob/main/app/src/main/java/com/example/avjindersinghsekhon/minimaltodo/Utility/RecyclerViewEmptySupport.java)   | The provided code snippet is a class called RecyclerViewEmptySupport. It extends the RecyclerView class and adds the functionality to display an empty view when the RecyclerView is empty. The class includes methods to show the empty view, set the empty view, and handle changes in the adapter data to show or hide the empty view accordingly.                                                     |
 
 </details>
 
@@ -413,14 +412,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
+### ✔️ Prerequisites
 
 Before you begin, ensure that you have the following prerequisites installed:
-> - [ℹ️ Requirement 1]
-> - [ℹ️ Requirement 2]
-> - [...]
+> - `ℹ️ Requirement 1`
+> - `ℹ️ Requirement 2`
+> - `ℹ️ ...`
 
-### 🖥 Installation
+### 💻 Installation
 
 1. Clone the Minimal-Todo repository:
 ```sh
@@ -437,7 +436,7 @@ cd Minimal-Todo
 mvn clean install
 ```
 
-### 🤖 Using Minimal-Todo
+### 🎮 Using Minimal-Todo
 
 ```sh
 java -jar target/myapp.jar
@@ -453,9 +452,9 @@ mvn test
 
 ## 🗺 Roadmap
 
-> - [X] [ℹ️  Task 1: Implement X]
-> - [ ] [ℹ️  Task 2: Refactor Y]
-> - [ ] [...]
+> - [X] `ℹ️  Task 1: Implement X`
+> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️ ...`
 
 
 ---
@@ -485,12 +484,12 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `[ℹ️  INSERT-LICENSE-TYPE]` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - [ℹ️  List any resources, contributors, inspiration, etc.]
+> - `ℹ️  List any resources, contributors, inspiration, etc.`
 
 ---
