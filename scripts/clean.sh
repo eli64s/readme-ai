@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Remove backup files and Python cache files
 find . -type f \( -name "*.py-e" \
