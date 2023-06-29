@@ -40,7 +40,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- 🖋 Update [Makefile](./Makefile) and [setup.sh](./setup.sh) to use *poetry* for dependency management.
+- 🖋 Update [Makefile](./Makefile) and [setup.sh](./setup/setup.sh) to use *poetry* for dependency management.
 
 ### Removed
 
