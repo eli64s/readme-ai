@@ -15,25 +15,12 @@ class WriteFileError(Exception):
 
 
 class FileHandler:
-
     def __init__(self):
         self.file_actions = {
-            "md": {
-                "read": self.read_markdown,
-                "write": self.write_markdown
-            },
-            "toml": {
-                "read": self.read_toml,
-                "write": self.write_toml
-            },
-            "json": {
-                "read": self.read_json,
-                "write": self.write_json
-            },
-            "yaml": {
-                "read": self.read_yaml,
-                "write": self.write_yaml
-            },
+            "md": {"read": self.read_markdown, "write": self.write_markdown},
+            "toml": {"read": self.read_toml, "write": self.write_toml},
+            "json": {"read": self.read_json, "write": self.write_json},
+            "yaml": {"read": self.read_yaml, "write": self.write_yaml},
         }
         self.cache = {}
 
@@ -48,8 +35,10 @@ class FileHandler:
             content = reader(file_path)
             self.cache[file_path] = content
             return content
-        except Exception as e:
-            raise ReadFileError(f"Failed to read file {file_path}: {e}")
+        except Exception as excinfo:
+            raise ReadFileError(
+                f"Exception: failed to read file {file_path}: {excinfo}"
+            )
 
     def write(self, file_path, content):
         """Writes the content to a file."""
@@ -57,8 +46,10 @@ class FileHandler:
             file_extension = str(file_path).split(".")[-1]
             writer = self.get_action(file_extension, "write")
             writer(file_path, content)
-        except Exception as e:
-            raise WriteFileError(f"Failed to write file {file_path}: {e}")
+        except Exception as excinfo:
+            raise WriteFileError(
+                f"Exception: failed to write file {file_path}: {excinfo}"
+            )
 
     def get_action(self, file_extension, action_type):
         """Gets the appropriate action for a given file extension and action type."""

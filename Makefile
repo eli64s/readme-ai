@@ -1,7 +1,7 @@
 # Makefile
 
 SHELL = /bin/bash
-VENV := readme_ai
+VENV := readmeai
 
 .PHONY: help style clean conda venv profile snakeviz
 
@@ -32,19 +32,19 @@ clean: style
 
 # Conda Environment
 conda:
-	conda create -n $(VENV) python=3.9 -y
-	conda activate $(VENV) && pip install -r requirements.txt
+	conda create -n $(VENV) python=3.9 -y && \
+	source $$(conda info --base)/etc/profile.d/conda.sh && \
+	conda activate $(VENV) && \
+	poetry install
 
 # Python Virtual Environment
 venv:
-	python -m venv $(VENV)
-	source venv/bin/activate
-	pip install -r requirements.txt
+	poetry install
 
 # cProfile
 profile:
 	@echo "Running cProfile on CLI script"
-	python -m cProfile -o profile.out -s cumulative src/main.py --output docs/README_AI.md --remote https://github.com/eli64s/README-AI
+	python -m cProfile -o profile.out -s cumulative src/main.py --output docs/readme-ai.md --remote https://github.com/eli64s/readme-ai
 
 # SnakeViz (pip install snakeviz)
 snakeviz:

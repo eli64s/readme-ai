@@ -208,8 +208,8 @@ def create_directory_tree(url: str) -> str:
             utils.clone_repository(url, repo_path)
             tree_str = run_tree_command(repo_path)
             return f"```bash\n{repo_path.name}\n{tree_str}```"
-        except Exception as exc:
-            LOGGER.warning(f"Error creating directory tree: {exc}")
+        except Exception as excinfo:
+            LOGGER.warning(f"Exception creating repository tree structure: {excinfo}")
             return ""
 
 
@@ -222,4 +222,4 @@ def run_tree_command(path: Path) -> str:
         tree_str = "\n".join(tree_lines)
         return tree_str
     except subprocess.CalledProcessError as excinfo:
-        raise Exception(f"Error running 'tree' command: {excinfo}")
+        raise Exception(f"Exception executing the 'tree' command: {excinfo}")

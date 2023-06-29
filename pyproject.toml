@@ -55,7 +55,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-readme-ai = "readme_ai.main:main"
+readme-ai = "src.main:main"
 
 # Autoflake
 [tool.autoflake]

@@ -139,6 +139,11 @@ if __name__ == "__main__":
         "--template",
         help="Template to use for README.md file.",
     )
+    parser.add_argument(
+        "-l",
+        "--language",
+        help="Language to write README.md file in.",
+    )
     args = parser.parse_args()
 
     asyncio.run(main(args.api_key, args.output, args.repository))

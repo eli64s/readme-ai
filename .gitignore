@@ -44,7 +44,5 @@ notebooks/
 .benchmarks/
 
 # Work In Progress
-docs/templates
 conf/templates
-notebooks/redis_client.py
-examples/imgs/readme-video.mov
+src/redis_cache.py

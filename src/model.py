@@ -88,6 +88,7 @@ class OpenAIHandler:
             tasks.append(
                 asyncio.create_task(self.generate_text(path, prompt_code, self.tokens))
             )
+
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         filter_results = []
