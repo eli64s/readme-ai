@@ -10,6 +10,7 @@ from conf import AppConfig, ConfigHelper
 from factory import FileHandler
 from logger import Logger
 
+
 LOGGER = Logger(__name__)
 
 
@@ -45,7 +46,7 @@ def create_markdown_sections(
         get_badges(badges_dict, packages), user_repo
     )
     markdown_badges = (
-        utils.remove_between(markdown_badges)
+        utils.remove_substring(markdown_badges)
         if "invalid" in user_repo.lower()
         else markdown_badges
     )

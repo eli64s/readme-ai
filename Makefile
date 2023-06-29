@@ -18,11 +18,10 @@ help:
 # Style
 .PHONY: style
 style:
-	-ruff check .
+	-ruff .
 	-black .
 	-flake8
 	-isort .
-	-yapf -i -r .
 
 # Clean
 .PHONY: clean

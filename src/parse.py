@@ -9,6 +9,7 @@ import yaml
 
 from logger import Logger
 
+
 LOGGER = Logger(__name__)
 
 

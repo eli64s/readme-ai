@@ -1,7 +1,6 @@
 """Utility methods for the readme-ai application."""
 
 import re
-import tempfile
 from pathlib import Path
 from typing import List
 
@@ -71,16 +70,6 @@ def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:
     )
 
 
-def is_valid_git_repo(url: str) -> bool:
-    """Check if a given URL is a valid git repository."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        try:
-            git.Repo.clone_from(url, temp_dir, depth=1)
-        except Exception:
-            return False
-        return True
-
-
 def is_valid_url(url: str) -> bool:
     """Check if a given string is a valid URL."""
     regex = re.compile(
@@ -127,7 +116,7 @@ def format_sentence(text: str) -> str:
     return text.strip().strip('"')
 
 
-def remove_between(input_string: str) -> str:
+def remove_substring(input_string: str) -> str:
     """Remove text between HTML tags."""
     pattern = r"</p>.*?</div>"
     output_string = re.sub(pattern, "</p>\n</div>", input_string, flags=re.DOTALL)

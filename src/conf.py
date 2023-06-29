@@ -1,17 +1,23 @@
-"""Data classes to store README-AI configuration constants."""
+"""Pydantic models for configuration constants."""
 
+import os
+import traceback
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Union
-from urllib.parse import urlsplit
+from typing import Dict, List, Optional
+from urllib.parse import urlparse, urlsplit
 
-import dacite
+import openai
+from pydantic import BaseModel, Field, SecretStr, validator
 
 from factory import FileHandler
+from logger import Logger
 
 
-@dataclass
-class ApiConfig:
+LOGGER = Logger(__name__)
+
+
+class ApiConfig(BaseModel):
     """OpenAI API configuration."""
 
     endpoint: str
@@ -21,30 +27,95 @@ class ApiConfig:
     tokens: int
     tokens_max: int
     temperature: float
+    api_key: SecretStr = Field(default_factory=lambda: os.environ["OPENAI_API_KEY"])
+
+    @validator("api_key")
+    def validate_api_key(cls, api_key) -> None:
+        """Validate the OpenAI API key."""
+        if not api_key:
+            api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("Exception: invalid OpenAI API secret key.")
+
+        os.environ["OPENAI_API_KEY"] = api_key
+
+        try:
+            cls._set_openai_api_key()
+            openai.Model.list()
+
+        except (
+            openai.error.AuthenticationError,
+            openai.error.InvalidRequestError,
+        ) as excinfo:
+            cls._handle_openai_error(excinfo)
+
+        finally:
+            cls.api_key = os.environ["OPENAI_API_KEY"]
+            LOGGER.info("OpenAI API key validation successful.")
+
+    @classmethod
+    def _set_openai_api_key(cls) -> None:
+        """Set the OpenAI API key."""
+        openai.api_key = os.environ["OPENAI_API_KEY"]
+
+    @staticmethod
+    def _handle_openai_error(excinfo) -> None:
+        """Handle OpenAI API errors."""
+        LOGGER.error(f"OpenAI API Error:\n{excinfo}")
+        raise ValueError(f"{traceback.format_exc()}")
 
 
 @dataclass
 class GitConfig:
     """Repository configuration."""
 
-    name: str
     repository: str
-    _hosts: List[str] = field(default_factory=lambda: ["github.com", "gitlab.com"])
+    name: Optional[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
+        """Post-initialization hook."""
+        if not self.validate_repository(self.repository):
+            raise ValueError(f"Ivalid repository URL or path: {self.repository}")
+
         self.name = self.get_repository_name(self.repository)
 
-    def get_repository_name(self, path: Union[str, Path]) -> str:
-        """Extract repository name from path."""
-        parsed_url = urlsplit(str(path))
-        if parsed_url.hostname in self._hosts:
-            repo_path = parsed_url.path
-            name = repo_path.rsplit("/", 1)[-1] if "/" in repo_path else repo_path
+    @staticmethod
+    def get_default_hosts() -> List[str]:
+        """Get the default valid hosts."""
+        return ["github.com", "gitlab.com"]
+
+    @staticmethod
+    def get_repository_name(repository_path: str) -> str:
+        """Extract the repository name from the URL or path."""
+        parsed_url = urlsplit(str(repository_path))
+        if parsed_url.hostname in GitConfig.get_default_hosts():
+            path = parsed_url.path
+            name = path.rsplit("/", 1)[-1] if "/" in path else path
             if name.endswith(".git"):
                 name = name[:-4]
         else:
-            name = Path(path).name
+            name = Path(repository_path).name
         return name
+
+    @staticmethod
+    def validate_repository(repository: str) -> bool:
+        """Check if the repository URL or local directory is valid."""
+        path = Path(repository)
+        if path.is_dir():
+            return True
+
+        parsed_url = urlparse(repository)
+        if parsed_url.scheme != "https":
+            return False
+
+        if parsed_url.netloc not in GitConfig.get_default_hosts():
+            return False
+
+        path_segments = parsed_url.path.strip("/").split("/")
+        if len(path_segments) != 2:
+            return False
+
+        return True
 
 
 @dataclass
@@ -96,32 +167,38 @@ class AppConfig:
     prompts: PromptsConfig
 
 
+class AppConfigModel(BaseModel):
+    app: AppConfig
+
+    class Config:
+        validate_assignment = True
+
+
 @dataclass
 class ConfigHelper:
     """README-AI application helper configuration."""
 
-    conf: AppConfig
+    conf: AppConfigModel
     dependency_files: List[str] = field(default_factory=list)
     ignore_files: Dict[str, List[str]] = field(default_factory=dict)
     language_names: Dict[str, str] = field(default_factory=dict)
-    language_setup: Dict[str, str] = field(default_factory=dict)
+    language_setup: Dict[str, List[str]] = field(default_factory=dict)
 
     def __post_init__(self):
         handler = FileHandler()
         conf_path_list = [
-            self.conf.paths.dependency_files,
-            self.conf.paths.ignore_files,
-            self.conf.paths.language_names,
-            self.conf.paths.language_setup,
+            self.conf.app.paths.dependency_files,
+            self.conf.app.paths.ignore_files,
+            self.conf.app.paths.language_names,
+            self.conf.app.paths.language_setup,
         ]
 
         for path in conf_path_list:
             path = Path("conf/").joinpath(path).resolve()
             conf_dict = handler.read(path)
+
             if "dependency_files" in conf_dict:
-                self.dependency_files.extend(
-                    conf_dict["dependency_files"].get("dependency_files", [])
-                )
+                self.dependency_files.extend(conf_dict.get("dependency_files", []))
             if "ignore_files" in conf_dict:
                 self.ignore_files.update(conf_dict["ignore_files"])
             if "language_names" in conf_dict:
@@ -136,13 +213,13 @@ def _get_config_dict(handler: FileHandler, filename: str) -> dict:
     return handler.read(path)
 
 
-def load_config(path: str = "conf.toml") -> Dict[str, str]:
+def load_config(path: str = "conf.toml") -> AppConfig:
     """Load configuration constants from TOML file."""
     handler = FileHandler()
     conf_dict = _get_config_dict(handler, path)
-    return dacite.from_dict(AppConfig, conf_dict)
+    return AppConfigModel.parse_obj({"app": conf_dict}).app
 
 
-def load_config_helper(conf: AppConfig) -> ConfigHelper:
+def load_config_helper(conf: AppConfigModel) -> ConfigHelper:
     """Load multiple configuration helper TOML files."""
     return ConfigHelper(conf=conf)

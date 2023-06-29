@@ -46,3 +46,4 @@ notebooks/
 # Work In Progress
 conf/templates
 src/redis_cache.py
+conf/prompts.toml

@@ -1,86 +1,81 @@
 #!/usr/bin/env python3
-"""Main entrypoint for README-AI application."""
 
 import argparse
 import asyncio
 import os
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
-import builder
 import conf
 import preprocess
-import utils
+from builder import build_markdown_file
 from logger import Logger
 from model import OpenAIHandler
 
-CONF = conf.load_config()
-CONF_HELPER = conf.load_config_helper(CONF)
-LOGGER = Logger(__name__)
 
-
-def validate_api_key(api_key: str) -> None:
-    """Handles validation of the user's OpenAI API key."""
-    if not api_key:
-        raise argparse.ArgumentTypeError("Invalid or missing OpenAI API key.")
-    os.environ["OPENAI_API_KEY"] = api_key
-
-
-def validate_repository(repository: str) -> None:
-    """Handles validation of the user's repository URL or path."""
-    if repository is None:
-        repository = CONF.git.repository
-
-    if not utils.is_valid_git_repo(repository):
-        raise ValueError(f"Invalid git repository: {repository}")
-
-    if not repository or (
-        not str(repository).startswith("http") and not Path(str(repository)).exists()
-    ):
-        raise argparse.ArgumentTypeError("Invalid or missing code repository.")
-
-    name = CONF.git.get_repository_name(repository)
-    CONF.git.name = name
-    CONF.git.repository = repository
-
-
-async def main(api_key: str, output: str, repository: Optional[str]) -> None:
+async def main(api_key: str, output: str, repository: str) -> None:
     """Main entrypoint for README-AI application."""
-    LOGGER.info("README-AI is now executing.")
-    CONF.paths.readme = output
-    validate_api_key(api_key)
-    validate_repository(repository)
-    gpt = OpenAIHandler(CONF)
-    await generate_readme(gpt)
+    conf.ApiConfig.validate_api_key(api_key)
+    conf.GitConfig.validate_repository(repository)
+    config.git = conf.GitConfig(repository=repository)
+    config.paths.readme = output
+
+    LOGGER.info("Model: %s", dict(config.api, api_key=("*" * 16)))
+    LOGGER.info("Repository: %s", config.git)
+
+    llm = OpenAIHandler(config)
+    await generate_readme(llm)
 
 
-async def generate_readme(gpt: OpenAIHandler) -> None:
+async def generate_readme(llm: OpenAIHandler) -> None:
     """Orchestrates the README file generation process."""
-    name, repository = CONF.git.name, CONF.git.repository
-    scanner = preprocess.RepositoryParserWrapper(CONF, CONF_HELPER)
+    name, repository = config.git.name, config.git.repository
+    scanner = preprocess.RepositoryParserWrapper(config, config_helper)
     dependencies, file_text = get_dependencies(scanner, repository)
+
+    LOGGER.info(f"Dependencies: {dependencies}")
+    LOGGER.info(f"Total files: {len(file_text)}")
+
     code_summary, slogan, overview, features = {}, "", "", ""
     try:
-        code_summary = await generate_code_to_text(gpt, file_text)
+        code_summary = await generate_code_to_text(llm, file_text)
         slogan, overview, features = await generate_markdown_text(
-            gpt, repository, code_summary
+            llm, repository, code_summary
         )
-    except Exception as exc:
-        LOGGER.error(f"Exception: {exc}")
+    except Exception as excinfo:
+        LOGGER.error(f"Exception: {excinfo}")
     finally:
-        await gpt.close()
+        await llm.close()
 
-    format_text_to_markdown(name, slogan, overview, features)
-    builder.build_markdown_file(CONF, CONF_HELPER, dependencies, code_summary)
-    LOGGER.info("README-AI execution complete.\n")
+    format_markdown_sections(name, slogan, overview, features)
+    build_markdown_file(config, config_helper, dependencies, code_summary)
 
 
-def format_text_to_markdown(
+def format_markdown_sections(
     name: str, slogan: str, overview: str, features: str
 ) -> None:
-    """Updates CONF.md.header and CONF.md.intro."""
-    CONF.md.header = CONF.md.header.format(name, slogan)
-    CONF.md.intro = CONF.md.intro.format(overview, features)
+    """Updates config.md.header and config.md.intro."""
+    config.md.header = config.md.header.format(name, slogan)
+    config.md.intro = config.md.intro.format(overview, features)
+
+
+async def generate_code_to_text(llm: OpenAIHandler, file_text: str) -> Dict[str, str]:
+    """Generates code_to_text using llm."""
+    return await llm.code_to_text(
+        config_helper.ignore_files, file_text, config.prompts.code_summary
+    )
+
+
+async def generate_markdown_text(
+    llm: OpenAIHandler, repository: str, code_summary: str
+) -> Tuple[str, str, str]:
+    """Generates slogan, overview and features using llm."""
+    prompts = [
+        config.prompts.slogan.format(config.git.name),
+        config.prompts.overview.format(repository, code_summary),
+        config.prompts.features.format(repository, code_summary),
+    ]
+    responses = await llm.chat_to_text(prompts)
+    return responses[:3]
 
 
 def get_dependencies(
@@ -88,32 +83,13 @@ def get_dependencies(
 ) -> Tuple[List[str], str]:
     """Extracts dependencies and file_text using the scanner."""
     dependencies, file_text = scanner.get_dependencies(repository)
-    LOGGER.info(f"Codebase dependencies: {dependencies}")
-    LOGGER.info(f"Total files: {len(file_text)}")
     return dependencies, file_text
 
 
-async def generate_code_to_text(gpt: OpenAIHandler, file_text: str) -> Dict[str, str]:
-    """Generates code_to_text using gpt."""
-    return await gpt.code_to_text(
-        CONF_HELPER.ignore_files, file_text, CONF.prompts.code_summary
-    )
-
-
-async def generate_markdown_text(
-    gpt: OpenAIHandler, repository: str, code_summary: str
-) -> Tuple[str, str, str]:
-    """Generates slogan, overview and features using gpt."""
-    prompts = [
-        CONF.prompts.slogan.format(CONF.git.name),
-        CONF.prompts.overview.format(repository, code_summary),
-        CONF.prompts.features.format(repository, code_summary),
-    ]
-    responses = await gpt.chat_to_text(prompts)
-    return responses[:3]
-
-
 if __name__ == "__main__":
+    LOGGER = Logger(__name__)
+    LOGGER.info("README-AI is now executing.")
+
     parser = argparse.ArgumentParser(
         description="Generates a README.md file for a given repository."
     )
@@ -121,18 +97,18 @@ if __name__ == "__main__":
         "-k",
         "--api-key",
         default=os.environ["OPENAI_API_KEY"],
-        help="OpenAI API key.",
+        help="OpenAI API secret key.",
     )
     parser.add_argument(
         "-o",
         "--output",
-        default="readme_ai.md",
-        help="README.md file output path.",
+        default="readme-ai.md",
+        help="README.md output file path.",
     )
     parser.add_argument(
         "-r",
         "--repository",
-        help="URL or path to repository.",
+        help="Repository URL or directory path.",
     )
     parser.add_argument(
         "-t",
@@ -145,5 +121,10 @@ if __name__ == "__main__":
         help="Language to write README.md file in.",
     )
     args = parser.parse_args()
+    config = conf.load_config()
+    config_model = conf.AppConfigModel(app=config)
+    config_helper = conf.load_config_helper(config_model)
 
     asyncio.run(main(args.api_key, args.output, args.repository))
+
+    LOGGER.info("README-AI execution complete.\n")

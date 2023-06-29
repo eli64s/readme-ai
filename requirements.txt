@@ -9,6 +9,7 @@ h2
 isort
 openai
 pre-commit
+pydantic
 pyyaml
 pytest
 pytest-cov

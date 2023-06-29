@@ -48,3 +48,19 @@ All notable changes to this project will be documented in this file.
 - 📄 Remove outdated example README.md files from the [examples](./examples) directory.
 
 ---
+
+## [v0.0.3] - *2023-06-29*
+
+### Added
+
+- 🪄 Add [pydantic](https://pydantic-docs.helpmanual.io/) to validate the user's repository and api key inputs.
+  - Validation was moved from *main.py* to *conf.py*.
+- 📖 Update [README.md](./README.md) file contents.
+  - Add Changelog section
+  - Reformat HTML code blocks
+
+### Removed
+
+- 📦 Remove [dacite](https://dacite.readthedocs.io/en/stable/) dependency now that *pydantic* is used for dataclass creation.
+
+---

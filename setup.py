@@ -11,7 +11,7 @@ with open(BASE_DIR) as file:
 
 setup(
     name="readme-ai",
-    version="0.0.2",
+    version="0.0.3",
     description="🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫",
     author="eli64s",
     author_email="0x.eli.64s@gmail.com",

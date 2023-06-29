@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readme-ai"
-version = "0.0.2"
+version = "0.0.3"
 description = """🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"""
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -56,6 +56,7 @@ tabulate = "^0.9.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
+pydantic = "^1.10.9"
 
 [tool.poetry.group.lint.dependencies]
 ruff = "*"
@@ -134,10 +135,3 @@ addopts = "--strict-markers --disable-pytest-warnings"
 # Pytest Coverage
 [tool.coverage.run]
 omit = ["tests/*", "setup.py", "*/__init__.py"]
-
-# Yapf
-[tool.yapf]
-based_on_style = "pep8"
-column_limit = 88
-indent_width = 4
-dedent_closing_brackets = true
