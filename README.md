@@ -1,8 +1,3 @@
-<head>
-    <meta charset="UTF-8">
-    <title>README-AI</title>
-</head>
-
 <body>
     <div align="center">
         <h1 align="center">
