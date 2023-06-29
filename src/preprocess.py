@@ -1,5 +1,6 @@
 """Handles preprocessing of the input codebase."""
 
+import tempfile
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
@@ -53,7 +54,7 @@ class RepositoryParser:
 
     def analyze(self, root_path: str, is_remote: bool = False) -> List[Dict]:
         """Analyzes a local or remote git repository."""
-        with utils.tempfile.TemporaryDirectory() as temp_dir:
+        with tempfile.TemporaryDirectory() as temp_dir:
             if is_remote:
                 utils.clone_repository(root_path, temp_dir)
                 root_path = temp_dir
@@ -64,12 +65,12 @@ class RepositoryParser:
 
     def generate_contents(self, root_path: str) -> List[Dict]:
         """Generates a List of Dict of file information."""
-        code_root = utils.Path(root_path)
+        code_root = Path(root_path)
         data = list(self.generate_file_info(code_root))
 
         contents = []
         for name, path, content in data:
-            extension = utils.Path(name).suffix.lstrip(".")
+            extension = Path(name).suffix.lstrip(".")
             contents.append(
                 {"name": name, "path": path, "content": content, "extension": extension}
             )
