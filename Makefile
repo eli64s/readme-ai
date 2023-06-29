@@ -18,8 +18,7 @@ help:
 # Style
 .PHONY: style
 style:
-	-autoflake --remove-all-unused-imports --in-place --recursive .
-	-autopep8 --in-place --recursive .
+	-ruff check .
 	-black .
 	-flake8
 	-isort .

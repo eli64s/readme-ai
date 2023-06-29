@@ -3,10 +3,10 @@
 endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
-rate_limit = 7
-tokens = 600
+rate_limit = 5
+tokens = 699
 tokens_max = 4000
-temperature = 0.7
+temperature = 0.9
 
 # Repository
 [git]
@@ -36,18 +36,18 @@ Generate your response as a Markdown table with the following columns:
 
 | Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**    | Analyze the structural design of the system here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **📖 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **✔️ Testing**         | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **⚡️ Performance**     | 	Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 300 characters (including spaces).    |
-| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 300 characters (including spaces).    |
+| **⚙️ Architecture**    | Analyze the structural design of the system here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **📖 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **✔️ Testing**         | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **⚡️ Performance**     | 	Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 275 characters (including spaces).    |
+| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 275 characters (including spaces).    |
 
-Please provide a comprehensive analysis addressing the above features while excluding the specified files from the assessment.
+Please provide a comprehensive technical analysis of the codebase and its components.
 """
 overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject.
 The following includes a list of the summaries of the files in the repository:

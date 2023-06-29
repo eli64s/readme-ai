@@ -2,29 +2,32 @@
 
 from pathlib import Path
 
-from setuptools import find_namespace_packages, setup
+from setuptools import find_packages, setup
 
-BASE_DIR = Path(__file__).parent
 
-with open(BASE_DIR / "requirements.txt") as file:
+BASE_DIR = Path(__file__).parent / "requirements.txt"
+with open(BASE_DIR) as file:
     required_packages = [line.strip() for line in file]
-
-style_packages = ["black==21.9b0", "flake8", "isort"]
-test_packages = ["pytest", "pytest-cov"]
 
 setup(
     name="readme-ai",
     version="0.0.2",
-    description="""🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫""",
+    description="🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫",
     author="eli64s",
-    author_email="zeroxeli@gmail.com",
+    author_email="0x.eli.64s@gmail.com",
     url="https://github.com/eli64s/readme-ai",
-    python_requires=">=3.7",
-    packages=find_namespace_packages(),
+    python_requires=">=3.8.1",
+    packages=find_packages(exclude=["tests"]),
     install_requires=required_packages,
     extras_require={
-        "dev": style_packages + test_packages + ["pre-commit==2.15.0"],
-        "test": test_packages,
+        "dev": [
+            "black",
+            "flake8",
+            "isort",
+            "pytest",
+            "pytest-cov",
+            "pre-commit",
+        ],
     },
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -56,5 +59,10 @@ setup(
     project_urls={
         "Documentation": "https://github.com/eli64s/readme-ai/blob/main/README.md",
         "Source Code": "https://github.com/eli64s/readme-ai",
+    },
+    entry_points={
+        "console_scripts": [
+            "readme-ai = src.__main__:main",
+        ],
     },
 )
