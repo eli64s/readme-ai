@@ -10,8 +10,8 @@ help:
 	@echo "Commands:"
 	@echo "clean      : cleans all unnecessary files."
 	@echo "style      : executes style formatting."
-	@echo "conda      : creates a conda environment."
-	@echo "venv       : creates a virtual environment."
+	@echo "conda      : create conda environment."
+	@echo "venv       : creates python virtual environment."
 	@echo "profile    : runs cProfile on the CLI script."
 	@echo "snakeviz   : runs SnakeViz on the profile.out file."
 

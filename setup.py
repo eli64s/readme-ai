@@ -14,8 +14,8 @@ test_packages = ["pytest", "pytest-cov"]
 
 setup(
     name="readme-ai",
-    version="0.0.1",
-    description="""🚀 Generate awesome README.md documents from the terminal, powered by OpenAI's GPT language model APIs 💫""",
+    version="0.0.2",
+    description="""🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫""",
     author="eli64s",
     author_email="zeroxeli@gmail.com",
     url="https://github.com/eli64s/readme-ai",
