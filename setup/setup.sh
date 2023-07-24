@@ -48,6 +48,13 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
+: '
+# Clone the repository
+echo "Cloning the README-AI repository..."
+git clone https://github.com/eli64s/README-AI.git
+cd README-AI
+'
+
 # Check if conda is installed
 if ! command -v conda &> /dev/null; then
     echo "Conda is not installed. Please install Anaconda or Miniconda and rerun the script."
@@ -79,8 +86,11 @@ if conda_env_exists "readmeai"; then
     echo "The 'readmeai' environment already exists. Skipping environment creation."
 else
     # Create a new conda environment named 'readmeai'
-    echo "Creating a new conda environment named 'readmeai' with Python 3.9..."
-    conda create --name readmeai python=3.9 -y
+    echo "Creating a new conda environment named 'readmeai' with Python 3.8..."
+    conda env create -f setup/environment.yaml || {
+        echo "Error creating the 'readmeai' environment. Aborting."
+        exit 1
+    }
 fi
 
 # Activate the conda environment
@@ -88,21 +98,17 @@ echo "Activating the 'readmeai' environment..."
 eval "$(conda shell.bash hook)"
 conda activate readmeai
 
-# Check if Poetry is installed
-echo "Checking if Poetry is installed..."
-if ! command -v poetry &> /dev/null; then
-    echo "Poetry is not installed. Installing Poetry..."
-    curl -sSL https://install.python-poetry.org | python3 -
-else
-    echo "Poetry is already installed."
-fi
+# Add the Python path from the active conda environment to PATH
+echo "Adding Python path to the PATH environment variable..."
+export PATH="$(conda info --base)/envs/readmeai/bin:$PATH"
 
-# Change to the project directory
-cd readme-ai
-
-# Install project dependencies using Poetry
-echo "Installing project dependencies with Poetry..."
-poetry install
+# Install the required packages using pip
+echo "Installing required packages from 'requirements.txt'..."
+pip install -r requirements.txt || {
+    echo "Error installing packages from 'requirements.txt'. Aborting."
+    conda deactivate
+    exit 1
+}
 
 # Deactivate the conda environment
 conda deactivate
