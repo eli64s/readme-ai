@@ -1,8 +1,8 @@
-# Use a base image with Python installed
-FROM python:3.8-slim-buster
+# Use a base image with Python 3.9 installed
+FROM python:3.9-slim-buster
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git tree
 
 # Set working directory
 WORKDIR /app

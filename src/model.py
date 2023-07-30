@@ -17,6 +17,12 @@ from tenacity import (
 
 import conf
 import utils
+from exceptions import (
+    GeneralException,
+    HTTPStatusException,
+    OpenAIException,
+    RetryException,
+)
 from logger import Logger
 
 
@@ -192,23 +198,20 @@ class OpenAIHandler:
                 return index, summary
 
         except openai.OpenAIException as excinfo:
-            self.LOGGER.error(f"OpenAI Exception:\n{str(excinfo)}")
-            return await self.null_summary(
-                index, f"OpenAI exception: {excinfo.response.status_code}"
-            )
+            raise OpenAIException(f"OpenAI Exception: {str(excinfo)}", orig_exc=excinfo)
 
         except httpx.HTTPStatusError as excinfo:
-            self.LOGGER.error(f"HTTPStatus Exception:\n{str(excinfo)}")
-            return await self.null_summary(
-                index, f"HTTPStatus Exception: {excinfo.response.status_code}"
+            raise HTTPStatusException(
+                f"HTTPStatus Exception: {str(excinfo)}", orig_exc=excinfo
             )
+
         except RetryError as excinfo:
-            self.LOGGER.error(f"RetryError Exception:\n{str(excinfo)}")
-            return await self.null_summary(index, f"RetryError Exception: {excinfo}")
+            raise RetryException(
+                f"RetryError Exception: {str(excinfo)}", orig_exc=excinfo
+            )
 
         except Exception as excinfo:
-            self.LOGGER.error(f"Exception:\n{str(excinfo)}")
-            return await self.null_summary(index, f"Exception: {excinfo}")
+            raise GeneralException(f"Exception: {str(excinfo)}", orig_exc=excinfo)
 
         finally:
             self.last_request_time = time.monotonic()

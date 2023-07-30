@@ -354,7 +354,7 @@ poetry install
 
 ```sh
 # With Docker
-docker pull zeroxeli/readme-ai:v0.1.0
+docker pull zeroxeli/readme-ai:0.0.4
 ```
 
 ### 🎮 Using *README-AI*
@@ -366,8 +366,8 @@ Command-Line Arguments:
 - `-k` or `--api-key`: Your OpenAI API key.
 - `-o` or `--output`: The output path for your README.md file.
 - `-r` or `--repository`: The URL or path to your code repository.
-- `-t` or `--template`: The README template format to use. (Coming soon!)
-- `l` or `--language`: The language of text written in the README file (Coming soon!)
+- `-t` or `--template`: The README template format to use. (coming soon!)
+- `l` or `--language`: The language of text written in the README file (coming soon!)
 
 ```sh
 python src/main.py --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
@@ -396,7 +396,7 @@ poetry run python src/main.py -o readme-ai.md -r https://github.com/eli64s/readm
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
 -v "$(pwd)":/app \
--w /app zeroxeli/readme-ai:v0.1.0 \
+-w /app zeroxeli/readme-ai:0.0.4 \
 python src/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 

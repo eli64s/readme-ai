@@ -64,3 +64,17 @@ All notable changes to this project will be documented in this file.
 - 📦 Remove [dacite](https://dacite.readthedocs.io/en/stable/) dependency now that *pydantic* is used for dataclass creation.
 
 ---
+
+## [v0.0.4] - *2023-07-29*
+
+### Added
+
+- ⚙️ Add script to handle custom exceptions [exceptions.py](./src/exceptions.py).
+- 📖 Update [README.md](./README.md) file contents.
+  - Modify docker commands to use the tag `readme-ai:0.0.4`.
+
+### Fixed
+
+- 🐳 Update Dockerfile with the latest dependencies + *tree* command installation.
+
+---
