@@ -280,7 +280,7 @@ Additionally, regularly monitor your API usage and costs by visiting the [OpenAI
 
 Before you begin, ensure that you have the following prerequisites installed:
 
-- Python 3.8 or higher
+- Python 3.9 or higher
 - Conda package manager (recommended)
 - Access to the OpenAI API (see the setup guide below)
 
