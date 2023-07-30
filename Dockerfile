@@ -10,11 +10,8 @@ WORKDIR /app
 # Set environment variable for Git Python
 ENV GIT_PYTHON_REFRESH=quiet
 
-# Copy the project files to the container
-COPY . .
-
-# Install project dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the readmeai package from PyPI
+RUN pip install --no-cache-dir readmeai
 
 # Set the command to run your project
-CMD ["python", "src/main.py"]
+CMD ["readmeai"]

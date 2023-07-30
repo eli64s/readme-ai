@@ -15,15 +15,13 @@ from tenacity import (
     wait_exponential,
 )
 
-import conf
-import utils
-from logger import Logger
+from . import conf, logger, utils
 
 
 class OpenAIHandler:
     """OpenAI API handler for generating text for the README.md file."""
 
-    LOGGER = Logger(__name__)
+    logger = logger.Logger(__name__)
 
     def __init__(self, conf: conf.AppConfig):
         """Initialize the OpenAI API handler.
@@ -74,7 +72,7 @@ class OpenAIHandler:
                 and path.name not in ignore.get("files", [])
                 and path.suffix not in ignore.get("extensions", [])
             ):
-                self.LOGGER.warning(f"Ignoring file: {path}")
+                self.logger.warning(f"Ignoring file: {path}")
                 continue
 
             prompt_code = prompt.format(contents)
@@ -82,7 +80,7 @@ class OpenAIHandler:
             if prompt_length > self.tokens_max:
                 exc = f"Prompt exceeds max token limit: {prompt_length}."
                 tasks.append(asyncio.create_task(self.null_summary(path, exc)))
-                self.LOGGER.debug(exc)
+                self.logger.debug(exc)
                 continue
 
             tasks.append(
@@ -94,7 +92,7 @@ class OpenAIHandler:
         filter_results = []
         for result in results:
             if isinstance(result, Exception):
-                self.LOGGER.error(f"Task failed with exception: {result}")
+                self.logger.error(f"Task failed with exception: {result}")
             else:
                 filter_results.append(result)
 
@@ -187,27 +185,27 @@ class OpenAIHandler:
                 summary = data["choices"][0]["message"]["content"]
                 summary = utils.format_sentence(summary) if index != 3 else summary
 
-                self.LOGGER.info(f"\nProcessing prompt: {index}\nResponse: {summary}")
+                self.logger.info(f"\nProcessing prompt: {index}\nResponse: {summary}")
                 self.cache[prompt] = summary
                 return index, summary
 
         except openai.OpenAIException as excinfo:
-            self.LOGGER.error(f"OpenAI Exception:\n{str(excinfo)}")
+            self.logger.error(f"OpenAI Exception:\n{str(excinfo)}")
             return await self.null_summary(
                 index, f"OpenAI exception: {excinfo.response.status_code}"
             )
 
         except httpx.HTTPStatusError as excinfo:
-            self.LOGGER.error(f"HTTPStatus Exception:\n{str(excinfo)}")
+            self.logger.error(f"HTTPStatus Exception:\n{str(excinfo)}")
             return await self.null_summary(
                 index, f"HTTPStatus Exception: {excinfo.response.status_code}"
             )
         except RetryError as excinfo:
-            self.LOGGER.error(f"RetryError Exception:\n{str(excinfo)}")
+            self.logger.error(f"RetryError Exception:\n{str(excinfo)}")
             return await self.null_summary(index, f"RetryError Exception: {excinfo}")
 
         except Exception as excinfo:
-            self.LOGGER.error(f"Exception:\n{str(excinfo)}")
+            self.logger.error(f"Exception:\n{str(excinfo)}")
             return await self.null_summary(index, f"Exception: {excinfo}")
 
         finally:

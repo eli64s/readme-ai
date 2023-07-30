@@ -10,10 +10,10 @@ import pytest
 import toml
 import yaml
 
-from src import parse
-from src.factory import FileHandler
+from readmeai import parse
+from readmeai.factory import FileHandler
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 FILE_HANDLER = FileHandler()
 
@@ -41,13 +41,8 @@ def test_parse_conda_env_file(temp_file):
 
 def test_parse_pipfile():
     pipfile = {
-        "packages": {
-            "requests": "==2.25.1",
-            "numpy": "~=1.19.2"
-        },
-        "dev-packages": {
-            "pytest": "^6.2.2"
-        },
+        "packages": {"requests": "==2.25.1", "numpy": "~=1.19.2"},
+        "dev-packages": {"pytest": "^6.2.2"},
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pipfile))
@@ -57,14 +52,12 @@ def test_parse_pipfile():
 
 def test_parse_pyproject_toml():
     pyproject_toml = {
-        "tool":
-            {
-                "poetry":
-                    {
-                        "dependencies": ["numpy", "requests"],
-                        "dev-dependencies": ["pytest"],
-                    }
+        "tool": {
+            "poetry": {
+                "dependencies": ["numpy", "requests"],
+                "dev-dependencies": ["pytest"],
             }
+        }
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pyproject_toml))
@@ -81,7 +74,6 @@ def test_parse_requirements_file():
 
 
 class TestParseCargoToml(unittest.TestCase):
-
     @patch(
         "builtins.open",
         new_callable=mock_open,
@@ -100,13 +92,8 @@ class TestParseCargoToml(unittest.TestCase):
     @patch("src.factory.FileHandler.read_toml")
     def test_parse_cargo_toml(self, mock_read_toml, mock_file):
         mock_read_toml.return_value = {
-            "dependencies": {
-                "dep1": "1.0.0",
-                "dep2": "2.0.0"
-            },
-            "dev-dependencies": {
-                "devdep1": "1.0.0"
-            },
+            "dependencies": {"dep1": "1.0.0", "dep2": "2.0.0"},
+            "dev-dependencies": {"devdep1": "1.0.0"},
         }
 
         result = parse.parse_cargo_toml("Cargo.toml")
@@ -114,7 +101,6 @@ class TestParseCargoToml(unittest.TestCase):
 
 
 class TestParseCargoLock(unittest.TestCase):
-
     @patch(
         "builtins.open",
         new_callable=mock_open,
@@ -142,12 +128,8 @@ class TestParseCargoLock(unittest.TestCase):
     def test_parse_cargo_lock(self, mock_read_toml, mock_file):
         mock_read_toml.return_value = {
             "package": [
-                {
-                    "name": "aho-corasick"
-                },
-                {
-                    "name": "ansi_term"
-                },
+                {"name": "aho-corasick"},
+                {"name": "ansi_term"},
             ]
         }
         expected_packages = ["aho-corasick", "ansi_term"]
@@ -166,13 +148,8 @@ class TestParseCargoLock(unittest.TestCase):
 
 def test_parse_package_json():
     package_json = {
-        "dependencies": {
-            "express": "^4.17.1",
-            "lodash": "^4.17.21"
-        },
-        "devDependencies": {
-            "mocha": "^9.0.0"
-        },
+        "dependencies": {"express": "^4.17.1", "lodash": "^4.17.21"},
+        "devDependencies": {"mocha": "^9.0.0"},
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
@@ -182,13 +159,8 @@ def test_parse_package_json():
 
 def test_parse_package_json():
     package_json = {
-        "dependencies": {
-            "express": "^4.17.1",
-            "lodash": "^4.17.21"
-        },
-        "devDependencies": {
-            "mocha": "^9.0.0"
-        },
+        "dependencies": {"express": "^4.17.1", "lodash": "^4.17.21"},
+        "devDependencies": {"mocha": "^9.0.0"},
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
@@ -197,7 +169,6 @@ def test_parse_package_json():
 
 
 class TestParseYarnLock(unittest.TestCase):
-
     def test_parse_yarn_lock(self):
         yarn_lock_content = """
             argparse@^1.0.7:
@@ -206,17 +177,17 @@ class TestParseYarnLock(unittest.TestCase):
               integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
               dependencies:
                 sprintf-js "~1.0.2"
-    
+
             arr-union@^3.1.0:
               version "3.1.0"
               resolved "https://registry.yarnpkg.com/arr-union/-/arr-union-3.1.0.tgz#e39b09aea9def866a8f206e288af63919bae39c4"
               integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
-    
+
             array-filter@^1.0.0:
               version "1.0.0"
               resolved "https://registry.yarnpkg.com/array-filter/-/array-filter-1.0.0.tgz#baf79e62e6ef4c2a4c0b831232daffec251f9d83"
               integrity sha1-uveeYubvTCpMC4MSMtr/7CUfnYM=
-    
+
             array-includes@^3.1.2:
               version "3.1.2"
               resolved "https://registry.yarnpkg.com/array-includes/-/array-includes-3.1.2.tgz#a8db03e0b88c8c6aeddc49cb132f9bcab4ebf9c8"

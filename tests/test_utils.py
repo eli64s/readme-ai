@@ -3,38 +3,91 @@
 from pathlib import Path
 from unittest.mock import patch
 
-import git
 import pytest
+from git import GitCommandError, Repo
 
-from src.utils import (
+from readmeai.utils import (
+    adjust_max_tokens,
     clone_repository,
     flatten_list,
     format_sentence,
+    get_github_file_link,
     get_token_count,
+    get_user_repository_name,
     is_valid_url,
     truncate_text_tokens,
 )
 
 
-@patch("src.utils.git.Repo.clone_from")
-def test_clone_repository_invalid_url(mock_clone_from):
-    mock_clone_from.side_effect = git.exc.GitCommandError(
-        command="git clone",
-        status=128,
-        stderr="fatal: repository 'is_valid_url' does not exist",
+def test_clone_repository_success():
+    with patch.object(Repo, "clone_from") as mock_clone:
+        clone_repository("http://my-repo-url.com", Path("/tmp/my-repo"))
+        mock_clone.assert_called_once_with(
+            "http://my-repo-url.com", Path("/tmp/my-repo"), depth=1
+        )
+
+
+def test_clone_repository_failure():
+    with patch.object(Repo, "clone_from") as mock_clone:
+        mock_clone.side_effect = GitCommandError("git clone", "Some error")
+        with pytest.raises(ValueError, match="Error cloning repository:"):
+            clone_repository("http://my-repo-url.com", Path("/tmp/my-repo"))
+        mock_clone.assert_called_once()
+
+
+def test_get_github_file_link():
+    url = get_github_file_link("path/to/my_file.py", "username/repo")
+    assert url == "https://github.com/username/repo/blob/main/path/to/my_file.py"
+    url = get_github_file_link("readme.md", "myorg/myrepo")
+    assert url == "https://github.com/myorg/myrepo/blob/main/readme.md"
+    url = get_github_file_link("dir/subdir/my_file.py", "anotheruser/anotherrepo")
+    assert (
+        url
+        == "https://github.com/anotheruser/anotherrepo/blob/main/dir/subdir/my_file.py"
     )
-    with pytest.raises(ValueError) as exc:
-        clone_repository("https//www.github.woah///git.git", Path("temp_file"))
-
-    assert "Error cloning repository" in str(exc.value)
 
 
-@patch("src.utils.git.Repo.clone_from")
-def test_clone_repository(mock_clone_from, config, tmp_path):
-    url = config["git"]["repository"]
-    path = tmp_path / config["git"]["name"]
-    clone_repository(url, Path(path))
-    assert Path(path).exists()
+def test_get_user_repository_name_valid_url():
+    assert get_user_repository_name("https://github.com/user/repo") == "user/repo"
+    assert get_user_repository_name("http://github.com/user/repo") == "user/repo"
+
+
+def test_get_user_repository_name_invalid_url():
+    assert (
+        get_user_repository_name("https://notgithub.com/user/repo")
+        == "Invalid remote git URL."
+    )
+    assert (
+        get_user_repository_name("https://github.com/user") == "Invalid remote git URL."
+    )
+    assert get_user_repository_name("http://github") == "Invalid remote git URL."
+    assert get_user_repository_name("invalid_url") == "Invalid remote git URL."
+
+
+def test_adjust_max_tokens_with_valid_prompt():
+    max_tokens = 150
+    prompt = "Hello! How are you today?"
+    result = adjust_max_tokens(max_tokens, prompt)
+    assert result == 150, "Expected max tokens to remain the same for valid prompts"
+
+
+def test_adjust_max_tokens_with_invalid_prompt():
+    max_tokens = 150
+    prompt = "How are you today?"
+    result = adjust_max_tokens(max_tokens, prompt)
+    assert (
+        result == 50
+    ), "Expected max tokens to be reduced to a third for invalid prompts"
+
+
+def test_adjust_max_tokens_with_target_string():
+    max_tokens = 120
+    prompt = "Good morning! Have a nice day."
+    target = "Good morning!"
+    result = adjust_max_tokens(max_tokens, prompt, target)
+    assert (
+        result == 120
+    ), "Expected max tokens to remain the same for prompts starting with target string"
 
 
 def test_get_token_count(config):
@@ -70,7 +123,3 @@ def test_format_sentence():
     input_text = "   Hello,   world! This is a  test sentence...   "
     expected_output = "Hello, world! This is a test sentence..."
     assert format_sentence(input_text) == expected_output
-
-
-if __name__ == "__main__":
-    pytest.main()

@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from pandas import DataFrame
 
-from src.builder import (
+from readmeai.builder import (
     build,
     create_directory_tree,
     create_tables,
@@ -16,10 +16,10 @@ from src.builder import (
     get_badges,
     parse_pandas_cols,
 )
-from src.conf import AppConfig, ConfigHelper, load_config, load_config_helper
-from src.factory import FileHandler
+from readmeai.conf import AppConfig, ConfigHelper, load_config, load_config_helper
+from readmeai.factory import FileHandler
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 FILE_HANDLER = FileHandler()
 CONF = Path("conf/conf.toml")
@@ -78,17 +78,16 @@ def test_build(mock_logger, mock_file_handler):
 
 def test_get_badges():
     badge_metadata = {
-        "icons":
-            [
-                {
-                    "name": "dependency1",
-                    "src": "https://img.shields.io/badge/dependency1-src1",
-                },
-                {
-                    "name": "dependency2",
-                    "src": "https://img.shields.io/badge/dependency2-src2",
-                },
-            ]
+        "icons": [
+            {
+                "name": "dependency1",
+                "src": "https://img.shields.io/badge/dependency1-src1",
+            },
+            {
+                "name": "dependency2",
+                "src": "https://img.shields.io/badge/dependency2-src2",
+            },
+        ]
     }
     dependency_list = ["dependency1", "dependency2"]
     badges = get_badges(badge_metadata, dependency_list)

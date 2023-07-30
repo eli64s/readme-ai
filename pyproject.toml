@@ -3,76 +3,71 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "readme-ai"
-version = "0.0.3"
-description = """🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"""
+name = "readmeai"
+version = "0.0.501"
+description = "🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
 keywords = [
+  "markdown",
   "readme",
-  "readme-badges",
   "readme-template",
-  "autodoc",
-  "readme-boilerplate",
+  "shieldsio",
+  "readme-md",
   "awesome-readme",
   "readme-generator",
   "gpt-3",
-  "readme-stats",
   "openai-api",
+  "automated-readme",
   "auto-readme",
-  "ai-tools",
-  "shieldsio-badges",
   "gpt-4",
   "llms",
+  "awesome-chatgpt",
   "openai-python",
   "chatgpt-python",
-  "llmops",
   "openai-chatbot",
   "gpt-35-turbo",
+  "gpt-4-api",
+  "llm-agent"
 ]
+packages = [{ include = "readmeai/*" }]
+
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "*"
+isort = "*"
+pytest = "*"
+pytest-cov = "*"
+pre-commit = "*"
+ruff = "*"
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
-black = "^23.3.0"
 colorlog = "^6.7.0"
 cachetools = "^5.3.1"
 dacite = "^1.8.1"
-flake8 = "^6.0.0"
 gitpython = "^3.1.31"
 httpx = "^0.24.1"
 h2 = "^4.1.0"
-isort = "^5.12.0"
 openai = "^0.27.8"
-pre-commit = "^3.3.3"
 pyyaml = "^6.0"
-pytest = "^7.4.0"
-pytest-cov = "^4.1.0"
 responses = "^0.23.1"
-ruff = "^0.0.275"
 tabulate = "^0.9.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
 pydantic = "^1.10.9"
-
-[tool.poetry.group.lint.dependencies]
-ruff = "*"
-
-[tool.poetry.group.fmt.dependencies]
-black = "*"
-
-[tool.poetry.group.test.dependencies]
-pytest = "*"
+click = "^8.1.6"
 
 [tool.poetry.scripts]
-readme-ai = "src.main:main"
+readmeai = "readmeai.main:cli"
 
 [tool.ruff]
 line-length = 88
-target-version = "py38"
+target-version = "py39"
 extend-select = [
   "I", # isort
   "N", # pep8-naming
@@ -85,8 +80,6 @@ extend-select = [
   "TID", # flake8-tidy-imports
 
 ]
-extend-ignore = ["RUF005"]
-src = ["src", "tests"]
 
 [tool.ruff.isort]
 force-sort-within-sections = true
@@ -95,43 +88,10 @@ split-on-trailing-comma = false
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-# Black
-[tool.black]
-target-version = ["py38", "py39", "py310"]
-line-length = 88
-include = '\.pyi?$'
-exclude = '''
-/(
-      .eggs
-    | .git
-    | .hg
-    | .mypy_cache
-    | .pytest_cache
-    | .tox
-    | venv
-    | benchmarks
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-'''
-
-# iSort
-[tool.isort]
-profile = "black"
-line_length = 88
-lines_after_imports = 2
-multi_line_output = 3
-include_trailing_comma = true
-virtual_env = "conda"
-
-# Pytest
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
 addopts = "--strict-markers --disable-pytest-warnings"
 
-# Pytest Coverage
 [tool.coverage.run]
-omit = ["tests/*", "setup.py", "*/__init__.py"]
+omit = ["tests/*", "*/__init__.py"]

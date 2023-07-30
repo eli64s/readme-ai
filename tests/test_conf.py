@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import dacite
 import pytest
 
-from src.conf import (
+from readmeai.conf import (
     ApiConfig,
     AppConfig,
     GitConfig,
@@ -17,7 +17,7 @@ from src.conf import (
     load_config_helper,
 )
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 
 @pytest.fixture

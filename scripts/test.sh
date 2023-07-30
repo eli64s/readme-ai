@@ -4,13 +4,13 @@ eval "$(conda shell.bash hook)"
 conda activate readmeai
 
 # Set the directories to include in the coverage report
-source_dir="src"
+source_dir="readmeai"
 
 # Set the directories to exclude from the coverage report
 omit_dir="tests"
 
 # Exclude __init__.py specifically
-omit_file="src/__init__.py"
+omit_file="readmeai/__init__.py"
 
 # Generate the coverage report and save it to a file
 coverage run --source="$source_dir" --omit="$omit_dir" --omit="$omit_file" -m pytest

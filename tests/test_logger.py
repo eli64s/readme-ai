@@ -4,7 +4,7 @@ import logging
 import unittest
 from io import StringIO
 
-from src.logger import Logger
+from readmeai.logger import Logger
 
 
 class LoggerTestCase(unittest.TestCase):

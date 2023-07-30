@@ -7,10 +7,9 @@ from typing import List
 import toml
 import yaml
 
-from logger import Logger
+from . import logger
 
-
-LOGGER = Logger(__name__)
+LOGGER = logger.Logger(__name__)
 
 
 def parse_docker_compose(content: str) -> List[str]:

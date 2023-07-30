@@ -6,9 +6,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-import src.main
+import readmeai.main
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 
 @pytest.fixture
@@ -37,16 +37,16 @@ def mock_openaihandler():
 def test_validate_api_key(api_key):
     os.environ["OPENAI_API_KEY"] = ""
     with pytest.raises(argparse.ArgumentTypeError):
-        src.main.validate_api_key(api_key)
+        readmeai.main.validate_api_key(api_key)
 
 
 def test_validate_repository(repository):
     # Test with a valid repository
-    src.main.validate_repository(repository)
+    readmeai.main.validate_repository(repository)
 
     # Test with an invalid repository
     with pytest.raises(argparse.ArgumentTypeError):
-        src.main.validate_repository("")
+        readmeai.main.validate_repository("")
 
 
 @patch("src.main.OpenAIHandler")
@@ -63,7 +63,7 @@ def test_main(
     repository,
 ):
     # This will test if the functions are called as expected
-    asyncio.run(src.main.main(api_key, output, repository))
+    asyncio.run(readmeai.main.main(api_key, output, repository))
     mock_validate_api_key.assert_called_once_with(api_key)
     mock_validate_repository.assert_called_once_with(repository)
     mock_generate_readme.assert_called_once()
@@ -75,6 +75,6 @@ def test_generate_readme(
     mock_generate_markdown_text, mock_generate_code_to_text, mock_openaihandler
 ):
     # This will test if the functions are called as expected
-    asyncio.run(src.main.generate_readme(mock_openaihandler))
+    asyncio.run(readmeai.main.generate_readme(mock_openaihandler))
     mock_generate_code_to_text.assert_called_once()
     mock_generate_markdown_text.assert_called_once()

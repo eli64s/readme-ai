@@ -7,7 +7,7 @@ from typing import List
 import git
 from tiktoken import get_encoding
 
-import conf
+from . import conf
 
 
 def clone_repository(url: str, repo_path: Path) -> None:

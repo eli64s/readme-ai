@@ -17,5 +17,5 @@ repositories=(
 for repo in "${repositories[@]}"
 do
     repo_name=$(basename $repo)
-    python src/main.py -o "readme-$repo_name.md" -r "$repo"
+    python readmeai/main.py -o "readme-$repo_name.md" -r "$repo"
 done

@@ -6,10 +6,10 @@ from unittest.mock import Mock
 
 import pytest
 
-from src import conf, utils
-from src.preprocess import RepositoryParser, RepositoryParserWrapper
+from readmeai import conf, utils
+from readmeai.preprocess import RepositoryParser, RepositoryParserWrapper
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 
 class MockPaths:

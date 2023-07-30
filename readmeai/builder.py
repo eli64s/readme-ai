@@ -5,18 +5,14 @@ import tempfile
 from pathlib import Path
 from typing import List, Tuple
 
-import utils
-from conf import AppConfig, ConfigHelper
-from factory import FileHandler
-from logger import Logger
+from . import conf, factory, logger, utils
 
-
-LOGGER = Logger(__name__)
+LOGGER = logger.Logger(__name__)
 
 
 def build_markdown_file(
-    conf: AppConfig,
-    helper: ConfigHelper,
+    conf: conf.AppConfig,
+    helper: conf.ConfigHelper,
     packages: list,
     summaries: tuple,
 ) -> None:
@@ -24,13 +20,13 @@ def build_markdown_file(
     readme_sections = create_markdown_sections(conf, helper, packages, summaries)
     readme_file = "\n".join(readme_sections)
     readme_path = Path.cwd() / conf.paths.readme
-    FileHandler().write(readme_path, readme_file)
+    factory.FileHandler().write(readme_path, readme_file)
     LOGGER.info(f"README file generated at: {readme_path}")
 
 
 def create_markdown_sections(
-    conf: AppConfig,
-    helper: ConfigHelper,
+    conf: conf.AppConfig,
+    helper: conf.ConfigHelper,
     packages: list,
     summaries: tuple,
 ) -> List[str]:
@@ -40,7 +36,7 @@ def create_markdown_sections(
     user_repo = utils.get_user_repository_name(repository)
     cwd_path = Path.cwd()
     badges_path = cwd_path / conf.paths.badges
-    badges_dict = FileHandler().read(badges_path)
+    badges_dict = factory.FileHandler().read(badges_path)
 
     markdown_badges = conf.md.badges.format(
         get_badges(badges_dict, packages), user_repo
@@ -116,7 +112,9 @@ def create_markdown_tables(summaries: Tuple[str, str]) -> List[Tuple[str, str]]:
     return summary_list
 
 
-def create_setup_guide(conf: AppConfig, helper: ConfigHelper, summary_list: list):
+def create_setup_guide(
+    conf: conf.AppConfig, helper: conf.ConfigHelper, summary_list: list
+):
     """Creates the 'Getting Started' section of the README file."""
     try:
         default_install_command = (

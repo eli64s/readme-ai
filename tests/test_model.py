@@ -6,9 +6,14 @@ from unittest.mock import AsyncMock, patch
 import httpx
 import pytest
 
-from src.model import code_to_text, generate_summary_text, get_cache, get_http_client
+from readmeai.model import (
+    code_to_text,
+    generate_summary_text,
+    get_cache,
+    get_http_client,
+)
 
-sys.path.append("src")
+sys.path.append("readmeai")
 
 
 def test_get_cache():

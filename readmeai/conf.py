@@ -10,11 +10,9 @@ from urllib.parse import urlparse, urlsplit
 import openai
 from pydantic import BaseModel, Field, SecretStr, validator
 
-from factory import FileHandler
-from logger import Logger
+from . import factory, logger
 
-
-LOGGER = Logger(__name__)
+LOGGER = logger.Logger(__name__)
 
 
 class ApiConfig(BaseModel):
@@ -35,7 +33,7 @@ class ApiConfig(BaseModel):
         if not api_key:
             api_key = os.environ.get("OPENAI_API_KEY")
         if not api_key:
-            raise ValueError("Exception: invalid OpenAI API secret key.")
+            raise ValueError("Exception: invalid OpenAI API key.")
 
         os.environ["OPENAI_API_KEY"] = api_key
 
@@ -51,7 +49,7 @@ class ApiConfig(BaseModel):
 
         finally:
             cls.api_key = os.environ["OPENAI_API_KEY"]
-            LOGGER.info("OpenAI API key validation successful.")
+            LOGGER.info("Successfully validated OpenAI API key.")
 
     @classmethod
     def _set_openai_api_key(cls) -> None:
@@ -61,7 +59,7 @@ class ApiConfig(BaseModel):
     @staticmethod
     def _handle_openai_error(excinfo) -> None:
         """Handle OpenAI API errors."""
-        LOGGER.error(f"OpenAI API Error:\n{excinfo}")
+        LOGGER.error(f"OpenAI API Exception:\n{excinfo}")
         raise ValueError(f"{traceback.format_exc()}")
 
 
@@ -168,9 +166,13 @@ class AppConfig:
 
 
 class AppConfigModel(BaseModel):
+    """Application configuration model."""
+
     app: AppConfig
 
     class Config:
+        """Configuration for the Pydantic model."""
+
         validate_assignment = True
 
 
@@ -185,7 +187,8 @@ class ConfigHelper:
     language_setup: Dict[str, List[str]] = field(default_factory=dict)
 
     def __post_init__(self):
-        handler = FileHandler()
+        """Post-initialization hook to load helper configuration files."""
+        handler = factory.FileHandler()
         conf_path_list = [
             self.conf.app.paths.dependency_files,
             self.conf.app.paths.ignore_files,
@@ -207,7 +210,7 @@ class ConfigHelper:
                 self.language_setup.update(conf_dict["language_setup"])
 
 
-def _get_config_dict(handler: FileHandler, filename: str) -> dict:
+def _get_config_dict(handler: factory.FileHandler, filename: str) -> dict:
     """Get configuration dictionary from TOML file."""
     path = Path("conf/") / filename
     return handler.read(path)
@@ -215,7 +218,7 @@ def _get_config_dict(handler: FileHandler, filename: str) -> dict:
 
 def load_config(path: str = "conf.toml") -> AppConfig:
     """Load configuration constants from TOML file."""
-    handler = FileHandler()
+    handler = factory.FileHandler()
     conf_dict = _get_config_dict(handler, path)
     return AppConfigModel.parse_obj({"app": conf_dict}).app
 

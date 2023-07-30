@@ -65,16 +65,28 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v0.0.4] - *2023-07-29*
+## [v0.0.5] - *2023-07-30*
 
 ### Added
 
-- ⚙️ Add script to handle custom exceptions [exceptions.py](./src/exceptions.py).
-- 📖 Update [README.md](./README.md) file contents.
-  - Modify docker commands to use the tag `readme-ai:0.0.4`.
-
+- 📦 Publish *readme-ai* CLI to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
+  - Refactored the codebase to use [Click](https://click.palletsprojects.com/en/8.1.x/), migrating from argparse.
+  - Update directory name from *src* to *readmeai* to match PyPI module name.
+  - Update [readmeai](./readmeai/) modules to use relative imports.
+  - Update metadata and dependency details in the [pyproject.toml](./pyproject.toml) file.
+- 📖 Update [README.md](./README.md) documentation.
+  - Add *PyPI* package badges at the top of the README.
+  - Include instructions for downloading and running the *readme-ai* CLI from PyPI.
+- ⚙️ Add helper script [update_image.sh](./scripts/update_image.sh) to push the latest image to Docker Hub.
 ### Fixed
 
-- 🐳 Update Dockerfile with the latest dependencies + *tree* command installation.
+- 🐳 Update Dockerfile commands
+  - Add line to install the *tree* command in order to generate the repository tree structure in the README.
+  - Update installtion to use the latest *readmeai* distribution from PyPI.
+
+### Removed
+
+- 🗑 Removed *setup.py* script from the project root directory.
+  - Poetry is used for package management via [pyproject.toml](./pyproject.toml). Thus, *setup.py* is no longer needed.
 
 ---

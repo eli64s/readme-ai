@@ -7,7 +7,7 @@ set -eo pipefail
 
 # Activate the conda environment
 eval "$(conda shell.bash hook)"
-conda activate readme_ai
+conda activate readmeai
 
 # Run the Python script
-python src/main.py
+python readmeai/main.py

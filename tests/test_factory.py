@@ -4,11 +4,10 @@ import os
 import tempfile
 import unittest
 
-from src.factory import FileHandler, ReadFileError, WriteFileError
+from readmeai.factory import FileHandler, ReadFileError, WriteFileError
 
 
 class TestFileHandler(unittest.TestCase):
-
     def setUp(self):
         self.file_handler = FileHandler()
 
