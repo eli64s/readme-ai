@@ -389,7 +389,7 @@ readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://git
 
 # Or export your OpenAI API key as an environment variable
 export OPENAI_API_KEY="YOUR_API_KEY"
-readmeai -k $OPENAI_API_KEY -o readme-ai.md -r https://github.com/eli64s/readme-ai
+readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ##### *Conda*
@@ -434,7 +434,7 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
-- [X] Upload the *readme-ai* cli tool to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
+- [X] Upload the *readme-ai* CLI tool to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
 - [ ] Design and implement a variety of README template formats for different use-cases.
 - [ ] Add support for writing the README in any language (i.e. CN, ES, FR, JA, KO, RU).
 - [ ] Create UI with [Textual](https://github.com/Textualize/textual) or another framework to improve user experience.
