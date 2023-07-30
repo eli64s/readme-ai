@@ -92,7 +92,7 @@ def get_dependencies(
 @click.option(
     "-k",
     "--api-key",
-    default=os.environ.get("OPENAI_API_KEY", ""),
+    default=os.environ.get("OPENAI_API_KEY", None),
     help="OpenAI API secret key.",
 )
 @click.option(

@@ -37,16 +37,7 @@
     - [📂 Repository](#-repository)
     - [🔐 OpenAI API](#-openai-api)
   - [📦 Installation](#-installation)
-      - [*Pip (PyPI Package)*](#pip-pypi-package)
-      - [*Bash*](#bash)
-      - [*Conda*](#conda)
-      - [*Poetry*](#poetry)
-      - [*Docker*](#docker)
   - [🎮 Using *README-AI*](#-using-readme-ai)
-      - [*Pip (PyPI Package)*](#pip-pypi-package-1)
-      - [*Conda*](#conda-1)
-      - [*Poetry*](#poetry-1)
-      - [*Docker*](#docker-1)
   - [🧪 Running Tests](#-running-tests)
 - [🛠 Future Development](#-future-development)
 - [📒 Changelog](#-changelog)
@@ -344,29 +335,29 @@ cd readme-ai
 
 3. Use one of the following methods to install the required dependencies:
 
-##### *Pip (PyPI Package)*
+> *Pip (PyPI Package)*
 ```sh
 pip install readmeai
 ```
 
-##### *Bash*
+> *Bash*
 ```sh
 bash setup/setup.sh
 ```
 
-##### *Conda*
+> *Conda*
 ```sh
 conda create -n readmeai python=3.9 -y && \
 conda activate readmeai && \
-poetry install
+pip install -r requirements.txt
 ```
 
-##### *Poetry*
+> *Poetry*
 ```sh
 poetry install
 ```
 
-##### *Docker*
+> *Docker*
 ```sh
 docker pull zeroxeli/readme-ai:0.0.5
 ```
@@ -383,7 +374,7 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (coming soon!)
 - `l` or `--language`: The language of text written in the README file (coming soon!)
 
-##### *Pip (PyPI Package)*
+> *Pip (PyPI Package)*
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
@@ -392,7 +383,7 @@ export OPENAI_API_KEY="YOUR_API_KEY"
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-##### *Conda*
+> *Conda*
 ```sh
 python readmeai/main.py --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
@@ -402,14 +393,14 @@ export OPENAI_API_KEY="YOUR_API_KEY"
 python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-##### *Poetry*
+> *Poetry*
 ```sh
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
 poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-##### *Docker*
+> *Docker*
 ```sh
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
