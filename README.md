@@ -37,13 +37,13 @@
     - [📂 Repository](#-repository)
     - [🔐 OpenAI API](#-openai-api)
   - [📦 Installation](#-installation)
-      - [*Pip (PyPi Package)*](#pip-pypi-package)
+      - [*Pip (PyPI Package)*](#pip-pypi-package)
       - [*Bash*](#bash)
       - [*Conda*](#conda)
       - [*Poetry*](#poetry)
       - [*Docker*](#docker)
   - [🎮 Using *README-AI*](#-using-readme-ai)
-      - [*Pip (PyPi Package)*](#pip-pypi-package-1)
+      - [*Pip (PyPI Package)*](#pip-pypi-package-1)
       - [*Conda*](#conda-1)
       - [*Poetry*](#poetry-1)
       - [*Docker*](#docker-1)
@@ -344,7 +344,7 @@ cd readme-ai
 
 3. Use one of the following methods to install the required dependencies:
 
-##### *Pip (PyPi Package)*
+##### *Pip (PyPI Package)*
 ```sh
 pip install readmeai
 ```
@@ -383,7 +383,7 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (coming soon!)
 - `l` or `--language`: The language of text written in the README file (coming soon!)
 
-##### *Pip (PyPi Package)*
+##### *Pip (PyPI Package)*
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
@@ -434,7 +434,7 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
-- [X] Upload the *readme-ai* cli tool to PyPi under the module name [readmeai](https://pypi.org/project/readmeai/).
+- [X] Upload the *readme-ai* cli tool to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
 - [ ] Design and implement a variety of README template formats for different use-cases.
 - [ ] Add support for writing the README in any language (i.e. CN, ES, FR, JA, KO, RU).
 - [ ] Create UI with [Textual](https://github.com/Textualize/textual) or another framework to improve user experience.
