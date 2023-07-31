@@ -1,4 +1,4 @@
-name: Upload Python Package to PyPI (readmeai)
+name: Build and publish package to PyPI
 
 on:
   push:
