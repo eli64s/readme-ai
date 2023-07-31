@@ -25,6 +25,9 @@ RUN chown tempuser:tempuser /app
 # Switch to the new user
 USER tempuser
 
+# Add the directory where pip installs user scripts to the PATH
+ENV PATH=/home/tempuser/.local/bin:$PATH
+
 # Install the readmeai package from PyPI with a pinned version
 RUN pip install --no-cache-dir --user readmeai==0.1.0
 

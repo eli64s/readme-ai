@@ -94,10 +94,10 @@ All notable changes to this project will be documented in this file.
 ## [v0.0.5] - *2023-07-31*
 ### Security
 
-- 🐳 Improve Dockerfile implementation to adhere to best practices.
-  - *Clean up installation:*: Clean up cache to reduce the image size after installing packages with apt-get.
-  - *Non-root user:* Add non-root user to ensure the user has limited permissions within the container.
-    - Specify a user ID and group ID that do not have superuser access.
-  - *File permissions:* Explicitly set file permissions to prevent potential vulnerabilities if the Docker image is run in a different context.
+- 🐳 Refactor Dockerfile to adhere to best practices.
+  - *Package Installation and Cleanup:* Clean up cache after installing packages with apt-get to reduce the image size.
+  - *Non-root User Creation:* Introduce a non-root user within the container to limit permissions and enhance security.
+    - Assign a specific user ID and group ID that don't have superuser privileges.
+  - *File Permissions Management:* Explicitly manage file permissions to prevent potential security risks when the image operates in varied contexts.
 
 ---
