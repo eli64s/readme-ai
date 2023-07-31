@@ -12,8 +12,8 @@
         <img src="https://img.shields.io/badge/OpenAI-412991.svg?stylee&logo=OpenAI&logoColor=white" alt="OpenAI" />
         <img src="https://img.shields.io/badge/Python-3776AB.svg?stylee&logo=Python&logoColor=white" alt="Python" />
         <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?stylee&logo=Pytest&logoColor=white" alt="pytest" />
-        <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?stylee&logo=GNU-Bash&logoColor=white" alt="Bash" />
-        <img src="https://img.shields.io/badge/Anaconda-44A833.svg?&logo=Anaconda&logoColor=white" alt="Anaconda" />
+        <img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
+        <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="actions" />
     </p>
     <a href="https://pypi.org/project/readmeai/">
         <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=python" alt="PyPI - License" />
@@ -21,10 +21,11 @@
     <a href="https://pypi.org/project/readmeai/">
         <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="PyPI - Python Version" />
     </a>
+    <a href="https://pypi.org/project/readmeai/">
+        <img src="https://img.shields.io/pypi/dm/readmeai?color=5D6D7E" alt="PyPI - Downloads" />
+    </a>
     <img src="https://img.shields.io/github/license/eli64s/README-AI?color=5D6D7E" alt="GitHub license" />
-    <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?color=5D6D7E" alt="GitHub last commit" />
 </div>
-
 
 ---
 
@@ -291,7 +292,7 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 #### 📂 Repository
 
-Most user's will run *README-AI* using the command-line, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./conf/conf.toml) with your repository's remote URL (GitHub, GitLab) or local directory path on your machine.
+Most user's will run *README-AI* using the command-line, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./conf/conf.toml) with your repository's remote URL or a local path to your codebase.
 
 ```toml
 [git]
@@ -300,7 +301,7 @@ repository = "Insert your repository URL or local path here!"
 
 #### 🔐 OpenAI API
 
-To use the README-AI application, you will need to create an account with OpenAI to generate an API key. The steps below outline this setup process:
+To use the *README-AI* app, you must create an OpenAI API account and generate an API key. The steps below outline this process:
 
 <details closed><summary>OpenAI API User Guide</summary>
 
@@ -327,7 +328,7 @@ To use the README-AI application, you will need to create an account with OpenAI
 
 ### 📦 Installation
 
-1. Clone the *readme-ai* repository to your local machine.
+1. Clone the *readme-ai* repository to your machine.
 ```sh
 git clone https://github.com/eli64s/readme-ai
 ```
@@ -337,14 +338,14 @@ git clone https://github.com/eli64s/readme-ai
 cd readme-ai
 ```
 
-1. Use one of the following methods to install the project dependencies.
+3. Use any of the following methods to install project dependencies.
 
 > *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
 ```sh
 pip install readmeai
 ```
 
-> *Docker*
+> *Docker ([Docker Hub](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general))*
 ```sh
 docker pull zeroxeli/readme-ai:latest
 ```
@@ -378,6 +379,8 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (coming soon!)
 - `l` or `--language`: The language of text written in the README file (coming soon!)
 
+Use any of the following methods to run the *readme-ai* CLI application.
+
 > *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
@@ -387,7 +390,7 @@ export OPENAI_API_KEY="YOUR_API_KEY"
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-> *Docker*
+> *Docker ([Docker Hub](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general))*
 ```sh
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
@@ -411,7 +414,7 @@ poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/
 
 ### 🧪 Running Tests
 
-To run the unit-tests for README-AI, use the following command.
+Execute the following command to run the test suite.
 
 ```sh
 bash scripts/test.sh
