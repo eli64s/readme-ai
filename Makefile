@@ -25,13 +25,13 @@ clean: style
 	bash scripts/clean.sh
 
 conda:
-	conda create -n $(VENV) python=3.10 -y
-	conda activate $(VENV) && pip install -r setup/requirements.txt
+	conda create -n $(VENV) python=3.10 pip -y
+	conda activate $(VENV) && pip install -r requirements.txt
 
 venv:
 	python -m venv $(VENV)
 	source $(VENV)/bin/activate
-	pip install -r setup/requirements.txt
+	pip install -r requirements.txt
 
 git-fix:
 	git rm -r --cached .

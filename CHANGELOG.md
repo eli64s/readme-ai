@@ -65,7 +65,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v0.0.5] - *2023-07-30*
+## [v0.0.4] - *2023-07-30*
 
 ### Added
 
