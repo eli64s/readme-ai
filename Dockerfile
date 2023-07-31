@@ -1,5 +1,5 @@
-# Use a base image with Python 3.9 installed
-FROM python:3.9-slim-buster
+# Use a base image with Python 3.9 installed (multi-platform)
+FROM --platform=${BUILDPLATFORM} python:3.9-slim-buster
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y git tree

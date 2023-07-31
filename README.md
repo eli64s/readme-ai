@@ -65,7 +65,7 @@ Additionally, frequently monitor your API usage and costs by visiting the [OpenA
 ## 👾 Demo
 
 <a href="https://youtu.be/pl-VcVfGbbk">
-    <img src="examples/imgs/demo.png" alt="readme-ai demo video">
+    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo video">
 </a>
 
 ---
@@ -359,7 +359,7 @@ poetry install
 
 > *Docker*
 ```sh
-docker pull zeroxeli/readme-ai:0.0.5
+docker pull zeroxeli/readme-ai:0.0.6
 ```
 
 ### 🎮 Using *README-AI*
@@ -404,7 +404,7 @@ poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/
 ```sh
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
--v "$(pwd)":/app zeroxeli/readme-ai:0.0.5 \
+-v "$(pwd)":/app zeroxeli/readme-ai:0.0.6 \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
