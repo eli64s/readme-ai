@@ -363,7 +363,7 @@ poetry install
 
 > *Docker*
 ```sh
-docker pull zeroxeli/readme-ai:0.0.6
+docker pull zeroxeli/readme-ai:latest
 ```
 
 ### 🎮 Using *README-AI*
@@ -405,7 +405,7 @@ poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/
 ```sh
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
--v "$(pwd)":/app zeroxeli/readme-ai:0.0.6 \
+-v "$(pwd)":/app zeroxeli/readme-ai:latest \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 

@@ -90,3 +90,14 @@ All notable changes to this project will be documented in this file.
   - Poetry is used for package management via [pyproject.toml](./pyproject.toml). Thus, *setup.py* is no longer needed.
 
 ---
+
+## [v0.0.5] - *2023-07-31*
+### Security
+
+- 🐳 Improve Dockerfile implementation to adhere to best practices.
+  - *Clean up installation:*: Clean up cache to reduce the image size after installing packages with apt-get.
+  - *Non-root user:* Add non-root user to ensure the user has limited permissions within the container.
+    - Specify a user ID and group ID that do not have superuser access.
+  - *File permissions:* Explicitly set file permissions to prevent potential vulnerabilities if the Docker image is run in a different context.
+
+---
