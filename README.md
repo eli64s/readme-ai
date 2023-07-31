@@ -339,9 +339,14 @@ cd readme-ai
 
 1. Use one of the following methods to install the project dependencies.
 
-> *Pip (PyPI Package)*
+> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
 ```sh
 pip install readmeai
+```
+
+> *Docker*
+```sh
+docker pull zeroxeli/readme-ai:latest
 ```
 
 > *Bash*
@@ -361,11 +366,6 @@ pip install -r requirements.txt
 poetry install
 ```
 
-> *Docker*
-```sh
-docker pull zeroxeli/readme-ai:latest
-```
-
 ### 🎮 Using *README-AI*
 
 Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository. You can also provide the output path in the [configuration file](./conf/conf.toml)
@@ -378,12 +378,20 @@ Command-Line Arguments:
 - `-t` or `--template`: The README template format to use. (coming soon!)
 - `l` or `--language`: The language of text written in the README file (coming soon!)
 
-> *Pip (PyPI Package)*
+> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
 # Or export your OpenAI API key as an environment variable
 export OPENAI_API_KEY="YOUR_API_KEY"
+readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
+```
+
+> *Docker*
+```sh
+docker run -it \
+-e OPENAI_API_KEY="YOUR_API_KEY" \
+-v "$(pwd)":/app zeroxeli/readme-ai:latest \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
@@ -399,14 +407,6 @@ python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
 poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
-```
-
-> *Docker*
-```sh
-docker run -it \
--e OPENAI_API_KEY="YOUR_API_KEY" \
--v "$(pwd)":/app zeroxeli/readme-ai:latest \
-readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 ### 🧪 Running Tests
