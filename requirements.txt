@@ -2,7 +2,6 @@ black
 click
 colorlog
 cachetools
-dacite
 flake8
 gitpython
 httpx

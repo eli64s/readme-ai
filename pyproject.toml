@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.1.0"
+version = "0.1.1"
 description = "🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -46,7 +46,6 @@ ruff = "*"
 python = "^3.8.1"
 colorlog = "^6.7.0"
 cachetools = "^5.3.1"
-dacite = "^1.8.1"
 gitpython = "^3.1.31"
 httpx = "^0.24.1"
 h2 = "^4.1.0"
@@ -76,7 +75,6 @@ extend-select = [
   "PTH", # flake8-use-pathlib
   "SIM", # flake8-simplify
   "TID", # flake8-tidy-imports
-
 ]
 
 [tool.ruff.isort]
@@ -85,6 +83,13 @@ split-on-trailing-comma = false
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
+
+[tool.isort]
+profile = "black"
+line_length = 88
+multi_line_output = 3
+include_trailing_comma = true
+virtual_env = ["venv", ".venv", "env", ".env", ".tox", ".nox"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

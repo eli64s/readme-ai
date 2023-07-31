@@ -11,34 +11,34 @@ LOGGER = logger.Logger(__name__)
 
 
 def build_markdown_file(
-    conf: conf.AppConfig,
+    config: conf.AppConfig,
     helper: conf.ConfigHelper,
     packages: list,
     summaries: tuple,
 ) -> None:
     """Builds the README Markdown file for your codebase."""
-    readme_sections = create_markdown_sections(conf, helper, packages, summaries)
+    readme_sections = create_markdown_sections(config, helper, packages, summaries)
     readme_file = "\n".join(readme_sections)
-    readme_path = Path.cwd() / conf.paths.readme
+    readme_path = Path.cwd() / config.paths.readme
     factory.FileHandler().write(readme_path, readme_file)
     LOGGER.info(f"README file generated at: {readme_path}")
 
 
 def create_markdown_sections(
-    conf: conf.AppConfig,
+    config: conf.AppConfig,
     helper: conf.ConfigHelper,
     packages: list,
     summaries: tuple,
 ) -> List[str]:
     """Creates each section of the README Markdown file."""
-    name = conf.git.name
-    repository = conf.git.repository
+    name = config.git.name
+    repository = config.git.repository
     user_repo = utils.get_user_repository_name(repository)
     cwd_path = Path.cwd()
-    badges_path = cwd_path / conf.paths.badges
+    badges_path = cwd_path / config.paths.badges
     badges_dict = factory.FileHandler().read(badges_path)
 
-    markdown_badges = conf.md.badges.format(
+    markdown_badges = config.md.badges.format(
         get_badges(badges_dict, packages), user_repo
     )
     markdown_badges = (
@@ -48,21 +48,21 @@ def create_markdown_sections(
     )
     markdown_repository = create_directory_tree(repository)
     markdown_tables = create_tables(
-        create_markdown_tables(summaries), conf.md.dropdown, user_repo
+        create_markdown_tables(summaries), config.md.dropdown, user_repo
     )
-    markdown_setup_guide = create_setup_guide(conf, helper, summaries)
+    markdown_setup_guide = create_setup_guide(config, helper, summaries)
 
     markdown_sections = [
-        conf.md.header,
+        config.md.header,
         markdown_badges,
-        conf.md.toc,
-        conf.md.intro,
-        conf.md.tree,
+        config.md.toc,
+        config.md.intro,
+        config.md.tree,
         markdown_repository,
-        conf.md.modules,
+        config.md.modules,
         markdown_tables,
-        conf.md.setup.format(name, repository, *markdown_setup_guide),
-        conf.md.ending,
+        config.md.setup.format(name, repository, *markdown_setup_guide),
+        config.md.ending,
     ]
     return markdown_sections
 
@@ -113,13 +113,13 @@ def create_markdown_tables(summaries: Tuple[str, str]) -> List[Tuple[str, str]]:
 
 
 def create_setup_guide(
-    conf: conf.AppConfig, helper: conf.ConfigHelper, summary_list: list
+    config: conf.AppConfig, helper: conf.ConfigHelper, summary_list: list
 ):
     """Creates the 'Getting Started' section of the README file."""
     try:
         default_install_command = (
             default_run_command
-        ) = default_test_command = conf.md.default
+        ) = default_test_command = config.md.default
 
         language_counts = {}
         for module, _ in summary_list:

@@ -23,20 +23,20 @@ class OpenAIHandler:
 
     logger = logger.Logger(__name__)
 
-    def __init__(self, conf: conf.AppConfig):
+    def __init__(self, config: conf.AppConfig):
         """Initialize the OpenAI API handler.
 
         Parameters
         ----------
-        conf : conf.AppConfig
+        config : conf.AppConfig
             Configuration constant values.
         """
-        self.endpoint = conf.api.endpoint
-        self.engine = conf.api.engine
-        self.tokens = conf.api.tokens
-        self.tokens_max = conf.api.tokens_max
-        self.temperature = conf.api.temperature
-        self.rate_limit = conf.api.rate_limit
+        self.endpoint = config.api.endpoint
+        self.engine = config.api.engine
+        self.tokens = config.api.tokens
+        self.tokens_max = config.api.tokens_max
+        self.temperature = config.api.temperature
+        self.rate_limit = config.api.rate_limit
         self.cache = TTLCache(maxsize=500, ttl=600)
         self.http_client = httpx.AsyncClient(
             http2=True,
@@ -189,7 +189,7 @@ class OpenAIHandler:
                 self.cache[prompt] = summary
                 return index, summary
 
-        except openai.OpenAIException as excinfo:
+        except openai.error.OpenAIError as excinfo:
             self.logger.error(f"OpenAI Exception:\n{str(excinfo)}")
             return await self.null_summary(
                 index, f"OpenAI exception: {excinfo.response.status_code}"

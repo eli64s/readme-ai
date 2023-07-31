@@ -36,7 +36,7 @@ class FileHandler:
             return self.cache[file_path]
 
         try:
-            file_extension = str(file_path).split(".")[-1]
+            file_extension = str(file_path).rsplit(".", maxsplit=1)[-1]
             reader = self.get_action(file_extension, "read")
             content = reader(file_path)
             self.cache[file_path] = content
@@ -49,7 +49,7 @@ class FileHandler:
     def write(self, file_path: Union[str, Path], content: Any) -> None:
         """Write the content to a file."""
         try:
-            file_extension = str(file_path).split(".")[-1]
+            file_extension = str(file_path).rsplit(".", maxsplit=1)[-1]
             writer = self.get_action(file_extension, "write")
             writer(file_path, content)
         except Exception as excinfo:
@@ -72,7 +72,7 @@ class FileHandler:
     @staticmethod
     def read_json(file_path: Union[str, Path]) -> Dict[str, Any]:
         """Read the content of a JSON file."""
-        with open(file_path, "r") as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             return json.load(file)
 
     @staticmethod
@@ -104,7 +104,7 @@ class FileHandler:
     @staticmethod
     def write_json(file_path: Union[str, Path], content: Dict[str, Any]) -> None:
         """Write the content to a JSON file."""
-        with open(file_path, "w") as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             json.dump(content, file, indent=4)
 
     @staticmethod

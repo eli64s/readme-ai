@@ -10,17 +10,15 @@ from . import conf, parse, utils
 class RepositoryParserWrapper:
     """Wrapper class for the RepositoryParser."""
 
-    def __init__(self, conf: conf.AppConfig, conf_helper: conf.ConfigHelper):
+    def __init__(self, config: conf.AppConfig, conf_helper: conf.ConfigHelper):
         self.parser = RepositoryParser(
-            conf, conf_helper.language_names, conf_helper.language_setup
+            config, conf_helper.language_names, conf_helper.language_setup
         )
 
     def get_unique_contents(self, contents: Dict, keys: List[str]) -> List[str]:
-        """Extracts the unqiue contents from the list of dicts."""
-        unique_contents = []
-        for key in keys:
-            unique_contents += list(set([data[key] for data in contents]))
-        return unique_contents
+        """Extracts the unique contents from the list of dicts."""
+        unique_contents = {data[key] for key in keys for data in contents}
+        return list(unique_contents)
 
     def get_file_contents(self, contents: Dict) -> Dict[str, str]:
         """Extracts the file contents from the list of dicts."""
@@ -29,7 +27,7 @@ class RepositoryParserWrapper:
     def get_dependencies(
         self, repository: str, is_remote: bool = True
     ) -> Tuple[List[str], Dict[str, str]]:
-        """Extracts the dependencies and software used in the user's repository."""
+        """Extracts the dependencies of the user's repository."""
         contents = self.parser.analyze(repository, is_remote)
         dependencies = self.parser.get_dependency_file_contents(contents)
         attributes = ["extension", "language", "name"]
@@ -42,13 +40,13 @@ class RepositoryParser:
 
     def __init__(
         self,
-        conf: conf.AppConfig,
+        config: conf.AppConfig,
         language_names: Dict[str, str],
         language_setup: Dict[str, str],
     ):
         self.language_names = language_names
         self.language_setup = language_setup
-        self.encoding_name = conf.api.encoding
+        self.encoding_name = config.api.encoding
 
     def analyze(self, root_path: str, is_remote: bool = False) -> List[Dict]:
         """Analyzes a local or remote git repository."""
@@ -80,7 +78,7 @@ class RepositoryParser:
         dependency_files = [
             content
             for content in contents
-            if any(file_name in content["name"] for file_name in file_parsers.keys())
+            if any(file_name in content["name"] for file_name in file_parsers)
         ]
 
         parsed_contents = []
@@ -95,18 +93,17 @@ class RepositoryParser:
         self, code_root: Path
     ) -> Generator[Tuple[str, Path, str], None, None]:
         """Generates a tuple of file information."""
-        for p in code_root.rglob("*"):
-            if p.is_file():
-                # Edge cases to handle, make more programmatic later
-                if str(p.relative_to(code_root)).startswith(".git/"):
+        for file_path in code_root.rglob("*"):
+            if file_path.is_file():
+                if str(file_path.relative_to(code_root)).startswith(".git/"):
                     continue
-                if ".github/workflows" in str(p.relative_to(code_root)):
-                    yield "github actions", p.relative_to(code_root), ""
+                if ".github/workflows" in str(file_path.relative_to(code_root)):
+                    yield "github actions", file_path.relative_to(code_root), ""
                 try:
-                    with p.open(encoding="utf-8") as file:
+                    with file_path.open(encoding="utf-8") as file:
                         content = file.read()
-                    relative_path = p.relative_to(code_root)
-                    yield p.name, relative_path, content
+                    relative_path = file_path.relative_to(code_root)
+                    yield file_path.name, relative_path, content
                 except UnicodeDecodeError:
                     continue
 
@@ -126,7 +123,7 @@ class RepositoryParser:
             ).lower()
             setup = self.language_setup.get(content["language"], "")
             setup = setup if isinstance(setup, list) else [None, None]
-            while len(setup) < 3:  # Ensure there are three elements in the list
+            while len(setup) < 3:
                 setup.append(None)
             content["install"], content["run"], content["test"] = setup
         return contents

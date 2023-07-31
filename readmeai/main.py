@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Main entrypoint for README-AI application."""
+
 import asyncio
 import os
 from typing import Dict, List, Optional, Tuple
@@ -20,7 +22,7 @@ async def main(api_key: str, output: str, repository: str) -> None:
     conf.GitConfig.validate_repository(repository)
     config.git = conf.GitConfig(repository=repository)
     config.paths.readme = output
-    logger.info("Model: %s", dict(config.api, api_key=("*" * 16)))
+    logger.info("Model: %s", dict(config.api, api_key="*" * 16))
     logger.info("Repository: %s", config.git)
     llm = model.OpenAIHandler(config)
     await generate_readme(llm)
@@ -127,7 +129,7 @@ def cli(
     """Cli entrypoint for readme-ai pypi package."""
     logger.info("README-AI is now executing.")
     asyncio.run(main(api_key, output, repository))
-    logger.info("README-AI execution complete.\n")
+    logger.info("README-AI execution complete.")
 
 
 if __name__ == "__main__":
