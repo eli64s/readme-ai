@@ -15,8 +15,12 @@
         <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?stylee&logo=GNU-Bash&logoColor=white" alt="Bash" />
         <img src="https://img.shields.io/badge/Anaconda-44A833.svg?&logo=Anaconda&logoColor=white" alt="Anaconda" />
     </p>
-    <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=python" alt="PyPI - License" />
-    <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="PyPI - Python Version" />
+    <a href="https://pypi.org/project/readmeai/">
+        <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=python" alt="PyPI - License" />
+    </a>
+    <a href="https://pypi.org/project/readmeai/">
+        <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="PyPI - Python Version" />
+    </a>
     <img src="https://img.shields.io/github/license/eli64s/README-AI?color=5D6D7E" alt="GitHub license" />
     <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?color=5D6D7E" alt="GitHub last commit" />
 </div>
@@ -49,7 +53,7 @@
 
 ## 📍 Overview
 
-*README-AI* is a powerful, user-friendly command-line tool that generates extensive README markdown documents for your software and data projects. By providing a remote repository URL or directory path to your codebase, this tool will document your entire project, leveraging the capabilities of large language models and OpenAI's GPT APIs.
+*README-AI* is a powerful, user-friendly command-line tool that generates extensive README markdown documents for your software and data projects. By providing a remote repository URL or path to your codebase, this tool generates documentation for your entire project, leveraging the capabilities of large language models and OpenAI's GPT APIs.
 
 #### 🎯 *Motivation*
 
@@ -333,7 +337,7 @@ git clone https://github.com/eli64s/readme-ai
 cd readme-ai
 ```
 
-3. Use one of the following methods to install the required dependencies:
+1. Use one of the following methods to install the project dependencies.
 
 > *Pip (PyPI Package)*
 ```sh
@@ -385,9 +389,6 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 
 > *Conda*
 ```sh
-python readmeai/main.py --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
-
-# Or export your OpenAI API key as an environment variable
 conda activate readmeai
 export OPENAI_API_KEY="YOUR_API_KEY"
 python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
