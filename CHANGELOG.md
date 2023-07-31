@@ -97,6 +97,12 @@ All notable changes to this project will be documented in this file.
 
 - Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
 
+### Fixed
+
+- Missing html closing tags in README tables were causing the GitHub pages site to render incorrectly.
+  - Added closing tags to fix the issue.
+  - Additionally, restructured a few sections of the README.
+
 ### Security
 
 - Refactor Dockerfile to adhere to best practices.
