@@ -1,0 +1,24 @@
+# Exclude markdown files
+*.md
+
+# Exclude lock and toml files
+poetry.lock
+pyproject.toml
+
+# Exclude all .pyc files
+**/__pycache__
+
+# Exclude all test-related files
+tests/
+
+# Exclude unnecessary directories and files
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+Makefile
+notebooks/
+examples/
+conf/
+readmeai/**
+setup/environment.yaml

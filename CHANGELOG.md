@@ -92,9 +92,14 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [v0.0.5] - *2023-07-31*
+
+### Added
+
+- Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
+
 ### Security
 
-- 🐳 Refactor Dockerfile to adhere to best practices.
+- Refactor Dockerfile to adhere to best practices.
   - *Package Installation and Cleanup:* Clean up cache after installing packages with apt-get to reduce the image size.
   - *Non-root User Creation:* Introduce a non-root user within the container to limit permissions and enhance security.
     - Assign a specific user ID and group ID that don't have superuser privileges.
