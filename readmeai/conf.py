@@ -25,13 +25,15 @@ class ApiConfig(BaseModel):
     tokens: int
     tokens_max: int
     temperature: float
-    api_key: SecretStr = Field(default_factory=lambda: os.environ["OPENAI_API_KEY"])
+    api_key: SecretStr = Field(
+        default_factory=lambda: os.environ.get("OPENAI_API_KEY", "")
+    )
 
     @validator("api_key")
     def validate_api_key(cls, api_key) -> None:
         """Validate the OpenAI API key."""
         if not api_key:
-            api_key = os.environ.get("OPENAI_API_KEY")
+            api_key = os.environ.get("OPENAI_API_KEY", "")
         if not api_key:
             raise ValueError("Exception: invalid OpenAI API key.")
 

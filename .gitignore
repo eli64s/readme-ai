@@ -47,3 +47,4 @@ notebooks/
 conf/templates
 src/redis_cache.py
 conf/prompts.toml
+readmeai/app.py

@@ -93,17 +93,17 @@ All notable changes to this project will be documented in this file.
 
 ## [v0.0.5] - *2023-07-31*
 
-### Added
+### ✨ Added
 
 - Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
 
-### Fixed
+### 🛠️ Fixed
 
 - Missing html closing tags in README tables were causing the GitHub pages site to render incorrectly.
   - Added closing tags to fix the issue.
   - Additionally, restructured a few sections of the README.
 
-### Security
+### 🛡️ Security
 
 - Refactor Dockerfile to adhere to best practices.
   - *Package Installation and Cleanup:* Clean up cache after installing packages with apt-get to reduce the image size.

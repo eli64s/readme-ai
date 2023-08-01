@@ -29,7 +29,7 @@ USER tempuser
 ENV PATH=/home/tempuser/.local/bin:$PATH
 
 # Install the readmeai package from PyPI with a pinned version
-RUN pip install --no-cache-dir --user readmeai==0.1.1
+RUN pip install --no-cache-dir --user --upgrade readmeai
 
 # Set the command to run the CLI
 CMD ["readmeai"]

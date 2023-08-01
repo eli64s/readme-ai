@@ -73,6 +73,11 @@ Additionally, frequently monitor your API usage and costs by visiting the [OpenA
     <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video">
 </a>
 
+<!-- #### *🤖 Streamlit UI (experimental)*
+
+> Try out the *readme-ai* app in your browser using this [link!](https://readme-ai.streamlit.app/)
+-->
+
 ---
 
 ## ⚙️ Features
@@ -333,11 +338,13 @@ docker pull zeroxeli/readme-ai:latest
 If you prefer to install the project dependencies locally, follow the steps below.
 
 1. Clone the *readme-ai* repository to your machine.
+
 ```sh
 git clone https://github.com/eli64s/readme-ai
 ```
 
 2. Navigate to the *readme-ai* directory.
+
 ```sh
 cd readme-ai
 ```
@@ -345,11 +352,13 @@ cd readme-ai
 3. Install the project dependencies using one of the following methods.
 
 > *Bash*
+
 ```sh
 bash setup/setup.sh
 ```
 
 > *Conda*
+
 ```sh
 conda create -n readmeai python=3.9 -y && \
 conda activate readmeai && \
@@ -357,6 +366,7 @@ pip install -r requirements.txt
 ```
 
 > *Poetry*
+
 ```sh
 poetry install
 ```
@@ -376,6 +386,7 @@ Command-Line Arguments:
 Use any of the following methods to run the *readme-ai* CLI application.
 
 > *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
+
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
@@ -385,6 +396,7 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 > *Docker ([Docker Hub](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general))*
+
 ```sh
 docker run -it \
 -e OPENAI_API_KEY="YOUR_API_KEY" \
@@ -393,6 +405,7 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 > *Conda*
+
 ```sh
 conda activate readmeai
 export OPENAI_API_KEY="YOUR_API_KEY"
@@ -400,6 +413,7 @@ python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 > *Poetry*
+
 ```sh
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
@@ -423,10 +437,10 @@ bash scripts/test.sh
 ## 🛠 Future Development
 
 - [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
-- [X] Upload the *readme-ai* CLI tool to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
+- [X] Publish the *readme-ai* CLI app to PyPI [readmeai](https://pypi.org/project/readmeai/).
+- [ ] Create user interface and serve the *readme-ai* app via streamlit.
 - [ ] Design and implement a variety of README template formats for different use-cases.
 - [ ] Add support for writing the README in any language (i.e. CN, ES, FR, JA, KO, RU).
-- [ ] Create UI with [Textual](https://github.com/Textualize/textual) or another framework to improve user experience.
 
 ---
 

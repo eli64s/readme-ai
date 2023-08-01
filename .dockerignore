@@ -19,6 +19,4 @@ LICENSE
 Makefile
 notebooks/
 examples/
-conf/
-readmeai/**
 setup/environment.yaml
