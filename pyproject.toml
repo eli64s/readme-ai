@@ -43,7 +43,7 @@ pre-commit = "*"
 ruff = "*"
 
 [tool.poetry.dependencies]
-python = ">3.9.7,<4.0.0"
+python = "^3.8.1"
 colorlog = "^6.7.0"
 cachetools = "^5.3.1"
 gitpython = "^3.1.31"
