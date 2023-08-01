@@ -112,3 +112,13 @@ All notable changes to this project will be documented in this file.
   - *File Permissions Management:* Explicitly manage file permissions to prevent potential security risks when the image operates in varied contexts.
 
 ---
+
+## [v0.0.6] - *2023-08-29*
+
+### 🛠️ Fixed
+
+- Corrected PyPI issue where the *readmeai* package was not being installed correctly.
+  - The [conf](./readmeai/conf/) directory was not being included in the PyPI distribution as it was located in the project's root directory.
+  - The tool now uses the [pkg_resources](https://setuptools.pypa.io/en/latest/pkg_resources.html#) module to access the *conf* directory from the *readmeai* package.
+
+---

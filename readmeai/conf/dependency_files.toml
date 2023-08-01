@@ -1,0 +1,113 @@
+# Programming language dependency file names
+
+[dependency_files]
+dependency_files = [
+    # C/C++
+    'CMakeLists.txt',
+    'Makefile',
+    'Makefile.am',
+    'configure.ac',
+
+    # Go
+    'go.mod',
+    'go.sum',
+
+    # Java
+    'build.gradle',
+    'build.gradle.kts',
+    'pom.xml',
+
+    # Python
+    'Pipfile',
+    'Pipfile.lock',
+    'conda.yml',
+    'pyproject.toml',
+    'requirements-dev.txt',
+    'requirements.in',
+    'requirements-prod.txt',
+    'requirements.test.txt',
+    'requirements.txt',
+    'setup.cfg',
+    'setup.py',
+
+    # Rust
+    'Cargo.toml',
+    'Cargo.lock',
+
+    # Ruby
+    'Gemfile',
+    'Gemfile.lock',
+
+    # Clojure
+    'project.clj',
+    'deps.edn',
+
+    # Elixir
+    'mix.exs',
+    'mix.lock',
+
+    # JavaScript/Node.js
+    'package.json',
+    'yarn.lock',
+    'package-lock.json',
+
+    # TypeScript
+    'tsconfig.json',
+
+    # PHP
+    'composer.json',
+    'composer.lock',
+
+    # Swift
+    'Package.swift',
+
+    # Kotlin
+    'build.gradle.kts',
+
+    # Dart/Flutter
+    'pubspec.yaml',
+
+    # R
+    'DESCRIPTION',
+    'NAMESPACE',
+
+    # Shell
+    'Dockerfile',
+
+    # Scala
+    'build.sbt',
+
+    # Groovy
+    'build.gradle',
+
+    # Lua
+    'lua_rockspec',
+
+    # Julia
+    'Project.toml',
+
+    # Haskell
+    'stack.yaml',
+    'package.yaml',
+
+    # C#
+    '.csproj',
+    'packages.config',
+
+    # F#
+    '.fsproj',
+
+    # Objective-C
+    'Podfile',
+
+    # Matlab
+    'mexopts.bat',
+
+    # Perl
+    'cpanfile',
+
+    # Docker
+    "Dockerfile",
+    "docker-compose.yml",
+    "docker-compose.yaml",
+]

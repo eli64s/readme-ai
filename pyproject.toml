@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.1.6"
+version = "0.2.3"
 description = "🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -12,9 +12,10 @@ readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
 keywords = [
+  "markdown",
   "readme",
-  "python-cli",
   "readme-template",
+  "shieldsio",
   "readme-md",
   "awesome-readme",
   "readme-generator",
@@ -24,23 +25,18 @@ keywords = [
   "auto-readme",
   "gpt-4",
   "llms",
+  "awesome-chatgpt",
   "openai-python",
   "chatgpt-python",
+  "openai-chatbot",
   "gpt-35-turbo",
   "gpt-4-api",
-  "openai-cli",
-  "llm-prompting",
-  "llm-agent",
+  "llm-agent"
 ]
+include = ["readmeai", "readmeai.*"]
 
-[tool.poetry.dev-dependencies]
-black = "*"
-flake8 = "*"
-isort = "*"
-pytest = "*"
-pytest-cov = "*"
-pre-commit = "*"
-ruff = "*"
+[tool.poetry.scripts]
+readmeai = "readmeai.main:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
@@ -59,8 +55,14 @@ toml = "^0.10.2"
 pydantic = "^1.10.9"
 click = "^8.1.6"
 
-[tool.poetry.scripts]
-readmeai = "readmeai.main:cli"
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "*"
+isort = "*"
+pytest = "*"
+pytest-cov = "*"
+pre-commit = "*"
+ruff = "*"
 
 [tool.ruff]
 line-length = 88
@@ -75,6 +77,7 @@ extend-select = [
   "PTH", # flake8-use-pathlib
   "SIM", # flake8-simplify
   "TID", # flake8-tidy-imports
+
 ]
 
 [tool.ruff.isort]
@@ -83,13 +86,6 @@ split-on-trailing-comma = false
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
-
-[tool.isort]
-profile = "black"
-line_length = 88
-multi_line_output = 3
-include_trailing_comma = true
-virtual_env = ["venv", ".venv", "env", ".env", ".tox", ".nox"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -5,6 +5,8 @@ import tempfile
 from pathlib import Path
 from typing import List, Tuple
 
+from pkg_resources import resource_filename
+
 from . import conf, factory, logger, utils
 
 LOGGER = logger.Logger(__name__)
@@ -34,8 +36,7 @@ def create_markdown_sections(
     name = config.git.name
     repository = config.git.repository
     user_repo = utils.get_user_repository_name(repository)
-    cwd_path = Path.cwd()
-    badges_path = cwd_path / config.paths.badges
+    badges_path = resource_filename("readmeai", f"{config.paths.badges}")
     badges_dict = factory.FileHandler().read(badges_path)
 
     markdown_badges = config.md.badges.format(

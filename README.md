@@ -226,7 +226,7 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 #### 📂 Repository
 
-Most user's will run *README-AI* using the command-line, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./conf/conf.toml) with your repository's remote URL or a local path to your codebase.
+Most user's will run *README-AI* using the command-line, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./readmeai/conf/conf.toml) with your repository's remote URL or a local path to your codebase.
 
 ```toml
 [git]
@@ -312,7 +312,7 @@ poetry install
 
 ### 🎮 Using *README-AI*
 
-Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository. You can also provide the output path in the [configuration file](./conf/conf.toml)
+Use the command-line to provide the OpenAI API key (if not already set) and specify an output path for your README file, along with the path to your local repository or remote code repository. You can also provide the output path in the [configuration file](./readmeai/conf/conf.toml)
 
 Command-Line Arguments:
 

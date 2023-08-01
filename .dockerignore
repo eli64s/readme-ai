@@ -1,22 +1,26 @@
-# Exclude markdown files
-*.md
-
-# Exclude lock and toml files
-poetry.lock
-pyproject.toml
+# Git and GitHub metadata
+.git/
+.gitignore
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+Makefile
+CHANGELOG.md
 
 # Exclude all .pyc files
 **/__pycache__
 
-# Exclude all test-related files
-tests/
+# Build artifacts
+dist/
+*.tar.gz
+*.whl
 
-# Exclude unnecessary directories and files
-CHANGELOG.md
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
-LICENSE
-Makefile
+# Test and setup scripts
+tests/
+setup/
+scripts/
+
+# Jupyter notebooks
 notebooks/
+
+# Example files
 examples/
-setup/environment.yaml

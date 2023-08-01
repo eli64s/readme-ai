@@ -8,6 +8,7 @@ from typing import Dict, List, Optional
 from urllib.parse import urlparse, urlsplit
 
 import openai
+from pkg_resources import resource_filename
 from pydantic import BaseModel, Field, SecretStr, validator
 
 from . import factory, logger
@@ -199,7 +200,7 @@ class ConfigHelper:
         ]
 
         for path in conf_path_list:
-            path = Path("conf/").joinpath(path).resolve()
+            path = Path(resource_filename("readmeai", f"conf/{path}")).resolve()
             conf_dict = handler.read(path)
 
             if "dependency_files" in conf_dict:
@@ -214,7 +215,7 @@ class ConfigHelper:
 
 def _get_config_dict(handler: factory.FileHandler, filename: str) -> dict:
     """Get configuration dictionary from TOML file."""
-    path = Path("conf/") / filename
+    path = resource_filename("readmeai", f"conf/{filename}")
     return handler.read(path)
 
 
