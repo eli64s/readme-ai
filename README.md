@@ -189,18 +189,18 @@ Additionally, frequently monitor your API usage and costs by visiting the [OpenA
 
 <div align="center">
 
-|     | Example File | Repository | Language | Bytes |
-| --- | --- | --- | --- | --- |
-| 1️⃣ | [readme-python.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-python.md) | [readme-ai](https://github.com/eli64s/readme-ai) | Python | 19,839 |
-| 2️⃣ | [readme-typescript.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-typescript.md) | [chatgpt-app-react-typescript](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript) | TypeScript, React | 988 |
-| 3️⃣ | [readme-javascript.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-javascript.md) | [assistant-chat-gpt-javascript](https://github.com/idosal/assistant-chat-gpt) | JavaScript, React | 212 |
-| 4️⃣ | [readme-kotlin.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-kotlin.md) | [file.io-android-client](https://github.com/rumaan/file.io-Android-Client) | Kotlin, Java, Android | 113,649 |
-| 5️⃣ | [readme-rust-c.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-rust-c.md) | [rust-c-app](https://github.com/DownWithUp/CallMon) | C, Rust | 72 |
-| 6️⃣ | [readme-go.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-go.md) | [go-docker-app](https://github.com/olliefr/docker-gs-ping) | Go | 41 |
-| 7️⃣ | [readme-java.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-java.md) | [java-minimal-todo](https://github.com/avjinder/Minimal-Todo) | Java | 17,725 |
-| 8️⃣ | [readme-fastapi-redis.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-fastapi-redis.md) | [async-ml-inference](https://github.com/FerrariDG/async-ml-inference) | Python, FastAPI, Redis | 355 |
-| 9️⃣ | [readme-mlops.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-mlops.md) | [mlops-course](https://github.com/GokuMohandas/mlops-course) | Python, Jupyter | 8,524 |
-| 🔟 | [readme-pyflink.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-pyflink.md) | [flink-flow](https://github.com/eli64s/flink-flow) | PyFlink | 32 |
+|     | Example File                                                                                              | Repository                                                                                      | Language               | Bytes   |
+|-----|-----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|------------------------|---------|
+| 1️⃣ | [readme-python.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-python.md)               | [readme-ai](https://github.com/eli64s/readme-ai)                                                | Python                 | 19,839  |
+| 2️⃣ | [readme-typescript.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-typescript.md)       | [chatgpt-app-react-typescript](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript) | TypeScript, React      | 988     |
+| 3️⃣ | [readme-javascript.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-javascript.md)       | [assistant-chat-gpt-javascript](https://github.com/idosal/assistant-chat-gpt)                   | JavaScript, React      | 212     |
+| 4️⃣ | [readme-kotlin.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-kotlin.md)               | [file.io-android-client](https://github.com/rumaan/file.io-Android-Client)                      | Kotlin, Java, Android  | 113,649 |
+| 5️⃣ | [readme-rust-c.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-rust-c.md)               | [rust-c-app](https://github.com/DownWithUp/CallMon)                                             | C, Rust                | 72      |
+| 6️⃣ | [readme-go.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-go.md)                       | [go-docker-app](https://github.com/olliefr/docker-gs-ping)                                      | Go                     | 41      |
+| 7️⃣ | [readme-java.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-java.md)                   | [java-minimal-todo](https://github.com/avjinder/Minimal-Todo)                                   | Java                   | 17,725  |
+| 8️⃣ | [readme-fastapi-redis.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-fastapi-redis.md) | [async-ml-inference](https://github.com/FerrariDG/async-ml-inference)                           | Python, FastAPI, Redis | 355     |
+| 9️⃣ | [readme-mlops.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-mlops.md)                 | [mlops-course](https://github.com/GokuMohandas/mlops-course)                                    | Python, Jupyter        | 8,524   |
+| 🔟  | [readme-pyflink.md](https://github.com/eli64s/readme-ai/blob/main/examples/readme-pyflink.md)             | [flink-flow](https://github.com/eli64s/flink-flow)                                              | PyFlink                | 32      |
 
 </div>
 
