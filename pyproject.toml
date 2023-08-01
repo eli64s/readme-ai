@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.1.5"
+version = "0.1.6"
 description = "🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -58,7 +58,6 @@ tiktoken = "^0.4.0"
 toml = "^0.10.2"
 pydantic = "^1.10.9"
 click = "^8.1.6"
-streamlit = "^1.25.0"
 
 [tool.poetry.scripts]
 readmeai = "readmeai.main:cli"

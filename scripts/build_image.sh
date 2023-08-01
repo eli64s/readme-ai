@@ -2,7 +2,7 @@
 
 set -e
 
-IMAGE="readmeai-app"
+IMAGE="readme-ai"
 VERSION="latest"
 
 echo "Building new image: zeroxeli/${IMAGE}:${VERSION}"

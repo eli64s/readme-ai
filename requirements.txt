@@ -15,7 +15,6 @@ pytest
 pytest-cov
 responses
 ruff
-streamlit
 tabulate
 tenacity
 tiktoken
