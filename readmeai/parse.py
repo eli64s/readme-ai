@@ -190,33 +190,24 @@ def parse_maven(content: str) -> List[str]:
     ]
 
 
-def parse_cmake(file_path: str) -> List[str]:
+def parse_cmake(content: str) -> List[str]:
     """Extracts dependencies from a CMakeLists.txt file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"add_executable\([^)]+\s+([^)]+)\)")
     package_names = regex.findall(content)
 
     return package_names
 
 
-def parse_configure_ac(file_path: str) -> List[str]:
+def parse_configure_ac(content: str) -> List[str]:
     """Extracts dependencies from a configure.ac file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"AC_CHECK_LIB\([^)]+\s+([^)]+)\)")
     package_names = regex.findall(content)
 
     return package_names
 
 
-def parse_makefile_am(file_path: str) -> List[str]:
+def parse_makefile_am(content: str) -> List[str]:
     """Extracts dependencies from a Makefile.am file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"bin_PROGRAMS\s*=\s*(.+)")
     package_names = []
     matches = regex.findall(content)
