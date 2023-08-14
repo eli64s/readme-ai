@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 from typing import List, Tuple
 
-from . import conf, factory, logger, utils
+import conf, factory, logger, utils
 
 LOGGER = logger.Logger(__name__)
 

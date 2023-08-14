@@ -15,7 +15,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from . import conf, logger, utils
+import conf, logger, utils
 
 
 class OpenAIHandler:

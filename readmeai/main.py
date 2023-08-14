@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 import click
 
-from . import builder, conf, logger, model, preprocess
+import builder, conf, logger, model, preprocess
 
 logger = logger.Logger(__name__)
 config = conf.load_config()

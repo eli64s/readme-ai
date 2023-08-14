@@ -7,7 +7,7 @@ from typing import List
 import toml
 import yaml
 
-from . import logger
+import logger
 
 LOGGER = logger.Logger(__name__)
 

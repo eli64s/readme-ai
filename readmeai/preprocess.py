@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-from . import conf, parse, utils
+import conf, parse, utils
 
 
 class RepositoryParserWrapper:

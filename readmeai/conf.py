@@ -10,7 +10,7 @@ from urllib.parse import urlparse, urlsplit
 import openai
 from pydantic import BaseModel, Field, SecretStr, validator
 
-from . import factory, logger
+import factory, logger
 
 LOGGER = logger.Logger(__name__)
 
