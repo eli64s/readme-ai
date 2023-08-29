@@ -24,7 +24,7 @@ readme = "readme-ai.md"
 
 # Prompts
 [prompts]
-code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the provided code snippet:
+code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the code:
 \n{}\n Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
 Limit your response to a maximum of 350 characters (including spaces).
 """
