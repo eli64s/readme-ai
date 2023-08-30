@@ -48,13 +48,13 @@ class RepositoryParser:
         self.language_setup = language_setup
         self.encoding_name = config.api.encoding
 
-    def analyze(self, root_path: str, is_remote: bool = False) -> List[Dict]:
+    def analyze(self, repo_path: str, is_remote: bool = False) -> List[Dict]:
         """Analyzes a local or remote git repository."""
         with tempfile.TemporaryDirectory() as temp_dir:
             if is_remote:
-                utils.clone_repository(root_path, temp_dir)
-                root_path = temp_dir
-            contents = self.generate_contents(root_path)
+                utils.clone_repository(repo_path, temp_dir)
+                repo_path = temp_dir
+            contents = self.generate_contents(repo_path)
             contents = self.tokenize_content(contents)
             contents = self.process_language_mapping(contents)
         return contents

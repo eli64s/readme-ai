@@ -1,7 +1,7 @@
 <!--
 ## [Unreleased]
-### ➕ Added
-### 🛠 Changed
+### 🚀 New Features and Enhancements
+### 🛠 Changes
 ### ⚙️ Deprecated
 ### 🗑 Removed
 ### 🐛 Bug Fixes
@@ -11,6 +11,39 @@
 # Changelog
 
 All notable changes to the *readme-ai* project will be documented in this file.
+
+---
+
+## [v0.0.7] - *2023-08-30*
+
+⚠️ Release v0.0.7 addresses a security vulnerability cloning git repositories via the *GitPython* package on Windows systems. This vulnerability could allow arbitrary command execution if code is run from a directory containing a malicious `git.exe` or `git` executable.
+
+### 🔐 Security Fixes
+#### *Arbitrary Command Execution Mitigation*
+
+- Dependabot Alert [#3](https://github.com/eli64s/readme-ai/security/dependabot/3): GitPython untrusted search path on Windows systems leading to arbitrary code execution.
+- The previous git clone implementation sets the `env` argument to the path of the git executable in the current working directory. This poses a security risk as the code is susceptible to running arbitrary `git` commands from a malicious repository.
+    ```python
+    git.Repo.clone_from(repo_path, temp_dir, depth=1)
+    ```
+- Updated the `env` argument to explicitly set the absolute path of the git executable. This ensures that the git executable used to clone the repository is the one thats installed in the system path, and not the one located in the current working directory.
+    ```python
+    git.Repo.clone_from(repo_path, temp_dir, depth=1, env=git_exec_path)
+    ```
+### 🚀 New Features and Enhancements
+
+#### *Code Modularity*
+
+- Introduced three methods to help isolate the Git executable discovery and validation logic.
+  - `find_git_executable()`: Determines the absolute path of the Git executable.
+  - `validate_git_executable()`: Validates the found Git executable path.
+  - `validate_file_permissions()`: Validates the file permissions of the cloned repository.
+
+#### *File Permission Checks*
+
+- For Unix systems, added checks to ensure the permissions of the cloned repository are set to `0o700`. This is a best practice for secure temporary directories and prevents unauthorized users from accessing the directory.
+
+⚠️ These updates aim to mitigate the vulnerbility raised in Dependabot alert [#3](https://github.com/eli64s/readme-ai/security/dependabot/3). Users are advised to update *readme-ai* to the latest version, i.e ```pip install --upgrade readmeai```. Please be mindful of this vulnerability and use caution when cloning repositories from untrusted sources, especially for Windows users.
 
 ---
 
@@ -26,7 +59,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.5] - *2023-07-31*
 
-### ➕ Added
+### 🚀 New Features and Enhancements
 
 - Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
 
@@ -48,7 +81,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.4] - *2023-07-30*
 
-### ➕ Added
+### 🚀 New Features and Enhancements
 
 - Publish *readme-ai* CLI to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
   - Refactored the codebase to use [Click](https://click.palletsprojects.com/en/8.1.x/), migrating from argparse.
@@ -75,7 +108,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.3] - *2023-06-29*
 
-### ➕ Added
+### 🚀 New Features and Enhancements
 
 - Add [pydantic](https://pydantic-docs.helpmanual.io/) to validate the user's repository and api key inputs.
   - Validation was moved from *main.py* to *conf.py*.
@@ -91,12 +124,12 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.2] - *2023-06-28*
 
-### ➕ Added
+### 🚀 New Features and Enhancements
 
 - Add [CHANGELOG.md](./CHANGELOG.md) to track changes to the project.
 - Add new directory [examples/video](./examples/video) to store mp4 videos to demonstrate the *readme-ai* tool.
 
-### 🛠 Changed
+### 🛠 Changes
 
 - Update [Makefile](./Makefile) and [setup.sh](./setup/setup.sh) to use *poetry* for dependency management.
 
@@ -109,10 +142,10 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.1] - *2023-06-28*
 
-### ➕ Added
+### 🚀 New Features and Enhancements
 - Initial release of *readme-ai* v0.0.1
 
-### 🛠 Changed
+### 🛠 Changes
 
 - Refine the markdown template structure to be more readable.
 
