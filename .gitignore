@@ -46,3 +46,4 @@ notebooks/
 # Work In Progress
 readmeai/conf/templates
 readmeai/conf/prompts.toml
+.github/workflows/update_readme.yaml

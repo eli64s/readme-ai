@@ -266,7 +266,7 @@ Use any of the following methods to install project dependencies.
 
 > *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
 ```sh
-pip install readmeai
+pip install --upgrade readmeai
 ```
 
 > *Docker ([Docker Hub](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general))*
@@ -375,11 +375,11 @@ bash scripts/test.sh
 
 ## 🛠 Future Development
 
-- [X] Add additional language support for populating the *installation*, *usage*, and *test* README sections.
-- [X] Publish the *readme-ai* CLI app to PyPI [readmeai](https://pypi.org/project/readmeai/).
-- [ ] Create user interface and serve the *readme-ai* app via streamlit.
+- [X] Distribute the *readme-ai* app as a Python library via [*PyPI*](https://pypi.org/project/readmeai/) and on [*Docker Hub*](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general).
+- [ ] Integrate *readme-ai* with streamlit to provide a user-friendly UI for generating README files.
 - [ ] Design and implement a variety of README template formats for different use-cases.
-- [ ] Add support for writing the README in any language (i.e. CN, ES, FR, JA, KO, RU).
+- [ ] Add support for generating README files in any language (i.e. CN, ES, FR, JA, KO, RU).
+- [ ] Add GitHub Actions workflow to automatically update the README file on repository updates.
 
 ---
 
