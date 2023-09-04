@@ -2,11 +2,7 @@
 
 # Function to check if a conda environment exists
 function conda_env_exists() {
-    local env_name="$1"
-    conda activate "$env_name" &> /dev/null
-    local activated=$?
-    conda deactivate &> /dev/null
-    return $activated
+    conda info --envs | awk '{print $1}' | grep -q -w "$1"
 }
 
 # Install tree command if it's not installed
@@ -82,11 +78,12 @@ fi
 echo "Python version is compatible."
 
 # Check if 'readmeai' environment already exists
+
 if conda_env_exists "readmeai"; then
     echo "The 'readmeai' environment already exists. Skipping environment creation."
 else
     # Create a new conda environment named 'readmeai'
-    echo "Creating a new conda environment named 'readmeai' with Python 3.8..."
+    echo "Creating a new conda environment named 'readmeai' with Python $python_version ..."
     conda env create -f setup/environment.yaml || {
         echo "Error creating the 'readmeai' environment. Aborting."
         exit 1
