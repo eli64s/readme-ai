@@ -78,7 +78,6 @@ fi
 echo "Python version is compatible."
 
 # Check if 'readmeai' environment already exists
-
 if conda_env_exists "readmeai"; then
     echo "The 'readmeai' environment already exists. Skipping environment creation."
 else
