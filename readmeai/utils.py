@@ -83,16 +83,20 @@ def get_github_file_link(file: str, user_repo_name: str) -> str:
     return f"https://github.com/{user_repo_name}/blob/main/{file}"
 
 
-def get_user_repository_name(url) -> str:
-    """Extract username and repository name from a GitHub URL."""
+def get_user_repository_name(url_or_path) -> str:
+    """Extract username and repository name from a GitHub URL or local path."""
+
+    if os.path.exists(url_or_path):
+        return os.path.basename(url_or_path)
+
     pattern = r"https?://github.com/([^/]+)/([^/]+)"
-    match = re.match(pattern, url)
+    match = re.match(pattern, url_or_path)
 
     if match:
         username, reponame = match.groups()
         return f"{username}/{reponame}"
     else:
-        raise ("Error: invalid remote repository URL.")
+        raise ValueError("Error: invalid remote repository URL or local path.")
 
 
 def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
