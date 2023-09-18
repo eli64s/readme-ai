@@ -14,6 +14,22 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.0.8] - *2023-09-18*
+
+### 🐛 Bug Fixes
+
+- Update file parsing logic in [parse.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parse.py) and [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/preprocess.py) for codebases containing the following dependency files (issue [#37](https://github.com/eli64s/readme-ai/issues/37)).
+  - *CMakeLists.txt*
+  - *Makefile.am*
+  - *configure.ac*
+- Credit to [@mooujarrar](https://github.com/mooujarrar) for the help with this fix.
+
+### 🔐 Security Fixes
+
+- Bump [gitpython](https://github.com/gitpython-developers/GitPython) module to version *3.1.36* to address security vulnerability (Dependabot Alert [#5](https://github.com/eli64s/readme-ai/security/dependabot/5) and issue [#43](https://github.com/eli64s/readme-ai/issues/43)).
+
+---
+
 ## [v0.0.7] - *2023-08-30*
 
 ⚠️ Release v0.0.7 addresses a security vulnerability cloning git repositories via the *GitPython* package on Windows systems. This vulnerability could allow arbitrary command execution if code is run from a directory containing a malicious `git.exe` or `git` executable.
