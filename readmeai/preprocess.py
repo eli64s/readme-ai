@@ -84,7 +84,7 @@ class RepositoryParser:
         parsed_contents = []
         for content in dependency_files:
             parser = file_parsers[content["name"]]
-            parsed_content = parser(content["content"])
+            parsed_content = parser(content=content["content"])
             parsed_contents.append(parsed_content)
 
         return utils.flatten_list(parsed_contents)
