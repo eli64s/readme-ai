@@ -33,7 +33,7 @@ def clone_repository(repo_path: str, temp_dir: Path) -> None:
     except Exception as excinfo:
         raise (f"Error cloning git repository: {excinfo}")
 
-    validate_file_permissions(temp_dir)
+    # validate_file_permissions(temp_dir)
 
 
 def find_git_executable() -> Optional[Path]:
