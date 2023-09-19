@@ -34,6 +34,7 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [🤖 Demo](#-demo)
+- [🕹 Play](#-play)
 - [✨ Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [📋 Dependencies](#-dependencies)
@@ -41,6 +42,7 @@
     - [🔑 OpenAI API](#-openai-api)
   - [📦 Install](#-install)
   - [🎮 Usage](#-usage)
+    - [🎈 Streamlit Community Cloud](#-streamlit-community-cloud)
     - [🔡 Command-Line Arguments](#-command-line-arguments)
     - [🛠 Configuration](#-configuration)
   - [🪄 Running *README-AI*](#-running-readme-ai)
@@ -73,12 +75,13 @@ This project is currently under development and has an opinionated configuration
     <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video">
 </a>
 
-<!--
-### 🌊 Streamlit UI (experimental)
+---
 
-Try out *readme-ai* in your browser using this [link!](https://readme-ai.streamlit.app/)
+## 🕹 Play
 
--->
+Ready to dive in? Explore and use *readme-ai* in your web browser with Streamlit Community Cloud, no installation required!
+
+- [**Launch readme-ai on Streamlit**](https://readmeai.streamlit.app/)
 
 ---
 
@@ -315,6 +318,14 @@ poetry install
 
 ### 🎮 Usage
 
+#### 🎈 Streamlit Community Cloud
+
+You can directly use *readme-ai* in your web browser without installing anything! The Streamlit app is still under development and bugs may exist. If you encounter any errors, please create a new issue!
+
+- [Launch readme-ai on Streamlit](https://readmeai.streamlit.app/)
+
+---
+
 #### 🔡 Command-Line Arguments
 
 To generate a *README.md* file, use the `readmeai` command in your terminal, along with the arguments below.
@@ -327,6 +338,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | `-t`       | `--template`    | The README template format to use. (coming soon!)   | Coming Soon!  |
 | `-l`       | `--language`    | The language of text written in the README file.    | Coming Soon!  |
 
+---
 
 #### 🛠 Configuration
 
@@ -407,7 +419,8 @@ bash scripts/test.sh
 - [X] Publish project as a Python library via PyPI and a Docker image on Docker Hub.
   - [*PyPI - readmeai*](https://pypi.org/project/readmeai/)
   - [*Docker Hub - readme-ai*](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general)
-- [ ] Integrate and deploy app with Streamlit to provide a simple user-interface for using the tool.
+- [X] Integrate and deploy app with Streamlit to provide a simple user-interface for using the tool.
+  - [*Streamlit Community Cloud - readmeai*](https://readmeai.streamlit.app/)
 - [ ] Develop GitHub Actions script to automatically update the README file when new code is pushed.
 - [ ] Design README output templates for a variety of use-cases (i.e. data, web-dev, minimal, etc.)
 - [ ] Add support for generating README files in any language (i.e. CN, ES, FR, JA, KO, RU).
