@@ -4,7 +4,7 @@
         <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80" />
         <br>README-AI
     </h1>
-    <h3>◦ Generate beautiful and informative README.md documents.</h3>
+    <h3>◦ Generate beautiful and informative README.md files.</h3>
     <h3>◦ Developed with OpenAI's GPT language model APIs.</h3>
     <br>
     <p align="center">
@@ -44,6 +44,7 @@
   - [📦 Installation](#-installation)
   - [🎮 Using *README-AI*](#-using-readme-ai)
   - [🧪 Running Tests](#-running-tests)
+- [🔢 Configuration](#-configuration)
 - [🛠 Future Development](#-future-development)
 - [📒 Changelog](#-changelog)
 - [🤝 Contributing](#-contributing)
@@ -219,17 +220,16 @@ Additionally, frequently monitor your API usage and costs by visiting the [OpenA
 ### ✔️ Dependencies
 
 Before you begin, ensure that you have the following prerequisites installed:
-
-- Python 3.9, 3.10, 3.11
-- Pip, Docker, Poetry, Conda (see installation methods below)
-- OpenAI API account and api key (see setup instructions below)
+- *Python > 3.8*
+- *Pip or Docker (recommended)*
+- *OpenAI API paid account and api key (see setup instructions below)*
 
 #### 📂 Repository
 
 You'll need a URL link to your remote repository or the directory path to your local code repository. The following repository types are supported:
-  - *GitHub*
-  - *GitLab*
-  - *File System*
+- *GitHub*
+- *GitLab*
+- *File System*
 
 #### 🔐 OpenAI API
 
@@ -253,8 +253,7 @@ To use the *README-AI* app, you must create an OpenAI API account and generate a
 >
 > - When using a payment method, make sure you have sufficient credits to run the README-AI application. Additionally, remember to regularly monitor your API usage and costs by visiting the [OpenAI API Usage Dashboard](https://platform.openai.com/account/usage). Please note that this API is not free and you will be charged for each request made, which can accumulate rapidly.
 >
-> - The generation of the README.md file should typically complete in under 1 minute. If it takes longer than a few minutes, please terminate the process.
->
+> - The generation of the README.md file should take under 1 minute. If the program runs for more than a few minutes, terminate the process immediately.
 
 ---
 
@@ -262,7 +261,7 @@ To use the *README-AI* app, you must create an OpenAI API account and generate a
 
 Use any of the following methods to install project dependencies.
 
-> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
+> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))* - recommended
 ```sh
 pip install --upgrade readmeai
 ```
@@ -322,7 +321,7 @@ Command-Line Arguments:
 
 Use any of the following methods to run the *readme-ai* CLI application.
 
-> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))*
+> *Pip ([PyPI Package](https://pypi.org/project/readmeai/))* - recommended
 
 ```sh
 readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://github.com/eli64s/readme-ai
@@ -371,13 +370,25 @@ bash scripts/test.sh
 
 ---
 
+## 🔢 Configuration
+
+To customize the README file generation process, you can modify the [configuration file](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml). The file contains the following sections:
+
+- [*api*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L2) - OpenAI language model API configuration settings.
+- [*git*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L12) - Default git repository settings used if no repository is provided.
+- [*paths*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L17) - Directory paths and files used by the *readme-ai* application.
+- [*prompts*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L26) - Large language model prompts used to generate the README file.
+- [*md*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L59) - Dynamic Markdown section code templates used to build the README file.
+
+---
+
 ## 🛠 Future Development
 
 - [X] Distribute the *readme-ai* app as a Python library via [*PyPI*](https://pypi.org/project/readmeai/) and on [*Docker Hub*](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general).
-- [ ] Integrate *readme-ai* with streamlit to provide a user-friendly UI for generating README files.
-- [ ] Design and implement a variety of README template formats for different use-cases.
+- [ ] Integrate *readme-ai* with Streamlit to provide a user-friendly UI to generate README files.
+- [ ] Design README output templates for a variety of use-cases (i.e. data, web-dev, minimal, etc.)
 - [ ] Add support for generating README files in any language (i.e. CN, ES, FR, JA, KO, RU).
-- [ ] Add GitHub Actions workflow to automatically update the README file on repository updates.
+- [ ] Create GitHub Actions script to automatically update your README file when new code is pushed.
 
 ---
 

@@ -17,6 +17,16 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.0.9] - *2023-09-19*
+
+### 🧹 Chore
+
+- Update README file with the following changes:
+  - Add [🔢 Configuration](https://github.com/eli64s/readme-ai/blob/main/README.md#-configuration) section to the README, which describes the configuration options available to the user.
+  - Update project roadmap and clean up prerequisites section for easier understanding and readability.
+
+---
+
 ## [v0.0.8] - *2023-09-18*
 
 ### 🐛 Bug Fixes
