@@ -21,9 +21,10 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ### 🧹 Chore
 
-- Update README file with the following changes:
-  - Add [🔢 Configuration](https://github.com/eli64s/readme-ai/blob/main/README.md#-configuration) section to the README, which describes the configuration options available to the user.
-  - Update project roadmap and clean up prerequisites section for easier understanding and readability.
+- Update README file to enhance project documentation.
+  - Add [Configuration](https://github.com/eli64s/readme-ai/blob/main/README.md#-configuration) section to provide context for customizing the tool.
+  - Simplify [Getting Started](https://github.com/eli64s/readme-ai/blob/main/README.md#-getting-started) section install and run instructions.
+  - Update [Roadmap](https://github.com/eli64s/readme-ai/blob/main/README.md#-roadmap) section with latest project goals.
 
 ---
 
