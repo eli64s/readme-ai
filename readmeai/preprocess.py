@@ -86,7 +86,7 @@ class RepositoryParser:
         parsed_contents = []
         for content in dependency_files:
             logger.info(f"Dependency file found: {content['name']}")
-            logger.info(f"Dependency file content: {content['content']}")
+            # logger.info(f"Dependency file content: {content['content']}")
             parser = file_parsers[content["name"]]
             parsed_content = parser(content=content["content"])
             parsed_contents.append(parsed_content)

@@ -221,17 +221,15 @@ Additionally, frequently monitor your API usage and costs by visiting the [OpenA
 Before you begin, ensure that you have the following prerequisites installed:
 
 - Python 3.9, 3.10, 3.11
-- Pip, Poetry, Conda, or Docker (see installation methods below)
+- Pip, Docker, Poetry, Conda (see installation methods below)
 - OpenAI API account and api key (see setup instructions below)
 
 #### 📂 Repository
 
-Most user's will run *README-AI* using the command-line, specifying their repository on run-time. However, if you would like to use the default configuration, you will need to update the [configuration file](./readmeai/conf/conf.toml) with your repository's remote URL or a local path to your codebase.
-
-```toml
-[git]
-repository = "Insert your repository URL or local path here!"
-```
+You'll need a URL link to your remote repository or the directory path to your local code repository. The following repository types are supported:
+  - *GitHub*
+  - *GitLab*
+  - *File System*
 
 #### 🔐 OpenAI API
 
