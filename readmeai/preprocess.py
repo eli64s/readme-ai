@@ -4,7 +4,9 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-from . import conf, parse, utils
+from . import conf, logger, parse, utils
+
+logger = logger.Logger(__name__)
 
 
 class RepositoryParserWrapper:
@@ -83,8 +85,10 @@ class RepositoryParser:
 
         parsed_contents = []
         for content in dependency_files:
+            logger.info(f"Dependency file found: {content['name']}")
+            # logger.info(f"Dependency file content: {content['content']}")
             parser = file_parsers[content["name"]]
-            parsed_content = parser(content["content"])
+            parsed_content = parser(content=content["content"])
             parsed_contents.append(parsed_content)
 
         return utils.flatten_list(parsed_contents)
@@ -143,6 +147,7 @@ class RepositoryParser:
             "environment.yml": parse.parse_conda_env_file,
             "Pipfile": parse.parse_pipfile,
             "Pipfile.lock": parse.parse_pipfile_lock,
+            "poetry.lock": parse.parse_poetry_lock,
             "pyproject.toml": parse.parse_pyproject_toml,
             "package.json": parse.parse_package_json,
             "yarn.lock": parse.parse_yarn_lock,

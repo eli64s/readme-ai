@@ -4,19 +4,20 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.3.015"
-description = "🚀 Generate awesome README.md files from the terminal, powered by OpenAI's GPT language model APIs 💫"
+version = "0.3.033"
+description = "🚀 Generate beautiful README files from the terminal. Powered by OpenAI's GPT LLMs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
 keywords = [
-  "markdown",
   "readme",
   "readme-template",
-  "shieldsio",
+  "badge-generator",
+  "auto-documentation",
   "readme-md",
+  "automated-documentation",
   "awesome-readme",
   "readme-generator",
   "gpt-3",
@@ -24,11 +25,10 @@ keywords = [
   "automated-readme",
   "auto-readme",
   "gpt-4",
+  "large-language-models",
   "llms",
-  "awesome-chatgpt",
   "openai-python",
   "chatgpt-python",
-  "openai-chatbot",
   "gpt-35-turbo",
   "gpt-4-api",
   "llm-agent"

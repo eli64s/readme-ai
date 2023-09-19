@@ -1,4 +1,4 @@
-"""Methods for parsing files and extracting dependencies."""
+"""Methods to parse and extract dependency file metadata."""
 
 import json
 import re
@@ -20,15 +20,15 @@ def parse_docker_compose(content: str) -> List[str]:
             return list(data["services"].keys())
         else:
             LOGGER.error("Invalid docker-compose.yaml file format")
-    except yaml.YAMLError as exc:
-        LOGGER.error(f"Error parsing docker-compose.yaml: {str(exc)}")
+    except yaml.YAMLError as excinfo:
+        LOGGER.error(f"Error parsing docker-compose.yaml: {str(excinfo)}")
     return []
 
 
-def parse_conda_env_file(file_content: str) -> List[str]:
+def parse_conda_env_file(content: str) -> List[str]:
     """Extracts dependencies from a conda environment file."""
     try:
-        data = yaml.safe_load(file_content)
+        data = yaml.safe_load(content)
         if isinstance(data, dict) and "dependencies" in data:
             dependencies = []
             for package in data["dependencies"]:
@@ -37,61 +37,80 @@ def parse_conda_env_file(file_content: str) -> List[str]:
                 elif isinstance(package, dict):
                     dependencies.extend(package.keys())
             return dependencies
-    except yaml.YAMLError as exc:
-        LOGGER.error(f"Error parsing conda environment file: {str(exc)}")
+    except yaml.YAMLError as excinfo:
+        LOGGER.error(f"Error parsing conda environment file: {str(excinfo)}")
     return []
 
 
-def parse_pipfile(file_content: str) -> List[str]:
+def parse_pipfile(content: str) -> List[str]:
     """Extracts dependencies from a Pipfile."""
     try:
-        data = toml.loads(file_content)
+        data = toml.loads(content)
         packages = data.get("packages", {})
         dev_packages = data.get("dev-packages", {})
         return list(packages.keys()) + list(dev_packages.keys())
-    except toml.TomlDecodeError as exc:
-        LOGGER.error(f"Error parsing Pipfile: {str(exc)}")
+    except toml.TomlDecodeError as excinfo:
+        LOGGER.error(f"Error parsing Pipfile: {str(excinfo)}")
     return []
 
 
-def parse_pipfile_lock(file_content: str) -> List[str]:
+def parse_pipfile_lock(content: str) -> List[str]:
     """Extracts dependencies from a Pipfile.lock."""
     try:
-        data = json.loads(file_content)
+        data = json.loads(content)
         default_packages = data.get("default", {})
         develop_packages = data.get("develop", {})
         return list(default_packages.keys()) + list(develop_packages.keys())
-    except json.JSONDecodeError as exc:
-        LOGGER.error(f"Error parsing Pipfile.lock: {str(exc)}")
+    except json.JSONDecodeError as excinfo:
+        LOGGER.error(f"Error parsing Pipfile.lock: {str(excinfo)}")
     return []
 
 
-def parse_pyproject_toml(toml_content: str) -> List[str]:
+def parse_poetry_lock(content: str) -> List[str]:
+    """Extracts dependencies from a poetry.lock file."""
+    try:
+        sections = content.split("[[package]]")
+        # Skip 1st section as it contains metadata not relevant to packages
+        packages = []
+        for section in sections[1:]:
+            lines = section.strip().splitlines()
+            for line in lines:
+                if line.startswith("name = "):
+                    package_name = line.split('"')[1]
+                    packages.append(package_name)
+                    break
+        return packages
+    except Exception as excinfo:
+        LOGGER.error(f"Error parsing poetry.lock: {str(excinfo)}")
+        return []
+
+
+def parse_pyproject_toml(content: str) -> List[str]:
     """Extracts dependencies from a pyproject.toml file."""
     try:
-        data = toml.loads(toml_content)
-        dependencies = data.get("dependencies", {})
-        optional_dependencies = data.get("optional-dependencies", {})
+        parsed_content = toml.loads(content)
+        tool_section = parsed_content.get("tool", {})
+        poetry_section = tool_section.get("poetry", {})
+        dependencies = poetry_section.get("dependencies", {})
+        optional_dependencies = poetry_section.get("optional-dependencies", {})
         return list(dependencies.keys()) + [
             dep_name
             for dep_list in optional_dependencies.values()
             for dep_name in dep_list
         ]
-    except toml.TomlDecodeError as exc:
-        LOGGER.error(f"Error parsing pyproject.toml: {str(exc)}")
-    return []
+    except Exception as excinfo:
+        LOGGER.error(f"Error parsing pyproject.toml: {str(excinfo)}")
+        return []
 
 
-def parse_requirements_file(file_content: str) -> List[str]:
+def parse_requirements_file(content: str) -> List[str]:
     """Extracts dependencies from a requirements.txt file."""
-    lines = file_content.splitlines()
-
+    lines = content.splitlines()
     package_names = []
     for line in lines:
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-
         match = re.match(r"^\s*([a-zA-Z0-9._-]+)", line)
         if match:
             package_names.append(match.group(1))
@@ -103,8 +122,8 @@ def parse_cargo_toml(content: str) -> List[str]:
     try:
         dependencies = re.findall(r"\[dependencies\.(.*?)\]", content)
         return dependencies
-    except re.error as exc:
-        LOGGER.error(f"Error parsing Cargo.toml: {str(exc)}")
+    except re.error as excinfo:
+        LOGGER.error(f"Error parsing Cargo.toml: {str(excinfo)}")
     return []
 
 
@@ -114,8 +133,8 @@ def parse_cargo_lock(content: str) -> List[str]:
         data = toml.loads(content)
         packages = data.get("package", [])
         return [package.get("name") for package in packages]
-    except toml.TomlDecodeError as exc:
-        LOGGER.error(f"Error parsing Cargo.lock: {str(exc)}")
+    except toml.TomlDecodeError as excinfo:
+        LOGGER.error(f"Error parsing Cargo.lock: {str(excinfo)}")
     return []
 
 
@@ -128,8 +147,8 @@ def parse_package_json(content: str) -> List[str]:
             if section in data:
                 package_names.extend(data[section].keys())
         return package_names
-    except json.JSONDecodeError as exc:
-        LOGGER.error(f"Error parsing package.json: {str(exc)}")
+    except json.JSONDecodeError as excinfo:
+        LOGGER.error(f"Error parsing package.json: {str(excinfo)}")
     return []
 
 
@@ -137,8 +156,8 @@ def parse_yarn_lock(content: str) -> List[str]:
     """Extracts dependencies from a yarn.lock file."""
     try:
         return re.findall(r"(\S+)(?=@)", content)
-    except re.error as exc:
-        LOGGER.error(f"Error parsing yarn.lock: {str(exc)}")
+    except re.error as excinfo:
+        LOGGER.error(f"Error parsing yarn.lock: {str(excinfo)}")
     return []
 
 
@@ -152,8 +171,8 @@ def parse_package_lock_json(content: str) -> List[str]:
             for package in dependencies.keys()
             if package.startswith("@types/")
         ]
-    except json.JSONDecodeError as exc:
-        LOGGER.error(f"Error parsing package-lock.json: {str(exc)}")
+    except json.JSONDecodeError as excinfo:
+        LOGGER.error(f"Error parsing package-lock.json: {str(excinfo)}")
     return []
 
 
@@ -190,38 +209,26 @@ def parse_maven(content: str) -> List[str]:
     ]
 
 
-def parse_cmake(file_path: str) -> List[str]:
+def parse_cmake(content: str) -> List[str]:
     """Extracts dependencies from a CMakeLists.txt file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"add_executable\([^)]+\s+([^)]+)\)")
     package_names = regex.findall(content)
-
     return package_names
 
 
-def parse_configure_ac(file_path: str) -> List[str]:
+def parse_configure_ac(content: str) -> List[str]:
     """Extracts dependencies from a configure.ac file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"AC_CHECK_LIB\([^)]+\s+([^)]+)\)")
     package_names = regex.findall(content)
-
     return package_names
 
 
-def parse_makefile_am(file_path: str) -> List[str]:
+def parse_makefile_am(content: str) -> List[str]:
     """Extracts dependencies from a Makefile.am file."""
-    with open(file_path) as f:
-        content = f.read()
-
     regex = re.compile(r"bin_PROGRAMS\s*=\s*(.+)")
     package_names = []
     matches = regex.findall(content)
     for match in matches:
         deps = filter(None, match.split())
         package_names.extend(deps)
-
     return package_names

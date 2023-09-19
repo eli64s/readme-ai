@@ -1,11 +1,14 @@
 <!--
-## [Unreleased]
-### 🚀 New Features and Enhancements
-### 🛠 Changes
-### ⚙️ Deprecated
-### 🗑 Removed
+
+## [v0.0.0] - *2023-01-01*
 ### 🐛 Bug Fixes
-### 🛡 Security
+### 🛠 Changes
+### ✨ Features
+### 🗑 Removed
+### 🔐 Security
+### 🧹 Chore
+### ⚙️ Deprecated
+
 -->
 
 # Changelog
@@ -14,11 +17,37 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.0.9] - *2023-09-19*
+
+### 🧹 Chore
+
+- Update README file to enhance project documentation.
+  - Add [Configuration](https://github.com/eli64s/readme-ai/blob/main/README.md#-configuration) section to provide context for customizing the tool.
+  - Simplify [Getting Started](https://github.com/eli64s/readme-ai/blob/main/README.md#-getting-started) section install and run instructions.
+  - Update [Roadmap](https://github.com/eli64s/readme-ai/blob/main/README.md#-roadmap) section with latest project goals.
+
+---
+
+## [v0.0.8] - *2023-09-18*
+
+### 🐛 Bug Fixes
+
+- Update file parsing logic in [parse.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parse.py) and [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/preprocess.py) for codebases containing the following dependency files (issue [#37](https://github.com/eli64s/readme-ai/issues/37)).
+  - *CMakeLists.txt*
+  - *Makefile.am*
+  - *configure.ac*
+- Credit to [@mooujarrar](https://github.com/mooujarrar) for the help in solving this issue!
+### 🔐 Security
+
+- Bump [gitpython](https://github.com/gitpython-developers/GitPython) module to version *3.1.36* to address security vulnerability (Dependabot Alert [#5](https://github.com/eli64s/readme-ai/security/dependabot/5) and issue [#43](https://github.com/eli64s/readme-ai/issues/43)).
+
+---
+
 ## [v0.0.7] - *2023-08-30*
 
 ⚠️ Release v0.0.7 addresses a security vulnerability cloning git repositories via the *GitPython* package on Windows systems. This vulnerability could allow arbitrary command execution if code is run from a directory containing a malicious `git.exe` or `git` executable.
 
-### 🔐 Security Fixes
+### 🔐 Security
 #### *Arbitrary Command Execution Mitigation*
 
 - Dependabot Alert [#3](https://github.com/eli64s/readme-ai/security/dependabot/3): GitPython untrusted search path on Windows systems leading to arbitrary code execution.
@@ -30,7 +59,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
     ```python
     git.Repo.clone_from(repo_path, temp_dir, depth=1, env=git_exec_path)
     ```
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 
 #### *Code Modularity*
 
@@ -59,7 +88,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.5] - *2023-07-31*
 
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 
 - Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
 
@@ -69,7 +98,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
   - Added closing tags to fix the issue.
   - Additionally, restructured a few sections of the README.
 
-### 🛡️ Security
+### 🔐 Security
 
 - Refactor Dockerfile to adhere to best practices.
   - *Package Installation and Cleanup:* Clean up cache after installing packages with apt-get to reduce the image size.
@@ -81,7 +110,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.4] - *2023-07-30*
 
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 
 - Publish *readme-ai* CLI to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
   - Refactored the codebase to use [Click](https://click.palletsprojects.com/en/8.1.x/), migrating from argparse.
@@ -108,7 +137,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.3] - *2023-06-29*
 
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 
 - Add [pydantic](https://pydantic-docs.helpmanual.io/) to validate the user's repository and api key inputs.
   - Validation was moved from *main.py* to *conf.py*.
@@ -124,7 +153,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.2] - *2023-06-28*
 
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 
 - Add [CHANGELOG.md](./CHANGELOG.md) to track changes to the project.
 - Add new directory [examples/video](./examples/video) to store mp4 videos to demonstrate the *readme-ai* tool.
@@ -142,7 +171,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.1] - *2023-06-28*
 
-### 🚀 New Features and Enhancements
+### ✨ Features and Enhancements
 - Initial release of *readme-ai* v0.0.1
 
 ### 🛠 Changes
