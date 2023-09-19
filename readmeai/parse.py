@@ -88,8 +88,11 @@ def parse_poetry_lock(content: str) -> List[str]:
 def parse_pyproject_toml(content: str) -> List[str]:
     """Extracts dependencies from a pyproject.toml file."""
     try:
-        dependencies = content.get("dependencies", {})
-        optional_dependencies = content.get("optional-dependencies", {})
+        parsed_content = toml.loads(content)
+        tool_section = parsed_content.get("tool", {})
+        poetry_section = tool_section.get("poetry", {})
+        dependencies = poetry_section.get("dependencies", {})
+        optional_dependencies = poetry_section.get("optional-dependencies", {})
         return list(dependencies.keys()) + [
             dep_name
             for dep_list in optional_dependencies.values()
