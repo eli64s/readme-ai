@@ -4,9 +4,9 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
 rate_limit = 5
-tokens = 700
-tokens_max = 3900
-temperature = 0.9
+tokens = 650
+tokens_max = 3800
+temperature = 1.2
 
 # Repository
 [git]
@@ -36,16 +36,16 @@ Generate your response as a Markdown table with the following columns:
 
 | Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**     | Analyze the structural design of the system here. Limit your response to a maximum of 250 characters.    |
-| **📃 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 250 characters.    |
-| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 250 characters.    |
-| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 250 characters.    |
-| **🧪 Testing**          | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 250 characters.    |
-| **⚡️ Performance**      | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 250 characters.    |
-| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 250 characters.    |
-| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 250 characters.    |
-| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 250 characters.    |
-| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 250 characters.    |
+| **⚙️ Architecture**     | Analyze the structural design of the system here. Limit your response to a maximum of 200characters.    |
+| **📃 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 200characters.    |
+| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200characters.    |
+| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200characters.    |
+| **🧪 Testing**          | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200characters.    |
+| **⚡️ Performance**      | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200characters.    |
+| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200characters.    |
+| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200characters.    |
+| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200characters.    |
+| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200characters.    |
 
 Thank you for your time and effort!
 """

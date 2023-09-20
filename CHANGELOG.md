@@ -28,6 +28,10 @@ All notable changes to the *readme-ai* project will be documented in this file.
 -  Update configuration [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/ignore_files.toml) to stop ignoring the following file extensions:
    - yaml, toml, txt, lock
 
+### 🧹 Chore
+
+- Regenerate all README files in the [examples](https://github.com/eli64s/readme-ai/tree/main/examples) directory to reflect the latest changes to the tool.
+
 ---
 ## [v0.0.9] - *2023-09-19*
 

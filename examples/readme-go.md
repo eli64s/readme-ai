@@ -1,11 +1,9 @@
-
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>
-docker-gs-ping
+<br>docker-gs-ping
 </h1>
-<h3>◦ Seamless pinging with docker-gs-ping!</h3>
+<h3>◦ Containerize the Ping!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -14,23 +12,25 @@ docker-gs-ping
 <img src="https://img.shields.io/badge/Go-00ADD8.svg?style&logo=Go&logoColor=white" alt="Go" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
-
-![GitHub top language](https://img.shields.io/github/languages/top/olliefr/docker-gs-ping?style&color=5D6D7E)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/olliefr/docker-gs-ping?style&color=5D6D7E)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/olliefr/docker-gs-ping?style&color=5D6D7E)
-![GitHub license](https://img.shields.io/github/license/olliefr/docker-gs-ping?style&color=5D6D7E)
+<img src="https://img.shields.io/github/languages/top/olliefr/docker-gs-ping?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/languages/code-size/olliefr/docker-gs-ping?style&color=5D6D7E" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/commit-activity/m/olliefr/docker-gs-ping?style&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/license/olliefr/docker-gs-ping?style&color=5D6D7E" alt="GitHub license" />
 </div>
 
 ---
 
-## 📒 Table of Contents
-- [📒 Table of Contents](#-table-of-contents)
+## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🤖 Running docker-gs-ping](#-running-docker-gs-ping)
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -40,29 +40,29 @@ docker-gs-ping
 
 ## 📍 Overview
 
-The project is a Dockerized Go server that responds to HTTP requests using the Echo framework. It serves as a basic web server with middleware setup, customizable routes, and the ability to handle different HTTP methods. The project's value proposition lies in providing a lightweight, scalable, and easily deployable server solution, allowing developers to quickly set up and handle HTTP requests with minimal configuration.
+The project is a Docker image that pings a server using a simple Go web application built with the Echo framework. It provides a lightweight and portable solution for checking the connectivity of a server. The Dockerization allows for easy deployment and scalability, making it convenient for monitoring multiple servers in a distributed environment. Additionally, the inclusion of automated tests and continuous integration workflows ensures the reliability and quality of the application.
 
 ---
 
-## ⚙️ Features
+## 📦 Features
 
-| Feature                | Description                                                                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| **⚙️ Architecture**    | The codebase follows a simple and straightforward architectural design, with a single web server using the Echo framework to handle HTTP requests.                                                  |
-| **📖 Documentation**   | The documentation is limited, with only brief summaries of each file in the repository. It would be beneficial to have more detailed documentation, including instructions on setup and usage. |
-| **🔗 Dependencies**    | The codebase relies on external libraries, such as Echo for the web framework, and other Go modules managed through the go.mod file.      |
-| **🧩 Modularity**      | The system is organized into smaller components, with separate files for the main server, unit tests, Dockerfiles, and the go.mod file. The modularity allows for easy extensibility and maintenance. |
-| **✔️ Testing**         | The code includes automated unit tests using Go's testing package, covering different scenarios and assertions for the main server and the IntMin function.                                         |
-| **⚡️ Performance**     | The system's performance depends on the underlying Go framework and the hardware it is deployed on. The minimalistic Dockerfile ensures a lean image, minimizing resource usage.            |
-| **🔐 Security**        | The codebase doesn't explicitly implement security measures. However, being a straightforward server, implementing additional security measures would depend on the deployment and specific requirements. |
-| **🔀 Version Control** | The codebase is version-controlled using Git, hosted on GitHub. The repository can be cloned or forked, and any changes can be tracked and managed effectively using Git methodologies. |
-| **🔌 Integrations**    | The system does not have explicit integrations, but it can be easily integrated with other systems or services through HTTP endpoints provided by the Echo framework.                |
-| **📶 Scalability**     | The system's scalability depends on the underlying Go framework and the infrastructure it is deployed on. Being a simple web server, it can handle a moderate level of concurrent requests.   |
+| Feature                | Description                           |
+| ---------------------- | ------------------------------------- |
+| **⚙️ Architecture**     | The codebase follows a modular architecture with separate files for different components of the application. It uses the Echo framework to set up an HTTP server and handle routes. The Dockerfiles provide containerization for the application. Limit your response to a maximum of 250 characters.  |
+| **📃 Documentation**   | The codebase is relatively well-documented, with each file providing a brief summary of its purpose. However, more detailed comments within the code could improve comprehensiveness. Limit your response to a maximum of 250 characters.  |
+| **🔗 Dependencies**    | The project relies on the Echo framework, as well as several other Go modules that are specified in the `go.mod` file. These dependencies provide the necessary functionality for building the web application and running tests. Limit your response to a maximum of 250 characters.  |
+| **🧩 Modularity**      | The codebase demonstrates good modularity by separating concerns into different files. The main functionality is contained in the `main.go` file, while testing logic resides in `main_test.go`. The Dockerfiles provide flexibility for building and deploying the application. Limit your response to a maximum of 250 characters.  |
+| **🧪 Testing**          | The codebase includes test functions for the `IntMin` function using a basic scenario and a table-driven approach. This ensures that the function behaves as expected under different input conditions. The GitHub Actions workflows enable automated testing and provide visibility into the test results. Limit your response to a maximum of 250 characters.  |
+| **⚡️ Performance**      | The codebase doesn't include explicit performance optimizations. However, being a simple web application, it is expected to have good performance. The use of the Echo framework and Go's concurrency features can contribute to efficient request handling. Limit your response to a maximum of 250 characters.  |
+| **🔐 Security**        | The codebase does not explicitly address security measures. However, Go and Docker have built-in security features, and using frameworks like Echo can help mitigate common security vulnerabilities. Proper input validation and secure handling of sensitive data should be implemented if required. Limit your response to a maximum of 250 characters.  |
+| **🔀 Version Control** | The codebase uses Git for version control, with the repository hosted on GitHub. The project follows a standard branching model, with CI/CD workflows triggered on push events and new tags. It leverages GitHub Actions for automated build, test, and release processes. Limit your response to a maximum of 250 characters.  |
+| **🔌 Integrations**    | The codebase integrates with GitHub Actions for continuous integration and deployment. It builds and tests the application in containers, caches layers, and pushes releases to Docker Hub. The integration enables efficient development workflow and easy deployment. Limit your response to a maximum of 250 characters.  |
+| **📶 Scalability**     | The codebase doesn't explicitly address scalability. However, being a containerized application, it can be easily deployed on scalable container orchestration platforms like Kubernetes. The modular design allows components to be scaled independently, and the use of Go can contribute to handling high loads. Limit your response to a maximum of 250 characters.  |
 
 ---
 
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 
 ```bash
@@ -81,17 +81,26 @@ repo
 
 ---
 
-## 🧩 Modules
+## ⚙️ Modules
 
 <details closed><summary>Root</summary>
 
-| File                                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---                                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                                       |
-| [go.mod](https://github.com/olliefr/docker-gs-ping/blob/main/go.mod)                               | The code snippet is a Go module that uses the Echo framework to build a server that responds to HTTP requests. It has various dependencies managed with version requirements.                                                                                                                                                                                                                             |
-| [Dockerfile](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile)                       | The provided code snippet builds a Docker image for a Go application. It downloads Go modules, copies the source code, builds the application, and exposes port 8080. Finally, it sets the command to run the built application.                                                                                                                                                                          |
-| [Dockerfile.multistage](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile.multistage) | The provided code snippet is a Dockerfile that builds a Go application, runs tests, and creates a lean image for deployment. It first builds the application, downloads dependencies, and compiles the binary. Then, it runs tests in a separate stage. Finally, it creates an image using a minimal base, copies the binary, opens a port, sets a non-root user, and sets the entry point as the binary. |
-| [main.go](https://github.com/olliefr/docker-gs-ping/blob/main/main.go)                             | This code snippet is a basic web server built with the Echo framework. It sets up middleware, defines two routes ("/" and "/health"), and starts the server on a specified port (defaulting to 8080). It also includes a simple function for finding the minimum of two integers.                                                                                                                         |
-| [main_test.go](https://github.com/olliefr/docker-gs-ping/blob/main/main_test.go)                   | The code snippet is a demonstration of automated unit testing in Go. It includes two test functions, one using basic assertions and the other using table-driven testing. The functions test the IntMin function by comparing its output with expected values and reporting any mismatches.                                                                                                               |
+| File                                                                                               | Summary                                                                                                                                                                                                                                                        |
+| ---                                                                                                | ---                                                                                                                                                                                                                                                            |
+| [go.mod](https://github.com/olliefr/docker-gs-ping/blob/main/go.mod)                               | This code module is for a Docker image that pings a server. It requires the Echo framework and several other dependencies.                                                                                                                                     |
+| [Dockerfile](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile)                       | The code sets up a Docker environment for a Go application. It downloads Go modules, copies the source code, builds the application, exposes port 8080, and runs the application.                                                                              |
+| [Dockerfile.multistage](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile.multistage) | This Dockerfile builds a Go application from source, runs tests inside a container, and then deploys the application into a lean image based on the distroless base image. The final image exposes port 8080 and executes the application as the nonroot user. |
+| [main.go](https://github.com/olliefr/docker-gs-ping/blob/main/main.go)                             | This code is a simple Go web application using the Echo framework. It sets up an HTTP server, handles routes for root and health endpoints, and starts the server on the specified port. It also includes a function to find the minimum of two integers.      |
+| [main_test.go](https://github.com/olliefr/docker-gs-ping/blob/main/main_test.go)                   | This code includes two test functions for the IntMin function. The first test checks a basic scenario, while the second uses a table-driven approach to test multiple inputs and expected outputs.                                                             |
+
+</details>
+
+<details closed><summary>Workflows</summary>
+
+| File                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                    |
+| ---                                                                                                        | ---                                                                                                                                                                                                                                                                                                                                                        |
+| [ci-cd.yml](https://github.com/olliefr/docker-gs-ping/blob/main/.github/workflows/ci-cd.yml)               | This code is for a GitHub Actions workflow that runs on push events to the main branch or when a new tag is created. It builds and tests an application in a Docker container, caches Docker layers, and pushes the release to Docker Hub if the event is not a pull request. It uses Docker Buildx and Docker login to handle the build and push process. |
+| [ci-smoketest.yml](https://github.com/olliefr/docker-gs-ping/blob/main/.github/workflows/ci-smoketest.yml) | This code sets up a smoke test for a Go project. It runs automatically on every push to the repository or can be triggered manually. The test will build and test the project using Go toolchain in a GitHub runner.                                                                                                                                       |
 
 </details>
 
@@ -99,14 +108,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✔️ Prerequisites
+***Dependencies***
 
 Before you begin, ensure that you have the following prerequisites installed:
 > - `ℹ️ Requirement 1`
 > - `ℹ️ Requirement 2`
 > - `ℹ️ ...`
 
-### 💻 Installation
+### 🔧 Installation
 
 1. Clone the docker-gs-ping repository:
 ```sh
@@ -123,13 +132,13 @@ cd docker-gs-ping
 go build -o myapp
 ```
 
-### 🎮 Using docker-gs-ping
+### 🤖 Running docker-gs-ping
 
 ```sh
 ./myapp
 ```
 
-### 🧪 Running Tests
+### 🧪 Tests
 ```sh
 go test
 ```
@@ -137,7 +146,7 @@ go test
 ---
 
 
-## 🗺 Roadmap
+## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Refactor Y`

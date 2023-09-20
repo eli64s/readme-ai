@@ -69,9 +69,11 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
+         <div align="center">
             <a href="https://youtu.be/pl-VcVfGbbk">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" />
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" width="800"/>
             </a>
+        </div>
         </td>
     </tr>
 </table>
@@ -84,15 +86,18 @@ This project is currently under development and has an opinionated configuration
         <td>
             <ul>
                 <li>Use <i>readme-ai</i> directly in your browser with Streamlit! Zero installation, zero code!</li>
-                <li><a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
+                <li>
+                <a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
             </ul>
         </td>
     </tr>
     <tr>
         <td>
+        <div align="center">
         <a href="https://youtu.be/TrAPBpQ30Fw">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" />
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" width="800"/>
         </a>
+        </div>
         </td>
     </tr>
 </table>
@@ -114,7 +119,9 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/modules.png" alt="docs" />
+        <div align="center">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/modules.png" alt="docs" width="800"/>
+        </div>
         </td>
     </tr>
 </table>
@@ -123,17 +130,19 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <h3>◦ Intro, Badges, & Table of Contents</h3>
+            <h3>◦ Introduction, Badges, & Table of Contents</h3>
             <ul>
                 <li>The OpenAI API is prompted to create a 1-sentence phrase describing your project.</li>
                 <li>Project dependencies and metadata are visualized using <a href="https://shields.io/">Shields.io</a> badges.</li>
-                <li>Badges are sorted by hex code, displayed from light to dark hues.</li>
+                <!--<li>Badges are sorted by hex code, displayed from light to dark hues.</li>-->
             </ul>
         </td>
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/header.png" alt="docs" />
+        <div align="center">
+        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/header.png" width="800"/>
+        </div>
         </td>
     </tr>
 </table>
@@ -156,12 +165,16 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/features.png" alt="features" />
+            <div align="center">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/features.png" alt="features" width="800"/>
+            </div>
         </td>
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/overview.png" alt="overview" />
+        <div align="center">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/overview.png" alt="overview" width="800"/>
+        </div>
         </td>
     </tr>
 </table>
@@ -170,7 +183,9 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/tree.png" alt="tree" />
+        <div align="center">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/tree.png" alt="tree" width="800"/>
+        </div>
         </td>
     </tr>
 </table>
@@ -193,7 +208,9 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/getting_started.png" alt="getting_started" />
+        <div align="center">
+        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/getting_started.png" alt="getting_started" width="800"/>
+        </div>
         </td>
     </tr>
 </table>
@@ -202,7 +219,9 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/closing.png" alt="contribute" />
+        <div align="center">
+        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/closing.png" alt="contribute" width="800"/>
+        </div>
         </td>
     </tr>
 </table>

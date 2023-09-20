@@ -1,11 +1,9 @@
-
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>
-CallMon
+<br>CallMon
 </h1>
-<h3>◦ Tracking calls made easy.</h3>
+<h3>◦ Connect, collaborate, and monitor calls with CallMon</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -13,23 +11,25 @@ CallMon
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 <img src="https://img.shields.io/badge/Rust-000000.svg?style&logo=Rust&logoColor=white" alt="Rust" />
 </p>
-
-![GitHub top language](https://img.shields.io/github/languages/top/DownWithUp/CallMon?style&color=5D6D7E)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DownWithUp/CallMon?style&color=5D6D7E)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/DownWithUp/CallMon?style&color=5D6D7E)
-![GitHub license](https://img.shields.io/github/license/DownWithUp/CallMon?style&color=5D6D7E)
+<img src="https://img.shields.io/github/languages/top/DownWithUp/CallMon?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/languages/code-size/DownWithUp/CallMon?style&color=5D6D7E" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/commit-activity/m/DownWithUp/CallMon?style&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/license/DownWithUp/CallMon?style&color=5D6D7E" alt="GitHub license" />
 </div>
 
 ---
 
-## 📒 Table of Contents
-- [📒 Table of Contents](#-table-of-contents)
+## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🤖 Running CallMon](#-running-CallMon)
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -39,27 +39,27 @@ CallMon
 
 ## 📍 Overview
 
-The "CallMon" project is a kernel-mode driver and accompanying GUI application that work together to capture and display information about system call events in the Windows operating system. The driver component hooks system call handlers and communicates with the GUI application through a named pipe. The GUI application creates a dialog box and displays information about the processes that make system calls. By providing insights into the system call activities of different processes, the project enables users to monitor and analyze system-level behavior, aiding in debugging and security analysis efforts.
+The project at https://github.com/DownWithUp/CallMon is a Windows driver and GUI application that allows for the monitoring and manipulation of system calls made by processes. It provides functionality to add and remove processes, suspend and resume processes, and register a handler for system calls. The project's value proposition lies in its ability to provide insights and control over system call activity, making it useful for debugging, security analysis, and performance profiling purposes.
 
 ---
 
-## ⚙️ Features
+## 📦 Features
 
 | Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**    | The system follows a modular architecture, with separate components for the driver and the GUI application. The driver handles system call monitoring and communicates with the GUI application via IOCTL requests and a named pipe. The GUI application is responsible for creating the GUI dialog and displaying information about system call events. Overall, the architecture promotes separation of concerns and allows for easy maintenance and scalability.    |
-| **📖 Documentation**   | The codebase lacks comprehensive documentation. While some code files have brief comments, there is no centralized or detailed documentation explaining the purpose, usage, and design choices of the components. Improving the documentation would greatly benefit developers and make the codebase more accessible to new contributors.    |
-| **🔗 Dependencies**    | The system relies on external dependencies such as the Windows API, Rust, and the winapi crate. These dependencies provide access to low-level functionality required for kernel-mode driver development and GUI development. The codebase should be kept updated with the latest versions of these dependencies to ensure compatibility and security.    |
-| **🧩 Modularity**      | The system exhibits a good level of modularity, with clear separation between the driver and GUI components. Functionalities such as process management, syscall monitoring, communication, and GUI rendering are organized into their respective modules. This allows for easy maintenance, testing, and reusability of the codebase.    |
-| **✔️ Testing**         | The codebase does not include a dedicated testing strategy or testing tools. Adding unit tests for critical components and employing a testing framework such as Rust's `cargo test` would help ensure the correctness and robustness of the system. Additionally, considering automated integration testing between the driver and GUI application would be beneficial.    |
-| **⚡️ Performance**     | Given that the system deals with kernel-mode driver development, it is crucial to prioritize performance. However, without specific performance optimizations mentioned in the codebase, it is challenging to make conclusive remarks. Performance profiling and optimization techniques can be employed to analyze and enhance the system's speed, efficiency, and resource usage.    |
-| **🔐 Security**        | Security measures must be a top concern in the development of a kernel-mode driver. While the codebase handles aspects such as process isolation, access control, and interaction with the Windows API, a comprehensive security analysis of the system could not be obtained solely from code review. Following secure coding practices, code audits, and threat modeling would be essential for ensuring the system's security.    |
-| **🔀 Version Control** | The codebase utilizes the Git version control system, as evident from its presence on GitHub. However, the analysis of the repository did not provide an indication of specific version control strategies or tools employed. To streamline the development process and facilitate collaboration, teams should make use of branching, tagging, and code
+| **⚙️ Architecture**     | The system follows a modular architecture, with separate components for the driver, Rust library, and GUI application. The driver allows monitoring and manipulation of system calls, while the Rust library provides integration with the Windows API. The GUI application provides a user-friendly interface for interacting with the driver. Overall, the system follows a layered design pattern, separating the UI, business logic, and system integration. |
+| **📃 Documentation**   | The project lacks comprehensive documentation. While individual files have brief descriptions, there is no overarching documentation explaining the project's purpose, usage, or design decisions. This can make it challenging for new contributors or users to understand and navigate the codebase. Improved documentation would enhance the project's accessibility and usability. |
+| **🔗 Dependencies**    | The system relies on various external libraries and crates, including "winapi," "winreg," "failure," and "obfstr." These dependencies provide integration with the Windows API, error handling functionality, and obfuscation capabilities. The project also utilizes environment variables to configure build paths and flags. Managing these dependencies is crucial to ensure compatibility and stability across different versions. |
+| **🧩 Modularity**      | The codebase demonstrates good modularity by dividing the functionality into separate files and components. The driver, Rust library, and GUI application each have their own directories and files, encapsulating related functionalities. This modular approach makes the codebase easier to understand, maintain, and test. The use of different files for struct definitions, utility functions, and integration with external systems further enhances modularity. |
+| **🧪 Testing**          | The project lacks explicit testing strategies and tools. While the code includes error handling and input validations, there is no evidence of unit tests or automated test suites. Introducing a testing framework, such as Rust's built-in testing framework or a third-party library like `rust-test` or `cargo-test`, would improve code reliability and maintainability. Proper testing is crucial for ensuring the project's correctness and identifying bugs or regressions. |
+| **⚡️ Performance**      | As a driver-based system, performance is a critical aspect. The project leverages low-level system APIs and optimized Rust code to ensure efficient system call monitoring and manipulation. However, without specific performance benchmarks or profiling data, it is challenging to determine the performance characteristics accurately. To evaluate performance, it would be beneficial to conduct performance testing using realistic workloads and scenarios to identify any bottlenecks or areas for optimization. |
+| **🔐 Security**        | The system's security measures are not explicitly mentioned in the provided information. However, given that the project involves manipulating system calls and interacting with the Windows API, it's crucial to ensure robust security practices. This includes handling user input securely, preventing privilege escalation, and protecting sensitive information. Conducting security audits, staying updated with security patches, and following secure coding practices are essential to maintain the project's security. |
+| **🔀 Version Control** | The project uses Git for version control, with the codebase hosted on GitHub. The GitHub repository includes a complete history of commits, allowing for easy tracking of changes and collaboration among team members. It enables branching for feature development, bug fixes, and experimental work. However, without additional information, it is difficult to assess the specific version control strategies or
 
 ---
 
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 
 ```bash
@@ -90,53 +90,56 @@ repo
 
 ---
 
-## 🧩 Modules
+## ⚙️ Modules
 
 <details closed><summary>Driver</summary>
 
-| File                                                                          | Summary                                                                                                                                                                                                                                                                                                                         |
-| ---                                                                           | ---                                                                                                                                                                                                                                                                                                                             |
-| [AltCall.c](https://github.com/DownWithUp/CallMon/blob/main/Driver/AltCall.c) | The provided code snippet is a driver implementation that provides functionality for adding and removing processes, as well as hooking system call handlers. It also includes an IOCTL handler for managing communication with a named pipe and a driver entry and unload function for initializing and cleaning up the driver. |
-| [Extras.h](https://github.com/DownWithUp/CallMon/blob/main/Driver/Extras.h)   | The code snippet defines structures for a custom packet header and a total packet.The custom header contains a process ID and an array of stack data.The total packet combines the custom header with a KTRAP_FRAME structure.                                                                                                  |
+| File                                                                          | Summary                                                                                                                                                                                                                                                                                            |
+| ---                                                                           | ---                                                                                                                                                                                                                                                                                                |
+| [AltCall.c](https://github.com/DownWithUp/CallMon/blob/main/Driver/AltCall.c) | The code is a Windows driver that allows monitoring and manipulation of system calls made by processes. It provides functionality to add and remove processes, suspend and resume processes, and register a handler for system calls. It also includes device control functions for communication. |
+| [Extras.h](https://github.com/DownWithUp/CallMon/blob/main/Driver/Extras.h)   | The code defines two structures: CUSTOM_HEADER and TOTAL_PACKET. The CUSTOM_HEADER structure contains a process ID and an array of stack data. The TOTAL_PACKET structure combines the CUSTOM_HEADER structure with a KTRAP_FRAME structure.                                                       |
 
 </details>
 
 <details closed><summary>Rust</summary>
 
-| File                                                                      | Summary                                                                                                                                                                                                                                                         |
-| ---                                                                       | ---                                                                                                                                                                                                                                                             |
-| [build.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/build.rs) | The code snippet retrieves the path to Windows Kits directory and the kernel mode libraries. It then determines the appropriate architecture based on the target platform. Finally, it uses the obtained paths to configure the Rust build process for linking. |
+| File                                                                                | Summary                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---                                                                                 | ---                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [Makefile.toml](https://github.com/DownWithUp/CallMon/blob/main/Rust/Makefile.toml) | This code defines a set of tasks for building, renaming, and signing a Windows driver. It uses environment variables for target paths and build flags, and the tasks are executed sequentially with dependencies. The final task signs the driver using a self-signed certificate and a timestamp service.                                                                                           |
+| [Cargo.toml](https://github.com/DownWithUp/CallMon/blob/main/Rust/Cargo.toml)       | The code is a Rust package named "AltCall" that contains a library with dynamic linking capabilities. It depends on other crates such as "kernel-print" and "kernel-alloc" for kernel-level operations, and "obfstr" for obfuscation functionality. It also relies on the "winapi" crate for Windows API integration. Additionally, it uses the "winreg" and "failure" crates for building purposes. |
+| [rustfmt.toml](https://github.com/DownWithUp/CallMon/blob/main/Rust/rustfmt.toml)   | This code configures various formatting options for the Rust codebase. It sets rules for indentation, line breaks, ordering, and shorthand usage. The aim is to improve code readability and maintain consistency.                                                                                                                                                                                   |
+| [build.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/build.rs)           | The code retrieves the path to the Windows Kits directory and the kernel mode libraries. It then determines the appropriate architecture and sets the link search path for the Rust compiler.                                                                                                                                                                                                        |
 
 </details>
 
 <details closed><summary>.cargo</summary>
 
-| File                                                                         | Summary                                                                                                                                                                                                                                                        |
-| ---                                                                          | ---                                                                                                                                                                                                                                                            |
-| [config](https://github.com/DownWithUp/CallMon/blob/main/Rust/.cargo/config) | This code snippet is a configuration file for building a Rust project on Windows. It sets various pre and post link arguments, like disabling certain default libraries, specifying the subsystem and entry point, optimizing code, and maintaining integrity. |
+| File                                                                         | Summary                                                                                                                                                                                                                                                                                         |
+| ---                                                                          | ---                                                                                                                                                                                                                                                                                             |
+| [config](https://github.com/DownWithUp/CallMon/blob/main/Rust/.cargo/config) | This code sets specific build configurations for a Rust project targeting Windows. It includes pre-link and post-link arguments, specifying various options for optimization, linking, and subsystems. The code aims to optimize and configure the executable for a native Windows environment. |
 
 </details>
 
 <details closed><summary>Src</summary>
 
-| File                                                                              | Summary                                                                                                                                                                                                                                                                                                                                           |
-| ---                                                                               | ---                                                                                                                                                                                                                                                                                                                                               |
-| [externs.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/externs.rs) | This code snippet imports a set of functions from Windows API libraries and defines some types. These functions provide functionalities such as creating devices, creating symbolic links, suspending and resuming processes, creating and writing to files, closing file handles, managing process and object references, and memory operations. |
-| [log.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/log.rs)         | The provided code snippet is a logging macro that utilizes the `DbgPrint` function from the `winapi` crate. It allows for printing messages to the debugger console with optional formatting and variable interpolation.                                                                                                                          |
-| [lib.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/lib.rs)         | This code snippet is a kernel-mode driver that creates a device and handles various device I/O control requests. It also includes functions to add and remove processes, and supports a custom handler.                                                                                                                                           |
-| [string.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/string.rs)   | This code snippet defines a function that creates a Unicode string from a slice of u16 values. It determines the length of the string, sets the length and maximum length fields of a UNICODE_STRING struct accordingly, and assigns the buffer pointer to the start of the string.                                                               |
-| [defines.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/defines.rs) | The provided code snippet defines various structs, unions, and constants that are used for interacting with Windows kernel-mode APIs. It includes custom structs and unions that are not provided by the `winapi` crate. These definitions are necessary for utilizing specific functionality in kernel-mode programming.                         |
+| File                                                                              | Summary                                                                                                                                                                                                                                                                                                                                      |
+| ---                                                                               | ---                                                                                                                                                                                                                                                                                                                                          |
+| [externs.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/externs.rs) | This code provides bindings to various WinAPI functions for device creation, process suspension and resumption, file operations, and object handling. It also includes memory and process-related functions for managing kernel mode drivers efficiently.                                                                                    |
+| [log.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/log.rs)         | This code provides a logging functionality utilizing Windows DbgPrint API. It includes a macro that allows printing formatted messages to the debug console, with support for variable arguments.                                                                                                                                            |
+| [lib.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/lib.rs)         | The code is a driver that handles various functionalities such as handling IRP requests, creating and closing a named pipe, suspending and resuming processes, and registering an alternative system call handler. It also includes error handling and initialization functions.                                                             |
+| [string.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/string.rs)   | The code defines a function that creates a UNICODE_STRING structure from a slice of UTF-16 encoded Unicode characters. It calculates the length of the string, removes any null terminator if present, and then initializes the fields of the UNICODE_STRING struct with appropriate values.                                                 |
+| [defines.rs](https://github.com/DownWithUp/CallMon/blob/main/Rust/src/defines.rs) | This code defines various structs, unions, and constants that are required for interacting with the Windows operating system. It includes definitions for process and thread identifiers, object handle information, trap frames, and custom headers. Overall, it provides the necessary building blocks for working with Windows internals. |
 
 </details>
 
 <details closed><summary>Gui</summary>
 
-| File                                                                           | Summary                                                                                                                                                                                                                                                                                                                                    |
-| ---                                                                            | ---                                                                                                                                                                                                                                                                                                                                        |
-| [Utils.h](https://github.com/DownWithUp/CallMon/blob/main/GUI/Utils.h)         | The code snippet includes functionalities to obtain device access, create a named pipe, add processes, load a driver, and define data structures. It also includes a helper function for inserting a column in a list view.                                                                                                                |
-| [Resource.rc](https://github.com/DownWithUp/CallMon/blob/main/GUI/Resource.rc) | This code snippet is a Microsoft Visual C++ generated resource script. It contains the definition and layout of a dialog box for a software application called "CallMon". The dialog box includes various controls such as buttons, text fields, and a list view. It also defines the design info and layout for the dialog box.           |
-| [resource.h](https://github.com/DownWithUp/CallMon/blob/main/GUI/resource.h)   | The provided code snippet is a resource file for a Windows application. It defines various IDs for dialog controls, such as buttons, edit boxes, and lists. These IDs are used to reference and manipulate these controls within the application's code.                                                                                   |
-| [CallMon.c](https://github.com/DownWithUp/CallMon/blob/main/GUI/CallMon.c)     | The provided code snippet is a Windows application that creates a GUI dialog to display information about system call events. It sets up the GUI and handles various window messages, including button clicks and resizing. It also communicates with a driver to capture and display data about system calls made by different processes. |
+| File                                                                           | Summary                                                                                                                                                                                                                                                                                                                                              |
+| ---                                                                            | ---                                                                                                                                                                                                                                                                                                                                                  |
+| [Utils.h](https://github.com/DownWithUp/CallMon/blob/main/GUI/Utils.h)         | This code includes functionality to create a driver handle, create a named pipe, add a process to the driver, obtain driver privilege, and load the driver. It also includes structures for stack chunks and custom headers, as well as a function to insert a column in a ListView.                                                                 |
+| [Resource.rc](https://github.com/DownWithUp/CallMon/blob/main/GUI/Resource.rc) | The code is a resource script for a Windows application. It defines the layout and controls for a dialog window called "CallMon". The dialog includes a group box, buttons, an edit box, a list view, and a memo control. It provides functionality for initializing, adding and removing processes, capturing stack information, and clearing data. |
+| [resource.h](https://github.com/DownWithUp/CallMon/blob/main/GUI/resource.h)   | The code consists of a dialog-based application with various controls such as buttons, edit boxes, and a list. The core functionalities include initializing the application, adding items to the list, removing items from the list, and clearing the list. There is also a memo stack control for displaying additional information.               |
+| [CallMon.c](https://github.com/DownWithUp/CallMon/blob/main/GUI/CallMon.c)     | HTTPStatus Exception: 400                                                                                                                                                                                                                                                                                                                            |
 
 </details>
 
@@ -144,14 +147,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✔️ Prerequisites
+***Dependencies***
 
 Before you begin, ensure that you have the following prerequisites installed:
 > - `ℹ️ Requirement 1`
 > - `ℹ️ Requirement 2`
 > - `ℹ️ ...`
 
-### 💻 Installation
+### 🔧 Installation
 
 1. Clone the CallMon repository:
 ```sh
@@ -168,13 +171,13 @@ cd CallMon
 cargo build
 ```
 
-### 🎮 Using CallMon
+### 🤖 Running CallMon
 
 ```sh
 cargo run
 ```
 
-### 🧪 Running Tests
+### 🧪 Tests
 ```sh
 cargo test
 ```
@@ -182,7 +185,7 @@ cargo test
 ---
 
 
-## 🗺 Roadmap
+## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Refactor Y`

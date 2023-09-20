@@ -1,46 +1,46 @@
-
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>
-mlops-course
+<br>mlops-course
 </h1>
-<h3>◦ Unlock the power of MLOps!</h3>
+<h3>◦ Master MLOps with mlops-course!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style&logo=Streamlit&logoColor=white" alt="Streamlit" />
+<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
+<img src="https://img.shields.io/badge/precommit-FAB040.svg?style&logo=pre-commit&logoColor=black" alt="precommit" />
 <img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style&logo=scikit-learn&logoColor=white" alt="scikitlearn" />
 <img src="https://img.shields.io/badge/Jupyter-F37626.svg?style&logo=Jupyter&logoColor=white" alt="Jupyter" />
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
 <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
 <img src="https://img.shields.io/badge/pandas-150458.svg?style&logo=pandas&logoColor=white" alt="pandas" />
 
-<img src="https://img.shields.io/badge/DVC-13ADC7.svg?style&logo=DVC&logoColor=white" alt="DVC" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style&logo=Pytest&logoColor=white" alt="Pytest" />
+<img src="https://img.shields.io/badge/Ray-028CF0.svg?style&logo=Ray&logoColor=white" alt="Ray" />
 <img src="https://img.shields.io/badge/MLflow-0194E2.svg?style&logo=MLflow&logoColor=white" alt="MLflow" />
 <img src="https://img.shields.io/badge/NumPy-013243.svg?style&logo=NumPy&logoColor=white" alt="NumPy" />
 <img src="https://img.shields.io/badge/FastAPI-009688.svg?style&logo=FastAPI&logoColor=white" alt="FastAPI" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style&logo=JSON&logoColor=white" alt="JSON" />
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 </p>
-
-![GitHub top language](https://img.shields.io/github/languages/top/GokuMohandas/mlops-course?style&color=5D6D7E)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/GokuMohandas/mlops-course?style&color=5D6D7E)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/GokuMohandas/mlops-course?style&color=5D6D7E)
-![GitHub license](https://img.shields.io/github/license/GokuMohandas/mlops-course?style&color=5D6D7E)
+<img src="https://img.shields.io/github/languages/top/GokuMohandas/mlops-course?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/languages/code-size/GokuMohandas/mlops-course?style&color=5D6D7E" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/commit-activity/m/GokuMohandas/mlops-course?style&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/license/GokuMohandas/mlops-course?style&color=5D6D7E" alt="GitHub license" />
 </div>
 
 ---
 
-## 📒 Table of Contents
-- [📒 Table of Contents](#-table-of-contents)
+## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🤖 Running mlops-course](#-running-mlops-course)
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -50,182 +50,171 @@ mlops-course
 
 ## 📍 Overview
 
-The project is a Machine Learning Operations (MLOps) course that includes various code snippets and examples for building and deploying machine learning models. It covers topics such as data preprocessing, model training and evaluation, web application development, and Docker containerization. The project's purpose is to provide a comprehensive guide to implementing best practices in managing and deploying machine learning models, enabling developers to build efficient and scalable ML pipelines. Its value proposition lies in offering practical examples and templates that can be easily adapted and extended in real-world MLOps projects.
+The project "Made With ML" is a comprehensive resource for machine learning practitioners. It offers functionalities for data preprocessing, model training and evaluation, hyperparameter tuning, prediction serving, and documentation generation. The project's core value proposition lies in providing a streamlined workflow, with distributed computing capabilities and integration with popular libraries like PyTorch and Transformers. It also offers easy deployment on cloud platforms like AWS and AnyScale, enhancing scalability and accessibility for machine learning projects.
 
 ---
 
-## ⚙️ Features
+## 📦 Features
 
-| Feature                | Description                                                                                                                                                                                                                                                       |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **⚙️ Architecture**    | The codebase follows a modular architecture with separate directories for different components such as app, tagifai, configs, etc. It uses popular frameworks like FastAPI, Streamlit, and Gunicorn to build web applications and APIs.                             |
-| **📖 Documentation**   | The codebase includes README files, inline comments, and docstrings for code explanation. The documentation is well-structured, providing instructions for installation, usage, and development.                                                                     |
-| **🔗 Dependencies**    | The codebase relies on a variety of dependencies such as FastAPI, SciKit-Learn, Pydantic, Optuna, Streamlit, Gunicorn, MLflow, DVC, and other standard libraries. These dependencies enable building robust ML applications with efficient data handling and experimentation. |
-| **🧩 Modularity**      | The codebase promotes modularity by separating functionalities into separate files and directories. Each component has well-defined responsibilities and can be independently developed, tested, and deployed.                                                        |
-| **✔️ Testing**         | The codebase includes a "Makefile" with commands for running tests. It is structured to test code, data, and models, ensuring comprehensive test coverage. The code adheres to best practices in terms of unit testing and test data handling.                         |
-| **⚡️ Performance**     | The codebase leverages optimized libraries and techniques to achieve high-performance and resource efficiency. It uses TF-IDF vectorization, SGD classifier, efficient preprocessing, and data balancing techniques to train models on large datasets effectively.         |
-| **🔐 Security**        | The codebase does not explicitly address security measures in the provided files. However, the use of proven libraries and frameworks like FastAPI and Gunicorn can provide a strong foundation for implementing security measures such as JWT authentication and HTTPS. |
-| **🔀 Version Control** | The codebase utilizes Git for version control, as indicated by the GitHub repository. Git provides a robust version control system, allowing for tracking changes, merging code, collaboration, and rolling back to previous versions.                                     |
-| **🔌 Integrations**    | The codebase integrates with MLflow for experiment tracking and artifact management. It provides support for Airflow, Streamlit, DVC, and other tools, enabling better workflow automation and experimentation.                                                          |
-| **📶 Scalability**     | The codebase demonstrates good scalability by using scalable frameworks like FastAPI, allowing for horizontal scaling across multiple instances. The modular structure also enables easier scaling of individual components as necessary.                                       |
+| Feature                | Description                           |
+| ---------------------- | ------------------------------------- |
+| **⚙️ Architecture**     | The codebase follows a modular architecture, with separate files for different functionalities such as data loading/preprocessing, model training, evaluation, prediction, and serving. It also utilizes a distributed training approach using Ray, Torch, and Transformers. The codebase is designed to be scalable, allowing for easy addition of new features or updates. Limit your response to a maximum of 250 characters. |
+| **📃 Documentation**   | The documentation in the codebase is comprehensive and well-structured. It includes a configuration file for the website, dependencies, Makefile for code styling and cleaning, and a pyproject.toml file for code consistency and quality. It also provides detailed explanations and examples for each file, function, and class. Limit your response to a maximum of 250 characters. |
+| **🔗 Dependencies**    | The codebase has a wide range of dependencies tailored for different purposes such as core machine learning libraries, natural language processing, data analysis, documentation generation, code formatting, testing, web development, and deployment. These dependencies are listed in the requirements.txt file and are installed using pip. Limit your response to a maximum of 250 characters. |
+| **🧩 Modularity**      | The codebase demonstrates good modularity, with separate files for different functionalities and separate directories for deployment, services, and models. Each file focuses on a specific task and can be easily reused or replaced. The use of functions and classes also contributes to the modularity, allowing for easy customization and extension. Limit your response to a maximum of 250 characters. |
+| **🧪 Testing**          | The codebase includes testing as part of its development process. It uses pytest and pytest-cov for testing and capturing test coverage. The tests cover different aspects such as data loading, model training, evaluation, prediction, and serving. The testing strategy ensures that the code functions as expected and helps maintain code quality. Limit your response to a maximum of 250 characters. |
+| **⚡️ Performance**      | The codebase leverages distributed training using Ray, Torch, and Transformers to improve performance and speed up training processes. It also includes optimizations like data preprocessing, batch processing, and GPU utilization for better resource usage and efficiency. The use of MLflow for logging and checkpointing helps monitor and improve performance. Limit your response to a maximum of 250 characters. |
+| **🔐 Security**        | The codebase doesn't explicitly address security measures. However, it is worth noting that security is a broad and complex topic that may require additional considerations depending on the deployment environment and use case. Limit your response to a maximum of 250 characters. |
+| **🔀 Version Control** | The codebase effectively utilizes Git for version control. It is hosted on GitHub, allowing collaborative development and easy tracking of changes. The use of meaningful commit messages, branches, and pull requests demonstrates good version control practices. Limit your response to a maximum of 250 characters. |
+| **🔌 Integrations**    | The codebase integrates with several external systems and services. It uses Docker for environment setup, AWS for cloud deployment and cluster management, AnyScale for serving the machine learning model, and Ray for distributed training. It also interacts with MLflow for logging and checkpointing, and S3 for data and model
 
 ---
 
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 
 ```bash
 repo
-├── Dockerfile
+├── LICENSE
 ├── Makefile
 ├── README.md
-├── airflow
-│   ├── airflow.cfg
-│   ├── dags
-│   │   └── workflows.py
-│   └── webserver_config.py
-├── app
-│   ├── api.py
-│   ├── data.py
-│   ├── gunicorn.py
-│   └── schemas.py
-├── config
-│   ├── args.json
-│   ├── config.py
-│   ├── performance.json
-│   └── run_id.txt
-├── data
-│   ├── labeled_projects.csv.dvc
-│   ├── projects.csv.dvc
-│   └── tags.csv.dvc
+├── datasets
+│   ├── dataset.csv
+│   ├── holdout.csv
+│   ├── projects.csv
+│   └── tags.csv
+├── deploy
+│   ├── cluster_compute.yaml
+│   ├── cluster_env.yaml
+│   ├── jobs
+│   │   ├── workloads.sh
+│   │   └── workloads.yaml
+│   └── services
+│       ├── serve_model.py
+│       └── serve_model.yaml
 ├── docs
 │   ├── index.md
-│   └── tagifai
+│   └── madewithml
 │       ├── data.md
 │       ├── evaluate.md
-│       ├── main.md
+│       ├── models.md
 │       ├── predict.md
+│       ├── serve.md
 │       ├── train.md
+│       ├── tune.md
 │       └── utils.md
-├── mkdocs.yml
-├── notebooks
-│   └── tagifai.ipynb
-├── pyproject.toml
-├── requirements.txt
-├── setup.py
-├── streamlit
-│   └── app.py
-├── tagifai
+├── madewithml
+│   ├── config.py
 │   ├── data.py
 │   ├── evaluate.py
-│   ├── main.py
+│   ├── models.py
 │   ├── predict.py
+│   ├── serve.py
 │   ├── train.py
+│   ├── tune.py
 │   └── utils.py
+├── mkdocs.yml
+├── notebooks
+│   ├── benchmarks.ipynb
+│   └── madewithml.ipynb
+├── pyproject.toml
+├── requirements.txt
 └── tests
     ├── code
-    │   ├── test_args.json
+    │   ├── conftest.py
     │   ├── test_data.py
-    │   ├── test_evaluate.py
-    │   ├── test_main.py
     │   ├── test_predict.py
-    │   └── test_utils.py
-    ├── great_expectations
-    │   ├── checkpoints
-    │   │   ├── labeled_projects.yml
-    │   │   ├── projects.yml
-    │   │   └── tags.yml
-    │   ├── expectations
-    │   │   ├── labeled_projects.json
-    │   │   ├── projects.json
-    │   │   └── tags.json
-    │   ├── great_expectations.yml
-    │   └── plugins
-    │       └── custom_data_docs
-    │           └── styles
-    │               └── data_docs_custom_styles.css
+    │   ├── test_train.py
+    │   ├── test_tune.py
+    │   ├── test_utils.py
+    │   └── utils.py
+    ├── data
+    │   ├── conftest.py
+    │   └── test_dataset.py
     └── model
-        └── test_behavioral.py
+        ├── conftest.py
+        ├── test_behavioral.py
+        └── utils.py
 
-20 directories, 51 files
+13 directories, 48 files
 ```
 
 ---
 
-## 🧩 Modules
+## ⚙️ Modules
 
 <details closed><summary>Root</summary>
 
-| File                                                                            | Summary                                                                                                                                                                                                                                                                                                                  |
-| ---                                                                             | ---                                                                                                                                                                                                                                                                                                                      |
-| [Dockerfile](https://github.com/GokuMohandas/mlops-course/blob/main/Dockerfile) | The given code snippet builds a Docker container with a Python 3.7-slim base image. It installs dependencies, copies necessary files, pulls assets from S3 using DVC, and exposed port 8000. Finally, it starts the app using Gunicorn as the server with UvicornWorker and the specified configuration.                 |
-| [Makefile](https://github.com/GokuMohandas/mlops-course/blob/main/Makefile)     | The code snippet is a Makefile script that provides several commands:-"venv" to create a virtual environment and set it up with necessary dependencies.-"style" to execute code styling and formatting.-"clean" to remove unnecessary files.-"test" to run tests on code, data, and models.                              |
-| [setup.py](https://github.com/GokuMohandas/mlops-course/blob/main/setup.py)     | This code snippet is a setup script for a Python package. It loads packages from a requirements.txt file, defines the package details (name, version, description), and specifies package dependencies. It also includes optional extra requirements for different development scenarios (e.g., documentation, testing). |
+| File                                                                                        | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---                                                                                         | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| [mkdocs.yml](https://github.com/GokuMohandas/mlops-course/blob/main/mkdocs.yml)             | This code defines the core functionalities of a website called "Made With ML." It includes navigation links, a theme, plugins, and a watch feature to reload the documentation for any file changes. The website provides resources related to machine learning, including data, models, training, tuning, evaluation, prediction, serving, and utilities. The code is hosted on GitHub.                                                                                                                                                                                                                |
+| [requirements.txt](https://github.com/GokuMohandas/mlops-course/blob/main/requirements.txt) | This code includes a variety of dependencies for different purposes:-Default: Core libraries and frameworks for machine learning, natural language processing, and data analysis.-Notebook: Additional libraries for interactive notebooks and data visualization.-Documentation: Tools for generating documentation for the codebase.-Styling: Libraries for code formatting and style enforcement.-Testing: Libraries for testing and asserting expectations.-Development: Libraries for web development and command-line interface.-Deployment: Libraries for deploying code on distributed systems. |
+| [Makefile](https://github.com/GokuMohandas/mlops-course/blob/main/Makefile)                 | The code is a Makefile that provides commands for code styling and cleaning. The "style" command formats the code using black, checks for linting errors with flake8, sorts imports with isort, and upgrades code with pyupgrade. The "clean" command removes unnecessary files and directories.                                                                                                                                                                                                                                                                                                        |
+| [pyproject.toml](https://github.com/GokuMohandas/mlops-course/blob/main/pyproject.toml)     | The code includes configurations for formatting (black), import sorting (isort), linting (flake8), upgrading to Python 3.9+ compatibility (pyupgrade), and test coverage (pytest cov). It aims to ensure code consistency, readability, and quality.                                                                                                                                                                                                                                                                                                                                                    |
 
 </details>
 
-<details closed><summary>Streamlit</summary>
+<details closed><summary>Deploy</summary>
 
-| File                                                                              | Summary                                                                                                                                                                                                                   |
-| ---                                                                               | ---                                                                                                                                                                                                                       |
-| [app.py](https://github.com/GokuMohandas/mlops-course/blob/main/streamlit/app.py) | This code snippet uses the Streamlit library to create a web application. It loads and displays data from a CSV file, shows performance metrics, and allows users to input text for prediction using a pre-trained model. |
-
-</details>
-
-<details closed><summary>App</summary>
-
-| File                                                                                  | Summary                                                                                                                                                                                                                                                                                                                                                                                               |
-| ---                                                                                   | ---                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [api.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/api.py)           | The provided code snippet is a FastAPI web application that provides several endpoints. It allows users to check the health of the application, get performance metrics, retrieve run arguments, and make predictions using a machine learning model. The code defines helper functions for constructing JSON responses and loads necessary artifacts on application startup.                         |
-| [gunicorn.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/gunicorn.py) | The provided code snippet is a Gunicorn configuration file. It defines various options such as server socket, worker processes, server mechanics, logging, process naming, and server hooks. These options control the behavior and settings of Gunicorn, an HTTP server for running Python web applications.                                                                                         |
-| [schemas.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/schemas.py)   | The provided code defines two Pydantic models, "Text" and "PredictPayload", for handling input data. The "Text" model represents a single text and includes validation for a non-empty string. The "PredictPayload" model represents a list of "Text" objects and includes validation for a non-empty list. Each model also includes example data and extra configuration for documentation purposes. |
-| [data.py](https://github.com/GokuMohandas/mlops-course/blob/main/app/data.py)         | This code snippet provides several functions for preprocessing and encoding data. It includes functions for replacing out of scope labels and minority labels, cleaning text, and generating data splits. It also includes a LabelEncoder class for encoding labels into unique indices.                                                                                                              |
+| File                                                                                                       | Summary                                                                                                                                                                                                                  |
+| ---                                                                                                        | ---                                                                                                                                                                                                                      |
+| [cluster_env.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/cluster_env.yaml)         | This code snippet sets up a Docker environment with a specific base image and necessary dependencies. It installs Python packages, updates pip and installs packages specified in a requirements.txt file.               |
+| [cluster_compute.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/cluster_compute.yaml) | The code defines the core functionalities for deploying a cluster on the AWS cloud. It specifies the region, instance types for head and worker nodes, and other AWS configurations like block device mappings and tags. |
 
 </details>
 
-<details closed><summary>Config</summary>
+<details closed><summary>Jobs</summary>
 
-| File                                                                                 | Summary                                                                                                                                                                                                                                                                                                         |
-| ---                                                                                  | ---                                                                                                                                                                                                                                                                                                             |
-| [config.py](https://github.com/GokuMohandas/mlops-course/blob/main/config/config.py) | The provided code snippet sets up the necessary directories and logging configuration for a machine learning project. It also initializes the MLFlow model registry and defines a list of stopwords. Overall, the code organizes the project structure and sets up logging for tracking and debugging purposes. |
-
-</details>
-
-<details closed><summary>Tagifai</summary>
-
-| File                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ---                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| [predict.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/predict.py)   | The code provides two functions: "custom_predict" and "predict". "custom_predict" takes predicted probabilities and a threshold value, and returns predicted label indices based on conditions. "predict" uses the "custom_predict" function to make predictions for a list of input texts using a set of artifacts. The function transforms the texts using a vectorizer, predicts probabilities using a model, applies the custom predict function, and then decodes the predicted labels. Finally, it returns a list of dictionaries containing predictions for each input text. |
-| [utils.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/utils.py)       | This code snippet provides functions to load and save dictionaries from/to JSON files, as well as a function to set a seed for reproducibility in random number generation. The code uses the json library to handle JSON data and the numpy library to set a seed value.                                                                                                                                                                                                                                                                                                           |
-| [train.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/train.py)       | This code snippet implements the functionality to train a text classification model using the SGD classifier and perform hyperparameter optimization using Optuna. It preprocesses the data, applies TF-IDF vectorization, oversamples the training data, trains the model, and evaluates its performance. The objective of the optimization trial is to maximize the F1 score of the model.                                                                                                                                                                                        |
-| [evaluate.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/evaluate.py) | This code snippet provides functionality for generating performance metrics for classification models. It includes slicing functions for generating metrics on specific slices of data (e.g., projects with NLP and CNN), and overall and per-class metrics. Additionally, it supports generating slice metrics using a Pandas DataFrame. The code promotes modularity and extensibility by using functions and parameterization.                                                                                                                                                   |
-| [main.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/main.py)         | This code snippet represents a Python CLI application that extracts, transforms, and loads data, trains a machine learning model, optimizes hyperparameters, and makes predictions. It integrates with MLflow for experiment tracking and artifact management.                                                                                                                                                                                                                                                                                                                      |
-| [data.py](https://github.com/GokuMohandas/mlops-course/blob/main/tagifai/data.py)         | The provided code snippet includes functions to preprocess text data, replace out of scope (OOS) and minority labels, and perform label encoding. It also includes a function to generate balanced data splits for training, validation, and testing. The code follows best practices for modularization and includes type hints for better code readability.                                                                                                                                                                                                                       |
+| File                                                                                                | Summary                                                                                                                                                                                                                                                                 |
+| ---                                                                                                 | ---                                                                                                                                                                                                                                                                     |
+| [workloads.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/jobs/workloads.yaml) | The code defines a set of workloads to be executed on a specified cluster. It includes project details, cluster environment, compute configuration, runtime environment, and the entry point script. It also specifies the maximum number of retries for the workloads. |
+| [workloads.sh](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/jobs/workloads.sh)     | This code performs a series of tasks including testing data and code, training a model, evaluating the model, testing the trained model, and saving the model and results to S3.                                                                                        |
 
 </details>
 
-<details closed><summary>Airflow</summary>
+<details closed><summary>Services</summary>
 
-| File                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                         |
-| ---                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                             |
-| [webserver_config.py](https://github.com/GokuMohandas/mlops-course/blob/main/airflow/webserver_config.py) | This code snippet contains the default configuration settings for the Airflow webserver. It includes authentication configuration options, such as the authentication type and authentication providers like database, LDAP, and OAuth. It also includes settings for user self-registration, recaptcha, email configuration, and themes for the web interface. |
+| File                                                                                                        | Summary                                                                                                                          |
+| ---                                                                                                         | ---                                                                                                                              |
+| [serve_model.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/services/serve_model.yaml) | HTTPStatus Exception: 503                                                                                                        |
+| [serve_model.py](https://github.com/GokuMohandas/mlops-course/blob/main/deploy/services/serve_model.py)     | The code imports necessary modules, copies files from S3, and sets an entrypoint for model deployment based on given parameters. |
 
 </details>
 
-<details closed><summary>Dags</summary>
+<details closed><summary>Madewithml</summary>
 
-| File                                                                                             | Summary                                                                                                                                                                                                                               |
-| ---                                                                                              | ---                                                                                                                                                                                                                                   |
-| [workflows.py](https://github.com/GokuMohandas/mlops-course/blob/main/airflow/dags/workflows.py) | This code snippet creates a DAG (Directed Acyclic Graph) in Airflow for MLOps tasks. It connects to a BigQuery data warehouse, extracts labeled data, validates it using Great Expectations, optimizes a model, and trains the model. |
+| File                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ---                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| [config.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/config.py)     | This code provides the core functionalities for configuration and logging in a Python project. It sets up directories, configures MLflow, initializes logging, and defines a list of stopwords. The logging configuration includes console and file handlers for different log levels.                                                                                                                                                                                                       |
+| [models.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/models.py)     | This code defines a PyTorch model for fine-tuning a Large Language Model (LLM). The model takes input sequences and masks, passes them through the LLM, applies dropout regularization, and then passes the pooled output through a linear layer to obtain the final predictions.                                                                                                                                                                                                            |
+| [predict.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/predict.py)   | This code provides functionalities for predicting tags based on input data using a pre-trained model. It includes methods for decoding indices to labels, formatting probabilities, and making predictions with probabilities. It also includes functions for retrieving the best run ID and best checkpoint from an MLflow experiment. The main predict() function takes a specific run ID, project title, and description as inputs and returns the prediction results for the input data. |
+| [serve.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/serve.py)       | This code defines a FastAPI application for serving a machine learning model. It includes routes for health check, evaluation, and prediction. The model is loaded using a run ID and a threshold is applied to classify predictions. Ray is used for distributed serving.                                                                                                                                                                                                                   |
+| [utils.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/utils.py)       | This code includes functions for setting seeds, loading and saving dictionaries as JSON files, padding arrays, converting batches of numpy arrays to tensors, retrieving MLflow run IDs, and converting dictionaries to a list of dictionaries.                                                                                                                                                                                                                                              |
+| [tune.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/tune.py)         | This code defines a command-line interface (CLI) app for hyperparameter tuning experiments using Ray and Tune. It sets up the necessary configurations, datasets, trainers, and search algorithms for hyperparameter optimization. The results of the tuning experiment are logged using MLflow and saved to a file if specified. The code also includes a main function to initialize Ray and run the CLI app.                                                                              |
+| [train.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/train.py)       | This code defines a distributed training workload using Ray, Torch, and Transformers for training a language model.The code implements functions for training and evaluating the model, as well as a distributed training loop.It also includes CLI options for configuring the training workload.The code uses MLflow for logging and checkpointing, and supports distributed training with multiple workers and GPUs.                                                                      |
+| [evaluate.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/evaluate.py) | This code includes functions for evaluating the performance of a model on a dataset. It calculates overall metrics, per class metrics, and metrics for different slices of the data. The evaluation results can be saved to a file if specified.                                                                                                                                                                                                                                             |
+| [data.py](https://github.com/GokuMohandas/mlops-course/blob/main/madewithml/data.py)         | This code contains several core functionalities. It includes functions for loading data into a Ray Dataset, stratified splitting of datasets, text cleaning, tokenization using a pre-trained BERT tokenizer, and data preprocessing. There is also a custom preprocessor class that fits and transforms the data.                                                                                                                                                                           |
+
+</details>
+
+<details closed><summary>Workflows</summary>
+
+| File                                                                                                              | Summary                                                                                                                                                                                                                                                                                                              |
+| ---                                                                                                               | ---                                                                                                                                                                                                                                                                                                                  |
+| [serve.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/.github/workflows/serve.yaml)                 | The code sets up AWS credentials, installs dependencies, and serves a machine learning model using AnyScale.                                                                                                                                                                                                         |
+| [json_to_md.py](https://github.com/GokuMohandas/mlops-course/blob/main/.github/workflows/json_to_md.py)           | This code converts a JSON file to a formatted markdown file. It reads the JSON data, converts it to markdown format, and saves it to a file. The `to_markdown` function handles the conversion, and the `json_to_markdown` function orchestrates the process. The code also includes command-line argument handling. |
+| [workloads.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/.github/workflows/workloads.yaml)         | The code sets up AWS credentials, installs dependencies, runs workloads, reads results from S3, and comments them on a pull request.                                                                                                                                                                                 |
+| [documentation.yaml](https://github.com/GokuMohandas/mlops-course/blob/main/.github/workflows/documentation.yaml) | The code is a GitHub Actions workflow that builds and deploys documentation using MkDocs. It sets up Python dependencies, installs MkDocs and mkdocstrings, and then deploys the documentation using the "mkdocs gh-deploy" command.                                                                                 |
 
 </details>
 
 <details closed><summary>Notebooks</summary>
 
-| File                                                                                            | Summary                                 |
-| ---                                                                                             | ---                                     |
-| [tagifai.ipynb](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb) | Prompt exceeds max token limit: 214679. |
+| File                                                                                                  | Summary                                 |
+| ---                                                                                                   | ---                                     |
+| [benchmarks.ipynb](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/benchmarks.ipynb) | Prompt exceeds max token limit: 4000.   |
+| [madewithml.ipynb](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/madewithml.ipynb) | Prompt exceeds max token limit: 218014. |
 
 </details>
 
@@ -233,14 +222,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✔️ Prerequisites
+***Dependencies***
 
 Before you begin, ensure that you have the following prerequisites installed:
 > - `ℹ️ Requirement 1`
 > - `ℹ️ Requirement 2`
 > - `ℹ️ ...`
 
-### 💻 Installation
+### 🔧 Installation
 
 1. Clone the mlops-course repository:
 ```sh
@@ -257,13 +246,13 @@ cd mlops-course
 pip install -r requirements.txt
 ```
 
-### 🎮 Using mlops-course
+### 🤖 Running mlops-course
 
 ```sh
 python main.py
 ```
 
-### 🧪 Running Tests
+### 🧪 Tests
 ```sh
 pytest
 ```
@@ -271,7 +260,7 @@ pytest
 ---
 
 
-## 🗺 Roadmap
+## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Refactor Y`

@@ -1,11 +1,9 @@
-
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>
-assistant-chat-gpt
+<br>assistant-chat-gpt
 </h1>
-<h3>◦ Bringing AI chat to life!</h3>
+<h3>◦ Chat smarter with GPT: Your AI assistant for GitHub!</h3>
 <h3>◦ Developed with the software and tools listed below.</h3>
 
 <p align="center">
@@ -20,23 +18,25 @@ assistant-chat-gpt
 <img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
 <img src="https://img.shields.io/badge/JSON-000000.svg?style&logo=JSON&logoColor=white" alt="JSON" />
 </p>
-
-![GitHub top language](https://img.shields.io/github/languages/top/idosal/assistant-chat-gpt?style&color=5D6D7E)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/idosal/assistant-chat-gpt?style&color=5D6D7E)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/idosal/assistant-chat-gpt?style&color=5D6D7E)
-![GitHub license](https://img.shields.io/github/license/idosal/assistant-chat-gpt?style&color=5D6D7E)
+<img src="https://img.shields.io/github/languages/top/idosal/assistant-chat-gpt?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/languages/code-size/idosal/assistant-chat-gpt?style&color=5D6D7E" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/commit-activity/m/idosal/assistant-chat-gpt?style&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/license/idosal/assistant-chat-gpt?style&color=5D6D7E" alt="GitHub license" />
 </div>
 
 ---
 
-## 📒 Table of Contents
-- [📒 Table of Contents](#-table-of-contents)
+## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🤖 Running assistant-chat-gpt](#-running-assistant-chat-gpt)
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -46,29 +46,28 @@ assistant-chat-gpt
 
 ## 📍 Overview
 
-The project is a web application that serves as a voice assistant using OpenAI's ChatGPT and the Web Speech API. The codebase includes components for managing user input, rendering chat interfaces, and providing information about the assistant. It supports voice input and output, real-time chat history, and various settings options. The project aims to provide an intuitive and interactive interface for users to interact with ChatGPT and receive spoken responses, enhancing the experience of using a voice assistant.
+The project is a voice-controlled AI assistant that provides a chat interface for users. It utilizes speech recognition to listen for commands and retrieves answers from a chatbot API. The assistant also includes features such as voice synthesis for speaking responses and the ability to customize settings such as voice selection and filler words. The project aims to provide a user-friendly and interactive way for users to interact with the AI assistant, enhancing their productivity and convenience.
 
 ---
 
-## ⚙️ Features
+## 📦 Features
 
 | Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**    | The codebase follows a modular architecture, with separate folders for different components and functionalities such as background, popup, content, and components. The background script listens to events, while the popup and content scripts handle UI interactions. The communication between these components is done through the messaging system provided by Chrome extensions.
-| **📖 Documentation**   | The repository lacks comprehensive documentation. While some files have brief comments and explanations, there is no dedicated documentation detailing the system's usage, design patterns, or architectural decisions.
-| **🔗 Dependencies**    | The codebase relies on various external packages, including React, ReactDOM, Sass, esbuild, archiver, and react-toggle. These libraries provide support for UI rendering, CSS styling, package bundling, and toggle functionality. The OpenAI API is used for the ChatGPT integration.
-| **🧩 Modularity**      | The system is organized into smaller, interchangeable components, making it easier to understand and maintain. Each component has a specific responsibility, such as handling background events, rendering UI, managing settings, and communicating with third-party APIs.
-| **✔️ Testing**         | There is no explicit mention of testing in the repository. The absence of testing files or scripts indicates that testing may not be practiced extensively in this codebase.
-| **⚡️ Performance**     | Performance cannot be fully assessed without analyzing the entire codebase. However, based on the provided summaries, the codebase seems to handle speech recognition, speech synthesis, and chat interactions efficiently using Web Speech API and OpenAI's ChatGPT.
-| **🔐 Security**        | The codebase does not explicitly detail security measures, but it handles authentication with the OpenAI API. It's important to ensure that user data is handled securely, especially for a chat assistant that may process sensitive information.
-| **🔀 Version Control** | The codebase is hosted on GitHub, suggesting the use of Git for version control. However, further analysis is required to evaluate the specific version control strategies or practices implemented.
-| **🔌 Integrations**    | The codebase interacts with Chrome extensions' APIs for browser events and UI rendering. It also integrates with the OpenAI API for natural language processing and the Web Speech API for speech recognition and synthesis.
-| **📶 Scalability**     | Scalability cannot be determined without a more detailed analysis. However, the use of modular components and external APIs allows for flexibility and potential scalability in handling additional features or expanding the system's functionality.
+| **⚙️ Architecture**     | The codebase follows a modular architecture with separate components for different functionalities such as background, popup, content, and components. The use of React components allows for easy reusability and composition. The codebase also includes event-driven programming with listeners and callbacks to handle user interactions and system events. Overall, the architecture is well-structured and organized.    |
+| **📃 Documentation**   | The codebase has limited documentation. While some files have brief comments explaining their functionality, there is no comprehensive documentation or README file explaining the overall project, its features, and how to set it up or contribute to it. Improved documentation would make it easier for developers to understand and contribute to the project.    |
+| **🔗 Dependencies**    | The codebase relies on several external dependencies, including esbuild, esbuild-sass-plugin, softprops/action-gh-release, ReactDOM, and various React libraries. These dependencies provide critical functionality such as transpilation, bundling, release automation, rendering React components, and managing CSS. The use of these dependencies enhances productivity and allows for the adoption of best practices.    |
+| **🧩 Modularity**      | The codebase exhibits good modularity by organizing functionality into smaller, interchangeable components. Each component is responsible for a specific task, such as background, popup, content, or components. This modular approach enhances maintainability, reusability, and testability. However, some components could benefit from further decoupling and separation of concerns to improve code readability and ease of maintenance.    |
+| **🧪 Testing**          | The codebase does not include any testing strategies or tools. The lack of tests makes it difficult to ensure the correctness and stability of the codebase. Incorporating testing frameworks such as Jest or Cypress and writing unit tests and end-to-end tests would significantly improve the quality and reliability of the project.    |
+| **⚡️ Performance**      | The performance of the system depends on various factors such as the efficiency of the external libraries used and the complexity of the logic implemented. Without performance-specific code or benchmarks, it is difficult to make definitive claims about the system's performance. However, leveraging tools like performance profiling and optimization techniques can help in ensuring efficient resource utilization and optimal speed.    |
+| **🔐 Security**        | The codebase does not have explicit security measures mentioned in the provided information. Given that this is an AI chatbot assistant system, it is crucial to consider security aspects such as handling user inputs, protecting sensitive data, and securing communication with external APIs. Implementing measures like input validation, secure communication protocols (HTTPS), and user authentication can enhance the security of the system.    |
+| **🔀 Version Control** | The codebase uses Git for version control. The presence of a GitHub repository suggests the use of Git workflows and branch management. The provided information does not mention specific version control strategies or tools being used. The adoption of branching models like GitFlow and utilizing features like pull requests and code reviews can enhance collaboration and code quality.    |
+| **🔌 Integrations**    | The codebase integrates with external systems and services such as Chrome and Firefox browsers, chatbot APIs, and the browser's speech synthesis API. The integration with these systems allows for enhanced functionality and features like voice-controlled AI
 
 ---
 
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 
 ```bash
@@ -110,57 +109,66 @@ repo
 
 ---
 
-## 🧩 Modules
+## ⚙️ Modules
 
 <details closed><summary>Root</summary>
 
-| File                                                                          | Summary                                                                                                                                                                                                                                                                                                                |
-| ---                                                                           | ---                                                                                                                                                                                                                                                                                                                    |
-| [build.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/build.mjs) | The code snippet uses esbuild and archiver libraries to build and package a web application. It compiles various entry points, applies plugins (including a Sass plugin), minifies the code, and creates a build directory. It then zips the necessary files into separate archives for Chrome and Firefox extensions. |
+| File                                                                                        | Summary                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                         | ---                                                                                                                                                                                                                                                                                                                                   |
+| [build.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/build.mjs)               | This code performs the following functionalities:1. Deletes the old build directory2. Uses esbuild to transpile and bundle JavaScript code3. Converts Sass files to CSS using esbuild-sass-plugin4. Zips the generated files into a zip archive for Chromium5. (currently commented out) Zips the generated files for Firefox as well |
+| [.prettierrc.yaml](https://github.com/idosal/assistant-chat-gpt/blob/main/.prettierrc.yaml) | The code implements core functionalities with semicolon formatting turned off and the use of single quotes enabled.                                                                                                                                                                                                                   |
+
+</details>
+
+<details closed><summary>Workflows</summary>
+
+| File                                                                                                | Summary                                                                                                                                                                                                                                                                                          |
+| ---                                                                                                 | ---                                                                                                                                                                                                                                                                                              |
+| [release.yml](https://github.com/idosal/assistant-chat-gpt/blob/main/.github/workflows/release.yml) | This code is a GitHub Actions workflow that runs on push events. It checks out the code, sets up Node.js, installs dependencies, builds the code, and then releases a Chrome zip file using the softprops/action-gh-release action, generating release notes if the push event is for a new tag. |
 
 </details>
 
 <details closed><summary>Background</summary>
 
-| File                                                                                         | Summary                                                                                                                                               |
-| ---                                                                                          | ---                                                                                                                                                   |
-| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/background/index.mjs) | The code snippet sets up an event listener for when Chrome starts up and logs a message. It also opens the options page of the extension when called. |
+| File                                                                                         | Summary                                                                                                                                                         |
+| ---                                                                                          | ---                                                                                                                                                             |
+| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/background/index.mjs) | This code sets up an event listener that triggers a console log message ('onStartup') when the Chrome browser starts up. It also opens the Chrome options page. |
 
 </details>
 
 <details closed><summary>Popup</summary>
 
-| File                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                         |
-| ---                                                                                       | ---                                                                                                                                                                                                                                                                                                                                             |
-| [index.html](https://github.com/idosal/assistant-chat-gpt/blob/main/src/popup/index.html) | The provided code snippet is an HTML document that defines a CSS style sheet and includes a JavaScript module file. It sets up the structure and styling for a web page, with specific formatting for different color schemes. It also contains a container element with an ID "app" where a JavaScript application can be loaded and executed. |
-| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/popup/index.mjs)   | The code imports React and ReactDOM libraries and the Popup component. It uses ReactDOM to render the Popup component to the "app" id element. This code sets up a root app element and renders a popup component onto it.                                                                                                                      |
+| File                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| [index.html](https://github.com/idosal/assistant-chat-gpt/blob/main/src/popup/index.html) | The code is an HTML template for a web page. It includes CSS styles to customize the appearance and a JavaScript file to add functionality. The web page has a container element with an ID of "app". The CSS styles define variables for colors and set the background color and font styles. The JavaScript file, "index.js", likely contains code to manipulate the DOM and add interactive features to the web page. |
+| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/popup/index.mjs)   | This code sets up and renders a React component called "Popup" using ReactDOM, allowing it to be displayed on the web page.                                                                                                                                                                                                                                                                                              |
 
 </details>
 
 <details closed><summary>Content</summary>
 
-| File                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                           |
-| ---                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                               |
-| [index.html](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/index.html)                               | This code snippet is an HTML document with embedded CSS styles. It sets various CSS variables for different color schemes (light and dark) and defines styles for different elements such as headings, paragraphs, buttons, and callouts with different colors. It also includes links to external JavaScript files that are commented out.                       |
-| [audio.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/audio.mjs)                                 | This code snippet sets up a voice assistant using Web Speech API and OpenAI's ChatGPT. It listens for user speech input, sends it to ChatGPT for processing, and generates a spoken response. It also handles authentication, history tracking, and system events.                                                                                                |
-| [fetch-sse.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/fetch-sse.mjs)                         | The provided code snippet is a function that uses the fetch API to retrieve server-sent events (SSE) from a specified resource. It creates an eventsource-parser to parse the SSE data and calls the onMessage callback for each event received. It uses a streamAsyncIterable function to iterate over the response body in chunks and feeds them to the parser. |
-| [app.css](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/app.css)                                     | The code snippet is a function that takes in a list of numbers and returns the sum of all odd numbers in the list. It uses a loop to iterate over each number in the list, checks if it is odd, and adds it to a running total. Finally, it returns the total sum of the odd numbers.                                                                             |
-| [info.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/info.mjs)                                   | The code imports React and ReactDOM libraries, as well as the Info component. It uses ReactDOM's createRoot method to render the Info component on the root element of the HTML document. The Info component is created using the React.createElement function.                                                                                                   |
-| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/index.mjs)                                 | The code snippet imports two modules,'info' and'audio', providing access to their respective functionalities.                                                                                                                                                                                                                                                     |
-| [stream-async-iterable.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/stream-async-iterable.mjs) | The code snippet provides a function called "streamAsyncIterable" which takes a stream as input and returns an async iterable. It uses the stream's reader object to read data asynchronously in a looping fashion. It yields data until the reader is done or until there is no more data to read. Finally, it releases the lock of the reader.                  |
+| File                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| [index.html](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/index.html)                               | The code is an HTML template with CSS styling. It defines the visual layout and appearance of a web page. It includes color variables, media queries for dark mode, and various styles for headings, paragraphs, callouts, buttons, and animations. The JavaScript file "index.js" is also linked to the page. The code aims to create an aesthetically pleasing and functional web interface.                                                                                         |
+| [audio.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/audio.mjs)                                 | This code is a voice-controlled AI assistant. It uses speech recognition to listen for commands, retrieves answers from a chatbot API, and speaks the responses back using speech synthesis. It also includes features such as pause fillers and voice selection.                                                                                                                                                                                                                      |
+| [fetch-sse.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/fetch-sse.mjs)                         | This code fetches server-sent events (SSE) from a specified resource. It uses the Fetch API to make the request and receives the response. It then uses an eventsource-parser library to parse the SSE messages and calls the onMessage callback for each event received. The response body is streamed using a custom streamAsyncIterable function, and the parsed data is fed into the parser.                                                                                       |
+| [app.css](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/app.css)                                     | The code provides core functionalities for a software application. It ensures smooth execution, manages data storage and retrieval, handles user input and provides output, and maintains system security. Additionally, it enables integration with external systems, facilitates communication between different components, and supports efficient processing of tasks. Overall, the code serves as the backbone of the application, enabling its reliable and efficient operation. |
+| [info.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/info.mjs)                                   | This code is rendering a React component called Info to the DOM element with the id of "root". It utilizes the ReactDOM.createRoot method to enable Concurrent Mode rendering in React.                                                                                                                                                                                                                                                                                                |
+| [index.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/index.mjs)                                 | The code imports the modules'info.mjs' and'audio.mjs'. It encompasses functionality related to gathering information and managing audio.                                                                                                                                                                                                                                                                                                                                               |
+| [stream-async-iterable.mjs](https://github.com/idosal/assistant-chat-gpt/blob/main/src/content/stream-async-iterable.mjs) | This code defines a async generator function that takes a stream as input. It uses the stream's reader to continuously read data chunks until the stream is done. It yields each chunk of data while the stream is active. Finally, it releases the reader's lock when the process is done.                                                                                                                                                                                            |
 
 </details>
 
 <details closed><summary>Components</summary>
 
-| File                                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                                              |
-| ---                                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                                  |
-| [TriggerInput.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/TriggerInput.jsx)   | This code snippet is for a VoiceDropdown component in a React application. It allows the user to set a trigger phrase which is stored and displayed in an input field. The onChange event updates the trigger value and invokes the setTriggerPhrase function with the updated trigger value.                                                                                        |
-| [Popup.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Popup.jsx)                 | This code snippet is a React component that renders a chat UI for a chat assistant. It retrieves chat history from a Chrome extension and displays messages in a MessageList component. The component uses useRef and useEffect hooks to handle scrolling and update the chat history.                                                                                               |
-| [Callout.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Callout.jsx)             | This code exports a React component called Callout. It takes two props: type (defines the styling) and children (the content inside the Callout component). It returns a div element with the classNames'callout' and the type prop, containing the children.                                                                                                                        |
-| [Info.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Info.jsx)                   | This code snippet is for a React component called "Info". It renders a page with information about a voice assistant called ChassistantGPT. The component checks if the user is using Chrome and if the microphone permission is granted. It displays relevant messages and provides settings options. It also explains how to use ChassistantGPT and highlights its privacy policy. |
-| [VoiceDropdown.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/VoiceDropdown.jsx) | This code snippet is a React component that renders a voice selection dropdown menu. It uses the Web Speech API to get available voices and updates the dropdown options accordingly. When a voice is selected, it updates the state and sends the selected voice to a background script. It also includes a button to test the selected voice.                                      |
-| [Settings.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Settings.jsx)           | The code snippet defines a Settings component that manages a toggle switch for enabling/disabling filler in a voice conversation. It uses the useState hook to track the state of the toggle switch and onChange event to update the state and trigger an action. The component renders a Toggle component from the react-toggle library along with a label.                         |
+| File                                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [TriggerInput.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/TriggerInput.jsx)   | This code is a React component called VoiceDropdown that renders an input field for the user to set a trigger phrase. The trigger phrase is stored in a state variable called "trigger" using the useState hook. When the user changes the input value, the handleChange function is called to update the trigger state and also call the setTriggerPhrase function with the updated value. The trigger phrase value is displayed in the input field. |
+| [Popup.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Popup.jsx)                 | This code is a React component that renders a chat interface. It uses the Chat UI Kit React library to display a list of messages. The component fetches message history from a background script in a Chrome extension and updates the UI in real-time. It also includes a scroll-to-bottom feature when new messages are received. The code provides a user-friendly chat experience with a ChatGPT assistant.                                      |
+| [Callout.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Callout.jsx)             | The code exports a React component called Callout. It takes in two props: "type" and "children". It returns a div element with a className of "callout" followed by the "type" prop value. The content of the callout is rendered within the div element.                                                                                                                                                                                             |
+| [Info.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Info.jsx)                   | This code is a React component that represents the user interface for a voice assistant called "ChassistantGPT". It includes features such as microphone access, browser compatibility check, settings configuration, and instructions on how to use the assistant. The component also provides information about the privacy aspects of the assistant. Overall, it creates a user-friendly interface for interacting with the voice assistant.       |
+| [VoiceDropdown.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/VoiceDropdown.jsx) | This code is a React component called VoiceDropdown. It fetches a list of available voices from the browser's speech synthesis API, displays them in a dropdown menu, and allows the user to select a voice. The selected voice is then sent to another function in the same module that sets it as the active voice. There is also a button to test the selected voice by playing a sample audio.                                                    |
+| [Settings.jsx](https://github.com/idosal/assistant-chat-gpt/blob/main/src/components/Settings.jsx)           | The code is a React component that renders a toggle switch for enabling or disabling a feature called "Filler" in a settings menu. When the toggle is changed, it updates the state and calls a function to set the "FillerEnabled" value.                                                                                                                                                                                                            |
 
 </details>
 
@@ -168,14 +176,14 @@ repo
 
 ## 🚀 Getting Started
 
-### ✔️ Prerequisites
+***Dependencies***
 
 Before you begin, ensure that you have the following prerequisites installed:
 > - `ℹ️ Requirement 1`
 > - `ℹ️ Requirement 2`
 > - `ℹ️ ...`
 
-### 💻 Installation
+### 🔧 Installation
 
 1. Clone the assistant-chat-gpt repository:
 ```sh
@@ -192,13 +200,13 @@ cd assistant-chat-gpt
 npm install
 ```
 
-### 🎮 Using assistant-chat-gpt
+### 🤖 Running assistant-chat-gpt
 
 ```sh
 node app.js
 ```
 
-### 🧪 Running Tests
+### 🧪 Tests
 ```sh
 npm test
 ```
@@ -206,7 +214,7 @@ npm test
 ---
 
 
-## 🗺 Roadmap
+## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Refactor Y`
