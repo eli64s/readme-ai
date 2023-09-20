@@ -70,7 +70,7 @@ This project is currently under development and has an opinionated configuration
     <tr>
         <td>
             <a href="https://youtu.be/pl-VcVfGbbk">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" />
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="cli-demo" />
             </a>
         </td>
     </tr>
@@ -91,7 +91,7 @@ This project is currently under development and has an opinionated configuration
     <tr>
         <td>
         <a href="https://youtu.be/TrAPBpQ30Fw">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" />
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo" />
         </a>
         </td>
     </tr>
@@ -114,7 +114,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/modules.png" alt="docs" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/code-summaries.png" alt="code-summaries" />
         </td>
     </tr>
 </table>
@@ -133,7 +133,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/header.png" alt="docs" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/badges.png" alt="badges" />
         </td>
     </tr>
 </table>
@@ -150,7 +150,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/features.png" alt="features" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/feature-table.png" alt="feature-table" />
         </td>
     </tr>
 </table>
@@ -159,7 +159,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/tree.png" alt="tree" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/repository-tree.png" alt="repository-tree" />
         </td>
     </tr>
 </table>
@@ -177,7 +177,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/getting_started.png" alt="getting_started" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/usage-instructions.png" alt="usage-instructions" />
         </td>
     </tr>
 </table>
@@ -186,7 +186,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/closing.png" alt="contribute" />
+            <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/contributing-guide.png" alt="contributing-guide" />
         </td>
     </tr>
 </table>
