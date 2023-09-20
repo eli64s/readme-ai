@@ -143,4 +143,5 @@ files = [
     ".gitignore",
     ".whitesource",
     ".prettierrc",
+    ".pre-commit-config",
 ]

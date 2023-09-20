@@ -1,11 +1,11 @@
 # OpenAI API Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
-engine = "gpt-4"
+engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
 rate_limit = 5
-tokens = 699
-tokens_max = 3999
+tokens = 700
+tokens_max = 3900
 temperature = 0.9
 
 # Repository
@@ -36,16 +36,16 @@ Generate your response as a Markdown table with the following columns:
 
 | Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**     | Analyze the structural design of the system here. Limit your response to a maximum of 200 characters.    |
-| **📖 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 200 characters.    |
-| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200 characters.    |
-| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200 characters.    |
-| **✔️ Testing**          | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200 characters.    |
-| **⚡️ Performance**      | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200 characters.    |
-| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200 characters.    |
-| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200 characters.    |
-| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200 characters.    |
-| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200 characters.    |
+| **⚙️ Architecture**     | Analyze the structural design of the system here. Limit your response to a maximum of 250 characters.    |
+| **📃 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 250 characters.    |
+| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 250 characters.    |
+| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 250 characters.    |
+| **🧪 Testing**          | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 250 characters.    |
+| **⚡️ Performance**      | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 250 characters.    |
+| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 250 characters.    |
+| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 250 characters.    |
+| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 250 characters.    |
+| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 250 characters.    |
 
 Thank you for your time and effort!
 """
@@ -86,7 +86,7 @@ toc = """
 - [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
     - [🔧 Installation](#-installation)
-    - [🎮 Using {0}](#-using-{0})
+    - [🤖 Running {0}](#-running-{0})
     - [🧪 Tests](#-tests)
 - [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
@@ -126,7 +126,8 @@ Before you begin, ensure that you have the following prerequisites installed:
 ```sh\ncd {0}\n```
 \n3. Install the dependencies:
 ```sh\n{2}\n```
-\n### 🎮 Running {0}
+
+### 🤖 Running {0}
 \n```sh\n{3}\n```
 
 ### 🧪 Tests

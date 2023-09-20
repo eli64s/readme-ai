@@ -83,8 +83,7 @@ This project is currently under development and has an opinionated configuration
     <tr>
         <td>
             <ul>
-                <li>Use <i>readme-ai</i> directly in your browser on Streamlit.</li>
-                <li>Zero installation, zero code, zero hassle.</li>
+                <li>Use <i>readme-ai</i> directly in your browser with Streamlit! Zero installation, zero code!</li>
                 <li><a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
             </ul>
         </td>

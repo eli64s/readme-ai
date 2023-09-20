@@ -20,7 +20,12 @@ All notable changes to the *readme-ai* project will be documented in this file.
 ## [v0.1.0] - *2023-09-20*
 ### ✨ Features
 
--  Deploy *readme-ai* on Streamlit Community Cloud.
+-  Deploy *readme-ai* via Streamlit Community Cloud to provide a web-based interface for generating READMEs.
+   -  [Streamlit x README-AI](https://readmeai.streamlit.app/)
+
+### 🐛 Bug Fixes
+-  Update [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/ignore_files.toml) to stop ignoring the following file types:
+   - yaml, toml, txt, lock
 
 ---
 ## [v0.0.9] - *2023-09-19*
