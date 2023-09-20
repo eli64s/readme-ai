@@ -1,12 +1,12 @@
 # OpenAI API Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
-engine = "gpt-3.5-turbo"
+engine = "gpt-4"
 encoding = "cl100k_base"
 rate_limit = 5
-tokens = 669
-tokens_max = 3899
-temperature = 1.2
+tokens = 699
+tokens_max = 3999
+temperature = 0.9
 
 # Repository
 [git]
@@ -78,14 +78,17 @@ badges = """<p align="center">
 \n---
 """
 toc = """
-## 📒 Table of Contents
-- [📒 Table of Contents](#-table-of-contents)
+## 📖 Table of Contents
+- [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-- [🗺 Roadmap](#-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🎮 Using {0}](#-using-{0})
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -95,39 +98,43 @@ intro = """
 \n## 📍 Overview
 \n{}
 \n---
-\n## ⚙️ Features
+\n## 📦 Features
 \n{}
 \n---
 """
 tree = """
-\n## 📂 Project Structure\n
+\n## 📂 Repository Structure\n
 """
 modules = """
 \n---
-\n## 🧩 Modules
+\n## ⚙️ Modules
 """
 setup = """---
 \n## 🚀 Getting Started
-\n### ✔️ Prerequisites
-\nBefore you begin, ensure that you have the following prerequisites installed:
+
+***Dependencies***
+
+Before you begin, ensure that you have the following prerequisites installed:
 > - `ℹ️ Requirement 1`
 > - `ℹ️ Requirement 2`
 > - `ℹ️ ...`
-\n### 📦 Installation
+
+### 🔧 Installation
 \n1. Clone the {0} repository:
 ```sh\ngit clone {1}\n```
 \n2. Change to the project directory:
 ```sh\ncd {0}\n```
 \n3. Install the dependencies:
 ```sh\n{2}\n```
-\n### 🎮 Using {0}
+\n### 🎮 Running {0}
 \n```sh\n{3}\n```
-\n### 🧪 Running Tests
+
+### 🧪 Tests
 ```sh\n{4}\n```
 \n---
 """
 ending = """
-\n## 🗺 Roadmap
+\n## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Refactor Y`
