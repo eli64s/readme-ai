@@ -33,8 +33,8 @@
 
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [🤖 Demo](#-demo)
-- [✨ Features](#-features)
+- [🤖 Demos](#-demos)
+- [💫 Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [📋 Dependencies](#-dependencies)
     - [📂 Repository](#-repository)
@@ -67,21 +67,42 @@ This project is currently under development and has an opinionated configuration
 
 ---
 
-## 🤖 Demo
+## 🤖 Demos
 
-<a href="https://youtu.be/pl-VcVfGbbk">
-    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video">
-</a>
+<h3 align="center"><br>⚡️ Local Environment</h3>
+<table align="center">
+    <tr>
+        <td>
+            <a href="https://youtu.be/pl-VcVfGbbk">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" width="800"/>
+            </a>
+        </td>
+    </tr>
+</table>
 
-**🕹 Try it out!**
-
-Explore *readme-ai* directly in browser with Streamlit Community Cloud. No installation required!
-
-- [Try readme-ai on streamlit](https://readmeai.streamlit.app/)
+<h3 align="center"><br>☁ Streamlit Community Cloud</h3>
+<table align="center">
+    <tr>
+        <td>
+            <ul>
+                <li>Discover the power of <i>readme-ai</i> right in your browser, thanks to Streamlit.</li>
+                <li>Zero installation, zero code, zero hassle.</li>
+                <li><a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <a href="https://youtu.be/NoGhwCDWv1U">
+        <img src="./examples/imgs/streamlit_demo.png" alt="streamlit-demo-video" width="800" />
+        </a>
+        </td>
+    </tr>
+</table>
 
 ---
 
-## ✨ Features
+## 💫 Features
 
 <h1 align="center">1.<br>👇<br><br>📑 Codebase Documentation</h1>
 <table align="center">
@@ -342,11 +363,11 @@ To customize the README file generation process, you can modify the [configurati
 
 ### 🪄 Running *README-AI*
 
-*Using Streamlit Community Cloud*
+*Using Streamlit*
 
-Use *readme-ai* directly in your browser with Streamlit. No installation required!
+Use the app directly in your browser via Streamlit Community Cloud.
 
-- [Try readme-ai on streamlit](https://readmeai.streamlit.app/)
+- [🛸 Take me to *readme-ai* on Streamlit!](https://readmeai.streamlit.app/)
 
 *Using Pip*
 

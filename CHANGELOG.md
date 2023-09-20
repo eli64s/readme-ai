@@ -17,6 +17,12 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.1.0] - *2023-09-20*
+### ✨ Features
+
+-  Deploy *readme-ai* on Streamlit Community Cloud.
+
+---
 ## [v0.0.9] - *2023-09-19*
 
 ### 🧹 Chore
