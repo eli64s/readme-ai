@@ -50,11 +50,11 @@
 
 ## 📍 Overview
 
-*README-AI* is a powerful command-line tool that generates robust README.md files for your software and data projects. By simply providing a remote repository URL or path to your codebase, this tool auto-generates documentation for your entire project, leveraging the capabilities OpenAI's GPT language model APIs. *README-AI* is currently available as a Python library and Docker image.
+*README-AI* is a powerful command-line tool that generates robust README.md files for your software and data projects. By simply providing a remote repository URL or path to your codebase, this tool auto-generates documentation for your entire project, leveraging the capabilities OpenAI's GPT language model APIs.
 
 **🎯 Motivation**
 
-*README-AI* simplifies the process of writing and maintaining high-quality project documentation, enhancing developer productivity and workflow. The ultimate goal of *readme-ai* is to improve the adoption and usability of open-source software, enabling all skill levels to better understand complex codebases and easily use open-source tools.
+Simplifies the process of writing and maintaining high-quality project documentation, enhancing developer productivity and workflow. The ultimate goal of *readme-ai* is to improve the adoption and usability of open-source software, enabling all skill levels to better understand complex codebases and easily use open-source tools.
 
 **⚠️ Disclaimer**
 
@@ -64,16 +64,14 @@ This project is currently under development and has an opinionated configuration
 
 ## 🤖 Demos
 
-<h3 align="center">⚡️ Local Environment</h3>
+<h3 align="center">⚡️ Command-Line Interface</h3>
 <br>
 <table align="center">
     <tr>
         <td>
-         <div align="center">
             <a href="https://youtu.be/pl-VcVfGbbk">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" width="800"/>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" />
             </a>
-        </div>
         </td>
     </tr>
 </table>
@@ -86,18 +84,15 @@ This project is currently under development and has an opinionated configuration
         <td>
             <ul>
                 <li>Use <i>readme-ai</i> directly in your browser with Streamlit! Zero installation, zero code!</li>
-                <li>
-                <a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
+                <li><a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a></li>
             </ul>
         </td>
     </tr>
     <tr>
         <td>
-        <div align="center">
         <a href="https://youtu.be/TrAPBpQ30Fw">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" width="800"/>
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" />
         </a>
-        </div>
         </td>
     </tr>
 </table>
@@ -119,9 +114,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-        <div align="center">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/modules.png" alt="docs" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/modules.png" alt="docs" />
         </td>
     </tr>
 </table>
@@ -130,7 +123,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <h3>◦ Introduction, Badges, & Table of Contents</h3>
+            <h3>◦ Introduction and Project Badges</h3>
             <ul>
                 <li>The OpenAI API is prompted to create a 1-sentence phrase describing your project.</li>
                 <li>Project dependencies and metadata are visualized using <a href="https://shields.io/">Shields.io</a> badges.</li>
@@ -140,9 +133,7 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-        <div align="center">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/header.png" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/header.png" alt="docs" />
         </td>
     </tr>
 </table>
@@ -151,30 +142,15 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <h3>◦ Features Table & Overview</h3>
+            <h3>◦ Overview and Features Table</h3>
             <ul>
-                <li>Detailed prompts are embedded with repository metadata and passed to the OpenAI API.</li>
-                <ul>
-                    <li><em>Features</em> table highlights various technical attributes of your codebase.
-                    </li>
-                    <li><em>Overview</em> section describes your project's use case and applications.
-                    </li>
-                </ul>
+                <li>These README sections are generated by OpenAI, using detailed prompts embedded with your project's metadata.</li>
             </ul>
         </td>
     </tr>
     <tr>
         <td>
-            <div align="center">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/features.png" alt="features" width="800"/>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <div align="center">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/overview.png" alt="overview" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/features.png" alt="features" />
         </td>
     </tr>
 </table>
@@ -183,9 +159,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-        <div align="center">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/tree.png" alt="tree" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/tree.png" alt="tree" />
         </td>
     </tr>
 </table>
@@ -194,23 +168,16 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <h3><b>◦ Install, Run, & Test</b></h3>
+            <h3><b>◦ Install, Run, and Test</b></h3>
             <ul>
-                <li>Generates instructions for installing, using, and testing your codebase.</li>
-                <li>README-AI currently supports this feature for code written with:</li>
-                <ul>
-                    <li>
-                        <i>Python, Rust, Go, C, Kotlin, Java, JavaScript, TypeScript.</i>
-                    </li>
-                </ul>
+                <li>Generates instructions for installation, running, and testing your project.</li>
+                <li>Instructions are dynamically generated based on the language of your codebase.</li>
             </ul>
         </td>
     </tr>
     <tr>
         <td>
-        <div align="center">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/getting_started.png" alt="getting_started" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/getting_started.png" alt="getting_started" />
         </td>
     </tr>
 </table>
@@ -219,9 +186,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-        <div align="center">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/closing.png" alt="contribute" width="800"/>
-        </div>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/closing.png" alt="contribute" />
         </td>
     </tr>
 </table>
@@ -320,7 +285,7 @@ Please ensure you have the following dependencies installed on your system:
 
 - *Python version 3.9 or higher*
 - *Package manager (i.e. pip, conda, poetry) or Docker*
-- *OpenAI API paid account and api key*
+- *OpenAI API paid account and API key*
 
 <br>
 
