@@ -34,17 +34,15 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [🤖 Demo](#-demo)
-- [🕹 Play](#-play)
 - [✨ Features](#-features)
 - [🚀 Getting Started](#-getting-started)
   - [📋 Dependencies](#-dependencies)
     - [📂 Repository](#-repository)
-    - [🔑 OpenAI API](#-openai-api)
+    - [🔐 OpenAI API](#-openai-api)
   - [📦 Install](#-install)
-  - [🎮 Usage](#-usage)
+  - [👩‍💻 Usage](#-usage)
     - [🔡 Command-Line Arguments](#-command-line-arguments)
-    - [🛠 Configuration](#-configuration)
-    - [🎈 Streamlit Community Cloud](#-streamlit-community-cloud)
+    - [🔢 Configuration](#-configuration)
   - [🪄 Running *README-AI*](#-running-readme-ai)
   - [🧪 Running Tests](#-running-tests)
 - [🛣 Roadmap](#-roadmap)
@@ -75,9 +73,9 @@ This project is currently under development and has an opinionated configuration
     <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video">
 </a>
 
-## 🕹 Play
+**🕹 Try it out!**
 
-Explore *readme-ai* in directly in browser with Streamlit Community Cloud. No installation required!
+Explore *readme-ai* directly in browser with Streamlit Community Cloud. No installation required!
 
 - [Try readme-ai on streamlit](https://readmeai.streamlit.app/)
 
@@ -234,7 +232,7 @@ A remote repository URL or path to your local project's directory is needed to u
 - *GitLab*
 - *File System*
 
-#### 🔑 OpenAI API
+#### 🔐 OpenAI API
 
 An OpenAI API account and API key are needed to use *readme-ai*. The steps below outline this process:
 
@@ -279,6 +277,7 @@ Docker is recommended for users wanting to run *readme-ai* in a containerized en
 docker pull zeroxeli/readme-ai:latest
 ```
 
+<br>
 <details><summary><i>Install Manually</i></summary>
 
 1️⃣ Clone the readme-ai repository.
@@ -315,7 +314,7 @@ poetry install
 
 ---
 
-### 🎮 Usage
+### 👩‍💻 Usage
 
 #### 🔡 Command-Line Arguments
 
@@ -329,7 +328,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | `-t`       | `--template`    | The README template format to use. (coming soon!)   | Coming Soon!  |
 | `-l`       | `--language`    | The language of text written in the README file.    | Coming Soon!  |
 
-#### 🛠 Configuration
+#### 🔢 Configuration
 
 To customize the README file generation process, you can modify the [configuration file](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml). The file contains the following sections:
 
@@ -339,15 +338,15 @@ To customize the README file generation process, you can modify the [configurati
 - [*prompts*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L26) - Large language model prompts used to generate the README file.
 - [*md*](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L59) - Dynamic Markdown section code templates used to build the README file.
 
-#### 🎈 Streamlit Community Cloud
-
-You can directly use *readme-ai* in your browser without installing anything!
-
-- [Try readme-ai on streamlit](https://readmeai.streamlit.app/)
-
 ---
 
 ### 🪄 Running *README-AI*
+
+*Using Streamlit Community Cloud*
+
+Use *readme-ai* directly in your browser with Streamlit. No installation required!
+
+- [Try readme-ai on streamlit](https://readmeai.streamlit.app/)
 
 *Using Pip*
 
@@ -379,6 +378,7 @@ docker run -it \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
+<br>
 <details><summary><i>Run Manually</i></summary>
 
 *Using Conda*
