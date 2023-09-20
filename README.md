@@ -70,7 +70,7 @@ This project is currently under development and has an opinionated configuration
     <tr>
         <td>
             <a href="https://youtu.be/pl-VcVfGbbk">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" width= "1000" />
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="demo-video" />
             </a>
         </td>
     </tr>
@@ -91,8 +91,8 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-        <a href="https://youtu.be/NoGhwCDWv1U">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit_demo.png?raw=true" alt="streamlit-demo-video" width= "1000" />
+        <a href="https://youtu.be/TrAPBpQ30Fw">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo-video" />
         </a>
         </td>
     </tr>
