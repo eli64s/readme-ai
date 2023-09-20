@@ -9,7 +9,7 @@ import yaml
 
 from . import logger
 
-LOGGER = logger.Logger(__name__)
+logger = logger.Logger(__name__)
 
 
 def parse_docker_compose(content: str) -> List[str]:
@@ -19,9 +19,9 @@ def parse_docker_compose(content: str) -> List[str]:
         if isinstance(data, dict) and "services" in data:
             return list(data["services"].keys())
         else:
-            LOGGER.error("Invalid docker-compose.yaml file format")
+            logger.error("Invalid docker-compose.yaml file format")
     except yaml.YAMLError as excinfo:
-        LOGGER.error(f"Error parsing docker-compose.yaml: {str(excinfo)}")
+        logger.error(f"Error parsing docker-compose.yaml: {str(excinfo)}")
     return []
 
 
@@ -38,7 +38,7 @@ def parse_conda_env_file(content: str) -> List[str]:
                     dependencies.extend(package.keys())
             return dependencies
     except yaml.YAMLError as excinfo:
-        LOGGER.error(f"Error parsing conda environment file: {str(excinfo)}")
+        logger.error(f"Error parsing conda environment file: {str(excinfo)}")
     return []
 
 
@@ -50,7 +50,7 @@ def parse_pipfile(content: str) -> List[str]:
         dev_packages = data.get("dev-packages", {})
         return list(packages.keys()) + list(dev_packages.keys())
     except toml.TomlDecodeError as excinfo:
-        LOGGER.error(f"Error parsing Pipfile: {str(excinfo)}")
+        logger.error(f"Error parsing Pipfile: {str(excinfo)}")
     return []
 
 
@@ -62,7 +62,7 @@ def parse_pipfile_lock(content: str) -> List[str]:
         develop_packages = data.get("develop", {})
         return list(default_packages.keys()) + list(develop_packages.keys())
     except json.JSONDecodeError as excinfo:
-        LOGGER.error(f"Error parsing Pipfile.lock: {str(excinfo)}")
+        logger.error(f"Error parsing Pipfile.lock: {str(excinfo)}")
     return []
 
 
@@ -81,7 +81,7 @@ def parse_poetry_lock(content: str) -> List[str]:
                     break
         return packages
     except Exception as excinfo:
-        LOGGER.error(f"Error parsing poetry.lock: {str(excinfo)}")
+        logger.error(f"Error parsing poetry.lock: {str(excinfo)}")
         return []
 
 
@@ -99,7 +99,7 @@ def parse_pyproject_toml(content: str) -> List[str]:
             for dep_name in dep_list
         ]
     except Exception as excinfo:
-        LOGGER.error(f"Error parsing pyproject.toml: {str(excinfo)}")
+        logger.error(f"Error parsing pyproject.toml: {str(excinfo)}")
         return []
 
 
@@ -123,7 +123,7 @@ def parse_cargo_toml(content: str) -> List[str]:
         dependencies = re.findall(r"\[dependencies\.(.*?)\]", content)
         return dependencies
     except re.error as excinfo:
-        LOGGER.error(f"Error parsing Cargo.toml: {str(excinfo)}")
+        logger.error(f"Error parsing Cargo.toml: {str(excinfo)}")
     return []
 
 
@@ -134,7 +134,7 @@ def parse_cargo_lock(content: str) -> List[str]:
         packages = data.get("package", [])
         return [package.get("name") for package in packages]
     except toml.TomlDecodeError as excinfo:
-        LOGGER.error(f"Error parsing Cargo.lock: {str(excinfo)}")
+        logger.error(f"Error parsing Cargo.lock: {str(excinfo)}")
     return []
 
 
@@ -148,7 +148,7 @@ def parse_package_json(content: str) -> List[str]:
                 package_names.extend(data[section].keys())
         return package_names
     except json.JSONDecodeError as excinfo:
-        LOGGER.error(f"Error parsing package.json: {str(excinfo)}")
+        logger.error(f"Error parsing package.json: {str(excinfo)}")
     return []
 
 
@@ -157,7 +157,7 @@ def parse_yarn_lock(content: str) -> List[str]:
     try:
         return re.findall(r"(\S+)(?=@)", content)
     except re.error as excinfo:
-        LOGGER.error(f"Error parsing yarn.lock: {str(excinfo)}")
+        logger.error(f"Error parsing yarn.lock: {str(excinfo)}")
     return []
 
 
@@ -172,7 +172,7 @@ def parse_package_lock_json(content: str) -> List[str]:
             if package.startswith("@types/")
         ]
     except json.JSONDecodeError as excinfo:
-        LOGGER.error(f"Error parsing package-lock.json: {str(excinfo)}")
+        logger.error(f"Error parsing package-lock.json: {str(excinfo)}")
     return []
 
 

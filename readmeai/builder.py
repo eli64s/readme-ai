@@ -56,7 +56,7 @@ def create_markdown_sections(
     markdown_sections = [
         config.md.header,
         markdown_badges,
-        config.md.toc.format(name.capitalize()),
+        config.md.toc.format(name),
         config.md.intro,
         config.md.tree,
         markdown_repository,
