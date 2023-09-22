@@ -4,8 +4,8 @@
         <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80" />
         <br>README-AI
     </h1>
-    <h3>◦ Generate beautiful and informative README.md files.</h3>
-    <h3>◦ Developed with OpenAI's GPT language model APIs.</h3>
+    <h3>◦ Generate beautiful and informative <i>README</i> files</h3>
+    <h3>◦ Developed with OpenAI's GPT language model APIs</h3>
     <br>
     <p align="center">
         <img src="https://img.shields.io/badge/Markdown-000000.svg?stylee&logo=Markdown&logoColor=white" alt="Markdown" />
@@ -64,14 +64,12 @@ This project is currently under development and has an opinionated configuration
 
 ## 🤖 Demos
 
-<h3 align="center">⚡️ Command-Line Interface</h3>
+<h3 align="center">► Command-Line Interface</h3>
 <br>
 <table align="center">
     <tr>
         <td>
-            <a href="https://youtu.be/pl-VcVfGbbk">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/f0c5a038f63ae04b2d4452974676a92db42be8ce/examples/imgs/demo.png" alt="cli-demo" />
-            </a>
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/7f8a6066df78d089e8b608d7d86b036d82c23be9/examples/imgs/cli-demo.svg" alt="cli-demo">
         </td>
     </tr>
 </table>
@@ -105,10 +103,10 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <h3>◦ Repository File Summaries</h3>
+            <h3>◦ Code Summaries</h3>
             <ul>
-                <li>Code summaries are generated for each file via OpenAI's <i>gpt-3.5-turbo</i> engine.</li>
-                <li>The File column in the markdown table contains a link to the file on GitHub.</li>
+                <li>Code summaries are generated for each file using OpenAI's <i>GPT</i> engine</li>
+                <li>The <i>file</i> column text is hyperlinked to its GitHub.</li>
             </ul>
         </td>
     </tr>
@@ -170,7 +168,7 @@ This project is currently under development and has an opinionated configuration
         <td>
             <h3><b>◦ Install, Run, and Test</b></h3>
             <ul>
-                <li>Generates instructions for installation, running, and testing your project.</li>
+                <li>Creates instructions for installation, running, and testing your project.</li>
                 <li>Instructions are dynamically generated based on the language of your codebase.</li>
             </ul>
         </td>

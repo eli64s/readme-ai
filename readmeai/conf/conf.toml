@@ -15,7 +15,7 @@ name = "readme-ai"
 
 # Paths
 [paths]
-badges = "conf/svg/badges_compressed.json"
+badges = "conf/badges.json"
 dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
@@ -34,18 +34,18 @@ Please provide a comprehensive technical analysis of the codebase and its compon
 Consider the codebase as a whole and highlight the key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
 
-| Feature                | Description                           |
-| ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**     | Analyze the structural design of the system here. Limit your response to a maximum of 200characters.    |
-| **📃 Documentation**   | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 200characters.    |
-| **🔗 Dependencies**    | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200characters.    |
-| **🧩 Modularity**      | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200characters.    |
-| **🧪 Testing**          | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200characters.    |
-| **⚡️ Performance**      | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200characters.    |
-| **🔐 Security**        | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200characters.    |
-| **🔀 Version Control** | Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200characters.    |
-| **🔌 Integrations**    | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200characters.    |
-| **📶 Scalability**     | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200characters.    |
+|    | Feature            | Description                                                                                                        |
+|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
+| ⚙️ | **Architecture**   | Analyze the structural design of the system here. Limit your response to a maximum of 200 characters.             |
+| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 200 characters.|
+| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200 characters.|
+| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200 characters.|
+| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200 characters.       |
+| ⚡️ | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200 characters.|
+| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200 characters.|
+| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200 characters.|
+| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200 characters.|
+| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200 characters.           |
 
 Thank you for your time and effort!
 """
@@ -65,7 +65,7 @@ header = """<div align="center">
 <br>{}
 </h1>
 <h3>◦ {}</h3>
-<h3>◦ Developed with the software and tools listed below.</h3>
+<h3>◦ Developed with the software and tools below.</h3>
 """
 badges = """<p align="center">
 {0}
@@ -114,10 +114,10 @@ setup = """---
 
 ***Dependencies***
 
-Before you begin, ensure that you have the following prerequisites installed:
-> - `ℹ️ Requirement 1`
-> - `ℹ️ Requirement 2`
-> - `ℹ️ ...`
+Please ensure you have the following dependencies installed on your system:
+\n`- ℹ️ Dependency 1`
+\n`- ℹ️ Dependency 2`
+\n`- ℹ️ ...`
 
 ### 🔧 Installation
 \n1. Clone the {0} repository:
@@ -138,7 +138,7 @@ ending = """
 \n## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
-> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️  Task 2: Implement Y`
 > - [ ] `ℹ️ ...`
 
 \n---
@@ -168,13 +168,17 @@ The project maintainers will review your changes and provide feedback or merge t
 
 ## 📄 License
 
-This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+This project is licensed under the `ℹ️  LICENSE-TYPE` License. See the [LICENSE-Type](LICENSE) file for additional info.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - `ℹ️  List any resources, contributors, inspiration, etc.`
-
----
+`- ℹ️ List any resources, contributors, inspiration, etc.`
+\n<p align="right">
+\n  <a href="#top">
+\n      <b>🔝 Return </b>
+\n  </a>
+\n</p>
+<hr>
 """

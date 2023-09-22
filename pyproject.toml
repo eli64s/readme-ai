@@ -4,34 +4,30 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.3.053"
-description = "🚀 Generate beautiful README files from the terminal. Powered by OpenAI's GPT language model APIs 💫"
+version = "0.3.057"
+description = "🚀 Automated README file generation in the terminal. Powered by GPT 🪐"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
 keywords = [
-  "readme",
-  "readme-template",
-  "badge-generator",
-  "auto-documentation",
-  "readme-md",
-  "automated-documentation",
-  "awesome-readme",
-  "readme-generator",
-  "gpt-3",
-  "openai-api",
-  "automated-readme",
-  "auto-readme",
-  "gpt-4",
-  "large-language-models",
-  "llms",
-  "openai-python",
-  "chatgpt-python",
-  "gpt-35-turbo",
-  "gpt-4-api",
-  "llm-agent"
+    'ai',
+    'auto-readme',
+    'automated-readme',
+    'autonomous-agents',
+    'documentation',
+    'documentation-generator',
+    'gpt-3',
+    'gpt-4',
+    'llm-agent',
+    'markdown',
+    'openai',
+    'openai-api',
+    'python',
+    'readme',
+    'readme-generation',
+    'readme-generator'
 ]
 include = ["readmeai", "readmeai.*"]
 

@@ -2,6 +2,7 @@
 *.pyc
 *.pyo
 __pycache__/
+.venv/
 
 # Ignore compiled Cython files
 *.so
@@ -47,3 +48,5 @@ notebooks/
 readmeai/conf/templates
 readmeai/conf/prompts.toml
 .github/workflows/update_readme.yaml
+readmeai/conf/badges_v0.json
+docs/
