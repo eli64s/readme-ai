@@ -69,7 +69,7 @@ This project is currently under development and has an opinionated configuration
 <table align="center">
     <tr>
         <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/7f8a6066df78d089e8b608d7d86b036d82c23be9/examples/imgs/cli-demo.svg" alt="cli-demo">
+            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/98266c9af7be32ee31c029880532cea4717cffbd/examples/imgs/terminal-demo.svg" alt="terminal-demo">
         </td>
     </tr>
 </table>
@@ -88,8 +88,8 @@ This project is currently under development and has an opinionated configuration
     </tr>
     <tr>
         <td>
-        <a href="https://youtu.be/TrAPBpQ30Fw">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo" />
+        <a href="https://youtu.be/4xuqltFDfCo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo" />
         </a>
         </td>
     </tr>
