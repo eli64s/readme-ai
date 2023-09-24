@@ -17,6 +17,14 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.1.1] - *2023-09-24*
+
+### 🛠 Changes
+
+- Refactor remaining dataclasses in [conf.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf.py) to Pydantic models.
+
+---
+
 ## [v0.1.0] - *2023-09-20*
 ### 🚀 Features
 
