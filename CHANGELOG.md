@@ -19,6 +19,12 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.1.1] - *2023-09-24*
 
+### 🚀 Features
+
+- Add CLI option to run *readme-ai* offline, generating the same README output excluding the LLM generated text.
+  - This option is useful for users who want to generate READMEs without an API key.
+  - The option can be used by passing the `-offline-mode` flag to the CLI.
+
 ### 🛠 Changes
 
 - Refactor remaining dataclasses in [conf.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/conf.py) to Pydantic models.

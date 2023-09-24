@@ -7,6 +7,7 @@ rate_limit = 5
 tokens = 650
 tokens_max = 3800
 temperature = 1.2
+offline_mode = false
 
 # Repository
 [git]
@@ -55,9 +56,10 @@ Craft 3-4 sentences that encapsulate the core functionalities of the project, it
 """
 slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}. Limit your response to 80 characters."
 
-# Markdown Templates
+# Markdown Template Code
 [md]
-default = "`ℹ️  INSERT-DESCRIPTION`"
+tables = ""
+default = "▶︎ INSERT-DESCRIPTION"
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 header = """<div align="center">
 <h1 align="center">

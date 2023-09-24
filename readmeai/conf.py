@@ -32,6 +32,7 @@ class ApiConfig(BaseModel):
     tokens: int
     tokens_max: int
     temperature: float
+    offline_mode: bool
     api_key: Optional[SecretStr] = Field(default=None)
 
     @validator("api_key", pre=True, always=True)
@@ -115,6 +116,7 @@ class MarkdownConfig(BaseModel):
     intro: str
     modules: str
     setup: str
+    tables: str
     toc: str
     tree: str
 
