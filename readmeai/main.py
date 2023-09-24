@@ -6,11 +6,12 @@ __package__ = "readmeai"
 
 import asyncio
 import os
-from typing import Dict, List, Optional, Tuple
+import shutil
+from typing import Dict, Optional, Tuple
 
 import click
 
-from . import builder, conf, logger, model, preprocess
+from . import builder, conf, logger, model, preprocess, utils
 
 logger = logger.Logger(__name__)
 config = conf.load_config()
@@ -27,15 +28,28 @@ async def main(repository: str) -> None:
 
 async def generate_readme(llm: model.OpenAIHandler) -> None:
     """Orchestrates the README file generation process."""
-    name, repository = config.git.name, config.git.repository
-    scanner = preprocess.RepositoryParserWrapper(config, config_helper)
-    dependencies, file_text = get_dependencies(scanner, repository)
+    name = config.git.name
+    repository = config.git.repository
 
-    logger.info(f"Dependencies: {dependencies}")
-    logger.info(f"Total files: {len(file_text)}")
-
-    code_summary, slogan, overview, features = {}, "", "", ""
     try:
+        temp_dir = utils.clone_repo_to_temp_dir(repository)
+        config.md.tree = builder.create_directory_tree(temp_dir)
+        logger.info(f"Directory tree: {config.md.tree}")
+
+        scanner = preprocess.RepositoryParserWrapper(config, config_helper)
+        dependencies, file_text = scanner.get_dependencies(temp_dir)
+        logger.info(f"Dependencies: {dependencies}")
+        logger.info(f"Total files: {len(file_text)}")
+
+    except Exception as excinfo:
+        logger.error(f"Exception: {excinfo}")
+        raise excinfo
+
+    finally:
+        shutil.rmtree(temp_dir)
+
+    try:
+        code_summary, slogan, overview, features = {}, "", "", ""
         code_summary = await generate_code_to_text(llm, file_text)
         slogan, overview, features = await generate_markdown_text(
             llm, repository, code_summary
@@ -45,16 +59,9 @@ async def generate_readme(llm: model.OpenAIHandler) -> None:
     finally:
         await llm.close()
 
-    format_markdown_sections(name, slogan, overview, features)
-    builder.build_markdown_file(config, config_helper, dependencies, code_summary)
-
-
-def format_markdown_sections(
-    name: str, slogan: str, overview: str, features: str
-) -> None:
-    """Updates config.md.header and config.md.intro."""
     config.md.header = config.md.header.format(name, slogan)
     config.md.intro = config.md.intro.format(overview, features)
+    builder.build_markdown_file(config, config_helper, dependencies, code_summary)
 
 
 async def generate_code_to_text(
@@ -77,14 +84,6 @@ async def generate_markdown_text(
     ]
     responses = await llm.chat_to_text(prompts)
     return responses[:3]
-
-
-def get_dependencies(
-    scanner: preprocess.RepositoryParserWrapper, repository: str
-) -> Tuple[List[str], str]:
-    """Extracts dependencies and file_text using the scanner."""
-    dependencies, file_text = scanner.get_dependencies(repository)
-    return dependencies, file_text
 
 
 @click.command()

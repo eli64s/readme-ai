@@ -104,6 +104,9 @@ intro = """
 """
 tree = """
 \n## 📂 Repository Structure\n
+```bash
+{}
+```
 """
 modules = """
 \n---

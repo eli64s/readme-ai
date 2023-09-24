@@ -1,6 +1,5 @@
 """Handles preprocessing of the input codebase."""
 
-import tempfile
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
@@ -27,10 +26,10 @@ class RepositoryParserWrapper:
         return {content["path"]: content["content"] for content in contents}
 
     def get_dependencies(
-        self, repository: str, is_remote: bool = True
+        self, temp_dir: str = None
     ) -> Tuple[List[str], Dict[str, str]]:
         """Extracts the dependencies of the user's repository."""
-        contents = self.parser.analyze(repository, is_remote)
+        contents = self.parser.analyze(temp_dir)
         dependencies = self.parser.get_dependency_file_contents(contents)
         attributes = ["extension", "language", "name"]
         dependencies.extend(self.get_unique_contents(contents, attributes))
@@ -46,19 +45,16 @@ class RepositoryParser:
         language_names: Dict[str, str],
         language_setup: Dict[str, str],
     ):
+        self.config = config
         self.language_names = language_names
         self.language_setup = language_setup
         self.encoding_name = config.api.encoding
 
-    def analyze(self, repo_path: str, is_remote: bool = False) -> List[Dict]:
+    def analyze(self, repo_path: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""
-        with tempfile.TemporaryDirectory() as temp_dir:
-            if is_remote:
-                utils.clone_repository(repo_path, temp_dir)
-                repo_path = temp_dir
-            contents = self.generate_contents(repo_path)
-            contents = self.tokenize_content(contents)
-            contents = self.process_language_mapping(contents)
+        contents = self.generate_contents(repo_path)
+        contents = self.tokenize_content(contents)
+        contents = self.process_language_mapping(contents)
         return contents
 
     def generate_contents(self, root_path: str) -> List[Dict]:

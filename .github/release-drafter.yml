@@ -11,6 +11,7 @@ template: |
 categories:
   - title: 🚀 Features
     labels:
+      - feat
       - feature
       - enhancement
   - title: 🐛 Bug Fixes
@@ -28,6 +29,7 @@ categories:
       - removed
   - title: 🔐 Security
     labels:
+      - vulnerability
       - security
   - title: 📄 Documentation
     labels:
