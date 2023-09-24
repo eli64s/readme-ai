@@ -235,8 +235,8 @@ def create_directory_tree(repo_path: Path) -> str:
         tree_str = run_tree_command(repo_path)
         return f"```bash\n.\n{tree_str}```"
     except Exception as excinfo:
-        logger.warning(f"Error generating directory tree: {excinfo}")
-        return f"```bash\n#{excinfo}```"
+        logger.warning(f"Error running tree command: {excinfo}")
+        return "```bash\n # Error generating directory tree.\n```"
 
 
 def run_tree_command(repo_path: Path) -> str:
@@ -248,4 +248,4 @@ def run_tree_command(repo_path: Path) -> str:
         tree_str = "\n".join(tree_lines)
         return tree_str
     except subprocess.CalledProcessError as excinfo:
-        raise Exception(f"Error executing the tree command: {excinfo}")
+        raise Exception(f"Error running tree command: {excinfo}")

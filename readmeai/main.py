@@ -33,7 +33,8 @@ async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
 
     try:
         temp_dir = utils.clone_repo_to_temp_dir(repository)
-        config.md.tree = builder.create_directory_tree(temp_dir)
+        tree = builder.create_directory_tree(temp_dir)
+        config.md.tree = config.md.tree.format(tree)
         logger.info(f"Directory tree: {config.md.tree}")
 
         scanner = preprocess.RepositoryParserWrapper(config, config_helper)
@@ -125,7 +126,7 @@ async def generate_markdown_text(
 @click.option(
     "-t",
     "--temperature",
-    default=0.9,
+    default=1.1,
     help="OpenAI's temperature parameter, a higher value increases randomness.",
 )
 @click.option(
@@ -150,7 +151,6 @@ def cli(
 ) -> None:
     """Cli entrypoint for readme-ai pypi package."""
     config.paths.readme = output
-    config.api.api_key = api_key
     config.api.engine = engine
     config.api.temperature = temperature
     config.api.offline_mode = offline_mode
@@ -159,6 +159,10 @@ def cli(
     logger.info(f"Output file: {config.paths.readme}")
     logger.info(f"OpenAI Engine: {config.api.engine}")
     logger.info(f"OpenAI Temperature: {config.api.temperature}")
+
+    if not api_key:
+        logger.error("API key not found, running in offline mode...")
+        offline_mode = True
 
     asyncio.run(main(repository, offline_mode))
 

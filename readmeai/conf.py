@@ -1,14 +1,12 @@
 """Pydantic models for the readme-ai application."""
 
-import os
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse, urlsplit
 
-import openai
 from pkg_resources import resource_filename
-from pydantic import BaseModel, Field, SecretStr, validator
+from pydantic import BaseModel, validator
 
 from . import factory, logger
 
@@ -33,29 +31,6 @@ class ApiConfig(BaseModel):
     tokens_max: int
     temperature: float
     offline_mode: bool
-    api_key: Optional[SecretStr] = Field(default=None)
-
-    @validator("api_key", pre=True, always=True)
-    def validate_api_key(cls, api_key: Optional[SecretStr]) -> SecretStr:
-        """Validates if the user's OpenAI API key is valid."""
-        if api_key:
-            api_key_str = api_key
-        else:
-            api_key_str = os.environ.get("OPENAI_API_KEY")
-
-        if not api_key_str:
-            raise ValueError("Exception: invalid OpenAI API key.")
-
-        try:
-            openai.api_key = api_key_str
-            openai.Model.list()
-        except (
-            openai.error.AuthenticationError,
-            openai.error.InvalidRequestError,
-        ) as excinfo:
-            raise ValueError("Exception: Invalid OpenAI API key.") from excinfo
-
-        logger.info("OpenAI API key validated.")
 
 
 class GitConfig(BaseModel):

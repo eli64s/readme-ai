@@ -6,7 +6,7 @@ encoding = "cl100k_base"
 rate_limit = 5
 tokens = 650
 tokens_max = 3800
-temperature = 1.2
+temperature = 1.1
 offline_mode = false
 
 # Repository
@@ -106,9 +106,7 @@ intro = """
 """
 tree = """
 \n## 📂 Repository Structure\n
-```bash
 {}
-```
 """
 modules = """
 \n---
