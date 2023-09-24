@@ -18,12 +18,9 @@ config_model = conf.AppConfigModel(app=config)
 config_helper = conf.load_config_helper(config_model)
 
 
-async def main(output: str, repository: str) -> None:
+async def main(repository: str) -> None:
     """Main entrypoint for the readme-ai application."""
     config.git = conf.GitConfig(repository=repository)
-    config.paths.readme = output
-    logger.info("Model: %s", dict(config.api, api_key="*" * 16))
-    logger.info("Repository: %s", config.git)
     llm = model.OpenAIHandler(config)
     await generate_readme(llm)
 
@@ -98,6 +95,12 @@ def get_dependencies(
     help="OpenAI API secret key.",
 )
 @click.option(
+    "-e",
+    "--engine",
+    default="gpt-3.5-turbo",
+    help="OpenAI language model engine to use.",
+)
+@click.option(
     "-o",
     "--output",
     default="readme-ai.md",
@@ -111,24 +114,42 @@ def get_dependencies(
 )
 @click.option(
     "-t",
-    "--template",
-    help="Template to use for README.md file.",
+    "--temperature",
+    default=0.9,
+    help="OpenAI's temperature parameter, a higher value increases randomness.",
 )
 @click.option(
     "-l",
     "--language",
     help="Language to write README.md file in.",
 )
+@click.option(
+    "-s",
+    "--style",
+    help="Template to use for README.md file.",
+)
 def cli(
     api_key: str,
-    output: str,
+    engine: Optional[str],
+    output: Optional[str],
     repository: str,
-    template: Optional[int],
+    temperature: Optional[float],
     language: Optional[str],
+    style: Optional[int],
 ) -> None:
     """Cli entrypoint for readme-ai pypi package."""
+    config.paths.readme = output
+    config.api.api_key = api_key
+    config.api.engine = engine
+    config.api.temperature = temperature
+
     logger.info("README-AI is now executing.")
-    asyncio.run(main(output, repository))
+    logger.info(f"Output file: {config.paths.readme}")
+    logger.info(f"OpenAI Engine: {config.api.engine}")
+    logger.info(f"OpenAI Temperature: {config.api.temperature}")
+
+    asyncio.run(main(repository))
+
     logger.info("README-AI execution complete.")
 
 

@@ -403,11 +403,13 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 
 | Short Flag | Long Flag      | Description                                       | Status       |
 |------------|----------------|---------------------------------------------------|--------------|
-| `-k`       | `--api-key`    | Your OpenAI API key.                              | Required     |
-| `-o`       | `--output`     | The output path for your README.md file.          | Required     |
+| `-k`       | `--api-key`    | Your OpenAI API secret key.                       | Required     |
+| `-e`       | `--engine`     | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
+| `-o`       | `--output`     | The output path for your README.md file.          | Optional     |
 | `-r`       | `--repository` | The URL or path to your code repository.          | Required     |
-| `-t`       | `--template`   | The README template format to use. (coming soon!) | Coming Soon! |
+| `-t`       | `--temperature`| The temperature (randomness) of the model         | Optional     |
 | `-l`       | `--language`   | The language of text written in the README file.  | Coming Soon! |
+| `-s`       | `--style`      | The README template format to use. (coming soon!) | Coming Soon! |
 
 <br>
 
