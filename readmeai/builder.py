@@ -1,7 +1,6 @@
 """Builds the README Markdown file for your codebase."""
 
 import subprocess
-import tempfile
 from pathlib import Path
 from typing import List, Tuple
 
@@ -21,7 +20,7 @@ def build_markdown_file(
     """Builds the README Markdown file for your codebase."""
     readme_sections = create_markdown_sections(config, helper, packages, summaries)
     readme_file = "\n".join(readme_sections)
-    readme_path = Path.cwd() / config.paths.readme
+    readme_path = Path(config.paths.readme)
     factory.FileHandler().write(readme_path, readme_file)
     logger.info(f"README file generated at: {readme_path}")
 
@@ -47,7 +46,6 @@ def create_markdown_sections(
         if "invalid" in user_repo.lower()
         else markdown_badges
     )
-    markdown_repository = create_directory_tree(repository)
     markdown_tables = create_tables(
         create_markdown_tables(summaries), config.md.dropdown, user_repo
     )
@@ -59,7 +57,6 @@ def create_markdown_sections(
         config.md.toc.format(name),
         config.md.intro,
         config.md.tree,
-        markdown_repository,
         config.md.modules,
         markdown_tables,
         config.md.setup.format(name, repository, *markdown_setup_guide),
@@ -105,14 +102,6 @@ def format_badges(badges: list) -> str:
     return "\n\n".join(badge_lines)
 
 
-def create_markdown_tables(summaries: Tuple[str, str]) -> List[Tuple[str, str]]:
-    """Formats the generated code summaries into a list."""
-    summary_list = []
-    for module, summary in summaries:
-        summary_list.append((module, summary))
-    return summary_list
-
-
 def create_setup_guide(
     config: conf.AppConfig, helper: conf.ConfigHelper, summary_list: list
 ):
@@ -148,6 +137,14 @@ def create_setup_guide(
         logger.debug(f"Error: {exc}\nUsing default setup: {default_run_command}")
 
     return (default_install_command, default_run_command, default_test_command)
+
+
+def create_markdown_tables(summaries: Tuple[str, str]) -> List[Tuple[str, str]]:
+    """Formats the generated code summaries into a list."""
+    summary_list = []
+    for module, summary in summaries:
+        summary_list.append((module, summary))
+    return summary_list
 
 
 def create_tables(
@@ -200,26 +197,23 @@ def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
     return "\n".join(formatted_lines)
 
 
-def create_directory_tree(url: str) -> str:
+def create_directory_tree(repo_path: Path) -> str:
     """Creates a directory tree for the project."""
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        repo_path = Path(tmp_dir) / "repo"
-        try:
-            utils.clone_repository(url, repo_path)
-            tree_str = run_tree_command(repo_path)
-            return f"```bash\n{repo_path.name}\n{tree_str}```"
-        except Exception as excinfo:
-            logger.warning(f"Exception creating repository tree structure: {excinfo}")
-            return ""
+    try:
+        tree_str = run_tree_command(repo_path)
+        return f"```bash\n.\n{tree_str}```"
+    except Exception as excinfo:
+        logger.warning(f"Error generating directory tree: {excinfo}")
+        return f"```bash\n#{excinfo}```"
 
 
-def run_tree_command(path: Path) -> str:
+def run_tree_command(repo_path: Path) -> str:
     """Executes the 'tree' command to generate a directory tree."""
     try:
-        tree_bytes = subprocess.check_output(["tree", "-n", path])
+        tree_bytes = subprocess.check_output(["tree", "-n", repo_path])
         tree_str = tree_bytes.decode("utf-8")
         tree_lines = tree_str.split("\n")[1:]
         tree_str = "\n".join(tree_lines)
         return tree_str
     except subprocess.CalledProcessError as excinfo:
-        raise Exception(f"Exception executing the 'tree' command: {excinfo}")
+        raise Exception(f"Error executing the tree command: {excinfo}")

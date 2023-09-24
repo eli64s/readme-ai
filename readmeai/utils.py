@@ -3,6 +3,7 @@
 import os
 import platform
 import re
+import tempfile
 from pathlib import Path
 from typing import List, Optional
 
@@ -14,18 +15,19 @@ from . import logger
 logger = logger.Logger(__name__)
 
 
-def clone_repository(repo_path: str, temp_dir: Path) -> None:
+def clone_repo_to_temp_dir(repo_path: str) -> Path:
     """Clone a repository to a temporary directory."""
     git_exec_path = find_git_executable()
-
     validate_git_executable(git_exec_path)
 
     env = os.environ.copy()
     env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
 
+    temp_dir = tempfile.mkdtemp()
     try:
         git.Repo.clone_from(repo_path, temp_dir, depth=1, env=env)
         logger.info(f"Successfully cloned {repo_path} to {temp_dir}.")
+        return Path(temp_dir)
 
     except git.GitCommandError as excinfo:
         raise ValueError(f"Git clone error: {excinfo}") from excinfo
@@ -33,14 +35,10 @@ def clone_repository(repo_path: str, temp_dir: Path) -> None:
     except Exception as excinfo:
         raise (f"Error cloning git repository: {excinfo}")
 
-    # validate_file_permissions(temp_dir)
-
 
 def find_git_executable() -> Optional[Path]:
     """Find the path to the git executable, if available."""
-
     git_exec_path = os.environ.get("GIT_PYTHON_GIT_EXECUTABLE")
-
     if git_exec_path:
         return Path(git_exec_path)
 
