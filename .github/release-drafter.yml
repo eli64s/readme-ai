@@ -3,11 +3,6 @@
 
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
-template: |
-  ## What Changed 👀
-
-  $CHANGES
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 categories:
   - title: 🚀 Features
     labels:
@@ -54,6 +49,7 @@ version-resolver:
     labels:
       - patch
   default: patch
+template: |
+  ## Changes
 
-exclude-labels:
-  - skip-changelog
+  $CHANGES

@@ -19,14 +19,14 @@ config_model = conf.AppConfigModel(app=config)
 config_helper = conf.load_config_helper(config_model)
 
 
-async def main(repository: str) -> None:
+async def main(repository: str, offline: bool) -> None:
     """Main entrypoint for the readme-ai application."""
     config.git = conf.GitConfig(repository=repository)
     llm = model.OpenAIHandler(config)
-    await generate_readme(llm)
+    await generate_readme(llm, offline)
 
 
-async def generate_readme(llm: model.OpenAIHandler) -> None:
+async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
     """Orchestrates the README file generation process."""
     name = config.git.name
     repository = config.git.repository
@@ -41,27 +41,31 @@ async def generate_readme(llm: model.OpenAIHandler) -> None:
         logger.info(f"Dependencies: {dependencies}")
         logger.info(f"Total files: {len(file_text)}")
 
+        if offline:
+            logger.warning("Skipping OpenAI API calls as offline mode is enabled.")
+            config.md.tables = builder.generate_code_summary_table(repository, temp_dir)
+            code_summary = config.md.tables
+            slogan, overview, features = (
+                config.md.default,
+                config.md.default,
+                config.md.default,
+            )
+        else:
+            code_summary = await generate_code_to_text(llm, file_text)
+            slogan, overview, features = await generate_markdown_text(
+                llm, repository, code_summary
+            )
+            await llm.close()
+
+        config.md.header = config.md.header.format(name, slogan)
+        config.md.intro = config.md.intro.format(overview, features)
+        builder.build_markdown_file(config, config_helper, dependencies, code_summary)
+
     except Exception as excinfo:
         logger.error(f"Exception: {excinfo}")
         raise excinfo
-
     finally:
         shutil.rmtree(temp_dir)
-
-    try:
-        code_summary, slogan, overview, features = {}, "", "", ""
-        code_summary = await generate_code_to_text(llm, file_text)
-        slogan, overview, features = await generate_markdown_text(
-            llm, repository, code_summary
-        )
-    except Exception as excinfo:
-        logger.error(f"Exception: {excinfo}")
-    finally:
-        await llm.close()
-
-    config.md.header = config.md.header.format(name, slogan)
-    config.md.intro = config.md.intro.format(overview, features)
-    builder.build_markdown_file(config, config_helper, dependencies, code_summary)
 
 
 async def generate_code_to_text(
@@ -100,6 +104,13 @@ async def generate_markdown_text(
     help="OpenAI language model engine to use.",
 )
 @click.option(
+    "-f",
+    "--offline-mode",
+    is_flag=True,
+    default=False,
+    help="Run the tool in offline mode without calling the OpenAI API.",
+)
+@click.option(
     "-o",
     "--output",
     default="readme-ai.md",
@@ -130,6 +141,7 @@ async def generate_markdown_text(
 def cli(
     api_key: str,
     engine: Optional[str],
+    offline_mode: bool,
     output: Optional[str],
     repository: str,
     temperature: Optional[float],
@@ -141,13 +153,14 @@ def cli(
     config.api.api_key = api_key
     config.api.engine = engine
     config.api.temperature = temperature
+    config.api.offline_mode = offline_mode
 
     logger.info("README-AI is now executing.")
     logger.info(f"Output file: {config.paths.readme}")
     logger.info(f"OpenAI Engine: {config.api.engine}")
     logger.info(f"OpenAI Temperature: {config.api.temperature}")
 
-    asyncio.run(main(repository))
+    asyncio.run(main(repository, offline_mode))
 
     logger.info("README-AI execution complete.")
 
