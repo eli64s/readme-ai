@@ -3,7 +3,7 @@
 ## [v0.0.0] - *2023-01-01*
 ### 🐛 Bug Fixes
 ### 🛠 Changes
-### ✨ Features
+### 🚀 Features
 ### 🗑 Removed
 ### 🔐 Security
 ### 🧹 Chore
@@ -18,7 +18,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 ---
 
 ## [v0.1.0] - *2023-09-20*
-### ✨ Features
+### 🚀 Features
 
 -  Deploy project on Streamlit Community Cloud to provide a web-based interface for generating READMEs.
    -  [🛸 Go to readme-ai on Streamlit!](https://readmeai.streamlit.app/)
@@ -75,7 +75,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
     ```python
     git.Repo.clone_from(repo_path, temp_dir, depth=1, env=git_exec_path)
     ```
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 
 #### *Code Modularity*
 
@@ -104,7 +104,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.5] - *2023-07-31*
 
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 
 - Add [.dockerignore](./.dockerignore) file to exclude unnecessary files from the Docker image.
 
@@ -126,7 +126,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.4] - *2023-07-30*
 
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 
 - Publish *readme-ai* CLI to PyPI under the module name [readmeai](https://pypi.org/project/readmeai/).
   - Refactored the codebase to use [Click](https://click.palletsprojects.com/en/8.1.x/), migrating from argparse.
@@ -153,7 +153,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.3] - *2023-06-29*
 
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 
 - Add [pydantic](https://pydantic-docs.helpmanual.io/) to validate the user's repository and api key inputs.
   - Validation was moved from *main.py* to *conf.py*.
@@ -169,7 +169,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.2] - *2023-06-28*
 
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 
 - Add [CHANGELOG.md](./CHANGELOG.md) to track changes to the project.
 - Add new directory [examples/video](./examples/video) to store mp4 videos to demonstrate the *readme-ai* tool.
@@ -187,7 +187,7 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.0.1] - *2023-06-28*
 
-### ✨ Features and Enhancements
+### 🚀 Features and Enhancements
 - Initial release of *readme-ai* v0.0.1
 
 ### 🛠 Changes

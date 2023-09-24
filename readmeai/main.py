@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-"""Main entrypoint for README-AI application."""
+"""Main entrypoint for the readme-ai application."""
+
+__package__ = "readmeai"
 
 import asyncio
 import os
@@ -16,10 +18,8 @@ config_model = conf.AppConfigModel(app=config)
 config_helper = conf.load_config_helper(config_model)
 
 
-async def main(api_key: str, output: str, repository: str) -> None:
-    """Main entrypoint for README-AI application."""
-    conf.ApiConfig.validate_api_key(api_key)
-    conf.GitConfig.validate_repository(repository)
+async def main(output: str, repository: str) -> None:
+    """Main entrypoint for the readme-ai application."""
     config.git = conf.GitConfig(repository=repository)
     config.paths.readme = output
     logger.info("Model: %s", dict(config.api, api_key="*" * 16))
@@ -128,7 +128,7 @@ def cli(
 ) -> None:
     """Cli entrypoint for readme-ai pypi package."""
     logger.info("README-AI is now executing.")
-    asyncio.run(main(api_key, output, repository))
+    asyncio.run(main(output, repository))
     logger.info("README-AI execution complete.")
 
 

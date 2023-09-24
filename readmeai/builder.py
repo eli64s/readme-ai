@@ -9,7 +9,7 @@ from pkg_resources import resource_filename
 
 from . import conf, factory, logger, utils
 
-LOGGER = logger.Logger(__name__)
+logger = logger.Logger(__name__)
 
 
 def build_markdown_file(
@@ -23,7 +23,7 @@ def build_markdown_file(
     readme_file = "\n".join(readme_sections)
     readme_path = Path.cwd() / config.paths.readme
     factory.FileHandler().write(readme_path, readme_file)
-    LOGGER.info(f"README file generated at: {readme_path}")
+    logger.info(f"README file generated at: {readme_path}")
 
 
 def create_markdown_sections(
@@ -36,7 +36,7 @@ def create_markdown_sections(
     name = config.git.name
     repository = config.git.repository
     user_repo = utils.get_user_repository_name(repository)
-    badges_path = resource_filename("readmeai", f"{config.paths.badges}")
+    badges_path = resource_filename(__package__, f"{config.paths.badges}")
     badges_dict = factory.FileHandler().read(badges_path)
 
     markdown_badges = config.md.badges.format(
@@ -136,8 +136,8 @@ def create_setup_guide(
             language_name = helper.language_names.get(language_top, "Unknown")
             language_setup = helper.language_setup.get(language_name, [])
 
-            LOGGER.info(f"Top language: {language_name.title()} (.{language_top})")
-            LOGGER.info(f"{language_name} setup guide: {language_setup}")
+            logger.info(f"Top language: {language_name.title()} (.{language_top})")
+            logger.info(f"{language_name} setup guide: {language_setup}")
 
             if len(language_setup) >= 3:
                 default_install_command = language_setup[0]
@@ -145,7 +145,7 @@ def create_setup_guide(
                 default_test_command = language_setup[2]
 
     except Exception as exc:
-        LOGGER.debug(f"Error: {exc}\nUsing default setup: {default_run_command}")
+        logger.debug(f"Error: {exc}\nUsing default setup: {default_run_command}")
 
     return (default_install_command, default_run_command, default_test_command)
 
@@ -209,7 +209,7 @@ def create_directory_tree(url: str) -> str:
             tree_str = run_tree_command(repo_path)
             return f"```bash\n{repo_path.name}\n{tree_str}```"
         except Exception as excinfo:
-            LOGGER.warning(f"Exception creating repository tree structure: {excinfo}")
+            logger.warning(f"Exception creating repository tree structure: {excinfo}")
             return ""
 
 

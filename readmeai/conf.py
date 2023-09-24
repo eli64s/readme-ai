@@ -1,8 +1,7 @@
-"""Pydantic models for configuration constants."""
+"""Pydantic models for the readme-ai application."""
 
 import os
-import traceback
-from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse, urlsplit
@@ -13,11 +12,18 @@ from pydantic import BaseModel, Field, SecretStr, validator
 
 from . import factory, logger
 
-LOGGER = logger.Logger(__name__)
+logger = logger.Logger(__name__)
+
+
+class DefaultHosts(str, Enum):
+    """Enum for default Git repository hosts."""
+
+    GITHUB = "github.com"
+    GITLAB = "gitlab.com"
 
 
 class ApiConfig(BaseModel):
-    """OpenAI API configuration."""
+    """Pydantic model for OpenAI API configuration."""
 
     endpoint: str
     engine: str
@@ -26,102 +32,80 @@ class ApiConfig(BaseModel):
     tokens: int
     tokens_max: int
     temperature: float
-    api_key: SecretStr = Field(
-        default_factory=lambda: os.environ.get("OPENAI_API_KEY", "")
-    )
+    api_key: Optional[SecretStr] = Field(default=None)
 
-    @validator("api_key")
-    def validate_api_key(cls, api_key) -> None:
-        """Validate the OpenAI API key."""
-        if not api_key:
-            api_key = os.environ.get("OPENAI_API_KEY", "")
-        if not api_key:
+    @validator("api_key", pre=True, always=True)
+    def validate_api_key(cls, api_key: Optional[SecretStr]) -> SecretStr:
+        """Validates if the user's OpenAI API key is valid."""
+        if api_key:
+            api_key_str = api_key
+        else:
+            api_key_str = os.environ.get("OPENAI_API_KEY")
+
+        if not api_key_str:
             raise ValueError("Exception: invalid OpenAI API key.")
 
-        os.environ["OPENAI_API_KEY"] = api_key
-
         try:
-            cls._set_openai_api_key()
+            openai.api_key = api_key_str
             openai.Model.list()
-
         except (
             openai.error.AuthenticationError,
             openai.error.InvalidRequestError,
         ) as excinfo:
-            cls._handle_openai_error(excinfo)
+            raise ValueError("Exception: Invalid OpenAI API key.") from excinfo
 
-        finally:
-            cls.api_key = os.environ["OPENAI_API_KEY"]
-            LOGGER.info("Successfully validated OpenAI API key.")
-
-    @classmethod
-    def _set_openai_api_key(cls) -> None:
-        """Set the OpenAI API key."""
-        openai.api_key = os.environ["OPENAI_API_KEY"]
-
-    @staticmethod
-    def _handle_openai_error(excinfo) -> None:
-        """Handle OpenAI API errors."""
-        LOGGER.error(f"OpenAI API Exception:\n{excinfo}")
-        raise ValueError(f"{traceback.format_exc()}")
+        logger.info("OpenAI API key validated.")
 
 
-@dataclass
-class GitConfig:
-    """Repository configuration."""
+class GitConfig(BaseModel):
+    """Pydantic model for Git repository configuration."""
 
     repository: str
     name: Optional[str] = None
 
-    def __post_init__(self) -> None:
-        """Post-initialization hook."""
-        if not self.validate_repository(self.repository):
-            raise ValueError(f"Ivalid repository URL or path: {self.repository}")
-
-        self.name = self.get_repository_name(self.repository)
-
-    @staticmethod
-    def get_default_hosts() -> List[str]:
-        """Get the default valid hosts."""
-        return ["github.com", "gitlab.com"]
-
-    @staticmethod
-    def get_repository_name(repository_path: str) -> str:
-        """Extract the repository name from the URL or path."""
-        parsed_url = urlsplit(str(repository_path))
-        if parsed_url.hostname in GitConfig.get_default_hosts():
-            path = parsed_url.path
-            name = path.rsplit("/", 1)[-1] if "/" in path else path
-            if name.endswith(".git"):
-                name = name[:-4]
-        else:
-            name = Path(repository_path).name
-        return name
-
-    @staticmethod
-    def validate_repository(repository: str) -> bool:
-        """Check if the repository URL or local directory is valid."""
-        path = Path(repository)
+    @validator("repository", pre=True, always=True)
+    def validate_repository(cls, value: str) -> str:
+        """Validates if the repository is a valid URL or path."""
+        path = Path(value)
         if path.is_dir():
-            return True
+            logger.info(f"Validated user repository (local path): {value}")
+            return value
 
-        parsed_url = urlparse(repository)
-        if parsed_url.scheme != "https":
-            return False
+        try:
+            parsed_url = urlparse(value)
+        except ValueError:
+            raise ValueError(f"Invalid repository URL or path: {value}")
 
-        if parsed_url.netloc not in GitConfig.get_default_hosts():
-            return False
+        if (
+            parsed_url.scheme != "https"
+            or parsed_url.netloc not in DefaultHosts.__members__.values()
+            or len(parsed_url.path.strip("/").split("/")) != 2
+        ):
+            raise ValueError(f"Invalid repository URL or path: {value}")
 
-        path_segments = parsed_url.path.strip("/").split("/")
-        if len(path_segments) != 2:
-            return False
+        logger.info(f"Validated user repository (remote): {value}")
 
-        return True
+        return value
+
+    @validator("name", pre=True, always=True)
+    def get_repository_name(cls, value: str, values: dict) -> str:
+        """Extract the repository name from the URL or path."""
+        repository_path = values.get("repository")
+        if repository_path:
+            parsed_url = urlsplit(str(repository_path))
+            if parsed_url.hostname in DefaultHosts.__members__.values():
+                path = parsed_url.path
+                name = path.rsplit("/", 1)[-1] if "/" in path else path
+                if name.endswith(".git"):
+                    name = name[:-4]
+                return name
+            else:
+                return Path(repository_path).name
+        return value
 
 
-@dataclass
-class MarkdownConfig:
-    """Markdown configuration."""
+class MarkdownConfig(BaseModel):
+    """Pydantic model for Markdown code block templates."""
 
     badges: str
     default: str
@@ -135,9 +119,8 @@ class MarkdownConfig:
     tree: str
 
 
-@dataclass
-class PathsConfig:
-    """Paths to configuration files."""
+class PathsConfig(BaseModel):
+    """Pydantic model for configuration file paths."""
 
     badges: str
     dependency_files: str
@@ -147,9 +130,8 @@ class PathsConfig:
     readme: str
 
 
-@dataclass
-class PromptsConfig:
-    """LLM prompts configuration."""
+class PromptsConfig(BaseModel):
+    """Pydantic model for OpenAI prompts."""
 
     code_summary: str
     features: str
@@ -157,9 +139,8 @@ class PromptsConfig:
     slogan: str
 
 
-@dataclass
-class AppConfig:
-    """README-AI application configuration."""
+class AppConfig(BaseModel):
+    """Nested Pydantic model for the entire configuration."""
 
     api: ApiConfig
     git: GitConfig
@@ -169,28 +150,35 @@ class AppConfig:
 
 
 class AppConfigModel(BaseModel):
-    """Application configuration model."""
+    """Pydantic model for the entire configuration."""
 
     app: AppConfig
 
     class Config:
-        """Configuration for the Pydantic model."""
+        """Pydantic model configuration."""
 
         validate_assignment = True
 
 
-@dataclass
-class ConfigHelper:
-    """README-AI application helper configuration."""
+class ConfigHelper(BaseModel):
+    """Helper class to load additional configuration files."""
 
     conf: AppConfigModel
-    dependency_files: List[str] = field(default_factory=list)
-    ignore_files: Dict[str, List[str]] = field(default_factory=dict)
-    language_names: Dict[str, str] = field(default_factory=dict)
-    language_setup: Dict[str, List[str]] = field(default_factory=dict)
+    dependency_files: List[str] = []
+    ignore_files: Dict[str, List[str]] = {}
+    language_names: Dict[str, str] = {}
+    language_setup: Dict[str, List[str]] = {}
 
-    def __post_init__(self):
-        """Post-initialization hook to load helper configuration files."""
+    class Config:
+        # Configure the model to call the custom __init__ method
+        allow_mutation = True
+
+    def __init__(self, conf: AppConfigModel, **data):
+        super().__init__(conf=conf, **data)
+        self.load_helper_files()
+
+    def load_helper_files(self):
+        """Load helper configuration files."""
         handler = factory.FileHandler()
         conf_path_list = [
             self.conf.app.paths.dependency_files,
@@ -200,8 +188,7 @@ class ConfigHelper:
         ]
 
         for path in conf_path_list:
-            path = Path(resource_filename("readmeai", f"conf/{path}")).resolve()
-            conf_dict = handler.read(path)
+            conf_dict = _get_config_dict(handler, path)
 
             if "dependency_files" in conf_dict:
                 self.dependency_files.extend(conf_dict.get("dependency_files", []))
@@ -213,9 +200,9 @@ class ConfigHelper:
                 self.language_setup.update(conf_dict["language_setup"])
 
 
-def _get_config_dict(handler: factory.FileHandler, filename: str) -> dict:
+def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
-    path = resource_filename("readmeai", f"conf/{filename}")
+    path = Path(resource_filename("readmeai", f"conf/{file_path}")).resolve()
     return handler.read(path)
 
 

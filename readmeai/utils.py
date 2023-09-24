@@ -9,7 +9,7 @@ from typing import List, Optional
 import git
 from tiktoken import get_encoding
 
-from . import conf, logger
+from . import logger
 
 logger = logger.Logger(__name__)
 
@@ -119,19 +119,6 @@ def truncate_text_tokens(text: str, encoding_name: str, max_tokens: int) -> str:
     encoded_text = encoding.encode(text)[:max_tokens]
     truncated_text = encoding.decode(encoded_text)
     return truncated_text
-
-
-def is_valid_file(helper: conf.ConfigHelper, path: Path) -> bool:
-    """Checks if a file is valid for processing."""
-    ignore_dirs = helper.ignore_files.get("directories", [])
-    ignore_files = helper.ignore_files.get("filenames", [])
-    ignore_extensions = helper.ignore_files.get("extensions", [])
-    return (
-        path.is_file()
-        and all(dir not in path.parts for dir in ignore_dirs)
-        and path.name not in ignore_files
-        and path.suffix not in ignore_extensions
-    )
 
 
 def is_valid_url(url: str) -> bool:
