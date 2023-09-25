@@ -3,6 +3,7 @@
 import os
 import platform
 import re
+import shutil
 import tempfile
 from pathlib import Path
 from typing import List, Optional
@@ -16,7 +17,7 @@ logger = logger.Logger(__name__)
 
 
 def clone_repo_to_temp_dir(repo_path: str) -> Path:
-    """Clone a repository to a temporary directory."""
+    """Clone a repository to a temporary directory and remove the .git directory."""
     git_exec_path = find_git_executable()
     validate_git_executable(git_exec_path)
 
@@ -25,15 +26,20 @@ def clone_repo_to_temp_dir(repo_path: str) -> Path:
 
     temp_dir = tempfile.mkdtemp()
     try:
-        git.Repo.clone_from(repo_path, temp_dir, depth=1, env=env)
-        logger.info(f"Successfully cloned {repo_path} to {temp_dir}.")
+        git.Repo.clone_from(repo_path, temp_dir, env=env)
+        git_dir = Path(temp_dir) / ".git"
+        if git_dir.exists():
+            shutil.rmtree(git_dir)
+
+        logger.info(f"Cloned codebase {repo_path} to {temp_dir}.")
+
         return Path(temp_dir)
 
     except git.GitCommandError as excinfo:
         raise ValueError(f"Git clone error: {excinfo}") from excinfo
 
     except Exception as excinfo:
-        raise (f"Error cloning git repository: {excinfo}")
+        raise ValueError(f"Error cloning git repository: {excinfo}") from excinfo
 
 
 def find_git_executable() -> Optional[Path]:

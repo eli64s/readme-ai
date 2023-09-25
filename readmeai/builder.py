@@ -1,7 +1,6 @@
 """Builds the README Markdown file for your codebase."""
 
 import os
-import subprocess
 import urllib.parse
 from pathlib import Path
 from typing import List, Tuple
@@ -229,23 +228,50 @@ def generate_code_summary_table(base_url: str, directory: Path, level=0) -> str:
     return markdown
 
 
-def create_directory_tree(repo_path: Path) -> str:
-    """Creates a directory tree for the project."""
-    try:
-        tree_str = run_tree_command(repo_path)
-        return f"```bash\n.\n{tree_str}```"
-    except Exception as excinfo:
-        logger.warning(f"Error running tree command: {excinfo}")
-        return "```bash\n # Error generating directory tree.\n```"
+def generate_tree(
+    directory: Path,
+    repo_url: str,
+    prefix: str = "",
+    is_last: bool = True,
+    parent_prefix: str = "",
+) -> str:
+    """Recursively generates a tree structure for a given directory."""
+    if directory.name == directory:
+        return ""
+
+    if directory == repo_url:
+        display_name = "."
+    else:
+        display_name = directory.name
+
+    box_branch = "└── " if is_last else "├── "
+    tree_str = parent_prefix + box_branch + display_name
+
+    if directory.is_dir():
+        tree_str += "/\n"
+        children = sorted(
+            [child for child in directory.iterdir() if child.name != ".git"]
+        )
+        for index, child in enumerate(children):
+            is_last_child = index == len(children) - 1
+            child_prefix = "    " if is_last else "│   "
+            tree_str += generate_tree(
+                child,
+                repo_url,
+                box_branch,
+                is_last_child,
+                f"{parent_prefix}{child_prefix}",
+            )
+    else:
+        tree_str += "\n"
+
+    return tree_str
 
 
-def run_tree_command(repo_path: Path) -> str:
-    """Executes the 'tree' command to generate a directory tree."""
-    try:
-        tree_bytes = subprocess.check_output(["tree", "-n", repo_path])
-        tree_str = tree_bytes.decode("utf-8")
-        tree_lines = tree_str.split("\n")[1:]
-        tree_str = "\n".join(tree_lines)
-        return tree_str
-    except subprocess.CalledProcessError as excinfo:
-        raise Exception(f"Error running tree command: {excinfo}")
+def format_tree(name: str, tree_str: str) -> str:
+    """Replaces tmp directory name with project name."""
+    tree_str = tree_str.split("\n", 1)
+    tree_str[0] = f"└── {name}/"
+    tree_str = "\n".join(tree_str)
+    tree = f"```sh\n{tree_str}```"
+    return tree

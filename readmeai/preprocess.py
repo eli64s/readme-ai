@@ -8,46 +8,17 @@ from . import conf, logger, parse, utils
 logger = logger.Logger(__name__)
 
 
-class RepositoryParserWrapper:
-    """Wrapper class for the RepositoryParser."""
-
-    def __init__(self, config: conf.AppConfig, conf_helper: conf.ConfigHelper):
-        self.parser = RepositoryParser(
-            config, conf_helper.language_names, conf_helper.language_setup
-        )
-
-    def get_unique_contents(self, contents: Dict, keys: List[str]) -> List[str]:
-        """Extracts the unique contents from the list of dicts."""
-        unique_contents = {data[key] for key in keys for data in contents}
-        return list(unique_contents)
-
-    def get_file_contents(self, contents: Dict) -> Dict[str, str]:
-        """Extracts the file contents from the list of dicts."""
-        return {content["path"]: content["content"] for content in contents}
-
-    def get_dependencies(
-        self, temp_dir: str = None
-    ) -> Tuple[List[str], Dict[str, str]]:
-        """Extracts the dependencies of the user's repository."""
-        contents = self.parser.analyze(temp_dir)
-        dependencies = self.parser.get_dependency_file_contents(contents)
-        attributes = ["extension", "language", "name"]
-        dependencies.extend(self.get_unique_contents(contents, attributes))
-        return list(set(dependencies)), self.get_file_contents(contents)
-
-
-class RepositoryParser:
+class RepositoryHandler:
     """Analyzes a local or remote git repository."""
 
     def __init__(
         self,
         config: conf.AppConfig,
-        language_names: Dict[str, str],
-        language_setup: Dict[str, str],
+        conf_helper: conf.ConfigHelper,
     ):
         self.config = config
-        self.language_names = language_names
-        self.language_setup = language_setup
+        self.language_names = conf_helper.language_names
+        self.language_setup = conf_helper.language_setup
         self.encoding_name = config.api.encoding
 
     def analyze(self, repo_path: str) -> List[Dict]:
@@ -82,7 +53,6 @@ class RepositoryParser:
         parsed_contents = []
         for content in dependency_files:
             logger.info(f"Dependency file found: {content['name']}")
-            # logger.info(f"Dependency file content: {content['content']}")
             parser = file_parsers[content["name"]]
             parsed_content = parser(content=content["content"])
             parsed_contents.append(parsed_content)
@@ -107,13 +77,24 @@ class RepositoryParser:
                 except UnicodeDecodeError:
                     continue
 
-    def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
-        """Tokenizes the content of each file."""
-        for content in contents:
-            content["tokens"] = utils.get_token_count(
-                content["content"], self.encoding_name
-            )
-        return contents
+    def get_file_contents(self, contents: Dict) -> Dict[str, str]:
+        """Extracts the file contents from the list of dicts."""
+        return {content["path"]: content["content"] for content in contents}
+
+    def get_unique_contents(self, contents: Dict, keys: List[str]) -> List[str]:
+        """Extracts the unique contents from the list of dicts."""
+        unique_contents = {data[key] for key in keys for data in contents}
+        return list(unique_contents)
+
+    def get_dependencies(
+        self, temp_dir: str = None
+    ) -> Tuple[List[str], Dict[str, str]]:
+        """Extracts the dependencies of the user's repository."""
+        contents = self.analyze(temp_dir)
+        dependencies = self.get_dependency_file_contents(contents)
+        attributes = ["extension", "language", "name"]
+        dependencies.extend(self.get_unique_contents(contents, attributes))
+        return list(set(dependencies)), self.get_file_contents(contents)
 
     def process_language_mapping(self, contents: List[Dict]) -> List[Dict]:
         """Maps file extensions to their programming languages."""
@@ -126,6 +107,14 @@ class RepositoryParser:
             while len(setup) < 3:
                 setup.append(None)
             content["install"], content["run"], content["test"] = setup
+        return contents
+
+    def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
+        """Tokenizes the content of each file."""
+        for content in contents:
+            content["tokens"] = utils.get_token_count(
+                content["content"], self.encoding_name
+            )
         return contents
 
     @staticmethod

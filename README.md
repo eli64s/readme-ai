@@ -113,7 +113,7 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
     <tr>
         <h3>Directory Tree and File Summaries</h3>
         <p>
-            ‣ Your project's directory structure is visualized using the <i>tree</i> command.
+            ‣ Your project's directory structure is visualized using a custom tree function.
         </p>
         <p>
             ‣ Each file in the codebase is summarized by OpenAI's <i>GPT</i> model.
