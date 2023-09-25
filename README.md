@@ -82,7 +82,9 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
 
 ## 📦 Features
 
-<h1 align="center">⒈<br>👇<br><br>🎖 Introduction and Badges</h1>
+<div align="center">
+<details><summary>
+<h1 align="center">⒈<br>👇<br><br>🎖 Introduction and Badges</h1></summary>
 <table align="center">
     <tr>
         <td>
@@ -102,8 +104,11 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
         </td>
     </tr>
 </table>
+</details></div>
 
-<h1 align="center">⒉<br>👇<br><br>📃 Codebase Documentation</h1>
+<div align="center">
+<details><summary>
+<h1 align="center">⒉<br>👇<br><br>📃 Codebase Documentation</h1></summary>
 <table align="center">
     <tr>
         <h3>Directory Tree and File Summaries</h3>
@@ -123,8 +128,10 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
         </td>
     </tr>
 </table>
+</details></div>
 
-<h1 align="center">⒊<br>👇<br><br>🧚 Overview and Features Table</h1>
+<div align="center">
+<details><summary><h1 align="center">⒊<br>👇<br><br>🧚 Overview and Features Table</h1></summary>
 <table align="center">
     <tr>
         <td>
@@ -140,28 +147,34 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
         </td>
     </tr>
 </table>
+</details></div>
 
-<h1 align="center">⒋<br>👇<br><br>🔧 Dynamic Usage Instructions</h1>
-<table align="center">
-    <tr>
-        <td>
-            <h3>Installation, Running, and Test</h3>
-            <p>
-                ‣ Creates instructions for installation, running, and testing your project based on the language of your codebase.
-            </p>
-            <p>
-                ‣ Instructions are created by identifying the codebase's top language and referring to our <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/language_setup.toml">language_setup.toml</a> configuration file.
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/usage-instructions.png" alt="usage-instructions" />
-        </td>
-    </tr>
-</table>
+<div align="center">
+    <details><summary><h1 align="center">⒋<br>👇<br><br>🔧 Dynamic Usage Instructions</h1></summary>
+        <table align="center">
+            <tr>
+                <td>
+                    <h3>Installation, Running, and Test</h3>
+                    <p>
+                        ‣ Creates instructions for installation, running, and testing your project based on the language of your codebase.
+                    </p>
+                    <p>
+                        ‣ Instructions are created by identifying the codebase's top language and referring to our <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/language_setup.toml">language_setup.toml</a> configuration file.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/usage-instructions.png" alt="usage-instructions" />
+                </td>
+            </tr>
+        </table>
+    </details>
+</div>
 
-<h1 align="center">⒌<br>👇<br><br>📝 Contributing Guidelines and more!</h1>
+<div align="center">
+<details>
+<summary><h1 align="center">⒌<br>👇<br><br>📝 Contributing Guidelines and more!</h1></summary>
 <table align="center">
     <tr>
         <td>
@@ -177,8 +190,13 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
         </td>
     </tr>
 </table>
+</details></div>
 
-<h1 align="center">⒍<br>👇<br><br>🪄 Example Output Files</h1>
+<h1 align="center">⒍<br>👇<br><br>🎨 Custom <i>README</i> templates coming soon!</h1>
+<p align="center">‣ Developing CLI option letting users select from a variety of README formats and styles.</p>
+<p align="center">‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
+
+<h1 align="center">⒎<br>👇<br><br>🪄 Example Output Files</h1>
 <div align="center">
     <table>
         <thead>
@@ -253,10 +271,6 @@ https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b304
         </tbody>
     </table>
 </div>
-
-<h1 align="center">⒎<br>👇<br><br>🎨 Custom <i>README</i> templates coming soon!</h1>
-<p align="center">‣ Developing a feature that allows users to select from a variety of README formats and styles.</p>
-<p align="center">‣ Templates will focus on use-cases such as web development, data, machine learning, minimal, and more!</p>
 
 <p align="right">
     <a href="#top"><b>🔝 Return</b></a>

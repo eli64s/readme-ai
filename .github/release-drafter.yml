@@ -13,9 +13,9 @@ categories:
     labels:
       - fix
       - bug
-  - title: ⚠️ Changes
+  - title: 🛠 Maintenance
     labels:
-      - changed
+      - maintenance
   - title: ⛔️ Deprecated
     labels:
       - deprecated
@@ -24,8 +24,8 @@ categories:
       - removed
   - title: 🔐 Security
     labels:
-      - vulnerability
       - security
+      - vulnerability
   - title: 📄 Documentation
     labels:
       - docs
@@ -50,6 +50,6 @@ version-resolver:
       - patch
   default: patch
 template: |
-  ## Changes
+  ## What's Changed
 
   $CHANGES
