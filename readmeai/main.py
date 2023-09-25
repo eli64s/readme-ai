@@ -37,7 +37,7 @@ async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
         config.md.tree = config.md.tree.format(tree)
         logger.info(f"Directory tree: {config.md.tree}")
 
-        scanner = preprocess.RepositoryParserWrapper(config, config_helper)
+        scanner = preprocess.RepositoryHandler(config, config_helper)
         dependencies, file_text = scanner.get_dependencies(temp_dir)
         logger.info(f"Dependencies: {dependencies}")
         logger.info(f"Total files: {len(file_text)}")
