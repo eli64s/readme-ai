@@ -33,7 +33,8 @@ async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
 
     try:
         temp_dir = utils.clone_repo_to_temp_dir(repository)
-        tree = builder.create_directory_tree(temp_dir)
+        tree_str = builder.generate_tree(temp_dir, repository)
+        tree = builder.format_tree(name, tree_str)
         config.md.tree = config.md.tree.format(tree)
         logger.info(f"Directory tree: {config.md.tree}")
 
