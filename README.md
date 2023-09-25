@@ -70,6 +70,8 @@ This project is currently under development and has an opinionated configuration
 
 [cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/645c2336-6ea7-444c-a927-5450930c5255)
 
+<br>
+
 ***Streamlit Community Cloud***
 
 ‣ Use *readme-ai* directly in your browser! Zero installation, zero code!
@@ -80,8 +82,10 @@ This project is currently under development and has an opinionated configuration
 
 ## 🤖 Features
 
-<details><summary>
-<h2><br>⤵<br>⒈ Introduction and Badges</h2></summary>
+<details>
+    <summary>
+        <h2><br>❶ Project Badges</h2>
+    </summary>
     <table>
         <tr>
             <td>
@@ -101,9 +105,11 @@ This project is currently under development and has an opinionated configuration
             </td>
         </tr>
     </table>
-    </details>
-<details><summary>
-<h2><br>⤵<br>⒉ Codebase Documentation</h2></summary>
+</details>
+<details>
+    <summary>
+        <h2><br>❷ Codebase Documentation</h2>
+    </summary>
     <table>
         <tr>
             <h4><i>Directory Tree and File Summaries</i></h4>
@@ -124,28 +130,30 @@ This project is currently under development and has an opinionated configuration
         </tr>
     </table>
 </details>
-<details><summary>
-<h2><br>⤵<br>⒊ Overview and Features Table</h2></summary>
-<table>
-    <tr>
-        <td>
-            <h4><i>Prompted Text Generation</i></h4>
-            <p>
-                ‣ An overview paragraph and features table are generated using <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L31">detailed prompts</a>, embedded with project metadata.
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/feature-table.png" alt="feature-table" />
-        </td>
-    </tr>
-</table>
+<details>
+    <summary>
+        <h2><br>❸ Overview and Features Table</h2>
+    </summary>
+    <table>
+        <tr>
+            <td>
+                <h4><i>Prompted Text Generation</i></h4>
+                <p>
+                    ‣ An overview paragraph and features table are generated using <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/conf/conf.toml#L31">detailed prompts</a>, embedded with project metadata.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/feature-table.png" alt="feature-table" />
+            </td>
+        </tr>
+    </table>
 </details>
 <details>
-<summary>
-<h2><br>⤵<br>⒋ Dynamic Usage Instructions</h2>
-</summary>
+    <summary>
+        <h2><br>❹ Dynamic Usage Instructions</h2>
+    </summary>
     <table>
         <tr>
             <td>
@@ -162,31 +170,35 @@ This project is currently under development and has an opinionated configuration
         </tr>
     </table>
 </details>
-<details><summary>
-<h2><br>⤵<br>⒌ Contributing, License, and more!</i></h2></summary>
-<table>
-    <tr>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/roadmap.png"
-            alt="roadmap" />
-        </td>
-    </tr>
-    <br>
-    <tr>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/license.png"
-            alt="license" />
-        </td>
-    </tr>
-</table>
+<details>
+    <summary>
+        <h2><br>❺ Contributing Guidelines and more!</i></h2>
+    </summary>
+    <table>
+        <tr>
+            <td>
+                <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/roadmap.png" alt="roadmap" />
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td>
+                <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/license.png" alt="license" />
+            </td>
+        </tr>
+    </table>
 </details>
-<details><summary>
-<h2><br>⤵<br>⒍ Custom templates coming soon!</h2></summary>
-<p>‣ Developing CLI option letting users select from a variety of README styles</p>
-<p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
+<details>
+    <summary>
+        <h2><br>❻ Custom Templates - coming soon!</h2>
+    </summary>
+    <p>‣ Developing CLI option letting users select from a variety of README styles</p>
+    <p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
 </details>
-<details><summary>
-<h2><br>⤵<br>⒎ Example Files</h2></summary>
+<details>
+    <summary>
+        <h2><br>❼ Example README Files</h2>
+    </summary>
     <table>
         <thead>
             <tr>
