@@ -9,8 +9,7 @@ ENV GIT_PYTHON_REFRESH=quiet
 
 # Install system dependencies and clean up apt cache
 RUN apt-get update && apt-get install -y \
-    git \
-    tree && \
+    git && \
     rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user with a specific UID and GID (i.e. 1000 in this case)
