@@ -65,41 +65,21 @@ This project is currently under development and has an opinionated configuration
 ## 🤖 Demos
 
 <h3 align="center">► Command-Line Interface</h3>
+<p align="center">‣ Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more!</p>
+
+https://github.com/eli64s/readme-ai/assets/43382407/645c2336-6ea7-444c-a927-5450930c5255
+
 <br>
-<table align="center">
-    <tr>
-        <td>
-            <a href="https://youtu.be/p9qPjm0l4Q4">
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/cli-demo.png" alt="cli-demo" />
-            </a>
-        </td>
-    </tr>
-</table>
-<br>
+
 <h3 align="center">☁ Streamlit Community Cloud</h3>
-<br>
-<table align="center">
-    <tr>
-        <td>
-            <p>
-                ‣ Use <i>readme-ai</i> directly in your browser with Streamlit! Zero installation, zero code!
-            </p>
-            <p>
-                ‣ <a href="https://readmeai.streamlit.app/">🛸 Take me to <i>readme-ai</i> on Streamlit!</a>
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <a href="https://youtu.be/4xuqltFDfCo">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/streamlit-demo.png?raw=true" alt="streamlit-demo" />
-        </a>
-        </td>
-    </tr>
-</table>
+<p align="center">‣ Use <i>readme-ai</i> directly in your browser with Streamlit! Zero installation, zero code!</p>
+
+https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b3046b90c452
+
 <br>
 
 ---
+
 ## 📦 Features
 
 <h1 align="center">⒈<br>👇<br><br>🎖 Introduction and Badges</h1>
