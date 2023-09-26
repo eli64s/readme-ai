@@ -399,6 +399,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | Short Flag | Long Flag      | Description                                       | Status       |
 |------------|----------------|---------------------------------------------------|--------------|
 | `-k`       | `--api-key`    | Your OpenAI API secret key.                       | Optional     |
+| `-c`       | `--encoding`    | Encodings specify how text is converted into tokens.| Optional     |
 | `-e`       | `--engine`     | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
 | `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.      | Optional     |
 | `-o`       | `--output`     | The output path for your README.md file.          | Optional     |

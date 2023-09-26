@@ -75,7 +75,7 @@ class OpenAIHandler:
                 self.logger.warning(f"Ignoring file: {path}")
                 continue
 
-            prompt_code = prompt.format(contents)
+            prompt_code = prompt.format(str(path), contents)
             prompt_length = len(prompt_code.split())
             if prompt_length > self.tokens_max:
                 exc = f"Prompt exceeds max token limit: {prompt_length}."
@@ -171,7 +171,7 @@ class OpenAIHandler:
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "You're a brilliant Tech Lead.",
+                                "content": "You're a lead AI researcher and distributed systems engineer.",
                             },
                             {"role": "user", "content": prompt},
                         ],

@@ -26,7 +26,7 @@ readme = "readme-ai.md"
 # Prompts
 [prompts]
 code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the code:
-\n{}\n Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
+\nPath: {0}\nContents:\n{1}\n Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
 Limit your response to a maximum of 350 characters (including spaces).
 """
 features = """Hello! Analyze the Git codebase {} and create a robust summary of the project's features.
@@ -59,7 +59,7 @@ slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}
 # Markdown Template Code
 [md]
 tables = ""
-default = "▶︎ INSERT-DESCRIPTION"
+default = "► INSERT-TEXT"
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 header = """<div align="center">
 <h1 align="center">

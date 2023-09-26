@@ -102,6 +102,7 @@ extensions = [
     ".sample",
 ]
 files = [
+    ".git",
     "AUTHORS",
     "CHANGELOG",
     "init.py",
@@ -144,4 +145,5 @@ files = [
     ".whitesource",
     ".prettierrc",
     ".pre-commit-config.yaml",
+    "poetry.lock",
 ]

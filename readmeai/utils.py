@@ -28,10 +28,9 @@ def clone_repo_to_temp_dir(repo_path: str) -> Path:
     try:
         git.Repo.clone_from(repo_path, temp_dir, env=env)
         git_dir = Path(temp_dir) / ".git"
+
         if git_dir.exists():
             shutil.rmtree(git_dir)
-
-        logger.info(f"Cloned codebase {repo_path} to {temp_dir}.")
 
         return Path(temp_dir)
 
