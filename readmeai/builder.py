@@ -12,14 +12,14 @@ from . import conf, factory, logger, utils
 logger = logger.Logger(__name__)
 
 
-def build_markdown_file(
+def build_readme_file(
     config: conf.AppConfig,
     helper: conf.ConfigHelper,
     packages: list,
-    summaries: tuple,
+    code_summary: tuple,
 ) -> None:
     """Builds the README Markdown file for your codebase."""
-    readme_sections = create_markdown_sections(config, helper, packages, summaries)
+    readme_sections = build_markdown_sections(config, helper, packages, code_summary)
     readme_file = "\n".join(readme_sections)
     readme_path = Path(config.paths.readme)
 
@@ -28,11 +28,11 @@ def build_markdown_file(
     logger.info(f"README file generated at: {readme_path}")
 
 
-def create_markdown_sections(
+def build_markdown_sections(
     config: conf.AppConfig,
     helper: conf.ConfigHelper,
     packages: list,
-    summaries: tuple,
+    code_summary: tuple,
 ) -> List[str]:
     """Constructs each section of the README file."""
     name = config.git.name
@@ -51,10 +51,10 @@ def create_markdown_sections(
         else markdown_badges
     )
 
-    markdown_setup_guide = create_setup_guide(config, helper, summaries)
+    markdown_setup_guide = create_setup_guide(config, helper, code_summary)
 
-    if not config.api.offline_mode:
-        tables = create_markdown_tables(summaries)
+    if config.api.offline_mode is False:
+        tables = create_markdown_tables(config.md.default, code_summary)
         config.md.tables = create_tables(tables, config.md.dropdown, user_repo)
 
     markdown_sections = [
@@ -145,11 +145,17 @@ def create_setup_guide(
     return (default_install_command, default_run_command, default_test_command)
 
 
-def create_markdown_tables(summaries: Tuple[str, str]) -> List[Tuple[str, str]]:
-    """Formats the generated code summaries into a list."""
+def create_markdown_tables(
+    placeholder: str, code_summary: Tuple[str, str]
+) -> List[Tuple[str, str]]:
+    """Formats the generated code code_summary into a list."""
     summary_list = []
-    for module, summary in summaries:
-        summary_list.append((module, summary))
+    for summary in code_summary:
+        if isinstance(summary, tuple) and len(summary) == 2:
+            module, summary_text = summary
+        else:
+            module, summary_text = summary, placeholder
+        summary_list.append((module, summary_text))
     return summary_list
 
 
@@ -203,7 +209,7 @@ def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
     return "\n".join(formatted_lines)
 
 
-def generate_code_summary_table(base_url: str, directory: Path, level=0) -> str:
+def build_recursive_tables(base_url: str, directory: Path, placeholder) -> str:
     """Creates a Markdown table structure for the given directory."""
     markdown = ""
     markdown += "| File | Summary |\n"
@@ -211,17 +217,14 @@ def generate_code_summary_table(base_url: str, directory: Path, level=0) -> str:
 
     for item in sorted(directory.iterdir()):
         if item.is_file():
-            relative_path = os.path.relpath(item, start=directory)
-            url_path = urllib.parse.quote(relative_path)
-            full_url = urllib.parse.urljoin(base_url, url_path)
-            markdown += f"| [{item.name}]({full_url}) | Summary of {item.name} |\n"
+            markdown += f"| [{item.name}]({item.name}) | {placeholder} |\n"
 
     for item in sorted(directory.iterdir()):
         if item.is_dir():
             # If it is a sub-directory, create a collapsible section
             markdown += f"\n<details closed><summary>{item.name}</summary>\n\n"
             # Recursive call for sub-directory
-            markdown += generate_code_summary_table(base_url, item, level + 1)
+            markdown += build_recursive_tables(base_url, item, placeholder)
             # Close the collapsible section
             markdown += "\n</details>\n\n"
 

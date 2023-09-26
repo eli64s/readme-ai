@@ -17,6 +17,17 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.1.2] - *2023-09-25*
+
+### 🔐 Security
+
+- Implement custom directory tree method using pure Python [#53](https://github.com/eli64s/readme-ai/pull/53)
+  - Removes dependency on the tree command line tool.
+  - Improves security by removing the subprocess module.
+  - More details on these risk can be found [here](https://bandit.readthedocs.io/en/latest/plugins/b607_start_process_with_partial_path.html#b607-start-process-with-partial-path)
+
+---
+
 ## [v0.1.1] - *2023-09-24*
 
 ### 🚀 Features
