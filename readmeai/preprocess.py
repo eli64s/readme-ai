@@ -37,7 +37,12 @@ class RepositoryHandler:
         for name, path, content in data:
             extension = Path(name).suffix.lstrip(".")
             contents.append(
-                {"name": name, "path": path, "content": content, "extension": extension}
+                {
+                    "name": name,
+                    "path": path,
+                    "content": content,
+                    "extension": extension,
+                }
             )
         return contents
 
@@ -67,8 +72,12 @@ class RepositoryHandler:
             if file_path.is_file():
                 if str(file_path.relative_to(code_root)).startswith(".git/"):
                     continue
-                if ".github/workflows" in str(file_path.relative_to(code_root)):
-                    yield "github actions", file_path.relative_to(code_root), ""
+                if ".github/workflows" in str(
+                    file_path.relative_to(code_root)
+                ):
+                    yield "github actions", file_path.relative_to(
+                        code_root
+                    ), ""
                 try:
                     with file_path.open(encoding="utf-8") as file:
                         content = file.read()
@@ -81,7 +90,9 @@ class RepositoryHandler:
         """Extracts the file contents from the list of dicts."""
         return {content["path"]: content["content"] for content in contents}
 
-    def get_unique_contents(self, contents: Dict, keys: List[str]) -> List[str]:
+    def get_unique_contents(
+        self, contents: Dict, keys: List[str]
+    ) -> List[str]:
         """Extracts the unique contents from the list of dicts."""
         unique_contents = {data[key] for key in keys for data in contents}
         return list(unique_contents)

@@ -15,6 +15,7 @@ categories:
       - bug
   - title: 🛠 Maintenance
     labels:
+      - chore
       - maintenance
   - title: ⛔️ Deprecated
     labels:

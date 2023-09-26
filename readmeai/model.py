@@ -41,7 +41,9 @@ class OpenAIHandler:
         self.http_client = httpx.AsyncClient(
             http2=True,
             timeout=30,
-            limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
+            limits=httpx.Limits(
+                max_keepalive_connections=10, max_connections=100
+            ),
         )
         self.last_request_time = time.monotonic()
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
@@ -68,7 +70,10 @@ class OpenAIHandler:
         tasks = []
         for path, contents in files.items():
             if not (
-                all(idir not in path.parts for idir in ignore.get("directories", []))
+                all(
+                    idir not in path.parts
+                    for idir in ignore.get("directories", [])
+                )
                 and path.name not in ignore.get("files", [])
                 and path.suffix not in ignore.get("extensions", [])
             ):
@@ -84,7 +89,9 @@ class OpenAIHandler:
                 continue
 
             tasks.append(
-                asyncio.create_task(self.generate_text(path, prompt_code, self.tokens))
+                asyncio.create_task(
+                    self.generate_text(path, prompt_code, self.tokens)
+                )
             )
 
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -118,7 +125,9 @@ class OpenAIHandler:
         for idx, prompt in enumerate(prompts):
             tokens = utils.adjust_max_tokens(self.tokens, prompt)
             tasks.append(
-                asyncio.create_task(self.generate_text(idx + 1, prompt, tokens))
+                asyncio.create_task(
+                    self.generate_text(idx + 1, prompt, tokens)
+                )
             )
 
         results = []
@@ -183,9 +192,13 @@ class OpenAIHandler:
                 response.raise_for_status()
                 data = response.json()
                 summary = data["choices"][0]["message"]["content"]
-                summary = utils.format_sentence(summary) if index != 3 else summary
+                summary = (
+                    utils.format_sentence(summary) if index != 3 else summary
+                )
 
-                self.logger.info(f"\nProcessing prompt: {index}\nResponse: {summary}")
+                self.logger.info(
+                    f"\nProcessing prompt: {index}\nResponse: {summary}"
+                )
                 self.cache[prompt] = summary
                 return index, summary
 
@@ -202,7 +215,9 @@ class OpenAIHandler:
             )
         except RetryError as excinfo:
             self.logger.error(f"RetryError Exception:\n{str(excinfo)}")
-            return await self.null_summary(index, f"RetryError Exception: {excinfo}")
+            return await self.null_summary(
+                index, f"RetryError Exception: {excinfo}"
+            )
 
         except Exception as excinfo:
             self.logger.error(f"Exception:\n{str(excinfo)}")

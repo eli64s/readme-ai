@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.3.084"
+version = "0.3.085"
 description = "🚀 Generate beautiful README.md files from the terminal. Powered by OpenAI's GPT LLMs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -53,10 +53,11 @@ tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
 pydantic = "^1.10.9"
-click = "^8.1.6"
 tornado = "^6.3.3"
 asyncio = "^3.4.3"
 aiohttp = "^3.8.5"
+click = "^8.1.7"
+
 
 [tool.poetry.dev-dependencies]
 black = "*"
@@ -66,9 +67,39 @@ pytest = "*"
 pytest-cov = "*"
 pre-commit = "*"
 
+[tool.poetry.extras]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+]
+
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+      .eggs
+    | .git
+    | .hg
+    | .mypy_cache
+    | .tox
+    | venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+'''
+virtual_env = "venv"
+
 [tool.isort]
+line_length = 79
 profile = "black"
-line_length = 88
 known_third_party = ["tenacity"]
 multi_line_output = 3
 include_trailing_comma = true

@@ -42,7 +42,6 @@ async def generate_readme(llm: model.OpenAIHandler) -> None:
         scanner = preprocess.RepositoryHandler(config, config_helper)
         dependencies, file_text = scanner.get_dependencies(temp_dir)
         logger.info(f"Dependencies: {dependencies}")
-        logger.info(f"Total files: {len(file_text)}")
 
         if config.api.offline_mode is False:
             code_summary = await generate_code_to_text(llm, file_text)
@@ -63,7 +62,9 @@ async def generate_readme(llm: model.OpenAIHandler) -> None:
 
         config.md.header = config.md.header.format(name, slogan)
         config.md.intro = config.md.intro.format(overview, features)
-        builder.build_readme_file(config, config_helper, dependencies, code_summary)
+        builder.build_readme_file(
+            config, config_helper, dependencies, code_summary
+        )
 
     except Exception as excinfo:
         logger.error(f"Exception: {excinfo}")

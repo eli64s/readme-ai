@@ -16,7 +16,12 @@ from readmeai.builder import (
     get_badges,
     parse_pandas_cols,
 )
-from readmeai.conf import AppConfig, ConfigHelper, load_config, load_config_helper
+from readmeai.conf import (
+    AppConfig,
+    ConfigHelper,
+    load_config,
+    load_config_helper,
+)
 from readmeai.factory import FileHandler
 
 sys.path.append("readmeai")
@@ -190,9 +195,13 @@ def test_build_calls_file_handler_write_with_correct_arguments(
 
     with patch("src.builder.FileHandler", handler_mock):
         with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch("src.builder.parse_pandas_cols", parse_pandas_cols_mock):
+            with patch(
+                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
+            ):
                 with patch("src.builder.get_badges", get_badges_mock):
-                    with patch("src.builder.create_tables", create_tables_mock):
+                    with patch(
+                        "src.builder.create_tables", create_tables_mock
+                    ):
                         with patch(
                             "src.builder.create_directory_tree",
                             create_directory_tree_mock,
@@ -241,9 +250,13 @@ def test_build_calls_logger_info_with_correct_argument(
 
     with patch("src.builder.FileHandler", handler_mock):
         with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch("src.builder.parse_pandas_cols", parse_pandas_cols_mock):
+            with patch(
+                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
+            ):
                 with patch("src.builder.get_badges", get_badges_mock):
-                    with patch("src.builder.create_tables", create_tables_mock):
+                    with patch(
+                        "src.builder.create_tables", create_tables_mock
+                    ):
                         with patch(
                             "src.builder.create_directory_tree",
                             create_directory_tree_mock,

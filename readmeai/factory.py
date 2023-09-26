@@ -57,7 +57,9 @@ class FileHandler:
                 f"Exception: failed to write file {file_path}: {excinfo}"
             )
 
-    def get_action(self, file_extension: str, action_type: str) -> Callable[[str], Any]:
+    def get_action(
+        self, file_extension: str, action_type: str
+    ) -> Callable[[str], Any]:
         """Get method for the passed file extension and I/O operation."""
         file_actions = self.file_actions.get(file_extension)
         if not file_actions:
@@ -102,7 +104,9 @@ class FileHandler:
             return yaml.safe_load(file)
 
     @staticmethod
-    def write_json(file_path: Union[str, Path], content: Dict[str, Any]) -> None:
+    def write_json(
+        file_path: Union[str, Path], content: Dict[str, Any]
+    ) -> None:
         """Write the content to a JSON file."""
         with open(file_path, "w", encoding="utf-8") as file:
             json.dump(content, file, indent=4)
@@ -114,7 +118,9 @@ class FileHandler:
             file.write(content)
 
     @staticmethod
-    def write_toml(file_path: Union[str, Path], content: Dict[str, Any]) -> None:
+    def write_toml(
+        file_path: Union[str, Path], content: Dict[str, Any]
+    ) -> None:
         """Write the content to a TOML file."""
         with open(file_path, "w", encoding="utf-8") as file:
             toml.dump(content, file)
@@ -126,7 +132,9 @@ class FileHandler:
             file.write(content)
 
     @staticmethod
-    def write_yaml(file_path: Union[str, Path], content: Dict[str, Any]) -> None:
+    def write_yaml(
+        file_path: Union[str, Path], content: Dict[str, Any]
+    ) -> None:
         """Write the content to a YAML file."""
         with open(file_path, "w", encoding="utf-8") as file:
             yaml.safe_dump(content, file)

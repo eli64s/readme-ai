@@ -38,7 +38,9 @@ def clone_repo_to_temp_dir(repo_path: str) -> Path:
         raise ValueError(f"Git clone error: {excinfo}") from excinfo
 
     except Exception as excinfo:
-        raise ValueError(f"Error cloning git repository: {excinfo}") from excinfo
+        raise ValueError(
+            f"Error cloning git repository: {excinfo}"
+        ) from excinfo
 
 
 def find_git_executable() -> Optional[Path]:
@@ -102,7 +104,9 @@ def get_user_repository_name(url_or_path) -> str:
         raise ValueError("Error: invalid remote repository URL or local path.")
 
 
-def adjust_max_tokens(max_tokens: int, prompt: str, target: str = "Hello!") -> int:
+def adjust_max_tokens(
+    max_tokens: int, prompt: str, target: str = "Hello!"
+) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())
     adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 3
@@ -116,7 +120,9 @@ def get_token_count(text: str, encoding_name: str) -> int:
     return num_tokens
 
 
-def truncate_text_tokens(text: str, encoding_name: str, max_tokens: int) -> str:
+def truncate_text_tokens(
+    text: str, encoding_name: str, max_tokens: int
+) -> str:
     """Truncate a text string to a maximum number of tokens."""
     encoding = get_encoding(encoding_name)
     encoded_text = encoding.encode(text)[:max_tokens]
@@ -173,5 +179,7 @@ def format_sentence(text: str) -> str:
 def remove_substring(input_string: str) -> str:
     """Remove text between HTML tags."""
     pattern = r"</p>.*?</div>"
-    output_string = re.sub(pattern, "</p>\n</div>", input_string, flags=re.DOTALL)
+    output_string = re.sub(
+        pattern, "</p>\n</div>", input_string, flags=re.DOTALL
+    )
     return output_string

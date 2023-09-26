@@ -1,7 +1,5 @@
 """Builds the README Markdown file for your codebase."""
 
-import os
-import urllib.parse
 from pathlib import Path
 from typing import List, Tuple
 
@@ -19,12 +17,13 @@ def build_readme_file(
     code_summary: tuple,
 ) -> None:
     """Builds the README Markdown file for your codebase."""
-    readme_sections = build_markdown_sections(config, helper, packages, code_summary)
+    readme_sections = build_markdown_sections(
+        config, helper, packages, code_summary
+    )
     readme_file = "\n".join(readme_sections)
     readme_path = Path(config.paths.readme)
 
     factory.FileHandler().write(readme_path, readme_file)
-
     logger.info(f"README file generated at: {readme_path}")
 
 
@@ -41,7 +40,6 @@ def build_markdown_sections(
 
     badges_path = resource_filename(__package__, f"{config.paths.badges}")
     badges_dict = factory.FileHandler().read(badges_path)
-
     markdown_badges = config.md.badges.format(
         get_badges(badges_dict, packages), user_repo
     )
@@ -131,7 +129,6 @@ def create_setup_guide(
             language_name = helper.language_names.get(language_top, "Unknown")
             language_setup = helper.language_setup.get(language_name, [])
 
-            logger.info(f"Top language: {language_name.title()} (.{language_top})")
             logger.info(f"{language_name} setup guide: {language_setup}")
 
             if len(language_setup) >= 3:
@@ -140,7 +137,9 @@ def create_setup_guide(
                 default_test_command = language_setup[2]
 
     except Exception as exc:
-        logger.debug(f"Error: {exc}\nUsing default setup: {default_run_command}")
+        logger.debug(
+            f"Error: {exc}\nUsing default setup: {default_run_command}"
+        )
 
     return (default_install_command, default_run_command, default_test_command)
 
@@ -166,7 +165,9 @@ def create_tables(
     sub_folder_map = {}
     for module, summary in summary_list:
         sub_folder = (
-            str(module).split("/")[-2].capitalize() if "/" in str(module) else "Root"
+            str(module).split("/")[-2].capitalize()
+            if "/" in str(module)
+            else "Root"
         )
         if sub_folder in sub_folder_map:
             sub_folder_map[sub_folder].append((module, summary))
@@ -196,12 +197,16 @@ def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
             link = f"[{filename}]({github_url})"
         lines.append([link, summary])
 
-    max_len = [max(len(str(row[i])) for row in lines) for i in range(len(headers))]
+    max_len = [
+        max(len(str(row[i])) for row in lines) for i in range(len(headers))
+    ]
     formatted_lines = []
     for line in lines:
         formatted_line = (
             "| "
-            + " | ".join(str(item).ljust(length) for item, length in zip(line, max_len))
+            + " | ".join(
+                str(item).ljust(length) for item, length in zip(line, max_len)
+            )
             + " |"
         )
         formatted_lines.append(formatted_line)
@@ -241,7 +246,6 @@ def generate_tree(
     """Recursively generates a tree structure for a given directory."""
     if directory.name == directory:
         return ""
-
     if directory == repo_url:
         display_name = "."
     else:

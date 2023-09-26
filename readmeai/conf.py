@@ -168,7 +168,9 @@ class ConfigHelper(BaseModel):
             conf_dict = _get_config_dict(handler, path)
 
             if "dependency_files" in conf_dict:
-                self.dependency_files.extend(conf_dict.get("dependency_files", []))
+                self.dependency_files.extend(
+                    conf_dict.get("dependency_files", [])
+                )
             if "ignore_files" in conf_dict:
                 self.ignore_files.update(conf_dict["ignore_files"])
             if "language_names" in conf_dict:
