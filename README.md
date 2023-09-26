@@ -1,3 +1,9 @@
+<div align="left">
+
+[![fr](https://img.shields.io/badge/fr-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)
+[![zh-CN](https://img.shields.io/badge/zh--CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/README-zh-CN.md)
+</div>
+
 <div align="center">
     <h1 align="center">
         <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80" />
@@ -8,10 +14,10 @@
     <h3>◦ Developed with OpenAI's GPT language model APIs</h3>
     <br>
     <p align="center">
-        <img src="https://img.shields.io/badge/Markdown-000000.svg?stylee&logo=Markdown&logoColor=white" alt="Markdown" />
-        <img src="https://img.shields.io/badge/OpenAI-412991.svg?stylee&logo=OpenAI&logoColor=white" alt="OpenAI" />
-        <img src="https://img.shields.io/badge/Python-3776AB.svg?stylee&logo=Python&logoColor=white" alt="Python" />
-        <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?stylee&logo=Pytest&logoColor=white" alt="pytest" />
+        <img src="https://img.shields.io/badge/Markdown-000000.svg?&logo=Markdown&logoColor=white" alt="Markdown" />
+        <img src="https://img.shields.io/badge/OpenAI-412991.svg?&logo=OpenAI&logoColor=white" alt="OpenAI" />
+        <img src="https://img.shields.io/badge/Python-3776AB.svg?&logo=Python&logoColor=white" alt="Python" />
+        <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?&logo=Pytest&logoColor=white" alt="pytest" />
         <img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
         <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="actions" />
     </p>
@@ -25,6 +31,7 @@
         <img src="https://img.shields.io/pypi/dm/readmeai?color=5D6D7E" alt="pypi-downloads" />
     </a>
     <img src="https://img.shields.io/github/license/eli64s/readme-ai?color=5D6D7E" alt="github-license" />
+    <br>
 </div>
 
 ---
@@ -84,7 +91,7 @@ This project is currently under development and has an opinionated configuration
 
 <details>
     <summary>
-        <h2><br>❶ Project Badges</h2>
+        <h2 style="margin-top: 1em;">❶ Project Badges</h2>
     </summary>
     <table>
         <tr>
@@ -108,7 +115,7 @@ This project is currently under development and has an opinionated configuration
 </details>
 <details>
     <summary>
-        <h2><br>❷ Codebase Documentation</h2>
+        <h2 style="margin-top: 1em;">Codebase Documentation</h2>
     </summary>
     <table>
         <tr>
@@ -132,7 +139,7 @@ This project is currently under development and has an opinionated configuration
 </details>
 <details>
     <summary>
-        <h2><br>❸ Overview and Features Table</h2>
+        <h2 style="margin-top: 1em;">❸ Overview and Features Table</h2>
     </summary>
     <table>
         <tr>
@@ -152,7 +159,7 @@ This project is currently under development and has an opinionated configuration
 </details>
 <details>
     <summary>
-        <h2><br>❹ Dynamic Usage Instructions</h2>
+        <h2 style="margin-top: 1em;">❹ Dynamic Usage Instructions</h2>
     </summary>
     <table>
         <tr>
@@ -172,7 +179,7 @@ This project is currently under development and has an opinionated configuration
 </details>
 <details>
     <summary>
-        <h2><br>❺ Contributing Guidelines and more!</i></h2>
+        <h2 style="margin-top: 1em;">❺ Contributing Guidelines and more!</i></h2>
     </summary>
     <table>
         <tr>
@@ -190,14 +197,14 @@ This project is currently under development and has an opinionated configuration
 </details>
 <details>
     <summary>
-        <h2><br>❻ Custom Templates - coming soon!</h2>
+        <h2 style="margin-top: 1em;">❻ Custom Templates - coming soon!</h2>
     </summary>
     <p>‣ Developing CLI option letting users select from a variety of README styles</p>
     <p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
 </details>
 <details>
     <summary>
-        <h2><br>❼ Example README Files</h2>
+        <h2 style="margin-top: 1em;">❼ Example README Files</h2>
     </summary>
     <table>
         <thead>

@@ -44,10 +44,8 @@ notebooks/
 # Ignore benchmarks
 .benchmarks/
 
-# Directories
-docs/
-
 # Work In Progress
+docs/templates
 readmeai/conf/templates
 readmeai/conf/prompts.toml
 readmeai/conf/badges_v0.json
