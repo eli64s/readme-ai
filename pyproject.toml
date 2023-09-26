@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.3.085"
+version = "0.3.086"
 description = "🚀 Generate beautiful README.md files from the terminal. Powered by OpenAI's GPT LLMs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -77,7 +77,6 @@ dev = [
     "pre-commit",
 ]
 
-
 [tool.black]
 line-length = 79
 include = '\.pyi?$'
@@ -110,6 +109,7 @@ use_parentheses = true
 testpaths = ["tests"]
 python_files = "test_*.py"
 addopts = "--strict-markers --disable-pytest-warnings"
+markers = "asyncio: marks tests as asyncio."
 
 [tool.coverage.run]
 omit = ["tests/*", "*/__init__.py"]

@@ -1,10 +1,12 @@
 """Unit tests for the custom logger module."""
 
+__package__ = "readmeai"
+
 import logging
 import unittest
 from io import StringIO
 
-from readmeai.logger import Logger
+from readmeai import logger
 
 
 class LoggerTestCase(unittest.TestCase):
@@ -18,7 +20,7 @@ class LoggerTestCase(unittest.TestCase):
 
     def setUp(self):
         self.logger_name = __name__
-        self.logger = Logger(__name__)
+        self.logger = logger.Logger(__name__)
         self.log_output = StringIO()
         self.logger._configure_logger()
 
@@ -28,6 +30,10 @@ class LoggerTestCase(unittest.TestCase):
     def tearDown(self):
         logging.getLogger(self.logger_name).handlers.clear()
         self.log_output.close()
+
+    def test_logger_level(self):
+        logger = self.logger.Logger(__name__, level=logging.WARNING)
+        self.assertEqual(logger.logger.level, logging.WARNING)
 
     def assertLogOutputContains(self, expected_output):
         log_output = self.log_output.getvalue()

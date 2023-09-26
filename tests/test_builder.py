@@ -1,280 +1,196 @@
-"""Unit tests for the builder.py module."""
+"""Unit tests for the builder module."""
 
-import sys
-import unittest.mock as mock
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from pandas import DataFrame
 
 from readmeai.builder import (
-    build,
-    create_directory_tree,
+    build_markdown_sections,
+    build_readme_file,
+    build_recursive_tables,
+    create_markdown_tables,
+    create_setup_guide,
+    create_table,
     create_tables,
     format_badges,
+    format_tree,
+    generate_tree,
     get_badges,
-    parse_pandas_cols,
 )
 from readmeai.conf import (
+    ApiConfig,
     AppConfig,
     ConfigHelper,
-    load_config,
-    load_config_helper,
+    GitConfig,
+    MarkdownConfig,
+    PathsConfig,
+    PromptsConfig,
 )
-from readmeai.factory import FileHandler
-
-sys.path.append("readmeai")
-
-FILE_HANDLER = FileHandler()
-CONF = Path("conf/conf.toml")
-conf = load_config(CONF)
-conf_helper = load_config_helper(conf)
-dependency_list = ["dependency1", "dependency2"]
-summaries = [("module1.py", "Summary 1"), ("module2.py", "Summary 2")]
 
 
 @pytest.fixture
-def mock_conf():
+def config():
     return AppConfig(
-        paths=mock.MagicMock(),
-        md=mock.MagicMock(),
-        git=mock.MagicMock(),
-        api=mock.MagicMock(),
-        prompts=mock.MagicMock(),
+        git=GitConfig(name="test", repository="https://github.com/test/test"),
+        md=MarkdownConfig(
+            badges="badges.toml",
+            default="python setup.py install",
+            dropdown="<details><summary>{}</summary>\n\n{}</details>",
+            header="# Test",
+            intro="This is a test project.",
+            modules="## Modules",
+            setup="## Getting Started\n\nTo get started, run the following commands:\n\n```sh\n$ {}\n$ {}\n$ {}\n```",
+            tables="## Code Summary",
+            toc="## Table of Contents\n\n- [Test](#test)\n",
+            tree="## Project Structure",
+            ending="## License\n\nThis project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.",
+        ),
+        api=ApiConfig(offline_mode=False),
+        paths=PathsConfig(readme="README.md", badges="badges.toml"),
+        prompts=PromptsConfig(),
     )
 
 
 @pytest.fixture
-def mock_conf_helper():
-    return ConfigHelper(
-        ignore_files=[],
-        language_names={},
-        language_setup={},
-        dependency_files=[],
-    )
+def helper():
+    return ConfigHelper()
 
 
 @pytest.fixture
-def mock_summaries():
-    return [("module1.py", "Summary 1"), ("module2.py", "Summary 2")]
+def packages():
+    return ["pytest", "requests"]
 
 
 @pytest.fixture
-def mock_dependency_list():
-    return ["dependency1", "dependency2"]
+def code_summary():
+    return [("test.py", "This is a test module")]
 
 
-@mock.patch("src.builder.FileHandler")
-@mock.patch("src.builder.Logger")
-def test_build(mock_logger, mock_file_handler):
-    mock_conf = mock.MagicMock()
-    mock_conf.md.head = "mock string"
-    mock_conf.md.close = "mock string"
-    mock_conf.md.dropdown = mock.MagicMock()
-    mock_conf.md.dropdown.format.return_value = "formatted string"
-    mock_conf.git.name = "mock string"
-    mock_conf.md.slogan = "mock string"
-    mock_conf_helper = mock.MagicMock()
-    mock_dependency_list = ["dependency1", "dependency2"]
-    mock_summaries = [("module1.py", "Summary 1"), ("module2.py", "Summary 2")]
-    assert mock_conf.md.head == "mock string"
+def test_build_readme_file(config, helper, packages, code_summary):
+    with patch(
+        "readmeai.build_markdown_sections"
+    ) as mock_build_markdown_sections:
+        mock_build_markdown_sections.return_value = [
+            "# Test",
+            "This is a test README file.",
+        ]
+        with patch("readmeai.factory.FileHandler.write") as mock_write:
+            build_readme_file(config, helper, packages, code_summary)
+            mock_build_markdown_sections.assert_called_once_with(
+                config, helper, packages, code_summary
+            )
+            mock_write.assert_called_once_with(
+                Path(config.paths.readme),
+                "# Test\nThis is a test README file.",
+            )
+
+
+def test_build_markdown_sections(config, helper, packages, code_summary):
+    with patch(
+        "readmeai.get_user_repository_name"
+    ) as mock_get_user_repository_name:
+        mock_get_user_repository_name.return_value = "test/test"
+        with patch("readmeai.create_setup_guide") as mock_create_setup_guide:
+            mock_create_setup_guide.return_value = (
+                "python setup.py install",
+                "python run.py",
+                "pytest",
+            )
+            with patch(
+                "readmeai.create_markdown_tables"
+            ) as mock_create_markdown_tables:
+                mock_create_markdown_tables.return_value = [
+                    ("test.py", "This is a test module")
+                ]
+                with patch("readmeai.create_tables") as mock_create_tables:
+                    mock_create_tables.return_value = "## Code Summary"
+                    sections = build_markdown_sections(
+                        config, helper, packages, code_summary
+                    )
+                    assert sections == [
+                        "# Test",
+                        "Markdown badges",
+                        "## Table of Contents\n\n- [Test](#test)\n",
+                        "This is an introduction.",
+                        "## Project Structure\n\n```sh\n└── test/\n    └── test.py\n```",
+                        "## Modules",
+                        "## Code Summary",
+                        "## Getting Started\n\nTo get started, run the following commands:\n\n```sh\n$ python setup.py install\n$ python run.py\n$ pytest\n```",
+                        "## License\n\nThis project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.",
+                    ]
 
 
 def test_get_badges():
-    badge_metadata = {
-        "icons": [
-            {
-                "name": "dependency1",
-                "src": "https://img.shields.io/badge/dependency1-src1",
-            },
-            {
-                "name": "dependency2",
-                "src": "https://img.shields.io/badge/dependency2-src2",
-            },
-        ]
-    }
-    dependency_list = ["dependency1", "dependency2"]
-    badges = get_badges(badge_metadata, dependency_list)
-
-    assert "src1" in badges
-    assert "src2" in badges
+    svg_icons = {"pytest": ("pytest.svg", "#3EAAAF")}
+    dependencies = ["pytest", "requests"]
+    badges = get_badges(svg_icons, dependencies)
+    assert badges == '<img src="pytest.svg" alt="pytest" />'
 
 
 def test_format_badges():
-    badges = [
-        "https://img.shields.io/badge/dependency1-src1",
-        "https://img.shields.io/badge/dependency2-src2",
-        "https://img.shields.io/badge/dependency3-src3",
-    ]
-    dependencies = ["dependency1", "dependency2", "dependency3"]
-    formatted_badges = format_badges(badges, dependencies)
-
+    badges = ["badge1.svg", "badge2.svg"]
+    formatted_badges = format_badges(badges)
     assert (
-        '<img src="https://img.shields.io/badge/dependency1-src1" alt="dependency1" />'
-        in formatted_badges
-    )
-    assert (
-        '<img src="https://img.shields.io/badge/dependency2-src2" alt="dependency2" />'
-        in formatted_badges
-    )
-    assert (
-        '<img src="https://img.shields.io/badge/dependency3-src3" alt="dependency3" />'
-        in formatted_badges
+        formatted_badges
+        == '<img src="badge1.svg" alt="badge1" />\n<img src="badge2.svg" alt="badge2" />'
     )
 
 
-@mock.patch("src.builder.Path")
-def test_create_setup_guide(mock_path, mock_conf, mock_conf_helper):
-    mock_setup = mock.MagicMock()
-    mock_setup.format.return_value = "[INSERT_INSTALLATION_STEPS_HERE]"
-    mock_conf.md.setup = mock_setup
-
-
-@mock.patch("src.builder.subprocess.check_output")
-@mock.patch("src.builder.git.Repo.clone_from")
-def test_create_directory_tree(mock_git_clone, mock_subprocess_check_output):
-    url = "https://github.com/test/repo"
-    mock_subprocess_check_output.return_value.decode.return_value = "\n".join(
-        ["line1", "line2", "line3"]
+def test_create_setup_guide(config, helper, code_summary):
+    summary_list = [("test.py", "This is a test module")]
+    setup_guide = create_setup_guide(config, helper, summary_list)
+    assert setup_guide == (
+        "python setup.py install",
+        "python run.py",
+        "pytest",
     )
-    tree = create_directory_tree(url)
-    mock_git_clone.assert_called_once_with(url, mock.ANY)
-    assert "line2" in tree
-    assert "line3" in tree
+
+
+def test_create_markdown_tables(config, code_summary):
+    placeholder = "This is a placeholder."
+    markdown_tables = create_markdown_tables(placeholder, code_summary)
+    assert markdown_tables == [("test.py", "This is a test module")]
 
 
 def test_create_tables():
-    df = DataFrame(
-        {
-            "Module": ["module1.py", "module2.py"],
-            "Summary": ["Summary 1", "Summary 2"],
-            "File": ["file1.py", "file2.py"],
-        }
+    summary_list = [("test.py", "This is a test module")]
+    dropdown = "<details><summary>{}</summary>\n\n{}</details>"
+    user_repo_name = "test/test"
+    tables = create_tables(summary_list, dropdown, user_repo_name)
+    assert (
+        tables
+        == "<details><summary>Test</summary>\n\n| File | Summary |\n| --- | --- |\n| [test.py](https://github.com/test/test/blob/main/test.py) | This is a test module |\n</details>"
     )
-    dropdown = "expected format or content"
-    tables = create_tables(df, dropdown)
-    assert tables != ""
 
 
-def test_parse_pandas_cols():
-    df = DataFrame({"Module": ["path/to/module1.py", "path/to/module2.py"]})
-    parsed_df = parse_pandas_cols(df)
-
-    assert parsed_df["Directory"].tolist() == ["path/to", "path/to"]
-    assert parsed_df["File"].tolist() == ["module1.py", "module2.py"]
-
-
-def test_build_calls_file_handler_write_with_correct_arguments(
-    config,
-    conf_helper=conf_helper,
-    dependency_list=dependency_list,
-    summaries=summaries,
-):
-    handler_mock = MagicMock(FileHandler)
-    config["md"]["head"] = "mock string"
-    config["md"]["close"] = "mock string"
-    config["md"]["intro"] = "mock string"
-    config["md"]["dropdown"] = "mock string"
-    config["md"]["modules"] = "mock string"
-    config["md"]["setup"] = "mock string"
-    config["md"]["slogan"] = "mock string"
-    config["md"]["toc"] = "mock string"
-    config["md"]["tree"] = "mock string"
-    config["paths"]["badges"] = "mock_path"
-    config["git"]["repository"] = "mock_repository"
-
-    handler_instance_mock = handler_mock.return_value
-    handler_instance_mock.read.return_value = {}
-    summaries_dataframe_mock = MagicMock()
-    parse_pandas_cols_mock = MagicMock()
-    get_badges_mock = MagicMock(return_value="mock_badges")
-    create_tables_mock = MagicMock(return_value="mock_tables")
-    create_directory_tree_mock = MagicMock(return_value="mock_repo")
-    create_setup_guide_mock = MagicMock(return_value="mock_setup")
-
-    with patch("src.builder.FileHandler", handler_mock):
-        with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch(
-                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
-            ):
-                with patch("src.builder.get_badges", get_badges_mock):
-                    with patch(
-                        "src.builder.create_tables", create_tables_mock
-                    ):
-                        with patch(
-                            "src.builder.create_directory_tree",
-                            create_directory_tree_mock,
-                        ):
-                            with patch(
-                                "src.builder.create_setup_guide",
-                                create_setup_guide_mock,
-                            ):
-                                build(
-                                    conf,
-                                    conf_helper,
-                                    dependency_list,
-                                    summaries,
-                                )
-
-    handler_instance_mock.write.assert_called_once()
-
-
-def test_build_calls_logger_info_with_correct_argument(
-    config,
-    conf_helper=conf_helper,
-    dependency_list=dependency_list,
-    summaries=summaries,
-):
-    handler_mock = MagicMock(FileHandler)
-    config["md"]["head"] = "mock string"
-    config["md"]["close"] = "mock string"
-    config["md"]["intro"] = "mock string"
-    config["md"]["dropdown"] = "mock string"
-    config["md"]["modules"] = "mock string"
-    config["md"]["setup"] = "mock string"
-    config["md"]["slogan"] = "mock string"
-    config["md"]["toc"] = "mock string"
-    config["md"]["tree"] = "mock string"
-    config["paths"]["badges"] = "mock_path"
-    config["git"]["repository"] = "mock_repository"
-
-    handler_instance_mock = handler_mock.return_value
-    handler_instance_mock.read.return_value = {}
-    summaries_dataframe_mock = MagicMock()
-    parse_pandas_cols_mock = MagicMock()
-    get_badges_mock = MagicMock(return_value="mock_badges")
-    create_tables_mock = MagicMock(return_value="mock_tables")
-    create_directory_tree_mock = MagicMock(return_value="mock_repo")
-    create_setup_guide_mock = MagicMock(return_value="mock_setup")
-
-    with patch("src.builder.FileHandler", handler_mock):
-        with patch("pandas.DataFrame", summaries_dataframe_mock):
-            with patch(
-                "src.builder.parse_pandas_cols", parse_pandas_cols_mock
-            ):
-                with patch("src.builder.get_badges", get_badges_mock):
-                    with patch(
-                        "src.builder.create_tables", create_tables_mock
-                    ):
-                        with patch(
-                            "src.builder.create_directory_tree",
-                            create_directory_tree_mock,
-                        ):
-                            with patch(
-                                "src.builder.create_setup_guide",
-                                create_setup_guide_mock,
-                            ):
-                                with patch(
-                                    "src.builder.LOGGER.info"
-                                ) as logger_info_mock:
-                                    build(
-                                        conf,
-                                        conf_helper,
-                                        dependency_list,
-                                        summaries,
-                                    )
-
-    logger_info_mock.assert_called_once_with(
-        f"README.md file created at: {Path.cwd() / config['paths']['readme']}"
+def test_create_table():
+    data = [("test.py", "This is a test module")]
+    user_repo_name = "test/test"
+    table = create_table(data, user_repo_name)
+    assert (
+        table
+        == "| [test.py](https://github.com/test/test/blob/main/test.py) | This is a test module |"
     )
+
+
+def test_build_recursive_tables():
+    base_url = "https://github.com/test/test"
+    directory = Path("test")
+    placeholder = "This is a placeholder."
+    markdown_tables = build_recursive_tables(base_url, directory, placeholder)
+    assert markdown_tables == "| File | Summary |\n| --- | --- |\n"
+
+
+def test_generate_tree():
+    directory = Path("test")
+    repo_url = "https://github.com/test/test"
+    tree = generate_tree(directory, repo_url)
+    assert tree == "└── test/"
+
+
+def test_format_tree():
+    name = "test"
+    tree_str = "└── tmp/\n    └── test.py\n"
+    formatted_tree = format_tree(name, tree_str)
+    assert formatted_tree == "```sh\n└── test/\n    └── test.py\n```"

@@ -1,125 +1,81 @@
-"""Unit tests for utils.py"""
+"""Unit tests for utility functions."""
 
+import os
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from git import GitCommandError, Repo
 
-from readmeai.utils import (
-    adjust_max_tokens,
-    clone_repository,
-    flatten_list,
-    format_sentence,
-    get_github_file_link,
-    get_token_count,
-    get_user_repository_name,
-    is_valid_url,
-    truncate_text_tokens,
-)
+from readmeai import utils
 
 
-def test_clone_repository_success():
-    with patch.object(Repo, "clone_from") as mock_clone:
-        clone_repository("http://my-repo-url.com", Path("/tmp/my-repo"))
-        mock_clone.assert_called_once_with(
-            "http://my-repo-url.com", Path("/tmp/my-repo"), depth=1
-        )
+@pytest.fixture
+def temp_dir(tmp_path):
+    return tmp_path / "repo"
 
 
-def test_clone_repository_failure():
-    with patch.object(Repo, "clone_from") as mock_clone:
-        mock_clone.side_effect = GitCommandError("git clone", "Some error")
-        with pytest.raises(ValueError, match="Error cloning repository:"):
-            clone_repository("http://my-repo-url.com", Path("/tmp/my-repo"))
-        mock_clone.assert_called_once()
+def test_find_git_executable_windows():
+    with patch("platform.system") as mock_system:
+        mock_system.return_value = "Windows"
+        with patch("pathlib.Path.exists") as mock_exists:
+            mock_exists.return_value = True
+            git_exec_path = utils.find_git_executable()
+            assert git_exec_path == Path(
+                "C:\\Program Files\\Git\\cmd\\git.EXE"
+            )
+
+
+def test_find_git_executable_linux():
+    with patch("platform.system") as mock_system:
+        mock_system.return_value = "Linux"
+        with patch("os.environ.get") as mock_get:
+            mock_get.return_value = None
+            with patch("os.environ.__getitem__") as mock_getitem:
+                mock_getitem.return_value = "/usr/bin:/usr/local/bin"
+                with patch("pathlib.Path.exists") as mock_exists:
+                    mock_exists.return_value = True
+                    git_exec_path = utils.find_git_executable()
+                    assert git_exec_path == Path("/usr/bin/git")
+
+
+def test_validate_git_executable():
+    with pytest.raises(ValueError):
+        utils.validate_git_executable(None)
+    with pytest.raises(ValueError):
+        utils.validate_git_executable("invalid/path/to/git")
+    with patch("pathlib.Path.exists") as mock_exists:
+        mock_exists.return_value = True
+        utils.validate_git_executable("/usr/bin/git")
+
+
+def test_validate_file_permissions_windows(temp_dir):
+    with patch("platform.system") as mock_system:
+        mock_system.return_value = "Windows"
+        utils.validate_file_permissions(temp_dir)
+
+
+def test_validate_file_permissions_linux(temp_dir):
+    with patch("platform.system") as mock_system:
+        mock_system.return_value = "Linux"
+        with patch("pathlib.Path.stat") as mock_stat:
+            mock_stat.return_value.st_mode = 0o700
+            utils.validate_file_permissions(temp_dir)
 
 
 def test_get_github_file_link():
-    url = get_github_file_link("path/to/my_file.py", "username/repo")
-    assert url == "https://github.com/username/repo/blob/main/path/to/my_file.py"
-    url = get_github_file_link("readme.md", "myorg/myrepo")
-    assert url == "https://github.com/myorg/myrepo/blob/main/readme.md"
-    url = get_github_file_link("dir/subdir/my_file.py", "anotheruser/anotherrepo")
-    assert (
-        url
-        == "https://github.com/anotheruser/anotherrepo/blob/main/dir/subdir/my_file.py"
-    )
+    file = "README.md"
+    user_repo_name = "user/repo"
+    link = utils.get_github_file_link(file, user_repo_name)
+    assert link == f"https://github.com/{user_repo_name}/blob/main/{file}"
 
 
-def test_get_user_repository_name_valid_url():
-    assert get_user_repository_name("https://github.com/user/repo") == "user/repo"
-    assert get_user_repository_name("http://github.com/user/repo") == "user/repo"
+def test_get_user_repository_name_local_path(temp_dir):
+    os.makedirs(temp_dir)
+    user_repo_name = utils.get_user_repository_name(temp_dir)
+    assert user_repo_name == temp_dir.name
 
 
-def test_get_user_repository_name_invalid_url():
-    assert (
-        get_user_repository_name("https://notgithub.com/user/repo")
-        == "Invalid remote git URL."
-    )
-    assert (
-        get_user_repository_name("https://github.com/user") == "Invalid remote git URL."
-    )
-    assert get_user_repository_name("http://github") == "Invalid remote git URL."
-    assert get_user_repository_name("invalid_url") == "Invalid remote git URL."
-
-
-def test_adjust_max_tokens_with_valid_prompt():
-    max_tokens = 150
-    prompt = "Hello! How are you today?"
-    result = adjust_max_tokens(max_tokens, prompt)
-    assert result == 150, "Expected max tokens to remain the same for valid prompts"
-
-
-def test_adjust_max_tokens_with_invalid_prompt():
-    max_tokens = 150
-    prompt = "How are you today?"
-    result = adjust_max_tokens(max_tokens, prompt)
-    assert (
-        result == 50
-    ), "Expected max tokens to be reduced to a third for invalid prompts"
-
-
-def test_adjust_max_tokens_with_target_string():
-    max_tokens = 120
-    prompt = "Good morning! Have a nice day."
-    target = "Good morning!"
-    result = adjust_max_tokens(max_tokens, prompt, target)
-    assert (
-        result == 120
-    ), "Expected max tokens to remain the same for prompts starting with target string"
-
-
-def test_get_token_count(config):
-    encoding_name = config["api"]["encoding"]
-    assert get_token_count("", encoding_name) == 0
-    assert get_token_count("Hello, world!", encoding_name) == 4
-    assert get_token_count("Hello, world! Hello, world!", encoding_name) == 8
-
-
-def test_truncate_text_tokens(config):
-    encoding_name = config["api"]["encoding"]
-    max_tokens = 10
-    assert truncate_text_tokens("", encoding_name, max_tokens) == ""
-    input_text = "This is a long text with more tokens than the maximum limit"
-    truncated_text = truncate_text_tokens(input_text, encoding_name, max_tokens)
-    assert len(truncated_text.split()) == 10
-
-
-def test_is_valid_url():
-    assert is_valid_url("https://www.example.com")
-    assert not is_valid_url("inis_valid_url")
-
-
-def test_flatten_list():
-    assert flatten_list([]) == []
-    nested_list = [[1, 2, 3], [4, [5, 6]], 7, [8, [9]]]
-    flattened_list = flatten_list(nested_list)
-    assert flattened_list == [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-
-def test_format_sentence():
-    assert format_sentence("") == ""
-    input_text = "   Hello,   world! This is a  test sentence...   "
-    expected_output = "Hello, world! This is a test sentence..."
-    assert format_sentence(input_text) == expected_output
+def test_get_user_repository_name_github_url():
+    url = "https://github.com/user/repo.git"
+    user_repo_name = utils.get_user_repository_name(url)
+    assert user_repo_name == "user/repo.git"

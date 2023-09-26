@@ -1,65 +1,73 @@
-"""Unit tests for the model.py module."""
+from unittest.mock import patch
 
-import sys
-from unittest.mock import AsyncMock, patch
-
-import httpx
 import pytest
 
-from readmeai.model import (
-    code_to_text,
-    generate_summary_text,
-    get_cache,
-    get_http_client,
-)
-
-sys.path.append("readmeai")
+from readmeai import model
 
 
-def test_get_cache():
-    cache = get_cache()
-    # Initially, the cache should be empty
-    assert len(cache) == 0
+@pytest.fixture
+def openai_handler():
+    return model.OpenAIHandler(model.conf)
 
 
-def test_get_http_client():
-    with patch.object(httpx, "AsyncClient") as mock:
-        get_http_client()
-        mock.assert_called_once_with(
-            http2=True,
-            timeout=30,
-            limits=httpx.Limits(max_keepalive_connections=10, max_connections=100),
-        )
+@pytest.fixture
+def code():
+    return """
+    def hello_world():
+        print("Hello, world!")
+    """
 
 
-@patch("src.model.openai.Completion.create")
-def test_generate_summary_text(mock_create):
-    mock_create.return_value = type(
-        "obj",
-        (object,),
-        {"choices": [type("obj", (object,), {"text": " Sample text"})]},
-    )
-
-    result = generate_summary_text("Test prompt")
-    assert result == "Sample text"
+@pytest.fixture
+def chat():
+    return "What is the meaning of life?"
 
 
 @pytest.mark.asyncio
-async def test_code_to_text():
-    ignore_files = ["ignore.py"]
-    files = {
-        "ignore.py": "ignore this file",
-        "file1.py": "print('Hello World')",
-    }
-    prompt = "Summarize the following code: {}"
-
-    with patch("src.model.fetch_summary", new_callable=AsyncMock) as mock_fetch_summary:
-        mock_fetch_summary.return_value = (
-            "file1.py",
-            "It prints 'Hello World'",
+async def test_code_to_text(openai_handler, code):
+    with patch.object(openai_handler, "openai") as mock_openai:
+        mock_openai.Completion.create.return_value.choices[
+            0
+        ].text = "This is some generated text."
+        text = await openai_handler.code_to_text(code)
+        mock_openai.Completion.create.assert_called_once_with(
+            engine=model.config["openai_engine"],
+            prompt=model.config["code_to_text_prompt"].format(code=code),
+            max_tokens=model.config["openai_max_tokens"],
+            n=model.config["openai_n"],
+            stop=model.config["openai_stop"],
+            temperature=model.config["openai_temperature"],
         )
+        assert text == "This is some generated text."
 
-        result = await code_to_text(ignore_files, files, prompt)
 
-    assert len(result) == 1
-    assert result[0] == ("file1.py", "It prints 'Hello World'")
+@pytest.mark.asyncio
+async def test_chat_to_text(openai_handler, chat):
+    with patch.object(openai_handler, "openai") as mock_openai:
+        mock_openai.Completion.create.return_value.choices[
+            0
+        ].text = "This is some generated text."
+        text = await openai_handler.chat_to_text(chat)
+        mock_openai.Completion.create.assert_called_once_with(
+            engine=model.config["openai_engine"],
+            prompt=model.config["chat_to_text_prompt"].format(chat=chat),
+            max_tokens=model.config["openai_max_tokens"],
+            n=model.config["openai_n"],
+            stop=model.config["openai_stop"],
+            temperature=model.config["openai_temperature"],
+        )
+        assert text == "This is some generated text."
+
+
+def test_generate_code_from_text(openai_handler):
+    text = "This is some generated text."
+    code = openai_handler.generate_code_from_text(text)
+    assert code.startswith("def ")
+    assert "print(" in code
+    assert "Hello, world!" in code
+
+
+def test_generate_chat_response(openai_handler):
+    text = "This is some generated text."
+    response = openai_handler.generate_chat_response(text)
+    assert isinstance(response, str)

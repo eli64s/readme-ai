@@ -147,7 +147,6 @@ class ConfigHelper(BaseModel):
     language_setup: Dict[str, List[str]] = {}
 
     class Config:
-        # Configure the model to call the custom __init__ method
         allow_mutation = True
 
     def __init__(self, conf: AppConfigModel, **data):

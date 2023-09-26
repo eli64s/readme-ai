@@ -1,4 +1,4 @@
-"""Unit tests for preprocess_parse.py."""
+"""Unit tests for the dependency parsing module."""
 
 import json
 import sys
@@ -31,7 +31,9 @@ def test_parse_conda_env_file_invalid_content(temp_file):
 
 
 def test_parse_conda_env_file(temp_file):
-    conda_env = {"dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]}
+    conda_env = {
+        "dependencies": ["numpy=1.19.2", "pandas", {"scipy": "1.5.0"}]
+    }
     temp_file.write(yaml.dump(conda_env).encode())
     temp_file.seek(0)
     dependencies = parse.parse_conda_env_file(temp_file.name)

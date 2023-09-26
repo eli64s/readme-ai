@@ -166,13 +166,12 @@ def cli(
     config.api.temperature = temperature
     config.api.offline_mode = offline_mode
 
+    if api_key is None and offline_mode is False:
+        config.api.offline_mode = offline_mode
+
     logger.info("README-AI is now executing.")
     logger.info(f"Output file: {config.paths.readme}")
     logger.info(f"OpenAI Engine: {config.api.engine}")
-
-    if not api_key and not offline_mode:
-        offline_mode = True
-        config.api.offline_mode = offline_mode
 
     asyncio.run(main(repository))
 
