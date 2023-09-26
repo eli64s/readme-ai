@@ -42,6 +42,7 @@
 - [📍 Overview](#-overview)
 - [🎈 Demos](#-demos)
 - [🤖 Features](#-features)
+  - [AI and ML README Template Concept](#ai-and-ml-readme-template-concept)
 - [👩‍💻 Usage](#-usage)
   - [🛠 Installation](#-installation)
   - [⚙️ Configuration](#️-configuration)
@@ -93,7 +94,7 @@ This project is currently under development and has an opinionated configuration
 <div>
 <details>
     <summary style="display: flex; align-items: center;">
-        <span style="font-size: 1.5em;"> ❶ Project Badges</span>
+        <span style="font-size: 2.0em;"> ❶ Project Badges</span>
     </summary>
     <table>
         <tr>
@@ -119,7 +120,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"> ❷ Codebase Documentation</span>
+            <span style="font-size: 2.0em;"> ❷ Codebase Documentation</span>
         </summary>
         <table>
             <tr>
@@ -148,7 +149,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"></span> ❸ Overview and Features Table</span>
+            <span style="font-size: 2.0em;"> ❸ Overview and Features Table</span>
         </summary>
         <table>
             <tr>
@@ -171,7 +172,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"> ❹ Dynamic Usage Instructions</span><br>
+            <span style="font-size: 2.0em;"> ❹ Dynamic Usage Instructions</span><br>
         </summary>
         <table>
             <tr>
@@ -194,7 +195,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"> ❺ Contributing Guidelines and more!</span><br>
+            <span style="font-size: 2.0em;"> ❺ Contributing Guidelines and more!</span><br>
         </summary>
         <table>
             <tr>
@@ -213,27 +214,49 @@ This project is currently under development and has an opinionated configuration
 </div>
 <br>
 <div>
-    <details>
-        <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"> ❻ Custom Templates - coming soon</span><br>
-        </summary>
-        <table>
-            <tr>
-            <td>
-                <ul>
-                    <li>Developing CLI option letting users select from a variety of README styles</li>
-                    <li>Templates for use-cases such as data, machine learning, web development, and more!</li>
-                </ul>
-            </td>
-            </tr>
-        </table>
-    </details>
+<details>
+<summary style="display: flex; align-items: center;">
+<span style="font-size: 2.0em;"> ❻ Templates Coming Soon</i></span><br>
+</summary>
+<table>
+<tr>
+<td>
+<p>‣ Developing CLI option letting users select from a variety of README styles</p>
+<p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
+</td>
+</tr>
+<tr>
+<td>
+<br>
+
+### AI and ML README Template Concept
+
+- **[Overview](#overview)**: Summary of the projects' objectives, scope, and expected outcomes.
+- **[Project Structure](#project-structure)**: Overview of the organization of the projects and their main components.
+- **[Data Preprocessing](#data-collection-and-preprocessing)**: Data sources, collection methods, and types of data
+- **[Feature Engineering](#feature-engineering)**: importance of feature engineering and its impact on model performance.
+- **[Model Architecture and Development](#model-architecture-and-development)**: Model selection, dev strategies, and implemented algorithms.
+- **[Training and Validation](#training-and-validation)**: Info on model training procedures, hyperparameter tuning, and validation strategies.
+- **[Testing and Evaluation](#testing-and-evaluation)**: Model testing results, performance analysis, and comparison with benchmarks.
+- **[Deployment and Integration](#deployment-and-integration)**: Integration with other systems, APIs, and user interfaces
+- **[Usage and Maintenance](#usage-and-maintenance)**: User guide on how to use the deployed models and interfaces.
+- **[Results and Discussion](#results-and-discussion)**: Implications, limitations, and future work.
+- **[Ethical Considerations](#ethical-considerations)**: Ethical aspects, data privacy, and fairness in model predictions.
+- **[Contributing](#contributing)**: Procedures for submitting contributions, reporting issues, and proposing enhancements.
+- **[Acknowledgements](#acknowledgements)**: References to resources, libraries, and frameworks used.
+- **[License](#license)**: Explanation of usage rights, restrictions, and attribution requirements.
+
+<br>
+</td>
+</tr>
+</table>
+</details>
 </div>
 <br>
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 1.5em;"> ❼ Example README Files</span><br>
+            <span style="font-size: 2.0em;"> ❼ Example README Files</span><br>
         </summary>
         <table>
             <thead>
