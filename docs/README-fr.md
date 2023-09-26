@@ -107,7 +107,7 @@ Ce projet est actuellement en développement et a une configuration opinâtre. B
 </details>
 <details>
     <summary>
-        <h2 style="margin-top: 1em;">Documentation du Code Source</h2>
+        <h2 style="margin-top: 1em;">❷ Documentation du Code Source</h2>
     </summary>
     <table>
         <tr>
