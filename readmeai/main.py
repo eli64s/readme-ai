@@ -19,17 +19,18 @@ config_model = conf.AppConfigModel(app=config)
 config_helper = conf.load_config_helper(config_model)
 
 
-async def main(repository: str, offline: bool) -> None:
+async def main(repository: str) -> None:
     """Main entrypoint for the readme-ai application."""
     config.git = conf.GitConfig(repository=repository)
     llm = model.OpenAIHandler(config)
-    await generate_readme(llm, offline)
+    await generate_readme(llm)
 
 
-async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
+async def generate_readme(llm: model.OpenAIHandler) -> None:
     """Orchestrates the README file generation process."""
     name = config.git.name
     repository = config.git.repository
+    placeholder = config.md.default
 
     try:
         temp_dir = utils.clone_repo_to_temp_dir(repository)
@@ -43,25 +44,26 @@ async def generate_readme(llm: model.OpenAIHandler, offline: bool) -> None:
         logger.info(f"Dependencies: {dependencies}")
         logger.info(f"Total files: {len(file_text)}")
 
-        if offline:
-            logger.warning("Skipping OpenAI API calls as offline mode is enabled.")
-            config.md.tables = builder.generate_code_summary_table(repository, temp_dir)
-            code_summary = config.md.tables
-            slogan, overview, features = (
-                config.md.default,
-                config.md.default,
-                config.md.default,
-            )
-        else:
+        if config.api.offline_mode is False:
             code_summary = await generate_code_to_text(llm, file_text)
             slogan, overview, features = await generate_markdown_text(
                 llm, repository, code_summary
             )
             await llm.close()
+        else:
+            config.md.tables = builder.build_recursive_tables(
+                repository, temp_dir, placeholder
+            )
+            code_summary = placeholder
+            slogan, overview, features = (
+                config.md.default,
+                config.md.default,
+                config.md.default,
+            )
 
         config.md.header = config.md.header.format(name, slogan)
         config.md.intro = config.md.intro.format(overview, features)
-        builder.build_markdown_file(config, config_helper, dependencies, code_summary)
+        builder.build_readme_file(config, config_helper, dependencies, code_summary)
 
     except Exception as excinfo:
         logger.error(f"Exception: {excinfo}")
@@ -98,6 +100,12 @@ async def generate_markdown_text(
     "--api-key",
     default=os.environ.get("OPENAI_API_KEY", None),
     help="OpenAI API secret key.",
+)
+@click.option(
+    "-c",
+    "--encoding",
+    default="cl100k_base",
+    help="Encodings specify how text is converted into tokens.",
 )
 @click.option(
     "-e",
@@ -142,6 +150,7 @@ async def generate_markdown_text(
 )
 def cli(
     api_key: str,
+    encoding: Optional[str],
     engine: Optional[str],
     offline_mode: bool,
     output: Optional[str],
@@ -159,13 +168,12 @@ def cli(
     logger.info("README-AI is now executing.")
     logger.info(f"Output file: {config.paths.readme}")
     logger.info(f"OpenAI Engine: {config.api.engine}")
-    logger.info(f"OpenAI Temperature: {config.api.temperature}")
 
-    if not api_key:
-        logger.error("API key not found, running in offline mode...")
+    if not api_key and not offline_mode:
         offline_mode = True
+        config.api.offline_mode = offline_mode
 
-    asyncio.run(main(repository, offline_mode))
+    asyncio.run(main(repository))
 
     logger.info("README-AI execution complete.")
 
