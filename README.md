@@ -398,7 +398,7 @@ An OpenAI API account and API key are needed to use *readme-ai*. The steps below
 Pip is the recommended installation method for most users.
 
 ```sh
-pip install --upgrade readmeai
+pip install readmeai
 ```
 <br>
 
@@ -443,6 +443,7 @@ pip install -r requirements.txt
 
 ***Using Poetry***
 ```sh
+poetry shell && \
 poetry install
 ```
 
@@ -462,8 +463,8 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 |------------|----------------|---------------------------------------------------|--------------|
 | `-k`       | `--api-key`    | Your OpenAI API secret key.                       | Optional     |
 | `-c`       | `--encoding`    | Encodings specify how text is converted into tokens.| Optional     |
-| `-e`       | `--engine`     | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
 | `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.      | Optional     |
+| `m`        | `--model`      | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
 | `-o`       | `--output`     | The output path for your README.md file.          | Optional     |
 | `-r`       | `--repository` | The URL or path to your code repository.          | Required     |
 | `-t`       | `--temperature`| The temperature (randomness) of the model         | Optional     |
@@ -538,7 +539,7 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```sh
 conda activate readmeai
 export OPENAI_API_KEY="YOUR_API_KEY"
-python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 <br>
@@ -547,7 +548,7 @@ python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```sh
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
-poetry run python readmeai/main.py -o readme-ai.md -r https://github.com/eli64s/readme-ai
+poetry run python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 </details>
@@ -584,6 +585,10 @@ bash scripts/test.sh
 ---
 
 ## 🤝 Contributing
+
+Looking to contribute to *readme-ai*? Here is what you can do to help:
+
+- [ ] Create new templates for different use-cases (i.e. data, web-dev, minimal, etc.). The README is constructed in sections, defined in the [config.toml] file. Follow the existing format to get started.
 
 [Contributing Guidelines](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)
 

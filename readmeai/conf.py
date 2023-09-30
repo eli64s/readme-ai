@@ -24,8 +24,8 @@ class ApiConfig(BaseModel):
     """Pydantic model for OpenAI API configuration."""
 
     endpoint: str
-    engine: str
     encoding: str
+    model: str
     rate_limit: int
     tokens: int
     tokens_max: int
@@ -44,7 +44,6 @@ class GitConfig(BaseModel):
         """Validates if the repository is a valid URL or path."""
         path = Path(value)
         if path.is_dir():
-            logger.info(f"Validated user repository (local path): {value}")
             return value
 
         try:
@@ -58,8 +57,6 @@ class GitConfig(BaseModel):
             or len(parsed_url.path.strip("/").split("/")) != 2
         ):
             raise ValueError(f"Invalid repository URL or path: {value}")
-
-        logger.info(f"Validated user repository (remote): {value}")
 
         return value
 

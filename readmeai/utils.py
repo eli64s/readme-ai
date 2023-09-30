@@ -120,9 +120,7 @@ def get_token_count(text: str, encoding_name: str) -> int:
     return num_tokens
 
 
-def truncate_text_tokens(
-    text: str, encoding_name: str, max_tokens: int
-) -> str:
+def truncate_tokens(text: str, encoding_name: str, max_tokens: int) -> str:
     """Truncate a text string to a maximum number of tokens."""
     encoding = get_encoding(encoding_name)
     encoded_text = encoding.encode(text)[:max_tokens]

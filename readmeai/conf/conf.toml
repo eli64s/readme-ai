@@ -1,8 +1,8 @@
 # OpenAI API Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
-engine = "gpt-3.5-turbo"
 encoding = "cl100k_base"
+model = "gpt-3.5-turbo"
 rate_limit = 5
 tokens = 650
 tokens_max = 3800

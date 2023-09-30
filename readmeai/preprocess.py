@@ -8,7 +8,7 @@ from . import conf, logger, parse, utils
 logger = logger.Logger(__name__)
 
 
-class RepositoryHandler:
+class RepositoryParser:
     """Analyzes a local or remote git repository."""
 
     def __init__(
@@ -48,7 +48,8 @@ class RepositoryHandler:
 
     def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
         """Extracts dependency file contents from the list of dicts."""
-        file_parsers = self._get_file_parsers()
+        file_parsers = parse.get_file_parsers()
+        logger.info(f"File parsers found: {file_parsers.keys()}")
         dependency_files = [
             content
             for content in contents
@@ -127,29 +128,3 @@ class RepositoryHandler:
                 content["content"], self.encoding_name
             )
         return contents
-
-    @staticmethod
-    def _get_file_parsers() -> Dict[str, callable]:
-        """Returns a dictionary of callable file parser methods."""
-        return {
-            "build.gradle": parse.parse_gradle,
-            "pom.xml": parse.parse_maven,
-            "Cargo.toml": parse.parse_cargo_toml,
-            "Cargo.lock": parse.parse_cargo_lock,
-            "go.mod": parse.parse_go_mod,
-            "go.sum": parse.parse_go_mod,
-            "requirements.txt": parse.parse_requirements_file,
-            "environment.yaml": parse.parse_conda_env_file,
-            "environment.yml": parse.parse_conda_env_file,
-            "Pipfile": parse.parse_pipfile,
-            "Pipfile.lock": parse.parse_pipfile_lock,
-            "poetry.lock": parse.parse_poetry_lock,
-            "pyproject.toml": parse.parse_pyproject_toml,
-            "package.json": parse.parse_package_json,
-            "yarn.lock": parse.parse_yarn_lock,
-            "package-lock.json": parse.parse_package_lock_json,
-            "CMakeLists.txt": parse.parse_cmake,
-            "Makefile.am": parse.parse_makefile_am,
-            "configure.ac": parse.parse_configure_ac,
-            "docker-compose.yaml": parse.parse_docker_compose,
-        }
