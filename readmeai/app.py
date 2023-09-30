@@ -12,17 +12,17 @@ from . import builder, conf, logger, model, preprocess, utils
 logger = logger.Logger(__name__)
 
 
-async def run_app(
+async def run_model(
     config: conf.AppConfig, config_helper: conf.ConfigHelper
 ) -> None:
     """Orchestrates the README file generation process."""
     logger.info("README-AI is now executing.")
     logger.info(f"Repository: {config.git.repository}")
-    logger.info(f"OpenAI Model: {config.api.model}")
+    logger.info(f"Model:  {config.api.model}")
 
     name = config.git.name
-    repository = config.git.repository
     placeholder = config.md.default
+    repository = config.git.repository
     llm = model.OpenAIHandler(config)
 
     try:

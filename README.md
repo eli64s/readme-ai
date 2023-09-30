@@ -42,7 +42,6 @@
 - [📍 Overview](#-overview)
 - [🎈 Demos](#-demos)
 - [🤖 Features](#-features)
-  - [AI and ML README Template Concept](#ai-and-ml-readme-template-concept)
 - [👩‍💻 Usage](#-usage)
   - [🛠 Installation](#-installation)
   - [⚙️ Configuration](#️-configuration)
@@ -215,41 +214,38 @@ This project is currently under development and has an opinionated configuration
 <br>
 <div>
 <details>
-<summary style="display: flex; align-items: center;">
-<span style="font-size: 2.0em;"> ❻ Templates Coming Soon</i></span><br>
-</summary>
-<table>
-<tr>
-<td>
-<p>‣ Developing CLI option letting users select from a variety of README styles</p>
-<p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
-</td>
-</tr>
-<tr>
-<td>
-<br>
-
-### AI and ML README Template Concept
-
-- **[Overview](#overview)**: Summary of the projects' objectives, scope, and expected outcomes.
-- **[Project Structure](#project-structure)**: Overview of the organization of the projects and their main components.
-- **[Data Preprocessing](#data-collection-and-preprocessing)**: Data sources, collection methods, and types of data
-- **[Feature Engineering](#feature-engineering)**: importance of feature engineering and its impact on model performance.
-- **[Model Architecture and Development](#model-architecture-and-development)**: Model selection, dev strategies, and implemented algorithms.
-- **[Training and Validation](#training-and-validation)**: Info on model training procedures, hyperparameter tuning, and validation strategies.
-- **[Testing and Evaluation](#testing-and-evaluation)**: Model testing results, performance analysis, and comparison with benchmarks.
-- **[Deployment and Integration](#deployment-and-integration)**: Integration with other systems, APIs, and user interfaces
-- **[Usage and Maintenance](#usage-and-maintenance)**: User guide on how to use the deployed models and interfaces.
-- **[Results and Discussion](#results-and-discussion)**: Implications, limitations, and future work.
-- **[Ethical Considerations](#ethical-considerations)**: Ethical aspects, data privacy, and fairness in model predictions.
-- **[Contributing](#contributing)**: Procedures for submitting contributions, reporting issues, and proposing enhancements.
-- **[Acknowledgements](#acknowledgements)**: References to resources, libraries, and frameworks used.
-- **[License](#license)**: Explanation of usage rights, restrictions, and attribution requirements.
-
-<br>
-</td>
-</tr>
-</table>
+    <summary style="display: flex; align-items: center;">
+        <span style="font-size: 2.0em;">❻ Templates Coming Soon</span><br>
+    </summary>
+    <table>
+        <tr>
+            <td>
+                <p>‣ Developing CLI option letting users select from a variety of README styles</p>
+                <p>‣ Templates for use-cases such as data, machine learning, web development, and more!</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3>AI and ML README Template Concept</h3>
+                <ul>
+                    <li><strong><a href="#overview">Overview</a></strong>: Summary of the projects' objectives, scope, and expected outcomes.</li>
+                    <li><strong><a href="#project-structure">Project Structure</a></strong>: Overview of the organization of the projects and their main components.</li>
+                    <li><strong><a href="#data-collection-and-preprocessing">Data Preprocessing</a></strong>: Data sources, collection methods, and types of data</li>
+                    <li><strong><a href="#feature-engineering">Feature Engineering</a></strong>: Importance of feature engineering and its impact on model performance.</li>
+                    <li><strong><a href="#model-architecture-and-development">Model Architecture and Development</a></strong>: Model selection, dev strategies, and implemented algorithms.</li>
+                    <li><strong><a href="#training-and-validation">Training and Validation</a></strong>: Info on model training procedures, hyperparameter tuning, and validation strategies.</li>
+                    <li><strong><a href="#testing-and-evaluation">Testing and Evaluation</a></strong>: Model testing results, performance analysis, and comparison with benchmarks.</li>
+                    <li><strong><a href="#deployment-and-integration">Deployment and Integration</a></strong>: Integration with other systems, APIs, and user interfaces</li>
+                    <li><strong><a href="#usage-and-maintenance">Usage and Maintenance</a></strong>: User guide on how to use the deployed models and interfaces.</li>
+                    <li><strong><a href="#results-and-discussion">Results and Discussion</a></strong>: Implications, limitations, and future work.</li>
+                    <li><strong><a href="#ethical-considerations">Ethical Considerations</a></strong>: Ethical aspects, data privacy, and fairness in model predictions.</li>
+                    <li><strong><a href="#contributing">Contributing</a></strong>: Procedures for submitting contributions, reporting issues, and proposing enhancements.</li>
+                    <li><strong><a href="#acknowledgements">Acknowledgements</a></strong>: References to resources, libraries, and frameworks used.</li>
+                    <li><strong><a href="#license">License</a></strong>: Explanation of usage rights, restrictions, and attribution requirements.</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
 </details>
 </div>
 <br>
@@ -461,15 +457,15 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 
 | Short Flag | Long Flag      | Description                                       | Status       |
 |------------|----------------|---------------------------------------------------|--------------|
-| `-k`       | `--api-key`    | Your OpenAI API secret key.                       | Optional     |
-| `-c`       | `--encoding`    | Encodings specify how text is converted into tokens.| Optional     |
+| `-k`       | `--api-key`    | Your language model API secret key.               | Optional     |
+| `-c`       | `--encoding`    | Encoding used to tokenize text.                  | Optional     |
 | `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.      | Optional     |
-| `-m`       | `--model`      | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
+| `-m`       | `--model`      | Large language model engine (gpt-3.5-turbo)       | Optional     |
 | `-o`       | `--output`     | The output path for your README.md file.          | Optional     |
 | `-r`       | `--repository` | The URL or path to your code repository.          | Required     |
-| `-t`       | `--temperature`| The temperature (randomness) of the model         | Optional     |
-| `-l`       | `--language`   | The language of text written in the README file.  | Coming Soon! |
-| `-s`       | `--style`      | The README template format to use. (coming soon!) | Coming Soon! |
+| `-t`       | `--temperature`| The temperature (randomness) of the model.        | Optional     |
+| `-l`       | `--language`   | The language of text to write README in.          | Coming Soon! |
+| `-s`       | `--style`      | The README template style to build.               | Coming Soon! |
 
 <br>
 
@@ -486,16 +482,6 @@ To customize the README file generation process, you can modify the following se
 ---
 
 ### 🚀 Running *README-AI*
-
-<br>
-
-***Using Streamlit***
-
-Use the app directly in your browser via Streamlit Community Cloud.
-
-- [🛸 Take me to *readme-ai* on Streamlit!](https://readmeai.streamlit.app/)
-
-<br>
 
 ***Using Pip***
 
@@ -528,6 +514,15 @@ docker run -it \
 -v "$(pwd)":/app zeroxeli/readme-ai:latest \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
+
+<br>
+
+***Using Streamlit***
+
+Use the app directly in your browser via Streamlit Community Cloud.
+
+- [🛸 Take me to *readme-ai* on Streamlit!](https://readmeai.streamlit.app/)
+
 
 <br>
 
