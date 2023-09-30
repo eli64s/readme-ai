@@ -12,7 +12,34 @@ from . import builder, conf, logger, model, preprocess, utils
 logger = logger.Logger(__name__)
 
 
-async def run_model(
+def run_app(
+    api_key: str,
+    encoding: str,
+    endpoint: str,
+    offline_mode: bool,
+    model: str,
+    output: str,
+    repository: str,
+    temperature: float,
+    language: str,
+    style: int,
+) -> None:
+    """Orchestrates the README file generation process."""
+    config = conf.load_config()
+    config_model = conf.AppConfigModel(app=config)
+    config_helper = conf.load_config_helper(config_model)
+    config.api.model = model
+    config.paths.readme = output
+    config.api.temperature = temperature
+    config.api.offline_mode = offline_mode
+    config.git = conf.GitConfig(repository=repository)
+    if api_key is None and offline_mode is False:
+        config.api.offline_mode = offline_mode
+
+    asyncio.run(generate_readme(config, config_helper))
+
+
+async def generate_readme(
     config: conf.AppConfig, config_helper: conf.ConfigHelper
 ) -> None:
     """Orchestrates the README file generation process."""

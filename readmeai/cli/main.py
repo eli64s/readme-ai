@@ -1,13 +1,12 @@
 """CLI commands for readme-ai."""
 
-import asyncio
 from typing import Optional
 
 import click
 
 from readmeai.cli import options
 
-from .. import app, conf
+from readmeai.app import run_app
 
 
 @click.command()
@@ -34,18 +33,18 @@ def cli(
     style: Optional[int],
 ):
     """CLI entrypoint for readme-ai."""
-    config = conf.load_config()
-    config_model = conf.AppConfigModel(app=config)
-    config_helper = conf.load_config_helper(config_model)
-    config.api.model = model
-    config.paths.readme = output
-    config.api.temperature = temperature
-    config.api.offline_mode = offline_mode
-    config.git = conf.GitConfig(repository=repository)
-    if api_key is None and offline_mode is False:
-        config.api.offline_mode = offline_mode
-
-    asyncio.run(app.run_model(config, config_helper))
+    run_app(
+        api_key=api_key,
+        encoding=encoding,
+        endpoint=endpoint,
+        offline_mode=offline_mode,
+        model=model,
+        output=output,
+        repository=repository,
+        temperature=temperature,
+        language=language,
+        style=style,
+    )
 
 
 if __name__ == "__main__":
