@@ -22,5 +22,6 @@ scripts/
 # Jupyter notebooks
 notebooks/
 
-# Example files
+# Other project directories
+docs/
 examples/

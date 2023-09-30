@@ -1,50 +1,50 @@
-# Ignore compiled Python files
+# Compiled Python files
 *.pyc
 *.pyo
 __pycache__/
 .venv/
 
-# Ignore compiled Cython files
+# Compiled Cython files
 *.so
 *.c
 
-# Ignore system-specific files
+# System-specific files
 .DS_Store
 Thumbs.db
 
-# Ignore temporary files
+# Temporary files
 *~
 
-# Ignore test coverage results
+# Test coverage results
 htmlcov/
 .coverage
 .coverage.*
 
-# Ignore log files
+# Log files
 logs/
 *.log
 
-# Ignore build artifacts
+# Build artifacts
 build/
 dist/
 *.egg-info/
 
-# Ignore Jupyter Notebook checkpoints and outputs
+# Jupyter Notebook
 .ipynb_checkpoints/
 outputs/
 notebooks/
 
-# Ignore VSCode workspace settings
+# VSCode workspace settings
 .vscode/
 
-# Ignore Pytest cache
+# Pytest cache
 .pytest_cache/
 .ruff_cache/
 
-# Ignore benchmarks
+# Benchmarks
 .benchmarks/
 
-# Work In Progress
+# Other
 docs/templates
 readmeai/conf/templates
 readmeai/conf/prompts.toml
