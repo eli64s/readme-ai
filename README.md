@@ -588,7 +588,11 @@ bash scripts/test.sh
 
 Looking to contribute to *readme-ai*? Here is what you can do to help:
 
-- [ ] Create new templates for different use-cases (i.e. data, web-dev, minimal, etc.). The README is constructed in sections, defined in the [config.toml] file. Follow the existing format to get started.
+- 🎨 Create new templates for different use-cases (i.e. data, web-dev, minimal, etc.).
+  - The README is constructed in sections, defined in the [config.toml] file.
+  - Follow the existing format to get started.
+- 🐍 Look for opportunities to make the code more efficient and readable, or Pythonic as they say.
+- 🤖 Exception handling and bug fixes are always welcome.
 
 [Contributing Guidelines](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)
 

@@ -16,6 +16,7 @@ async def run_app(
     config: conf.AppConfig, config_helper: conf.ConfigHelper
 ) -> None:
     """Orchestrates the README file generation process."""
+    llm = model.OpenAIHandler(config)
     logger.info("README-AI is now executing.")
     logger.info(f"Repository: {config.git.repository}")
     logger.info(f"OpenAI Model: {config.api.model}")
@@ -25,8 +26,6 @@ async def run_app(
     placeholder = config.md.default
 
     try:
-        llm = model.OpenAIHandler(config)
-
         temp_dir = await asyncio.to_thread(
             utils.clone_repo_to_temp_dir, repository
         )
