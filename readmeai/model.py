@@ -5,10 +5,8 @@ import time
 from typing import Dict, List, Tuple
 
 import httpx
-import litellm
 import openai
 from cachetools import TTLCache
-from litellm import completion
 from tenacity import (
     RetryError,
     retry,
@@ -173,36 +171,26 @@ class OpenAIHandler:
         -------
             Tuple containing the identifier and model's generated text.
         """
-        content = "You're a lead AI researcher and Tech Lead at OpenAI."
         try:
             async with self.rate_limit_semaphore:
-                messages = [
-                    {
-                        "role": "system",
-                        "content": content,
+                response = await self.http_client.post(
+                    self.endpoint,
+                    headers={"Authorization": f"Bearer {openai.api_key}"},
+                    json={
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "You're a brilliant Tech Lead.",
+                            },
+                            {"role": "user", "content": prompt},
+                        ],
+                        "model": self.model,
+                        "temperature": self.temperature,
+                        "max_tokens": tokens,
                     },
-                    {"role": "user", "content": prompt},
-                ]
-                if "gpt" in self.model:
-                    response = await self.http_client.post(
-                        self.endpoint,
-                        headers={"Authorization": f"Bearer {openai.api_key}"},
-                        json={
-                            "messages": messages,
-                            "model": self.model,
-                            "temperature": self.temperature,
-                            "max_tokens": tokens,
-                        },
-                    )
-                    response.raise_for_status()
-                    data = response.json()
-                elif self.model in litellm.model_list:
-                    data = completion(
-                        model=self.model,
-                        messages=messages,
-                        temperature=self.temperature,
-                        max_tokens=tokens,
-                    )
+                )
+                response.raise_for_status()
+                data = response.json()
                 summary = data["choices"][0]["message"]["content"]
                 summary = (
                     utils.format_sentence(summary) if index != 3 else summary
