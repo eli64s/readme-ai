@@ -49,7 +49,6 @@ class RepositoryParser:
     def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
         """Extracts dependency file contents from the list of dicts."""
         file_parsers = parse.get_file_parsers()
-        logger.info(f"File parsers found: {file_parsers.keys()}")
         dependency_files = [
             content
             for content in contents

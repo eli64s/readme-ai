@@ -464,7 +464,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | `-k`       | `--api-key`    | Your OpenAI API secret key.                       | Optional     |
 | `-c`       | `--encoding`    | Encodings specify how text is converted into tokens.| Optional     |
 | `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.      | Optional     |
-| `m`        | `--model`      | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
+| `-m`       | `--model`      | OpenAI GPT language model engine (gpt-3.5-turbo)  | Optional     |
 | `-o`       | `--output`     | The output path for your README.md file.          | Optional     |
 | `-r`       | `--repository` | The URL or path to your code repository.          | Required     |
 | `-t`       | `--temperature`| The temperature (randomness) of the model         | Optional     |
@@ -539,7 +539,7 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```sh
 conda activate readmeai
 export OPENAI_API_KEY="YOUR_API_KEY"
-python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
+python3 -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 <br>
@@ -548,7 +548,7 @@ python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```sh
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
-poetry run python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
+poetry run python3 -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 </details>
