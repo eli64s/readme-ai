@@ -29,11 +29,12 @@
     <a href="https://pypi.org/project/readmeai/">
         <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="pypi-python-version" />
     </a>
-    <a href="https://pypi.org/project/readmeai/">
-        <img src="https://img.shields.io/pypi/dm/readmeai?color=5D6D7E" alt="pypi-downloads" />
-    </a>
-    <img src="https://img.shields.io/github/license/eli64s/readme-ai?color=5D6D7E" alt="github-license" />
+    <img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai.svg?color=5D6D7E" alt="commits-month" />
+    <img src="https://img.shields.io/github/license/eli64s/readme-ai?color=5D6D7E" alt="license" />
     <br>
+    <!--<a href="https://pypi.org/project/readmeai/">
+        <img src="https://img.shields.io/pypi/dm/readmeai?color=5D6D7E" alt="pypi-downloads" />
+    </a>-->
 </div>
 
 ---
@@ -59,7 +60,7 @@
 
 ## 📍 Overview
 
-*README-AI* is a powerful command-line tool that generates robust README.md files for your software and data projects. By simply providing a remote repository URL or path to your codebase, this tool auto-generates documentation for your entire project, leveraging the capabilities OpenAI's GPT language model APIs.
+*README-AI* is a command-line tool that generates robust README.md files for your software and data projects. By simply providing a remote repository URL or path to your codebase, this tool auto-generates documentation for your entire project, leveraging the capabilities OpenAI's GPT language model APIs.
 
 **🎯 Motivation**
 
@@ -369,6 +370,7 @@ Please ensure you have the following dependencies installed on your system:
 A remote repository URL or path to your local project's directory is needed to use *readme-ai*. The following repository types are currently supported:
 - *GitHub*
 - *GitLab*
+- *Bitbucket*
 - *File System*
 
 <br>

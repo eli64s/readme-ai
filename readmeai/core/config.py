@@ -18,6 +18,7 @@ class DefaultHosts(str, Enum):
 
     GITHUB = "github.com"
     GITLAB = "gitlab.com"
+    BITBUCKET = "bitbucket.org"
 
 
 class ApiConfig(BaseModel):

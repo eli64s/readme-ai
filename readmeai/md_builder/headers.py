@@ -47,7 +47,7 @@ def insert_contents_and_join(
     if conf.api.offline_mode is False:
         md_tables = tables.create_markdown_tables(conf.md.default, summaries)
         conf.md.tables = tables.create_tables(
-            md_tables, conf.md.dropdown, user_repo
+            md_tables, conf.md.dropdown, repository, user_repo
         )
 
     md_usage_guides = usage.create_setup_guide(conf, helper, summaries)

@@ -82,22 +82,40 @@ def validate_file_permissions(temp_dir: Path) -> None:
             )
 
 
-def get_github_file_link(file: str, user_repo_name: str) -> str:
-    """Returns the GitHub URL for a given file."""
-    return f"https://github.com/{user_repo_name}/blob/main/{file}"
+def get_github_file_link(file: str, repo: str, user_repo_name: str) -> str:
+    """Returns the file URL for a given file based on the platform."""
+    base_urls = {
+        "github.com": f"https://github.com/{user_repo_name}/blob/main/{file}",
+        "bitbucket.org": f"https://bitbucket.org/{user_repo_name}/src/master/{file}",
+        "gitlab.com": f"https://gitlab.com/{user_repo_name}/-/blob/master/{file}",
+    }
+
+    for domain in base_urls:
+        if domain in repo:
+            return base_urls[domain]
+
+    return base_urls["github.com"]
 
 
-def get_user_repository_name(url_or_path) -> str:
-    """Extract username and repository name from a GitHub URL or local path."""
+def get_user_repository_name(url_or_path) -> (str, str):
+    """
+    Extract username and repository name from a
+    GitHub, Bitbucket, or GitLab URL or local path.
+    """
 
     if os.path.exists(url_or_path):
-        return os.path.basename(url_or_path)
+        return os.path.basename(url_or_path), "local"
 
-    pattern = r"https?://github.com/([^/]+)/([^/]+)"
-    match = re.match(pattern, url_or_path)
+    patterns = {
+        "github": r"https?://github.com/([^/]+)/([^/]+)",
+        "bitbucket": r"https?://bitbucket.org/([^/]+)/([^/]+)",
+        "gitlab": r"https?://gitlab.com/([^/]+)/([^/]+)",
+    }
 
-    if match:
-        username, reponame = match.groups()
-        return f"{username}/{reponame}"
-    else:
-        raise ValueError("Error: invalid remote repository URL or local path.")
+    for _, pattern in patterns.items():
+        match = re.match(pattern, url_or_path)
+        if match:
+            username, reponame = match.groups()
+            return f"{username}/{reponame}"
+
+    raise ValueError("Error: invalid remote repository URL or local path.")

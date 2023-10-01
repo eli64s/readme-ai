@@ -75,6 +75,7 @@ async def md_agent(
         parser = preprocess.RepositoryParser(config, config_helper)
         dependencies, file_text = parser.get_dependencies(temp_dir)
         logger.info(f"Dependencies: {dependencies}")
+        logger.info(f"File text: {file_text}")
 
         if config.api.offline_mode is False:
             # Generates codebase file summaries using large language models.

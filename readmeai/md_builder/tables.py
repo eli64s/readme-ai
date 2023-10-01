@@ -24,7 +24,10 @@ def create_markdown_tables(
 
 
 def create_tables(
-    summary_list: List[Tuple[str, str]], dropdown: str, user_repo_name: str
+    summary_list: List[Tuple[str, str]],
+    dropdown: str,
+    repository: str,
+    user_repo_name: str,
 ) -> str:
     """Creates Markdown tables for each sub-directory in the project."""
     sub_folder_map = {}
@@ -42,13 +45,15 @@ def create_tables(
     tables = []
     for sub_folder, entries in sub_folder_map.items():
         table_data = entries
-        table = create_table(table_data, user_repo_name)
+        table = create_table(table_data, repository, user_repo_name)
         table_wrappers = dropdown.format(sub_folder, table)
         tables.append(table_wrappers)
     return "\n".join(tables)
 
 
-def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
+def create_table(
+    data: List[Tuple[str, str]], repository, user_repo_name: str
+) -> str:
     """Creates a Markdown table from the given data."""
     headers = ["File", "Summary"]
     lines = [headers, ["---"] * len(headers)]
@@ -58,7 +63,9 @@ def create_table(data: List[Tuple[str, str]], user_repo_name: str) -> str:
         if "invalid" in user_repo_name.lower():
             link = filename
         else:
-            github_url = github.get_github_file_link(module, user_repo_name)
+            github_url = github.get_github_file_link(
+                module, repository, user_repo_name
+            )
             link = f"[{filename}]({github_url})"
         lines.append([link, summary])
 
