@@ -121,10 +121,10 @@ This project is currently under development and has an opinionated configuration
             </p>
             <tr>
                 <td align="center">
-                    <img src="./examples/imgs/new_badges.png" alt="skill-icons" />
+                    <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/new_badges.png?raw=true" alt="skill-icons" />
                 </td>
                 <td align="center">
-                    <img src="./examples/imgs/shieldsio_badges.png" alt="shields-io" />
+                    <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/shieldsio_badges.png?raw=true" alt="shields-io" />
                 </td>
             </tr>
     </table>
