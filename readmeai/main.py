@@ -61,6 +61,7 @@ async def md_agent(
     placeholder = config.md.default
     repository = config.git.repository
     llm = model.OpenAIHandler(config)
+    temp_dir = None
 
     try:
         temp_dir = await asyncio.to_thread(
@@ -119,6 +120,7 @@ async def md_agent(
         logger.error(f"Stacktrace: {traceback.format_exc()}")
     finally:
         await llm.close()
-        await asyncio.to_thread(shutil.rmtree, temp_dir)
+        if temp_dir:
+            await asyncio.to_thread(shutil.rmtree, temp_dir)
 
     logger.info("README-AI execution complete.")
