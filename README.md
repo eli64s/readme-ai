@@ -121,10 +121,10 @@ This project is currently under development and has an opinionated configuration
             </p>
             <tr>
                 <td align="center">
-                    <img src="./examples/imgs/new_badges.png" alt="repository-tree" />
+                    <img src="./examples/imgs/new_badges.png" alt="skill-icons" />
                 </td>
                 <td align="center">
-                    <img src="./examples/imgs/shieldsio_badges.png" alt="code-summaries" />
+                    <img src="./examples/imgs/shieldsio_badges.png" alt="shields-io" />
                 </td>
             </tr>
     </table>
