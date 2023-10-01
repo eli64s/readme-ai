@@ -17,19 +17,19 @@ logger = logger.Logger(__name__)
 
 def clone_repo_to_temp_dir(repo_path: str) -> Path:
     """Clone a repository to a temporary directory and remove the .git directory."""
-    git_exec_path = find_git_executable()
-    validate_git_executable(git_exec_path)
+    # git_exec_path = find_git_executable()
+    # validate_git_executable(git_exec_path)
 
-    env = os.environ.copy()
-    env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
+    # env = os.environ.copy()
+    # env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
 
     temp_dir = tempfile.mkdtemp()
     try:
-        git.Repo.clone_from(repo_path, temp_dir, env=env)
-        git_dir = Path(temp_dir) / ".git"
+        git.Repo.clone_from(repo_path, temp_dir, depth=1)
 
-        if git_dir.exists():
-            shutil.rmtree(git_dir)
+        # git_dir = Path(temp_dir) / ".git"
+        # if git_dir.exists():
+        #    shutil.rmtree(git_dir)
 
         return Path(temp_dir)
 
@@ -104,7 +104,7 @@ def get_user_repository_name(url_or_path) -> (str, str):
     """
 
     if os.path.exists(url_or_path):
-        return os.path.basename(url_or_path), "local"
+        return os.path.basename(url_or_path)
 
     patterns = {
         "github": r"https?://github.com/([^/]+)/([^/]+)",
