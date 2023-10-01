@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from readmeai.app import main
+from readmeai.main import main
 
 
 @pytest.mark.asyncio

@@ -7,7 +7,7 @@ from typing import Dict, List
 import toml
 import yaml
 
-from . import logger
+from readmeai.core import logger
 
 logger = logger.Logger(__name__)
 

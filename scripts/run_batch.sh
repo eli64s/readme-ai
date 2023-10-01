@@ -17,5 +17,5 @@ repositories=(
 for repo in "${repositories[@]}"
 do
     repo_name=$(basename $repo)
-    readmeai -o "readme-$repo_name.md" -r "$repo"
+    python3 -m readmeai.cli.commands -o "readme-$repo_name.md" -r "$repo"
 done

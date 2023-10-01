@@ -5,12 +5,12 @@ from typing import Optional
 import click
 
 from readmeai.cli import options
-
-from readmeai.app import run_app
+from readmeai.main import main
 
 
 @click.command()
 @options.api_key
+@options.badges
 @options.encoding
 @options.endpoint
 @options.offline_mode
@@ -20,8 +20,9 @@ from readmeai.app import run_app
 @options.temperature
 @options.language
 @options.style
-def cli(
+def commands(
     api_key: str,
+    badges: Optional[str],
     encoding: Optional[str],
     endpoint: Optional[str],
     offline_mode: Optional[bool],
@@ -33,8 +34,9 @@ def cli(
     style: Optional[int],
 ):
     """CLI entrypoint for readme-ai."""
-    run_app(
+    main(
         api_key=api_key,
+        badges=badges,
         encoding=encoding,
         endpoint=endpoint,
         offline_mode=offline_mode,
@@ -48,4 +50,4 @@ def cli(
 
 
 if __name__ == "__main__":
-    cli()
+    commands()

@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from readmeai import utils
+from readmeai.utils import utils
 
 
 @pytest.fixture

@@ -15,7 +15,10 @@ from tenacity import (
     wait_exponential,
 )
 
-from . import conf, logger, utils
+import readmeai.core.config as config
+import readmeai.core.logger as logger
+from readmeai.utils.tokens import adjust_max_tokens
+from readmeai.utils.utils import format_sentence
 
 
 class OpenAIHandler:
@@ -23,7 +26,7 @@ class OpenAIHandler:
 
     logger = logger.Logger(__name__)
 
-    def __init__(self, config: conf.AppConfig):
+    def __init__(self, config: config.AppConfig):
         """Initialize the OpenAI API handler.
 
         Parameters
@@ -123,7 +126,7 @@ class OpenAIHandler:
 
         tasks = []
         for idx, prompt in enumerate(prompts):
-            tokens = utils.adjust_max_tokens(self.tokens, prompt)
+            tokens = adjust_max_tokens(self.tokens, prompt)
             tasks.append(
                 asyncio.create_task(
                     self.generate_text(idx + 1, prompt, tokens)
@@ -192,9 +195,7 @@ class OpenAIHandler:
                 response.raise_for_status()
                 data = response.json()
                 summary = data["choices"][0]["message"]["content"]
-                summary = (
-                    utils.format_sentence(summary) if index != 3 else summary
-                )
+                summary = format_sentence(summary) if index != 3 else summary
 
                 self.logger.info(
                     f"\nProcessing prompt: {index}\nResponse: {summary}"

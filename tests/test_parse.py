@@ -10,7 +10,7 @@ import pytest
 import toml
 import yaml
 
-from readmeai import parse
+from readmeai.core import parser
 from readmeai.factory import FileHandler
 
 sys.path.append("readmeai")
@@ -20,14 +20,14 @@ FILE_HANDLER = FileHandler()
 
 def test_parse_conda_env_file_invalid_path():
     with pytest.raises(FileNotFoundError):
-        parse.parse_conda_env_file("non_existent_file.yml")
+        parser.parse_conda_env_file("non_existent_file.yml")
 
 
 def test_parse_conda_env_file_invalid_content(temp_file):
     temp_file.write("This is not valid YAML content".encode())
     temp_file.seek(0)
     with pytest.raises(ValueError):
-        parse.parse_conda_env_file(temp_file.name)
+        parser.parse_conda_env_file(temp_file.name)
 
 
 def test_parse_conda_env_file(temp_file):
@@ -36,7 +36,7 @@ def test_parse_conda_env_file(temp_file):
     }
     temp_file.write(yaml.dump(conda_env).encode())
     temp_file.seek(0)
-    dependencies = parse.parse_conda_env_file(temp_file.name)
+    dependencies = parser.parse_conda_env_file(temp_file.name)
     assert dependencies == ["numpy", "pandas", "scipy"]
     assert len(dependencies) == 3
 
@@ -48,7 +48,7 @@ def test_parse_pipfile():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pipfile))
-    dependencies = parse.parse_pipfile(temp_file.name)
+    dependencies = parser.parse_pipfile(temp_file.name)
     assert dependencies == ["requests", "numpy", "pytest"]
 
 
@@ -63,7 +63,7 @@ def test_parse_pyproject_toml():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(toml.dumps(pyproject_toml))
-    dependencies = parse.parse_pyproject_toml(temp_file.name)
+    dependencies = parser.parse_pyproject_toml(temp_file.name)
     assert dependencies == ["numpy", "requests", "pytest"]
 
 
@@ -71,7 +71,7 @@ def test_parse_requirements_file():
     requirements = ["numpy==1.19.2", "# A comment", "", "requests>=2.25.1"]
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write("\n".join(requirements))
-    dependencies = parse.parse_requirements_file(temp_file.name)
+    dependencies = parser.parse_requirements_file(temp_file.name)
     assert dependencies == ["numpy", "requests"]
 
 
@@ -98,7 +98,7 @@ class TestParseCargoToml(unittest.TestCase):
             "dev-dependencies": {"devdep1": "1.0.0"},
         }
 
-        result = parse.parse_cargo_toml("Cargo.toml")
+        result = parser.parse_cargo_toml("Cargo.toml")
         self.assertListEqual(result, ["dep1", "dep2", "devdep1"])
 
 
@@ -135,7 +135,7 @@ class TestParseCargoLock(unittest.TestCase):
             ]
         }
         expected_packages = ["aho-corasick", "ansi_term"]
-        actual_packages = parse.parse_cargo_lock("Cargo.lock")
+        actual_packages = parser.parse_cargo_lock("Cargo.lock")
         self.assertEqual(expected_packages, actual_packages)
 
     @patch("builtins.open", new_callable=mock_open, read_data="")
@@ -144,7 +144,7 @@ class TestParseCargoLock(unittest.TestCase):
         # Mock the read_toml function to return a data with no packages
         mock_read_toml.return_value = {}
         expected_packages = []
-        actual_packages = parse.parse_cargo_lock("Cargo.lock")
+        actual_packages = parser.parse_cargo_lock("Cargo.lock")
         self.assertEqual(expected_packages, actual_packages)
 
 
@@ -155,7 +155,7 @@ def test_parse_package_json():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
-    dependencies = parse.parse_package_json(temp_file.name)
+    dependencies = parser.parse_package_json(temp_file.name)
     assert dependencies == ["express", "lodash", "mocha"]
 
 
@@ -166,7 +166,7 @@ def test_parse_package_json():
     }
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(json.dumps(package_json))
-    dependencies = parse.parse_package_json(temp_file.name)
+    dependencies = parser.parse_package_json(temp_file.name)
     assert dependencies == ["express", "lodash", "mocha"]
 
 
@@ -204,7 +204,7 @@ class TestParseYarnLock(unittest.TestCase):
         with NamedTemporaryFile(mode="w", delete=False) as temp_file:
             temp_file.write(yarn_lock_content)
 
-        dependencies = parse.parse_yarn_lock(temp_file.name)
+        dependencies = parser.parse_yarn_lock(temp_file.name)
         expected_dependencies = [
             "argparse",
             "arr-union",
@@ -227,7 +227,7 @@ def test_parse_go_mod():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(go_mod)
-    dependencies = parse.parse_go_mod(temp_file.name)
+    dependencies = parser.parse_go_mod(temp_file.name)
     assert dependencies == [
         "gin",
         "testify",
@@ -249,7 +249,7 @@ def test_parse_gradle():
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(build_gradle)
 
-    dependencies = parse.parse_gradle(temp_file.name)
+    dependencies = parser.parse_gradle(temp_file.name)
     expected_dependencies = [
         "findbugs",
         "guava",
@@ -277,7 +277,7 @@ def test_parse_maven():
     """
     with NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file.write(maven_file)
-    dependencies = parse.parse_maven(temp_file.name)
+    dependencies = parser.parse_maven(temp_file.name)
     assert dependencies == [
         "com.google.guava:guava:30.1-jre",
         "junit:junit:4.13.2",

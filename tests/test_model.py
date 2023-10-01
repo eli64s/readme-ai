@@ -2,12 +2,12 @@ from unittest.mock import patch
 
 import pytest
 
-from readmeai import model
+from readmeai.core import model
 
 
 @pytest.fixture
 def openai_handler():
-    return model.OpenAIHandler(model.conf)
+    return model.OpenAIHandler(model.config)
 
 
 @pytest.fixture

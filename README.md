@@ -1,8 +1,10 @@
+<!--
 <div align="right">
 
 [![zh-CN](https://img.shields.io/badge/zh--CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-zh-CN.md)
 [![fr](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)
 </div>
+-->
 
 <div align="center">
     <h1 align="center">
@@ -112,6 +114,19 @@ This project is currently under development and has an opinionated configuration
                 <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/badges.png" alt="badges" />
             </td>
         </tr>
+    </table>
+    <table>
+            <p>
+                ‣ CLI option <code>--badges</code> lets you choose between two styles currently: <i>square</i> and <i>shields</i>. Contributions for new ideas and styling options are welcome!
+            </p>
+            <tr>
+                <td align="center">
+                    <img src="./examples/imgs/new_badges.png" alt="repository-tree" />
+                </td>
+                <td align="center">
+                    <img src="./examples/imgs/shieldsio_badges.png" alt="code-summaries" />
+                </td>
+            </tr>
     </table>
 </details>
 </div>
@@ -458,6 +473,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | Short Flag | Long Flag      | Description                                       | Status       |
 |------------|----------------|---------------------------------------------------|--------------|
 | `-k`       | `--api-key`    | Your language model API secret key.               | Optional     |
+| `-b`       | `--badges`     | Select 'shields' or 'square' for badge style.     | Optional     |
 | `-c`       | `--encoding`    | Encoding used to tokenize text.                  | Optional     |
 | `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.      | Optional     |
 | `-m`       | `--model`      | Large language model engine (gpt-3.5-turbo)       | Optional     |
@@ -492,7 +508,7 @@ readmeai --api-key "YOUR_API_KEY" --output readme-ai.md --repository https://git
 ```sh
 # Option 2: Run readmeai command with OpenAI API key set as environment variable.
 export OPENAI_API_KEY="YOUR_API_KEY"
-readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
+readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai -b shields
 ```
 
 <br>
@@ -534,7 +550,7 @@ Use the app directly in your browser via Streamlit Community Cloud.
 ```sh
 conda activate readmeai
 export OPENAI_API_KEY="YOUR_API_KEY"
-python3 -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
+python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 <br>
@@ -543,7 +559,7 @@ python3 -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```sh
 poetry shell
 export OPENAI_API_KEY="YOUR_API_KEY"
-poetry run python3 -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
+poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 </details>
@@ -605,6 +621,8 @@ Looking to contribute to *readme-ai*? Here is what you can do to help:
   - [Shields.io](https://shields.io/)
   - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
   - [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
+  - [tandpfun/skill-icons](https://github.com/tandpfun/skill-icons)
+
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>

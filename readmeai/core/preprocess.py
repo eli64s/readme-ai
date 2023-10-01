@@ -3,7 +3,9 @@
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-from . import conf, logger, parse, utils
+import readmeai.core.parser
+from readmeai.core import config, logger
+from readmeai.utils import tokens, utils
 
 logger = logger.Logger(__name__)
 
@@ -13,8 +15,8 @@ class RepositoryParser:
 
     def __init__(
         self,
-        config: conf.AppConfig,
-        conf_helper: conf.ConfigHelper,
+        config: config.AppConfig,
+        conf_helper: config.ConfigHelper,
     ):
         self.config = config
         self.language_names = conf_helper.language_names
@@ -48,7 +50,7 @@ class RepositoryParser:
 
     def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
         """Extracts dependency file contents from the list of dicts."""
-        file_parsers = parse.get_file_parsers()
+        file_parsers = readmeai.core.parser.get_file_parsers()
         dependency_files = [
             content
             for content in contents
@@ -123,7 +125,7 @@ class RepositoryParser:
     def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
         """Tokenizes the content of each file."""
         for content in contents:
-            content["tokens"] = utils.get_token_count(
+            content["tokens"] = tokens.get_token_count(
                 content["content"], self.encoding_name
             )
         return contents

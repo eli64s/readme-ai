@@ -5,7 +5,16 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from readmeai.builder import (
+from readmeai.core.config import (
+    ApiConfig,
+    AppConfig,
+    ConfigHelper,
+    GitConfig,
+    MarkdownConfig,
+    PathsConfig,
+    PromptsConfig,
+)
+from readmeai.md_builder.readme import (
     build_markdown_sections,
     build_readme_file,
     build_recursive_tables,
@@ -17,15 +26,6 @@ from readmeai.builder import (
     format_tree,
     generate_tree,
     get_badges,
-)
-from readmeai.conf import (
-    ApiConfig,
-    AppConfig,
-    ConfigHelper,
-    GitConfig,
-    MarkdownConfig,
-    PathsConfig,
-    PromptsConfig,
 )
 
 

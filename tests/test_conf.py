@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from readmeai.conf import (
+from readmeai.core.config import (
     ApiConfig,
     AppConfig,
     AppConfigModel,

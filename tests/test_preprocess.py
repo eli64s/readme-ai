@@ -7,7 +7,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from readmeai import conf, preprocess, utils
+from readmeai import preprocess
+from readmeai.core import config
+from readmeai.utils import utils
 
 
 class MockPaths:
@@ -52,7 +54,7 @@ def setup_conf_and_helper(config):
         Mock()
     )  # initialize with suitable mock object or real object
 
-    app_config = conf.AppConfig(
+    app_config = config.AppConfig(
         api=api_mock,
         git=git_mock,
         md=md_mock,
@@ -61,7 +63,7 @@ def setup_conf_and_helper(config):
     )
 
     # pass app_config to ConfigHelper initializer
-    config_helper = conf.ConfigHelper(conf=app_config)
+    config_helper = config.ConfigHelper(conf=app_config)
     return app_config, config_helper
 
 

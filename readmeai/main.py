@@ -7,13 +7,24 @@ __package__ = "readmeai"
 import asyncio
 import shutil
 
-from . import builder, conf, logger, model, preprocess, utils
+from readmeai.core import logger, model, preprocess
+from readmeai.core.config import (
+    AppConfig,
+    AppConfigModel,
+    ConfigHelper,
+    GitConfig,
+    load_config,
+    load_config_helper,
+)
+from readmeai.md_builder import headers, tables, tree
+from readmeai.utils import github
 
 logger = logger.Logger(__name__)
 
 
-def run_app(
+def main(
     api_key: str,
+    badges: str,
     encoding: str,
     endpoint: str,
     offline_mode: bool,
@@ -25,28 +36,27 @@ def run_app(
     style: int,
 ) -> None:
     """Orchestrates the README file generation process."""
-    config = conf.load_config()
-    config_model = conf.AppConfigModel(app=config)
-    config_helper = conf.load_config_helper(config_model)
+    config = load_config()
+    config_model = AppConfigModel(app=config)
+    config_helper = load_config_helper(config_model)
     config.api.model = model
-    config.paths.readme = output
+    config.paths.output = output
     config.api.temperature = temperature
     config.api.offline_mode = offline_mode
-    config.git = conf.GitConfig(repository=repository)
+    config.git = GitConfig(repository=repository)
     if api_key is None and offline_mode is False:
         config.api.offline_mode = offline_mode
+    asyncio.run(md_agent(badges, config, config_helper))
 
-    asyncio.run(generate_readme(config, config_helper))
 
-
-async def generate_readme(
-    config: conf.AppConfig, config_helper: conf.ConfigHelper
+async def md_agent(
+    badges: str, config: AppConfig, config_helper: ConfigHelper
 ) -> None:
     """Orchestrates the README file generation process."""
     logger.info("README-AI is now executing.")
     logger.info(f"Repository: {config.git.repository}")
     logger.info(f"Model:  {config.api.model}")
-
+    logger.info(f"Output: {config.paths.output}")
     name = config.git.name
     placeholder = config.md.default
     repository = config.git.repository
@@ -54,12 +64,12 @@ async def generate_readme(
 
     try:
         temp_dir = await asyncio.to_thread(
-            utils.clone_repo_to_temp_dir, repository
+            github.clone_repo_to_temp_dir, repository
         )
-        temp_dir = utils.clone_repo_to_temp_dir(repository)
-        tree_str = builder.generate_tree(temp_dir, repository)
-        tree = builder.format_tree(name, tree_str)
-        config.md.tree = config.md.tree.format(tree)
+        temp_dir = github.clone_repo_to_temp_dir(repository)
+        tree_str = tree.generate_tree(temp_dir, repository)
+        tree_str = tree.format_tree(name, tree_str)
+        config.md.tree = config.md.tree.format(tree_str)
         logger.info(f"Directory tree: {config.md.tree}")
 
         parser = preprocess.RepositoryParser(config, config_helper)
@@ -79,12 +89,12 @@ async def generate_readme(
             prompts = [
                 config.prompts.slogan.format(config.git.name),
                 config.prompts.overview.format(repository, code_summary),
-                config.prompts.features.format(repository, code_summary),
+                config.prompts.features.format(repository, tree),
             ]
             slogan, overview, features = await llm.chat_to_text(prompts)
 
         else:
-            config.md.tables = builder.build_recursive_tables(
+            config.md.tables = tables.build_recursive_tables(
                 repository, temp_dir, placeholder
             )
             code_summary = placeholder
@@ -94,14 +104,18 @@ async def generate_readme(
                 config.md.default,
             )
 
+        config.prompts.slogan = slogan
         config.md.header = config.md.header.format(name, slogan)
         config.md.intro = config.md.intro.format(overview, features)
-        builder.build_readme_file(
-            config, config_helper, dependencies, code_summary
+        headers.build(
+            badges, config, config_helper, dependencies, code_summary
         )
 
     except Exception as excinfo:
         logger.error(f"Exception: {excinfo}")
+        import traceback
+
+        logger.error(f"Stacktrace: {traceback.format_exc()}")
     finally:
         await llm.close()
         await asyncio.to_thread(shutil.rmtree, temp_dir)

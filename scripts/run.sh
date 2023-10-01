@@ -10,4 +10,4 @@ eval "$(conda shell.bash hook)"
 conda activate readmeai
 
 # Run the Python script
-python -m readmeai.cli -o readme-ai.md -r https://github.com/eli64s/readme-ai
+python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai

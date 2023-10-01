@@ -17,6 +17,22 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.1.3] - *2023-09-30*
+
+### 🚀 Features
+
+- Setup script enhancement @hansipie [#42](https://github.com/eli64s/readme-ai/pull/42)
+
+### 🧹 Chore
+
+- Decouple CLI as own directory to improve readability and maintainability @eli64s [#56](https://github.com/eli64s/readme-ai/pull/56)
+
+### 📄 Documentation
+
+- Add README files in additional languages [fr, zh-CN] @eli64s [#55](https://github.com/eli64s/readme-ai/pull/55)
+
+---
+
 ## [v0.1.2] - *2023-09-25*
 
 ### 🔐 Security

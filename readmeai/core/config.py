@@ -8,7 +8,7 @@ from urllib.parse import urlparse, urlsplit
 from pkg_resources import resource_filename
 from pydantic import BaseModel, validator
 
-from . import factory, logger
+from readmeai.core import factory, logger
 
 logger = logger.Logger(__name__)
 
@@ -60,7 +60,7 @@ class GitConfig(BaseModel):
 
         return value
 
-    @validator("name", pre=True, always=True)
+    @validator("name", always=True)
     def get_repository_name(cls, value: str, values: dict) -> str:
         """Extract the repository name from the URL or path."""
         repository_path = values.get("repository")
@@ -81,6 +81,7 @@ class MarkdownConfig(BaseModel):
     """Pydantic model for Markdown code block templates."""
 
     badges: str
+    badges_alt: str
     default: str
     dropdown: str
     ending: str
@@ -96,12 +97,13 @@ class MarkdownConfig(BaseModel):
 class PathsConfig(BaseModel):
     """Pydantic model for configuration file paths."""
 
-    badges: str
+    output: str
+    badge_icons: str
+    skill_icons: str
     dependency_files: str
     ignore_files: str
     language_names: str
     language_setup: str
-    readme: str
 
 
 class PromptsConfig(BaseModel):
@@ -177,11 +179,13 @@ class ConfigHelper(BaseModel):
 
 def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
-    path = Path(resource_filename("readmeai", f"conf/{file_path}")).resolve()
+    path = Path(
+        resource_filename("readmeai", f"settings/{file_path}")
+    ).resolve()
     return handler.read(path)
 
 
-def load_config(path: str = "conf.toml") -> AppConfig:
+def load_config(path: str = "config.toml") -> AppConfig:
     """Load configuration constants from TOML file."""
     handler = factory.FileHandler()
     conf_dict = _get_config_dict(handler, path)
