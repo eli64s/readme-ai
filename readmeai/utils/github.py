@@ -104,7 +104,7 @@ def get_user_repository_name(url_or_path) -> (str, str):
     """
 
     if os.path.exists(url_or_path):
-        return os.path.basename(url_or_path), "local"
+        return os.path.basename(url_or_path)
 
     patterns = {
         "github": r"https?://github.com/([^/]+)/([^/]+)",
