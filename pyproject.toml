@@ -57,6 +57,8 @@ tornado = "^6.3.3"
 asyncio = "^3.4.3"
 aiohttp = "^3.8.5"
 click = "^8.1.7"
+litellm = "^0.1.817"
+jinja2 = "^3.1.2"
 
 
 [tool.poetry.dev-dependencies]
