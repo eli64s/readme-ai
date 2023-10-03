@@ -1,11 +1,12 @@
 """OpenAI API handler, generates text for the README.md file."""
 
 import asyncio
-import time
+import time, os
 from typing import Dict, List, Tuple
 
 import httpx
 import openai
+from litellm import acompletion
 from cachetools import TTLCache
 from tenacity import (
     RetryError,
@@ -176,25 +177,16 @@ class OpenAIHandler:
         """
         try:
             async with self.rate_limit_semaphore:
-                response = await self.http_client.post(
-                    self.endpoint,
-                    headers={"Authorization": f"Bearer {openai.api_key}"},
-                    json={
-                        "messages": [
-                            {
+                api_key = os.getenv("LLM_API_KEY") or openai.api_key
+                messages = [{
                                 "role": "system",
                                 "content": "You're a brilliant Tech Lead.",
                             },
                             {"role": "user", "content": prompt},
-                        ],
-                        "model": self.model,
-                        "temperature": self.temperature,
-                        "max_tokens": tokens,
-                    },
-                )
-                response.raise_for_status()
-                data = response.json()
-                summary = data["choices"][0]["message"]["content"]
+                        ]
+                print(f"model: {self.model}")
+                response = await acompletion(model=self.model, messages=messages, temperature=self.temperature, max_tokens=tokens, api_key=api_key)
+                summary = response["choices"][0]["message"]["content"]
                 summary = format_sentence(summary) if index != 3 else summary
 
                 self.logger.info(
