@@ -2,7 +2,7 @@
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
-model = "gpt-3.5-turbo"
+model = "claude-instant-1"
 rate_limit = 5
 tokens = 650
 tokens_max = 3800
