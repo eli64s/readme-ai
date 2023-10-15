@@ -1,20 +1,53 @@
-"""Generate the badges to display in the README file."""
+"""Generate the style of badges for the README file."""
 
-from readmeai.core import logger
+from pkg_resources import resource_filename
+
+from readmeai.core import config, factory, logger
+from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
 
-def get_skill_icons(icons: dict, dependencies: list, repository: str) -> str:
-    """Create HTML block of square logo icons for each dependency."""
+def get_shieldsio_icons(
+    conf: config.AppConfig, packages: list, user_repo: str
+):
+    """Generates the README badges using shields.io badges."""
+    badges_path = resource_filename(
+        __package__, f"{conf.paths.shieldsio_icons}"
+    )
+    badges_dict = factory.FileHandler().read(badges_path)
+    shieldsio_icons = conf.md.badges.format(
+        get_badges(badges_dict, packages).format(conf.md.badges_style),
+        user_repo,
+        conf.md.badges_style,
+    )
+    shieldsio_icons = (
+        utils.remove_substring(shieldsio_icons)
+        if "invalid" in user_repo.lower()
+        else shieldsio_icons
+    )
+    return shieldsio_icons
+
+
+def get_square_icons(conf: config.AppConfig, dependencies: list) -> str:
+    """Generates the README badges using square iOS style badges."""
+    conf.md.header = "<!---->\n"
+    square_icons_path = resource_filename(
+        __package__, f"{conf.paths.square_icons}"
+    )
+    icons_dict = factory.FileHandler().read(square_icons_path)
     filtered_icons = [
-        icon for icon in icons["icons"]["names"] if icon in dependencies
+        icon for icon in icons_dict["icons"]["names"] if icon in dependencies
     ]
     filtered_icons.extend(["git", "github"])
     icon_names = ",".join(filtered_icons)
     # per_line = (len(filtered_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"
-    return icons["url"]["base_url"] + icon_names
+    square_icons = icons_dict["url"]["base_url"] + icon_names
+    square_icons = conf.md.badges_alt.format(
+        conf.git.name.upper(), conf.prompts.slogan, square_icons
+    )
+    return square_icons
 
 
 def get_badges(svg_icons: dict, dependencies: list) -> str:

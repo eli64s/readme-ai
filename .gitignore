@@ -47,7 +47,8 @@ notebooks/
 # Other
 docs/templates
 docs/notes
+examples/readme-edgecase.md
 readmeai/conf/templates
 readmeai/conf/prompts.toml
-examples/readme-edgecase.md
-readmeai/data/badges.json
+readmeai/settings/prompts.toml
+readmeai/md_builder/data/badges.json

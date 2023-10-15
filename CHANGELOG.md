@@ -17,6 +17,19 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
 
+## [v0.1.5] - *2023-10-15*
+
+---
+
+## [v0.1.4] - *2023-10-01*
+
+## 🚀 Features
+
+- Add new SVG badge icons that user's can select using the CLI option `--badges` @eli64s (#58)
+- Refactor `readmeai` package structure to improve organization and readability @eli64s (#58)
+
+---
+
 ## [v0.1.3] - *2023-09-30*
 
 ### 🚀 Features

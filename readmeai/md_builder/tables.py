@@ -1,10 +1,10 @@
-"""Generates Markdown tables for the given directory."""
+"""Creates Markdown tables used to format the LLM generated code summaries."""
 
 from pathlib import Path
 from typing import List, Tuple
 
 from readmeai.core import logger
-from readmeai.utils import github
+from readmeai.utils import git
 
 logger = logger.Logger(__name__)
 
@@ -63,7 +63,7 @@ def create_table(
         if "invalid" in user_repo_name.lower():
             link = filename
         else:
-            github_url = github.get_github_file_link(
+            github_url = git.get_github_file_link(
                 module, repository, user_repo_name
             )
             link = f"[{filename}]({github_url})"
