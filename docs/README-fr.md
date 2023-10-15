@@ -52,6 +52,10 @@
 
 ## 🔭 Aperçu
 
+<div align="center">
+  <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/dalle-readmeai.png?raw=true" height="500" />
+</div>
+
 <table>
     <tr>
         <td>
@@ -66,9 +70,6 @@
             <strong>⚠️ Avertissement</strong>
             <br><br>
             Ce projet est actuellement en cours de développement et dispose d'une configuration orientée. Bien que <em>readme-ai</em> offre un excellent point de départ pour la documentation, il est important de réviser tout le texte généré par l'API OpenAI pour s'assurer qu'il représente avec précision votre base de code.
-        </td>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/dalle-readmeai" width="2500" />
         </td>
     </tr>
 </table>

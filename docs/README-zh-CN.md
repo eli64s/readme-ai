@@ -50,6 +50,10 @@
 
 ## 🔭 概述
 
+<div align="center">
+  <img src="https://github.com/eli64s/readme-ai/blob/main/examples/imgs/dalle-readmeai.png?raw=true" height="500" />
+</div>
+
 <table>
     <tr>
         <td>
@@ -64,9 +68,6 @@
             <strong>⚠️ 免责声明</strong>
             <br><br>
             该项目目前正在开发中，并且具有自定的配置。虽然 <em>readme-ai</em> 为文档提供了一个极好的起点，但重要的是要检查 OpenAI API 生成的所有文本，以确保它准确代表您的代码库。
-        </td>
-        <td>
-            <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/imgs/dalle-readmeai" width="2500" />
         </td>
     </tr>
 </table>
