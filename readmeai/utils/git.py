@@ -19,18 +19,15 @@ def clone_repo_to_temp_dir(repo_path: str) -> Path:
     """Clone a repository to a temporary directory and remove the .git directory."""
     # git_exec_path = find_git_executable()
     # validate_git_executable(git_exec_path)
-
     # env = os.environ.copy()
     # env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
 
     temp_dir = tempfile.mkdtemp()
     try:
         git.Repo.clone_from(repo_path, temp_dir, depth=1)
-
         # git_dir = Path(temp_dir) / ".git"
         # if git_dir.exists():
         #    shutil.rmtree(git_dir)
-
         return Path(temp_dir)
 
     except git.GitCommandError as excinfo:
@@ -116,6 +113,6 @@ def get_user_repository_name(url_or_path) -> (str, str):
         match = re.match(pattern, url_or_path)
         if match:
             username, reponame = match.groups()
-            return f"{username}/{reponame}"
+            return username, reponame
 
     raise ValueError("Error: invalid remote repository URL or local path.")

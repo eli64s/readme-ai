@@ -6,7 +6,7 @@ import os
 
 import click
 
-BADGE_CHOICES = ("shields", "square")
+BADGE_CHOICES = ("default", "shields", "square")
 
 
 api_key = click.option(
@@ -19,7 +19,7 @@ badges = click.option(
     "-b",
     "--badges",
     type=click.Choice(BADGE_CHOICES, case_sensitive=False),
-    default="shields",
+    default="default",
     help="""Badge icon type to use in README.md header. \
         - 'shields' refers to badges from shields.io \
         - 'square' refers to app-like square badges.""",

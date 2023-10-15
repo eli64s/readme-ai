@@ -83,6 +83,7 @@ class MarkdownConfig(BaseModel):
 
     badges: str
     badges_alt: str
+    badges_style: str
     default: str
     dropdown: str
     ending: str
@@ -98,13 +99,13 @@ class MarkdownConfig(BaseModel):
 class PathsConfig(BaseModel):
     """Pydantic model for configuration file paths."""
 
-    output: str
-    badge_icons: str
-    skill_icons: str
     dependency_files: str
     ignore_files: str
     language_names: str
     language_setup: str
+    output: str
+    shieldsio_icons: str
+    square_icons: str
 
 
 class PromptsConfig(BaseModel):
