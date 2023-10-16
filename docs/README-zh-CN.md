@@ -467,8 +467,6 @@ poetry shell && \
 poetry install
 ```
 
-</details>
-
 ---
 
 ### ⚙️ 配置
@@ -564,8 +562,6 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 通过 Streamlit Community Cloud 直接在浏览器中使用该应用。
 
 - [🛸 带我去 Streamlit 上的 *readme-ai*！](https://readmeai.streamlit.app/)
-
-</details>
 
 ---
 

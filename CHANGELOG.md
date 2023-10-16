@@ -19,6 +19,15 @@ All notable changes to the *readme-ai* project will be documented in this file.
 
 ## [v0.1.5] - *2023-10-15*
 
+## 🚀 Features
+
+- feat: Add support for three badge icon styles. @eli64s (#62)
+- feat: Add README file in German [README-de](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md) and update other README files (FR, zh-CN).
+
+## 🧩 Dependency Updates
+
+- Bump urllib3 from 2.0.5 to 2.0.6 @dependabot (#60)
+
 ---
 
 ## [v0.1.4] - *2023-10-01*

@@ -505,8 +505,6 @@ poetry shell && \
 poetry install
 ```
 
-</details>
-
 ---
 
 ### ⚙️ Konfiguration
@@ -577,11 +575,6 @@ docker run -it \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-<!--
-<br>
-
-<details><summary><b><i>Manuell ausführen</i></b></summary>
--->
 <br>
 
 ***Mit Conda***
@@ -607,8 +600,6 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 Verwenden Sie die App direkt in Ihrem Browser über Streamlit Community Cloud.
 
 - [🛸 Bring mich zu *readme-ai* auf Streamlit!](https://readmeai.streamlit.app/)
-
-</details>
 
 ---
 
