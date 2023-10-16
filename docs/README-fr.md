@@ -444,11 +444,6 @@ Docker est recommandé pour les utilisateurs souhaitant exécuter l'application 
 docker pull zeroxeli/readme-ai:latest
 ```
 
-<!--
-<br>
-
-<details><summary><b><i>Installation manuelle</i></b></summary>
--->
 <br>
 
 ***Manuellement***
@@ -483,8 +478,6 @@ pip install -r requirements.txt
 poetry shell && \
 poetry install
 ```
-
-</details>
 
 ---
 
@@ -581,8 +574,6 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 Utilisez l'application directement dans votre navigateur via Streamlit Community Cloud.
 
 - [🛸 Emmenez-moi vers *readme-ai* sur Streamlit !](https://readmeai.streamlit.app/)
-
-</details>
 
 ---
 

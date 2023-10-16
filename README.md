@@ -1,8 +1,8 @@
 <div align="right">
 
 [![CN](https://img.shields.io/badge/CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-zh-CN.md)  
-[![CN](https://img.shields.io/badge/DE-🇩🇪-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md)  
-[![FR](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)
+[![DE](https://img.shields.io/badge/DE-🇩🇪-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md)  
+[![FR](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)  
 </div>
 
 <div align="center">
@@ -87,6 +87,7 @@ This project is currently under development and has an opinionated configuration
 
 [cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/645c2336-6ea7-444c-a927-5450930c5255)
 
+<!-- 
 <br>
 
 ***Streamlit Community Cloud***
@@ -94,6 +95,7 @@ This project is currently under development and has an opinionated configuration
 ‣ Use *readme-ai* directly in your browser! Zero installation, zero code!
 
 [streamlit-demo](https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b3046b90c452)
+-->
 
 ---
 
@@ -103,7 +105,7 @@ This project is currently under development and has an opinionated configuration
 <div>
 <details>
     <summary style="display: flex; align-items: center;">
-        <span style="font-size: 2.0em;"> ❶ Shieldsio Badges</span>
+        <span style="font-size: 2.0em;"> ❶ Badges</span>
     </summary>
     <table>
         <tr>
@@ -190,7 +192,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 2.0em;"> ❸ Overview and Features Table</span>
+            <span style="font-size: 2.0em;"> ❸ Features Table</span>
         </summary>
         <table>
             <tr>
@@ -213,7 +215,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 2.0em;"> ❹ Dynamic Usage Instructions</span><br>
+            <span style="font-size: 2.0em;"> ❹ Dynamic Usage Guides</span><br>
         </summary>
         <table>
             <tr>
@@ -236,7 +238,7 @@ This project is currently under development and has an opinionated configuration
 <div>
     <details>
         <summary style="display: flex; align-items: center;">
-            <span style="font-size: 2.0em;"> ❺ Contributing Guidelines and more!</span><br>
+            <span style="font-size: 2.0em;"> ❺ Additional README Sections</span><br>
         </summary>
         <table>
             <tr>
@@ -257,7 +259,7 @@ This project is currently under development and has an opinionated configuration
 <div>
 <details>
     <summary style="display: flex; align-items: center;">
-        <span style="font-size: 2.0em;">❻ Templates Coming Soon</span><br>
+        <span style="font-size: 2.0em;">❻ Templates (coming soon)</span><br>
     </summary>
     <table>
         <tr>
@@ -448,11 +450,6 @@ Docker is recommended for users wanting to run the application in a containerize
 docker pull zeroxeli/readme-ai:latest
 ```
 
-<!--
-<br>
-
-<details><summary><b><i>Manually Install</i></b></summary>
--->
 <br>
 
 ***Manually***
@@ -487,8 +484,6 @@ pip install -r requirements.txt
 poetry shell && \
 poetry install
 ```
-
-</details>
 
 ---
 
@@ -560,11 +555,6 @@ docker run -it \
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
-<!--
-<br>
-
-<details><summary><b><i>Manually Run</i></b></summary>
--->
 <br>
 
 ***Using Conda***
@@ -590,8 +580,6 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 Use the app directly in your browser via Streamlit Community Cloud.
 
 - [🛸 Take me to *readme-ai* on Streamlit!](https://readmeai.streamlit.app/)
-
-</details>
 
 ---
 
