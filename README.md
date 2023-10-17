@@ -87,7 +87,7 @@ This project is currently under development and has an opinionated configuration
 
 [cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/645c2336-6ea7-444c-a927-5450930c5255)
 
-<!-- 
+<!--
 <br>
 
 ***Streamlit Community Cloud***
@@ -621,7 +621,7 @@ bash scripts/test.sh
 Looking to contribute to *readme-ai*? Here is what you can do to help:
 
 - 🐍 Look for opportunities to make the code more efficient and readable.
-- 🤖 Exception handling and bug fixes are always welcome!
+- 🤖 Exception handling and bug fixes during README generation.
 - 📝 Improve documentation and add more examples to the README.
 - 🔡 Add support for generating README files in any language (i.e. CN, ES, FR, JA, KO, RU).
 - 🎨 Create new templates for different use-cases (i.e. data, web-dev, minimal, etc.).
