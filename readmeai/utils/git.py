@@ -3,7 +3,6 @@
 import os
 import platform
 import re
-import shutil
 import tempfile
 from pathlib import Path
 from typing import Optional
@@ -94,14 +93,14 @@ def get_github_file_link(file: str, repo: str, user_repo_name: str) -> str:
     return base_urls["github.com"]
 
 
-def get_user_repository_name(url_or_path) -> (str, str):
+def get_user_repository_name(url_or_path):
     """
     Extract username and repository name from a
     GitHub, Bitbucket, or GitLab URL or local path.
     """
 
     if os.path.exists(url_or_path):
-        return os.path.basename(url_or_path)
+        return "local", os.path.basename(url_or_path)
 
     patterns = {
         "github": r"https?://github.com/([^/]+)/([^/]+)",

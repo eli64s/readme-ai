@@ -5,7 +5,6 @@
 __package__ = "readmeai"
 
 import asyncio
-import shutil
 import traceback
 
 from readmeai.core import logger, model, preprocess
@@ -45,10 +44,8 @@ def main(
     config.api.temperature = temperature
     config.api.offline_mode = offline_mode
     config.git = GitConfig(repository=repository)
-    (
-        _,
-        config.git.name,
-    ) = git.get_user_repository_name(repository)
+    _, config.git.name = git.get_user_repository_name(repository)
+
     if api_key is None and offline_mode is False:
         config.api.offline_mode = offline_mode
 
@@ -73,11 +70,7 @@ async def readme_agent(
 
     llm = model.OpenAIHandler(config)
 
-    temp_dir = None
     try:
-        temp_dir = await asyncio.to_thread(
-            git.clone_repo_to_temp_dir, repository
-        )
         temp_dir = git.clone_repo_to_temp_dir(repository)
         tree_str = tree.generate_tree(temp_dir, repository)
         tree_str = tree.format_tree(name, tree_str)
@@ -130,8 +123,6 @@ async def readme_agent(
         )
 
     finally:
-        if temp_dir:
-            await asyncio.to_thread(shutil.rmtree, temp_dir)
         await llm.close()
 
     logger.info("README-AI execution complete.")
