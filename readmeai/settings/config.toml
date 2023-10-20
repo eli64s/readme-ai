@@ -9,6 +9,10 @@ tokens_max = 3800
 temperature = 1.1
 offline_mode = false
 
+# Command-Line Interface
+[cli]
+emojis = true
+
 # Repository
 [git]
 repository = "https://github.com/eli64s/readme-ai"

@@ -495,17 +495,18 @@ poetry install
 
 To generate a *README.md* file, use the `readmeai` command in your terminal, along with the arguments below.
 
-| Short Flag | Long Flag      | Description                                         | Status       |
-|------------|----------------|-----------------------------------------------------|--------------|
-| `-k`       | `--api-key`    | Your language model API secret key.                 | Optional     |
-| `-b`       | `--badges`     | Select 'shields' or 'square' to change badge style. | Optional     |
-| `-f`       | `--offline-mode`| Run offline without calling the OpenAI API.        | Optional     |
-| `-m`       | `--model`      | Large language model engine (gpt-3.5-turbo)         | Optional     |
-| `-o`       | `--output`     | The output path for your README.md file.            | Optional     |
-| `-r`       | `--repository` | The URL or path to your code repository.            | Required     |
-| `-t`       | `--temperature`| The temperature (randomness) of the model.          | Optional     |
-| `-l`       | `--language`   | The language of text to write README in.            | Coming Soon! |
-| `-s`       | `--style`      | The README template style to build.                 | Coming Soon! |
+| Short Flag | Long Flag        | Description                                         | Type   | Status       |
+|------------|------------------|-----------------------------------------------------|-------------|--------------|
+| `-k`       | `--api-key`      | Your language model API secret key.                 | String      | Optional     |
+| `-b`       | `--badges`       | Select 'shields' or 'square' to change badge style. | String      | Optional     |
+| `-e`       | `--emojis`       | Add emojis to your README.md file heading sections  | Boolean     | Optional     |
+| `-f`       | `--offline-mode` | Run offline without calling the OpenAI API.         | Boolean     | Optional     |
+| `-m`       | `--model`        | Large language model engine (gpt-3.5-turbo)         | String      | Optional     |
+| `-o`       | `--output`       | The output path for your README.md file.            | Path/String | Optional     |
+| `-r`       | `--repository`   | The URL or path to your code repository.            | URL/String  | Required     |
+| `-t`       | `--temperature`  | The temperature (randomness) of the model.          | Float       | Optional     |
+| `-l`       | `--language`     | The language of text to write README in.            | String      | Coming Soon! |
+| `-s`       | `--style`        | The README template style to build.                 | String      | Coming Soon! |
 
 <br>
 

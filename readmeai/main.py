@@ -25,8 +25,7 @@ logger = logger.Logger(__name__)
 def main(
     api_key: str,
     badges: str,
-    encoding: str,
-    endpoint: str,
+    emojis: bool,
     offline_mode: bool,
     model: str,
     output: str,
@@ -40,6 +39,7 @@ def main(
     config_model = AppConfigModel(app=config)
     config_helper = load_config_helper(config_model)
     config.api.model = model
+    config.cli.emojis = emojis
     config.paths.output = output
     config.api.temperature = temperature
     config.api.offline_mode = offline_mode

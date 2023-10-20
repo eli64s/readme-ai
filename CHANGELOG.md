@@ -16,6 +16,10 @@
 All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
+## [v0.1.6] - *2023-10-20*
+
+
+---
 
 ## [v0.1.5] - *2023-10-15*
 

@@ -6415,7 +6415,7 @@
         "https://img.shields.io/badge/Podman-892CA0.svg?{0}&logo=Podman&logoColor=white",
         "892CA0"
     ],
-    "poetry": [
+    "poetry.lock": [
         "https://img.shields.io/badge/Poetry-60A5FA.svg?{0}&logo=Poetry&logoColor=white",
         "60A5FA"
     ],
@@ -9470,6 +9470,10 @@
     "yamaha motor corporation": [
         "https://img.shields.io/badge/Yamaha%20Motor%20Corporation-E60012.svg?{0}&logo=Yamaha-Motor-Corporation&logoColor=white",
         "E60012"
+    ],
+    "yaml": [
+        "https://img.shields.io/badge/YAML-CB171E.svg?{0}&logo=YAML&logoColor=white",
+        "CB171E"
     ],
     "yammer": [
         "https://img.shields.io/badge/Yammer-106EBE.svg?{0}&logo=Yammer&logoColor=white",

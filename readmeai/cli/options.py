@@ -24,18 +24,12 @@ badges = click.option(
         - 'shields' refers to badges from shields.io \
         - 'square' refers to app-like square badges.""",
 )
-encoding = click.option(
-    "-c",
-    "--encoding",
-    default="cl100k_base",
-    help="Encoding used to tokenize text.",
+emojis = click.option(
+    "-e",
+    "--emojis",
+    default=True,
+    help="Emojis prefixed to all README heading sections.",
 )
-endpoint = click.option(
-    "--endpoint",
-    default="https://api.openai.com/v1/chat/completions",
-    help="Large language model API endpoint.",
-)
-
 model = click.option(
     "-m",
     "--model",

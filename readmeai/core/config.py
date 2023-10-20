@@ -34,6 +34,12 @@ class ApiConfig(BaseModel):
     offline_mode: bool
 
 
+class CliConfig(BaseModel):
+    """Command-line interface configuration."""
+
+    emojis: bool
+
+
 class GitConfig(BaseModel):
     """Pydantic model for Git repository configuration."""
 
@@ -121,6 +127,7 @@ class AppConfig(BaseModel):
     """Nested Pydantic model for the entire configuration."""
 
     api: ApiConfig
+    cli: CliConfig
     git: GitConfig
     md: MarkdownConfig
     paths: PathsConfig

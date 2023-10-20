@@ -11,8 +11,7 @@ from readmeai.main import main
 @click.command()
 @options.api_key
 @options.badges
-@options.encoding
-@options.endpoint
+@options.emojis
 @options.offline_mode
 @options.model
 @options.output
@@ -23,8 +22,7 @@ from readmeai.main import main
 def commands(
     api_key: str,
     badges: Optional[str],
-    encoding: Optional[str],
-    endpoint: Optional[str],
+    emojis: Optional[bool],
     offline_mode: Optional[bool],
     model: Optional[str],
     output: Optional[str],
@@ -37,8 +35,7 @@ def commands(
     main(
         api_key=api_key,
         badges=badges,
-        encoding=encoding,
-        endpoint=endpoint,
+        emojis=emojis,
         offline_mode=offline_mode,
         model=model,
         output=output,
