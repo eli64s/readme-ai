@@ -18,6 +18,17 @@ All notable changes to the *readme-ai* project will be documented in this file.
 ---
 ## [v0.1.6] - *2023-10-20*
 
+## 🚀 Features
+
+- feat: Add CLI option <code>--emojis</code> to change README header prefixes @eli64s (#67)
+
+## 🐛 Bug Fixes
+
+- fix #65: Update build.gradle parser method. @eli64s (#66)
+
+## 🧩 Dependency Updates
+
+- Bump urllib3 from 2.0.6 to 2.0.7 @dependabot (#64)
 
 ---
 
