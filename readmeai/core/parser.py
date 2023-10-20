@@ -250,11 +250,23 @@ def parse_go_mod(content: str) -> List[str]:
 
 def parse_gradle(content: str) -> List[str]:
     """Extracts dependencies from a build.gradle file."""
-    dependencies_pattern = r'implementation\([\'"]([^\'"]+):[^\'"]+[\'"]\)'
-    return [
-        match.split(":")[-2].split(".")[-1]
-        for match in re.findall(dependencies_pattern, content)
-    ]
+    pattern = (
+        r"(implementation|classpath|api|testImplementation)\s+\"([^\"]+)\""
+    )
+
+    matches = re.findall(pattern, content)
+
+    dependencies = [match[1] for match in matches]
+
+    parsed_dependencies = []
+    for dependency in dependencies:
+        parts = dependency.split(":")
+        if len(parts) > 1:
+            name_parts = parts[-2].split(".")
+            if name_parts:
+                parsed_dependencies.append(name_parts[-1])
+
+    return parsed_dependencies
 
 
 def parse_maven(content: str) -> List[str]:
