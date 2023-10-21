@@ -2,14 +2,15 @@
 
 from pkg_resources import resource_filename
 
-from readmeai.core import config, factory, logger
+from readmeai.config import settings
+from readmeai.core import factory, logger
 from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
 
 def get_shieldsio_icons(
-    conf: config.AppConfig, packages: list, user_repo: str
+    conf: settings.AppConfig, packages: list, full_name: str
 ):
     """Generates the README badges using shields.io badges."""
     badges_path = resource_filename(
@@ -17,19 +18,19 @@ def get_shieldsio_icons(
     )
     badges_dict = factory.FileHandler().read(badges_path)
     shieldsio_icons = conf.md.badges.format(
-        get_badges(badges_dict, packages).format(conf.md.badges_style),
-        user_repo,
-        conf.md.badges_style,
+        get_badges(badges_dict, packages).format(conf.cli.badges),
+        full_name,
+        conf.cli.badges,
     )
     shieldsio_icons = (
         utils.remove_substring(shieldsio_icons)
-        if "invalid" in user_repo.lower()
+        if "invalid" in full_name.lower()
         else shieldsio_icons
     )
     return shieldsio_icons
 
 
-def get_square_icons(conf: config.AppConfig, dependencies: list) -> str:
+def get_square_icons(conf: settings.AppConfig, dependencies: list) -> str:
     """Generates the README badges using square iOS style badges."""
     conf.md.header = "<!---->\n"
     square_icons_path = resource_filename(
@@ -45,7 +46,7 @@ def get_square_icons(conf: config.AppConfig, dependencies: list) -> str:
     # icon_names = f"{icon_names}"  # &perline={per_line}"
     square_icons = icons_dict["url"]["base_url"] + icon_names
     square_icons = conf.md.badges_alt.format(
-        conf.git.name.upper(), conf.prompts.slogan, square_icons
+        conf.cli.name.upper(), conf.prompts.slogan, square_icons
     )
     return square_icons
 

@@ -1,11 +1,31 @@
 """Utility methods for the readme-ai application."""
 
 import re
+from pathlib import Path
 from typing import List
 
+from readmeai.config.settings import ConfigHelper
 from readmeai.core import logger
 
 logger = logger.Logger(__name__)
+
+
+def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
+    """Filters out files that should be ignored."""
+    for directory in conf_helper.ignore_files["directories"]:
+        if directory in file_path.parts:
+            logger.debug(f"Ignoring directory: {file_path}")
+            return True
+
+    if file_path.name in conf_helper.ignore_files["files"]:
+        logger.debug(f"Ignoring file: {file_path}")
+        return True
+
+    if file_path.suffix[1:] in conf_helper.ignore_files["extensions"]:
+        logger.debug(f"Ignoring extension: {file_path}")
+        return True
+
+    return False
 
 
 def is_valid_url(url: str) -> bool:

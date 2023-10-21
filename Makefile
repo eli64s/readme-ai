@@ -17,7 +17,7 @@ help:
 
 .PHONY: clean
 clean: format
-	bash scripts/clean.sh
+	bash scripts/clean.sh clean
 
 .PHONY: format
 format:
@@ -31,7 +31,7 @@ lint:
 
 .PHONY: reqs
 reqs:
-    pip install -r requirements.txt
+	pip install -r requirements.txt
 
 .PHONY: conda
 conda:

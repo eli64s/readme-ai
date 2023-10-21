@@ -17,6 +17,7 @@ categories:
     labels:
       - chore
       - maintenance
+      - refactor
   - title: ⛔️ Deprecated
     labels:
       - deprecated

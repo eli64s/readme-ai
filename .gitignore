@@ -51,4 +51,5 @@ examples/readme-edgecase.md
 readmeai/conf/templates
 readmeai/conf/prompts.toml
 readmeai/settings/prompts.toml
-readmeai/md_builder/data/badges.json
+readmeai/markdown/data/badges.json
+templates/

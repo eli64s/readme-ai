@@ -253,7 +253,6 @@ def parse_gradle(content: str) -> List[str]:
     pattern = (
         r"(implementation|classpath|api|testImplementation)\s+\"([^\"]+)\""
     )
-
     matches = re.findall(pattern, content)
 
     dependencies = [match[1] for match in matches]
@@ -261,10 +260,13 @@ def parse_gradle(content: str) -> List[str]:
     parsed_dependencies = []
     for dependency in dependencies:
         parts = dependency.split(":")
-        if len(parts) > 1:
+        # Check if there are enough parts before accessing by index
+        if len(parts) > 2:
             name_parts = parts[-2].split(".")
             if name_parts:
                 parsed_dependencies.append(name_parts[-1])
+        else:
+            logger.warning(f"Unexpected dependency format: {dependency}")
 
     return parsed_dependencies
 

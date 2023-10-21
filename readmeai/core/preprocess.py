@@ -4,21 +4,23 @@ from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
 import readmeai.core.parser
-from readmeai.core import config, logger
-from readmeai.utils import tokens, utils
+from readmeai.config import settings
+from readmeai.core import logger, tokens
+from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
 
 class RepositoryParser:
-    """Analyzes a local or remote git repository."""
+    """Handles preprocessing of the input codebase."""
 
     def __init__(
         self,
-        config: config.AppConfig,
-        conf_helper: config.ConfigHelper,
+        config: settings.AppConfig,
+        conf_helper: settings.ConfigHelper,
     ):
         self.config = config
+        self.config_helper = conf_helper
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
         self.encoding_name = config.api.encoding
@@ -30,12 +32,14 @@ class RepositoryParser:
         contents = self.process_language_mapping(contents)
         return contents
 
-    def generate_contents(self, root_path: str) -> List[Dict]:
+    def generate_contents(self, repo_path: str) -> List[Dict]:
         """Generates a List of Dict of file information."""
-        code_root = Path(root_path)
-        data = list(self.generate_file_info(code_root))
+        repo_path = Path(repo_path)
+
+        data = list(self.generate_file_info(repo_path))
 
         contents = []
+
         for name, path, content in data:
             extension = Path(name).suffix.lstrip(".")
             contents.append(
@@ -56,8 +60,8 @@ class RepositoryParser:
             for content in contents
             if any(file_name in content["name"] for file_name in file_parsers)
         ]
-
         parsed_contents = []
+
         for content in dependency_files:
             logger.info(f"Dependency file found: {content['name']}")
             parser = file_parsers[content["name"]]
@@ -67,23 +71,24 @@ class RepositoryParser:
         return utils.flatten_list(parsed_contents)
 
     def generate_file_info(
-        self, code_root: Path
+        self, repo_path: Path
     ) -> Generator[Tuple[str, Path, str], None, None]:
         """Generates a tuple of file information."""
-        for file_path in code_root.rglob("*"):
+        for file_path in repo_path.rglob("*"):
+            if utils.should_ignore(self.config_helper, file_path):
+                continue
+
             if file_path.is_file():
-                if str(file_path.relative_to(code_root)).startswith(".git/"):
-                    continue
                 if ".github/workflows" in str(
-                    file_path.relative_to(code_root)
+                    file_path.relative_to(repo_path)
                 ):
                     yield "github actions", file_path.relative_to(
-                        code_root
+                        repo_path
                     ), ""
                 try:
                     with file_path.open(encoding="utf-8") as file:
                         content = file.read()
-                    relative_path = file_path.relative_to(code_root)
+                    relative_path = file_path.relative_to(repo_path)
                     yield file_path.name, relative_path, content
                 except UnicodeDecodeError:
                     continue

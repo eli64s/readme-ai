@@ -13,6 +13,14 @@ from readmeai.core import factory, logger
 logger = logger.Logger(__name__)
 
 
+class BaseUrls(str, Enum):
+    """Command-line interface configuration."""
+
+    GITHUB = "https://api.github.com"
+    GITLAB = "https://api.gitlab.com"
+    BITBUCKET = "https://api.bitbucket.org"
+
+
 class DefaultHosts(str, Enum):
     """Enum for default Git repository hosts."""
 
@@ -31,37 +39,38 @@ class ApiConfig(BaseModel):
     tokens: int
     tokens_max: int
     temperature: float
-    offline_mode: bool
 
 
 class CliConfig(BaseModel):
-    """Command-line interface configuration."""
+    """CLI options for the readme-ai application."""
 
-    emojis: bool
+    badges: str = "flat-square"
+    emojis: bool = True
+    offline: bool = False
 
 
 class GitConfig(BaseModel):
-    """Pydantic model for Git repository configuration."""
+    """Command-line interface configuration."""
 
     repository: str
     name: Optional[str] = None
 
-    @validator("repository", pre=True, always=True)
-    def validate_repository(cls, value: str) -> str:
+    @validator("repository", always=True)
+    def validate_repository(cls, value: str, values: dict) -> str:
         """Validates if the repository is a valid URL or path."""
         path = Path(value)
         if path.is_dir():
             return value
-
         try:
             parsed_url = urlparse(value)
         except ValueError:
             raise ValueError(f"Invalid repository URL or path: {value}")
 
+        parsed_url = urlparse(value)
+
         if (
             parsed_url.scheme != "https"
-            or parsed_url.netloc not in DefaultHosts.__members__.values()
-            or len(parsed_url.path.strip("/").split("/")) != 2
+            or parsed_url.netloc not in DefaultHosts._value2member_map_
         ):
             raise ValueError(f"Invalid repository URL or path: {value}")
 
@@ -69,11 +78,11 @@ class GitConfig(BaseModel):
 
     @validator("name", always=True)
     def get_repository_name(cls, value: str, values: dict) -> str:
-        """Extract the repository name from the URL or path."""
+        """Extract the project name from the URL or path."""
         repository_path = values.get("repository")
         if repository_path:
             parsed_url = urlsplit(str(repository_path))
-            if parsed_url.hostname in DefaultHosts.__members__.values():
+            if parsed_url.hostname in DefaultHosts._value2member_map_:
                 path = parsed_url.path
                 name = path.rsplit("/", 1)[-1] if "/" in path else path
                 if name.endswith(".git"):
@@ -89,7 +98,6 @@ class MarkdownConfig(BaseModel):
 
     badges: str
     badges_alt: str
-    badges_style: str
     default: str
     dropdown: str
     ending: str
@@ -106,12 +114,13 @@ class PathsConfig(BaseModel):
     """Pydantic model for configuration file paths."""
 
     dependency_files: str
+    identifiers: str
     ignore_files: str
     language_names: str
     language_setup: str
-    output: str
     shieldsio_icons: str
     square_icons: str
+    output: str
 
 
 class PromptsConfig(BaseModel):
