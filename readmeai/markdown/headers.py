@@ -52,10 +52,10 @@ def format_readme_md_contents(
             md_tables, conf.md.dropdown, repository, full_name
         )
 
-    if conf.cli.badges != "square":
+    if "apps" not in conf.cli.badges:
         badge_icons = badges.get_shieldsio_icons(conf, packages, full_name)
     else:
-        badge_icons = badges.get_square_icons(conf, packages)
+        badge_icons = badges.get_app_icons(conf, packages)
 
     md_setup_guide = quickstart.create_instructions(conf, helper, summaries)
 

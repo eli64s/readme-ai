@@ -30,13 +30,11 @@ def get_shieldsio_icons(
     return shieldsio_icons
 
 
-def get_square_icons(conf: settings.AppConfig, dependencies: list) -> str:
-    """Generates the README badges using square iOS style badges."""
+def get_app_icons(conf: settings.AppConfig, dependencies: list) -> str:
+    """Generates the README badges using app iOS style badges."""
     conf.md.header = "<!---->\n"
-    square_icons_path = resource_filename(
-        __package__, f"{conf.paths.square_icons}"
-    )
-    icons_dict = factory.FileHandler().read(square_icons_path)
+    app_icons_path = resource_filename(__package__, f"{conf.paths.app_icons}")
+    icons_dict = factory.FileHandler().read(app_icons_path)
     filtered_icons = [
         icon for icon in icons_dict["icons"]["names"] if icon in dependencies
     ]
@@ -44,11 +42,11 @@ def get_square_icons(conf: settings.AppConfig, dependencies: list) -> str:
     icon_names = ",".join(filtered_icons)
     # per_line = (len(filtered_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"
-    square_icons = icons_dict["url"]["base_url"] + icon_names
-    square_icons = conf.md.badges_alt.format(
-        conf.cli.name.upper(), conf.prompts.slogan, square_icons
+    app_icons = icons_dict["url"]["base_url"] + icon_names
+    app_icons = conf.md.badges_alt.format(
+        conf.git.name.upper(), conf.prompts.slogan, app_icons
     )
-    return square_icons
+    return app_icons
 
 
 def get_badges(svg_icons: dict, dependencies: list) -> str:

@@ -16,7 +16,7 @@ bitbucket.org = "https://bitbucket.org/{user_repo_name}/src/master/{file}"
 
 # CLI Options
 [cli]
-badges = "flat-square"
+badges = ""
 emojis = true
 offline = false
 
@@ -33,7 +33,7 @@ ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
 shieldsio_icons = "data/shieldsio.json"
-square_icons = "data/square.json"
+app_icons = "data/apps.json"
 output = "readme-ai.md"
 
 # Prompts

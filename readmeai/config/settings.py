@@ -119,7 +119,7 @@ class PathsConfig(BaseModel):
     language_names: str
     language_setup: str
     shieldsio_icons: str
-    square_icons: str
+    app_icons: str
     output: str
 
 

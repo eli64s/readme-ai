@@ -12,7 +12,8 @@ BADGE_CHOICES = (
     "for-the-badge",
     "plastic",
     "social",
-    "square",
+    "apps",
+    "apps-light",
 )
 
 
