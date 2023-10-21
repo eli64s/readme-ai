@@ -15,9 +15,13 @@ from tenacity import (
     wait_exponential,
 )
 
-import readmeai.core.config as config
+import readmeai.config.settings as settings
 import readmeai.core.logger as logger
-from readmeai.utils.tokens import adjust_max_tokens
+from readmeai.core.tokens import (
+    adjust_max_tokens,
+    get_token_count,
+    truncate_tokens,
+)
 from readmeai.utils.utils import format_sentence
 
 
@@ -26,7 +30,7 @@ class OpenAIHandler:
 
     logger = logger.Logger(__name__)
 
-    def __init__(self, config: config.AppConfig):
+    def __init__(self, config: settings.AppConfig):
         """Initialize the OpenAI API handler.
 
         Parameters
@@ -35,6 +39,7 @@ class OpenAIHandler:
             Configuration constant values.
         """
         self.endpoint = config.api.endpoint
+        self.encoding = config.api.encoding
         self.model = config.api.model
         self.tokens = config.api.tokens
         self.tokens_max = config.api.tokens_max
@@ -78,19 +83,12 @@ class OpenAIHandler:
                     for idir in ignore.get("directories", [])
                 )
                 and path.name not in ignore.get("files", [])
-                and path.suffix not in ignore.get("extensions", [])
+                and path.suffix[1:] not in ignore.get("extensions", [])
             ):
                 self.logger.warning(f"Ignoring file: {path}")
                 continue
 
             prompt_code = prompt.format(str(path), contents)
-            prompt_length = len(prompt_code.split())
-            if prompt_length > self.tokens_max:
-                exc = f"Prompt exceeds max token limit: {prompt_length}."
-                tasks.append(asyncio.create_task(self.null_summary(path, exc)))
-                self.logger.debug(exc)
-                continue
-
             tasks.append(
                 asyncio.create_task(
                     self.generate_text(path, prompt_code, self.tokens)
@@ -100,6 +98,7 @@ class OpenAIHandler:
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         filter_results = []
+
         for result in results:
             if isinstance(result, Exception):
                 self.logger.error(f"Task failed with exception: {result}")
@@ -147,7 +146,7 @@ class OpenAIHandler:
         return response_list
 
     @retry(
-        stop=stop_after_attempt(3),
+        stop=stop_after_attempt(5),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         retry=(
             retry_if_exception_type(Exception)
@@ -157,24 +156,13 @@ class OpenAIHandler:
     async def generate_text(
         self, index: str, prompt: str, tokens: int
     ) -> Tuple[str, str]:
-        """Handles the request to the OpenAI API to generate text.
-
-        Parameters
-        ----------
-        index
-            Unique identifier for current prompt (i.e file path or index)
-        prompt
-            The prompt to send to the language model.
-        type
-            The type of prompt (i.e., code summary or general prompts).
-        tokens
-            The maximum number of tokens to generate.
-
-        Returns
-        -------
-            Tuple containing the identifier and model's generated text.
-        """
+        """Handles the request to the OpenAI API to generate text."""
         try:
+            token_count = get_token_count(prompt, self.encoding)
+
+            if token_count > tokens:
+                prompt = truncate_tokens(prompt, tokens)
+
             async with self.rate_limit_semaphore:
                 response = await self.http_client.post(
                     self.endpoint,

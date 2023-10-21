@@ -1,4 +1,4 @@
-"""Utility methods for the readme-ai application."""
+"""Git-related utilities for readme-ai."""
 
 import os
 import platform
@@ -8,25 +8,69 @@ from pathlib import Path
 from typing import Optional
 
 import git
+import requests
 
 from readmeai.core import logger
 
 logger = logger.Logger(__name__)
 
 
-def clone_repo_to_temp_dir(repo_path: str) -> Path:
-    """Clone a repository to a temporary directory and remove the .git directory."""
-    # git_exec_path = find_git_executable()
-    # validate_git_executable(git_exec_path)
-    # env = os.environ.copy()
-    # env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
+def make_request(url: str, **kwargs) -> dict:
+    """Makes an HTTP request for the given remote repository provider."""
+    try:
+        response = requests.get(url, **kwargs)
+        response.raise_for_status()
+        if response.status_code == 204:
+            return {}
+        elif response.status_code == 200:
+            return response.json()
+        else:
+            raise ValueError(
+                f"Error retrieving repository metadata: {response.status_code}"
+            )
+    except requests.RequestException as excinfo:
+        raise ValueError(
+            f"Error retrieving repository metadata: {excinfo}"
+        ) from excinfo
 
+
+def get_github_repo_metadata(repo_url: str) -> dict:
+    """Retrieves metadata about a GitHub repository."""
+    api_url = parse_repo_url(repo_url, "github")
+    repo_metadata = make_request(api_url)
+    return repo_metadata
+
+
+def get_gitlab_repo_metadata(repo_url):
+    """Retrieves metadata about a GitLab repository."""
+    api_url = parse_repo_url(repo_url, "gitlab")
+    repo_metadata = make_request(api_url)
+    return repo_metadata
+
+
+def get_bitbucket_repo_metadata(repo_url: str) -> dict:
+    """Retrieves metadata about a Bitbucket repository."""
+    api_url = parse_repo_url(repo_url, "bitbucket")
+    repo_metadata = make_request(api_url)
+    return repo_metadata
+
+
+def clone_repo_to_temp_dir(repo_path: str) -> Path:
+    """Clone user repository to a temporary directory."""
+    """
+    git_exec_path = find_git_executable()
+    validate_git_executable(git_exec_path)
+    env = os.environ.copy()
+    env["GIT_PYTHON_GIT_EXECUTABLE"] = str(git_exec_path)
+    """
     temp_dir = tempfile.mkdtemp()
     try:
-        git.Repo.clone_from(repo_path, temp_dir, depth=1)
-        # git_dir = Path(temp_dir) / ".git"
-        # if git_dir.exists():
-        #    shutil.rmtree(git_dir)
+        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
+        """
+        git_dir = Path(temp_dir) / ".git"
+        if git_dir.exists():
+            shutil.rmtree(git_dir)
+        """
         return Path(temp_dir)
 
     except git.GitCommandError as excinfo:
@@ -80,25 +124,18 @@ def validate_file_permissions(temp_dir: Path) -> None:
 
 def get_github_file_link(file: str, repo: str, user_repo_name: str) -> str:
     """Returns the file URL for a given file based on the platform."""
+    domain = repo.split("/")[2]
     base_urls = {
         "github.com": f"https://github.com/{user_repo_name}/blob/main/{file}",
         "bitbucket.org": f"https://bitbucket.org/{user_repo_name}/src/master/{file}",
         "gitlab.com": f"https://gitlab.com/{user_repo_name}/-/blob/master/{file}",
     }
 
-    for domain in base_urls:
-        if domain in repo:
-            return base_urls[domain]
-
-    return base_urls["github.com"]
+    return base_urls.get(domain, base_urls["github.com"])
 
 
 def get_user_repository_name(url_or_path):
-    """
-    Extract username and repository name from a
-    GitHub, Bitbucket, or GitLab URL or local path.
-    """
-
+    """Extract user and repository name from a URL or path."""
     if os.path.exists(url_or_path):
         return "local", os.path.basename(url_or_path)
 
@@ -114,4 +151,18 @@ def get_user_repository_name(url_or_path):
             username, reponame = match.groups()
             return username, reponame
 
-    raise ValueError("Error: invalid remote repository URL or local path.")
+    raise ValueError("Error: invalid repository URL or path.")
+
+
+def parse_repo_url(repo_url: str, provider: str) -> str:
+    """Parses the repository URL and constructs the API URL."""
+    parts = repo_url.rstrip("/").split("/")
+    user_repo_name = f"{parts[-2]}/{parts[-1]}"
+
+    api_url_mapping = {
+        "github": f"https://api.github.com/repos/{user_repo_name}",
+        "gitlab": f"https://gitlab.com/api/v4/projects/{user_repo_name.replace('/', '%2F')}",
+        "bitbucket": f"https://api.bitbucket.org/2.0/repositories/{user_repo_name}",
+    }
+
+    return api_url_mapping.get(provider.lower())

@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.028"
-description = "Automated README file generator 🧚‍♀️"
+version = "0.4.029"
+description = "Automated README.md file generator tool, powered by AI 🧚"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"

@@ -2,22 +2,23 @@
 
 from pathlib import Path
 
-from readmeai.core import config, logger
+from readmeai.config.settings import AppConfig, ConfigHelper
+from readmeai.core import logger
 
 logger = logger.Logger(__name__)
 
 
-def create_setup_guide(
-    config: config.AppConfig, helper: config.ConfigHelper, summary_list: list
+def create_instructions(
+    conf: AppConfig, helper: ConfigHelper, summaries: list
 ):
     """Creates the 'Getting Started' section of the README file."""
     try:
         default_install_command = (
             default_run_command
-        ) = default_test_command = config.md.default
+        ) = default_test_command = conf.md.default
 
         language_counts = {}
-        for module, _ in summary_list:
+        for module, _ in summaries:
             language = Path(module).suffix[1:]
             if language and language not in helper.ignore_files:
                 if language in language_counts:

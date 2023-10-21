@@ -1,18 +1,77 @@
 #!/usr/bin/env bash
 
-# Remove backup files and Python cache files
-find . -type f \( -name "*.py-e" \
-                  -o -name "*.DS_Store" \
-                  -o -name "*.py[co]" \) -delete
+function clean() {
+    clean_build
+    clean_pyc
+    clean_test
+    clean_backup_and_cache
+    echo "All build, test, coverage, and Python artifacts have been removed."
+}
 
-# Remove cache directories and VS Code settings
-find . -type d \( -name "__pycache__" \
-                  -o -name ".ipynb_checkpoints" \
-                  -o -name ".ruff_cache" \
-                  -o -name ".vscode" \) -execdir rm -rf {} +
+function clean_build() {
+    echo "Removing build artifacts..."
+    rm -fr build/
+    rm -fr dist/
+    rm -fr .eggs/
+    rm -fr site/
+    find . -name '*.egg-info' -exec rm -fr {} +
+    find . -name '*.egg' -exec rm -f {} +
+}
 
-# Remove build artifacts, pytest cache, and benchmarks
-rm -rf build/ dist/ -- *.egg-info/ .pytest_cache/ .benchmarks/
+function clean_pyc() {
+    echo "Removing Python file artifacts..."
+    find . -name '*.pyc' -exec rm -f {} +
+    find . -name '*.pyo' -exec rm -f {} +
+    find . -name '*~' -exec rm -f {} +
+    find . -name '__pycache__' -exec rm -fr {} +
+}
 
-# Remove specific files
-rm -rf docs/raw_data.csv *.log *.out *.rdb
+function clean_test() {
+    echo "Removing test and coverage artifacts..."
+    rm -fr .tox/
+    rm -f .coverage
+    rm -fr htmlcov/
+    rm -fr .pytest_cache/
+}
+
+function clean_backup_and_cache() {
+    echo "Removing backup files and Python cache files..."
+    find . -type f \( -name "*.py-e" \
+                      -o -name "*.DS_Store" \
+                      -o -name "*.py[co]" \) -delete
+    echo "Removing cache directories and VS Code settings..."
+    find . -type d \( -name "__pycache__" \
+                      -o -name ".ipynb_checkpoints" \
+                      -o -name ".ruff_cache" \
+                      -o -name ".vscode" \) -execdir rm -rf {} +
+}
+
+# Check for command line arguments
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $0 <command>"
+    echo "Available commands: clean, clean-build, clean-pyc, clean-test, clean-backup-and-cache"
+    exit 1
+fi
+
+case "$1" in
+    clean)
+        clean
+        ;;
+    clean-build)
+        clean_build
+        ;;
+    clean-pyc)
+        clean_pyc
+        ;;
+    clean-test)
+        clean_test
+        ;;
+    clean-backup-and-cache)
+        clean_backup_and_cache
+        ;;
+    *)
+        echo "Unknown command: $1"
+        echo "Available commands: clean, clean-build, clean-pyc, clean-test, clean-backup-and-cache"
+        exit 1
+        ;;
+esac

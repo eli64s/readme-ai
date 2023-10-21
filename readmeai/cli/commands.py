@@ -12,7 +12,7 @@ from readmeai.main import main
 @options.api_key
 @options.badges
 @options.emojis
-@options.offline_mode
+@options.offline
 @options.model
 @options.output
 @options.repository
@@ -23,7 +23,7 @@ def commands(
     api_key: str,
     badges: Optional[str],
     emojis: Optional[bool],
-    offline_mode: Optional[bool],
+    offline: Optional[bool],
     model: Optional[str],
     output: Optional[str],
     repository: str,
@@ -36,13 +36,11 @@ def commands(
         api_key=api_key,
         badges=badges,
         emojis=emojis,
-        offline_mode=offline_mode,
+        offline=offline,
         model=model,
         output=output,
         repository=repository,
         temperature=temperature,
-        language=language,
-        style=style,
     )
 
 

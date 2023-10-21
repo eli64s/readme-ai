@@ -6,16 +6,15 @@ import re
 from pathlib import Path
 from typing import List
 
+from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core import factory, logger
-from readmeai.core.config import AppConfig, ConfigHelper
-from readmeai.md_builder import badges, setup_guides, tables
-from readmeai.utils import git
+from readmeai.markdown import badges, quickstart, tables
+from readmeai.services import version_control as vcs
 
 logger = logger.Logger(__name__)
 
 
 def build_readme_md(
-    badges: str,
     conf: AppConfig,
     helper: ConfigHelper,
     packages: list,
@@ -23,16 +22,16 @@ def build_readme_md(
 ) -> None:
     """Constructs each section of the README Markdown file."""
     all_readme_sections = format_readme_md_contents(
-        badges, conf, helper, packages, summaries
+        conf, helper, packages, summaries
     )
     output_file = "\n".join(all_readme_sections)
     output_path = Path(conf.paths.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     factory.FileHandler().write(output_path, output_file)
     logger.info(f"README file generated at: {output_path}")
 
 
 def format_readme_md_contents(
-    badges_style: str,
     conf: AppConfig,
     helper: ConfigHelper,
     packages: list,
@@ -41,24 +40,24 @@ def format_readme_md_contents(
     """Formats the README Markdown file contents for each section."""
     repo_name = conf.git.name
     repository = conf.git.repository
-    username, _ = git.get_user_repository_name(repository)
-    user_repo = f"{username}/{repo_name}"
+    name, _ = vcs.get_user_repository_name(repository)
+    full_name = f"{name}/{repo_name}"
 
-    if conf.api.offline_mode is False:
+    if conf.cli.offline is False:
         md_tables = tables.create_markdown_tables(
             conf.md.default,
             summaries,
         )
         conf.md.tables = tables.create_tables(
-            md_tables, conf.md.dropdown, repository, user_repo
+            md_tables, conf.md.dropdown, repository, full_name
         )
 
-    if badges_style in ["default", "shields"]:
-        badge_icons = badges.get_shieldsio_icons(conf, packages, user_repo)
+    if conf.cli.badges != "square":
+        badge_icons = badges.get_shieldsio_icons(conf, packages, full_name)
     else:
         badge_icons = badges.get_square_icons(conf, packages)
 
-    md_setup_guide = setup_guides.create_setup_guide(conf, helper, summaries)
+    md_setup_guide = quickstart.create_instructions(conf, helper, summaries)
 
     markdown_sections = [
         conf.md.header,
@@ -69,7 +68,7 @@ def format_readme_md_contents(
         conf.md.modules,
         conf.md.tables,
         conf.md.setup.format(repo_name, repository, *md_setup_guide),
-        conf.md.ending,
+        conf.md.ending.format(full_name),
     ]
 
     if conf.cli.emojis is False:

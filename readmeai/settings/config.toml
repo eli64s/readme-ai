@@ -1,19 +1,26 @@
-# OpenAI API Settings
+# Model API Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
-rate_limit = 5
+rate_limit = 3
 tokens = 650
 tokens_max = 3800
 temperature = 1.1
-offline_mode = false
 
-# Command-Line Interface
+# Version Control Systems
+[base_urls]
+github.com = "https://github.com/{user_repo_name}/blob/main/{file}"
+gitlab.com = "https://gitlab.com/{user_repo_name}/-/blob/master/{file}"
+bitbucket.org = "https://bitbucket.org/{user_repo_name}/src/master/{file}"
+
+# CLI Options
 [cli]
+badges = "flat-square"
 emojis = true
+offline = false
 
-# Repository
+# Git Options
 [git]
 repository = "https://github.com/eli64s/readme-ai"
 name = "readme-ai"
@@ -21,12 +28,13 @@ name = "readme-ai"
 # Paths
 [paths]
 dependency_files = "dependency_files.toml"
+identifiers = "identifiers.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
-output = "readme-ai.md"
 shieldsio_icons = "data/shieldsio.json"
 square_icons = "data/square.json"
+output = "readme-ai.md"
 
 # Prompts
 [prompts]
@@ -64,9 +72,7 @@ slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}
 # Markdown Template Code
 [md]
 tables = ""
-
 default = "► INSERT-TEXT"
-
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 
 header = """<div align="center">
@@ -80,10 +86,10 @@ header = """<div align="center">
 badges = """<p align="center">
 {0}
 </p>
-<img src="https://img.shields.io/github/license/{1}?{2}&color=5D6D7E" alt="GitHub license" />
-<img src="https://img.shields.io/github/last-commit/{1}?{2}&color=5D6D7E" alt="git-last-commit" />
-<img src="https://img.shields.io/github/commit-activity/m/{1}?{2}&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/languages/top/{1}?{2}&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/license/{1}?style={2}&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/last-commit/{1}?style={2}&color=5D6D7E" alt="git-last-commit" />
+<img src="https://img.shields.io/github/commit-activity/m/{1}?style={2}&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/languages/top/{1}?style={2}&color=5D6D7E" alt="GitHub top language" />
 </div>
 \n---
 """
@@ -104,14 +110,12 @@ badges_alt = """
 ---
 """
 
-badges_style = "style"
-
 toc = """
 ## 📖 Table of Contents
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
-- [📂 Repository Structure](#-repository-structure)
+- [📂 repository Structure](#-repository-structure)
 - [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
     - [🔧 Installation](#-installation)
@@ -132,13 +136,18 @@ intro = """
 \n{}
 \n---
 """
+
 tree = """
-\n## 📂 Repository Structure\n
-{}
+\n## 📂 Repository Structure
+
+```sh
+{0}
+```
+
+---
 """
 
 modules = """
-\n---
 \n## ⚙️ Modules
 """
 setup = """---
@@ -178,48 +187,28 @@ ending = """
 
 ## 🤝 Contributing
 
-Contributions are always welcome! Please follow these steps:
-1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
-2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
-3. Create a new branch with a descriptive name (e.g., `new-feature-branch` or `bugfix-issue-123`).
-```sh
-git checkout -b new-feature-branch
-```
-4. Make changes to the project's codebase.
-5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
-```sh
-git commit -m 'Implemented new feature.'
-```
-6. Push your changes to your forked repository on GitHub using the following command
-```sh
-git push origin new-feature-branch
-```
-7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
-The project maintainers will review your changes and provide feedback or merge them into the main branch.
+- [**Discussions**](https://github.com/{0}/discussions)
+  - Join the discussion here.
+- [**New Issue**](https://github.com/{0}/issues)
+  - Report a bug or request a feature here.
+- [**Contributing Guidelines**](https://github.com/{0}/blob/main/CONTRIBUTING.md)
+  - Read the guidelines and get started!
 
 ---
 
 ## 📄 License
 
-This project is licensed under the `ℹ️  LICENSE-TYPE` License. See the [LICENSE-Type](LICENSE) file for additional info.
+
+This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
 ## 👏 Acknowledgments
 
-`- ℹ️ List any resources, contributors, inspiration, etc.`
+- List any resources, contributors, inspiration, etc. here.
 
-[↑ Return](#Top)
+[**Return**](#Top)
 
 ---
-"""
 
-# New Markdown Template Code
-header_png = """[<img src="https://img.icons8.com/?size=512&id=55494&format=png" height="120" align="left">](https://img.icons8.com/?size=512&id=55494&format=png)
-
-# {}
-
-<br>
-
-## {}
 """

@@ -6,7 +6,14 @@ import os
 
 import click
 
-BADGE_CHOICES = ("default", "shields", "square")
+BADGE_CHOICES = (
+    "flat",
+    "flat-square",
+    "for-the-badge",
+    "plastic",
+    "social",
+    "square",
+)
 
 
 api_key = click.option(
@@ -19,7 +26,7 @@ badges = click.option(
     "-b",
     "--badges",
     type=click.Choice(BADGE_CHOICES, case_sensitive=False),
-    default="default",
+    default="flat-square",
     help="""Badge icon type to use in README.md header. \
         - 'shields' refers to badges from shields.io \
         - 'square' refers to app-like square badges.""",
@@ -37,11 +44,11 @@ model = click.option(
     help="Large language model engine to use.",
 )
 
-offline_mode = click.option(
+offline = click.option(
     "-f",
-    "--offline-mode",
+    "--offline",
     default=False,
-    help="Run the tool in offline mode without calling the API.",
+    help="When offline is true, a README.md is generated without the LLM API.",
 )
 
 output = click.option(
