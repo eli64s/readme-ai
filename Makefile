@@ -32,7 +32,7 @@ lint:
 .PHONY: reqs
 reqs:
 	pip install -r requirements.txt
- 
+
 .PHONY: conda
 conda:
 	conda create -n $(VENV) python=3.10 pip -y &&

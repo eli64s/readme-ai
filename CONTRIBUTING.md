@@ -26,7 +26,7 @@ There are many ways to contribute to *README-AI*! You can:
   - Find unhandled exceptions and bugs when running the program.
   - Write unit test for the program.
 - Brainstorm new CLI options and features that would be useful to users.
-  - i.e. `--language` option to specify the language of the README. 
+  - i.e. `--language` option to specify the language of the README.
   - What is the best way to implement README file generation in any language selected?
 
 These are just a few exmaples, there are many more ways to contribute to *README-AI*.
