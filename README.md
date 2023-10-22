@@ -1,8 +1,8 @@
 <div align="right">
 
-[![CN](https://img.shields.io/badge/CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-zh-CN.md)  
-[![DE](https://img.shields.io/badge/DE-🇩🇪-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md)  
-[![FR](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)  
+[![CN](https://img.shields.io/badge/CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-zh-CN.md)
+[![DE](https://img.shields.io/badge/DE-🇩🇪-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md)
+[![FR](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)
 </div>
 
 <div align="center">

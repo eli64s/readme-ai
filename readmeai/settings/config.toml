@@ -40,7 +40,7 @@ output = "readme-ai.md"
 [prompts]
 code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the code:
 \nPath: {0}\nContents:\n{1}\n Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
-Limit your response to a maximum of 350 characters (including spaces).
+Limit your response to a maximum of 225 characters (including spaces).
 """
 features = """Hello! Analyze the Git codebase {} and create a robust summary of the project's features.
 The following information summarizes each file in the repository to help you get started: \n{}\n

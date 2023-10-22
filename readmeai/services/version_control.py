@@ -124,6 +124,9 @@ def validate_file_permissions(temp_dir: Path) -> None:
 
 def get_github_file_link(file: str, repo: str, user_repo_name: str) -> str:
     """Returns the file URL for a given file based on the platform."""
+    if Path(repo).exists():
+        return "local directory"
+
     domain = repo.split("/")[2]
     base_urls = {
         "github.com": f"https://github.com/{user_repo_name}/blob/main/{file}",

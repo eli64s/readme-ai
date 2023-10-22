@@ -45,7 +45,7 @@ notebooks/
 .benchmarks/
 
 # Other
-docs/templates
+docs/docs
 docs/notes
 examples/readme-edgecase.md
 readmeai/conf/templates
