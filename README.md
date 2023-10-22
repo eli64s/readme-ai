@@ -579,13 +579,15 @@ readmeai --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 
 You can also use the `short flags` for the CLI options above.
 
-In this example we name the output file `readme-ai.md`, set the repo URL to *readme-ai*, use the `flat-square` badge style, and remove emojis from the README file header names.
+> In this example we also set set the badge style to `flat-square` and remove emojis from all README header section names.
 
 ```bash
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai -b flat-square -e false
 ```
 
-Additionally, you can run readme-ai in offline mode, or without an API key! This option is useful for spinning up a baseline README.md file that still contains your project's metadata.
+Additionally, you can run readme-ai in offline mode, or without an API key.
+
+> Useful for quickly spinning up a baseline README.md file containing all your project's metadata.
 
 ```bash
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai --offline true
