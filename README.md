@@ -510,8 +510,8 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 <table border="1">
     <thead>
         <tr>
-            <th>--badgesn</th>
-            <th>SVG Icon</th>
+            <th>--badges</th>
+            <th>svg icon</th>
         </tr>
     </thead>
     <tbody>
@@ -652,9 +652,9 @@ bash scripts/test.sh
 
 ## 🤝 Contributing
 
-- 👋 [Discussions](https://github.com/eli64s/readme-ai/discussions)
-- 🐛 [Open an Issue](https://github.com/eli64s/readme-ai/issues)
-- 🧚‍♀️ [Contributing Guidelines](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)
+- [Discussions](https://github.com/eli64s/readme-ai/discussions)
+- [Open an Issue](https://github.com/eli64s/readme-ai/issues)
+- [Contributing Guidelines](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)
 
 ---
 
