@@ -24,11 +24,10 @@
         <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="actions" />
     </p>
     <a href="https://pypi.org/project/readmeai/">
-        <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=pypi" alt="pypi-version" />
-    </a>
+    <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=pypi"
+    alt="pypi-version" /></a>
     <a href="https://pypi.org/project/readmeai/">
-        <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="pypi-python-version" />
-    </a>
+    <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="pypi-python-version" /></a>
     <img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai.svg?color=5D6D7E" alt="commits-month" />
     <img src="https://img.shields.io/github/license/eli64s/readme-ai?color=5D6D7E" alt="license" />
     <br>
@@ -377,7 +376,7 @@ This project is under development with an opinionated setup. It's vital to revie
 <br>
 
 <p align="right">
-  <a href="#top"><b>🔝 Return </b></a>
+  <a href="#top"><b>Return </b></a>
 </p>
 
 ---
@@ -547,13 +546,13 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 
 To customize the README file generation process, you can modify the project's [configuration file:](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)
 
-- [*api*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - OpenAI language model API configuration settings.
-- [*base_urls*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - Base URLs for supported remote repository platforms.
-- [*cli*]((https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - CLI option settings used by the *readme-ai* application.)
-- [*git*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - Default git repository settings used if no repository is provided.
-- [*paths*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - Directory paths and files used by the *readme-ai* application.
-- [*prompts*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - Large language model prompts used to generate the README file.
-- [*md*](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) - Dynamic Markdown section code templates used to build the README file.
+- **api**: OpenAI language model API configuration settings.
+- **base_urls**: Base URLs for supported remote repository platforms.
+- **cli**: CLI option settings used by the *readme-ai* application.
+- **git**: Default git repository settings used if no repository is provided.
+- **paths**: Directory paths and files used by the *readme-ai* application.
+- **prompts**: Large language model prompts used to generate the README file.
+- **md**: Dynamic Markdown section code templates used to build the README file.
 
 ---
 
@@ -578,11 +577,21 @@ Using `pip`
 readmeai --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
 
-You can also use the `short flags` for the CLI options above. In this example we are naming the output file `readme-ai.md`, setting the repository URL to the *readme-ai* repository, using the `flat-square` badge style, and removing emojis from the README file header names.
+You can also use the `short flags` for the CLI options above.
+
+In this example we name the output file `readme-ai.md`, set the repo URL to *readme-ai*, use the `flat-square` badge style, and remove emojis from the README file header names.
 
 ```bash
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai -b flat-square -e false
 ```
+
+Additionally, you can run readme-ai in offline mode, or without an API key! This option is useful for spinning up a baseline README.md file that still contains your project's metadata.
+
+```bash
+readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai --offline true
+```
+
+> Offline mode example [README.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
 
 <br>
 
@@ -679,7 +688,7 @@ bash scripts/test.sh
 
 
 <p align="right">
-  <a href="#top"><b>🔝 Return</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
