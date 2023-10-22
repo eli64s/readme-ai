@@ -4,15 +4,15 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.031"
-description = "Automated README.md file generator tool, powered by AI 🧚"
+version = "0.4.032"
+description = "Generate beautiful README.md files from the terminal, powered by AI."
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
-keywords =  [
-  "markdown",
+keywords = [
+  "github",
   "productivity",
   "readme",
   "documentation",
@@ -20,14 +20,14 @@ keywords =  [
   "devtools",
   "readme-badges",
   "openai",
-  "gpt",
-  "readme-template",
   "workflow-automation",
-  "autodoc",
+  "readme-md",
   "readme-generator",
   "openai-api",
+  "gpt-4",
   "llm",
-  "chatgpt"
+  "chatgpt",
+  "auto-readme"
 ]
 include = ["readmeai", "readmeai.*"]
 

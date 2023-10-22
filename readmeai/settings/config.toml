@@ -6,7 +6,7 @@ model = "gpt-3.5-turbo"
 rate_limit = 3
 tokens = 650
 tokens_max = 3800
-temperature = 1.1
+temperature = 0.9
 
 # Version Control Systems
 [base_urls]
@@ -177,7 +177,7 @@ Please ensure you have the following dependencies installed on your system:
 """
 
 ending = """
-\n## 🛣 Roadmap
+\n## 🛣 Project Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Implement Y`
@@ -187,12 +187,33 @@ ending = """
 
 ## 🤝 Contributing
 
-- [**Discussions**](https://github.com/{0}/discussions)
+[**Discussions**](https://github.com/{0}/discussions)
   - Join the discussion here.
-- [**New Issue**](https://github.com/{0}/issues)
+
+[**New Issue**](https://github.com/{0}/issues)
   - Report a bug or request a feature here.
-- [**Contributing Guidelines**](https://github.com/{0}/blob/main/CONTRIBUTING.md)
-  - Read the guidelines and get started!
+
+[**Contributing Guidelines**](https://github.com/{0}/blob/main/CONTRIBUTING.md)
+
+- Contributions are welcome! Please follow these steps:
+
+1. Fork the project repository to your GitHub account.
+2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
+3. Create a new branch with a descriptive such as `new-feature-x` or `bugfix-issue-x`.
+```sh
+git checkout -b new-feature-x
+```
+4. Develop your changes locally.
+5. Commit your updates with a clear explanation of the changes you've made.
+```sh
+git commit -m 'Implemented new feature.'
+```
+6. Push your changes to your forked repository on GitHub.
+```sh
+git push origin new-feature-x
+```
+7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
+8. Once your pull request is reviewed, it will be merged into the main branch of the project repository.
 
 ---
 
