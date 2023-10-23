@@ -61,14 +61,16 @@
 
 ## 🔭 Overview
 
+<!--
 <div align="center">
   <img src="https://github.com/eli64s/readme-ai/blob/main/examples/images/dalle-readmeai.png?raw=true" height="500" />
 </div>
 <br>
+-->
 
 **🎯 Objective**
 
-Dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Simply provide a repository URL or directory path, and *README-AI* builds a well-structured README.md for your project.
+*README-AI* is a dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Provide a repository URL or local directory path, and *README-AI* builds a well-structured README.md for your project.
 
 **💥 Motivation**
 
@@ -84,13 +86,14 @@ This project is under development with an opinionated setup. It's vital to revie
 
 ***readmeai CLI***
 
-- Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more!
+- Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more.
 
 [readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
 
 <br>
 
-- Run the CLI without an API key using <code>--offline true</code> mode. README-AI can still generate most of the document, seen below.
+- CLI option `--offline true` can be used to generate a README.md without an OpenAI API key.
+- Useful for quickly getting a baseline document containg your project's metadata!
 
 [readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/2c9b8456-80b9-4840-8da2-51780ed0c093)
 
@@ -493,7 +496,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | Short Flag | Long Flag       | Description                                                    | Type        | Status       |
 |------------|-----------------|----------------------------------------------------------------|-------------|--------------|
 | `-k`       | `--api-key`     | Your language model API secret key.                            | String      | Optional     |
-| `-b`       | `--badges`      | [Styles](https://shields.io/badges) - `flat (default), flat-square, plastic, for-the-badge, social, sqaure`      | String      | Optional     |
+| `-b`       | `--badges`      | [Badge style](https://shields.io/badge) options for output file. See below for [more details](https://github.com/eli64s/readme-ai#badge-style-cli-options)     | String      | Optional     |
 | `-e`       | `--emojis`      | Use ```false``` to remove emojis from README default template. | Boolean     | Optional     |
 | `-f`       | `--offline`     | Use ```true``` to run README-AI without an API key.            | Boolean     | Optional     |
 | `-m`       | `--model`       | Default large language model is the `gpt-3.5-turbo` engine.    | String      | Optional     |
@@ -583,17 +586,13 @@ Using `pip`
 readmeai --output readme-ai.md --repository https://github.com/eli64s/readme-ai
 ```
 
-You can also use the `short flags` for the CLI options above.
-
-> In this example we also set set the badge style to `flat-square` and remove emojis from all README header section names.
+Below we use `short flags` in the command, setting badge style to `-b flat-square`, and removing emojis `-e false` from the output file.
 
 ```bash
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai -b flat-square -e false
 ```
 
-Additionally, you can run readme-ai in offline mode, or without an API key.
-
-> Useful for quickly spinning up a baseline README.md file containing all your project's metadata.
+Additionally, you can run readme-ai in offline mode without an API key.
 
 ```bash
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai --offline true

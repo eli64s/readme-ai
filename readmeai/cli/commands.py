@@ -1,4 +1,4 @@
-"""CLI commands for readme-ai."""
+"""CLI entrypoint for readme-ai."""
 
 from typing import Optional
 

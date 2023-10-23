@@ -96,7 +96,7 @@ class GitConfig(BaseModel):
         return value
 
     @validator("source", pre=True, always=True)
-    def set_source(cls, value: str, values: dict) -> str:
+    def set_source(cls, values: dict) -> str:
         """Set the source of the repository"""
         repo = values.get("repository")
 
@@ -107,7 +107,7 @@ class GitConfig(BaseModel):
         return DefaultHosts._value2member_map_.get(parsed_url.netloc)
 
     @validator("name", pre=True, always=True)
-    def set_name(cls, value: str, values: dict) -> str:
+    def set_name(cls, values: dict) -> str:
         """Sets the project name from the repository provided."""
         repo = values.get("repository")
         parsed_url = urlsplit(repo)

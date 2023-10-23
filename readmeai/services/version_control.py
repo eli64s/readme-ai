@@ -160,7 +160,7 @@ def validate_file_permissions(temp_dir: Path) -> None:
         permissions = temp_dir.stat().st_mode & 0o777
         if permissions != 0o700:
             raise ValueError(
-                "Error: file permissions of cloned repository must be set to 0o700."
+                "Error: file permissions of cloned repo must be set to 0o700."
             )
 
 

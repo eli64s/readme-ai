@@ -16,7 +16,7 @@ from readmeai.config.settings import (
     load_config_helper,
 )
 from readmeai.core import logger, model, preprocess
-from readmeai.markdown import headers, tables, tree
+from readmeai.markdown import headers, tree
 from readmeai.services import version_control as vcs
 
 logger = logger.Logger(__name__)
@@ -53,7 +53,6 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     logger.info(f"Saving output file as: {conf.paths.output}")
 
     name = conf.git.name
-    placeholder = conf.md.default
     repository = conf.git.repository
 
     llm = model.OpenAIHandler(conf)

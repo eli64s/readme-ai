@@ -24,14 +24,19 @@ class RepositoryParser:
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
         self.encoding_name = config.api.encoding
+        self.local_source = settings.DefaultHosts.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""
-        repo_path = self.config.git.repository
         contents = self.generate_contents(temp_dir)
-        if not Path(repo_path).exists():
+
+        repo_source = self.config.git.source
+        if repo_source != self.local_source:
+            logger.info(f"Tokenizing content from source: {repo_source}")
             contents = self.tokenize_content(contents)
+
         contents = self.process_language_mapping(contents)
+
         return contents
 
     def generate_contents(self, repo_path: str) -> List[Dict]:
@@ -41,7 +46,6 @@ class RepositoryParser:
         data = list(self.generate_file_info(repo_path))
 
         contents = []
-
         for name, path, content in data:
             extension = Path(name).suffix.lstrip(".")
             contents.append(
@@ -135,4 +139,5 @@ class RepositoryParser:
             content["tokens"] = tokens.get_token_count(
                 content["content"], self.encoding_name
             )
+        logger.info(f"context: {contents[0]['content'][:100]}")
         return contents

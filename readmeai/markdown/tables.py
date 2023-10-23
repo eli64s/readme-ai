@@ -14,15 +14,15 @@ def format_code_summaries(
 ) -> List[Tuple[str, str]]:
     """Converts the given code summaries into a formatted list."""
     formatted_summaries = []
+
     for summary in code_summaries:
         if is_valid_tuple_summary(summary):
-            logger.debug(f"Summary: {summary}")
             module, summary_text = summary
         else:
-            logger.debug(f"Summary: {summary}")
             module, summary_text = summary, placeholder
+
         formatted_summaries.append((module, summary_text))
-    logger.debug(f"Formatted Summaries: {formatted_summaries}")
+
     return formatted_summaries
 
 
