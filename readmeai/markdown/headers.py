@@ -56,7 +56,9 @@ def format_readme_md_contents(
     else:
         badge_icons = badges.get_app_icons(conf, packages)
 
-    md_setup_guide = quickstart.create_instructions(conf, helper, summaries)
+    repo_path = f"../{repo_name}" if conf.git.source == "local" else repository
+    instructions = quickstart.create_instructions(conf, helper, summaries)
+    md_quickstart = conf.md.setup.format(repo_name, repo_path, *instructions)
 
     markdown_sections = [
         conf.md.header,
@@ -66,7 +68,7 @@ def format_readme_md_contents(
         conf.md.tree,
         conf.md.modules,
         md_summary_tables,
-        conf.md.setup.format(repo_name, repository, *md_setup_guide),
+        md_quickstart,
         conf.md.contribute.format(full_name, name.upper()),
     ]
 

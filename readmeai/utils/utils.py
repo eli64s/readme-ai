@@ -56,6 +56,12 @@ def format_sentence(text: str) -> str:
     return text.strip().strip('"')
 
 
+def get_relative_path(absolute_path: str, base_path: str) -> str:
+    """Get the relative path of a file."""
+    absolute_path = Path(absolute_path)
+    return absolute_path.relative_to(base_path)
+
+
 def remove_substring(input_string: str) -> str:
     """Remove text between HTML tags."""
     pattern = r"</p>.*?</div>"
@@ -73,7 +79,7 @@ def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
         directory in file_path.parts
         for directory in ignore_files["directories"]
     ):
-        logger.debug(f"Ignoring directory: {file_path}")
+        logger.debug(f"Ignoring path: {file_path.suffix}")
         return True
 
     if file_path.name in ignore_files["files"]:
