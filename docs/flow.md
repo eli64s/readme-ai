@@ -3,14 +3,13 @@
 ## Repository Preprocessing
 
 - User provides a repository URL or local path to command line interface.
+- Input arguments are sanitized and validated.
+- Temporary directory is created to clone the user's repository.
+- Firstly, a file tree structure is generated from the cloned content. It serves two purposes:
+   - Used to provide context to the language model.
+   - Displayed in the output README file.
 
-- The provided arguments are validated.
-
-- Repository is cloned to a temporary directory.
-
-- File tree structure is generated from the cloned content.
-   - Displayed in the output file.
-   - Provides context to the language model.
+> Directory Tree Example:
 
 ```sh
 └── readmeai/
@@ -53,7 +52,7 @@
     │       └── utils.py
    ```
 
-- Repo contents and metadata are extracted in the [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) script. This script then returns two data structures in [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py#L81) used for a variety of purposes downstream. This includes a list of dependencies and a file contents dictionary.
+Following this, repo contents and metadata are processed and organized in the [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) script. The module returns two data structures in [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py#L81) that are used in downstream tasks. This includes a list of dependencies and a file contents dictionary.
 
 ### *Dependencies List*
 
@@ -99,8 +98,6 @@ After the prompt is created, we check if the prompt exceeds the model's maximum 
 This is not ideal, but from what I've seen, the model is able to generate a decent summary even with a truncated prompt. We are looking at ways to enhance context and accuracy, considering tools like [LangChain](https://python.langchain.com/docs/get_started/introduction) and [LlamaIndex](https://gpt-index.readthedocs.io/en/stable/index.html).
 
 ### *Architecture Section*
-
-> I was also wondering how you create the architecture section as that would be very hard without sending all the files at once? Any experience or pointers would be greatly appreciated.
 
 The prompt I use to generate the arcitecture table is located in the project settings file [here](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml#L31) and is as follows:
 
