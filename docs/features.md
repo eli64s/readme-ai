@@ -1,4 +1,4 @@
-## Key Features
+## Features
 
 <br>
 <div>

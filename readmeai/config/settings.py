@@ -126,10 +126,10 @@ class PathsConfig(BaseModel):
 class PromptsConfig(BaseModel):
     """Pydantic model for OpenAI prompts."""
 
-    code_summary: str
     features: str
     overview: str
     slogan: str
+    summaries: str
 
 
 class AppConfig(BaseModel):

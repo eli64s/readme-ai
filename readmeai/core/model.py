@@ -57,16 +57,20 @@ class OpenAIHandler:
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
 
     async def code_to_text(
-        self, ignore: dict, files: Dict[str, str], prompt: str
+        self,
+        files: Dict[str, str],
+        ignore: Dict[str, List[str]],
+        prompt: str,
+        tree: str,
     ) -> Dict[str, str]:
         """Converts code to natural language text using large language models.
 
         Parameters
         ----------
-        ignore : dict
-            Files, directories, or file extensions to ignore.
         files : Dict[str, str]
             The repository files to convert to text.
+        ignore : Dict[str, List[str]]
+            Files, directories, or file extensions to ignore.
         prompt : str
             The prompt to use for the OpenAI API calls.
 
@@ -88,7 +92,7 @@ class OpenAIHandler:
                 self.logger.warning(f"Ignoring file: {path}")
                 continue
 
-            prompt_code = prompt.format(str(path), contents)
+            prompt_code = prompt.format(tree, str(path), contents)
             tasks.append(
                 asyncio.create_task(
                     self.generate_text(path, prompt_code, self.tokens)
@@ -160,7 +164,10 @@ class OpenAIHandler:
         try:
             token_count = get_token_count(prompt, self.encoding)
 
-            if token_count > tokens:
+            if token_count > self.tokens_max:
+                self.logger.warning(
+                    f"Truncating tokens: {token_count} > {self.tokens_max}"
+                )
                 prompt = truncate_tokens(prompt, tokens)
 
             async with self.rate_limit_semaphore:

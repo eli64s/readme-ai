@@ -45,9 +45,10 @@ notebooks/
 .benchmarks/
 
 # Other
+templates/
 docs/docs
 docs/notes
+docs/flow.md
 examples/markdown/readme-edgecase.md
 readmeai/settings/prompts.toml
 readmeai/markdown/data/badges.json
-templates/

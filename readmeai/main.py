@@ -7,8 +7,6 @@ __package__ = "readmeai"
 import asyncio
 import traceback
 
-import requests
-
 from readmeai.config.settings import (
     AppConfig,
     AppConfigModel,
@@ -20,6 +18,7 @@ from readmeai.config.settings import (
 from readmeai.core import logger, model, preprocess
 from readmeai.markdown import headers, tables, tree
 from readmeai.services import version_control as vcs
+from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
@@ -80,23 +79,25 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         parser = preprocess.RepositoryParser(conf, conf_helper)
         dependencies, files = parser.get_dependencies(temp_dir)
         logger.info(f"Dependencies: {dependencies}")
-        logger.info(f"Files: {files}")
 
         # Generate codebase file summaries and README.md text via LLMs.
         if conf.cli.offline is False:
             code_summary = await llm.code_to_text(
-                conf_helper.ignore_files,
                 files,
-                conf.prompts.code_summary,
+                conf_helper.ignore_files,
+                conf.prompts.summaries,
+                tree_str,
             )
-            logger.info(f"Code summaries returned:\n{code_summary[:5]}")
             prompts = [
                 conf.prompts.slogan.format(conf.git.name),
-                conf.prompts.overview.format(repository, code_summary),
-                conf.prompts.features.format(repository, tree),
+                conf.prompts.overview.format(
+                    repository, tree_str, dependencies, code_summary
+                ),
+                conf.prompts.features.format(
+                    repository, tree_str, dependencies, code_summary
+                ),
             ]
             slogan, overview, features = await llm.chat_to_text(prompts)
-
         else:
             conf.md.tables = tables.build_recursive_tables(
                 repository, temp_dir, placeholder

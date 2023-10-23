@@ -4,9 +4,9 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 rate_limit = 3
-tokens = 650
-tokens_max = 3800
-temperature = 0.9
+tokens = 750
+tokens_max = 4000
+temperature = 1.0
 
 # Version Control Systems
 [base_urls]
@@ -38,12 +38,7 @@ output = "readme-ai.md"
 
 # Prompts
 [prompts]
-code_summary = """Offer a comprehensive summary that encapsulates the core functionalities of the code:
-\nPath: {0}\nContents:\n{1}\n Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
-Limit your response to a maximum of 225 characters (including spaces).
-"""
-features = """Hello! Analyze the Git codebase {} and create a robust summary of the project's features.
-The following information summarizes each file in the repository to help you get started: \n{}\n
+features = """Hello! Analyze the repository {0} and following the instructions below to generate a comprehensive list of features.
 Please provide a comprehensive technical analysis of the codebase and its components.
 Consider the codebase as a whole and highlight the key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
@@ -55,21 +50,29 @@ Generate your response as a Markdown table with the following columns:
 | 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200 characters.|
 | 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200 characters.|
 | 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200 characters.       |
-| ⚡️ | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200 characters.|
+| ⚡️  | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200 characters.|
 | 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200 characters.|
 | 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200 characters.|
 | 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200 characters.|
 | 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200 characters.           |
 
-Thank you for your time and effort!
+Repository Details:
+\nDirectory Tree: {1}\nDependencies: {2}\nCode Summaries: {3}\n
 """
-overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the rpoject.
-The following includes a list of the summaries of the files in the repository: \n{}\n
-Craft 3-4 sentences that encapsulate the core functionalities of the project, its purpose, and its value proposition.
+overview = """Generate a <=100 word summary that describes the capabilities of the repository {0}.
+Focus on the project's use-case and value proposition, not its technical details.
+Do not refer to the project using the URL provided. Below are more details of the
+project for you can get a deep nderstanding of the codebase and its components.
+Repository Details:
+\nDirectory Tree: {1}\nDependencies: {2}\nCode Summaries: {3}\n
 """
-slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {}. Limit your response to 80 characters."
+slogan = "Conceptualize a catchy and memorable slogan for the GitHub project: {0}. Limit your response to 80 characters."
+summaries = """Offer a comprehensive summary <= 80 words that encapsulates the core functionalities of the code below.
+Aim for precision and conciseness in your explanation, ensuring a fine balance between detail and brevity.
+\nDirectory Tree: {0}\nPath: {1}\nCode:\n{2}\n
+"""
 
-# Markdown Template Code
+# Markdown Templates
 [md]
 tables = ""
 default = "► INSERT-TEXT"

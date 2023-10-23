@@ -1,4 +1,4 @@
-"""Utilities for handling tokennization."""
+"""Utilities for handling language tokens."""
 
 from tiktoken import encoding_for_model, get_encoding
 

@@ -139,4 +139,5 @@ files = [
     "__init__.py",
     "start",
     "test_binary",
+    "mkdocs.yml",
 ]
