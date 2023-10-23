@@ -1,6 +1,8 @@
-"""Creates the 'Getting Started' section of the README file."""
+"""Creates the 'Quick Start' section of the README file."""
 
+import traceback
 from pathlib import Path
+from typing import List
 
 from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core import logger
@@ -9,9 +11,9 @@ logger = logger.Logger(__name__)
 
 
 def create_instructions(
-    conf: AppConfig, helper: ConfigHelper, summaries: list
+    conf: AppConfig, helper: ConfigHelper, summaries: List[str]
 ):
-    """Creates the 'Getting Started' section of the README file."""
+    """Generates the 'Quick Start' section of the README file."""
     try:
         default_install_command = (
             default_run_command
@@ -20,6 +22,7 @@ def create_instructions(
         language_counts = {}
         for module, _ in summaries:
             language = Path(module).suffix[1:]
+
             if language and language not in helper.ignore_files:
                 if language in language_counts:
                     language_counts[language] += 1
@@ -38,9 +41,10 @@ def create_instructions(
                 default_run_command = language_setup[1]
                 default_test_command = language_setup[2]
 
-    except Exception as exc:
+    except Exception as excinfo:
         logger.debug(
-            f"Error: {exc}\nUsing default setup: {default_run_command}"
+            f"Exception: {excinfo}\nTraceback: {traceback.format_exc()}"
         )
+        logger.info(f"\nUsing default setup: {default_run_command}")
 
     return (default_install_command, default_run_command, default_test_command)

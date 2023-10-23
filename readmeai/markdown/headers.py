@@ -40,7 +40,7 @@ def format_readme_md_contents(
     """Formats the README Markdown file contents for each section."""
     repo_name = conf.git.name
     repository = conf.git.repository
-    name, _ = vcs.get_user_repository_name(repository)
+    name, _ = vcs.get_remote_full_name(repository)
     full_name = f"{name}/{repo_name}"
 
     if conf.cli.offline is False:
@@ -96,12 +96,11 @@ def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
         flags=re.UNICODE,
     )
 
-    # Iterate through content_list and replace emojis for lines starting with header symbols or in the ToC
+    # Replace emojis for markdown lines starting with header symbols or in the ToC
     modified_content = []
     for section in content_list:
         lines = section.split("\n")
         for index, line in enumerate(lines):
-            # Replace for lines that start with header symbols or are part of the ToC
             if line.startswith("#") or "Table of Contents" in section:
                 lines[index] = emoji_pattern.sub("", line)
         modified_content.append("\n".join(lines))

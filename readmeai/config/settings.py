@@ -14,19 +14,41 @@ logger = logger.Logger(__name__)
 
 
 class BaseUrls(str, Enum):
-    """Command-line interface configuration."""
+    """Enum for Git repository API base URLs."""
 
     GITHUB = "https://api.github.com"
     GITLAB = "https://api.gitlab.com"
     BITBUCKET = "https://api.bitbucket.org"
 
 
+class HostUrls(str, Enum):
+    """Enum for Git repository host URLs."""
+
+    LOCAL = "file://{full_name}/{file}"
+    GITHUB = "https://github.com/{full_name}/blob/main/{file}"
+    GITLAB = "https://gitlab.com/{full_name}/-/blob/master/{file}"
+    BITBUCKET = "https://bitbucket.org/{full_name}/src/master/{file}"
+
+
 class DefaultHosts(str, Enum):
     """Enum for default Git repository hosts."""
 
+    LOCAL = "local"
     GITHUB = "github.com"
     GITLAB = "gitlab.com"
     BITBUCKET = "bitbucket.org"
+
+
+class BadgeStyles(str, Enum):
+    """Enum for shields.io badge icon styles."""
+
+    FLAT = "flat"
+    FLAT_SQUARE = "flat-square"
+    FOR_THE_BADGE = "for-the-badge"
+    PLASTIC = "plastic"
+    SOCIAL = "social"
+    APPS = "apps"
+    APPS_LIGHT = "apps-light"
 
 
 class ApiConfig(BaseModel):
@@ -44,7 +66,7 @@ class ApiConfig(BaseModel):
 class CliConfig(BaseModel):
     """CLI options for the readme-ai application."""
 
-    badges: str = "flat-square"
+    badges = "flat"
     emojis: bool = True
     offline: bool = False
 
@@ -53,11 +75,11 @@ class GitConfig(BaseModel):
     """Command-line interface configuration."""
 
     repository: str
-    name: Optional[str] = None
+    source: Optional[str]
+    name: Optional[str]
 
-    @validator("repository", always=True)
-    def validate_repository(cls, value: str, values: dict) -> str:
-        """Validates if the repository is a valid URL or path."""
+    @validator("repository", pre=True, always=True)
+    def validate_repository(cls, value: str) -> str:
         path = Path(value)
         if path.is_dir():
             return value
@@ -65,8 +87,6 @@ class GitConfig(BaseModel):
             parsed_url = urlparse(value)
         except ValueError:
             raise ValueError(f"Invalid repository URL or path: {value}")
-
-        parsed_url = urlparse(value)
 
         if (
             parsed_url.scheme != "https"
@@ -76,21 +96,30 @@ class GitConfig(BaseModel):
 
         return value
 
-    @validator("name", always=True)
-    def get_repository_name(cls, value: str, values: dict) -> str:
-        """Extract the project name from the URL or path."""
-        repository_path = values.get("repository")
-        if repository_path:
-            parsed_url = urlsplit(str(repository_path))
-            if parsed_url.hostname in DefaultHosts._value2member_map_:
-                path = parsed_url.path
-                name = path.rsplit("/", 1)[-1] if "/" in path else path
-                if name.endswith(".git"):
-                    name = name[:-4]
-                return name
-            else:
-                return Path(repository_path).name
-        return value
+    @validator("source", pre=True, always=True)
+    def set_source(cls, value: str, values: dict) -> str:
+        """Set the source of the repository"""
+        repo = values.get("repository")
+
+        if Path(repo).is_dir():
+            return DefaultHosts.LOCAL.value
+
+        parsed_url = urlparse(repo)
+        return DefaultHosts._value2member_map_.get(parsed_url.netloc)
+
+    @validator("name", pre=True, always=True)
+    def set_name(cls, value: str, values: dict) -> str:
+        """Sets the project name from the repository provided."""
+        repo = values.get("repository")
+        parsed_url = urlsplit(repo)
+        if parsed_url.hostname in DefaultHosts._value2member_map_:
+            path = parsed_url.path
+            name = path.rsplit("/", 1)[-1] if "/" in path else path
+            if name.endswith(".git"):
+                name = name[:-4]
+            return name
+        else:
+            return Path(repo).name
 
 
 class MarkdownConfig(BaseModel):
@@ -98,6 +127,7 @@ class MarkdownConfig(BaseModel):
 
     badges: str
     badges_alt: str
+    badges_offline: str
     default: str
     dropdown: str
     ending: str

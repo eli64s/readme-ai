@@ -10,28 +10,6 @@ from readmeai.core import logger
 logger = logger.Logger(__name__)
 
 
-def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
-    """Filters out files that should be ignored."""
-    ignore_files = conf_helper.ignore_files
-
-    if any(
-        directory in file_path.parts
-        for directory in ignore_files["directories"]
-    ):
-        logger.debug(f"Ignoring directory: {file_path.name}")
-        return True
-
-    if file_path.name in ignore_files["files"]:
-        logger.debug(f"Ignoring file: {file_path.name}")
-        return True
-
-    if file_path.suffix.lstrip(".") in ignore_files["extensions"]:
-        logger.debug(f"Ignoring extension: {file_path.name}")
-        return True
-
-    return False
-
-
 def is_valid_url(url: str) -> bool:
     """Check if a given string is a valid URL."""
     regex = re.compile(
@@ -85,3 +63,25 @@ def remove_substring(input_string: str) -> str:
         pattern, "</p>\n</div>", input_string, flags=re.DOTALL
     )
     return output_string
+
+
+def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
+    """Filters out files that should be ignored."""
+    ignore_files = conf_helper.ignore_files
+
+    if any(
+        directory in file_path.parts
+        for directory in ignore_files["directories"]
+    ):
+        logger.debug(f"Ignoring directory: {file_path}")
+        return True
+
+    if file_path.name in ignore_files["files"]:
+        logger.debug(f"Ignoring file: {file_path.name}")
+        return True
+
+    if file_path.suffix.lstrip(".") in ignore_files["extensions"]:
+        logger.debug(f"Ignoring extension: {file_path.suffix}")
+        return True
+
+    return False

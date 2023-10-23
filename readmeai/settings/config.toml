@@ -8,12 +8,6 @@ tokens = 750
 tokens_max = 4000
 temperature = 1.0
 
-# Version Control Systems
-[base_urls]
-github.com = "https://github.com/{user_repo_name}/blob/main/{file}"
-gitlab.com = "https://gitlab.com/{user_repo_name}/-/blob/master/{file}"
-bitbucket.org = "https://bitbucket.org/{user_repo_name}/src/master/{file}"
-
 # CLI Options
 [cli]
 badges = ""
@@ -23,7 +17,6 @@ offline = false
 # Git Options
 [git]
 repository = "https://github.com/eli64s/readme-ai"
-name = "readme-ai"
 
 # Paths
 [paths]
@@ -111,6 +104,13 @@ badges_alt = """
 </p>
 
 ---
+"""
+
+badges_offline = """<p align="center">
+{0}
+</p>
+</div>
+\n---
 """
 
 toc = """

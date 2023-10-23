@@ -33,7 +33,6 @@ def commands(
 ):
     """CLI entrypoint for readme-ai."""
     main(
-        api_key=api_key,
         badges=badges,
         emojis=emojis,
         offline=offline,

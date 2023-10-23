@@ -1,30 +1,29 @@
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>async-ml-inference
-</h1>
-<h3>◦ Fast, Reliable AI: async-ml-inference</h3>
-<h3>◦ Developed with the software and tools listed below.</h3>
+<br>ASYNC-ML-INFERENCE</h1>
+<h3>◦ Faster ML, Smarter Results!</h3>
+<h3>◦ Developed with the software and tools below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style&logo=scikit-learn&logoColor=white" alt="scikitlearn" />
-<img src="https://img.shields.io/badge/.ENV-ECD53F.svg?style&logo=dotenv&logoColor=black" alt=".ENV" />
-<img src="https://img.shields.io/badge/Redis-DC382D.svg?style&logo=Redis&logoColor=white" alt="Redis" />
-<img src="https://img.shields.io/badge/Jinja-B41717.svg?style&logo=Jinja&logoColor=white" alt="Jinja" />
-<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style&logo=SciPy&logoColor=white" alt="SciPy" />
-<img src="https://img.shields.io/badge/Celery-37814A.svg?style&logo=Celery&logoColor=white" alt="Celery" />
+<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=flat&logo=scikit-learn&logoColor=white" alt="scikitlearn" />
+<img src="https://img.shields.io/badge/.ENV-ECD53F.svg?style=flat&logo=dotenv&logoColor=black" alt=".ENV" />
+<img src="https://img.shields.io/badge/Redis-DC382D.svg?style=flat&logo=Redis&logoColor=white" alt="Redis" />
+<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat&logo=YAML&logoColor=white" alt="YAML" />
+<img src="https://img.shields.io/badge/Jinja-B41717.svg?style=flat&logo=Jinja&logoColor=white" alt="Jinja" />
+<img src="https://img.shields.io/badge/SciPy-8CAAE6.svg?style=flat&logo=SciPy&logoColor=white" alt="SciPy" />
 
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/NumPy-013243.svg?style&logo=NumPy&logoColor=white" alt="NumPy" />
-<img src="https://img.shields.io/badge/Numba-00A3E0.svg?style&logo=Numba&logoColor=white" alt="Numba" />
-<img src="https://img.shields.io/badge/FastAPI-009688.svg?style&logo=FastAPI&logoColor=white" alt="FastAPI" />
-<img src="https://img.shields.io/badge/Markdown-000000.svg?style&logo=Markdown&logoColor=white" alt="Markdown" />
+<img src="https://img.shields.io/badge/Celery-37814A.svg?style=flat&logo=Celery&logoColor=white" alt="Celery" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/NumPy-013243.svg?style=flat&logo=NumPy&logoColor=white" alt="NumPy" />
+<img src="https://img.shields.io/badge/Numba-00A3E0.svg?style=flat&logo=Numba&logoColor=white" alt="Numba" />
+<img src="https://img.shields.io/badge/FastAPI-009688.svg?style=flat&logo=FastAPI&logoColor=white" alt="FastAPI" />
 </p>
-<img src="https://img.shields.io/github/languages/top/FerrariDG/async-ml-inference?style&color=5D6D7E" alt="GitHub top language" />
-<img src="https://img.shields.io/github/languages/code-size/FerrariDG/async-ml-inference?style&color=5D6D7E" alt="GitHub code size in bytes" />
-<img src="https://img.shields.io/github/commit-activity/m/FerrariDG/async-ml-inference?style&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/license/FerrariDG/async-ml-inference?style&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/license/FerrariDG/async-ml-inference?style=flat&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/last-commit/FerrariDG/async-ml-inference?style=flat&color=5D6D7E" alt="git-last-commit" />
+<img src="https://img.shields.io/github/commit-activity/m/FerrariDG/async-ml-inference?style=flat&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/languages/top/FerrariDG/async-ml-inference?style=flat&color=5D6D7E" alt="GitHub top language" />
 </div>
 
 ---
@@ -34,12 +33,12 @@
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
 - [📂 Repository Structure](#-repository-structure)
-- [⚙️ Modules](#modules)
+- [⚙️ Modules](#️-modules)
 - [🚀 Getting Started](#-getting-started)
-    - [🔧 Installation](#-installation)
-    - [🤖 Running async-ml-inference](#-running-async-ml-inference)
-    - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
+  - [🔧 Installation](#-installation)
+  - [🤖 Running async-ml-inference](#-running-async-ml-inference)
+  - [🧪 Tests](#-tests)
+- [🛣 Project Roadmap](#-project-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -49,127 +48,117 @@
 
 ## 📍 Overview
 
-The project aims to provide an asynchronous machine learning inference system using distributed task management and a web API. It includes components for processing audio lengths and scraping EuroMillions results. The system offers the ability to handle background tasks, retrieve task results, and supports parallel processing for increased efficiency. Its value lies in enabling efficient and scalable inference, making it suitable for applications that require real-time processing of audio data and retrieval of scraped information.
+The repository https://github.com/FerrariDG/async-ml-inference contains a project called readmeai. It is a Celery-based application that provides an API for creating and retrieving tasks related to audio length extraction and EuroMillions lottery results scraping. The project includes services such as a RabbitMQ message broker, a Redis backend, and workers for processing audio and EuroMillions tasks. It also includes an API service and a client service. The project aims to provide an efficient and scalable solution for performing these specific ML inference tasks asynchronously.
 
 ---
 
 ## 📦 Features
 
-| Feature                | Description                           |
-| ---------------------- | ------------------------------------- |
-| **⚙️ Architecture**     | The codebase follows a microservices architecture, with separate services for RabbitMQ message broker, Redis backend, Celery workers, API service, and client service. The services are connected via a network. The use of Docker Compose allows for easy setup and management of the multi-container environment.
-| **📃 Documentation**   | The codebase lacks comprehensive documentation. While some files contain brief descriptions of their purpose, there is no central documentation or README file providing an overview of the project's features and usage. Further documentation would benefit developers trying to understand and contribute to the project.
-| **🔗 Dependencies**    | The codebase relies on various external libraries and systems. Some notable dependencies include BeautifulSoup, Celery, FastAPI, RabbitMQ, Redis, and Uvicorn. These libraries provide functionality for web scraping, distributed task management, API development, message queuing, and backend storage. The dependencies are specified in the Pipfile and Pipfile.lock files.
-| **🧩 Modularity**      | The codebase demonstrates modularity by organizing components into separate directories (api and workers), each containing their own set of files. This separation allows for easy understanding and maintenance of each component. The code also makes use of modular libraries like Celery and FastAPI, enabling the creation of interchangeable components.
-| **🧪 Testing**          | The codebase does not include explicit testing strategies and tools. However, the modular design of the components allows for easier testing and isolation of functionality. Developers can implement unit tests for individual components by mocking dependencies and using test frameworks like pytest.
-| **⚡️ Performance**      | The performance of the system depends on the efficiency of the individual components. The use of Celery for distributed task management and Redis for backend storage helps improve the system's speed and resource usage. However, specific performance benchmarks or optimization techniques are not mentioned in the codebase.
-| **🔐 Security**        | The codebase does not explicitly address security measures. However, potential security concerns include the handling of user credentials for RabbitMQ and Redis connections, as well as the validation and sanitization of user inputs in the API endpoints. The code could benefit from the implementation of authentication and authorization mechanisms to protect sensitive data.
-| **🔀 Version Control** | The codebase uses Git for version control, as evidenced by the presence of a .gitignore file and the GitHub repository itself. However, the code lacks versioning information, such as tags or release notes, to indicate the progression and history of the project. Proper use of branching and pull requests would facilitate collaborative development and code review processes.
-| **🔌 Integrations**    | The system interacts with external systems like RabbitMQ and Redis for message queuing and backend storage, respectively. It also utilizes external libraries like BeautifulSoup for web scraping and requests for making HTTP requests. The modular design of the codebase allows for easy integration with other services or APIs as needed.
-| **📶 Scalability**     | The use of a microservices architecture with separate components allows for scalability by adding or removing services based on demand. The codebase shows potential for horizontal scalability by replicating and load balancing the worker services. However, the code does not incorporate explicit scalability features, such as auto-scaling or dynamic resource allocation.
+|    | Feature            | Description                                                                                                        |
+|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
+| ⚙️ | **Architecture**   | The codebase follows a microservices architecture, with separate services for handling API requests, client requests, and workers for processing audio and euro tasks. The services are connected using Docker Compose and communicate through message brokers and backend systems.|
+| 📄 | **Documentation**  | Limited information about the codebase is provided, and there is no dedicated documentation. It would be beneficial to have comprehensive documentation explaining the codebase's structure, architecture, and usage.|
+| 🔗 | **Dependencies**   | The codebase relies on various external libraries and technologies, including Celery, RabbitMQ, Redis, FastAPI, and libraries such as BeautifulSoup4, Librosa, and NumPy. These dependencies provide functionality for task processing, web API development, data extraction, and more.|
+| 🧩 | **Modularity**     | The codebase exhibits a good level of modularity with separate directories for API, client, and workers. Each component has its own Dockerfile and dependencies, allowing for flexibility and ease of maintenance. However, there could be more organization and separation within the workers directory.|
+| 🧪 | **Testing**        | Limited information is provided about testing strategies and tools. It would be beneficial to have tests implemented for the different components, ensuring the stability and correctness of the code.|
+| ⚡️  | **Performance**    | The codebase utilizes Celery and parallel processing to improve performance, allowing for efficient processing of audio and euro tasks. However, without specific performance benchmarks or metrics, it is challenging to evaluate the performance on speed, efficiency, and resource usage.|
+| 🔐 | **Security**       | The codebase does not provide specific security measures, potentially leaving the system vulnerable to security attacks. It is crucial to implement appropriate security measures like input validation and authentication to protect data and maintain system functionality.|
+| 🔀 | **Version Control**| No information is provided about the codebase's version control strategies and tools. It's recommended to use a version control system like Git to track changes, manage branches, and facilitate collaboration among team members.|
+| 🔌 | **Integrations**   | The codebase integrates with external systems and services such as RabbitMQ and Redis for message brokering and backend storage, respectively. Integrations with libraries such as Celery and FastAPI enable task processing and API endpoint handling.|
+| 📶 | **Scalability**    | The codebase's microservices architecture and usage of Celery allow for scalability by horizontally scaling the worker services based on demand. However, without further information about performance testing and specific scalability measures, it is challenging to assess the system's scalability capabilities.|
 
 ---
 
 
 ## 📂 Repository Structure
 
+```sh
+└── ./
+    ├── .env
+    ├── Pipfile
+    ├── Pipfile.lock
+    ├── docker-compose.yaml
+    ├── src/
+    │   ├── api/
+    │   │   ├── Dockerfile
+    │   │   ├── api.py
+    │   │   └── requirements.txt
+    │   ├── client/
+    │   │   ├── Dockerfile
+    │   │   ├── client.py
+    │   │   └── requirements.txt
+    │   └── workers/
+    │       ├── Dockerfile
+    │       ├── audio/
+    │       ├── backend.py
+    │       ├── broker.py
+    │       ├── euro/
+    │       └── requirements.txt
 
-```bash
-repo
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-├── docker-compose.yaml
-├── docs
-│   └── diagram
-│       ├── architecture.png
-│       └── diagram.py
-├── src
-│   ├── api
-│   │   ├── Dockerfile
-│   │   ├── api.py
-│   │   └── requirements.txt
-│   ├── client
-│   │   ├── Dockerfile
-│   │   ├── client.py
-│   │   └── requirements.txt
-│   └── workers
-│       ├── Dockerfile
-│       ├── audio
-│       │   ├── config.py
-│       │   └── worker.py
-│       ├── backend.py
-│       ├── broker.py
-│       ├── euro
-│       │   ├── config.py
-│       │   └── worker.py
-│       └── requirements.txt
-└── tests
-    └── README.md
-
-10 directories, 21 files
 ```
 
 ---
+
 
 ## ⚙️ Modules
 
 <details closed><summary>Root</summary>
 
-| File                                                                                                 | Summary                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---                                                                                                  | ---                                                                                                                                                                                                                                                                                                                                                                                       |
-| [docker-compose.yaml](https://github.com/FerrariDG/async-ml-inference/blob/main/docker-compose.yaml) | This code sets up a multi-container environment using Docker Compose. It includes a RabbitMQ message broker, a Redis backend, Celery workers for audio and euro tasks, an API service, and a client service. The services are connected via a network.                                                                                                                                    |
-| [Pipfile](https://github.com/FerrariDG/async-ml-inference/blob/main/Pipfile)                         | This code defines package dependencies, scripts for running various components, and their versions. It includes libraries like BeautifulSoup, Celery, FastAPI, and others, with corresponding versions specified. It also sets up scripts for running components like RabbitMQ, Redis, Flower, and Celery workers. Finally, it includes a script for running the API and a client script. |
-| [Pipfile.lock](https://github.com/FerrariDG/async-ml-inference/blob/main/Pipfile.lock)               | HTTPStatus Exception: 400                                                                                                                                                                                                                                                                                                                                                                 |
+| File                                                                                                 | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---                                                                                                  | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [docker-compose.yaml](https://github.com/FerrariDG/async-ml-inference/blob/main/docker-compose.yaml) | This code sets up a Docker-compose file that defines multiple services for a Celery-based application. The services include a RabbitMQ message broker, a Redis backend, workers for processing audio and euro tasks, an API service, and a client service. Each service has its own container with specific configurations and dependencies. The services are connected through a network, and the API service exposes port 5000 for communication with the client service. |
+| [Pipfile](https://github.com/FerrariDG/async-ml-inference/blob/main/Pipfile)                         | This code represents the directory structure and dependencies for a project called readmeai. It includes a Pipfile that lists the packages required for the project, including libraries like BeautifulSoup4, Celery, FastAPI, and Redis. It also includes scripts for setting up a RabbitMQ broker, Redis backend, and running various workers and API/client components.                                                                                                  |
+| [.env](https://github.com/FerrariDG/async-ml-inference/blob/main/.env)                               | The code sets the PYTHONPATH environment variable to include the current directory and the src directory, including the src/workers directory.                                                                                                                                                                                                                                                                                                                              |
+| [Pipfile.lock](https://github.com/FerrariDG/async-ml-inference/blob/main/Pipfile.lock)               | The code represents the lock file for a Python project's dependencies. It contains the specific versions and checksums for packages such as amqp, audioread, and beautifulsoup4. This file ensures that the project will use consistent and compatible package versions, meeting its requirements.                                                                                                                                                                          |
 
 </details>
 
 <details closed><summary>Api</summary>
 
-| File                                                                                                   | Summary                                                                                                                                                                                                                                                                                      |
-| ---                                                                                                    | ---                                                                                                                                                                                                                                                                                          |
-| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/requirements.txt) | The code utilizes Celery for distributed task management, FastAPI for building APIs, and Uvicorn as the ASGI server. Pydantic is used for data validation and serialization.                                                                                                                 |
-| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/Dockerfile)             | This code sets up a Python web API using the FastAPI framework. It installs required dependencies, copies the API code, and exposes ports for communication. Finally, it runs the API using Uvicorn with specific host and port configurations.                                              |
-| [api.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/api.py)                     | This code sets up a FastAPI server that interacts with Celery to handle background tasks. It defines two endpoints for creating tasks, and a third endpoint to get the result of a task by its ID. The code also includes a helper function to send task results to an external destination. |
+| File                                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                                    | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/requirements.txt) | The code in the given path (`src/api/requirements.txt`) specifies the dependencies required for the API module. It includes `celery` with Redis and librabbitmq plugins (version 4.4.0), `fastapi` (version 0.65.2), `uvicorn` (version 0.11.7), and `pydantic` (version 1.6.2). These dependencies are crucial for the proper functioning of the API module.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/Dockerfile)             | This code is a Dockerfile that defines the environment and runtime configuration for an API service. It sets up a Python 3.7 environment, installs the required dependencies specified in requirements.txt, and copies the API code into the container. The container exposes ports 5000, 6379, and 5672, and the API service is started using the uvicorn server with the specified API module and host/port configuration.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| [api.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/api/api.py)                     | The code above represents a FastAPI application that exposes several endpoints for creating and retrieving Celery tasks. The application uses RabbitMQ as a message broker and Redis as a backend for task results.The code defines two endpoint functions: `create_audio_task` and `create_euro_task`. These functions receive POST requests with specific data structures (`UrlItem` and `EuroDate`), create Celery tasks with corresponding parameters, and optionally add a background task to send the task result to a specified callback URL.The code also defines a `get_task_result` endpoint function that receives a GET request with a task ID, retrieves the task result from Celery, and returns it as a JSON response.The code utilizes the `Celery` class for creating a Celery instance and the `FastAPI` class for creating a FastAPI application. It also imports several modules and classes for handling request/response objects, task states, and data models. |
 
 </details>
 
 <details closed><summary>Workers</summary>
 
-| File                                                                                                       | Summary                                                                                                                                                                                                                                                                                                         |
-| ---                                                                                                        | ---                                                                                                                                                                                                                                                                                                             |
-| [backend.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/backend.py)             | The code includes functions to retrieve Redis connection details from environment variables, construct a Redis connection URL, and check if the Redis backend is running by attempting a connection. The code promotes flexibility and reusability by allowing easy customization of Redis connection settings. |
-| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/requirements.txt) | The code utilizes the BeautifulSoup4 library for web scraping, Celery with Redis for task management, Librosa for audio analysis, and Numba for just-in-time compilation.                                                                                                                                       |
-| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/Dockerfile)             | This code sets up a Python environment, installs required dependencies, and copies the code into a working directory. It also exposes ports 6379 and 5672.                                                                                                                                                      |
-| [broker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/broker.py)               | This code provides functions to get the RabbitMQ connection URL, check if the RabbitMQ broker is running, and handle connection errors. It uses environment variables for user credentials, host, port, and vhost.                                                                                              |
+| File                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ---                                                                                                        | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| [backend.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/backend.py)             | The code defines functions to retrieve configuration details for connecting to a Redis database and to check if the backend is running. It uses the `getenv` function to retrieve environment variables for the Redis host, port, password, and database number. The `get_backend_url` function constructs the URL for connecting to the Redis database. The `is_backend_running` function attempts to connect to the Redis database and returns a boolean value indicating if the connection was successful.                                                                                                                      |
+| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/requirements.txt) | The code contains a requirements.txt file which specifies the dependencies for a worker component in a directory structure. The worker component requires the following dependencies: beautifulsoup4 version 4.9.0, celery with the redis backend version 4.4.0, librosa version 0.7.2, and numba version 0.48.0. These dependencies are needed for the worker to perform its tasks effectively.                                                                                                                                                                                                                                   |
+| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/Dockerfile)             | This Dockerfile sets up a Python 3.7 environment based on the slim-buster image. It installs the libsndfile1 library, upgrades pip, and installs the requirements specified in requirements.txt. It then copies the current directory into the /workers directory in the Docker image. Finally, it exposes ports 6379 and 5672 for networking purposes.                                                                                                                                                                                                                                                                            |
+| [broker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/broker.py)               | This code defines functions to get the RabbitMQ credentials and broker URL, and checks if the RabbitMQ broker is running. The `get_rabbitmq_userpass()`, `get_rabbitmq_port()`, `get_rabbitmq_vhost()`, and `get_rabbitmq_host()` functions retrieve the RabbitMQ username, password, port, and host respectively from environment variables. The `get_broker_url()` function combines these values to construct the broker URL. The `is_broker_running()` function attempts to establish a connection with RabbitMQ and returns `True` if the connection is successful, otherwise it prints an error message and returns `False`. |
 
 </details>
 
 <details closed><summary>Audio</summary>
 
-| File                                                                                               | Summary                                                                                                                                                                                                                                                                                        |
-| ---                                                                                                | ---                                                                                                                                                                                                                                                                                            |
-| [worker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/audio/worker.py) | This code defines a Celery worker for extracting the length of an audio file from a given URL. It validates the running status of the backend and broker, retrieves the audio data, and calculates the length using librosa. The task is executed asynchronously.                              |
-| [config.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/audio/config.py) | This module configures the Celery worker for processing audio lengths. It sets the worker to acknowledge tasks only when they complete or fail, allows the worker to process only one task at a time, creates a queue for the worker, and sets the expiration time for Redis keys to 48 hours. |
+| File                                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---                                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| [worker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/audio/worker.py) | This code defines a Celery worker for extracting the length of an audio file. The worker is responsible for downloading the file from a given URL, loading it using the librosa library, and calculating its duration. The worker checks if the backend and broker services are running before executing the task. If any exceptions occur during the process, the worker updates its state with relevant information and raises an Ignore exception. Finally, the worker returns the calculated audio length. |
+| [config.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/audio/config.py) | This code defines the Celery configurations for the Audio Length worker. It sets the worker to acknowledge the task only when it returns or fails, ensures that the worker only handles one task at a time, creates a queue named "audio" for the worker, and sets the Redis key expiration time to 48 hours.                                                                                                                                                                                                  |
 
 </details>
 
 <details closed><summary>Euro</summary>
 
-| File                                                                                              | Summary                                                                                                                                                                                                                                                                                   |
-| ---                                                                                               | ---                                                                                                                                                                                                                                                                                       |
-| [worker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/euro/worker.py) | This code is a Celery worker that scrapes the Euromillions website for results. It checks if the backend and broker services are running, then defines a task to scrape the results for a given draw date. It handles exceptions and returns the numbers and stars from the scraped page. |
-| [config.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/euro/config.py) | This module sets up Celery configurations for the Euromillions Results worker, including task acknowledgements, prefetching, queue name, and result expiration time. It ensures efficient task processing and result management.                                                          |
+| File                                                                                              | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ---                                                                                               | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| [worker.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/euro/worker.py) | This code is a Celery worker that scrapes the Euromillions results from a website. It checks if the backend and broker services are running, then defines a Celery task called "euro.scrappy_result" that takes a draw date as input. The task scrapes the Euromillions results web page for the given draw date, extracting the numbers and stars drawn. If successful, it returns a tuple containing the numbers and stars. If any errors occur during scraping, appropriate exception handling and state updates are performed. |
+| [config.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/workers/euro/config.py) | This code configures a Celery worker for the Euromillions Results task. It sets the worker's prefetch multiplier to 1 and enables late task acknowledgments. The worker is configured to listen to a queue named "euro". Task results are set to expire after 48 hours.                                                                                                                                                                                                                                                            |
 
 </details>
 
 <details closed><summary>Client</summary>
 
-| File                                                                                                      | Summary                                                                                                                                                                                                  |
-| ---                                                                                                       | ---                                                                                                                                                                                                      |
-| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/requirements.txt) | This code uses the requests library to make HTTP requests, retrying library to handle retry logic, and joblib library for parallel processing.                                                           |
-| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/Dockerfile)             | This code sets up a Python environment, installs project dependencies, and copies a Python script. It then exposes port 5000 and runs the script when the container starts.                              |
-| [client.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/client.py)               | This code sends audio URLs and dates to an API, retrieves task IDs, and then retrieves the results of those tasks using parallel processing. It also handles retrying requests and printing the results. |
+| File                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                     |
+| [requirements.txt](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/requirements.txt) | The code is a `requirements.txt` file located in the `src/client` directory. It specifies the dependencies required for the client module of a project. The dependencies listed are `requests==2.23.0`, `retrying==1.3.3`, and `joblib==0.14.1`. These dependencies are essential for the functionality and proper operation of the client module.                                                      |
+| [Dockerfile](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/Dockerfile)             | The code is a Dockerfile that sets up a Python 3.7 slim-buster image with the client.py script. It copies the requirements.txt file to the /client directory, installs the required dependencies, and then copies the client.py script to the /client directory. Finally, it exposes port 5000 and runs the client.py script when the container is started.                                             |
+| [client.py](https://github.com/FerrariDG/async-ml-inference/blob/main/src/client/client.py)               | This code retrieves audio lengths and euro lottery draw results using parallel processing. It sends audio URLs and dates to the specified API endpoints, gets task IDs in response, and then retrieves the results using the task IDs. The results contain either the audio length or the euro lottery results. The code utilizes threading to perform these tasks in parallel for improved efficiency. |
 
 </details>
 
@@ -179,10 +168,13 @@ repo
 
 ***Dependencies***
 
-Before you begin, ensure that you have the following prerequisites installed:
-> - `ℹ️ Requirement 1`
-> - `ℹ️ Requirement 2`
-> - `ℹ️ ...`
+Please ensure you have the following dependencies installed on your system:
+
+`- ℹ️ Dependency 1`
+
+`- ℹ️ Dependency 2`
+
+`- ℹ️ ...`
 
 ### 🔧 Installation
 
@@ -215,10 +207,10 @@ pytest
 ---
 
 
-## 🛣 Roadmap
+## 🛣 Project Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
-> - [ ] `ℹ️  Task 2: Refactor Y`
+> - [ ] `ℹ️  Task 2: Implement Y`
 > - [ ] `ℹ️ ...`
 
 
@@ -226,35 +218,47 @@ pytest
 
 ## 🤝 Contributing
 
-Contributions are always welcome! Please follow these steps:
-1. Fork the project repository. This creates a copy of the project on your account that you can modify without affecting the original project.
+[**Discussions**](https://github.com/FerrariDG/async-ml-inference/discussions)
+  - Join the discussion here.
+
+[**New Issue**](https://github.com/FerrariDG/async-ml-inference/issues)
+  - Report a bug or request a feature here.
+
+[**Contributing Guidelines**](https://github.com/FerrariDG/async-ml-inference/blob/main/CONTRIBUTING.md)
+
+- Contributions are welcome! Please follow these steps:
+
+1. Fork the project repository to your GitHub account.
 2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
-3. Create a new branch with a descriptive name (e.g., `new-feature-branch` or `bugfix-issue-123`).
+3. Create a new branch with a descriptive such as `new-feature-x` or `bugfix-issue-x`.
 ```sh
-git checkout -b new-feature-branch
+git checkout -b new-feature-x
 ```
-4. Make changes to the project's codebase.
-5. Commit your changes to your local branch with a clear commit message that explains the changes you've made.
+4. Develop your changes locally.
+5. Commit your updates with a clear explanation of the changes you've made.
 ```sh
 git commit -m 'Implemented new feature.'
 ```
-6. Push your changes to your forked repository on GitHub using the following command
+6. Push your changes to your forked repository on GitHub.
 ```sh
-git push origin new-feature-branch
+git push origin new-feature-x
 ```
 7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
-The project maintainers will review your changes and provide feedback or merge them into the main branch.
+8. Once your pull request is reviewed, it will be merged into the main branch of the project repository.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the `ℹ️  INSERT-LICENSE-TYPE` License. See the [LICENSE](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository) file for additional info.
+
+This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
 ## 👏 Acknowledgments
 
-> - `ℹ️  List any resources, contributors, inspiration, etc.`
+- List any resources, contributors, inspiration, etc. here.
+
+[**Return**](#Top)
 
 ---

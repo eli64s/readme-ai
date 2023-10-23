@@ -18,13 +18,11 @@ from readmeai.config.settings import (
 from readmeai.core import logger, model, preprocess
 from readmeai.markdown import headers, tables, tree
 from readmeai.services import version_control as vcs
-from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
 
 def main(
-    api_key: str,
     badges: str,
     emojis: bool,
     offline: bool,
@@ -37,25 +35,24 @@ def main(
     conf = load_config()
     conf_model = AppConfigModel(app=conf)
     conf_helper = load_config_helper(conf_model)
+    conf.git = GitConfig(repository=repository)
+    conf.api.temperature = temperature
     conf.api.model = model
     conf.cli.badges = badges
     conf.cli.emojis = emojis
-    conf.api.model = model
     conf.cli.offline = offline
     conf.paths.output = output
-    conf.api.temperature = temperature
-    conf.git = GitConfig(repository=repository, name=None)
-    conf.git.name = vcs.get_user_repository_name(repository)[1]
-    logger.info(f"Configuration: {conf.git}")
     asyncio.run(readme_agent(conf, conf_helper))
 
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
     logger.info("README-AI is now executing.")
-    logger.info(f"User Repository: {conf.git.repository}")
-    logger.info(f"Output File: {conf.paths.output}")
-    logger.info(f"Model Engine:  {conf.api.model}")
+    logger.info(f"Processing {conf.git.source}: {conf.git.repository}")
+    logger.info(
+        f"Using model: {conf.api.model} with temperature {conf.api.temperature}"
+    )
+    logger.info(f"Output README.md file save location: {conf.paths.output}")
 
     name = conf.git.name
     placeholder = conf.md.default
@@ -69,7 +66,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
             conf_helper,
             temp_dir,
             repository,
-            project_name="readmeai",
+            project_name=name,
             max_depth=3,
         )
         tree_str = tree_generator.generate_and_format_tree()
@@ -100,9 +97,12 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
             slogan, overview, features = await llm.chat_to_text(prompts)
         else:
             conf.md.tables = tables.build_recursive_tables(
-                repository, temp_dir, placeholder
+                conf_helper, repository, temp_dir, placeholder
             )
-            code_summary = placeholder
+            code_summary = [
+                (str(file_path), contents)
+                for file_path, contents in files.items()
+            ]
             slogan, overview, features = (
                 conf.md.default,
                 conf.md.default,

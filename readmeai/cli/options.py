@@ -6,16 +6,9 @@ import os
 
 import click
 
-BADGE_CHOICES = (
-    "flat",
-    "flat-square",
-    "for-the-badge",
-    "plastic",
-    "social",
-    "apps",
-    "apps-light",
-)
+from readmeai.config.settings import BadgeStyles
 
+badge_choices = [badge.value for badge in BadgeStyles]
 
 api_key = click.option(
     "-k",
@@ -26,11 +19,11 @@ api_key = click.option(
 badges = click.option(
     "-b",
     "--badges",
-    type=click.Choice(BADGE_CHOICES, case_sensitive=False),
+    type=click.Choice(badge_choices, case_sensitive=False),
     default="flat-square",
-    help="""Badge icon type to use in README.md header. \
-        - 'shields' refers to badges from shields.io \
-        - 'square' refers to app-like square badges.""",
+    help="""\
+        Badge icon type to use in README.md header. \
+        Options: flat, flat-square, for-the-badge, plastic, social, apps, apps-light""",
 )
 emojis = click.option(
     "-e",

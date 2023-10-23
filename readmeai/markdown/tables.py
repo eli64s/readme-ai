@@ -3,8 +3,10 @@
 from pathlib import Path
 from typing import List, Tuple
 
+from readmeai.config.settings import ConfigHelper
 from readmeai.core import logger
 from readmeai.services import version_control as vcs
+from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
@@ -63,7 +65,7 @@ def create_table(
         if "invalid" in user_repo_name.lower():
             link = filename
         else:
-            github_url = vcs.get_github_file_link(
+            github_url = vcs.get_remote_repo_url(
                 module, repository, user_repo_name
             )
             link = f"[{filename}]({github_url})"
@@ -86,13 +88,21 @@ def create_table(
     return "\n".join(formatted_lines)
 
 
-def build_recursive_tables(base_url: str, directory: Path, placeholder) -> str:
+def build_recursive_tables(
+    helper: ConfigHelper, base_url: str, directory: Path, placeholder
+) -> str:
     """Creates a Markdown table structure for the given directory."""
     markdown = ""
     markdown += "| File | Summary |\n"
     markdown += "| --- | --- |\n"
 
     for item in sorted(directory.iterdir()):
+        if "/.git" in str(item):
+            logger.debug(f"Ignoring directory: {item}")
+            continue
+
+        if utils.should_ignore(helper, item):
+            continue
         if item.is_file():
             markdown += f"| [{item.name}]({item.name}) | {placeholder} |\n"
 
@@ -101,7 +111,9 @@ def build_recursive_tables(base_url: str, directory: Path, placeholder) -> str:
             # If it is a sub-directory, create a collapsible section
             markdown += f"\n<details closed><summary>{item.name}</summary>\n\n"
             # Recursive call for sub-directory
-            markdown += build_recursive_tables(base_url, item, placeholder)
+            markdown += build_recursive_tables(
+                helper, base_url, item, placeholder
+            )
             # Close the collapsible section
             markdown += "\n</details>\n\n"
 
