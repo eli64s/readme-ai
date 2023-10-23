@@ -86,13 +86,13 @@ This project is under development with an opinionated setup. It's vital to revie
 
 - Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more!
 
-[cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
+[readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
 
 <br>
 
 - Run the CLI without an API key using <code>--offline true</code> mode. README-AI can still generate most of the document, seen below.
 
-[offline-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/fef34a57-b4ec-491b-8802-f8992b9199f9)
+[readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/2c9b8456-80b9-4840-8da2-51780ed0c093)
 
 <br>
 
