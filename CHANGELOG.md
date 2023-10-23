@@ -16,17 +16,24 @@
 All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
-## [v0.1.6] - *2023-10-20*
+## [v0.1.6] - *2023-10-23*
 
-## 🚀 Features
+## ✨ Features
 
-- feat: Add CLI option <code>--emojis</code> to change README header prefixes @eli64s (#67)
+- refactor: Reduce complexity of markdown table generator methods. @eli64s (#70)
+- enhancement: Add more context to LLM prompts. @eli64s (#69)
+- feat: Add CLI option --emojis to change README header prefixes @eli64s (#67)
 
-## 🐛 Bug Fixes
+## 🪲 Bug Fixes
 
-- fix #65: Update build.gradle parser method. @eli64s (#66)
+- fix: #35 Update tokenization logic causing issues for larger codebases @eli64s (#68)
+- fix #65: Update dependency parser method for `build.gradle` files @eli64s (#66)
 
-## 🧩 Dependency Updates
+## 📄 Documentation
+
+- docs: Update readmeai demo videos. @eli64s (#71)
+
+## ⚙️ Dependency Updates
 
 - Bump urllib3 from 2.0.6 to 2.0.7 @dependabot (#64)
 

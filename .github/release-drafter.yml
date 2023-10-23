@@ -4,12 +4,12 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: 🚀 Features
+  - title: ✨ Features
     labels:
       - feat
       - feature
       - enhancement
-  - title: 🐛 Bug Fixes
+  - title: 🪲 Bug Fixes
     labels:
       - fix
       - bug
@@ -32,7 +32,7 @@ categories:
     labels:
       - docs
       - documentation
-  - title: 🧩 Dependency Updates
+  - title: ⚙️ Dependency Updates
     labels:
       - deps
       - dependencies
