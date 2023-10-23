@@ -29,13 +29,13 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
-- [📂 Repository Structure](#-repository-structure)
-- [⚙️ Modules](#️-modules)
+- [📂 repository Structure](#-repository-structure)
+- [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-  - [🔧 Installation](#-installation)
-  - [🤖 Running readme-ai](#-running-readme-ai)
-  - [🧪 Tests](#-tests)
-- [🛣 Project Roadmap](#-project-roadmap)
+    - [🔧 Installation](#-installation)
+    - [🤖 Running readme-ai](#-running-readme-ai)
+    - [🧪 Tests](#-tests)
+- [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -148,332 +148,195 @@
 
 ## ⚙️ Modules
 
-| File | Summary |
-| --- | --- |
-| [Dockerfile](Dockerfile) | ► INSERT-TEXT |
-| [Makefile](Makefile) | ► INSERT-TEXT |
-| [poetry.lock](poetry.lock) | ► INSERT-TEXT |
-| [pyproject.toml](pyproject.toml) | ► INSERT-TEXT |
-| [requirements.txt](requirements.txt) | ► INSERT-TEXT |
+<details closed><summary>Root</summary>
+
+| File                       | Summary       |
+| ---                        | ---           |
+| [requirements.txt]({file}) | ► INSERT-TEXT |
+| [Dockerfile]({file})       | ► INSERT-TEXT |
+| [Makefile]({file})         | ► INSERT-TEXT |
+| [pyproject.toml]({file})   | ► INSERT-TEXT |
+| [poetry.lock]({file})      | ► INSERT-TEXT |
+
+</details>
+
+<details closed><summary>Setup</summary>
+
+| File                       | Summary       |
+| ---                        | ---           |
+| [setup.sh]({file})         | ► INSERT-TEXT |
+| [environment.yaml]({file}) | ► INSERT-TEXT |
+
+</details>
+
+<details closed><summary>Scripts</summary>
+
+| File                     | Summary       |
+| ---                      | ---           |
+| [run_batch.sh]({file})   | ► INSERT-TEXT |
+| [build_image.sh]({file}) | ► INSERT-TEXT |
+| [build_pypi.sh]({file})  | ► INSERT-TEXT |
+| [run.sh]({file})         | ► INSERT-TEXT |
+| [clean.sh]({file})       | ► INSERT-TEXT |
+| [test.sh]({file})        | ► INSERT-TEXT |
+
+</details>
 
 <details closed><summary>.github</summary>
 
-| File | Summary |
-| --- | --- |
-
-<details closed><summary>workflows</summary>
-
-| File | Summary |
-| --- | --- |
+| File                          | Summary       |
+| ---                           | ---           |
+| [release-drafter.yml]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Workflows</summary>
+
+| File                          | Summary       |
+| ---                           | ---           |
+| [release-drafter.yml]({file}) | ► INSERT-TEXT |
+| [publish_package.yml]({file}) | ► INSERT-TEXT |
+| [build_image.yml]({file})     | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Notebooks</summary>
 
-<details closed><summary>docs</summary>
-
-| File | Summary |
-| --- | --- |
-
-<details closed><summary>docs</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-<details closed><summary>notes</summary>
-
-| File | Summary |
-| --- | --- |
+| File                                 | Summary       |
+| ---                                  | ---           |
+| [translate.ipynb]({file})            | ► INSERT-TEXT |
+| [code_search.ipynb]({file})          | ► INSERT-TEXT |
+| [github.ipynb]({file})               | ► INSERT-TEXT |
+| [openai_models.ipynb]({file})        | ► INSERT-TEXT |
+| [templates.ipynb]({file})            | ► INSERT-TEXT |
+| [bytes_codebase.ipynb]({file})       | ► INSERT-TEXT |
+| [langchain.ipynb]({file})            | ► INSERT-TEXT |
+| [nb_to_py.ipynb]({file})             | ► INSERT-TEXT |
+| [translate_latex_book.ipynb]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Llamaindex</summary>
+
+| File                       | Summary       |
+| ---                        | ---           |
+| [llamaindex.ipynb]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Index</summary>
 
-<details closed><summary>examples</summary>
-
-| File | Summary |
-| --- | --- |
-
-<details closed><summary>images</summary>
-
-| File | Summary |
-| --- | --- |
+| File                        | Summary       |
+| ---                         | ---           |
+| [vector_store.json]({file}) | ► INSERT-TEXT |
+| [graph_store.json]({file})  | ► INSERT-TEXT |
+| [index_store.json]({file})  | ► INSERT-TEXT |
+| [docstore.json]({file})     | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Api</summary>
 
-<details closed><summary>markdown</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
+| File                  | Summary       |
+| ---                   | ---           |
+| [helper.py]({file})   | ► INSERT-TEXT |
+| [parallel.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Readmeai</summary>
 
-<details closed><summary>notebooks</summary>
-
-| File | Summary |
-| --- | --- |
-| [bytes_codebase.ipynb](bytes_codebase.ipynb) | ► INSERT-TEXT |
-| [code_search.ipynb](code_search.ipynb) | ► INSERT-TEXT |
-| [github.ipynb](github.ipynb) | ► INSERT-TEXT |
-| [langchain.ipynb](langchain.ipynb) | ► INSERT-TEXT |
-| [nb_to_py.ipynb](nb_to_py.ipynb) | ► INSERT-TEXT |
-| [openai_models.ipynb](openai_models.ipynb) | ► INSERT-TEXT |
-| [templates.ipynb](templates.ipynb) | ► INSERT-TEXT |
-| [translate.ipynb](translate.ipynb) | ► INSERT-TEXT |
-| [translate_latex_book.ipynb](translate_latex_book.ipynb) | ► INSERT-TEXT |
-
-<details closed><summary>api</summary>
-
-| File | Summary |
-| --- | --- |
-| [helper.py](helper.py) | ► INSERT-TEXT |
-| [parallel.py](parallel.py) | ► INSERT-TEXT |
+| File              | Summary       |
+| ---               | ---           |
+| [main.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Settings</summary>
 
-<details closed><summary>llamaindex</summary>
-
-| File | Summary |
-| --- | --- |
-| [llamaindex.ipynb](llamaindex.ipynb) | ► INSERT-TEXT |
-
-<details closed><summary>data</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-<details closed><summary>index</summary>
-
-| File | Summary |
-| --- | --- |
-| [docstore.json](docstore.json) | ► INSERT-TEXT |
-| [graph_store.json](graph_store.json) | ► INSERT-TEXT |
-| [index_store.json](index_store.json) | ► INSERT-TEXT |
-| [vector_store.json](vector_store.json) | ► INSERT-TEXT |
+| File                            | Summary       |
+| ---                             | ---           |
+| [prompts.toml]({file})          | ► INSERT-TEXT |
+| [ignore_files.toml]({file})     | ► INSERT-TEXT |
+| [language_names.toml]({file})   | ► INSERT-TEXT |
+| [identifiers.toml]({file})      | ► INSERT-TEXT |
+| [config.toml]({file})           | ► INSERT-TEXT |
+| [dependency_files.toml]({file}) | ► INSERT-TEXT |
+| [language_setup.toml]({file})   | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Core</summary>
+
+| File                    | Summary       |
+| ---                     | ---           |
+| [preprocess.py]({file}) | ► INSERT-TEXT |
+| [tokens.py]({file})     | ► INSERT-TEXT |
+| [logger.py]({file})     | ► INSERT-TEXT |
+| [factory.py]({file})    | ► INSERT-TEXT |
+| [model.py]({file})      | ► INSERT-TEXT |
+| [parser.py]({file})     | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Config</summary>
+
+| File                  | Summary       |
+| ---                   | ---           |
+| [__Init__.py]({file}) | ► INSERT-TEXT |
+| [settings.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Markdown</summary>
 
-<details closed><summary>readmeai</summary>
-
-| File | Summary |
-| --- | --- |
-| [main.py](main.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-<details closed><summary>cli</summary>
-
-| File | Summary |
-| --- | --- |
-| [commands.py](commands.py) | ► INSERT-TEXT |
-| [options.py](options.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
+| File                    | Summary       |
+| ---                     | ---           |
+| [tree.py]({file})       | ► INSERT-TEXT |
+| [badges.py]({file})     | ► INSERT-TEXT |
+| [template.py]({file})   | ► INSERT-TEXT |
+| [tables.py]({file})     | ► INSERT-TEXT |
+| [headers.py]({file})    | ► INSERT-TEXT |
+| [quickstart.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Utils</summary>
+
+| File               | Summary       |
+| ---                | ---           |
+| [utils.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Cli</summary>
 
-<details closed><summary>config</summary>
-
-| File | Summary |
-| --- | --- |
-| [__Init__.py](__Init__.py) | ► INSERT-TEXT |
-| [settings.py](settings.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
+| File                  | Summary       |
+| ---                   | ---           |
+| [options.py]({file})  | ► INSERT-TEXT |
+| [commands.py]({file}) | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Templates</summary>
+
+| File                        | Summary       |
+| ---                         | ---           |
+| [oss.toml]({file})          | ► INSERT-TEXT |
+| [base.toml]({file})         | ► INSERT-TEXT |
+| [installation.toml]({file}) | ► INSERT-TEXT |
+| [mini.toml]({file})         | ► INSERT-TEXT |
+| [mobile.toml]({file})       | ► INSERT-TEXT |
 
 </details>
 
+<details closed><summary>Services</summary>
 
-<details closed><summary>core</summary>
-
-| File | Summary |
-| --- | --- |
-| [factory.py](factory.py) | ► INSERT-TEXT |
-| [logger.py](logger.py) | ► INSERT-TEXT |
-| [model.py](model.py) | ► INSERT-TEXT |
-| [parser.py](parser.py) | ► INSERT-TEXT |
-| [preprocess.py](preprocess.py) | ► INSERT-TEXT |
-| [tokens.py](tokens.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
+| File                         | Summary       |
+| ---                          | ---           |
+| [version_control.py]({file}) | ► INSERT-TEXT |
 
 </details>
-
-
-</details>
-
-
-<details closed><summary>markdown</summary>
-
-| File | Summary |
-| --- | --- |
-| [badges.py](badges.py) | ► INSERT-TEXT |
-| [headers.py](headers.py) | ► INSERT-TEXT |
-| [quickstart.py](quickstart.py) | ► INSERT-TEXT |
-| [tables.py](tables.py) | ► INSERT-TEXT |
-| [template.py](template.py) | ► INSERT-TEXT |
-| [tree.py](tree.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-<details closed><summary>data</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-</details>
-
-
-<details closed><summary>services</summary>
-
-| File | Summary |
-| --- | --- |
-| [version_control.py](version_control.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-</details>
-
-
-<details closed><summary>settings</summary>
-
-| File | Summary |
-| --- | --- |
-| [config.toml](config.toml) | ► INSERT-TEXT |
-| [dependency_files.toml](dependency_files.toml) | ► INSERT-TEXT |
-| [identifiers.toml](identifiers.toml) | ► INSERT-TEXT |
-| [ignore_files.toml](ignore_files.toml) | ► INSERT-TEXT |
-| [language_names.toml](language_names.toml) | ► INSERT-TEXT |
-| [language_setup.toml](language_setup.toml) | ► INSERT-TEXT |
-| [prompts.toml](prompts.toml) | ► INSERT-TEXT |
-
-</details>
-
-
-<details closed><summary>templates</summary>
-
-| File | Summary |
-| --- | --- |
-| [base.toml](base.toml) | ► INSERT-TEXT |
-| [installation.toml](installation.toml) | ► INSERT-TEXT |
-| [mini.toml](mini.toml) | ► INSERT-TEXT |
-| [mobile.toml](mobile.toml) | ► INSERT-TEXT |
-| [oss.toml](oss.toml) | ► INSERT-TEXT |
-
-</details>
-
-
-<details closed><summary>utils</summary>
-
-| File | Summary |
-| --- | --- |
-| [utils.py](utils.py) | ► INSERT-TEXT |
-
-<details closed><summary>__pycache__</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
-
-</details>
-
-
-</details>
-
-
-<details closed><summary>scripts</summary>
-
-| File | Summary |
-| --- | --- |
-| [build_image.sh](build_image.sh) | ► INSERT-TEXT |
-| [build_pypi.sh](build_pypi.sh) | ► INSERT-TEXT |
-| [clean.sh](clean.sh) | ► INSERT-TEXT |
-| [run.sh](run.sh) | ► INSERT-TEXT |
-| [run_batch.sh](run_batch.sh) | ► INSERT-TEXT |
-| [test.sh](test.sh) | ► INSERT-TEXT |
-
-</details>
-
-
-<details closed><summary>setup</summary>
-
-| File | Summary |
-| --- | --- |
-| [environment.yaml](environment.yaml) | ► INSERT-TEXT |
-| [setup.sh](setup.sh) | ► INSERT-TEXT |
-
-</details>
-
-
-<details closed><summary>tests</summary>
-
-| File | Summary |
-| --- | --- |
-
-</details>
-
 
 ---
 
@@ -493,7 +356,7 @@ Please ensure you have the following dependencies installed on your system:
 
 1. Clone the readme-ai repository:
 ```sh
-git clone ../readme-ai
+git clone /Users/k01101011/Documents/GitHub/readme-ai
 ```
 
 2. Change to the project directory:
@@ -531,33 +394,40 @@ pytest
 
 ## 🤝 Contributing
 
-[**Discussions**](https://github.com/local/readme-ai/discussions)
-  - Join the discussion here.
+Contributions are welcome! Here are several ways you can contribute:
 
-[**New Issue**](https://github.com/local/readme-ai/issues)
-  - Report a bug or request a feature here.
+- **[Submit Pull Requests](https://github.com/local/readme-ai/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/local/readme-ai/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/local/readme-ai/issues)**: Submit bugs found or log feature requests for LOCAL.
 
-[**Contributing Guidelines**](https://github.com/local/readme-ai/blob/main/CONTRIBUTING.md)
+#### *Contributing Guidelines*
 
-- Contributions are welcome! Please follow these steps:
+<details closed>
+<summary>Click to expand</summary>
 
-1. Fork the project repository to your GitHub account.
-2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
-3. Create a new branch with a descriptive such as `new-feature-x` or `bugfix-issue-x`.
-```sh
-git checkout -b new-feature-x
-```
-4. Develop your changes locally.
-5. Commit your updates with a clear explanation of the changes you've made.
-```sh
-git commit -m 'Implemented new feature.'
-```
-6. Push your changes to your forked repository on GitHub.
-```sh
-git push origin new-feature-x
-```
-7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
-8. Once your pull request is reviewed, it will be merged into the main branch of the project repository.
+1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
+   ```sh
+   git clone <your-forked-repo-url>
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear and concise message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to GitHub**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+
+Once your PR is reviewed and approved, it will be merged into the main branch.
+
+</details>
 
 ---
 

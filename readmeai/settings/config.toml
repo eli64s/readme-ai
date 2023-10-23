@@ -1,16 +1,15 @@
-# Model API Settings
+# Model Settings
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 rate_limit = 3
-tokens = 750
+tokens = 700
 tokens_max = 4000
 temperature = 1.0
 
 # CLI Options
 [cli]
-badges = ""
 emojis = true
 offline = false
 
@@ -38,16 +37,16 @@ Generate your response as a Markdown table with the following columns:
 
 |    | Feature            | Description                                                                                                        |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**   | Analyze the structural design of the system here. Limit your response to a maximum of 200 characters.             |
-| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 200 characters.|
-| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 200 characters.|
-| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 200 characters.|
-| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 200 characters.       |
-| ⚡️  | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 200 characters.|
-| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 200 characters.|
-| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Limit your response to a maximum of 200 characters.|
-| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 200 characters.|
-| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to a maximum of 200 characters.           |
+| ⚙️ | **Architecture**   | Analyze the structural design of the system here. Limit your response to <= 65 words.             |
+| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Limit your response to <= 65 words.|
+| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Limit your response to <= 65 words.|
+| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Limit your response to <= 65 words.|
+| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Limit your response to <= 65 words.       |
+| ⚡️  | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to <= 65 words.|
+| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to <= 65 words.|
+| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Limit your response to <= 65 words.|
+| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to <= 65 words.|
+| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to <= 65 words.           |
 
 Repository Details:
 \nDirectory Tree: {1}\nDependencies: {2}\nCode Summaries: {3}\n
@@ -112,6 +111,8 @@ badges_offline = """<p align="center">
 </div>
 \n---
 """
+
+badge_style="flat-square"
 
 toc = """
 ## 📖 Table of Contents
@@ -179,7 +180,7 @@ Please ensure you have the following dependencies installed on your system:
 \n---
 """
 
-ending = """
+contribute = """
 \n## 🛣 Project Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
@@ -190,33 +191,40 @@ ending = """
 
 ## 🤝 Contributing
 
-[**Discussions**](https://github.com/{0}/discussions)
-  - Join the discussion here.
+Contributions are welcome! Here are several ways you can contribute:
 
-[**New Issue**](https://github.com/{0}/issues)
-  - Report a bug or request a feature here.
+- **[Submit Pull Requests](https://github.com/{0}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/{0}/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/{0}/issues)**: Submit bugs found or log feature requests for {1}.
 
-[**Contributing Guidelines**](https://github.com/{0}/blob/main/CONTRIBUTING.md)
+#### *Contributing Guidelines*
 
-- Contributions are welcome! Please follow these steps:
+<details closed>
+<summary>Click to expand</summary>
 
-1. Fork the project repository to your GitHub account.
-2. Clone the forked repository to your local machine using a Git client like Git or GitHub Desktop.
-3. Create a new branch with a descriptive such as `new-feature-x` or `bugfix-issue-x`.
-```sh
-git checkout -b new-feature-x
-```
-4. Develop your changes locally.
-5. Commit your updates with a clear explanation of the changes you've made.
-```sh
-git commit -m 'Implemented new feature.'
-```
-6. Push your changes to your forked repository on GitHub.
-```sh
-git push origin new-feature-x
-```
-7. Create a new pull request to the original project repository. In the pull request, describe the changes you've made and why they're necessary.
-8. Once your pull request is reviewed, it will be merged into the main branch of the project repository.
+1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
+   ```sh
+   git clone <your-forked-repo-url>
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear and concise message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to GitHub**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+
+Once your PR is reviewed and approved, it will be merged into the main branch.
+
+</details>
 
 ---
 

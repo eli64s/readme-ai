@@ -10,7 +10,7 @@ from typing import Optional
 import git
 import requests
 
-from readmeai.config.settings import BaseUrls, DefaultHosts, HostUrls
+from readmeai.config.settings import ApiBaseUrls, DefaultHosts, HostUrls
 from readmeai.core import logger
 
 logger = logger.Logger(__name__)
@@ -122,9 +122,9 @@ def parse_repo_url(repo_url: str, provider: str) -> str:
     full_name = f"{parts[-2]}/{parts[-1]}"
 
     api_url_mapping = {
-        DefaultHosts.GITHUB.value: f"{BaseUrls.GITHUB.value}/repos/{full_name}",
-        DefaultHosts.GITLAB.value: f"{BaseUrls.GITLAB.value}/v4/projects/{full_name.replace('/', '%2F')}",
-        DefaultHosts.BITBUCKET.value: f"{BaseUrls.BITBUCKET.value}/2.0/repositories/{full_name}",
+        DefaultHosts.GITHUB.value: f"{ApiBaseUrls.GITHUB.value}/repos/{full_name}",
+        DefaultHosts.GITLAB.value: f"{ApiBaseUrls.GITLAB.value}/v4/projects/{full_name.replace('/', '%2F')}",
+        DefaultHosts.BITBUCKET.value: f"{ApiBaseUrls.BITBUCKET.value}/2.0/repositories/{full_name}",
     }
 
     return api_url_mapping.get(provider.lower())

@@ -65,9 +65,9 @@ def get_shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
     badges_dict = factory.FileHandler().read(badges_path)
 
     shieldsio_icons = md_template.format(
-        get_badges(badges_dict, packages).format(conf.cli.badges),
+        get_badges(badges_dict, packages).format(conf.md.badge_style),
         full_name,
-        conf.cli.badges,
+        conf.md.badge_style,
     )
     shieldsio_icons = (
         utils.remove_substring(shieldsio_icons)

@@ -43,16 +43,15 @@ def format_readme_md_contents(
     name, _ = vcs.get_remote_full_name(repository)
     full_name = f"{name}/{repo_name}"
 
-    if conf.cli.offline is False:
-        md_tables = tables.create_markdown_tables(
-            conf.md.default,
-            summaries,
-        )
-        conf.md.tables = tables.create_tables(
-            md_tables, conf.md.dropdown, repository, full_name
-        )
+    formatted_summaries = tables.format_code_summaries(
+        conf.md.default,
+        summaries,
+    )
+    md_summary_tables = tables.generate_markdown_tables(
+        conf.md.dropdown, formatted_summaries, full_name, repository
+    )
 
-    if "apps" not in conf.cli.badges:
+    if "apps" not in conf.md.badge_style:
         badge_icons = badges.get_shieldsio_icons(conf, packages, full_name)
     else:
         badge_icons = badges.get_app_icons(conf, packages)
@@ -66,9 +65,9 @@ def format_readme_md_contents(
         conf.md.intro,
         conf.md.tree,
         conf.md.modules,
-        conf.md.tables,
+        md_summary_tables,
         conf.md.setup.format(repo_name, repository, *md_setup_guide),
-        conf.md.ending.format(full_name),
+        conf.md.contribute.format(full_name, name.upper()),
     ]
 
     if conf.cli.emojis is False:

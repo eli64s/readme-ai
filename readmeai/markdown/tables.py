@@ -1,120 +1,116 @@
-"""Creates Markdown tables used to format the LLM generated code summaries."""
+"""Generates Markdown tables for LLM-produced code summaries."""
 
 from pathlib import Path
 from typing import List, Tuple
 
-from readmeai.config.settings import ConfigHelper
 from readmeai.core import logger
 from readmeai.services import version_control as vcs
-from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
 
 
-def create_markdown_tables(
-    placeholder: str, code_summary: Tuple[str, str]
+def format_code_summaries(
+    placeholder: str, code_summaries: Tuple[str, str]
 ) -> List[Tuple[str, str]]:
-    """Formats the generated code code_summary into a list."""
-    summary_list = []
-    for summary in code_summary:
-        if isinstance(summary, tuple) and len(summary) == 2:
+    """Converts the given code summaries into a formatted list."""
+    formatted_summaries = []
+    for summary in code_summaries:
+        if is_valid_tuple_summary(summary):
+            logger.debug(f"Summary: {summary}")
             module, summary_text = summary
         else:
+            logger.debug(f"Summary: {summary}")
             module, summary_text = summary, placeholder
-        summary_list.append((module, summary_text))
-    return summary_list
+        formatted_summaries.append((module, summary_text))
+    logger.debug(f"Formatted Summaries: {formatted_summaries}")
+    return formatted_summaries
 
 
-def create_tables(
-    summary_list: List[Tuple[str, str]],
-    dropdown: str,
-    repository: str,
-    user_repo_name: str,
+def is_valid_tuple_summary(summary: Tuple[str, str]) -> bool:
+    """Checks if a summary is a valid tuple format."""
+    return isinstance(summary, tuple) and len(summary) == 2
+
+
+def generate_markdown_tables(
+    dropdown_template: str,
+    summaries: List[Tuple[str, str]],
+    project_name: str,
+    repository_url: str,
 ) -> str:
-    """Creates Markdown tables for each sub-directory in the project."""
-    sub_folder_map = {}
-    for module, summary in summary_list:
-        sub_folder = (
-            str(module).split("/")[-2].capitalize()
-            if "/" in str(module)
-            else "Root"
+    """Produces Markdown tables for each project sub-directory."""
+    summaries_by_folder = group_summaries_by_folder(summaries)
+
+    markdown_tables = []
+    for folder, entries in summaries_by_folder.items():
+        table_in_markdown = construct_markdown_table(
+            entries, repository_url, project_name
         )
-        if sub_folder in sub_folder_map:
-            sub_folder_map[sub_folder].append((module, summary))
-        else:
-            sub_folder_map[sub_folder] = [(module, summary)]
+        table_wrapper = dropdown_template.format(folder, table_in_markdown)
+        markdown_tables.append(table_wrapper)
 
-    tables = []
-    for sub_folder, entries in sub_folder_map.items():
-        table_data = entries
-        table = create_table(table_data, repository, user_repo_name)
-        table_wrappers = dropdown.format(sub_folder, table)
-        tables.append(table_wrappers)
-    return "\n".join(tables)
+    return "\n".join(markdown_tables)
 
 
-def create_table(
-    data: List[Tuple[str, str]], repository, user_repo_name: str
+def group_summaries_by_folder(summaries: List[Tuple[str, str]]) -> dict:
+    """Groups code summaries by their sub-directory."""
+    folder_map = {}
+    for module, summary in summaries:
+        folder_name = extract_folder_name(module)
+        folder_map.setdefault(folder_name, []).append((module, summary))
+    return folder_map
+
+
+def extract_folder_name(module: str) -> str:
+    """Extracts the folder name from a module path."""
+    return (
+        str(module).split("/")[-2].capitalize()
+        if "/" in str(module)
+        else "Root"
+    )
+
+
+def construct_markdown_table(
+    data: List[Tuple[str, str]], repository: str, project_name: str
 ) -> str:
-    """Creates a Markdown table from the given data."""
+    """Builds a Markdown table from the provided data."""
     headers = ["File", "Summary"]
-    lines = [headers, ["---"] * len(headers)]
-    for row in data:
-        module, summary = row
-        filename = str(Path(module).name)
-        if "invalid" in user_repo_name.lower():
-            link = filename
-        else:
-            github_url = vcs.get_remote_repo_url(
-                module, repository, user_repo_name
-            )
-            link = f"[{filename}]({github_url})"
-        lines.append([link, summary])
+    table_rows = [headers, ["---"] * len(headers)]
 
-    max_len = [
-        max(len(str(row[i])) for row in lines) for i in range(len(headers))
-    ]
-    formatted_lines = []
-    for line in lines:
-        formatted_line = (
-            "| "
-            + " | ".join(
-                str(item).ljust(length) for item, length in zip(line, max_len)
-            )
-            + " |"
+    for module, summary in data:
+        file_name = str(Path(module).name)
+        hyperlink = create_hyperlink(
+            file_name, project_name, module, repository
         )
-        formatted_lines.append(formatted_line)
+        table_rows.append([hyperlink, summary])
+
+    return format_as_markdown_table(table_rows)
+
+
+def create_hyperlink(
+    file_name: str, project_name: str, module: str, repository: str
+) -> str:
+    """Creates a hyperlink for a file, using its GitHub URL if valid."""
+    if "invalid" in project_name.lower():
+        return file_name
+
+    github_link = vcs.get_remote_repo_url(module, repository, project_name)
+    return f"[{file_name}]({github_link})"
+
+
+def format_as_markdown_table(rows: List[List[str]]) -> str:
+    """Formats rows of data as a Markdown table."""
+    max_column_widths = [
+        max(len(str(row[col])) for row in rows) for col in range(len(rows[0]))
+    ]
+
+    formatted_lines = [
+        "| "
+        + " | ".join(
+            str(item).ljust(width)
+            for item, width in zip(row, max_column_widths)
+        )
+        + " |"
+        for row in rows
+    ]
 
     return "\n".join(formatted_lines)
-
-
-def build_recursive_tables(
-    helper: ConfigHelper, base_url: str, directory: Path, placeholder
-) -> str:
-    """Creates a Markdown table structure for the given directory."""
-    markdown = ""
-    markdown += "| File | Summary |\n"
-    markdown += "| --- | --- |\n"
-
-    for item in sorted(directory.iterdir()):
-        if "/.git" in str(item):
-            logger.debug(f"Ignoring directory: {item}")
-            continue
-
-        if utils.should_ignore(helper, item):
-            continue
-        if item.is_file():
-            markdown += f"| [{item.name}]({item.name}) | {placeholder} |\n"
-
-    for item in sorted(directory.iterdir()):
-        if item.is_dir():
-            # If it is a sub-directory, create a collapsible section
-            markdown += f"\n<details closed><summary>{item.name}</summary>\n\n"
-            # Recursive call for sub-directory
-            markdown += build_recursive_tables(
-                helper, base_url, item, placeholder
-            )
-            # Close the collapsible section
-            markdown += "\n</details>\n\n"
-
-    return markdown

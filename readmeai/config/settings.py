@@ -13,8 +13,8 @@ from readmeai.core import factory, logger
 logger = logger.Logger(__name__)
 
 
-class BaseUrls(str, Enum):
-    """Enum for Git repository API base URLs."""
+class ApiBaseUrls(str, Enum):
+    """Enum for base URLs of Git repository APIs."""
 
     GITHUB = "https://api.github.com"
     GITLAB = "https://api.gitlab.com"
@@ -22,16 +22,16 @@ class BaseUrls(str, Enum):
 
 
 class HostUrls(str, Enum):
-    """Enum for Git repository host URLs."""
+    """Enum for URLs pointing to files in Git repositories."""
 
-    LOCAL = "file://{full_name}/{file}"
+    LOCAL = "{file}"
     GITHUB = "https://github.com/{full_name}/blob/main/{file}"
     GITLAB = "https://gitlab.com/{full_name}/-/blob/master/{file}"
     BITBUCKET = "https://bitbucket.org/{full_name}/src/master/{file}"
 
 
 class DefaultHosts(str, Enum):
-    """Enum for default Git repository hosts."""
+    """Enum for default hostnames of Git repositories."""
 
     LOCAL = "local"
     GITHUB = "github.com"
@@ -66,7 +66,6 @@ class ApiConfig(BaseModel):
 class CliConfig(BaseModel):
     """CLI options for the readme-ai application."""
 
-    badges = "flat"
     emojis: bool = True
     offline: bool = False
 
@@ -128,9 +127,10 @@ class MarkdownConfig(BaseModel):
     badges: str
     badges_alt: str
     badges_offline: str
+    badge_style: str
+    contribute: str
     default: str
     dropdown: str
-    ending: str
     header: str
     intro: str
     modules: str
