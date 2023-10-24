@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.045"
+version = "0.4.046"
 description = "Generate beautiful README.md files from the terminal, powered by AI."
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -109,3 +109,8 @@ markers = "asyncio: marks tests as asyncio."
 
 [tool.coverage.run]
 omit = ["tests/*", "*/__init__.py"]
+
+[tool.flake8]
+max-line-length = 79
+extend-ignore = ["E203", "W503"]
+exclude = ".git,__pycache__,build,dist,*.egg-info"

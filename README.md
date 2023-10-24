@@ -1,98 +1,56 @@
-<!--
-<div align="right">
-[![CN](https://img.shields.io/badge/CN-🇨🇳-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-zh-CN.md)
-[![DE](https://img.shields.io/badge/DE-🇩🇪-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-de.md)
-[![FR](https://img.shields.io/badge/FR-🇫🇷-white?style=plastic)](https://github.com/eli64s/readme-ai/blob/main/docs/README-fr.md)
-</div>
--->
+# README-AI
 
-<div align="center">
-    <h1 align="center">
-        <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="80" />
-        <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="80" />
-        <br>README-AI
-    </h1>
-    <h3>◦ Generate beautiful and informative <i>README</i> files</h3>
-    <h3>◦ Powered by OpenAI's GPT language model APIs</h3>
-    <br>
-    <p align="center">
-        <img src="https://img.shields.io/badge/Markdown-000000.svg?&logo=Markdown&logoColor=white" alt="Markdown" />
-        <img src="https://img.shields.io/badge/OpenAI-412991.svg?&logo=OpenAI&logoColor=white" alt="OpenAI" />
-        <img src="https://img.shields.io/badge/Python-3776AB.svg?&logo=Python&logoColor=white" alt="Python" />
-        <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?&logo=Pytest&logoColor=white" alt="pytest" />
-        <img src="https://img.shields.io/badge/Docker-2496ED.svg?style&logo=Docker&logoColor=white" alt="Docker" />
-        <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style&logo=GitHub-Actions&logoColor=white" alt="actions" />
-    </p>
-    <a href="https://pypi.org/project/readmeai/">
-    <img src="https://img.shields.io/pypi/v/readmeai?color=5D6D7E&logo=pypi"
-    alt="pypi-version" /></a>
-    <a href="https://pypi.org/project/readmeai/">
-    <img src="https://img.shields.io/pypi/pyversions/readmeai?color=5D6D7E&logo=python" alt="pypi-python-version" /></a>
-    <img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai.svg?color=5D6D7E" alt="commits-month" />
-    <img src="https://img.shields.io/github/license/eli64s/readme-ai?color=5D6D7E" alt="license" />
-    <br>
-    <!--
-    <a href="https://pypi.org/project/readmeai/">
-    <img src="https://img.shields.io/pypi/dm/readmeai?color=5D6D7E" alt="pypi-downloads" />
-    </a>
-    -->
-</div>
+<img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100" /><img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" height="100" />
+
+Automatically generate beautiful README files powered by AI
+
+[![PyPI version](https://img.shields.io/pypi/v/readmeai?color=blueviolet)](https://badge.fury.io/py/readmeai)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=blueviolet)](https://pypi.python.org/pypi/readmeai/)
+![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai.svg?color=blueviolet)
+![License: MIT](https://img.shields.io/github/license/eli64s/readme-ai?color=blueviolet)
 
 ---
 
-## 📖 Table of Contents
-
-- [📖 Table of Contents](#-table-of-contents)
-- [🔭 Overview](#-overview)
-- [🎈 Demo](#-demo)
-- [🤖 Features](#-features)
-- [👩‍💻 Usage](#-usage)
-  - [📦 Installation](#-installation)
-  - [⚙️ Configuration](#️-configuration)
-  - [🚀 Running *README-AI*](#-running-readme-ai)
-  - [🧪 Tests](#-tests)
-- [🛠 Project Roadmap](#-project-roadmap)
-- [📒 Changelog](#-changelog)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
+## Quick Links
+* [Introduction](#objective)
+* [Demo](#demo)
+* [Features](#features)
+* [Getting Started](#getting-started)
+* [Project Roadmap](#project-roadmap)
+* [Contributing](#contributing)
+* [License](#license)
 
 ---
 
-## 🔭 Overview
+## Overview
 
-<!--
-<div align="center">
-  <img src="https://github.com/eli64s/readme-ai/blob/main/examples/images/dalle-readmeai.png?raw=true" height="500" />
-</div>
-<br>
--->
+<table>
+  <tr>
+    <td width="45%">
+<p>Objective</p>
+Readme-ai is a dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Provide a repository URL or local directory path, and <em>README-AI</em> builds a well-structured README.md for your project.<br><hr>
+<p>Motivation</p>
+Streamlines documentation creation and maintenance, enhancing developer productivity. <em>README-AI</em> aims to improve the adoption of open-source software, enabling all skill levels and disciplines to understand, utilize, and contribute to projects more effectively.<hr>
 
-**🎯 Objective**
-
-*README-AI* is a dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Provide a repository URL or local directory path, and *README-AI* builds a well-structured README.md for your project.
-
-**💥 Motivation**
-
-Streamlines documentation creation and maintenance, enhancing developer productivity. *README-AI* aims to improve the adoption of open-source software, enabling all skill levels and disciplines to understand, utilize, and contribute to projects more effectively.
-
-**⚠️ Note**
-
-This project is under development with an opinionated setup. It's vital to review the text generated by the OpenAI API to ensure it accurately represents your codebase.
+> [!WARNING]
+>
+> This project is under development with an opinionated setup. It is vital to review the text generated by the OpenAI API to ensure it accurately represents your codebase.
+</p></td>
+    <td width="55%"><img src="https://github.com/eli64s/readme-ai/blob/main/examples/images/dalle-readmeai.png?raw=true" width="100%"></td>
+  </tr>
+</table>
 
 ---
 
-## 🎈 Demo
+## Demo
 
-***readmeai CLI***
-
-- Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more.
+Run <i>readme-ai</i> in your terminal via PyPI, Docker, and more.
 
 [readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
 
 <br>
 
-- CLI option `--offline true` can be used to generate a README.md without an OpenAI API key.
+- CLI option `--offline` can be used to generate a README.md without an OpenAI API key.
 - Useful for quickly getting a baseline document containg your project's metadata!
 
 [readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/2c9b8456-80b9-4840-8da2-51780ed0c093)
@@ -100,16 +58,14 @@ This project is under development with an opinionated setup. It's vital to revie
 <br>
 
 <!--
-***Streamlit Community Cloud***
-
-‣ Use *readme-ai* directly in your browser! Zero installation, zero code!
-
+Streamlit Community Cloud
+> Use *readme-ai* directly in your browser! Zero installation, zero code!
 [streamlit-demo](https://github.com/eli64s/readme-ai/assets/43382407/e8260e78-b684-4e72-941c-b3046b90c452)
 -->
 
 ---
 
-## 🤖 Features
+## Features
 
 <br>
 <div>
@@ -390,7 +346,7 @@ This project is under development with an opinionated setup. It's vital to revie
 
 ---
 
-## 👩‍💻 Usage
+## Getting Started
 
 ***Dependencies***
 
@@ -435,13 +391,11 @@ An OpenAI API account and API key are needed to use *readme-ai*. The steps below
 
 3. **Paid Account Recommended**: Setting up a paid account with OpenAI is highly recommended to avoid potential issues. Without a payment method on file, your API usage will be restricted to base GPT-3 models. This limitation can result in less accurate README file generation and may lead to API errors due to request limits.
 
-4. **Runtime Considerations**: README file generation typically takes less than a minute. If the process exceeds a few minutes (e.g., 3 minutes), it's advisable to terminate *readme-ai* to prevent extended processing times.
-
 </details>
 
 ---
 
-### 📦 Installation
+### Installation
 
 Using `pip`
 ```bash
@@ -489,14 +443,14 @@ poetry install
 
 ---
 
-### ⚙️ Configuration
+### Configuration
 
 To generate a *README.md* file, use the `readmeai` command in your terminal, along with the arguments below.
 
 | Short Flag | Long Flag       | Description                                                    | Type        | Status       |
 |------------|-----------------|----------------------------------------------------------------|-------------|--------------|
 | `-k`       | `--api-key`     | Your language model API secret key.                            | String      | Optional     |
-| `-b`       | `--badges`      | [Badge style](https://shields.io/badge) options for output file. See below for [more details](https://github.com/eli64s/readme-ai#badge-style-cli-options)     | String      | Optional     |
+| `-b`       | `--badges`      | [Badge style](https://shields.io/badges) options for output file. See below for [more details](https://github.com/eli64s/readme-ai#badge-style-cli-options)     | String      | Optional     |
 | `-e`       | `--emojis`      | Use ```false``` to remove emojis from README default template. | Boolean     | Optional     |
 | `-f`       | `--offline`     | Use ```true``` to run README-AI without an API key.            | Boolean     | Optional     |
 | `-m`       | `--model`       | Default large language model is the `gpt-3.5-turbo` engine.    | String      | Optional     |
@@ -565,7 +519,7 @@ To customize the README file generation process, you can modify the project's [c
 
 ---
 
-### 🚀 Running *README-AI*
+### Running *README-AI*
 
 First, add your OpenAI API key to environment variables.
 
@@ -598,11 +552,12 @@ Additionally, you can run readme-ai in offline mode without an API key.
 readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai --offline true
 ```
 
-> Offline mode example [README.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
+Offline mode example [README.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
 
 <br>
 
 Using `docker`
+
 ```bash
 docker run -it \
 -e OPENAI_API_KEY=$OPENAI_API_KEY \
@@ -638,7 +593,7 @@ Application may be unavailable at times as it's hosted on a free tier.
 
 ---
 
-### 🧪 Tests
+### Tests
 
 Execute the test suite using the command below.
 
@@ -648,7 +603,7 @@ bash scripts/test.sh
 
 ---
 
-## 🛠 Project Roadmap
+## Project Roadmap
 
 - [X] Publish project as a Python library via PyPI for easy installation.
   - [*PyPI - readmeai*](https://pypi.org/project/readmeai/)
@@ -665,13 +620,13 @@ bash scripts/test.sh
 
 ---
 
-## 📒 Changelog
+## Changelog
 
 [Changelog](https://github.com/eli64s/readme-ai/blob/main/CHANGELOG.md)
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 - [Discussions](https://github.com/eli64s/readme-ai/discussions)
 - [Open an Issue](https://github.com/eli64s/readme-ai/issues)
@@ -679,13 +634,13 @@ bash scripts/test.sh
 
 ---
 
-## 📄 License
+## License
 
 [MIT](https://github.com/eli64s/readme-ai/blob/main/LICENSE)
 
 ---
 
-## 👏 Acknowledgments
+## Acknowledgments
 
 *Badges*
   - [Shields.io](https://shields.io/)

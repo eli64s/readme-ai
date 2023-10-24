@@ -131,7 +131,7 @@
     │       └── utils.py
     ├── requirements.txt
     ├── scripts/
-    │   ├── build_image.sh
+    │   ├── build_docker.sh
     │   ├── build_pypi.sh
     │   ├── clean.sh
     │   ├── run.sh
@@ -171,14 +171,14 @@
 
 <details closed><summary>Scripts</summary>
 
-| File                     | Summary       |
-| ---                      | ---           |
-| [run_batch.sh]({file})   | ► INSERT-TEXT |
-| [build_image.sh]({file}) | ► INSERT-TEXT |
-| [build_pypi.sh]({file})  | ► INSERT-TEXT |
-| [run.sh]({file})         | ► INSERT-TEXT |
-| [clean.sh]({file})       | ► INSERT-TEXT |
-| [test.sh]({file})        | ► INSERT-TEXT |
+| File                      | Summary       |
+| ---                       | ---           |
+| [run_batch.sh]({file})    | ► INSERT-TEXT |
+| [build_pypi.sh]({file})   | ► INSERT-TEXT |
+| [build_docker.sh]({file}) | ► INSERT-TEXT |
+| [run.sh]({file})          | ► INSERT-TEXT |
+| [clean.sh]({file})        | ► INSERT-TEXT |
+| [test.sh]({file})         | ► INSERT-TEXT |
 
 </details>
 
@@ -356,7 +356,7 @@ Please ensure you have the following dependencies installed on your system:
 
 1. Clone the readme-ai repository:
 ```sh
-git clone /Users/k01101011/Documents/GitHub/readme-ai
+git clone ../readme-ai
 ```
 
 2. Change to the project directory:
