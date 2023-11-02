@@ -26,7 +26,7 @@ Automatically generate beautiful README files powered by AI
 
 ***Objective***
 
-Readme-ai is a dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Provide a repository URL or local directory path, and <em>README-AI</em> builds a well-structured README.md for your project.<br>
+<em>README-AI</em> is a dev tool that auto-generates detailed README.md files from the command-line using OpenAI's GPT models. Provide a repository URL or local directory path, and <em>README-AI</em> builds a well-structured README.md for your project.<br>
 
 ***Motivation***
 
