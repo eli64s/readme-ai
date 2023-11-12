@@ -34,7 +34,7 @@ emojis = click.option(
 model = click.option(
     "-m",
     "--model",
-    default="gpt-3.5-turbo",
+    default="gpt-4-1106-preview",
     help="Large language model engine to use.",
 )
 

@@ -15,7 +15,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Delay for 3 Docker build until PyPI is updated.
+        name: Delay Docker build for 3 minutes, waiting for new package to be available on PyPI.
         run: |
           echo "Waiting 3 minutes for PyPI to update..."
           sleep 180
