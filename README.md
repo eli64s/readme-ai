@@ -342,7 +342,7 @@ Streamlit Community Cloud
 
 ---
 
-## Getting Started
+## 👩‍💻 Getting Started
 
 ***Dependencies***
 
