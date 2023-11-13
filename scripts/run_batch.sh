@@ -26,7 +26,7 @@ filenames=(
     "readme-pyflink.md"
 )
 
-badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "square")
+badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "social" "apps")
 
 for index in "${!repositories[@]}"
 do

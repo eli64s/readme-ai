@@ -2,10 +2,10 @@
 [api]
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
-model = "gpt-4-1106-preview"
+model = "gpt-4"
 rate_limit = 3
 tokens = 669
-tokens_max = 99999
+tokens_max = 7999
 temperature = 1.0
 
 # CLI Options
