@@ -2,7 +2,7 @@
 
 <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100" /><img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" height="100" />
 
-Automatically generate beautiful README files powered by AI
+Automatically generate beautiful README files, powered by AI.
 
 [![PyPI version](https://img.shields.io/pypi/v/readmeai?color=blueviolet)](https://badge.fury.io/py/readmeai)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=blueviolet)](https://pypi.python.org/pypi/readmeai/)
@@ -12,13 +12,13 @@ Automatically generate beautiful README files powered by AI
 ---
 
 ## 🔗 Quick Links
-* [Overview](#overview)
-* [Demo](#demo)
-* [Features](#features)
-* [Getting Started](#getting-started)
-* [Project Roadmap](#project-roadmap)
-* [Contributing](#contributing)
-* [License](#license)
+* [Overview](#-overview)
+* [Demo](#-demo)
+* [Features](#-features)
+* [Getting Started](#-getting-started)
+* [Project Roadmap](#-project-roadmap)
+* [Contributing](#-contributing)
+* [License](#-license)
 
 ---
 

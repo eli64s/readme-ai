@@ -43,5 +43,5 @@ do
         use_emojis="true"
     fi
 
-    python3 -m readmeai.cli.commands -o "$filename" -r "$repo" -b "$random_badge" -e "$use_emojis"
+    readmeai -o "$filename" -r "$repo" -b "$random_badge" -e "$use_emojis"
 done
