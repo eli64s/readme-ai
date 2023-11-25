@@ -139,5 +139,4 @@ class RepositoryParser:
             content["tokens"] = tokens.get_token_count(
                 content["content"], self.encoding_name
             )
-        logger.info(f"context: {contents[0]['content'][:100]}")
         return contents
