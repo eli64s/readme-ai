@@ -449,7 +449,7 @@ To generate a *README.md* file, use the `readmeai` command in your terminal, alo
 | `-b`       | `--badges`      | [Badge style](https://shields.io/badges) options for output file. See below for [more details](https://github.com/eli64s/readme-ai#badge-style-cli-options)     | String      | Optional     |
 | `-e`       | `--emojis`      | Use ```false``` to remove emojis from README default template. | Boolean     | Optional     |
 | `-f`       | `--offline`     | Use ```true``` to run README-AI without an API key.            | Boolean     | Optional     |
-| `-m`       | `--model`       | Default large language model is the `gpt-4-1106-preview` engine.    | String      | Optional     |
+| `-m`       | `--model`       | Default large language model is the `gpt-4` engine.    | String      | Optional     |
 | `-o`       | `--output`      | The output path for your README.md file.                       | Path/String | Optional     |
 | `-r`       | `--repository`  | The URL or path to your code repository.                       | URL/String  | Required     |
 | `-t`       | `--temperature` | The temperature (randomness) of the model responses.           | Float       | Optional     |
