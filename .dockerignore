@@ -22,6 +22,7 @@ scripts/
 # Jupyter notebooks
 notebooks/
 
-# Other project directories
+# Other
 docs/
 examples/
+mkdocs.yml
