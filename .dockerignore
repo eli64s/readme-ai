@@ -15,6 +15,7 @@ dist/
 *.whl
 
 # Test and setup scripts
+.coverage
 tests/
 setup/
 scripts/
@@ -22,7 +23,11 @@ scripts/
 # Jupyter notebooks
 notebooks/
 
-# Other
+# Temporarily Ignore
 docs/
 examples/
 mkdocs.yml
+
+# Package Management
+Pipfile
+Pipfile.lock

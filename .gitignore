@@ -49,10 +49,10 @@ Pipfile
 Pipfile.lock
 
 # Temporarily Ignored
-.github/workflows/coverage.yml
-templates/
 docs/docs
 docs/notes
 examples/markdown/readme-edgecase.md
 readmeai/settings/prompts.toml
 readmeai/markdown/data/badges.json
+templates/
+.github/workflows/coverage.yml
