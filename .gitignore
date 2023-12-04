@@ -19,6 +19,7 @@ Thumbs.db
 htmlcov/
 .coverage
 .coverage.*
+coverage.xml
 
 # Log files
 logs/
@@ -55,4 +56,3 @@ examples/markdown/readme-edgecase.md
 readmeai/settings/prompts.toml
 readmeai/markdown/data/badges.json
 templates/
-.github/workflows/coverage.yml
