@@ -17,8 +17,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest coverage pytest-cov
+        pip install pytest coverage pytest-cov setuptools
+
+    - name: Install Project
+      run: |
         pip install -e .
+
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
     - name: Run tests with coverage
       run: |
         pytest --cov=./ --cov-report=xml
