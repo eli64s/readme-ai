@@ -4,13 +4,14 @@
 
 Automatically generate beautiful README files using OpenAI's GPT language models.
 
-<!--![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=CI)
-![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=blueviolet)
--->
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=cicd&color=blueviolet)
+[![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=blueviolet)](https://app.codecov.io/gh/eli64s/readme-ai)
 [![PyPI version](https://img.shields.io/pypi/v/readmeai?color=blueviolet)](https://badge.fury.io/py/readmeai)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=blueviolet)](https://pypi.python.org/pypi/readmeai/)
-![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai.svg?color=blueviolet)
 ![License: MIT](https://img.shields.io/github/license/eli64s/readme-ai?color=blueviolet)
+<!--
+![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai.svg?color=blueviolet)
+-->
 
 ---
 
@@ -288,7 +289,7 @@ Streamlit Community Cloud
                 <tr>
                     <td>3️⃣</td>
                     <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-javascript.md">readme-javascript.md</a></td>
-                    <td><a href="https://github.com/idosal/assistant-chat-gpt-javascript">assistant-chat-gpt-javascript</a></td>
+                    <td><a href="https://github.com/idosal/assistant-chat-gpt-javascript">(repository deleted)</a></td>
                     <td>JavaScript, React</td>
                 </tr>
                 <tr>
@@ -603,18 +604,23 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 
 Using `Streamlit`
 
-Generate a README files directly in your browser on Streamlit Cloud!
+Try <em>readme-ai</em> in your browser, no installation required!
 
-> 🎈 Navigate at [readmeai.streamlit.app](https://readmeai.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readmeai.streamlit.app/)
 
-Application may be unavailable at times as it's hosted on a free tier.
+> [!NOTE]
+>
+> Hosted on Streamlit's Community Cloud. It may be unstable or unavailable at times.
+>
+> Not as feature-rich as the CLI, but it's a great way to get started with *readme-ai*.
+>
+> For more details about the Streamlit app, see the <a href="https://github.com/eli64s/readmeai-ui">readmeai-ui</a> repository.
 
 ---
 
 ### 🧪 Tests
 
-Execute the test suite using the command below.
-
+Execute the following command to run the test suite.
 ```bash
 bash scripts/test.sh
 ```

@@ -50,9 +50,10 @@ Pipfile
 Pipfile.lock
 
 # Temporarily Ignored
+mkdocs.yml
 docs/docs
 docs/notes
 examples/markdown/readme-edgecase.md
-readmeai/settings/prompts.toml
 readmeai/markdown/data/badges.json
+readmeai/settings/prompts.toml
 templates/
