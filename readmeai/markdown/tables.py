@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 from readmeai.core import logger
-from readmeai.services import version_control as vcs
+from readmeai.services import git_utilities as vcs
 
 logger = logger.Logger(__name__)
 
@@ -87,14 +87,13 @@ def construct_markdown_table(
 
 
 def create_hyperlink(
-    file_name: str, project_name: str, module: str, repository: str
+    file_name: str, full_name: str, module: str, repo_url: str
 ) -> str:
-    """Creates a hyperlink for a file, using its GitHub URL if valid."""
-    if "invalid" in project_name.lower():
+    """Creates a hyperlink for a file, using its Git URL if possible."""
+    if "invalid" in full_name.lower():
         return file_name
-
-    github_link = vcs.get_remote_repo_url(module, repository, project_name)
-    return f"[{file_name}]({github_link})"
+    git_file_link = vcs.get_remote_file_url(module, full_name, repo_url)
+    return f"[{file_name}]({git_file_link})"
 
 
 def format_as_markdown_table(rows: List[List[str]]) -> str:

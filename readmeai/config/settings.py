@@ -23,15 +23,23 @@ class GitHost(str, Enum):
     GITLAB = "gitlab.com"
     BITBUCKET = "bitbucket.org"
 
+    @staticmethod
+    def from_url(url: str):
+        """Returns the Git host from the URL."""
+        for host in GitHost:
+            if host.value in url:
+                return host
+        raise ValueError(f"Unsupported Git host in URL: {url}")
+
 
 class GitApiUrl(str, Enum):
     """
     Enum for base URLs of Git repository APIs.
     """
 
-    GITHUB = "https://api.github.com"
-    GITLAB = "https://api.gitlab.com"
-    BITBUCKET = "https://api.bitbucket.org"
+    GITHUB = "https://api.github.com/repos/"
+    GITLAB = "https://api.gitlab.com/v4/projects/"
+    BITBUCKET = "https://api.bitbucket.org/2.0/repositories/"
 
 
 class GitFileUrl(str, Enum):
@@ -39,10 +47,10 @@ class GitFileUrl(str, Enum):
     Enum for URLs pointing to files in Git repositories.
     """
 
-    LOCAL = "{file}"
-    GITHUB = "https://github.com/{repo_name}/blob/main/{file_name}"
-    GITLAB = "https://gitlab.com/{repo_name}/-/blob/master/{file_name}"
-    BITBUCKET = "https://bitbucket.org/{repo_name}/src/master/{file_name}"
+    LOCAL = "{file_path}"
+    GITHUB = "https://github.com/{full_name}/blob/main/{file_path}"
+    GITLAB = "https://gitlab.com/{full_name}/-/blob/master/{file_path}"
+    BITBUCKET = "https://bitbucket.org/{full_name}/src/master/{file_path}"
 
 
 class BadgeCliOptions(str, Enum):

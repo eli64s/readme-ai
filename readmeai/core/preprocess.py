@@ -1,14 +1,16 @@
-"""Handles preprocessing of the input codebase."""
+"""Preprocesses and extracts metadata from the user's repository."""
 
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-import readmeai.core.parser
 from readmeai.config import settings
 from readmeai.core import logger, tokens
+from readmeai.parsers.factory import parser_factory
 from readmeai.utils import utils
 
 logger = logger.Logger(__name__)
+
+PARSERS = parser_factory()
 
 
 class RepositoryParser:
@@ -59,22 +61,29 @@ class RepositoryParser:
         return contents
 
     def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
-        """Extracts dependency file contents from the list of dicts."""
-        file_parsers = readmeai.core.parser.get_file_parsers()
-        dependency_files = [
-            content
-            for content in contents
-            if any(file_name in content["name"] for file_name in file_parsers)
-        ]
+        """Extracts the dependency file contents using the factory pattern."""
+        parsers = PARSERS
+
+        filtered = [c for c in contents if c["name"] in parsers]
+        if not filtered:
+            return []
+
         parsed_contents = []
-
-        for content in dependency_files:
-            logger.info(f"Dependency file found: {content['name']}")
-            parser = file_parsers[content["name"]]
-            parsed_content = parser(content=content["content"])
+        for content in filtered:
+            parser = parsers.get(content["name"])
+            parsed_content = parser.parse(content=content["content"])
             parsed_contents.append(parsed_content)
-
+            logger.info(
+                f"Dependency file found: {content['name']} - {parsed_content}"
+            )
         return utils.flatten_list(parsed_contents)
+
+    def parse_content(content: Dict) -> List[str]:
+        """Helper function to parse the content of a file."""
+        parser = PARSERS.get(content["name"])
+        if parser:
+            return parser.parse(content["content"])
+        return []
 
     def generate_file_info(
         self, repo_path: Path

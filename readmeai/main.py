@@ -17,7 +17,7 @@ from readmeai.config.settings import (
 )
 from readmeai.core import logger, model, preprocess
 from readmeai.markdown import headers, tree
-from readmeai.services import version_control as vcs
+from readmeai.services import git_operations as vcs
 
 logger = logger.Logger(__name__)
 

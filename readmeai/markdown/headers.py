@@ -9,7 +9,7 @@ from typing import List
 from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core import factory, logger
 from readmeai.markdown import badges, quickstart, tables
-from readmeai.services import version_control as vcs
+from readmeai.services import git_utilities as vcs
 
 logger = logger.Logger(__name__)
 
