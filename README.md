@@ -2,8 +2,10 @@
 
 <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100" /><img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" height="100" />
 
-Automatically generate beautiful README files, powered by AI.
+Automatically generate beautiful README files using OpenAI's GPT language models.
 
+<!--![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=CI)
+-->
 [![PyPI version](https://img.shields.io/pypi/v/readmeai?color=blueviolet)](https://badge.fury.io/py/readmeai)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=blueviolet)](https://pypi.python.org/pypi/readmeai/)
 ![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai.svg?color=blueviolet)
@@ -407,13 +409,16 @@ docker pull zeroxeli/readme-ai:latest
 
 <br>
 
-Alternatively, clone the readme-ai repository and build from source:
+Alternatively, clone the readme-ai repository and build from source.
+
 ```bash
-git clone https://github.com/eli64s/readme-ai
+git clone https://github.com/eli64s/readme-ai && \
 cd readme-ai
 ```
 
 <br>
+
+Then use one of the methods below to install the project's dependencies (Bash, Conda, Pipenv, or Poetry).
 
 Using `bash`
 ```bash
@@ -431,10 +436,18 @@ pip install -r requirements.txt
 
 <br>
 
+Using `pipenv`
+```bash
+pipenv install && \
+pipenv shell
+```
+
+<br>
+
 Using `poetry`
 ```bash
-poetry shell && \
-poetry install
+poetry install && \
+poetry shell
 ```
 
 ---
@@ -563,17 +576,25 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 
 <br>
 
-Using `Conda`
+Using `conda`
 ```bash
-conda activate readmeai
+conda activate readmeai && \
 python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
 <br>
 
-Using `Poetry`
+Using `pipenv`
 ```bash
-poetry shell
+pipenv shell && \
+python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
+```
+
+<br>
+
+Using `poetry`
+```bash
+poetry shell && \
 poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 

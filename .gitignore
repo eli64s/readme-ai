@@ -44,7 +44,12 @@ notebooks/
 # Benchmarks
 .benchmarks/
 
-# Other
+# Package Management
+Pipfile
+Pipfile.lock
+
+# Temporarily Ignored
+.github/workflows/coverage.yml
 templates/
 docs/docs
 docs/notes
