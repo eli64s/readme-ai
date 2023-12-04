@@ -19,30 +19,30 @@ def test_git_host():
 
 def test_api_base_urls():
     """Test the base URLs of Git repository APIs."""
-    assert GitApiUrl.GITHUB == "https://api.github.com"
-    assert GitApiUrl.GITLAB == "https://api.gitlab.com"
-    assert GitApiUrl.BITBUCKET == "https://api.bitbucket.org"
+    assert GitApiUrl.GITHUB == "https://api.github.com/repos/"
+    assert GitApiUrl.GITLAB == "https://api.gitlab.com/v4/projects/"
+    assert GitApiUrl.BITBUCKET == "https://api.bitbucket.org/2.0/repositories/"
 
 
 def test_git_file_urls():
     """Test the URLs pointing to files in Git repositories."""
-    repo_name = "readme-ai"
-    file_name = "main.py"
-    local_url = f"{file_name}"
+    full_name = "eli64s/readme-ai"
+    file_path = "readmeai/main.py"
+    local_url = f"{file_path}"
     github_url = GitFileUrl.GITHUB.value.format(
-        repo_name=repo_name, file_name=file_name
+        full_name=full_name, file_path=file_path
     )
     gitlab_url = GitFileUrl.GITLAB.value.format(
-        repo_name=repo_name, file_name=file_name
+        full_name=full_name, file_path=file_path
     )
     bitbucket_url = GitFileUrl.BITBUCKET.value.format(
-        repo_name=repo_name, file_name=file_name
+        full_name=full_name, file_path=file_path
     )
     assert isinstance(local_url, str)
     assert isinstance(github_url, str)
     assert isinstance(gitlab_url, str)
     assert isinstance(bitbucket_url, str)
-    assert local_url == file_name
+    assert local_url == file_path
     assert utils.is_valid_url(github_url) is True
     assert utils.is_valid_url(gitlab_url) is True
     assert utils.is_valid_url(bitbucket_url) is True

@@ -1,6 +1,7 @@
 """Unit tests for the CLI commands module."""
 
 from click.testing import CliRunner
+
 from readmeai.cli.commands import commands
 
 
