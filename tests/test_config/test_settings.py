@@ -1,10 +1,10 @@
 """Unit tests for readmeai.settings."""
 
 from readmeai.config.settings import (
-    GitHost,
+    BadgeCliOptions,
     GitApiUrl,
     GitFileUrl,
-    BadgeCliOptions,
+    GitHost,
 )
 from readmeai.utils import utils
 

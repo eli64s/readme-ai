@@ -201,7 +201,7 @@ class OpenAIHandler:
         except openai.error.OpenAIError as excinfo:
             self.logger.error(f"OpenAI Exception:\n{str(excinfo)}")
             return await self.null_summary(
-                index, f"OpenAI exception: {excinfo.response.status_code}"
+                index, f"OpenAI Exception: {excinfo.response.status_code}"
             )
 
         except httpx.HTTPStatusError as excinfo:

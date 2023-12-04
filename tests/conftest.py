@@ -1,18 +1,17 @@
 """Pytest configuration file."""
 
-from pathlib import Path
-
 import pytest
-import toml
+
+from readmeai.config.settings import AppConfigModel, ConfigHelper, load_config
 
 
 @pytest.fixture(scope="session")
 def config():
-    current_dir = Path(__file__).parent
-    parent_dir = current_dir.parent
-    config_path = parent_dir / "settings/config.toml"
+    config_dict = load_config()
+    config_model = AppConfigModel(app=config_dict)
+    return config_model
 
-    with open(config_path, "r") as file:
-        config = toml.load(file)
 
-    return config
+@pytest.fixture(scope="session")
+def config_helper(config):
+    return ConfigHelper(config)
