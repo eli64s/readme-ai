@@ -1,42 +1,42 @@
-aiohttp==3.8.6
-aiosignal==1.3.1
-anyio==4.0.0
-async-timeout==4.0.3
-asyncio==3.4.3
-attrs==23.1.0
-cachetools==5.3.1
-certifi==2023.7.22
-charset-normalizer==3.3.0
-click==8.1.7
-colorama==0.4.6
-colorlog==6.7.0
-exceptiongroup==1.1.3
-frozenlist==1.4.0
-gitdb==4.0.11
-gitpython==3.1.40
-h11==0.14.0
-h2==4.1.0
-hpack==4.0.0
-httpcore==0.17.3
-httpx==0.24.1
-hyperframe==6.0.1
-idna==3.4
-multidict==6.0.4
-openai==0.27.10
-pydantic==1.10.13
-pyyaml==6.0.1
-regex==2023.10.3
-requests==2.31.0
-responses==0.23.3
-smmap==5.0.1
-sniffio==1.3.0
-tabulate==0.9.0
-tenacity==8.2.3
-tiktoken==0.4.0
-toml==0.10.2
-tornado==6.3.3
-tqdm==4.66.1
-types-pyyaml==6.0.12.12
-typing-extensions==4.8.0
-urllib3==2.0.7
-yarl==1.9.2
+aiohttp==3.9.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+aiosignal==1.3.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+anyio==4.0.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+async-timeout==4.0.3 ; python_full_version >= "3.8.1" and python_version < "3.11"
+asyncio==3.4.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+attrs==23.1.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+cachetools==5.3.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+certifi==2023.7.22 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+charset-normalizer==3.3.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+click==8.1.7 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+colorama==0.4.6 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0" and (sys_platform == "win32" or platform_system == "Windows")
+colorlog==6.7.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+exceptiongroup==1.1.3 ; python_full_version >= "3.8.1" and python_version < "3.11"
+frozenlist==1.4.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+gitdb==4.0.11 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+gitpython==3.1.40 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+h11==0.14.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+h2==4.1.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+hpack==4.0.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+httpcore==0.17.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+httpx==0.24.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+hyperframe==6.0.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+idna==3.4 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+multidict==6.0.4 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+openai==0.27.10 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+pydantic==1.10.13 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+pyyaml==6.0.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+regex==2023.10.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+requests==2.31.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+responses==0.23.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+smmap==5.0.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+sniffio==1.3.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+tabulate==0.9.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+tenacity==8.2.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+tiktoken==0.4.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+toml==0.10.2 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+tornado==6.3.3 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+tqdm==4.66.1 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+types-pyyaml==6.0.12.12 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+typing-extensions==4.8.0 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+urllib3==2.0.7 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
+yarl==1.9.2 ; python_full_version >= "3.8.1" and python_full_version < "4.0.0"
