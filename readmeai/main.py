@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Main entrypoint for the readme-ai application."""
+"""Main method for the readme-ai cli application."""
 
 __package__ = "readmeai"
 
@@ -47,19 +47,17 @@ def main(
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    logger.info("README-AI is now executing.")
+    logger.info("Starting readme-ai execution.")
     logger.info(f"Processing {conf.git.source}: {conf.git.repository}")
     logger.info(f"Setting LLM engine to: {conf.api.model}")
     logger.info(f"Saving output file as: {conf.paths.output}")
 
+    llm = model.OpenAIHandler(conf)
     name = conf.git.name
     repository = conf.git.repository
 
-    llm = model.OpenAIHandler(conf)
-
     try:
         temp_dir = vcs.clone_repo_to_temp_dir(repository)
-
         tree_generator = tree.TreeGenerator(
             conf_helper,
             temp_dir,
@@ -117,4 +115,4 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     finally:
         await llm.close()
 
-    logger.info("README-AI execution complete.")
+    logger.info("Finished readme-ai execution.")

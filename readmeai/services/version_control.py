@@ -1,4 +1,4 @@
-"""Version control service utilities."""
+"""Version control service for retrieving repository metadata."""
 
 import os
 import platform
@@ -10,10 +10,30 @@ from typing import Optional
 import git
 import requests
 
-from readmeai.config.settings import ApiBaseUrls, DefaultHosts, HostUrls
+from readmeai.config.settings import GitApiUrl, GitFileUrl, GitHost
 from readmeai.core import logger
 
 logger = logger.Logger(__name__)
+
+
+def clone_repo_to_temp_dir(repo_path: str) -> Path:
+    """Clone user repository to a temporary directory."""
+    if Path(repo_path).exists():
+        return Path(repo_path)
+
+    temp_dir = tempfile.mkdtemp()
+    try:
+        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
+
+        return Path(temp_dir)
+
+    except git.GitCommandError as excinfo:
+        raise ValueError(f"Git clone error: {excinfo}") from excinfo
+
+    except Exception as excinfo:
+        raise ValueError(
+            f"Error cloning git repository: {excinfo}"
+        ) from excinfo
 
 
 def make_request(url: str, **kwargs) -> dict:
@@ -37,43 +57,23 @@ def make_request(url: str, **kwargs) -> dict:
 
 def get_github_repo_metadata(repo_url: str) -> dict:
     """Retrieves metadata about a GitHub repository."""
-    api_url = parse_repo_url(repo_url, DefaultHosts.GITHUB.value)
+    api_url = parse_repo_url(repo_url, GitHost.GITHUB.value)
     repo_metadata = make_request(api_url)
     return repo_metadata
 
 
 def get_gitlab_repo_metadata(repo_url):
     """Retrieves metadata about a GitLab repository."""
-    api_url = parse_repo_url(repo_url, DefaultHosts.GITLAB.value)
+    api_url = parse_repo_url(repo_url, GitHost.GITLAB.value)
     repo_metadata = make_request(api_url)
     return repo_metadata
 
 
 def get_bitbucket_repo_metadata(repo_url: str) -> dict:
     """Retrieves metadata about a Bitbucket repository."""
-    api_url = parse_repo_url(repo_url, DefaultHosts.BITBUCKET.value)
+    api_url = parse_repo_url(repo_url, GitHost.BITBUCKET.value)
     repo_metadata = make_request(api_url)
     return repo_metadata
-
-
-def clone_repo_to_temp_dir(repo_path: str) -> Path:
-    """Clone user repository to a temporary directory."""
-    if Path(repo_path).exists():
-        return Path(repo_path)
-
-    temp_dir = tempfile.mkdtemp()
-    try:
-        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
-
-        return Path(temp_dir)
-
-    except git.GitCommandError as excinfo:
-        raise ValueError(f"Git clone error: {excinfo}") from excinfo
-
-    except Exception as excinfo:
-        raise ValueError(
-            f"Error cloning git repository: {excinfo}"
-        ) from excinfo
 
 
 def get_remote_full_name(url_or_path):
@@ -96,35 +96,34 @@ def get_remote_full_name(url_or_path):
     raise ValueError("Error: invalid repository URL or path.")
 
 
-def get_remote_repo_url(file: str, repo: str, full_name: str) -> str:
+def get_remote_repo_url(file_name: str, repo: str, repo_name: str) -> str:
     """Returns the file URL for a given file based on the platform."""
     if Path(repo).exists():
-        return HostUrls.LOCAL.value
+        return GitFileUrl.LOCAL.value
+
+    base_urls = {
+        GitHost.GITHUB: GitFileUrl.GITHUB.value,
+        GitHost.GITLAB: GitFileUrl.GITLAB.value,
+        GitHost.BITBUCKET: GitFileUrl.BITBUCKET.value,
+    }
 
     domain = repo.split("/")[2]
 
-    base_urls = {
-        "github.com": HostUrls.GITHUB.value,
-        "gitlab.com": HostUrls.GITLAB.value,
-        "bitbucket.org": HostUrls.BITBUCKET.value,
-    }
+    url_template = base_urls.get(domain, GitFileUrl.GITHUB.value)
 
-    # Fetch the base url templates from and format it
-    url_template = base_urls.get(domain, HostUrls.GITHUB.value)
-
-    return url_template.format(full_name=full_name, file=file)
+    return url_template.format(repo_name=repo_name, file_name=file_name)
 
 
 def parse_repo_url(repo_url: str, provider: str) -> str:
     """Parses the repository URL and constructs the API URL."""
     parts = repo_url.rstrip("/").split("/")
 
-    full_name = f"{parts[-2]}/{parts[-1]}"
+    repo_name = f"{parts[-2]}/{parts[-1]}"
 
     api_url_mapping = {
-        DefaultHosts.GITHUB.value: f"{ApiBaseUrls.GITHUB.value}/repos/{full_name}",
-        DefaultHosts.GITLAB.value: f"{ApiBaseUrls.GITLAB.value}/v4/projects/{full_name.replace('/', '%2F')}",
-        DefaultHosts.BITBUCKET.value: f"{ApiBaseUrls.BITBUCKET.value}/2.0/repositories/{full_name}",
+        GitHost.GITHUB.value: f"{GitApiUrl.GITHUB.value}/repos/{repo_name}",
+        GitHost.GITLAB.value: f"{GitApiUrl.GITLAB.value}/v4/projects/{repo_name.replace('/', '%2F')}",
+        GitHost.BITBUCKET.value: f"{GitApiUrl.BITBUCKET.value}/2.0/repositories/{repo_name}",
     }
 
     return api_url_mapping.get(provider.lower())

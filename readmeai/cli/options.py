@@ -1,4 +1,4 @@
-"""Options for the command line interface."""
+"""Command line options for readmeai CLI."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import os
 
 import click
 
-from readmeai.config.settings import BadgeStyles
+from readmeai.config.settings import BadgeCliOptions
 
-badge_choices = [badge.value for badge in BadgeStyles]
+badge_options = [badge.value for badge in BadgeCliOptions]
 
 api_key = click.option(
     "-k",
@@ -19,7 +19,7 @@ api_key = click.option(
 badges = click.option(
     "-b",
     "--badges",
-    type=click.Choice(badge_choices, case_sensitive=False),
+    type=click.Choice(badge_options, case_sensitive=False),
     default="flat-square",
     help="""\
         Badge icon type to use in README.md header. \

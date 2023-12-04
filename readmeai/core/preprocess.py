@@ -24,7 +24,7 @@ class RepositoryParser:
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
         self.encoding_name = config.api.encoding
-        self.local_source = settings.DefaultHosts.LOCAL.value
+        self.local_source = settings.GitHost.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""

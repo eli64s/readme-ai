@@ -1,4 +1,4 @@
-"""Pydantic models for the readme-ai application."""
+"""Data models for configuration constants."""
 
 from enum import Enum
 from pathlib import Path
@@ -13,25 +13,10 @@ from readmeai.core import factory, logger
 logger = logger.Logger(__name__)
 
 
-class ApiBaseUrls(str, Enum):
-    """Enum for base URLs of Git repository APIs."""
-
-    GITHUB = "https://api.github.com"
-    GITLAB = "https://api.gitlab.com"
-    BITBUCKET = "https://api.bitbucket.org"
-
-
-class HostUrls(str, Enum):
-    """Enum for URLs pointing to files in Git repositories."""
-
-    LOCAL = "{file}"
-    GITHUB = "https://github.com/{full_name}/blob/main/{file}"
-    GITLAB = "https://gitlab.com/{full_name}/-/blob/master/{file}"
-    BITBUCKET = "https://bitbucket.org/{full_name}/src/master/{file}"
-
-
-class DefaultHosts(str, Enum):
-    """Enum for default hostnames of Git repositories."""
+class GitHost(str, Enum):
+    """
+    Enum for default hostnames of Git repositories.
+    """
 
     LOCAL = "local"
     GITHUB = "github.com"
@@ -39,16 +24,39 @@ class DefaultHosts(str, Enum):
     BITBUCKET = "bitbucket.org"
 
 
-class BadgeStyles(str, Enum):
-    """Enum for shields.io badge icon styles."""
+class GitApiUrl(str, Enum):
+    """
+    Enum for base URLs of Git repository APIs.
+    """
 
+    GITHUB = "https://api.github.com"
+    GITLAB = "https://api.gitlab.com"
+    BITBUCKET = "https://api.bitbucket.org"
+
+
+class GitFileUrl(str, Enum):
+    """
+    Enum for URLs pointing to files in Git repositories.
+    """
+
+    LOCAL = "{file}"
+    GITHUB = "https://github.com/{repo_name}/blob/main/{file_name}"
+    GITLAB = "https://gitlab.com/{repo_name}/-/blob/master/{file_name}"
+    BITBUCKET = "https://bitbucket.org/{repo_name}/src/master/{file_name}"
+
+
+class BadgeCliOptions(str, Enum):
+    """
+    Enum for CLI options for README file badge icons.
+    """
+
+    APPS = "apps"
+    APPS_LIGHT = "apps-light"
     FLAT = "flat"
     FLAT_SQUARE = "flat-square"
     FOR_THE_BADGE = "for-the-badge"
     PLASTIC = "plastic"
     SOCIAL = "social"
-    APPS = "apps"
-    APPS_LIGHT = "apps-light"
 
 
 class ApiConfig(BaseModel):
@@ -89,7 +97,7 @@ class GitConfig(BaseModel):
 
         if (
             parsed_url.scheme != "https"
-            or parsed_url.netloc not in DefaultHosts._value2member_map_
+            or parsed_url.netloc not in GitHost._value2member_map_
         ):
             raise ValueError(f"Invalid repository URL or path: {value}")
 
@@ -101,17 +109,17 @@ class GitConfig(BaseModel):
         repo = values.get("repository")
 
         if Path(repo).is_dir():
-            return DefaultHosts.LOCAL.value
+            return GitHost.LOCAL.value
 
         parsed_url = urlparse(repo)
-        return DefaultHosts._value2member_map_.get(parsed_url.netloc)
+        return GitHost._value2member_map_.get(parsed_url.netloc)
 
     @validator("name", pre=True, always=True)
     def set_name(cls, value: str, values: dict) -> str:
         """Sets the project name from the repository provided."""
         repo = values.get("repository")
         parsed_url = urlsplit(repo)
-        if parsed_url.hostname in DefaultHosts._value2member_map_:
+        if parsed_url.hostname in GitHost._value2member_map_:
             path = parsed_url.path
             name = path.rsplit("/", 1)[-1] if "/" in path else path
             if name.endswith(".git"):

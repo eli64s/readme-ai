@@ -1,8 +1,8 @@
-"""Generate the style of badges for the README file."""
+"""Logic for generating badges for the README file."""
 
 from pkg_resources import resource_filename
 
-from readmeai.config.settings import AppConfig, DefaultHosts
+from readmeai.config.settings import AppConfig, GitHost
 from readmeai.core import factory, logger
 from readmeai.utils import utils
 
@@ -48,7 +48,7 @@ def get_badges(svg_icons: dict, dependencies: list) -> str:
 
 def get_badges_md_template(conf: AppConfig) -> str:
     """Return markdown template for badges"""
-    if conf.git.source == DefaultHosts.LOCAL.value:
+    if conf.git.source == GitHost.LOCAL.value:
         return conf.md.badges_offline
     else:
         return conf.md.badges
