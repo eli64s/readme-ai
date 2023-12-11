@@ -1,1 +1,7 @@
-site_name: My Docs
+site_name: readme-ai
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+    #

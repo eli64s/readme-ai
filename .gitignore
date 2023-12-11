@@ -50,7 +50,6 @@ Pipfile
 Pipfile.lock
 
 # Temporarily Ignored
-mkdocs.yml
 docs/docs
 docs/notes
 examples/markdown/readme-edgecase.md
