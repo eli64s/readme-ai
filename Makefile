@@ -3,7 +3,7 @@
 SHELL = /bin/bash
 VENV := readmeai
 
-.PHONY: help clean format lint reqs conda venv git-rm-cache
+.PHONY: help clean format lint reqs conda venv git-rm-cache test
 
 help:
 	@echo "Commands:"
@@ -14,6 +14,7 @@ help:
 	@echo "conda        : creates a conda environment."
 	@echo "venv         : creates a virtual environment."
 	@echo "git-rm-cache : fix git untracked files."
+	@echo "test         : executes tests."
 
 .PHONY: clean
 clean: format
@@ -35,9 +36,7 @@ reqs:
 
 .PHONY: conda
 conda:
-	conda create -n $(VENV) python=3.10 pip -y &&
-	conda activate $(VENV) &&
-	$(MAKE) reqs
+	conda create -f setup/environment.yml
 
 .PHONY: venv
 venv:
@@ -45,5 +44,10 @@ venv:
 	source $(VENV)/bin/activate && \
 	$(MAKE) reqs
 
+.PHONY: git-rm-cache
 git-rm-cache:
 	git rm -r --cached .
+
+.PHONY: test
+test:
+	bash scripts/test.sh
