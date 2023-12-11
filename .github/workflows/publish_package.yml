@@ -1,4 +1,4 @@
-name: Publish Python Package to PyPI
+name: Publish Python Package
 
 on:
   push:
@@ -13,19 +13,48 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-    - name: Install dependencies
+
+    # Install dependencies for PyPI publishing
+    - name: Install PyPI dependencies
       run: |
         python -m pip install --upgrade pip
         pip install build
         pip install twine
-    - name: Build package
+
+    # Build and publish to PyPI
+    - name: Build package for PyPI
       run: python -m build
-    - name: Publish package
+
+    - name: Publish package to PyPI
       run: python -m twine upload --skip-existing dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+    # Conda package building and publishing
+    - name: Install Conda and Conda-Build
+      run: |
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        bash miniconda.sh -b -p $HOME/miniconda
+        source $HOME/miniconda/etc/profile.d/conda.sh
+        conda update --yes conda
+        conda install --yes conda-build
+
+    - name: Build Conda package
+      run: |
+        conda build .
+
+    - name: Convert Conda package for other platforms
+      run: |
+        conda convert --platform all $HOME/miniconda/conda-bld/linux-64/*.tar.bz2 --output-dir dist_conda/
+
+    - name: Publish package to Anaconda
+      run: |
+        anaconda upload dist_conda/*/*.tar.bz2
+      env:
+        ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
