@@ -23,11 +23,11 @@ scripts/
 # Jupyter notebooks
 notebooks/
 
-# Temporarily Ignore
-docs/
-examples/
-mkdocs.yml
-
 # Package Management
 Pipfile
 Pipfile.lock
+
+# Documentation
+docs/
+examples/
+mkdocs.yml
