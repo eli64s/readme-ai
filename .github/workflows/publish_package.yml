@@ -1,4 +1,4 @@
-name: Publish Python Package
+name: Publish to PyPI, Anaconda, and Docker Hub
 
 on:
   push:
@@ -12,54 +12,76 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
-    # Install dependencies for PyPI publishing
-    - name: Install PyPI dependencies
+    - name: Install PyPI dependencies for publishing packages
       run: |
         python -m pip install --upgrade pip
         pip install build
         pip install twine
 
-    # Build and publish to PyPI
-    - name: Build package for PyPI
-      run: python -m build
-
-    - name: Publish package to PyPI
-      run: python -m twine upload --skip-existing dist/*
+    - name: Build and publish to PyPI
+      run: |
+        python -m build
+        python -m twine upload --skip-existing dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
 
-
-    # Conda package building and publishing
     - name: Install Conda and Conda-Build
       run: |
         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
         bash miniconda.sh -b -p $HOME/miniconda
+        echo "source $HOME/miniconda/etc/profile.d/conda.sh" >> $GITHUB_ENV
         source $HOME/miniconda/etc/profile.d/conda.sh
+        conda init bash
         conda update --yes conda
-        conda install --yes conda-build  # Install conda-build
+        conda install --yes conda-build
+        conda install -c conda-forge grayskull
+      shell: bash -l {0}
 
-    - name: Build Conda package
+    - name: Generate Conda recipe
       run: |
-        conda build .
-      shell: /usr/bin/bash -e {0}
-      env:
-        pythonLocation: /opt/hostedtoolcache/Python/3.12.0/x64
-        LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.0/x64/lib
+        grayskull pypi readmeai
+        conda build readmeai
+      shell: bash -l {0}
 
     - name: Convert Conda package for other platforms
       run: |
-        conda convert --platform all $HOME/miniconda/conda-bld/linux-64/*.tar.bz2 --output-dir dist_conda/
+        conda convert --platform all $HOME/miniconda/conda-bld/linux-64/readmeai-*.tar.bz2 --output-dir dist_conda/
 
     - name: Publish package to Anaconda
       run: |
         anaconda upload dist_conda/*/*.tar.bz2
       env:
         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+
+    - name: Docker Hub build and push image.
+      run: |
+        echo "Waiting 30 seconds for Docker Hub to process the release..."
+        sleep 30
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+        push: true
+        tags: zeroxeli/readme-ai:latest

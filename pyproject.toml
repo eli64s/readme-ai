@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.072"
+version = "0.4.073"
 description = "🚀 Generate beautiful README files from the terminal, powered by OpenAI's GPT language models 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -54,7 +54,6 @@ pydantic = ">=1.10.9,<2.0.0"
 aiohttp = "^3.8.5"
 click = "^8.1.7"
 
-
 [tool.poetry.dev-dependencies]
 black = "*"
 flake8 = "*"
@@ -90,7 +89,7 @@ exclude = '''
     | dist
   )/
 '''
-virtual_env = "venv"
+virtual_env = "poetry"
 
 [tool.isort]
 line_length = 79
