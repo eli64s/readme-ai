@@ -1,6 +1,3 @@
-## Features
-
-<br>
 <div>
 <details>
     <summary style="display: flex; align-items: center;">

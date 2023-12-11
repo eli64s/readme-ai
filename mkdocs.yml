@@ -1,7 +1,43 @@
 site_name: readme-ai
+site_description: Automated README generation for your GitHub repositories.
+#site_url: https://
+
 theme:
-  name: material
+  name: "material"
+  custom_dir: docs/overrides
   palette:
-    primary: blue
-    accent: blue
-    #
+    - scheme: "default"
+      primary: "blueviolet"
+      accent: "deeporange"
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: "material/weather-night"
+        name: "Switch to dark mode"
+    - scheme: "slate"
+      primary: "blueviolet"
+      accent: "deeporange"
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: "material/weather-sunny"
+        name: "Switch to light mode"
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+extra_css:
+  - css/termynal.css
+  - css/custom.css
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js
+extra:
+  version:
+    provider: mike
+plugins:
+  - mkdocstrings
+  - mike:
+      version_selector: true
+  - search:
