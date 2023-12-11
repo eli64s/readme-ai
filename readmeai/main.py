@@ -58,16 +58,14 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
 
     try:
         temp_dir = vcs.clone_repo_to_temp_dir(repository)
-        tree_generator = tree.TreeGenerator(
-            conf_helper,
-            temp_dir,
-            repository,
+        repo_tree = tree.TreeGenerator(
+            conf_helper=conf_helper,
+            root_directory=temp_dir,
+            repo_url=repository,
             project_name=name,
-            max_depth=3,
-        )
-        tree_str = tree_generator.generate_and_format_tree()
-        conf.md.tree = conf.md.tree.format(tree_str)
-        logger.info(f"Repository tree: {conf.md.tree}")
+        ).generate_and_format_tree()
+        conf.md.tree = conf.md.tree.format(repo_tree)
+        logger.info(f"Directory tree structure: {conf.md.tree}")
 
         parser = preprocess.RepositoryParser(conf, conf_helper)
         dependencies, files = parser.get_dependencies(temp_dir)
@@ -79,15 +77,15 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                 files,
                 conf_helper.ignore_files,
                 conf.prompts.summaries,
-                tree_str,
+                repo_tree,
             )
             prompts = [
                 conf.prompts.slogan.format(conf.git.name),
                 conf.prompts.overview.format(
-                    repository, tree_str, dependencies, code_summary
+                    repository, repo_tree, dependencies, code_summary
                 ),
                 conf.prompts.features.format(
-                    repository, tree_str, dependencies, code_summary
+                    repository, repo_tree, dependencies, code_summary
                 ),
             ]
             slogan, overview, features = await llm.chat_to_text(prompts)
@@ -108,9 +106,9 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         conf.md.intro = conf.md.intro.format(overview, features)
         headers.build_readme_md(conf, conf_helper, dependencies, code_summary)
 
-    except Exception as excinfo:
+    except Exception as exc_info:
         logger.error(
-            f"Exception: {excinfo}\nStacktrace: {traceback.format_exc()}"
+            f"Exception: {exc_info}\nStacktrace: {traceback.format_exc()}"
         )
     finally:
         await llm.close()

@@ -4,14 +4,11 @@
 
 Automatically generate beautiful README files using OpenAI's GPT language models.
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=cicd&color=blueviolet)
-[![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=blueviolet)](https://app.codecov.io/gh/eli64s/readme-ai)
-[![PyPI version](https://img.shields.io/pypi/v/readmeai?color=blueviolet)](https://badge.fury.io/py/readmeai)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=blueviolet)](https://pypi.python.org/pypi/readmeai/)
-![License: MIT](https://img.shields.io/github/license/eli64s/readme-ai?color=blueviolet)
-<!--
-![GitHub last commit](https://img.shields.io/github/last-commit/eli64s/readme-ai.svg?color=blueviolet)
--->
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=cicd&color=c125ff)
+[![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff)](https://app.codecov.io/gh/eli64s/readme-ai)
+[![PyPI version](https://img.shields.io/pypi/v/readmeai?color=c125ff)](https://badge.fury.io/py/readmeai)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff)](https://pypi.python.org/pypi/readmeai/)
+![License: MIT](https://img.shields.io/github/license/eli64s/readme-ai?color=c125ff)
 
 ---
 

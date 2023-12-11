@@ -52,9 +52,9 @@ def format_readme_md_contents(
     )
 
     if "apps" not in conf.md.badge_style:
-        badge_icons = badges.get_shieldsio_icons(conf, packages, full_name)
+        badge_icons = badges.shieldsio_icons(conf, packages, full_name)
     else:
-        badge_icons = badges.get_app_icons(conf, packages)
+        badge_icons = badges.skill_icons(conf, packages)
 
     repo_path = f"../{repo_name}" if conf.git.source == "local" else repository
     instructions = quickstart.create_instructions(conf, helper, summaries)

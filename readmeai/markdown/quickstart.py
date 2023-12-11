@@ -14,11 +14,11 @@ def create_instructions(
     conf: AppConfig, helper: ConfigHelper, summaries: List[str]
 ):
     """Generates the 'Quick Start' section of the README file."""
-    try:
-        default_install_command = (
-            default_run_command
-        ) = default_test_command = conf.md.default
+    default_install_command = (
+        default_run_command
+    ) = default_test_command = conf.md.default
 
+    try:
         language_counts = {}
         for module, _ in summaries:
             language = Path(module).suffix[1:]

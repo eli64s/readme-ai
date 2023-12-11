@@ -1,4 +1,4 @@
-"""Generates a tree structure for a given directory."""
+"""Generates a directory tree structure for a code repository."""
 
 from pathlib import Path
 
@@ -10,7 +10,7 @@ logger = logger.Logger(__name__)
 
 
 class TreeGenerator:
-    """Generates a tree structure for a given directory."""
+    """Generates a directory tree structure for a code repository."""
 
     def __init__(
         self,
@@ -60,7 +60,6 @@ class TreeGenerator:
                     if child.name != ".git"
                 ]
             )
-
             for index, child in enumerate(children):
                 is_last_child = index == len(children) - 1
                 child_prefix = "    " if is_last else "│   "
