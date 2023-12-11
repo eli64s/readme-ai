@@ -36,6 +36,7 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
 
+
     # Conda package building and publishing
     - name: Install Conda and Conda-Build
       run: |
@@ -43,11 +44,15 @@ jobs:
         bash miniconda.sh -b -p $HOME/miniconda
         source $HOME/miniconda/etc/profile.d/conda.sh
         conda update --yes conda
-        conda install --yes conda-build
+        conda install --yes conda-build  # Install conda-build
 
     - name: Build Conda package
       run: |
         conda build .
+      shell: /usr/bin/bash -e {0}
+      env:
+        pythonLocation: /opt/hostedtoolcache/Python/3.12.0/x64
+        LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.0/x64/lib
 
     - name: Convert Conda package for other platforms
       run: |
