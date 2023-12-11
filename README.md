@@ -4,7 +4,7 @@
 
 Automatically generate beautiful README files using OpenAI's GPT language models.
 
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=cicd&color=c125ff)](https://github.com/eli64s/readme-ai/actions)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff)](https://github.com/eli64s/readme-ai/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff)](https://app.codecov.io/gh/eli64s/readme-ai)
 [![PyPI version](https://img.shields.io/pypi/v/readmeai?color=c125ff)](https://badge.fury.io/py/readmeai)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff)](https://pypi.python.org/pypi/readmeai/)
@@ -408,6 +408,13 @@ docker pull zeroxeli/readme-ai:latest
 
 <br>
 
+Using `conda`
+```bash
+conda install -c conda-forge readmeai
+```
+
+<br>
+
 Alternatively, clone the readme-ai repository and build from source.
 
 ```bash
@@ -422,15 +429,6 @@ Then use one of the methods below to install the project's dependencies (Bash, C
 Using `bash`
 ```bash
 bash setup/setup.sh
-```
-
-<br>
-
-Using `conda`
-```bash
-conda create -n readmeai python=3.9 -y && \
-conda activate readmeai && \
-pip install -r requirements.txt
 ```
 
 <br>
@@ -577,8 +575,7 @@ readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
 
 Using `conda`
 ```bash
-conda activate readmeai && \
-python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
+readmeai -r https://github.com/eli64s/readme-ai
 ```
 
 <br>
