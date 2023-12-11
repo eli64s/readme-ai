@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.070"
+version = "0.4.071"
 description = "🚀 Generate beautiful README files from the terminal, powered by OpenAI's GPT language models 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -27,7 +27,9 @@ keywords = [
   "chatgpt",
   "genai",
   "gpt-4-turbo",
-  "gpt-4-1106-preview"
+  "gpt-4-1106-preview",
+  "python",
+  "autodoc",
 ]
 include = ["readmeai", "readmeai.*"]
 
@@ -35,7 +37,7 @@ include = ["readmeai", "readmeai.*"]
 readmeai = "readmeai.cli.commands:commands"
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.8.1,<4.0.0"
 colorlog = "^6.7.0"
 cachetools = "^5.3.1"
 gitpython = "^3.1.31"
