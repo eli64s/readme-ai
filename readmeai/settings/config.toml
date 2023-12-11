@@ -25,7 +25,7 @@ ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
 shieldsio_icons = "data/shieldsio.json"
-app_icons = "data/apps.json"
+skill_icons = "data/skill_icons.json"
 output = "readme-ai.md"
 
 # Prompts
