@@ -1,4 +1,4 @@
-# Pre-commit hooks
+# Pre-commit hooks configuration file - https://pre-commit.com/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -16,7 +16,9 @@ repos:
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: trailing-whitespace
+
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
       - id: black
+        language_version: python3
