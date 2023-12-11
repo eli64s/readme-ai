@@ -1,4 +1,4 @@
-name: Publish to PyPI, Anaconda, and Docker Hub
+name: Build and Deploy to PyPI and Docker Hub
 
 on:
   push:
@@ -33,37 +33,9 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
 
-    - name: Install Conda and Conda-Build
-      run: |
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        bash miniconda.sh -b -p $HOME/miniconda
-        echo "source $HOME/miniconda/etc/profile.d/conda.sh" >> $GITHUB_ENV
-        source $HOME/miniconda/etc/profile.d/conda.sh
-        conda init bash
-        conda update --yes conda
-        conda install --yes conda-build
-        conda install -c conda-forge grayskull
-      shell: bash -l {0}
-
-    - name: Generate Conda recipe
-      run: |
-        grayskull pypi readmeai
-        conda build readmeai
-      shell: bash -l {0}
-
-    - name: Convert Conda package for other platforms
-      run: |
-        conda convert --platform all $HOME/miniconda/conda-bld/linux-64/readmeai-*.tar.bz2 --output-dir dist_conda/
-
-    - name: Publish package to Anaconda
-      run: |
-        anaconda upload dist_conda/*/*.tar.bz2
-      env:
-        ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-
     - name: Docker Hub build and push image.
       run: |
-        echo "Waiting 30 seconds for Docker Hub to process the release..."
+        echo "Waiting 30 seconds for Docker Hub to process the PyPI package..."
         sleep 30
 
     - name: Set up QEMU
