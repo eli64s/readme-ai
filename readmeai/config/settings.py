@@ -1,11 +1,11 @@
 """Data models for configuration constants."""
 
 from enum import Enum
+from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse, urlsplit
 
-from pkg_resources import resource_filename
 from pydantic import BaseModel, validator
 
 from readmeai.core import factory, logger
@@ -243,10 +243,9 @@ class ConfigHelper(BaseModel):
 
 def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
-    path = Path(
-        resource_filename("readmeai", f"settings/{file_path}")
-    ).resolve()
-    return handler.read(path)
+    resource_dir = resources.files("readmeai.settings")
+    resource_path = resource_dir / file_path
+    return handler.read(resource_path)
 
 
 def load_config(path: str = "config.toml") -> AppConfig:

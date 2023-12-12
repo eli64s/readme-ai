@@ -1,6 +1,7 @@
 """Methods to generate badges for the README file."""
 
-from pkg_resources import resource_filename
+from importlib import resources
+from pathlib import Path
 
 from readmeai.config.settings import AppConfig, GitHost
 from readmeai.core import factory, logger
@@ -60,10 +61,13 @@ def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
     md_template = get_badges_md_template(conf)
-    badges_path = resource_filename(
-        __package__, f"{conf.paths.shieldsio_icons}"
-    )
-    badges_dict = factory.FileHandler().read(badges_path)
+
+    package = __package__
+    resource_name = conf.paths.shieldsio_icons
+    resource_dir = resources.files(package)
+    resource_path = resource_dir / resource_name
+    badges_dict = factory.FileHandler().read(resource_path)
+
     shieldsio_icons = md_template.format(
         generate_html(badges_dict, packages).format(conf.md.badge_style),
         full_name,
@@ -83,10 +87,13 @@ def skill_icons(conf: AppConfig, dependencies: list) -> str:
     repository - https://github.com/tandpfun/skill-icons.
     """
     conf.md.header = "<!---->\n"
-    app_icons_path = resource_filename(
-        __package__, f"{conf.paths.skill_Icons}"
-    )
-    icons_dict = factory.FileHandler().read(app_icons_path)
+
+    package = __package__
+    resource_name = conf.paths.skill_icons
+    resource_dir = resources.files(package)
+    resource_path = resource_dir / resource_name
+    icons_dict = factory.FileHandler().read(resource_path)
+
     filtered_icons = [
         icon for icon in icons_dict["icons"]["names"] if icon in dependencies
     ]
