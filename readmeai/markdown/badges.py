@@ -1,7 +1,6 @@
 """Methods to generate badges for the README file."""
 
 from importlib import resources
-from pathlib import Path
 
 from readmeai.config.settings import AppConfig, GitHost
 from readmeai.core import factory, logger
