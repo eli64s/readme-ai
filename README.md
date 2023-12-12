@@ -615,8 +615,8 @@ Try <em>readme-ai</em> in your browser, no installation required!
 ### 🧪 Tests
 
 Execute the following command to run the test suite.
-```bash
-bash scripts/test.sh
+```sh
+make test
 ```
 
 ---

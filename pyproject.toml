@@ -1,10 +1,10 @@
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.075"
+version = "0"
 description = "🚀 Generate beautiful README files from the terminal, powered by OpenAI's GPT language models 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -55,22 +55,13 @@ aiohttp = "^3.8.5"
 click = "^8.1.7"
 
 [tool.poetry.dev-dependencies]
-black = "*"
-flake8 = "*"
-isort = "*"
 pytest = "*"
 pytest-cov = "*"
-pre-commit = "*"
 
-[tool.poetry.extras]
-dev = [
-    "black",
-    "flake8",
-    "isort",
-    "pytest",
-    "pytest-cov",
-    "pre-commit",
-]
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
 
 [tool.black]
 line-length = 79
@@ -87,9 +78,15 @@ exclude = '''
     | buck-out
     | build
     | dist
+    | notebooks
   )/
 '''
 virtual_env = "poetry"
+
+[tool.flake8]
+max-line-length = 79
+extend-ignore = ["E203", "W503"]
+exclude = ".venv,.git,.tox,docs,venv,bin,lib,deps,build,tests,examples,notebooks"
 
 [tool.isort]
 line_length = 79
@@ -100,16 +97,14 @@ include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
 
-[tool.pytest.ini_options]
-addopts = "-v -ra --strict-markers --disable-pytest-warnings"
-markers = "asyncio: marks tests as asyncio."
-python_files = "test_*.py"
-testpaths = ["tests"]
-
 [tool.coverage.run]
-omit = ["tests/*", "readmeai/__init__.py", "readmeai/*/__init__.py"]
+branch = true
+source = ["readmeai", "tests"]
+omit = ["tests/*", "*__init__.py", "*/__init__.py"]
 
-[tool.flake8]
-max-line-length = 79
-extend-ignore = ["E203", "W503"]
-exclude = ".git,__pycache__,build,dist,*.egg-info"
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+
+[tool.coverage.xml]
+output = "coverage.xml"
