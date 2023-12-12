@@ -8,9 +8,8 @@ WORKDIR /app
 ENV GIT_PYTHON_REFRESH=quiet
 
 # Install system dependencies and clean up apt cache
-RUN apt-get update && apt-get install -y \
-    git && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user with a specific UID and GID (i.e. 1000 in this case)
 RUN groupadd -r tempuser -g 1000 && \
@@ -31,4 +30,5 @@ ENV PATH=/home/tempuser/.local/bin:$PATH
 RUN pip install --no-cache-dir --user --upgrade readmeai
 
 # Set the command to run the CLI
-CMD ["readmeai"]
+ENTRYPOINT ["readmeai"]
+CMD ["--help"]
