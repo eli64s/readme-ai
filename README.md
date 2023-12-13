@@ -349,8 +349,8 @@ Streamlit Community Cloud
 
 Please ensure you have the following dependencies installed on your system:
 
-- *Python version 3.9 or higher*
-- *Package manager (i.e. pip, conda, poetry) or Docker*
+- *Python version 3.10 or higher*
+- *Pip, Docker, Conda, Pipenv, or Poetry*
 - *OpenAI API paid account and API key*
 
 <br>
@@ -568,7 +568,7 @@ Using `docker`
 docker run -it \
 -e OPENAI_API_KEY=$OPENAI_API_KEY \
 -v "$(pwd)":/app zeroxeli/readme-ai:latest \
-readmeai -o readme-ai.md -r https://github.com/eli64s/readme-ai
+-r https://github.com/eli64s/readme-ai
 ```
 
 <br>
@@ -596,7 +596,7 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 
 <br>
 
-Using `Streamlit`
+Using `streamlit`
 
 Try <em>readme-ai</em> in your browser, no installation required!
 
@@ -604,19 +604,22 @@ Try <em>readme-ai</em> in your browser, no installation required!
 
 > [!NOTE]
 >
-> Hosted on Streamlit's Community Cloud. It may be unstable or unavailable at times.
+> App is hosted on the <a href="https://streamlit.io/">Streamlit Community Cloud</a> and may be unavailable at times.
 >
-> Not as feature-rich as the CLI, but it's a great way to get started with *readme-ai*.
->
-> For more details about the Streamlit app, see the <a href="https://github.com/eli64s/readmeai-ui">readmeai-ui</a> repository.
+> For more details about application, see the <a href="https://github.com/eli64s/readmeai-ui">readmeai-ui</a> repository.
 
 ---
 
 ### 🧪 Tests
 
-Execute the following command to run the test suite.
+Run tests via pytest.
 ```sh
 make test
+```
+
+Run tests against multiple Python versions *`(3.9, 3.10, 3.11, 3.12)`* via nox.
+```sh
+nox -f noxfile.py
 ```
 
 ---

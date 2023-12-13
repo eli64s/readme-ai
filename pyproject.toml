@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.077"
+version = "0.4.078"
 description = "🚀 Generate beautiful README files from the terminal, powered by OpenAI's GPT language models 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -12,24 +12,23 @@ readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
 keywords = [
-  "readme",
-  "documentation",
-  "devtools",
-  "openai",
-  "readme-md",
-  "readme-generator",
-  "openai-api",
-  "automated-readme",
   "auto-readme",
+  "automated-readme",
+  "automated-documentation",
+  "readme",
+  "readme-md",
+  "readme-badges",
+  "readme-generator",
   "readme-md-generator",
-  "gpt-4",
+  "developer-tools",
+  "ai-assisted-development",
   "llm",
-  "chatgpt",
-  "genai",
-  "gpt-4-turbo",
-  "gpt-4-1106-preview",
-  "python",
   "autodoc",
+  "chatgpt",
+  "gpt-4",
+  "gpt-readme",
+  "openai-api",
+  "shieldsio-badges"
 ]
 include = ["readmeai", "readmeai.*"]
 
@@ -37,7 +36,7 @@ include = ["readmeai", "readmeai.*"]
 readmeai = "readmeai.cli.commands:commands"
 
 [tool.poetry.dependencies]
-python = "^3.10.0,<4.0.0"
+python = "^3.8.1,<4.0.0"
 colorlog = "^6.7.0"
 cachetools = "^5.3.1"
 gitpython = "^3.1.31"
@@ -57,11 +56,9 @@ click = "^8.1.7"
 [tool.poetry.dev-dependencies]
 pytest = "*"
 pytest-cov = "*"
-
-# [tool.poetry-dynamic-versioning]
-# enable = true
-# vcs = "git"
-# style = "semver"
+pytest-randomly = "*"
+pytest-sugar = "*"
+pytest-xdist = "*"
 
 [tool.black]
 line-length = 79
@@ -100,10 +97,10 @@ use_parentheses = true
 [tool.coverage.run]
 # branch = true
 source = ["readmeai", "tests"]
-omit = ["tests/*", "*__init__.py", "*/__init__.py"]
+omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "setup.py"]
 
 [tool.coverage.report]
-# fail_under = 100
+fail_under = 69
 show_missing = true
 
 [tool.coverage.xml]

@@ -16,10 +16,11 @@ Thumbs.db
 *~
 
 # Test coverage results
-htmlcov/
+.nox/
 .coverage
 .coverage.*
 coverage.xml
+htmlcov/
 
 # Log files
 logs/

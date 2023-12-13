@@ -3,14 +3,14 @@
 SHELL = /bin/bash
 VENV := readmeai
 
-.PHONY: help clean format lint build-conda git-rm-cache file-search test
+.PHONY: help clean format lint conda-recipe git-rm-cache file-search test
 
 help:
 	@echo "Commands:"
 	@echo "clean        : repository file cleanup."
 	@echo "format       : executes code formatting."
 	@echo "lint         : executes code linting."
-	@echo "build-conda  : builds conda package."
+	@echo "conda-recipe  : builds conda package."
 	@echo "git-rm-cache : fix git untracked files."
 	@echo "file-search  : search for text in files."
 	@echo "test         : executes tests."
@@ -29,10 +29,10 @@ lint:
 	-flake8 ${CURDIR}
 	-ruff ${CURDIR}
 
-.PHONY: build-conda
-build-conda:
+.PHONY: conda-recipe
+conda-recipe:
 	grayskull pypi readmeai
-	conda build -c conda-forge -c pytorch -c anaconda -c defaults .
+	conda build .
 
 .PHONY: git-rm-cache
 git-rm-cache:
@@ -45,6 +45,7 @@ file-search:
 .PHONY: test
 test:
 	pytest \
+	-n auto \
 	--cov=./ \
 	--cov-report=xml \
 	--cov-report=term-missing
