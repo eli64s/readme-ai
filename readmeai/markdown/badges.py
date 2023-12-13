@@ -1,6 +1,9 @@
 """Methods to generate badges for the README file."""
 
 from importlib import resources
+from pathlib import Path
+
+from pkg_resources import resource_filename
 
 from readmeai.config.settings import AppConfig, GitHost
 from readmeai.core import factory, logger
@@ -61,10 +64,8 @@ def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
     """
     md_template = get_badges_md_template(conf)
 
-    package = __package__
-    resource_name = conf.paths.shieldsio_icons
-    resource_dir = resources.files(package)
-    resource_path = resource_dir / resource_name
+    resource_path = get_resource_path(__package__, conf.paths.shieldsio_icons)
+
     badges_dict = factory.FileHandler().read(resource_path)
 
     shieldsio_icons = md_template.format(
@@ -87,10 +88,8 @@ def skill_icons(conf: AppConfig, dependencies: list) -> str:
     """
     conf.md.header = "<!---->\n"
 
-    package = __package__
-    resource_name = conf.paths.skill_icons
-    resource_dir = resources.files(package)
-    resource_path = resource_dir / resource_name
+    resource_path = get_resource_path(__package__, conf.paths.skill_icons)
+
     icons_dict = factory.FileHandler().read(resource_path)
 
     filtered_icons = [
@@ -105,3 +104,14 @@ def skill_icons(conf: AppConfig, dependencies: list) -> str:
         conf.git.name.upper(), conf.prompts.slogan, app_icons
     )
     return app_icons
+
+
+def get_resource_path(package: str, resource_name: str) -> Path:
+    """Get the path of a resource in a package, with fallback if not installed via pip."""
+    try:
+        # First, try using importlib.resources
+        resource_path = resources.files(package) / resource_name
+    except (TypeError, FileNotFoundError):
+        # Fallback to pkg_resources if the package is run directly from source
+        resource_path = Path(resource_filename(package, resource_name))
+    return resource_path

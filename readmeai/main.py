@@ -31,7 +31,8 @@ def main(
     repository: str,
     temperature: float,
 ) -> None:
-    """Entrypoint for the readme-ai application."""
+    """README-AI CLI application main function."""
+    logger.info("Starting readme-ai execution.")
     conf = load_config()
     conf_model = AppConfigModel(app=conf)
     conf_helper = load_config_helper(conf_model)
@@ -47,28 +48,29 @@ def main(
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    logger.info("Starting readme-ai execution.")
-    logger.info(f"Processing {conf.git.source}: {conf.git.repository}")
-    logger.info(f"Setting LLM engine to: {conf.api.model}")
-    logger.info(f"Saving output file as: {conf.paths.output}")
+    logger.info(f"Processing repo: {conf.git.source}: {conf.git.repository}")
+    logger.info(f"Using llm model: {conf.api.model}")
+    logger.info(f"Output file path: {conf.paths.output}")
 
     llm = model.OpenAIHandler(conf)
     name = conf.git.name
-    repository = conf.git.repository
+    repo = conf.git.repository
 
     try:
-        temp_dir = vcs.clone_repo_to_temp_dir(repository)
+        temp_dir = vcs.clone_repo_to_temp_dir(repo)
         repo_tree = tree.TreeGenerator(
             conf_helper=conf_helper,
             root_directory=temp_dir,
-            repo_url=repository,
+            repo_url=repo,
             project_name=name,
         ).generate_and_format_tree()
         conf.md.tree = conf.md.tree.format(repo_tree)
+
         logger.info(f"Directory tree structure: {conf.md.tree}")
 
         parser = preprocess.RepositoryParser(conf, conf_helper)
         dependencies, files = parser.get_dependencies(temp_dir)
+
         logger.info(f"Dependencies: {dependencies}")
 
         # Generate README.md file contents via OpenAI API.
@@ -82,10 +84,10 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
             prompts = [
                 conf.prompts.slogan.format(conf.git.name),
                 conf.prompts.overview.format(
-                    repository, repo_tree, dependencies, code_summary
+                    repo, repo_tree, dependencies, code_summary
                 ),
                 conf.prompts.features.format(
-                    repository, repo_tree, dependencies, code_summary
+                    repo, repo_tree, dependencies, code_summary
                 ),
             ]
             slogan, overview, features = await llm.chat_to_text(prompts)
