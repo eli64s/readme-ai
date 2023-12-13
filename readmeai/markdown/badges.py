@@ -109,9 +109,7 @@ def skill_icons(conf: AppConfig, dependencies: list) -> str:
 def get_resource_path(package: str, resource_name: str) -> Path:
     """Get the path of a resource in a package, with fallback if not installed via pip."""
     try:
-        # First, try using importlib.resources
         resource_path = resources.files(package) / resource_name
     except (TypeError, FileNotFoundError):
-        # Fallback to pkg_resources if the package is run directly from source
-        resource_path = Path(resource_filename(package, resource_name))
+        resource_path = resource_filename(package, resource_name)
     return resource_path

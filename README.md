@@ -349,8 +349,8 @@ Streamlit Community Cloud
 
 Please ensure you have the following dependencies installed on your system:
 
-- *Python version 3.10 or higher*
-- *Pip, Docker, Conda, Pipenv, or Poetry*
+- *Python 3.9+*
+- *Pip, Docker, Poetry, Pipenv, or Conda*
 - *OpenAI API paid account and API key*
 
 <br>

@@ -1,12 +1,13 @@
 """Data models for configuration constants."""
 
+import os
 from enum import Enum
 from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse, urlsplit
 
-from pkg_resources import resource_filename
+import pkg_resources
 from pydantic import BaseModel, validator
 
 from readmeai.core import factory, logger
@@ -245,16 +246,23 @@ class ConfigHelper(BaseModel):
 def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
     try:
-        # For python>=3.10.0 use importlib.resources
         resource_path = resources.files("readmeai.settings") / file_path
-    except TypeError:
-        # Fallback using pkg_resources
+        logger.info(f"Resource path using importlib: {resource_path}")
+    except TypeError as exc_info:
+        logger.debug(f"Error with importlib.resources: {exc_info}")
         try:
             resource_path = Path(
-                resource_filename("readmeai.settings", file_path)
-            )
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Config file not found: {file_path}")
+                pkg_resources.resource_filename(
+                    "readmeai", f"settings/{file_path}"
+                )
+            ).resolve()
+            logger.info(f"Resource path using pkg_resources: {resource_path}")
+        except FileNotFoundError as exc_info:
+            logger.debug(f"Error with pkg_resources: {exc_info}")
+            raise
+
+    if not os.path.exists(resource_path):
+        raise FileNotFoundError(f"Config file not found: {resource_path}")
 
     return handler.read(resource_path)
 
