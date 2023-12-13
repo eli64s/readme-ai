@@ -28,8 +28,8 @@ function clean_pyc() {
 
 function clean_test() {
     echo "Removing test and coverage artifacts..."
-    rm -fr .tox/
-    rm -f .coverage coverage.xml
+    rm -f .coverage coverage.*
+    rm -fr .nox/ .tox/
     rm -fr htmlcov/
     rm -fr .pytest_cache/
 }
