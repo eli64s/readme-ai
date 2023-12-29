@@ -1,4 +1,4 @@
-"""Noxfile test automation script."""
+"""Test automation with nox and pytest."""
 
 import nox
 

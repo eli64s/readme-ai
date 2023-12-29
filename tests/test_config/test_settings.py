@@ -1,7 +1,7 @@
 """Unit tests for readmeai.settings."""
 
 from readmeai.config.settings import (
-    BadgeCliOptions,
+    BadgeOptions,
     GitApiUrl,
     GitFileUrl,
     GitHost,
@@ -50,10 +50,10 @@ def test_git_file_urls():
 
 def test_badge_options():
     """Test the CLI options for badge icons."""
-    assert BadgeCliOptions.APPS == "apps"
-    assert BadgeCliOptions.APPS_LIGHT == "apps-light"
-    assert BadgeCliOptions.FLAT == "flat"
-    assert BadgeCliOptions.FLAT_SQUARE == "flat-square"
-    assert BadgeCliOptions.FOR_THE_BADGE == "for-the-badge"
-    assert BadgeCliOptions.PLASTIC == "plastic"
-    assert BadgeCliOptions.SOCIAL == "social"
+    assert BadgeOptions.FLAT == "flat"
+    assert BadgeOptions.FLAT_SQUARE == "flat-square"
+    assert BadgeOptions.FOR_THE_BADGE == "for-the-badge"
+    assert BadgeOptions.PLASTIC == "plastic"
+    assert BadgeOptions.SKILLS == "skills"
+    assert BadgeOptions.SKILLS_LIGHT == "skills-light"
+    assert BadgeOptions.SOCIAL == "social"
