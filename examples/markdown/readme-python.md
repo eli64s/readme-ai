@@ -1,87 +1,81 @@
-<div align="center">
-<h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+<div align="left">
+<h1><img src=https://img.icons8.com/nolan/96/markdown.png width="100" />
 <br>README-AI</h1>
-<h3>◦ Revolutionize your READMEs with AI.</h3>
+<h3>◦ Unleash your code's true potential with ReadmeAI</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
-<p align="center">
-<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
-<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black" alt="tqdm" />
-<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit" />
-<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML" />
-<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry" />
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI" />
+<p align="left">
+<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
+<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=for-the-badge&logo=tqdm&logoColor=black" alt="tqdm" />
+<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=for-the-badge&logo=YAML&logoColor=white" alt="YAML" />
+<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=for-the-badge&logo=Poetry&logoColor=white" alt="Poetry" />
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI" />
 
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
-<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=for-the-badge&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="Pytest" />
 </p>
-<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub license" />
-<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="git-last-commit" />
-<img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=for-the-badge&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=for-the-badge&color=5D6D7E" alt="git-last-commit" />
+<img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai?style=for-the-badge&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=for-the-badge&color=5D6D7E" alt="GitHub top language" />
 </div>
+<hr>
 
----
-
-## 📖 Table of Contents
-- [📖 Table of Contents](#-table-of-contents)
+##  Quick Links
+- [🔗 Quick Links](#-quick-links)
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
-- [📂 repository Structure](#-repository-structure)
-- [⚙️ Modules](#modules)
+- [📂 Repository Structure](#-repository-structure)
+- [🧩 Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
-    - [🔧 Installation](#-installation)
+    - [⚙️ Installation](#-installation)
     - [🤖 Running readme-ai](#-running-readme-ai)
     - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
+- [🚧 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
+##  Overview
 
-## 📍 Overview
-
-The repository readme-ai is an automated tool that generates high-quality README files for software projects. It uses AI algorithms to analyze the project code and metadata, and then generates a comprehensive README file with sections such as project description, installation instructions, usage examples, and contribution guidelines. This tool saves developers time and effort by automating the process of creating informative and professional README files, thereby improving the overall documentation quality of software projects.
+The code repository contains a set of Python scripts and configuration files that enable various functionalities. It includes modules for interacting with npm, tokens, httpx, multidict, python, tqdm, and more. The repository also provides files for managing dependencies, running batch tasks, and testing. It supports different build systems like Maven, Gradle, and Rust. Additionally, it includes Dockerfile for containerization, various utility modules, and integration with pytest. It also supports YAML and TOML configuration formats. The repository utilizes libraries such as requests, urllib3, and pyyaml. It offers logging capabilities through colorlog and includes shell scripts for clean-up and test execution.
 
 ---
 
-## 📦 Features
+##  Features
 
 |    | Feature            | Description                                                                                                        |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**   | The codebase follows a modular architecture with clear separation of concerns. It is organized into different packages: `cli`, `config`, `core`, `markdown`, `services`, and `settings`. The `main.py` file serves as the entry point. It uses a factory design pattern to create instances of different classes. The codebase utilizes a Command Line Interface (CLI) for interaction. Overall, it follows a clean and maintainable architectural design.|
-| 📄 | **Documentation**  | The codebase lacks comprehensive documentation. There are some explanatory comments and docstrings, but a more detailed explanation of classes, functions, and usage is missing. Additional documentation, including a user guide and API documentation, would greatly improve the codebase's comprehensiveness and ease of use. |
-| 🔗 | **Dependencies**   | The codebase relies on a few external libraries such as `Click`, `Pygments`, `Poetry`, and `Toml`. These libraries are well-known and widely used. The `pyproject.toml` and `poetry.lock` files define the project's dependencies and their specific versions, ensuring compatibility and reproducible builds. The codebase also depends on Docker to build and run the project. |
-| 🧩 | **Modularity**     | The codebase is well-organized into modular components. Each package within the `readmeai` directory focuses on a specific functionality. The codebase follows the Single Responsibility Principle, making it easier to maintain and extend. The presence of separate packages for `cli`, `config`, `core`, `markdown`, `services`, and `settings` promotes code reusability and modularity. Adding or modifying functionality can be done by working on the relevant package, without impacting other parts of the codebase. |
-| 🧪 | **Testing**        | The codebase lacks a comprehensive testing strategy. Some test cases are present in the `tests` directory, but they are limited in scope. Integration testing, unit testing, and test coverage seem to be missing. Implementing automated tests using frameworks like `pytest` would enhance code quality and help catch regressions. Continuous integration (CI) workflows defined in the `.github` directory indicate the intent for automated testing, but they are not fully utilized. |
-| ⚡️  | **Performance**    | The codebase does not have any specific performance optimizations mentioned. However, it follows best practices by utilizing appropriate data structures and processing techniques. Since the code primarily operates on plain-text files, the performance is expected to be efficient. There is potential for further optimization, by leveraging caching or parallel processing for computationally intensive tasks. Profiling and benchmarking would help identify any bottlenecks and optimize accordingly. |
-| 🔐 | **Security**       | The codebase does not explicitly address security concerns. It lacks input validation, authentication, and authorization mechanisms, which can pose security risks. To enhance security, proper input validation, secure file handling, and user authentication/authorization should be implemented. Additionally, using security analysis tools like static code analysis and vulnerability scanning would help identify potential security flaws. |
-| 🔀 | **Version Control**| The codebase effectively uses Git for version control. The presence of multiple workflow files in the `.github/workflows` directory indicates the use
+| ⚙️ | **Architecture**   | The codebase follows a modular design pattern with multiple files and directories. It appears to be a Python project structured using a combination of package and module organization. However, without a deeper understanding of the codebase or system's requirements, it is difficult to comment on the specific architectural approach used. |
+| 📄 | **Documentation**  | The codebase does not include any evident documentation files, such as README.md or other related documentation files. Without proper documentation, understanding the codebase, its purpose, and usage may be challenging for new developers or contributors. Adding comprehensive documentation would greatly enhance the usability and maintainability of the codebase.   |
+| 🔗 | **Dependencies**   | The codebase relies on various external libraries and tools such as `httpx`, `tqdm`, `multidict`, `attrs`, `charset-normalizer`, `anyio`, `urllib3`, `yarl`, `click`, `gitpython`, `certifi`, `pydantic`, and more. These dependencies are specified through various files like `requirements.txt`, `pyproject.toml`, and `poetry.lock`. Understanding and managing these dependencies would be crucial for the successful execution of the system. |
+| 🧩 | **Modularity**     | The codebase exhibits a level of modularity with different files and directories for specific functionalities. Key files like `main.py`, `utils.py`, `tokens.py`, `maven.py`, `environment.yaml`, `options.py`, and more suggest the implementation of different modules or components. However, without a deeper dive into the codebase, the exact boundaries and extent of modularity cannot be determined. The codebase could benefit from further organization and documentation of the modules and their responsibilities.   |
+| 🧪 | **Testing**        | It is challenging to evaluate the system's testing strategies and tools without directly examining the codebase. However, some indication of testing can be observed from the presence of files like `test.sh`, `pytest.ini`, and mentions of libraries like `pytest-xdist`, `pytest-cov`, and `pytest-randomly`. These suggest the usage of pytest and potentially other testing tools to execute the tests. A deeper review of the codebase would be required to provide a more comprehensive evaluation of the testing approach. |
+| ⚡️  | **Performance**    | Assessing the system's performance based solely on the repository list is not possible. The codebase comprises various libraries and tools, each with its performance characteristics. The performance of the system will depend on how efficiently and optimally these dependencies are utilized. Assessing the system's performance in terms of speed, efficiency, and resource usage would require profiling or benchmarking the actual running system. Therefore, a thorough performance analysis is not feasible from the provided information.  |
 
 ---
 
-
-## 📂 Repository Structure
+##  Repository Structure
 
 ```sh
 └── readme-ai/
     ├── .github/
     │   ├── release-drafter.yml
     │   └── workflows/
-    │       ├── build_image.yml
-    │       ├── publish_package.yml
-    │       └── release-drafter.yml
+    │       ├── coverage.yml
+    │       ├── release-drafter.yml
+    │       └── release-pipeline.yml
     ├── Dockerfile
     ├── Makefile
     ├── examples/
     │   ├── images/
     │   └── markdown/
+    ├── noxfile.py
     ├── poetry.lock
     ├── pyproject.toml
     ├── readmeai/
@@ -95,7 +89,6 @@ The repository readme-ai is an automated tool that generates high-quality README
     │   │   ├── factory.py
     │   │   ├── logger.py
     │   │   ├── model.py
-    │   │   ├── parser.py
     │   │   ├── preprocess.py
     │   │   └── tokens.py
     │   ├── main.py
@@ -104,10 +97,21 @@ The repository readme-ai is an automated tool that generates high-quality README
     │   │   ├── headers.py
     │   │   ├── quickstart.py
     │   │   ├── tables.py
-    │   │   ├── template.py
     │   │   └── tree.py
+    │   ├── parsers/
+    │   │   ├── base_parser.py
+    │   │   ├── docker.py
+    │   │   ├── factory.py
+    │   │   ├── gomod.py
+    │   │   ├── gradle.py
+    │   │   ├── maven.py
+    │   │   ├── npm.py
+    │   │   ├── python.py
+    │   │   └── rust.py
     │   ├── services/
-    │   │   └── version_control.py
+    │   │   ├── git_metadata.py
+    │   │   ├── git_operations.py
+    │   │   └── git_utilities.py
     │   ├── settings/
     │   │   ├── config.toml
     │   │   ├── dependency_files.toml
@@ -119,9 +123,9 @@ The repository readme-ai is an automated tool that generates high-quality README
     │       └── utils.py
     ├── requirements.txt
     ├── scripts/
-    │   ├── build_image.sh
-    │   ├── build_pypi.sh
     │   ├── clean.sh
+    │   ├── docker.sh
+    │   ├── pypi.sh
     │   ├── run.sh
     │   ├── run_batch.sh
     │   └── test.sh
@@ -134,156 +138,171 @@ The repository readme-ai is an automated tool that generates high-quality README
 ---
 
 
-## ⚙️ Modules
+##  Modules
 
-<details closed><summary>Root</summary>
+<details closed><summary>.</summary>
 
-| File                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| [requirements.txt](https://github.com/eli64s/readme-ai/blob/main/requirements.txt) | The code provided represents a directory structure and a requirements.txt file. The structure includes various directories for code organization, such as.github, examples, readmeai, scripts, and setup. The requirements.txt file lists the dependencies required for the code, including libraries like black, click, gitpython, and pytest. The code structure and dependencies suggest that this code may involve a project related to AI-enabled README generation and documentation management.        |
-| [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile)             | This code is a Dockerfile that builds a Docker image for the "readmeai" package. It starts with a base image of Python 3.9, installs Git, creates a non-root user, and sets up the working directory. It then installs the "readmeai" package from PyPI with a pinned version and sets the command to run the CLI.                                                                                                                                                                                            |
-| [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile)                 | This Makefile provides a set of commands to facilitate repository file cleanup, code formatting, linting, and installing requirements. It also includes commands to create a conda environment (`conda`) or a virtual environment (`venv`) and install the necessary requirements. Finally, there is a command (`git-rm-cache`) to fix git untracked files.                                                                                                                                                   |
-| [pyproject.toml](https://github.com/eli64s/readme-ai/blob/main/pyproject.toml)     | The code represents the configuration settings and dependencies for the "readmeai" project. It includes build system requirements, project metadata (name, version, description, authors, etc.), documentation and homepage URLs, keywords, scripts, dependencies, and development dependencies. The configuration also specifies settings for code formatting (black), import sorting (isort), and testing (pytest).                                                                                         |
-| [poetry.lock](https://github.com/eli64s/readme-ai/blob/main/poetry.lock)           | This is a directory tree layout of a codebase for a project called "readme-ai". It includes a variety of files and directories that organize the codebase and its functionalities. It consists of configuration files, Dockerfile, Makefile, examples, markdown templates, services, settings, and utility modules. These modules provide functionality for command-line interface (CLI), configuration settings, logging, data preprocessing, parsing, tokenization, version control, and utility functions. |
-
-</details>
-
-<details closed><summary>Setup</summary>
-
-| File                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| ---                                                                                      | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [setup.sh](https://github.com/eli64s/readme-ai/blob/main/setup/setup.sh)                 | The code is a script for setting up the README-AI environment. It checks if the'tree' command is installed and installs it if necessary. It also checks if Git and Conda are installed, then checks the Python version and creates a Conda environment named'readmeai' if it doesn't already exist. Finally, it activates the environment, adds the Python path to the PATH environment variable, installs required packages from'requirements.txt', and completes the setup process. |
-| [environment.yaml](https://github.com/eli64s/readme-ai/blob/main/setup/environment.yaml) | The code represents the directory tree structure of a project. It includes various files and folders that are essential for the project's functionalities. The "setup/environment.yaml" file contains the project's environment configuration, specifying the name, channels, and dependencies required to run the project.                                                                                                                                                           |
+| File                                                                               | Summary                                                                                                                                                                                                                                                                                                                         |
+| ---                                                                                | ---                                                                                                                                                                                                                                                                                                                             |
+| [requirements.txt](https://github.com/eli64s/readme-ai/blob/main/requirements.txt) | The code snippet in the `requirements.txt` file specifies the external Python dependencies required by the repository, along with their version constraints.                                                                                                                                                                    |
+| [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile)             | The code snippet is a Dockerfile that sets up the environment for running the ReadmeAI CLI tool. It installs necessary system dependencies, creates a non-root user, sets permissions, and installs the ReadmeAI package from PyPI. Finally, it sets the command to run the CLI tool with default arguments.                    |
+| [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile)                 | The code snippet is a Makefile that contains several commands for repository maintenance and development tasks, such as cleaning up files, formatting code, linting code, building a Conda package, fixing untracked files in Git, searching for text in files, and executing tests.                                            |
+| [pyproject.toml](https://github.com/eli64s/readme-ai/blob/main/pyproject.toml)     | This code snippet contains the configuration and dependencies for the readme-ai repository. It specifies the project name, version, description, authors, license, homepage, documentation, and keywords. It also includes the scripts and dependencies required for the project.                                               |
+| [poetry.lock](https://github.com/eli64s/readme-ai/blob/main/poetry.lock)           | Code snippet summary: Generates README files for repositories.                                                                                                                                                                                                                                                                  |
+| [noxfile.py](https://github.com/eli64s/readme-ai/blob/main/noxfile.py)             | The code in `noxfile.py` defines a function `install` to install the package in the current session. It uses Poetry to install the required dependencies and specifies the groups to install. The file also defines a `tests` session that runs the test suite using different Python versions and generates a coverage report. |
 
 </details>
 
-<details closed><summary>Scripts</summary>
+<details closed><summary>setup</summary>
 
-| File                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ---                                                                                    | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [run_batch.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run_batch.sh)     | The code in the "run_batch.sh" script is used to automate the process of generating readme files for multiple GitHub repositories. It defines an array of repository URLs and iterates through each one. For each repository, it extracts the repository name from the URL and passes it as an argument to the "readmeai" command line interface (CLI) tool. The CLI tool then generates a readme file for that repository by making use of the "readmeai" Python package.                                                                        |
-| [build_image.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/build_image.sh) | The code in the `build_image.sh` script builds a Docker image called `readme-ai` with the version `latest`. It creates a buildx builder, pulls the necessary buildkit, and uses buildx to build and push the Docker image with the specified platform (linux/amd64, linux/arm64). Finally, it displays a success message with the image name and version.                                                                                                                                                                                         |
-| [build_pypi.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/build_pypi.sh)   | The `build_pypi.sh` script is used to automate the process of building and publishing the `readmeai` package to PyPI. This script performs the following steps:1. Runs the `clean.sh` script to clean any previous build artifacts.2. Builds the package using the `python-m build` command.3. Uses `twine` to upload the package to PyPI, using the `--repository-url` flag to specify the PyPI repository and the `-u` and `-p` flags to authenticate using a PyPI API key.4. Displays a success message once the package is published to PyPI. |
-| [run.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run.sh)                 | The `run.sh` script is responsible for running the `readmeai` Python package. It first exports any necessary environment variables and activates the `readmeai` conda environment. Then, it executes the `readmeai` package by running the `python3-m readmeai.cli.commands` command, specifying the output file name (`-o readme-ai.md`) and the GitHub repository URL (`-r https://github.com/eli64s/readme-ai`).                                                                                                                               |
-| [clean.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/clean.sh)             | The code in "scripts/clean.sh" is a bash script that provides a set of commands for cleaning up build artifacts, Python file artifacts, test and coverage artifacts, backup files, and Python cache files. It offers various subcommands such as clean, clean-build, clean-pyc, clean-test, and clean-backup-and-cache, which can be executed from the command line to perform different types of cleaning operations.                                                                                                                            |
-| [test.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/test.sh)               | The code in `test.sh` is a script that sets up the environment for running tests, generates a coverage report, and cleans up afterward. It activates the `readmeai` Conda environment, defines directories to include and exclude from the coverage report, runs the tests using `pytest` with coverage, and displays the coverage report. It then removes unnecessary files and folders, such as `__pycache__`, `.pytest_cache`, `.coverage`, and any files matching `*local_dir*` in the `tests` directory.                                     |
+| File                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                      | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| [setup.sh](https://github.com/eli64s/readme-ai/blob/main/setup/setup.sh)                 | The code snippet is part of the repository setup and environment creation process for the ReadmeAI project. It checks for the existence of a conda environment, installs the tree command if it's not already installed, checks for the presence of Git and Conda, ensures a compatible version of Python is installed, creates a new conda environment if it doesn't already exist, activates the conda environment, adds the Python path to the PATH environment variable, installs required packages using pip, and deactivates the conda environment. |
+| [environment.yaml](https://github.com/eli64s/readme-ai/blob/main/setup/environment.yaml) | The code snippet in setup/environment.yaml specifies dependencies and their versions for the readmeai project, including Python and packages listed in requirements.txt. It uses Conda to manage the environment.                                                                                                                                                                                                                                                                                                                                         |
+
+</details>
+
+<details closed><summary>scripts</summary>
+
+| File                                                                               | Summary                                                                                                                                                                                                                                                                    |
+| ---                                                                                | ---                                                                                                                                                                                                                                                                        |
+| [run_batch.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run_batch.sh) | The code snippet in `scripts/run_batch.sh` generates README files for a list of repositories. It loops through the repositories, randomly selects a badge style, and determines whether to use emojis or not. The `readmeai` command is used to generate the README files. |
+| [pypi.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/pypi.sh)           | The code in `scripts/pypi.sh` deploys the distribution files of the `readmeai` package to PyPI. It cleans the previous build, builds the package, and uploads it to the PyPI repository using the Twine tool. It requires the PyPI API key for authentication.             |
+| [run.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run.sh)             | The code snippet located at `scripts/run.sh` activates the `readmeai` Conda environment and executes a Python script to generate a README file using the `readmeai` CLI tool.                                                                                              |
+| [clean.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/clean.sh)         | The code in the file `clean.sh` provides functionality to clean build artifacts, Python file artifacts, test and coverage artifacts, backup files, and cache files in the repository.                                                                                      |
+| [test.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/test.sh)           | The `test.sh` script, located in the `scripts` directory, runs tests for the ReadmeAI repository. It activates the `readmeai` conda environment, excludes specific directories and files from coverage analysis, and generates a report with missing coverage results.     |
+| [docker.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/docker.sh)       | This code snippet is a script that sets up a Docker build environment and builds a Docker image for the repository. It then publishes the image and builds a multi-platform image. The script outputs the name of the published image.                                     |
 
 </details>
 
 <details closed><summary>.github</summary>
 
-| File                                                                                             | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---                                                                                              | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/release-drafter.yml) | The code above is a configuration file for the release drafter feature in GitHub. It specifies the templates and categories to be used for generating release notes based on git commit messages. The templates include the name and tag format for releases, as well as the categories for different types of changes like features, bug fixes, and documentation updates. The configuration also defines how the changes are formatted in the release notes. |
+| File                                                                                             | Summary                                                                                                                                                                                                                                         |
+| ---                                                                                              | ---                                                                                                                                                                                                                                             |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/release-drafter.yml) | The code snippet is a configuration file for the release drafter tool. It defines templates and categories for generating release notes based on labels assigned to issues and pull requests. It also defines a template for the release notes. |
 
 </details>
 
-<details closed><summary>Workflows</summary>
+<details closed><summary>.github/workflows</summary>
 
-| File                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ---                                                                                                        | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-drafter.yml) | This code is a GitHub Actions workflow file called "release-drafter.yml". The workflow is triggered by pushes to the main branch and specific events related to pull requests. The workflow has permission to read the contents of the repository and write contents and pull requests. It runs on an Ubuntu environment. The steps include setting the GHE_HOST variable (optional) and using the "release-drafter/release-drafter@v5" action, which drafts the next release notes based on the merged pull requests. The action is configured with the GITHUB_TOKEN secret for authentication. |
-| [publish_package.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/publish_package.yml) | This code sets up a workflow to automatically publish a Python package to PyPI (Python Package Index). It is triggered on a push to the `main` branch or when a new release is created. The workflow checks out the code, sets up Python, installs the necessary dependencies, builds the package, and finally publishes it using Twine. The PyPI API token is retrieved from GitHub secrets to securely authenticate the upload.                                                                                                                                                                |
-| [build_image.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/build_image.yml)         | The code is a GitHub Actions workflow script that builds and pushes a Docker image to Docker Hub. It is triggered on the push to the main branch and the creation of a new release. The script checks out the code, sets up QEMU and Docker Buildx, logs in to Docker Hub using credentials stored as secrets, and then builds and pushes the Docker image using the docker/build-push-action@v4 action. The image is built for three platforms: linux/amd64, linux/arm/v7, and linux/arm64/v8, and is tagged as zeroxeli/readme-ai:latest.                                                      |
-
-</details>
-
-<details closed><summary>Readmeai</summary>
-
-| File                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ---                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py) | The code represents the main entrypoint for a Python application called readme-ai. It imports various modules and functions for the application's core functionalities, including logging, model handling, preprocessing, and README file generation. The main function takes in several parameters related to the configuration of the application and executes the readme_agent function asynchronously. The readme_agent function orchestrates the README file generation process, including cloning the repository, generating a repository tree, parsing dependencies, generating code summaries, and finally generating the README.md file. |
+| File                                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---                                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                                        |
+| [coverage.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/coverage.yml)                 | This code snippet is a GitHub Actions workflow that runs test coverage for the project and uploads the coverage reports to Codecov.                                                                                                                                                                                                                                                        |
+| [release-pipeline.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-pipeline.yml) | This code snippet is responsible for automating the build and deployment process of the repository to both PyPI and Docker Hub. It sets up Python, installs dependencies, builds and publishes to PyPI, and builds and pushes a Docker image to Docker Hub.                                                                                                                                |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-drafter.yml)   | This code snippet is a GitHub Actions workflow file named release-drafter.yml. It uses the release-drafter GitHub Action to automatically draft release notes based on merged pull requests. It runs on pushes to the main branch and specific pull request events. It requires read and write permissions for repository contents to create releases and support the autolabeler feature. |
 
 </details>
 
-<details closed><summary>Settings</summary>
+<details closed><summary>readmeai</summary>
 
-| File                                                                                                           | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| ---                                                                                                            | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/ignore_files.toml)         | The code represents a configuration file, "ignore_files.toml", which contains a list of files, directories, and file extensions to be ignored. These ignored files/directories are typically excluded from version control or other processes. The file contains three sections: "ignore_files" with a list of directories to be ignored, "extensions" with a list of file extensions to be ignored, and "files" with a list of specific files to be ignored.                                                                                                               |
-| [language_names.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_names.toml)     | The code above represents a directory tree structure that contains various files and directories. The specific code snippet shown is from the file "language_names.toml" located in the "readmeai/settings" directory. This file maps programming language file extensions to their corresponding names. Each language extension is associated with a specific name, such as "asm" corresponding to "Assembly" or "c" corresponding to "C". This mapping can be used to identify and label programming languages based on file extensions.                                  |
-| [identifiers.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/identifiers.toml)           | The code is a configuration file that defines identifiers for different project types. Each project type is associated with a list of keywords that are commonly found in that type of project. These project types include web, mobile, desktop, backend, frontend, game, data, machine learning (ml), library, CLI, API, plugin, and embedded. This configuration file is used to identify project types based on the presence of these keywords in code repositories during analysis or processing.                                                                      |
-| [config.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)                     | The code provided is a configuration file written in TOML format. It contains various settings and templates used by a program called `readmeai`. The settings include API and CLI options, paths to dependency files, repository details, markdown templates, and prompts for generating documentation. The templates define the structure of the generated markdown documents, including tables, headers, badges, dropdowns, and an overview. The prompts provide instructions for the user to provide a technical analysis of the codebase and its components.           |
-| [dependency_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/dependency_files.toml) | The code above represents a configuration file for the dependency file names in various programming languages. It lists the common names of files that contain dependencies for each language. This configuration file is used by a tool or system to identify and manage dependencies in different projects written in various programming languages.                                                                                                                                                                                                                      |
-| [language_setup.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_setup.toml)     | The code represents the directory tree structure of a project called "readme-ai" and its various files and folders. It includes a Dockerfile, Makefile, examples, poetry.lock, pyproject.toml, readmeai folder with subfolders for different functionalities, settings folder, utils folder, scripts folder, and setup folder. The specific file "language_setup.toml" within the "readmeai/settings" folder contains instructions for setting up and running different programming languages, including commands for building, running, and testing code in each language. |
+| File                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py) | The code snippet is the main module for a CLI application called README-AI. It orchestrates the generation of a README file by processing a repository. It uses a configuration file, clones the repository to a temporary directory, generates a directory tree structure, parses the repository to get dependencies and files, and uses the OpenAI API to generate the contents of the README file. The generated README includes a header, an introduction, and various sections like slogan, overview, and features. |
 
 </details>
 
-<details closed><summary>Core</summary>
+<details closed><summary>readmeai/settings</summary>
 
-| File                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ---                                                                                        | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) | The code in `readmeai/core/preprocess.py` provides functionalities for preprocessing a codebase. It includes a `RepositoryParser` class that handles preprocessing tasks such as generating file information, extracting dependency file contents, mapping file extensions to programming languages, and tokenizing file content. It also provides methods for analyzing a local or remote git repository, extracting dependencies, and retrieving file contents. Overall, this code performs various preprocessing operations on a codebase to enable further analysis and processing.                                             |
-| [tokens.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/tokens.py)         | The code in `readmeai/core/tokens.py` provides utility functions for handling language tokens. It includes functions for adjusting the maximum number of tokens based on a specific prompt, counting the number of tokens in a text string, getting the token encoder to use for the model, and truncating a text string to a maximum number of tokens.                                                                                                                                                                                                                                                                             |
-| [logger.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/logger.py)         | This code defines a custom logger class for the project. It allows for logging messages at different levels (info, debug, warning, error, critical), and configures the logger to format and colorize the log messages. The logger is implemented as a singleton, meaning there is a single instance of the logger class that can be accessed from anywhere in the project.                                                                                                                                                                                                                                                         |
-| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/factory.py)       | The `FileHandler` class in `factory.py` is a factory class that handles file I/O operations. It provides methods to read and write various file formats such as JSON, Markdown, TOML, TXT, and YAML. The class uses a cache to store the contents of files that have already been read, improving performance. It also supports exception handling for file read and write operations.                                                                                                                                                                                                                                              |
-| [model.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/model.py)           | The code represents a Tech Lead who handles API requests to OpenAI to generate text for a README.md file. It uses large language models to convert code files to natural language text by making API calls with custom prompts. The code can handle rate limiting, caching, and exceptions.                                                                                                                                                                                                                                                                                                                                         |
-| [parser.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/parser.py)         | The code includes a set of methods to parse and extract dependency file metadata. It provides functions to parse various file formats like JSON, TOML, YAML, Docker Compose, Conda environment, Pipfile, poetry.lock, pyproject.toml, requirements.txt, Cargo.toml, Cargo.lock, package.json, yarn.lock, package-lock.json, go.mod, build.gradle, pom.xml, CMakeLists.txt, configure.ac, and Makefile.am. Each parsing function takes the content of the file as input and returns a list of dependencies or keys extracted from the file. The code also provides a function to get a dictionary of all the supported file parsers. |
-
-</details>
-
-<details closed><summary>Config</summary>
-
-| File                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---                                                                                      | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| [__Init__.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/__Init__.py) | The code is an empty `__Init__.py` file located in the `config` directory of the `readme-ai` project. It serves as an initializer for the `config` module. Its purpose is to mark the `config` directory as a Python package and allow it to be imported and used by other modules in the project.                                                                                                                                                        |
-| [settings.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py) | The code above defines Pydantic models for the readme-ai application's configuration settings. It includes models for API configuration, CLI options, Git repository configuration, Markdown templates, file paths, prompts, and the overall application configuration. The code also provides a helper class to load additional configuration files. There are functions to load the configuration constants and to load the configuration helper files. |
+| File                                                                                                           | Summary                                                                                                                                                                                                                           |
+| ---                                                                                                            | ---                                                                                                                                                                                                                               |
+| [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/ignore_files.toml)         | The code snippet at readmeai/settings/ignore_files.toml defines files and directories to be ignored by the repository.                                                                                                            |
+| [language_names.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_names.toml)     | This code snippet contains a configuration file, `language_names.toml`, which maps file extensions to the corresponding programming language names.                                                                               |
+| [identifiers.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/identifiers.toml)           | The code snippet in the file identifiers.toml contains identifiers for various project types, such as web, mobile, desktop, backend, frontend, game, data, ML, library, CLI, API, plugin, embedded, in a key-value pair format.   |
+| [config.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)                     | The code snippet generates README files for any repository. It includes functionalities for directory structure, features, modules, installation, tests, contributing, and acknowledgments.                                       |
+| [dependency_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/dependency_files.toml) | The code snippet provides a list of programming language dependency file names for generating README files in a repository. It includes file names for various languages such as C/C++, Java, Python, Ruby, JavaScript, and more. |
+| [language_setup.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_setup.toml)     | The code snippet located at `readmeai/settings/language_setup.toml` provides setup and run instructions for various programming languages, including commands for building, running, and testing code in each language.           |
 
 </details>
 
-<details closed><summary>Markdown</summary>
+<details closed><summary>readmeai/parsers</summary>
 
-| File                                                                                           | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ---                                                                                            | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [tree.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tree.py)             | The code provided is a TreeGenerator class that generates and formats a tree structure for a given directory. It takes a root directory, repository URL, project name, and maximum depth as inputs. The generate_and_format_tree() method generates and formats the tree structure using the _generate_tree() and _format_tree() methods. The _generate_tree() method recursively generates the tree structure by iterating over the directories and files in the directory. The _format_tree() method formats the generated tree structure.                                                                                           |
-| [badges.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/badges.py)         | The code in `readmeai/markdown/badges.py` generates badges for a README file. It defines functions to format SVG icons into Markdown image tags, retrieve badges for project dependencies, generate markdown templates for badges, and get README badges using shields.io badges or app iOS style badges.                                                                                                                                                                                                                                                                                                                              |
-| [template.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/template.py)     | The code defines a hierarchy of directory structure and a Python class model for generating README templates. The `ReadmeTemplate` class is an abstract base class with common methods for rendering sections of a README template. The `LibraryTemplate` and `WebTemplate` classes are concrete implementations of `ReadmeTemplate` that override certain methods. The `gen_readme()` function takes a `Project` object and generates a README template based on its type, using the appropriate template implementation. The example at the bottom demonstrates the usage of the code.                                               |
-| [tables.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tables.py)         | The code in the `tables.py` file creates Markdown tables used to format the code summaries generated by the LLM (Language Model) tool. The `create_markdown_tables` function formats the code summaries into a list. The `create_tables` function creates Markdown tables for each sub-directory in the project, grouping the summaries by sub-folder. The `create_table` function generates a Markdown table from the given data, including file names and summaries. The `build_recursive_tables` function recursively creates a Markdown table structure for a given directory, including collapsible sections for sub-directories. |
-| [headers.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/headers.py)       | The code in `headers.py` is part of a larger codebase (in the `readmeai` package) that builds the README Markdown file for a code repository. The code includes functions to construct the various sections of the README file, format the contents for each section, and remove emojis from headers and the Table of Contents. It also handles creating badges, tables, and setup instructions for the README.                                                                                                                                                                                                                        |
-| [quickstart.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/quickstart.py) | The code in `quickstart.py` generates the'Quick Start' section of a README file. It takes in configurations (`conf` and `helper`) and a list of summaries. Inside the function, it calculates language counts based on file suffixes, filters out ignored files, and determines the most common language and its setup guide. If the setup guide has at least 3 steps, it updates the default installation, run, and test commands. If any exception occurs during the process, it falls back to the default setup guide. The function returns the default installation, run, and test commands.                                       |
-
-</details>
-
-<details closed><summary>Utils</summary>
-
-| File                                                                              | Summary                                                                                                                                                                                                                                                                                                                   |
-| ---                                                                               | ---                                                                                                                                                                                                                                                                                                                       |
-| [utils.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/utils/utils.py) | The code in the `utils.py` file provides utility methods for the `readme-ai` application. It includes functions to check if a string is a valid URL, flatten a nested list, format generated text from a model, remove text between HTML tags, and filter out files that should be ignored based on a configuration file. |
+| File                                                                                            | Summary                                                                                                                                                                                                                                                                                                          |
+| ---                                                                                             | ---                                                                                                                                                                                                                                                                                                              |
+| [gomod.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/gomod.py)             | The code snippet, located in `readmeai/parsers/gomod.py`, is responsible for parsing package dependencies from `go.mod` files. It reads the content of the file and extracts the package names using regular expressions. The parsed package names are returned as a list.                                       |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/factory.py)         | This code snippet in the `readmeai/parsers/factory.py` file is responsible for creating an abstract factory that generates instances of different file parsers. These file parsers are used to parse specific types of dependency files, such as `build.gradle`, `package.json`, `requirements.txt`, and others. |
+| [docker.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/docker.py)           | This code snippet is a Docker dependency file parser. It reads a Docker Compose file and returns a list of services specified in the file.                                                                                                                                                                       |
+| [npm.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/npm.py)                 | The code in `readmeai/parsers/npm.py` is responsible for parsing JSON dependency files and extracting a list of dependencies. It handles different sections in the file, such as dependencies, devDependencies, and peerDependencies, and returns the package names found.                                       |
+| [gradle.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/gradle.py)           | The code snippet contains two parsers for dependency files in Gradle projects: `BuildGradleParser` for `build.gradle` files and `BuildGradleKtsParser` for `build.gradle.kts` files. These parsers extract package names from the respective files.                                                              |
+| [base_parser.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/base_parser.py) | This code snippet is an abstract base class `FileParser` that serves as the foundation for all dependency file parsers. It defines the `parse` method that extracts package names from dependency files, and the `log_error` method to handle and log error messages.                                            |
+| [python.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/python.py)           | The code snippet contains three parsers: RequirementsParser, TomlParser, and YamlParser. They are used to extract package names from different types of dependency files: requirements.txt, TOML files (e.g., Pipenv, Poetry, Flit), and YAML files (e.g., environment.yml).                                     |
+| [maven.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/maven.py)             | The code in the `maven.py` file is a parser utility for Java-based dependency files in the `pom.xml` format. It extracts package names from the `pom.xml` files and returns them as a list.                                                                                                                      |
+| [rust.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/rust.py)               | This code snippet is a parser for Rust dependency files. It reads a Rust TOML file and extracts the names of the packages/dependencies listed in that file.                                                                                                                                                      |
 
 </details>
 
-<details closed><summary>Cli</summary>
+<details closed><summary>readmeai/core</summary>
 
-| File                                                                                  | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ---                                                                                   | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| [options.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/options.py)   | The code in `readmeai/cli/options.py` provides options for the command line interface of the `readme-ai` tool. These options include:-`api_key`: Secret key for the Large language model API.-`badges`: Specifies the type of badge icon to use in the README.md header.-`emojis`: Enables or disables the use of emojis in README heading sections.-`model`: Specifies the large language model engine to use.-`offline`: Generates a README.md without using the Large language model API when set to `True`.-`output`: Specifies the output file path for the generated README.md.-`repository`: Specifies the URL or directory path of the repository.-`temperature`: Specifies the temperature for language model sampling.-`language`: Specifies the language to write the README.md file in.-`style`: Specifies the template to use for the README.md file. |
-| [commands.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/commands.py) | The code is a command-line interface (CLI) for the "readme-ai" project. It uses the Click library to define CLI commands and options. The main function is called when the CLI is executed and it passes the provided options as arguments. The CLI allows the user to generate a readme file for a repository using various options such as API key, badges, emojis, offline mode, model, output file path, repository URL, temperature, language, and style.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| File                                                                                       | Summary                                                                                                                                                                                                                                                                                                                   |
+| ---                                                                                        | ---                                                                                                                                                                                                                                                                                                                       |
+| [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) | The code in this snippet preprocesses and extracts metadata from the user's repository. It handles analyzing the repository, generating file information, extracting file contents, parsing content, getting dependencies, mapping file extensions to programming languages, and tokenizing file content.                 |
+| [tokens.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/tokens.py)         | The `tokens.py` module in the `readmeai/core` directory provides utilities for handling language tokens. It includes functions to adjust the maximum number of tokens, count the number of tokens in a text string, get the token encoder to use for the model, and truncate a text string to a maximum number of tokens. |
+| [logger.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/logger.py)         | This code snippet defines a custom logger class for the ReadmeAI project. The class implements functions to log messages at different levels such as info, debug, warning, error, and critical. The logger is configured with a colored formatter and a stream handler for writing logs to stderr.                        |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/factory.py)       | The code snippet contains a factory class called `FileHandler` which handles file input/output operations. It provides methods to read and write content from/to various file formats including JSON, Markdown, TOML, TXT, and YAML. The class handles exceptions for file read and write operations.                     |
+| [model.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/model.py)           | The code snippet provides functionality for generating text for the README.md file using the OpenAI GPT-3 language model. It includes methods for converting code to natural language text and generating text using prompts. It also handles rate limiting, caching, and error handling.                                 |
 
 </details>
 
-<details closed><summary>Services</summary>
+<details closed><summary>readmeai/config</summary>
 
-| File                                                                                                     | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ---                                                                                                      | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| [version_control.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/version_control.py) | The code provides a set of utility functions for version control services. It includes functions to make HTTP requests to retrieve repository metadata, clone a repository to a temporary directory, extract user and repository names from a URL or path, generate the URL for a file based on the platform, parse a repository URL and construct an API URL, find the path to the git executable, and validate file permissions and the git executable path. |
+| File                                                                                     | Summary                                                                                                                                                                                                                                                                    |
+| ---                                                                                      | ---                                                                                                                                                                                                                                                                        |
+| [__Init__.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/__Init__.py) | This code snippet initializes the configuration module.                                                                                                                                                                                                                    |
+| [settings.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py) | The code snippet is responsible for defining data models and functions to configure the readme-ai CLI tool. It includes models for Git hosts, API URLs, badge and image options, CLI options, and more. It also provides functions to load additional configuration files. |
+
+</details>
+
+<details closed><summary>readmeai/markdown</summary>
+
+| File                                                                                           | Summary                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---                                                                                            | ---                                                                                                                                                                                                                                                                                                                                                                                                              |
+| [tree.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tree.py)             | The code snippet is located in the `readmeai/markdown/tree.py` file. It defines a `TreeGenerator` class that generates a directory tree structure for a code repository. The class takes in a root directory, repository URL, project name, and a maximum depth parameter. It provides a method `generate_and_format_tree()` that generates and formats the directory tree structure using the given parameters. |
+| [badges.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/badges.py)         | This code snippet contains functions for building and formatting badges in the README.md file of a repository. It includes functions to format SVG icons into HTML tags, build a list of badges for project dependencies, generate badges using shields.io icons, and generate badges using skill icons.                                                                                                         |
+| [tables.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tables.py)         | The code snippet in `readmeai/markdown/tables.py` generates Markdown tables for code summaries produced by LLM. It formats code summaries, groups them by folder, and constructs Markdown tables with clickable file links.                                                                                                                                                                                      |
+| [headers.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/headers.py)       | This code snippet is responsible for building each section of the README Markdown file in the repository. It formats the contents and constructs the README file, including headers, badges, tables, quickstart instructions, and other sections. It also removes emojis from headers and the table of contents if configured to do so.                                                                          |
+| [quickstart.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/quickstart.py) | This code snippet generates the Quick Start section of the README file for a repository. It determines the language of the code, based on the file extension, and generates setup instructions specific to that language. If there are no specific setup instructions available, it falls back to the default setup.                                                                                             |
+
+</details>
+
+<details closed><summary>readmeai/utils</summary>
+
+| File                                                                              | Summary                                                                                                                                                                                                                                                                                          |
+| ---                                                                               | ---                                                                                                                                                                                                                                                                                              |
+| [utils.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/utils/utils.py) | The code snippet provides utility helper functions for the README-AI package. It includes functions for getting resource paths, validating URLs, flattening lists, formatting sentences, getting relative file paths, removing substrings from strings, and checking if files should be ignored. |
+
+</details>
+
+<details closed><summary>readmeai/cli</summary>
+
+| File                                                                                  | Summary                                                                                                                                                                                                                                                                                                                                 |
+| ---                                                                                   | ---                                                                                                                                                                                                                                                                                                                                     |
+| [options.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/options.py)   | The code snippet in the file `readmeai/cli/options.py` provides command-line interface options for the ReadmeAI application. It allows users to set various options such as alignment, API key, badge style, emojis, image, language model, offline mode, output file name, repository link, temperature, template style, and language. |
+| [commands.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/commands.py) | This code snippet provides the CLI entrypoint for the readme-ai tool. It defines command line options and handles the user input to generate README files for repositories.                                                                                                                                                             |
+
+</details>
+
+<details closed><summary>readmeai/services</summary>
+
+| File                                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---                                                                                                    | ---                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [git_utilities.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_utilities.py)   | The code snippet contains helper methods for working with Git repositories. It includes functions to get the URL of a file based on the platform and to extract the user and repository name from a URL or path.                                                                                                                                                                                                                            |
+| [git_operations.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_operations.py) | This code snippet provides functions for cloning and validating git repositories. It has functions to clone a repository to a temporary directory, find the path to the git executable, validate file permissions of the cloned repository, and validate the path to the git executable.                                                                                                                                                    |
+| [git_metadata.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_metadata.py)     | The code snippet is responsible for retrieving repository metadata from different Git providers such as GitHub, GitLab, and Bitbucket. It includes helper methods to make HTTP requests to the respective API endpoints and parse the repository URL to construct the API URL. The `repo_metadata` function retrieves the repository metadata for the given provider by calling the `fetch_api_data` function with the constructed API URL. |
 
 </details>
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
-***Dependencies***
+***Prerequisites***
 
-Please ensure you have the following dependencies installed on your system:
+Ensure you have the following dependencies installed on your system:
 
-`- ℹ️ Dependency 1`
+- `► INSERT-DEPENDENCY-1`
+- `► INSERT-DEPENDENCY-2`
+- `► INSERT-DEPENDENCY-3`
 
-`- ℹ️ Dependency 2`
-
-`- ℹ️ ...`
-
-### 🔧 Installation
+###  Installation
 
 1. Clone the readme-ai repository:
 ```sh
@@ -300,13 +319,13 @@ cd readme-ai
 pip install -r requirements.txt
 ```
 
-### 🤖 Running readme-ai
+###  Running readme-ai
 
 ```sh
 python main.py
 ```
 
-### 🧪 Tests
+###  Tests
 ```sh
 pytest
 ```
@@ -314,7 +333,7 @@ pytest
 ---
 
 
-## 🛣 Project Roadmap
+##  Project Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Implement Y`
@@ -323,7 +342,7 @@ pytest
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here are several ways you can contribute:
 
@@ -362,14 +381,14 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 
 ---
 
-## 📄 License
+##  License
 
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
-## 👏 Acknowledgments
+##  Acknowledgments
 
 - List any resources, contributors, inspiration, etc. here.
 

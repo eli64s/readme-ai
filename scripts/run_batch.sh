@@ -26,22 +26,21 @@ filenames=(
     "readme-pyflink.md"
 )
 
-badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "social" "apps")
+badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills", "skills-light")
+image=("black" "blue" "gradient" "purple" "yellow")
+align=("left" "center")
 
 for index in "${!repositories[@]}"
 do
     repo="${repositories[$index]}"
     filename="${filenames[$index]}"
-
-    # Randomly select a badge style
     random_badge=${badge_styles[$RANDOM % ${#badge_styles[@]}]}
-
-    # Randomly pick whether to use emojis or not
+    image_style=${image[$RANDOM % ${#image[@]}]}
+    alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
-    use_emojis="false"
     if [ $rand_choice -eq 1 ]; then
-        use_emojis="true"
+        readmeai -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment" -e
+    else
+        readmeai -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment"
     fi
-
-    readmeai -o "$filename" -r "$repo" -b "$random_badge" -e "$use_emojis"
 done
