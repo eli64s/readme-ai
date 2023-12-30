@@ -1,12 +1,12 @@
-"""OpenAI API handler, generates text for the README.md file."""
+"""LLM API handler that generates various text for the README.md file."""
 
 import asyncio
 import time
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
-import httpx
 import openai
 from cachetools import TTLCache
+from httpx import AsyncClient, HTTPStatusError, Limits
 from tenacity import (
     RetryError,
     retry,
@@ -25,160 +25,151 @@ from readmeai.core.tokens import (
 from readmeai.utils.utils import format_sentence
 
 
-class OpenAIHandler:
-    """OpenAI API handler for generating text for the README.md file."""
+class LlmApiHandler:
+    """LLM API handler that generates various text for the README.md file."""
 
     logger = logger.Logger(__name__)
 
     def __init__(self, config: settings.AppConfig):
-        """Initialize the OpenAI API handler.
+        """Initializes the LLM API handler.
 
         Parameters
         ----------
-        config : conf.AppConfig
-            Configuration constant values.
+        config
+            The application configuration data class object.
         """
+        self.config = config
         self.endpoint = config.llm.endpoint
         self.encoding = config.llm.encoding
         self.model = config.llm.model
+        self.prompts = config.prompts
+        self.rate_limit = config.llm.rate_limit
+        self.temperature = config.llm.temperature
         self.tokens = config.llm.tokens
         self.tokens_max = config.llm.tokens_max
-        self.temperature = config.llm.temperature
-        self.rate_limit = config.llm.rate_limit
         self.cache = TTLCache(maxsize=500, ttl=600)
-        self.http_client = httpx.AsyncClient(
+        self.http_client = AsyncClient(
             http2=True,
             timeout=30,
-            limits=httpx.Limits(
-                max_keepalive_connections=10, max_connections=100
-            ),
+            limits=Limits(max_keepalive_connections=10, max_connections=100),
         )
         self.last_request_time = time.monotonic()
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
 
-    async def code_to_text(
-        self,
-        files: Dict[str, str],
-        ignore: Dict[str, List[str]],
-        prompt: str,
-        tree: str,
+    async def prompt_processor(
+        self, prompt_type: str, context: Dict[str, Any]
     ) -> Dict[str, str]:
-        """Converts code to natural language text using large language models.
+        """
+        Generates a response for a given prompt type using the OpenAI API.
 
         Parameters
         ----------
-        files : Dict[str, str]
-            The repository files to convert to text.
-        ignore : Dict[str, List[str]]
-            Files, directories, or file extensions to ignore.
-        prompt : str
-            The prompt to use for the OpenAI API calls.
+        prompt_type : str
+            Type of prompt (i.e. features, overview, slogan, summaries).
+        context : Dict[str, Any]
+            The context information needed for the prompt.
 
         Returns
         -------
         Dict[str, str]
-            Dictionary of file paths and their corresponding summaries.
+            A dictionary mapping file paths to their generated summaries.
         """
-        tasks = []
-        for path, contents in files.items():
-            if not (
-                all(
-                    idir not in path.parts
-                    for idir in ignore.get("directories", [])
-                )
-                and path.name not in ignore.get("files", [])
-                and path.suffix[1:] not in ignore.get("extensions", [])
-            ):
-                self.logger.warning(f"Ignoring file: {path}")
-                continue
+        self.logger.info(f"PROCESSING PROMPT: {prompt_type}")
 
-            prompt_code = prompt.format(tree, str(path), contents)
-            tasks.append(
-                asyncio.create_task(
-                    self.generate_text(path, prompt_code, self.tokens)
-                )
-            )
+        if prompt_type == "summaries":
+            return await self._generate_summaries(context)
 
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        prompt_templates = {
+            "features": self.prompts.features,
+            "overview": self.prompts.overview,
+            "slogan": self.prompts.slogan,
+        }
+        formatted_prompt = prompt_templates[prompt_type].format(
+            *[context[key] for key in sorted(context.keys())]
+        )
+        tokens = adjust_max_tokens(self.tokens, formatted_prompt)
+        _, summary = await self.generate_text(
+            prompt_type, formatted_prompt, tokens
+        )
+        return {prompt_type: summary}
 
-        filter_results = []
-
-        for result in results:
-            if isinstance(result, Exception):
-                self.logger.error(f"Task failed with exception: {result}")
-            else:
-                filter_results.append(result)
-
-        return filter_results
-
-    async def chat_to_text(self, prompts: List[str]) -> List[str]:
-        """Generate text using prompts and OpenAI's GPT-3.
+    async def _generate_summaries(
+        self, file_context: List[Tuple[str, str]]
+    ) -> List[Tuple[str, str]]:
+        """
+        Generates summaries for a list of files and updates their placeholders.
 
         Parameters
         ----------
-        prompts : List[str]
-            The prompts to use for the OpenAI API calls.
+        files_with_placeholders : List[Tuple[str, str]]
+            A list of tuples where each tuple contains a file path and
+            placeholder text where the generated summary will be inserted.
 
         Returns
         -------
-        List[str]
-            A list of generated text.
+        List[Tuple[str, str]]
+            List of tuples updated with the generated summaries for each file.
         """
-        if self.http_client.is_closed:
-            self.http_client = httpx.AsyncClient()
-
-        tasks = []
-        for idx, prompt in enumerate(prompts):
+        updated_files = []
+        for context in file_context["summaries"]:
+            file_path, file_content = context
+            prompt = self.prompts.summaries.format(
+                self.config.md.tree, file_path, file_content
+            )
             tokens = adjust_max_tokens(self.tokens, prompt)
-            tasks.append(
-                asyncio.create_task(
-                    self.generate_text(idx + 1, prompt, tokens)
-                )
-            )
+            _, summary = await self.generate_text(file_path, prompt, tokens)
+            updated_files.append((file_path, summary))
 
-        results = []
-        while tasks:
-            done, pending = await asyncio.wait(
-                tasks, return_when=asyncio.FIRST_COMPLETED
-            )
-            for task in done:
-                result = await task
-                results.append(result)
-            tasks = pending
-
-        response_list = [summary for _, summary in sorted(results)]
-        return response_list
+        return updated_files
 
     @retry(
         stop=stop_after_attempt(5),
         wait=wait_exponential(multiplier=1, min=4, max=10),
         retry=(
             retry_if_exception_type(Exception)
-            | retry_if_exception_type(httpx.HTTPStatusError)
+            | retry_if_exception_type(HTTPStatusError)
         ),
     )
     async def generate_text(
         self, index: str, prompt: str, tokens: int
     ) -> Tuple[str, str]:
-        """Handles the request to the OpenAI API to generate text."""
+        """Generates text using a LLM API endpoint.
+
+        Parameters
+        ----------
+        index
+            The prompt type (i.e. features, overview, slogan, summaries).
+        prompt
+            The prompt used to generate the text.
+        tokens
+            The number of tokens to generate.
+
+        Returns
+        -------
+            The generated text response from the LLM API.
+        """
         try:
             token_count = get_token_count(prompt, self.encoding)
-
             if token_count > self.tokens_max:
                 self.logger.warning(
-                    f"Truncating tokens: {token_count} > {self.tokens_max}"
+                    f"TRUNCATING TOKENS: {token_count} > {self.tokens_max} MAX"
                 )
                 prompt = truncate_tokens(prompt, tokens)
 
             async with self.rate_limit_semaphore:
                 response = await self.http_client.post(
                     self.endpoint,
-                    headers={"Authorization": f"Bearer {openai.api_key}"},
+                    headers={
+                        "Authorization": f"Bearer {openai.api_key}",
+                    },
                     json={
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "You're a brilliant Tech Lead.",
+                                "content": "You're a brilliant Staff Software \
+                                Engineer at a startup called ReadmeAI. You're \
+                                working on a new feature for the product that \
+                                will generate README files for any repository",
                             },
                             {"role": "user", "content": prompt},
                         ],
@@ -188,45 +179,58 @@ class OpenAIHandler:
                     },
                 )
                 response.raise_for_status()
-                data = response.json()
-                summary = data["choices"][0]["message"]["content"]
-                summary = format_sentence(summary) if index != 3 else summary
-
-                self.logger.info(
-                    f"\nProcessing prompt: {index}\nResponse: {summary}"
+                llm_text = response.json()
+                summary = llm_text["choices"][0]["message"]["content"]
+                summary = (
+                    format_sentence(summary)
+                    if index != "features"
+                    else summary
                 )
+                self.logger.info(f"RESPONSE: {index}\n{summary}")
                 self.cache[prompt] = summary
                 return index, summary
 
-        except openai.error.OpenAIError as excinfo:
-            self.logger.error(f"OpenAI Exception:\n{str(excinfo)}")
+        except openai.error.OpenAIError as exc_info:
+            self.logger.error(f"OpenAI Exception:\n{str(exc_info)}")
             return await self.null_summary(
-                index, f"OpenAI Exception: {excinfo.response.status_code}"
+                index, f"OpenAI Exception: {exc_info.response.status_code}"
             )
 
-        except httpx.HTTPStatusError as excinfo:
-            self.logger.error(f"HTTPStatus Exception:\n{str(excinfo)}")
+        except HTTPStatusError as exc_info:
+            self.logger.error(f"HTTPStatus Exception:\n{str(exc_info)}")
             return await self.null_summary(
-                index, f"HTTPStatus Exception: {excinfo.response.status_code}"
+                index, f"HTTPStatus Exception: {exc_info.response.status_code}"
             )
-        except RetryError as excinfo:
-            self.logger.error(f"RetryError Exception:\n{str(excinfo)}")
+        except RetryError as exc_info:
+            self.logger.error(f"RetryError Exception:\n{str(exc_info)}")
             return await self.null_summary(
-                index, f"RetryError Exception: {excinfo}"
+                index, f"RetryError Exception: {exc_info}"
             )
 
-        except Exception as excinfo:
-            self.logger.error(f"Exception:\n{str(excinfo)}")
-            return await self.null_summary(index, f"Exception: {excinfo}")
+        except Exception as exc_info:
+            self.logger.error(f"Exception:\n{str(exc_info)}")
+            return await self.null_summary(index, f"Exception: {exc_info}")
 
         finally:
             self.last_request_time = time.monotonic()
 
     @staticmethod
     async def null_summary(index: str, summary: str) -> Tuple[str, str]:
-        """Handles any exceptions raised while requesting the API."""
+        """Returns a null summary for a given prompt.
+
+        Parameters
+        ----------
+        index
+            The index of the prompt (i.e. 0, 1, 2, 3).
+        summary
+            The summary to return.
+
+        Returns
+        -------
+            The null summary.
+        """
         return index, summary
 
     async def close(self):
-        """Close the HTTP client."""
+        """Closes the HTTP client."""
         await self.http_client.aclose()

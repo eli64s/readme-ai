@@ -1,4 +1,4 @@
-"""Factory class to handle file I/O operations."""
+"""File I/O factory class to read and write files."""
 
 import json
 from pathlib import Path
@@ -17,7 +17,7 @@ class WriteFileException(Exception):
 
 
 class FileHandler:
-    """Factory class to handle file I/O operations."""
+    """File I/O factory class to read and write files."""
 
     def __init__(self):
         """Initialize the file handler."""

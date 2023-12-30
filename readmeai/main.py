@@ -31,6 +31,7 @@ def main(
     badges: str,
     emojis: bool,
     image: str,
+    max_tokens: int,
     model: str,
     offline: bool,
     output: str,
@@ -38,96 +39,111 @@ def main(
     temperature: float,
 ) -> None:
     """Main method of the readme-ai CLI application."""
-    logger.info("Executing readme-ai CLI application.")
-    os.environ["OPENAI_API_KEY"] = (
-        api_key if api_key is not None else os.getenv("OPENAI_API_KEY", None)
-    )
+    logger.info("EXECUTING README-AI CLI APPLICATION...")
     conf = load_config()
     conf_model = AppConfigModel(app=conf)
     conf_helper = load_config_helper(conf_model)
     conf.git = GitConfig(repository=repository)
-    conf.paths.output = output
+    conf.files.output = output
     conf.cli.emojis = emojis
     conf.cli.offline = offline
+    conf.llm.tokens_max = max_tokens
     conf.llm.model = model
     conf.llm.temperature = temperature
     conf.md.align = align
     conf.md.badges_style = badges
+
     if image == ImageOptions.CUSTOM.name:
         conf.md.image = prompt_for_custom_image(None, None, image)
     else:
         conf.md.image = image
+
+    if api_key is not None:
+        os.environ["OPENAI_API_KEY"] = api_key
+    elif "OPENAI_API_KEY" not in os.environ:
+        conf.cli.offline = True
+
     asyncio.run(readme_agent(conf, conf_helper))
 
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    logger.info(f"Processing repo: {conf.git.source}: {conf.git.repository}")
-    logger.info(f"Using llm model: {conf.llm.model}")
-    logger.info(f"Output file path: {conf.paths.output}")
-
-    llm = model.OpenAIHandler(conf)
-    name = conf.git.name
-    repo = conf.git.repository
+    logger.info(f"PROCESSING REPOSITORY: {conf.git.repository}")
+    logger.info(f"README OUTPUT FILE PATH: {conf.files.output}")
+    logger.info(f"GPT LANGUAGE MODEL ENGINE: {conf.llm.model}")
 
     try:
+        llm = model.LlmApiHandler(conf)
+        name = conf.git.name
+        repo = conf.git.repository
         temp_dir = vcs.clone_repo_to_temp_dir(repo)
-        repo_tree = tree.TreeGenerator(
-            conf_helper=conf_helper,
-            root_directory=temp_dir,
-            repo_url=repo,
-            project_name=name,
-        ).generate_and_format_tree()
-        conf.md.tree = conf.md.tree.format(repo_tree)
 
-        logger.info(f"Directory tree structure: {conf.md.tree}")
-
+        conf.md.tree = conf.md.tree.format(
+            tree.TreeGenerator(
+                conf_helper=conf_helper,
+                root_directory=temp_dir,
+                repo_url=repo,
+                project_name=name,
+            ).generate_and_format_tree()
+        )
         parser = preprocess.RepositoryParser(conf, conf_helper)
-        dependencies, files = parser.get_dependencies(temp_dir)
+        dependencies, file_context = parser.get_dependencies(temp_dir)
+        summaries = [
+            (file_path, file_content)
+            for file_path, file_content in file_context.items()
+        ]
 
-        logger.info(f"Dependencies: {dependencies}")
+        logger.info(f"REPOSITORY {name.upper()} DEPENDENCIES:")
+        for dep in dependencies:
+            logger.info(f"- {dep}")
+        logger.info(f"DIRECTORY TREE STRUCTURE:\n{conf.md.tree}")
+        logger.info("PREPARING TO GENERATE LLM PROMPT RESPONSES...")
 
-        # Generate README.md file contents via OpenAI API.
+        context = {
+            "name": repo,
+            "tree": conf.md.tree,
+            "deps": dependencies,
+            "summaries": summaries,
+        }
         if conf.cli.offline is False:
-            code_summary = await llm.code_to_text(
-                files,
-                conf_helper.ignore_files,
-                conf.prompts.summaries,
-                repo_tree,
-            )
-            prompts = [
-                conf.prompts.slogan.format(conf.git.name),
-                conf.prompts.overview.format(
-                    repo, repo_tree, dependencies, code_summary
-                ),
-                conf.prompts.features.format(
-                    repo, repo_tree, dependencies, code_summary
-                ),
-            ]
-            slogan, overview, features = await llm.chat_to_text(prompts)
+            summaries = await llm.prompt_processor("summaries", context)
+            context["summaries"] = summaries
+            features_response = await llm.prompt_processor("features", context)
+            overview_response = await llm.prompt_processor("overview", context)
+            slogan_response = await llm.prompt_processor("slogan", context)
+            features = features_response["features"]
+            overview = overview_response["overview"]
+            slogan = slogan_response["slogan"]
         else:
-            code_summary = [
-                (str(file_path), conf.md.default)
-                for file_path, _ in files.items()
-            ]
-            slogan, overview, features = (
+            logger.debug(
+                "OFFLINE MODE ENABLED, SKIPPING LLM PROMPT PROCESSING..."
+            )
+            summaries, features, overview, slogan = (
+                [
+                    (file_path.as_posix(), conf.md.default)
+                    for file_path, _ in file_context.items()
+                ],
                 conf.md.default,
                 conf.md.default,
                 conf.md.default,
             )
 
-        conf.prompts.slogan = slogan
+        logger.info(f"FILE SUMMARIES: {summaries[0:3]}")
+        logger.info(f"TOTAL SUMMARIES GENERATED: {len(summaries)}")
+        logger.info("BUILDING AND FORMATTING MARKDOWN SECTIONS...")
+
         conf.md.header = conf.md.header.format(
             conf.md.align, conf.md.image, name.upper(), slogan
         )
         conf.md.intro = conf.md.intro.format(overview, features)
-        headers.build_readme_md(conf, conf_helper, dependencies, code_summary)
+        conf.prompts.slogan = slogan
+        headers.build_readme_md(conf, conf_helper, dependencies, summaries)
 
     except Exception as exc_info:
-        logger.error(
-            f"Exception: {exc_info}\nStacktrace: {traceback.format_exc()}"
-        )
+        logger.error(f"EXCEPTION PROCESSING REPOSITORY {name}: {exc_info}")
+        logger.error(f"TRACEBACK: {traceback.format_exc()}")
     finally:
         await llm.close()
 
-    logger.info("Finished readme-ai execution.")
+    logger.info("README-AI EXECUTION COMPLETE...")
+    logger.info(f"README FILE OUTPUT PATH: {conf.files.output}")

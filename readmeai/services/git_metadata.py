@@ -37,16 +37,19 @@ def fetch_api_data(url: str, **kwargs) -> dict:
 
 def parse_repo_url(repo_url: str, provider: str) -> str:
     """Parses the repository URL and returns the API URL."""
-    parts = repo_url.rstrip("/").split("/")
-    repo_name = f"{parts[-2]}/{parts[-1]}"
-    if provider == GitHost.GITHUB:
-        return f"{GitApiUrl.GITHUB.value}{repo_name}"
-    elif provider == GitHost.GITLAB:
-        return f"{GitApiUrl.GITLAB.value}{repo_name.replace('/', '%2F')}"
-    elif provider == GitHost.BITBUCKET:
-        return f"{GitApiUrl.BITBUCKET.value}{repo_name}"
-    else:
-        raise ValueError(f"Unsupported provider: {provider}")
+    try:
+        parts = repo_url.rstrip("/").split("/")
+        repo_name = f"{parts[-2]}/{parts[-1]}"
+        if provider == GitHost.GITHUB:
+            return f"{GitApiUrl.GITHUB.value}{repo_name}"
+        elif provider == GitHost.GITLAB:
+            return f"{GitApiUrl.GITLAB.value}{repo_name.replace('/', '%2F')}"
+        elif provider == GitHost.BITBUCKET:
+            return f"{GitApiUrl.BITBUCKET.value}{repo_name}"
+        else:
+            raise ValueError(f"Unsupported provider: {provider}")
+    except (IndexError, ValueError) as exc_info:
+        raise ValueError(f"Invalid repository URL: {repo_url}") from exc_info
 
 
 def repo_metadata(repo_url: str) -> dict:

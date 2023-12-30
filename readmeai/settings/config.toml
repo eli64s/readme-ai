@@ -3,6 +3,17 @@
 emojis = false
 offline = false
 
+# File Resources
+[files]
+dependency_files = "dependency_files.toml"
+identifiers = "identifiers.toml"
+ignore_files = "ignore_files.toml"
+language_names = "language_names.toml"
+language_setup = "language_setup.toml"
+output = "readme-ai.md"
+shieldsio_icons = "data/shieldsio.json"
+skill_icons = "data/skill_icons.json"
+
 # Git Options
 [git]
 repository = "https://github.com/eli64s/readme-ai"
@@ -13,7 +24,7 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 rate_limit = 5
-tokens = 669
+tokens = 699
 tokens_max = 3999
 temperature = 1.0
 
@@ -69,17 +80,17 @@ badges_skills = """
 badges_style="flat"
 
 toc = """
-## 📖 Table of Contents
-- [📖 Table of Contents](#-table-of-contents)
+## 🔗 Quick Links
+- [🔗 Quick Links](#-quick-links)
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
-- [📂 repository Structure](#-repository-structure)
+- [📂 Repository Structure](#-repository-structure)
 - [🧩 Modules](#modules)
-- [🧑‍💻 Getting Started](#-getting-started)
+- [🚀 Getting Started](#-getting-started)
     - [⚙️ Installation](#-installation)
-    - [🚀 Run {0}](#-run-{0})
+    - [🤖 Running {0}](#-running-{0})
     - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
+- [🚧 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -118,15 +129,15 @@ modules = """
 """
 setup = """---
 
-## 🧑‍💻 Getting Started
+## 🚀 Getting Started
 
-***Dependencies***
+***Prerequisites***
 
 Ensure you have the following dependencies installed on your system:
 
-`- ℹ️ Dependency 1`
-`- ℹ️ Dependency 2`
-`- ℹ️ ...`
+- `► INSERT-DEPENDENCY-1`
+- `► INSERT-DEPENDENCY-2`
+- `► INSERT-DEPENDENCY-3`
 
 ### ⚙️ Installation
 
@@ -145,7 +156,7 @@ cd {0}
 {2}
 ```
 
-### 🚀 Run {0}
+### 🤖 Running {0}
 \n```sh\n{3}\n```
 
 ### 🧪 Tests
@@ -154,7 +165,7 @@ cd {0}
 """
 
 contribute = """
-\n## 🛣 Project Roadmap
+\n## 🚧 Project Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Implement Y`
@@ -212,30 +223,19 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**RETURN**](#Top)
+[**Return**](#Top)
 
 ---
 
 """
 
-# Paths
-[paths]
-dependency_files = "dependency_files.toml"
-identifiers = "identifiers.toml"
-ignore_files = "ignore_files.toml"
-language_names = "language_names.toml"
-language_setup = "language_setup.toml"
-shieldsio_icons = "data/shieldsio.json"
-skill_icons = "data/skill_icons.json"
-output = "readme-ai.md"
-
-# Prompts
+# Language Model Prompts
 [prompts]
-features = """Hello! Analyze the repository {0} and following the instructions below
-to generate a comprehensive list of features. Please provide a comprehensive technical
-analysis of the codebase and its components. Consider the codebase as a whole and highlight
-the key characteristics, design patterns, architectural decisions, and any other noteworthy
-elements. Generate your response as a Markdown (.md) table that strictly adheres to the format:
+features = """Hello! Analyze the repository {0} and following the instructions below to generate a
+comprehensive list of features. Please provide a comprehensive technical analysis of the
+codebase and its components. Consider the codebase as a whole and highlight the key
+characteristics, design patterns, architectural decisions, and any other noteworthy
+elements. Generate your response as a formatted Markdown table using the template below:\n
 
 |    | Feature            | Description                                                                                                        |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
@@ -250,30 +250,31 @@ elements. Generate your response as a Markdown (.md) table that strictly adheres
 | 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 40 tokens.|
 | 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to a maximum of 40 tokens.           |
 
+You should first study the repository information below to supplement your analysis:
+
 Code repository information:\n
-\nDirectory tree structure: {1}
-\nDependencies: {2}
-\nCode summaries: {3}
-\n
+Repository directory tree structure: {1}\n
+Codebase dependencies and software: {2}\n
+Codebase file summaries: {3}
+
+Thank you for your time and effort. We look forward to your response!
 """
 overview = """Generate a summary, of 99 words or less, that describes the capabilities
 of the code repository {0}. Focus on the project's use-case and value proposition,
 rather than its technical details. Do not refer to the project using the URL provided.
 Attached below are additional artifacts and metadata of the codebase and its components,
 to supplement your analysis. Code repository information:\n
-\nDirectory tree structure: {1}
-\nPackages and dependencies: {2}
-\nCode summaries: {3}
-\n
+Repository directory tree structure: {1}\n
+Codebase dependencies and software: {2}\n
+Codebase file summaries: {3}
 """
 slogan = """Create a catchy and engaging slogan for the code repository - {0}.
 Limit your response to 18 tokens. Do not refer to the project using the URL provided
 or its repository name. An example slogan is: "A simple, fast, and reliable package manager."""
-summaries = """Generate a comprehensive summary, 80 total tokens or less, that encapsulates the
-core functionalities of the code provided below. Aim for precision and conciseness in your explanation,
-ensuring a fine balance between detail and brevity. Code repository information:\n
-\nDirectory tree structure: {0}
-\nRelative path in relation to the repository root: {1}
-\nFile contents: {2}
-\n
+summaries = """Provide a clear, concise summary in 50 tokens or less highlighting the overall role \
+and key functionalities of the following code snippet within its parent repository architecture.
+Only describe what the code accomplishes, without including any implementation details.
+Repository structure details: {0}.
+File path location: {1}.
+{2}
 """

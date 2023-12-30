@@ -17,24 +17,23 @@ logger = logger.Logger(__name__)
 def build_readme_md(
     conf: AppConfig,
     helper: ConfigHelper,
-    packages: list,
+    deps: list,
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
     all_readme_sections = format_readme_md_contents(
-        conf, helper, packages, summaries
+        conf, helper, deps, summaries
     )
     output_file = "\n".join(all_readme_sections)
-    output_path = Path(conf.paths.output)
+    output_path = Path(conf.files.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     factory.FileHandler().write(output_path, output_file)
-    logger.info(f"README file generated at: {output_path}")
 
 
 def format_readme_md_contents(
     conf: AppConfig,
     helper: ConfigHelper,
-    packages: list,
+    deps: list,
     summaries: tuple,
 ) -> List[str]:
     """Formats the README Markdown file contents for each section."""
@@ -52,12 +51,12 @@ def format_readme_md_contents(
     )
 
     if "skills" not in conf.md.badges_style:
-        badge_icons = badges.shieldsio_icons(conf, packages, full_name)
+        badge_icons = badges.shieldsio_icons(conf, deps, full_name)
     else:
-        badge_icons = badges.skill_icons(conf, packages)
+        badge_icons = badges.skill_icons(conf, deps)
 
     repo_path = f"../{repo_name}" if conf.git.source == "local" else repository
-    instructions = quickstart.create_instructions(conf, helper, summaries)
+    instructions = quickstart.getting_started(conf, helper, deps, summaries)
     md_quickstart = conf.md.setup.format(repo_name, repo_path, *instructions)
 
     markdown_sections = [

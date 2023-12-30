@@ -14,6 +14,7 @@ from readmeai.main import main
 @options.badges
 @options.emojis
 @options.image
+@options.max_tokens
 @options.model
 @options.offline
 @options.output
@@ -27,6 +28,7 @@ def commands(
     badges: Optional[str],
     emojis: Optional[bool],
     image: Optional[str],
+    max_tokens: Optional[int],
     model: Optional[str],
     offline: Optional[bool],
     output: Optional[str],
@@ -42,6 +44,7 @@ def commands(
         badges=badges,
         emojis=emojis,
         image=image,
+        max_tokens=max_tokens,
         model=model,
         offline=offline,
         output=output,

@@ -1,4 +1,4 @@
-"""Generates a directory tree structure for a code repository."""
+"""Creates a directory tree structure for a code repository."""
 
 from pathlib import Path
 

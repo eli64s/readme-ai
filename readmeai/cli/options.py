@@ -33,7 +33,7 @@ def prompt_for_custom_image(
     elif value in ImageOptions.__members__:
         return ImageOptions[value].value
     else:
-        raise click.BadParameter(f"Unexpected image option provided: {value}")
+        raise click.BadParameter(f"Invalid image URL provided: {value}")
 
 
 align = click.option(
@@ -123,6 +123,12 @@ temperature = click.option(
     default=1.0,
     type=float,
     help="Temperature LLM API parameter for generating README.md file content. A higher temperature value will generate more creative content, while a lower temperature value will generate more predictable content.",
+)
+max_tokens = click.option(
+    "--max-tokens",
+    default=3999,
+    type=int,
+    help="Max tokens LLM API parameter for generating README.md file content. This option defines the maximum number of tokens to generate for each section of the README.md file.",
 )
 template = click.option(
     "--template",

@@ -89,6 +89,19 @@ class CliConfig(BaseModel):
     offline: bool = False
 
 
+class FilesConfig(BaseModel):
+    """Pydantic model for configuration file paths."""
+
+    dependency_files: str
+    identifiers: str
+    ignore_files: str
+    language_names: str
+    language_setup: str
+    output: str
+    shieldsio_icons: str
+    skill_icons: str
+
+
 class GitConfig(BaseModel):
     """Command-line interface configuration."""
 
@@ -174,19 +187,6 @@ class MarkdownConfig(BaseModel):
     tree: str
 
 
-class PathsConfig(BaseModel):
-    """Pydantic model for configuration file paths."""
-
-    dependency_files: str
-    identifiers: str
-    ignore_files: str
-    language_names: str
-    language_setup: str
-    shieldsio_icons: str
-    skill_icons: str
-    output: str
-
-
 class PromptsConfig(BaseModel):
     """Pydantic model for OpenAI prompts."""
 
@@ -200,10 +200,10 @@ class AppConfig(BaseModel):
     """Nested Pydantic model for the entire configuration."""
 
     cli: CliConfig
+    files: FilesConfig
     git: GitConfig
     llm: LanguageModelApiConfig
     md: MarkdownConfig
-    paths: PathsConfig
     prompts: PromptsConfig
 
 
@@ -238,10 +238,10 @@ class ConfigHelper(BaseModel):
         """Load helper configuration files."""
         handler = factory.FileHandler()
         conf_path_list = [
-            self.conf.app.paths.dependency_files,
-            self.conf.app.paths.ignore_files,
-            self.conf.app.paths.language_names,
-            self.conf.app.paths.language_setup,
+            self.conf.app.files.dependency_files,
+            self.conf.app.files.ignore_files,
+            self.conf.app.files.language_names,
+            self.conf.app.files.language_setup,
         ]
 
         for path in conf_path_list:

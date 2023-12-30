@@ -1,4 +1,4 @@
-"""Generates Markdown tables for LLM-produced code summaries."""
+"""Creates markdown tables to store LLM text responses in the README file."""
 
 from pathlib import Path
 from typing import List, Tuple
@@ -7,6 +7,65 @@ from readmeai.core import logger
 from readmeai.services import git_utilities as vcs
 
 logger = logger.Logger(__name__)
+
+
+def construct_markdown_table(
+    data: List[Tuple[str, str]], repository: str, project_name: str
+) -> str:
+    """Builds a Markdown table from the provided data."""
+    headers = ["File", "Summary"]
+    table_rows = [headers, ["---", "---"]]
+
+    for module, summary in data:
+        file_name = str(Path(module).name)
+        hyperlink = create_hyperlink(
+            file_name, project_name, module, repository
+        )
+        table_rows.append([hyperlink, summary])
+
+    return format_as_markdown_table(table_rows)
+
+
+def create_hyperlink(
+    file_name: str, full_name: str, module: str, repo_url: str
+) -> str:
+    """Creates a hyperlink for a file, using its Git URL if possible."""
+    logger.debug(
+        f"Creating Git file hyperlink for:\
+            \nFile: {file_name} \
+            \nFull name: {full_name} \
+            \nModule: {module} \
+            \nRepo URL: {repo_url}"
+    )
+    if "invalid" in full_name.lower():
+        return file_name
+    git_file_link = vcs.get_remote_file_url(module, full_name, repo_url)
+    return f"[{file_name}]({git_file_link})"
+
+
+def extract_folder_name(module: str) -> str:
+    """Extracts the folder name from a module path."""
+    path_parts = Path(module).parts
+    return "/".join(path_parts[:-1]) if len(path_parts) > 1 else "."
+
+
+def format_as_markdown_table(rows: List[List[str]]) -> str:
+    """Formats rows of data as a Markdown table."""
+    max_column_widths = [
+        max(len(str(row[col])) for row in rows) for col in range(len(rows[0]))
+    ]
+
+    formatted_lines = [
+        "| "
+        + " | ".join(
+            str(item).ljust(width)
+            for item, width in zip(row, max_column_widths)
+        )
+        + " |"
+        for row in rows
+    ]
+
+    return "\n".join(formatted_lines)
 
 
 def format_code_summaries(
@@ -24,11 +83,6 @@ def format_code_summaries(
         formatted_summaries.append((module, summary_text))
 
     return formatted_summaries
-
-
-def is_valid_tuple_summary(summary: Tuple[str, str]) -> bool:
-    """Checks if a summary is a valid tuple format."""
-    return isinstance(summary, tuple) and len(summary) == 2
 
 
 def generate_markdown_tables(
@@ -60,56 +114,6 @@ def group_summaries_by_folder(summaries: List[Tuple[str, str]]) -> dict:
     return folder_map
 
 
-def extract_folder_name(module: str) -> str:
-    """Extracts the folder name from a module path."""
-    return (
-        str(module).split("/")[-2].capitalize()
-        if "/" in str(module)
-        else "Root"
-    )
-
-
-def construct_markdown_table(
-    data: List[Tuple[str, str]], repository: str, project_name: str
-) -> str:
-    """Builds a Markdown table from the provided data."""
-    headers = ["File", "Summary"]
-    table_rows = [headers, ["---"] * len(headers)]
-
-    for module, summary in data:
-        file_name = str(Path(module).name)
-        hyperlink = create_hyperlink(
-            file_name, project_name, module, repository
-        )
-        table_rows.append([hyperlink, summary])
-
-    return format_as_markdown_table(table_rows)
-
-
-def create_hyperlink(
-    file_name: str, full_name: str, module: str, repo_url: str
-) -> str:
-    """Creates a hyperlink for a file, using its Git URL if possible."""
-    if "invalid" in full_name.lower():
-        return file_name
-    git_file_link = vcs.get_remote_file_url(module, full_name, repo_url)
-    return f"[{file_name}]({git_file_link})"
-
-
-def format_as_markdown_table(rows: List[List[str]]) -> str:
-    """Formats rows of data as a Markdown table."""
-    max_column_widths = [
-        max(len(str(row[col])) for row in rows) for col in range(len(rows[0]))
-    ]
-
-    formatted_lines = [
-        "| "
-        + " | ".join(
-            str(item).ljust(width)
-            for item, width in zip(row, max_column_widths)
-        )
-        + " |"
-        for row in rows
-    ]
-
-    return "\n".join(formatted_lines)
+def is_valid_tuple_summary(summary: Tuple[str, str]) -> bool:
+    """Checks if a summary is a valid tuple format."""
+    return isinstance(summary, tuple) and len(summary) == 2
