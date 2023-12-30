@@ -26,7 +26,7 @@ default = "► INSERT-TEXT"
 dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 
 header = """<div align="{0}">
-<h1><img src={1} width="150" />
+<h1><img src={1} width="100" />
 <br>{2}</h1>
 <h3>◦ {3}</h3>
 <h3>◦ Developed with the software and tools below.</h3>
@@ -54,7 +54,7 @@ badges_shieldsio = """<p align="{0}">
 """
 badges_skills = """
 <div align="{0}">
-<h1><img src={1} width="150" />
+<h1><img src={1} width="100" />
 <br>{2}</h1>
 <h3>◦ {3}</h3>
 <h3>◦ Developed with the software and tools below.</h3>
@@ -72,11 +72,11 @@ toc = """
 ## 📖 Table of Contents
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [⚙️ Features](#-features)
+- [📦 Features](#-features)
 - [📂 repository Structure](#-repository-structure)
-- [📦 Modules](#modules)
+- [🧩 Modules](#modules)
 - [🧑‍💻 Getting Started](#-getting-started)
-    - [► Installation](#-installation)
+    - [⚙️ Installation](#-installation)
     - [🚀 Run {0}](#-run-{0})
     - [🧪 Tests](#-tests)
 - [🛣 Roadmap](#-roadmap)
@@ -95,7 +95,7 @@ intro = """
 
 ---
 
-## ⚙️ Features
+## 📦 Features
 
 {}
 
@@ -114,7 +114,7 @@ tree = """
 """
 
 modules = """
-\n## 📦 Modules
+\n## 🧩 Modules
 """
 setup = """---
 
@@ -123,11 +123,12 @@ setup = """---
 ***Dependencies***
 
 Ensure you have the following dependencies installed on your system:
+
 `- ℹ️ Dependency 1`
 `- ℹ️ Dependency 2`
 `- ℹ️ ...`
 
-### ► Installation
+### ⚙️ Installation
 
 1. Clone the {0} repository:
 ```sh

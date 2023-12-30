@@ -9,9 +9,15 @@ def test_commands():
     """Test that the CLI command runs."""
     runner = CliRunner()
     result = runner.invoke(
-        commands, ["--repository", "https://github.com/example/repo"]
+        commands,
+        [
+            "--repository",
+            "https://github.com/example/repo",
+            "--api-key",
+            "dummy-key",
+        ],
     )
-    assert result.exit_code == 0
+    assert result.exit_code == 0, f"Unexpected failure: {result.output}"
 
 
 def test_commands_with_options():
