@@ -137,7 +137,6 @@ files = [
     "bundle_dmg",
     "gradlew",
     "icon.ico~dev",
-    "__init__.py",
     "start",
     "test_binary",
     "mkdocs.yml",

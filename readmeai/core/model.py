@@ -38,13 +38,13 @@ class OpenAIHandler:
         config : conf.AppConfig
             Configuration constant values.
         """
-        self.endpoint = config.api.endpoint
-        self.encoding = config.api.encoding
-        self.model = config.api.model
-        self.tokens = config.api.tokens
-        self.tokens_max = config.api.tokens_max
-        self.temperature = config.api.temperature
-        self.rate_limit = config.api.rate_limit
+        self.endpoint = config.llm.endpoint
+        self.encoding = config.llm.encoding
+        self.model = config.llm.model
+        self.tokens = config.llm.tokens
+        self.tokens_max = config.llm.tokens_max
+        self.temperature = config.llm.temperature
+        self.rate_limit = config.llm.rate_limit
         self.cache = TTLCache(maxsize=500, ttl=600)
         self.http_client = httpx.AsyncClient(
             http2=True,

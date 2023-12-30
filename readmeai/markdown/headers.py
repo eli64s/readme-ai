@@ -1,4 +1,4 @@
-"""Builds the README Markdown file for your codebase."""
+"""Builds each section of the README Markdown file."""
 
 __package__ = "readmeai"
 
@@ -51,7 +51,7 @@ def format_readme_md_contents(
         conf.md.dropdown, formatted_summaries, full_name, repository
     )
 
-    if "apps" not in conf.md.badge_style:
+    if "skills" not in conf.md.badges_style:
         badge_icons = badges.shieldsio_icons(conf, packages, full_name)
     else:
         badge_icons = badges.skill_icons(conf, packages)

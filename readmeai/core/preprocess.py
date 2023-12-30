@@ -25,7 +25,7 @@ class RepositoryParser:
         self.config_helper = conf_helper
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
-        self.encoding_name = config.api.encoding
+        self.encoding_name = config.llm.encoding
         self.local_source = settings.GitHost.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:

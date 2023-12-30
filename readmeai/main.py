@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
-"""Main method for the readme-ai cli application."""
+"""Main module for the README-AI CLI application."""
 
 __package__ = "readmeai"
 
 import asyncio
+import os
 import traceback
 
+from readmeai.cli.options import prompt_for_custom_image
 from readmeai.config.settings import (
     AppConfig,
     AppConfigModel,
     ConfigHelper,
     GitConfig,
+    ImageOptions,
     load_config,
     load_config_helper,
 )
@@ -23,33 +26,44 @@ logger = logger.Logger(__name__)
 
 
 def main(
+    align: str,
+    api_key: str,
     badges: str,
     emojis: bool,
-    offline: bool,
+    image: str,
     model: str,
+    offline: bool,
     output: str,
     repository: str,
     temperature: float,
 ) -> None:
-    """README-AI CLI application main function."""
-    logger.info("Starting readme-ai execution.")
+    """Main method of the readme-ai CLI application."""
+    logger.info("Executing readme-ai CLI application.")
+    os.environ["OPENAI_API_KEY"] = (
+        api_key if api_key is not None else os.getenv("OPENAI_API_KEY", None)
+    )
     conf = load_config()
     conf_model = AppConfigModel(app=conf)
     conf_helper = load_config_helper(conf_model)
     conf.git = GitConfig(repository=repository)
-    conf.api.temperature = temperature
-    conf.api.model = model
+    conf.paths.output = output
     conf.cli.emojis = emojis
     conf.cli.offline = offline
-    conf.paths.output = output
-    conf.md.badge_style = badges
+    conf.llm.model = model
+    conf.llm.temperature = temperature
+    conf.md.align = align
+    conf.md.badges_style = badges
+    if image == ImageOptions.CUSTOM.name:
+        conf.md.image = prompt_for_custom_image(None, None, image)
+    else:
+        conf.md.image = image
     asyncio.run(readme_agent(conf, conf_helper))
 
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
     logger.info(f"Processing repo: {conf.git.source}: {conf.git.repository}")
-    logger.info(f"Using llm model: {conf.api.model}")
+    logger.info(f"Using llm model: {conf.llm.model}")
     logger.info(f"Output file path: {conf.paths.output}")
 
     llm = model.OpenAIHandler(conf)
@@ -102,9 +116,10 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                 conf.md.default,
             )
 
-        # Build README.md file with extracted and generated data.
         conf.prompts.slogan = slogan
-        conf.md.header = conf.md.header.format(name.upper(), slogan)
+        conf.md.header = conf.md.header.format(
+            conf.md.align, conf.md.image, name.upper(), slogan
+        )
         conf.md.intro = conf.md.intro.format(overview, features)
         headers.build_readme_md(conf, conf_helper, dependencies, code_summary)
 
