@@ -87,7 +87,7 @@ badges_skills = """\
 
 ---
 """
-badges_style="flat"
+badges_style = "flat"
 
 toc = """
 ## 🔗 Quick Links
@@ -245,18 +245,18 @@ Your response should be formatted as a Markdown table using the structure below:
 
 Markdown Template:
 
-| Symbol | Feature             | Description (Max 40 Tokens)                                                                                           |
-|--------|---------------------|-----------------------------------------------------------------------------------------------------------------------|
-| ⚙️     | **Architecture**    | Examine and detail the repository's structural design, focusing on layout, framework, and key architectural elements. |
-| 📄     | **Documentation**   | Assess the quality, clarity, and completeness of the documentation, highlighting its user-friendliness and detail.    |
-| 🔗     | **Dependencies**    | Identify and comment on external libraries and systems the repository relies on, noting their integration and use.    |
-| 🧩     | **Modularity**      | Evaluate the repository's division into modules and components, discussing its approach to modular design.            |
-| 🧪     | **Testing**         | Analyze the testing practices, including methodologies and tools, emphasizing their effectiveness and coverage.       |
-| ⚡️     | **Performance**     | Discuss the repository's performance, focusing on speed, efficiency, and resource management.                         |
-| 🔐     | **Security**        | Review the security measures implemented for data protection and operational integrity.                               |
-| 🔀     | **Version Control** | Describe the version control system in use, noting its strategy and how it contributes to development.                |
-| 🔌     | **Integrations**    | Examine the repository's interactions with other systems or services, and its integration capabilities.               |
-| 📶     | **Scalability**     | Assess the repository's ability to handle growth, focusing on scalability in terms of user and repository numbers.    |
+|      | Feature             | Description                                                                                                           |
+| ---  | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| ⚙️    | **Architecture**    | Examine and detail the repository's structural design, focusing on layout, framework, and key architectural elements. |
+| 📄   | **Documentation**   | Assess the quality, clarity, and completeness of the documentation, highlighting its user-friendliness and detail.    |
+| 🔗   | **Dependencies**    | Identify and comment on external libraries and systems the repository relies on, noting their integration and use.    |
+| 🧩   | **Modularity**      | Evaluate the repository's division into modules and components, discussing its approach to modular design.            |
+| 🧪   | **Testing**         | Analyze the testing practices, including methodologies and tools, emphasizing their effectiveness and coverage.       |
+| ⚡️    | **Performance**     | Discuss the repository's performance, focusing on speed, efficiency, and resource management.                         |
+| 🔐   | **Security**        | Review the security measures implemented for data protection and operational integrity.                               |
+| 🔀   | **Version Control** | Describe the version control system in use, noting its strategy and how it contributes to development.                |
+| 🔌   | **Integrations**    | Examine the repository's interactions with other systems or services, and its integration capabilities.               |
+| 📶   | **Scalability**     | Assess the repository's ability to handle growth, focusing on scalability in terms of user and repository numbers.    |
 
 Each description should adhere to a 40-token limit, ensuring concise yet informative analysis. Tokens include words, punctuation, or symbols.
 

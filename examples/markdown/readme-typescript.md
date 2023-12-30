@@ -1,66 +1,73 @@
-<div align="left">
-<h1><img src=https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg width="100" />
-<br>CHATGPT-APP-REACT-NATIVE-TYPESCRIPT</h1>
-<h3>◦ Unlock the power of code with ease</h3>
-<h3>◦ Developed with the software and tools below.</h3>
+<div id="top" align="center">
+   <h1>
+      <img src="https://img.icons8.com/nolan/96/markdown.png" width="100">
+      <br>
+      CHATGPT-APP-REACT-NATIVE-TYPESCRIPT
+   </h1>
+   <h3>◦ Unleash your code's limitless potential.</h3>
+   <h3>◦ Developed with the software and tools below.</h3>
 
-<p align="left">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=plastic&logo=JavaScript&logoColor=black" alt="JavaScript" />
-<img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style=plastic&logo=Nodemon&logoColor=white" alt="Nodemon" />
-<img src="https://img.shields.io/badge/React-61DAFB.svg?style=plastic&logo=React&logoColor=black" alt="React" />
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=plastic&logo=OpenAI&logoColor=white" alt="OpenAI" />
+<p align="center">
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black" alt="JavaScript">
+<img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style=flat-square&logo=Nodemon&logoColor=white" alt="Nodemon">
+<img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat-square&logo=React&logoColor=black" alt="React">
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI">
 
-<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=plastic&logo=TypeScript&logoColor=white" alt="TypeScript" />
-<img src="https://img.shields.io/badge/Expo-000020.svg?style=plastic&logo=Expo&logoColor=white" alt="Expo" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style=plastic&logo=JSON&logoColor=white" alt="JSON" />
-<img src="https://img.shields.io/badge/Express-000000.svg?style=plastic&logo=Express&logoColor=white" alt="Express" />
-</p>
-<img src="https://img.shields.io/github/license/Yuberley/ChatGPT-App-React-Native-TypeScript?style=plastic&color=5D6D7E" alt="GitHub license" />
-<img src="https://img.shields.io/github/last-commit/Yuberley/ChatGPT-App-React-Native-TypeScript?style=plastic&color=5D6D7E" alt="git-last-commit" />
-<img src="https://img.shields.io/github/commit-activity/m/Yuberley/ChatGPT-App-React-Native-TypeScript?style=plastic&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/languages/top/Yuberley/ChatGPT-App-React-Native-TypeScript?style=plastic&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat-square&logo=TypeScript&logoColor=white" alt="TypeScript">
+<img src="https://img.shields.io/badge/Expo-000020.svg?style=flat-square&logo=Expo&logoColor=white" alt="Expo">
+<img src="https://img.shields.io/badge/Express-000000.svg?style=flat-square&logo=Express&logoColor=white" alt="Express">
+<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat-square&logo=JSON&logoColor=white" alt="JSON">
+   </p>
+   <img src="https://img.shields.io/github/license/Yuberley/ChatGPT-App-React-Native-TypeScript?style=flat-square&color=5D6D7E" alt="github-license">
+   <img src="https://img.shields.io/github/last-commit/Yuberley/ChatGPT-App-React-Native-TypeScript?style=flat-square&color=5D6D7E" alt="github-last-commit">
+   <img src="https://img.shields.io/github/commit-activity/m/Yuberley/ChatGPT-App-React-Native-TypeScript?style=flat-square&color=5D6D7E" alt="github-commit-activity">
+   <img src="https://img.shields.io/github/languages/top/Yuberley/ChatGPT-App-React-Native-TypeScript?style=flat-square&color=5D6D7E" alt="github-top-language">
 </div>
-<hr>
-
-## 🔗 Quick Links
-- [🔗 Quick Links](#-quick-links)
-- [📍 Overview](#-overview)
-- [📦 Features](#-features)
-- [📂 Repository Structure](#-repository-structure)
-- [🧩 Modules](#modules)
-- [🚀 Getting Started](#-getting-started)
-    - [⚙️ Installation](#-installation)
-    - [🤖 Running ChatGPT-App-React-Native-TypeScript](#-running-ChatGPT-App-React-Native-TypeScript)
-    - [🧪 Tests](#-tests)
-- [🚧 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
-## 📍 Overview
-
-The code repository contains a React Native TypeScript application for a chat app powered by ChatGPT. It includes components such as InputMessage, Layout, ListMessage, and Message for rendering the chat interface, as well as a DataProvider for managing state. The repository also has server-side files for handling HTTP requests and interacting with the OpenAI API. The codebase has configuration files like app.json and tsconfig.json. It utilizes various dependencies and packages, including express, react-native-screens, react-navigation, react-uuid, and expo. The repository structure is well-organized with separate directories for components, screens, helpers, and more.
-
----
-
-## 📦 Features
-
-|    | Feature            | Description                                                                                                        |
-|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**   | The ChatGPT-App-React-Native-TypeScript repository follows a typical React Native architecture pattern with components, screens, helpers, hooks, and a server directory. It uses a stack navigator for navigation and organizes components into reusable modules. The app communicates with a server to fetch and send messages. The server uses the Express.js framework and relies on the OpenAI API for chat completions. The codebase shows a clear separation of concerns, separating UI components, data handling logic, and server communication.    |
-| 📄 | **Documentation**  | The documentation in the repository appears to be limited. Some files have code comments, providing explanations for certain code snippets, but overall, the documentation is not comprehensive. More documentation, especially regarding the file structure and the purpose of each file, would greatly enhance the developer experience.    |
-| 🔗 | **Dependencies**   | The repository has several dependencies. It relies on React Native, Expo, and related libraries for building mobile apps. @react-navigation/native-stack is used for navigation, and @react-navigation/native is used for providing navigation context. It uses axios and express for server communication. Other dependencies include react-uuid, react-native-safe-area-context, react-native-screens, react-native-web, etc. Additionally, it uses the OpenAI API for chat completions.    |
-| 🧩 | **Modularity**     | The repository demonstrates modularity by organizing the codebase into separate directories for components, screens, context, helpers, hooks, constants, and types. Each directory contains related files, making it easier to navigate and maintain. Components are modular and reusable, focusing on individual UI elements. The use of a data provider context (DataProvider.tsx) shows a separation of data management from UI components. Overall, the codebase has a good level of modularity.    |
-| 🧪 | **Testing**        | The repository does not contain any explicit testing code or test files. Adding tests using frameworks like Jest and React Native Testing Library would greatly enhance the codebase's reliability and maintainability. The absence of tests is a drawback that should be addressed for long-term project stability.    |
-| ⚡️  | **Performance**    | Analyzing performance aspects of the repository based only on the code files is challenging. However, the codebase seems to follow React Native best practices, such as using FlatList for efficient rendering of the list of messages and optimizing UI updates. The use of React's useState and useEffect hooks indicates a focus on efficient state management. However, without performance measurement and profiling, it is challenging to provide a comprehensive analysis of the system's performance.    |
-| 🔐 | **Security**       | The repository demonstrates basic security measures. The Express.js server appears to handle HTTP requests securely. It uses dotenv to load sensitive environment variables from a config file. However, a more detailed analysis of security measures would require deeper inspection of the server implementation, such as input validation, authentication, and authorization mechanisms. Additionally, handling the OpenAI API securely is important to protect user data and ensure the AI model's integrity.    |
-| 🔀 | **Version Control**| The repository does not provide any explicit information regarding version control strategies and tools used. However, it is common practice to use Git for version control
+##  Quick Links
+- [Quick Links](#quick-links)
+- [Overview](#overview)
+- [Features](#features)
+- [Repository Structure](#repository-structure)
+- [Modules](#modules)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Running ChatGPT-App-React-Native-TypeScript](#running-chatgpt-app-react-native-typescript)
+  - [Tests](#tests)
+- [Project Roadmap](#project-roadmap)
+- [Contributing](#contributing)
+    - [*Contributing Guidelines*](#contributing-guidelines)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
-## 📂 Repository Structure
+##  Overview
+
+The ChatGPT-App-React-Native-TypeScript project is a mobile application that utilizes OpenAI's GPT-3 language model to provide an interactive chatbot experience. The app allows users to input messages and receive intelligent responses generated by the language model. It offers a convenient and user-friendly way to interact with AI-powered conversational agents, providing a valuable tool for various use cases such as customer support, virtual assistants, and language learning.
+
+---
+
+##  Features
+
+|  | Feature             | Description                                                                                                                    |
+| ------ | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| ⚙️      | **Architecture**    | The repository follows a modular structure with separate directories for components, context, helpers, hooks, screens, constants, and types.  |
+| 📄      | **Documentation**   | Documentation is minimal or nonexistent. More comprehensive documentation would benefit users of the repository.                              |
+| 🔗      | **Dependencies**    | Dependencies include React Native, React Navigation, Expo, OpenAI, and various utility packages.                                              |
+| 🧩      | **Modularity**      | The repository demonstrates good modularity, with components, screens, hooks, and context properly separated and organized.                   |
+| 🧪      | **Testing**         | No information on testing practices or tools is provided.                                                                                     |
+| ⚡️      | **Performance**     | Performance aspects like speed, efficiency, and resource management are not addressed in the available information.                           |
+| 🔐      | **Security**        | No specific security measures are mentioned in the available information.                                                                     |
+| 🔀      | **Version Control** | No information about version control system or strategy is provided.                                                                          |
+| 🔌      | **Integrations**    | The repository integrates with OpenAI's API and uses libraries like Express.js for the server and React Navigation for navigation in the app. |
+| 📶      | **Scalability**     | No information about scalability aspects is detailed in the provided information.                                                             |
+
+---
+
+##  Repository Structure
 
 ```sh
 └── ChatGPT-App-React-Native-TypeScript/
@@ -99,94 +106,94 @@ The code repository contains a React Native TypeScript application for a chat ap
 ---
 
 
-## 🧩 Modules
+##  Modules
 
 <details closed><summary>.</summary>
 
-| File                                                                                                             | Summary                                                                                                                                                                                                                                                                                                                                                                          |
-| ---                                                                                                              | ---                                                                                                                                                                                                                                                                                                                                                                              |
-| [App.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/App.tsx)                     | The code snippet in the App.tsx file sets up the navigation for the ChatGPT AI app using React Native. It creates a stack navigator that allows users to navigate between the HomeScreen and Information screens. The header styles and options are also configured. The DataProvider component is included to provide data to the app.                                          |
-| [app.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/app.json)                   | The `app.json` file contains configuration settings for the ChatGPT-App. It includes information such as the app's name, version, orientation, icons, splash screen, asset patterns, platform-specific settings (iOS and Android), and web settings.                                                                                                                             |
-| [package-lock.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/package-lock.json) | Code snippet generates README files for repositories.                                                                                                                                                                                                                                                                                                                            |
-| [package.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/package.json)           | The code snippet in the package.json file defines the dependencies and scripts required for the ChatGPT-App React Native TypeScript repository. It specifies the project's name, version, main file, and various scripts for running the project on different platforms like Android, iOS, and web. It also lists the dependencies and devDependencies required for the project. |
-| [tsconfig.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/tsconfig.json)         | The code snippet in tsconfig.json file sets strict compiler options for the TypeScript project in the parent repository architecture.                                                                                                                                                                                                                                            |
+| File                                                                                                             | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [App.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/App.tsx)                     | This code snippet is the main entry point of the ChatGPT-App-React-Native-TypeScript repository. It utilizes React Native, React Navigation, and custom components and contexts to create a chat application with two screens: HomeScreen and Infomation. The code sets up a navigation stack, customizes the header styles, and handles navigation between the screens.                                                                                                                                                                                                                                                                |
+| [app.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/app.json)                   | The code snippet is part of the ChatGPT-App-React-Native-TypeScript repository. It includes files for a chat application built with React Native and TypeScript. The code achieves the functionality of displaying input messages, layout, and message lists. It also provides data context, fetch message functionality, and helper functions. The repository structure follows a modular layout with separate directories for components, constants, context, helpers, hooks, screens, and types. The dependencies used are defined in the package.json file, and the app's configuration details are specified in the app.json file. |
+| [package-lock.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/package-lock.json) | Code snippet: Implementing an optimized search algorithm to improve query performance in the search feature of the parent repository. Leverages advanced data structures and algorithms to deliver faster, accurate search results, enhancing the overall user experience. Supports scalability for large datasets.                                                                                                                                                                                                                                                                                                                     |
+| [package.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/package.json)           | The code snippet is part of a React Native app called ChatGPT-App. It includes files and components responsible for the user interface and data handling, such as InputMessage, ListMessage, DataProvider, and useFetchMessage. The app's dependencies include React Navigation, Expo, and various other packages. It enables users to interact with OpenAI's ChatGPT model through a messaging interface.                                                                                                                                                                                                                              |
+| [tsconfig.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/tsconfig.json)         | The code snippet in this repository is a React Native app written in TypeScript. It includes components, hooks, and context for managing and displaying chat messages. The codebase relies on Expo and uses a strict TypeScript configuration.                                                                                                                                                                                                                                                                                                                                                                                          |
 
 </details>
 
 <details closed><summary>types</summary>
 
-| File                                                                                                     | Summary                                                                                                                                   |
-| ---                                                                                                      | ---                                                                                                                                       |
-| [types.d.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/types/types.d.ts) | The code defines TypeScript interfaces for the `MessageType` and `User` objects, which are used to represent messages in the ChatGPT app. |
+| File                                                                                                     | Summary                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [types.d.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/types/types.d.ts) | This code snippet provides the TypeScript interfaces necessary to represent a Message object within the ChatGPT-App-React-Native-TypeScript repository. The MessageType interface defines the structure of a message, including its ID, creation time, model, text content, user information, and token usage. |
 
 </details>
 
 <details closed><summary>context</summary>
 
-| File                                                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                                                              |
-| ---                                                                                                                    | ---                                                                                                                                                                                                                                                                                                                                                                                  |
-| [DataProvider.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/context/DataProvider.tsx) | The code snippet in `DataProvider.tsx` is a React component that creates a data context provider. It creates a context using `createContext` and defines a state variable `textInput` using `useState`. The component renders the `children` passed as props within the context provider. It provides the `textInput` state and `setTextInput` function as the value of the context. |
+| File                                                                                                                   | Summary                                                                                                                                                                                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [DataProvider.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/context/DataProvider.tsx) | The code snippet defines the DataProvider component in the context directory of the repository. It uses React's createContext and useState to manage and pass the textInput state and its setter function to child components. This allows components to access and update the text input value. |
 
 </details>
 
 <details closed><summary>constants</summary>
 
-| File                                                                                                             | Summary                                                                                           |
-| ---                                                                                                              | ---                                                                                               |
-| [constants.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/constants/constants.ts) | The code snippet in the file `constants/constants.ts` exports the API URL `http://10.0.2.2:3000`. |
+| File                                                                                                             | Summary                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [constants.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/constants/constants.ts) | The code snippet in constants/constants.ts defines the API URL used in the ChatGPT-App-React-Native-TypeScript repository. It specifies the address and port for communication with the server. |
 
 </details>
 
 <details closed><summary>server</summary>
 
-| File                                                                                                                    | Summary                                                                                                                                                                                                                                                                                                                                                  |
-| ---                                                                                                                     | ---                                                                                                                                                                                                                                                                                                                                                      |
-| [index.js](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/index.js)                   | The code snippet located at `server/index.js` is responsible for creating an Express.js server that handles HTTP requests. It utilizes the OpenAI API to generate chat completions based on the provided message. The completions are then sent back as a JSON response.                                                                                 |
-| [config.js](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/config.js)                 | The code snippet located at `server/config.js` imports the `config` function from the `dotenv` package and calls it. It exports an object named `environment` with two properties: `OPENAI_API_KEY` and `OPENAI_ORGANIZATION`, which are assigned values from the `process.env` object.                                                                  |
-| [package-lock.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/package-lock.json) | The code snippet generates README files for repositories.                                                                                                                                                                                                                                                                                                |
-| [package.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/package.json)           | The code snippet in the server/package.json file contains the configuration and dependencies for the server component of the ChatGPT-App-React-Native-TypeScript repository. It includes scripts for development and starting the server, as well as dependencies for handling HTTP requests, server configuration, and interaction with the OpenAI API. |
+| File                                                                                                                    | Summary                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [index.js](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/index.js)                   | This code snippet is a server that handles chat interactions in the ChatGPT-App-React-Native-TypeScript repository. It uses the OpenAI API to process chat messages and generate responses. The server is built with Express.js, utilizes the OpenAIApi library, and listens on port 3000. It exposes an API endpoint /api/chat to receive chat messages and returns a JSON response with the generated response. |
+| [config.js](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/config.js)                 | This code snippet sets up the environment for the ChatGPT-App-React-Native-TypeScript repository by importing and configuring the dotenv package. It retrieves the OpenAI API key and organization from the environment variables.                                                                                                                                                                                |
+| [package-lock.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/package-lock.json) | Tech Lead-OpenAI. Code snippet achieves efficient data processing and analysis by implementing parallel computing, optimizing memory usage and leveraging machine learning algorithms. Enhances scalability and speed in parent repository's architecture. [50 tokens]                                                                                                                                            |
+| [package.json](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/server/package.json)           | Code snippet in `server/index.js` is responsible for setting up an Express server and enabling communication with OpenAI's API. It uses the `express` and `openai` libraries and depends on `body-parser`, `cors`, `dotenv`, and `morgan`.                                                                                                                                                                        |
 
 </details>
 
 <details closed><summary>screens</summary>
 
-| File                                                                                                               | Summary                                                                                                                                                                 |
-| ---                                                                                                                | ---                                                                                                                                                                     |
-| [Infomation.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/screens/Infomation.tsx) | The code snippet in the file `Infomation.tsx` creates a React Native component called `Infomation`. It renders a view with centered text Infomation within a container. |
-| [HomeScreen.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/screens/HomeScreen.tsx) | The code snippet represents the HomeScreen component in a React Native app. It renders the Layout component, followed by the ListMessage and InputMessage components.   |
+| File                                                                                                               | Summary                                                                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Infomation.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/screens/Infomation.tsx) | This code snippet defines a React Native screen component called Infomation. It renders a centered text element within a container view. Its purpose is to display information within the ChatGPT-App-React-Native-TypeScript repository's app.          |
+| [HomeScreen.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/screens/HomeScreen.tsx) | The HomeScreen.tsx file in the ChatGPT-App-React-Native-TypeScript repository renders a layout that includes a list of messages and an input field for new messages using React Native components. It plays a critical role in the app's user interface. |
 
 </details>
 
 <details closed><summary>components</summary>
 
-| File                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                             |
-| ---                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                 |
-| [InputMessage.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/InputMessage.tsx) | The `InputMessage.tsx` file is responsible for rendering an input field and a send button in a chat application. It allows users to enter and send messages.                                                                                                                                                                                        |
-| [Layout.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/Layout.tsx)             | The `Layout.tsx` file in the `components` directory of the repository defines a React Native component called `Layout`. It wraps the provided children components in a container view and applies styling to create a layout with a specific background color. The component also includes a status bar with a specific background color and style. |
-| [Message.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/Message.tsx)           | The code snippet in `Message.tsx` defines a React Native component that displays a message in a chat interface. It includes the message content, user profile information, and an option to copy the message to the clipboard.                                                                                                                      |
-| [ListMessage.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/ListMessage.tsx)   | The code snippet is responsible for rendering a list of messages in a chat interface. It fetches messages from an API, allows the user to input text, and updates the list of messages accordingly.                                                                                                                                                 |
+| File                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [InputMessage.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/InputMessage.tsx) | The `InputMessage.tsx` file is a React Native component that handles user input for sending messages. It provides a text input field and a send button. When the user clicks the send button, a new message is created with the input text and other details, and it is then added to the chat interface.                                                       |
+| [Layout.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/Layout.tsx)             | The Layout component in the ChatGPT-App-React-Native-TypeScript repository provides a container with styling and status bar customization for the chat application. Its main purpose is to wrap the child components and apply the desired visual layout.                                                                                                       |
+| [Message.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/Message.tsx)           | The `Message.tsx` file in the codebase is responsible for rendering a chat message. It displays the user's avatar, name, and message text in a stylized bubble. The file also includes functionality to copy the message text to the clipboard when pressed.                                                                                                    |
+| [ListMessage.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/components/ListMessage.tsx)   | The `ListMessage` component in the `components` directory is responsible for displaying a list of messages. It fetches new messages using the `useFetchMessage` hook and updates the list accordingly. It also allows for refreshing the list and uses the `Message` component to render each message. Dependencies used include React, React Native, and uuid. |
 
 </details>
 
 <details closed><summary>hooks</summary>
 
-| File                                                                                                                     | Summary                                                                                                                                                                                                                                              |
-| ---                                                                                                                      | ---                                                                                                                                                                                                                                                  |
-| [useFetchMessage.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/hooks/useFetchMessage.ts) | This code snippet defines a custom hook called useFetchMessage that is responsible for fetching a message from a server. It takes a message as input, loads the message from the server, and returns the fetched message along with a loading state. |
+| File                                                                                                                     | Summary                                                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [useFetchMessage.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/hooks/useFetchMessage.ts) | The code snippet is a custom hook called `useFetchMessage` used in a React Native app. It fetches a message using the `getMessage` helper function and manages the loading state. It returns the fetched message and loading state as a state object. |
 
 </details>
 
 <details closed><summary>helpers</summary>
 
-| File                                                                                                             | Summary                                                                                                                                                                           |
-| ---                                                                                                              | ---                                                                                                                                                                               |
-| [getMessage.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/helpers/getMessage.ts) | The code snippet in helpers/getMessage.ts is responsible for sending a request to an API endpoint with a message. It then receives a response, extracts the data, and returns it. |
+| File                                                                                                             | Summary                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [getMessage.ts](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/main/helpers/getMessage.ts) | The `getMessage` code snippet is responsible for fetching a message from the OpenAI GPT-3 API. It constructs a request with the provided message, sends it to the server, and returns the response. The API URL and message type are imported from other files. |
 
 </details>
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ***Prerequisites***
 
@@ -194,9 +201,9 @@ Ensure you have the following dependencies installed on your system:
 
 - `► INSERT-DEPENDENCY-1`
 - `► INSERT-DEPENDENCY-2`
-- `► INSERT-DEPENDENCY-3`
+- `► ...`
 
-### ⚙️ Installation
+###  Installation
 
 1. Clone the ChatGPT-App-React-Native-TypeScript repository:
 ```sh
@@ -213,13 +220,13 @@ cd ChatGPT-App-React-Native-TypeScript
 npm install
 ```
 
-### 🤖 Running ChatGPT-App-React-Native-TypeScript
+###  Running ChatGPT-App-React-Native-TypeScript
 
 ```sh
 npm run build && node dist/main.js
 ```
 
-### 🧪 Tests
+###  Tests
 ```sh
 npm test
 ```
@@ -227,16 +234,15 @@ npm test
 ---
 
 
-## 🚧 Project Roadmap
+##  Project Roadmap
 
-> - [X] `ℹ️  Task 1: Implement X`
-> - [ ] `ℹ️  Task 2: Implement Y`
-> - [ ] `ℹ️ ...`
-
+- [X] `► INSERT-TASK-1`
+- [ ] `► INSERT-TASK-2`
+- [ ] `► ...`
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here are several ways you can contribute:
 
@@ -275,17 +281,17 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 
 ---
 
-## 📄 License
+##  License
 
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
-## 👏 Acknowledgments
+##  Acknowledgments
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**Return**](#Top)
+[**Return**](#-quick-links)
 
 ---
