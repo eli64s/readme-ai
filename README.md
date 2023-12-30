@@ -61,7 +61,7 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 > [!TIP]
 >
-> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs. See an example file generated using the `--offline` flag [readme-offline.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
+> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs. View the generated README file [here](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
 
 **Streamlit Web App**: Run <em>readme-ai</em> directly in your browser with Streamlit, no installation required!
 
@@ -355,10 +355,9 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 ***Prerequisites***
 
 Ensure that you have the following dependencies installed on your system.
-
 - Python 3.9, 3.10, 3.11, or 3.12
-- A package manager or container runtime (pip, docker, conda, etc.)
-- OpenAI API ***paid*** account and API key
+- Package manager or container runtime (pip, docker, conda, etc.)
+- OpenAI API account and API key (Additional API endpoints coming soon!)
 
 ***Code Repository***
 
@@ -389,7 +388,7 @@ Additionally, it is essential to understand the potential risks and costs associ
 >
 > Please review the following information before using *readme-ai*.
 >
-> 1. **Review Sensitive Information**: Before running <em>README-AI</em>, ensure all content in your repository is free of sensitive information. <em>README-AI</em> DOES NOT filter out sensitive data from your codebase, nor the generated README file. <em>README-AI</em> DOES NOT alter your codebase in any way, and it is your responsibility to review your codebase before generating a README file, as well as after before publishing it.
+> 1. **Review Sensitive Information**: Before running <em>readme-ai</em>, ensure all content in your repository is free of sensitive information. This tool does not remove sensitive data from your codebase, nor from the generated README file. Additionally, <em>readme-ai<em> does not alter your codebase, and its your responsibility to review your codebase before generating a README, as well as reviewing the generated README file before publishing it.
 >
 > 2. **API Usage Costs**: The OpenAI API is not free. You will be charged for each request made by <em>README-AI</em>. Costs can accumulate rapidly, so please monitor your API usage and associated costs by visiting the [OpenAI API Usage Dashboard](https://platform.openai.com/account/usage).
 >
@@ -487,11 +486,11 @@ Using `streamlit`
 
 > [!NOTE]
 >
-> Hosted on <a href="https://streamlit.io/">Streamlit Community Cloud</a>, a free service for sharing Streamlit apps. Thus, the app may be unstable or unavailable at times. See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
+> The web app is hosted on <a href="https://streamlit.io/">Streamlit Community Cloud</a>, a free service for sharing Streamlit apps. Thus, the app may be unstable or unavailable at times. See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
 
-For the complete list of CLI options and README customization settings, see the [Configuration](#-configuration) section.
+See the [Configuration](#-configuration) section below for the complete list of CLI options.
 
-Alternatively, you can run the *readme-ai* application directly from the source code.
+<details closed><summary>Alternatively, run the application locally from the cloned repository.</summary><br>
 
 Using `pipenv`
 ```sh
@@ -505,22 +504,21 @@ poetry shell && \
 poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
 ```
 
+</details>
+
 ---
 
 ### 🧪 Tests
 
-Use `pytest` to run the default test suite.
+Use [`pytest`](https://docs.pytest.org/en/7.1.x/contents.html) to run the default test suite.
 ```sh
 make test
 ```
 
-Use `nox` to run the test suite against multiple Python versions including `(3.9, 3.10, 3.11, 3.12)`.
+Use [`nox`](https://nox.thea.codes/en/stable/) to run the test suite against multiple Python versions including `(3.9, 3.10, 3.11, 3.12)`.
 ```sh
 nox -f noxfile.py
 ```
-> [!NOTE]
->
-> [Nox](https://nox.thea.codes/en/stable/) is an automation toolkit that makes it easier to manage multiple Python testing environments.
 
 ---
 
@@ -537,7 +535,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 | `--badges`/`-b` | `flat` | Badge style options for your README file. | String | Optional |
 | `--emojis`/`-e` | `False` | Add emojis to section header tiles. | Boolean | Optional |
 | `--image`/`-i` | `blue` | Project logo image displayed in README header. | String | Optional |
-| `--max-tokens` | `699` | GPT model maximum token limit. | Int | Optional |
+| `--max-tokens` | `3999` | Maximum number of tokens that can be generated. | Integer | Optional |
 | `--model`/`-m` | `gpt-3.5-turbo` | Select GPT model for content generation. | String | Optional |
 | `--offline` | `False` | Generate a README without an API key. | Boolean | Optional |
 | `--output`/`-o` | `readme-ai.md` | README output file name. | Path/String | Optional |
@@ -691,7 +689,7 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 
 
 <p align="right">
-  <a href="#top"><b>⌃ return</b></a>
+  <a href="#top"><b>⌃ Return</b></a>
 </p>
 
 ---

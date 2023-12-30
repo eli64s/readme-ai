@@ -1,4 +1,4 @@
-"""Toknization utilities for the readme-ai CLI application."""
+"""Tokenization utilities for the readme-ai CLI application."""
 
 from tiktoken import encoding_for_model, get_encoding
 
@@ -12,7 +12,7 @@ def adjust_max_tokens(
 ) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())
-    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 4
+    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 5
     return adjusted_max_tokens
 
 

@@ -153,16 +153,16 @@ class GitConfig(BaseModel):
             return Path(repo).name
 
 
-class LanguageModelApiConfig(BaseModel):
-    """Pydantic model for OpenAI API configuration."""
+class LlmApiConfig(BaseModel):
+    """Pydantic model for GPT LLM API configuration settings."""
 
     endpoint: str
     encoding: str
     model: str
     rate_limit: int
+    temperature: float
     tokens: int
     tokens_max: int
-    temperature: float
 
 
 class MarkdownConfig(BaseModel):
@@ -202,7 +202,7 @@ class AppConfig(BaseModel):
     cli: CliConfig
     files: FilesConfig
     git: GitConfig
-    llm: LanguageModelApiConfig
+    llm: LlmApiConfig
     md: MarkdownConfig
     prompts: PromptsConfig
 

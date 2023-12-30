@@ -24,17 +24,17 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 rate_limit = 5
+temperature = 1.0
 tokens = 699
 tokens_max = 3999
-temperature = 1.0
 
 # Markdown Templates
 [md]
 align = "center"
+default = "`► INSERT-TEXT`"
+dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 image = ""
 tables = ""
-default = "► INSERT-TEXT"
-dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
 
 header = """<div align="{0}">
 <h1><img src={1} width="100" />
@@ -223,58 +223,67 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**Return**](#Top)
+[**Return**](#-quick-links)
 
 ---
-
 """
 
 # Language Model Prompts
 [prompts]
-features = """Hello! Analyze the repository {0} and following the instructions below to generate a
-comprehensive list of features. Please provide a comprehensive technical analysis of the
-codebase and its components. Consider the codebase as a whole and highlight the key
-characteristics, design patterns, architectural decisions, and any other noteworthy
-elements. Generate your response as a formatted Markdown table using the template below:\n
+features = """Hello! Please analyze the repository {0} and provide a comprehensive technical analysis of its codebase and components. \
+Generate your response as a formatted Markdown table using the template below.\n
 
-|    | Feature            | Description                                                                                                        |
-|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**   | Analyze the structural design of the system here. Limit your response to a maximum of 40 tokens.             |
-| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Limit your response to a maximum of 40 tokens.|
-| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Limit your response to a maximum of 40 tokens.|
-| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Limit your response to a maximum of 40 tokens.|
-| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Limit your response to a maximum of 40 tokens.       |
-| ⚡️  | **Performance**    | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Limit your response to a maximum of 40 tokens.|
-| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Limit your response to a maximum of 40 tokens.|
-| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Limit your response to a maximum of 40 tokens.|
-| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Limit your response to a maximum of 40 tokens.|
-| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Limit your response to a maximum of 40 tokens.           |
+Markdown Template:
 
-You should first study the repository information below to supplement your analysis:
+| Symbol | Feature             | Description                                                                                                            |
+|--------|---------------------|------------------------------------------------------------------------------------------------------------------------|
+| ⚙️     | **Architecture**    | Analyze and describe the repository's structural design, focusing on its layout and framework.                         |
+| 📄     | **Documentation**   | Evaluate the documentation's quality and depth, noting its clarity and thoroughness.                                    |
+| 🔗     | **Dependencies**    | Identify and discuss the external libraries or systems the repository depends upon.                                     |
+| 🧩     | **Modularity**      | Assess how the repository is divided into smaller, interchangeable parts or modules.                                   |
+| 🧪     | **Testing**         | Examine the testing methodologies and tools employed in the repository.                                                |
+| ⚡️     | **Performance**     | Analyze the repository's performance, considering aspects like speed, efficiency, and resource utilization.            |
+| 🔐     | **Security**        | Review the security measures in place for data protection and maintaining functionality.                               |
+| 🔀     | **Version Control** | Discuss the strategies and tools used for version control in the repository.                                           |
+| 🔌     | **Integrations**    | Evaluate how the repository integrates with other systems and services.                                                |
+| 📶     | **Scalability**     | Analyze the repository's capability to accommodate growth and handle scaling challenges.                               |
 
-Code repository information:\n
-Repository directory tree structure: {1}\n
-Codebase dependencies and software: {2}\n
+Adhering to the table structure and 40-token limit for each feature description is essential.
+
+Token definition: A token is a single word, punctuation mark, or symbol. Count tokens carefully to ensure compliance with the limit.
+
+For each feature: Provide a concise description within the 40-token limit. Use the provided questions for guidance.
+
+Repository information:
+
+Repository directory tree structure: {1}
+Codebase dependencies and software: {2}
 Codebase file summaries: {3}
 
-Thank you for your time and effort. We look forward to your response!
+Thank you for your thorough analysis!
 """
-overview = """Generate a summary, of 99 words or less, that describes the capabilities
-of the code repository {0}. Focus on the project's use-case and value proposition,
-rather than its technical details. Do not refer to the project using the URL provided.
-Attached below are additional artifacts and metadata of the codebase and its components,
-to supplement your analysis. Code repository information:\n
-Repository directory tree structure: {1}\n
-Codebase dependencies and software: {2}\n
+overview = """Create a concise summary that highlights the core functionality and benefits of the code repository {0}. \
+Emphasize the practical applications and unique advantages the project offers, avoiding technical jargon and specifications. \
+Refrain from mentioning the project through its URL. Included are supplementary details and materials about the codebase and its elements to enhance your understanding. \
+
+Repository information:
+
+Repository directory tree structure: {1}
+Codebase dependencies and software: {2}
 Codebase file summaries: {3}
+
+Thank you for your thorough analysis!
 """
-slogan = """Create a catchy and engaging slogan for the code repository - {0}.
-Limit your response to 18 tokens. Do not refer to the project using the URL provided
-or its repository name. An example slogan is: "A simple, fast, and reliable package manager."""
-summaries = """Provide a clear, concise summary in 50 tokens or less highlighting the overall role \
-and key functionalities of the following code snippet within its parent repository architecture.
-Only describe what the code accomplishes, without including any implementation details.
-Repository structure details: {0}.
-File path location: {1}.
-{2}
+slogan = """Devise an attention-grabbing and memorable slogan for the code repository {0}. \
+Keep the slogan within 15 tokens and avoid using the project's URL or repository name. \
+For instance, consider the example: "A simple, fast, and reliable package manager.
+"""
+summaries = """Deliver a succinct summary in no more than 50 tokens, emphasizing the main role \
+and critical features of this code snippet in relation to its parent repository's architecture. \
+Focus on what the code achieves, steering clear of technical implementation details. Included are \
+supplementary details and materials about the codebase and its elements to enhance your understanding. \
+Provided information includes:\n
+- Repository layout and directory structure: {0}
+- List of dependencies and software used in the codebase: {1}
+- Summaries of key files within the codebase: {2}
 """
