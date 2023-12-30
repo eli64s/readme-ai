@@ -16,11 +16,11 @@ help:
 	@echo "test         : executes tests."
 
 .PHONY: clean
-clean: format
+clean:
 	./scripts/clean.sh clean
 
 .PHONY: format
-format:
+format: clean
 	-black .
 	-isort .
 
