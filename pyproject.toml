@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.081"
-description = "🚀 Auto-generate beautiful README files from the terminal, powered by OpenAI's GPT language models 💫"
+version = "0.4.082"
+description = "🚀 Generate awesome README files from the terminal, powered by OpenAI's GPT language models 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"

@@ -51,26 +51,21 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 ## 🤖 Demo
 
-**README-AI CLI**: Standard usage of the <em>readme-ai</em> CLI tool with an OpenAI API key.
+**README-AI standard use**: Standard usage of the <em>readme-ai</em> CLI tool.
 
 [readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
 
-**CLI without an API key**: You can also run <em>readme-ai</em> without an API key by passing the `--offline` flag to the CLI.
+**README-AI offline mode**: You can also run <em>readme-ai</em> without an API key by passing the `--offline` flag to the CLI.
 
 [readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/2c9b8456-80b9-4840-8da2-51780ed0c093)
 
 > [!TIP]
 >
-> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs.
->
-> Placeholders are left for all content that is LLM generated. This includes the following sections:
->> The <em>project slogan</em> used in the README header, <em>Overview</em>, <em>Features</em>, and <em>Modules</em> sections.
->
-> See an example file generated using the `--offline` flag [readme-offline.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
+> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs. See an example file generated using the `--offline` flag [readme-offline.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
 
-**Streamlit Web App**: Generate a README file in your browser with Streamlit. No installation required!
+**Streamlit Web App**: Run <em>readme-ai</em> directly in your browser with Streamlit, no installation required!
 
-[readmeai-streamlit-demo]()
+[readmeai-streamlit-demo](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
 
 ---
 
@@ -350,7 +345,7 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 <br>
 
 <p align="right">
-  <a href="#top"><b>RETURN</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -362,21 +357,16 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 Ensure that you have the following dependencies installed on your system.
 
 - Python 3.9, 3.10, 3.11, or 3.12
-- A package manager or container runtime (pip, conda, docker, etc.)
+- A package manager or container runtime (pip, docker, conda, etc.)
 - OpenAI API ***paid*** account and API key
-
-<br>
 
 ***Code Repository***
 
 A remote repository URL or local directory path to your project is required to generate a README file. The following repository sources are currently supported.
-
 - GitHub
 - GitLab
 - Bitbucket
 - File System
-
-<br>
 
 ***OpenAI API***
 
@@ -393,7 +383,7 @@ An OpenAI API account and API key are needed to use *readme-ai*. The following s
 
 </details>
 
-Additionally, It is essential to understand the potential risks and costs associated with using a GPT language model API.
+Additionally, It is essential to understand the potential risks and costs associated with using LLM APIs.
 
 > [!WARNING]
 >
@@ -406,7 +396,7 @@ Additionally, It is essential to understand the potential risks and costs associ
 > 3. **Paid Account Recommended**: Setting up a paid OpenAI account is highly recommended to avoid potential issues. Without a payment method on file, your API usage will be restricted to base OpenAI's base models. This may result in less accurate README file content and potential errors may occur. For more details, see the [OpenAI Pricing Page](https://openai.com/pricing/).
 
 <p align="right">
-  <a href="#top"><b>RETURN</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -418,21 +408,15 @@ Using `pip`
 pip install readmeai
 ```
 
-<br>
-
 Using `docker`
 ```sh
 docker pull zeroxeli/readme-ai:latest
 ```
 
-<br>
-
 Using `conda`
 ```sh
 conda install -c conda-forge readmeai
 ```
-
-<br>
 
 Alternatively, clone the readme-ai repository and build from source.
 
@@ -441,8 +425,6 @@ git clone https://github.com/eli64s/readme-ai && \
 cd readme-ai
 ```
 
-<br>
-
 Then use one of the methods below to install the project's dependencies (Bash, Conda, Pipenv, or Poetry).
 
 Using `bash`
@@ -450,15 +432,11 @@ Using `bash`
 bash setup/setup.sh
 ```
 
-<br>
-
 Using `pipenv`
 ```sh
 pipenv install && \
 pipenv shell
 ```
-
-<br>
 
 Using `poetry`
 ```sh
@@ -542,15 +520,13 @@ Use `pytest` to run the default test suite.
 make test
 ```
 
-Use `nox` to run the test suite against multiple Python versions. Runs test against versions `3.9, 3.10, 3.11, 3.12`.
+Use `nox` to run the test suite against multiple Python versions `(3.9, 3.10, 3.11, 3.12)`.
 ```sh
 nox -f noxfile.py
 ```
 > [!NOTE]
 >
-> Nox is a Python automation toolkit that makes it easier to manage multiple testing environments.
->
-> See the [Nox documentation](https://nox.thea.codes/en/stable/) for more details.
+> Nox is an automation toolkit that makes it easier to manage multiple Python testing environments. See the [Nox documentation](https://nox.thea.codes/en/stable/) for more details.
 
 ---
 
@@ -668,7 +644,7 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 </details>
 
 <p align="right">
-  <a href="#top"><b>RETURN</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -720,7 +696,7 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 
 
 <p align="right">
-  <a href="#top"><b>RETURN</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
