@@ -31,51 +31,61 @@ tokens_max = 3999
 # Markdown Templates
 [md]
 align = "center"
-default = "`► INSERT-TEXT`"
-dropdown = """<details closed><summary>{}</summary>\n\n{}\n\n</details>\n"""
+default = "<code>► INSERT-TEXT-HERE</code>"
+dropdown = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
 image = ""
 tables = ""
 
-header = """<div align="{0}">
-<h1><img src={1} width="100" />
-<br>{2}</h1>
-<h3>◦ {3}</h3>
-<h3>◦ Developed with the software and tools below.</h3>
+header = """\
+<div id="top" align="{0}">
+   <h1>
+      <img src="{1}" width="100">
+      <br>
+      {2}
+   </h1>
+   <h3>◦ {3}</h3>
+   <h3>◦ Developed with the software and tools below.</h3>
 """
 header_left = """[<img src={0} height="120" align="left">]({0})
 # {1}
 ### {2}\n
 """
 
-badges_offline = """<p align="{0}">
-{1}
-</p>
+badges_offline = """\
+   <p align="{0}">
+      {1}
+   </p>
 </div>
 <hr>
 """
-badges_shieldsio = """<p align="{0}">
-{1}
-</p>
-<img src="https://img.shields.io/github/license/{2}?style={3}&color=5D6D7E" alt="GitHub license" />
-<img src="https://img.shields.io/github/last-commit/{2}?style={3}&color=5D6D7E" alt="git-last-commit" />
-<img src="https://img.shields.io/github/commit-activity/m/{2}?style={3}&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/languages/top/{2}?style={3}&color=5D6D7E" alt="GitHub top language" />
+badges_shieldsio = """\
+   <p align="{0}">
+      {1}
+   </p>
+   <img src="https://img.shields.io/github/license/{2}?style={3}&color=5D6D7E" alt="github-license">
+   <img src="https://img.shields.io/github/last-commit/{2}?style={3}&color=5D6D7E" alt="github-last-commit">
+   <img src="https://img.shields.io/github/commit-activity/m/{2}?style={3}&color=5D6D7E" alt="github-commit-activity">
+   <img src="https://img.shields.io/github/languages/top/{2}?style={3}&color=5D6D7E" alt="github-top-language">
 </div>
-<hr>
+
+---
 """
-badges_skills = """
+badges_skills = """\
 <div align="{0}">
-<h1><img src={1} width="100" />
-<br>{2}</h1>
-<h3>◦ {3}</h3>
-<h3>◦ Developed with the software and tools below.</h3>
+   <h1><img src="{1}" width="100">
+      <br>
+      {2}
+   </h1>
+   <h3>◦ {3}</h3>
+   <h3>◦ Developed with the software and tools below.</h3>
 </div>
 <p align="{4}">
-<a href="https://skillicons.dev">
-<img src="{5}">
-</a>
+   <a href="https://skillicons.dev">
+      <img src="{5}">
+   </a>
 </p>
-<hr>
+
+---
 """
 badges_style="flat"
 
@@ -137,7 +147,7 @@ Ensure you have the following dependencies installed on your system:
 
 - `► INSERT-DEPENDENCY-1`
 - `► INSERT-DEPENDENCY-2`
-- `► INSERT-DEPENDENCY-3`
+- `► ...`
 
 ### ⚙️ Installation
 
@@ -167,11 +177,11 @@ cd {0}
 contribute = """
 \n## 🚧 Project Roadmap
 
-> - [X] `ℹ️  Task 1: Implement X`
-> - [ ] `ℹ️  Task 2: Implement Y`
-> - [ ] `ℹ️ ...`
+- [X] `► INSERT-TASK-1`
+- [ ] `► INSERT-TASK-2`
+- [ ] `► ...`
 
-\n---
+---
 
 ## 🤝 Contributing
 
@@ -230,44 +240,39 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 # Language Model Prompts
 [prompts]
-features = """Hello! Please analyze the repository {0} and provide a comprehensive technical analysis of its codebase and components. \
-Generate your response as a formatted Markdown table using the template below.\n
+features = """Hello! Analyze the repository '{0}' and provide an in-depth technical analysis of its codebase and components.
+Your response should be formatted as a Markdown table using the structure below:
 
 Markdown Template:
 
-| Symbol | Feature             | Description                                                                                                            |
-|--------|---------------------|------------------------------------------------------------------------------------------------------------------------|
-| ⚙️     | **Architecture**    | Analyze and describe the repository's structural design, focusing on its layout and framework.                         |
-| 📄     | **Documentation**   | Evaluate the documentation's quality and depth, noting its clarity and thoroughness.                                    |
-| 🔗     | **Dependencies**    | Identify and discuss the external libraries or systems the repository depends upon.                                     |
-| 🧩     | **Modularity**      | Assess how the repository is divided into smaller, interchangeable parts or modules.                                   |
-| 🧪     | **Testing**         | Examine the testing methodologies and tools employed in the repository.                                                |
-| ⚡️     | **Performance**     | Analyze the repository's performance, considering aspects like speed, efficiency, and resource utilization.            |
-| 🔐     | **Security**        | Review the security measures in place for data protection and maintaining functionality.                               |
-| 🔀     | **Version Control** | Discuss the strategies and tools used for version control in the repository.                                           |
-| 🔌     | **Integrations**    | Evaluate how the repository integrates with other systems and services.                                                |
-| 📶     | **Scalability**     | Analyze the repository's capability to accommodate growth and handle scaling challenges.                               |
+| Symbol | Feature             | Description (Max 40 Tokens)                                                                                           |
+|--------|---------------------|-----------------------------------------------------------------------------------------------------------------------|
+| ⚙️     | **Architecture**    | Examine and detail the repository's structural design, focusing on layout, framework, and key architectural elements. |
+| 📄     | **Documentation**   | Assess the quality, clarity, and completeness of the documentation, highlighting its user-friendliness and detail.    |
+| 🔗     | **Dependencies**    | Identify and comment on external libraries and systems the repository relies on, noting their integration and use.    |
+| 🧩     | **Modularity**      | Evaluate the repository's division into modules and components, discussing its approach to modular design.            |
+| 🧪     | **Testing**         | Analyze the testing practices, including methodologies and tools, emphasizing their effectiveness and coverage.       |
+| ⚡️     | **Performance**     | Discuss the repository's performance, focusing on speed, efficiency, and resource management.                         |
+| 🔐     | **Security**        | Review the security measures implemented for data protection and operational integrity.                               |
+| 🔀     | **Version Control** | Describe the version control system in use, noting its strategy and how it contributes to development.                |
+| 🔌     | **Integrations**    | Examine the repository's interactions with other systems or services, and its integration capabilities.               |
+| 📶     | **Scalability**     | Assess the repository's ability to handle growth, focusing on scalability in terms of user and repository numbers.    |
 
-Adhering to the table structure and 40-token limit for each feature description is essential.
+Each description should adhere to a 40-token limit, ensuring concise yet informative analysis. Tokens include words, punctuation, or symbols.
 
-Token definition: A token is a single word, punctuation mark, or symbol. Count tokens carefully to ensure compliance with the limit.
+For guidance, use the following repository information:
 
-For each feature: Provide a concise description within the 40-token limit. Use the provided questions for guidance.
+- Repository directory tree structure: {1}
+- Codebase dependencies and software: {2}
+- Codebase file summaries: {3}
 
-Repository information:
-
-Repository directory tree structure: {1}
-Codebase dependencies and software: {2}
-Codebase file summaries: {3}
-
-Thank you for your thorough analysis!
+Please provide detailed insights while respecting the token limit. Thank you for your comprehensive analysis!
 """
 overview = """Create a concise summary that highlights the core functionality and benefits of the code repository {0}. \
 Emphasize the practical applications and unique advantages the project offers, avoiding technical jargon and specifications. \
 Refrain from mentioning the project through its URL. Included are supplementary details and materials about the codebase and its elements to enhance your understanding. \
 
 Repository information:
-
 Repository directory tree structure: {1}
 Codebase dependencies and software: {2}
 Codebase file summaries: {3}

@@ -14,7 +14,7 @@ from readmeai.markdown.badges import (
         ([], ""),
         (
             ["https://img.shields.io/badge/coverage-100%25-brightgreen.svg"],
-            '<img src="https://img.shields.io/badge/coverage-100%25-brightgreen.svg" alt="coverage" />',
+            '<img src="https://img.shields.io/badge/coverage-100%25-brightgreen.svg" alt="coverage">',
         ),
     ],
 )

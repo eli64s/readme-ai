@@ -7,10 +7,11 @@ from readmeai.markdown.quickstart import getting_started
 
 def test_getting_started_with_default_config(config, config_helper):
     """Tests the getting_started method with default config."""
+    default = config.md.default
     deps = ["pytest", "tensorflow", "python"]
     summaries = [("module.pyc", "summary")]
     result = getting_started(config, config_helper, deps, summaries)
-    assert result == ("► INSERT-TEXT", "► INSERT-TEXT", "► INSERT-TEXT")
+    assert result == (default, default, default)
 
 
 @pytest.mark.parametrize(

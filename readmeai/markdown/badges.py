@@ -22,7 +22,7 @@ def format_html_badge_block(badges: list) -> str:
     for i in range(0, total_badges, badges_per_line):
         line = "\n".join(
             [
-                f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}" />'
+                f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
             ]
         )
