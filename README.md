@@ -51,21 +51,23 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 ## 🤖 Demo
 
-**README-AI CLI**: Standard usage of the <em>readme-ai</em> CLI tool.
+**README-AI CLI**: Standard usage of the tool using the terminal.
 
-[readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/89184f7c-1870-44b6-8175-c9c94fadeb6b)
+[readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/ff5b3db8-a400-4031-86fc-a28f8a0469e2)
 
-**README-AI CLI offline mode**: You can also run <em>readme-ai</em> without an API key by passing the `--offline` flag to the CLI.
+**README-AI CLI Offline Mode**: You can also run the CLI without an API key by passing the `--offline` flag.
 
-[readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/2c9b8456-80b9-4840-8da2-51780ed0c093)
+[readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/a508ab17-6fcf-4de5-9239-fc4055d11d62)
 
 > [!TIP]
 >
-> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs. View the generated README file [here](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
+> Offline mode is useful for quickly generating a boilerplate README without incurring API usage costs. The README file created in the video above can be viewed [here](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
 
+<!--
 **Streamlit Web App**: Run <em>readme-ai</em> directly in your browser with Streamlit, no installation required!
 
 [readmeai-streamlit-demo](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
+-->
 
 ---
 
