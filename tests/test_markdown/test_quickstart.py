@@ -2,13 +2,14 @@
 
 import pytest
 
-from readmeai.markdown.quickstart import create_instructions
+from readmeai.markdown.quickstart import getting_started
 
 
-def test_create_instructions_with_default_config(config, config_helper):
-    """Tests the create_instructions method with default config."""
+def test_getting_started_with_default_config(config, config_helper):
+    """Tests the getting_started method with default config."""
+    deps = ["pytest", "tensorflow", "python"]
     summaries = [("module.pyc", "summary")]
-    result = create_instructions(config, config_helper, summaries)
+    result = getting_started(config, config_helper, deps, summaries)
     assert result == ("► INSERT-TEXT", "► INSERT-TEXT", "► INSERT-TEXT")
 
 
@@ -22,23 +23,25 @@ def test_create_instructions_with_default_config(config, config_helper):
         ("js", ["npm install", "node app.js", "npm test"]),
     ],
 )
-def test_create_instructions_with_language_setup(
+def test_getting_started_with_language_setup(
     language, setup_commands, config, config_helper
 ):
-    """Tests the create_instructions method with language setup."""
+    """Tests the getting_started method with language setup."""
+    deps = ["pytest", "tensorflow", "python"]
     summaries = [(f"module.{language}", "summary")]
-    result = create_instructions(config, config_helper, summaries)
+    result = getting_started(config, config_helper, deps, summaries)
     assert result == tuple(setup_commands)
 
 
-def test_create_instructions_with_multiple_languages(config, config_helper):
-    """Tests the create_instructions method with multiple languages."""
+def test_getting_started_with_multiple_languages(config, config_helper):
+    """Tests the getting_started method with multiple languages."""
+    deps = ["pytest", "tensorflow", "python"]
     summaries = [
         ("module.py", "summary"),
         ("module.js", "summary"),
         ("module.py", "summary"),
     ]
-    result = create_instructions(config, config_helper, summaries)
+    result = getting_started(config, config_helper, deps, summaries)
     assert result == (
         "pip install -r requirements.txt",
         "python main.py",
