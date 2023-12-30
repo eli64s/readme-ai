@@ -1,10 +1,10 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "setuptools"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.083"
+version = "0.4.084"
 description = "🚀 Generate awesome README files automatically using GPT LLM APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -37,8 +37,10 @@ readmeai = "readmeai.cli.commands:commands"
 
 [tool.poetry.dependencies]
 python = "^3.8.1,<4.0.0"
-colorlog = "^6.7.0"
+aiohttp = "^3.8.5"
 cachetools = "^5.3.1"
+click = "^8.1.7"
+colorlog = "^6.7.0"
 gitpython = "^3.1.31"
 httpx = "^0.24.1"
 h2 = "^4.1.0"
@@ -50,8 +52,6 @@ tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
 pydantic = ">=1.10.9,<2.0.0"
-aiohttp = "^3.8.5"
-click = "^8.1.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
