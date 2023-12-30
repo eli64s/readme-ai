@@ -488,8 +488,6 @@ Using `streamlit`
 >
 > The web app is hosted on <a href="https://streamlit.io/">Streamlit Community Cloud</a>, a free service for sharing Streamlit apps. Thus, the app may be unstable or unavailable at times. See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
 
-See the [Configuration](#-configuration) section below for the complete list of CLI options.
-
 <details closed><summary>Alternatively, run the application locally from the cloned repository.</summary><br>
 
 Using `pipenv`
@@ -505,6 +503,8 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 ```
 
 </details>
+
+See the [Configuration](#-configuration) section below for the complete list of CLI options.
 
 ---
 
