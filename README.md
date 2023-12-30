@@ -383,13 +383,13 @@ An OpenAI API account and API key are needed to use *readme-ai*. The following s
 
 </details>
 
-Additionally, It is essential to understand the potential risks and costs associated with using LLM APIs.
+Additionally, it is essential to understand the potential risks and costs associated with using LLM APIs.
 
 > [!WARNING]
 >
 > Please review the following information before using *readme-ai*.
 >
-> 1. **Review Sensitive Information!**: Before running <em>README-AI</em>, ensure all content in your repository is free of sensitive information. <em>README-AI</em> DOES NOT filter out sensitive data from your codebase and generated README file. <em>README-AI</em> DOES NOT alter your codebase in any way, and it is your responsibility to review your codebase before generating a README file, as well as after before publishing it.
+> 1. **Review Sensitive Information**: Before running <em>README-AI</em>, ensure all content in your repository is free of sensitive information. <em>README-AI</em> DOES NOT filter out sensitive data from your codebase and generated README file. <em>README-AI</em> DOES NOT alter your codebase in any way, and it is your responsibility to review your codebase before generating a README file, as well as after before publishing it.
 >
 > 2. **API Usage Costs**: The OpenAI API is not free. Thus, you will be charged for each request made by <em>README-AI</em>. Costs can accumulate rapidly, so it's essential to be aware of your usage. Please monitor your API usage and associated costs by visiting the [OpenAI API Usage Dashboard](https://platform.openai.com/account/usage).
 >
@@ -489,11 +489,7 @@ Try *readme-ai* in your browser using the Streamlit web app. No installation req
 
 > [!NOTE]
 >
-> Hosted on <a href="https://streamlit.io/">Streamlit Community Cloud</a>.
->
-> Streamlit App may be unavailable at times as this is a free service.
->
-> See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
+> Hosted on <a href="https://streamlit.io/">Streamlit Community Cloud</a>, a free service for sharing Streamlit apps. Thus, the app may be unstable or unavailable at times. See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
 
 For the complete list of CLI options and README customization settings, see the [Configuration](#-configuration) section.
 
@@ -520,7 +516,7 @@ Use `pytest` to run the default test suite.
 make test
 ```
 
-Use `nox` to run the test suite against multiple Python versions `(3.9, 3.10, 3.11, 3.12)`.
+Use `nox` to run the test suite against multiple Python versions including `(3.9, 3.10, 3.11, 3.12)`.
 ```sh
 nox -f noxfile.py
 ```
