@@ -345,7 +345,7 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 <br>
 
 <p align="right">
-  <a href="#top"><b>⌃ Return</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -395,7 +395,7 @@ Additionally, it is essential to understand the potential risks and costs associ
 > 3. **Paid Account Recommended**: Setting up a paid OpenAI account is highly recommended. Not using a payment method will restrict your API usage to OpenAI's base models. This may result in less accurate README file content and potential errors arising. See the [OpenAI Pricing Page](https://openai.com/pricing/) for more details.
 
 <p align="right">
-  <a href="#top"><b>⌃ Return</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -637,7 +637,7 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 </details>
 
 <p align="right">
-  <a href="#top"><b>⌃ Return</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
@@ -689,7 +689,7 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 
 
 <p align="right">
-  <a href="#top"><b>⌃ Return</b></a>
+  <a href="#top"><b>Return</b></a>
 </p>
 
 ---
