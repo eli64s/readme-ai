@@ -1,4 +1,4 @@
-"""Preprocesses and extracts metadata from the user's repository."""
+"""Processes the input codebase and extracts metadata to use for analysis."""
 
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
@@ -74,7 +74,7 @@ class RepositoryParser:
             parsed_content = parser.parse(content=content["content"])
             parsed_contents.append(parsed_content)
             logger.info(
-                f"DEPENDENCY FILE FOUND: {content['name']}\n\t{parsed_content}"
+                f"Dependency file found: {content['name']}\n\t{parsed_content}"
             )
         return utils.flatten_list(parsed_contents)
 

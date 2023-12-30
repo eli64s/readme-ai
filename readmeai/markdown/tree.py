@@ -17,12 +17,12 @@ class TreeGenerator:
         conf_helper: ConfigHelper,
         root_directory: Path,
         repo_url: str,
-        project_name: str,
+        repo_name: str,
         max_depth: int = 3,
     ):
         self.config_helper = conf_helper
         self.root_directory = root_directory
-        self.project_name = project_name
+        self.repo_name = repo_name
         self.repo_url = repo_url
         self.max_depth = max_depth
 
@@ -80,5 +80,5 @@ class TreeGenerator:
     def _format_tree(self, tree_str: str) -> str:
         """Formats the directory tree structure."""
         tree_str = tree_str.split("\n", 1)
-        tree_str[0] = f"└── {self.project_name}/"
+        tree_str[0] = f"└── {self.repo_name}/"
         return "\n".join(tree_str)

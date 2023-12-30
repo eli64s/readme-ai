@@ -176,12 +176,12 @@ class MarkdownConfig(BaseModel):
     contribute: str
     default: str
     dropdown: str
+    getting_started: str
     header: str
     header_left: str
     image: str
-    intro: str
     modules: str
-    setup: str
+    overview: str
     tables: str
     toc: str
     tree: str

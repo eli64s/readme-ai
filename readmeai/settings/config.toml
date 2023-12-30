@@ -23,10 +23,10 @@ repository = "https://github.com/eli64s/readme-ai"
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
-rate_limit = 5
-temperature = 1.0
-tokens = 699
-tokens_max = 3999
+rate_limit = 4
+temperature = 0.8
+tokens = 669
+tokens_max = 3899
 
 # Markdown Templates
 [md]
@@ -108,7 +108,7 @@ toc = """
 ---
 """
 
-intro = """
+overview = """
 
 ## 📍 Overview
 
@@ -134,10 +134,12 @@ tree = """
 ---
 """
 
-modules = """
-\n## 🧩 Modules
+modules = """\n
+## 🧩 Modules
 """
-setup = """---
+
+getting_started = """
+---
 
 ## 🚀 Getting Started
 
@@ -147,31 +149,39 @@ Ensure you have the following dependencies installed on your system:
 
 - `► INSERT-DEPENDENCY-1`
 - `► INSERT-DEPENDENCY-2`
+- `► INSERT-DEPENDENCY-3`
 - `► ...`
 
 ### ⚙️ Installation
 
-1. Clone the {0} repository:
+1. Clone the {repo_name} repository:
 ```sh
-git clone {1}
+git clone {repo_url}
 ```
 
 2. Change to the project directory:
 ```sh
-cd {0}
+cd {repo_name}
 ```
 
 3. Install the dependencies:
 ```sh
-{2}
+{install_command}
 ```
 
-### 🤖 Running {0}
-\n```sh\n{3}\n```
+### 🤖 Running {repo_name}
+Use the following command to run {repo_name}:
+```sh
+{run_command}
+```
 
 ### 🧪 Tests
-```sh\n{4}\n```
-\n---
+To execute tests, run:
+```sh
+{test_command}
+```
+
+---
 """
 
 contribute = """
@@ -187,14 +197,12 @@ contribute = """
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Submit Pull Requests](https://github.com/{0}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/{0}/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/{0}/issues)**: Submit bugs found or log feature requests for {1}.
-
-#### *Contributing Guidelines*
+- **[Submit Pull Requests](https://github.com/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/{full_name}/issues)**: Submit bugs found or log feature requests for {repo_name}.
 
 <details closed>
-<summary>Click to expand</summary>
+<summary>Contributing Guidelines</summary>
 
 1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
@@ -240,33 +248,30 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 # Language Model Prompts
 [prompts]
-features = """Hello! Analyze the repository '{0}' and provide an in-depth technical analysis of its codebase and components.
-Your response should be formatted as a Markdown table using the structure below:
+features = """Hello! Analyze the Git codebase {0} and create a concise analysis of each project component. \
+Consider the codebase as a whole and highlight the key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
+Generate your response as a Markdown table with the following columns:
 
-Markdown Template:
+|    | Category           | Details                                                                                                        |
+|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
+| ⚙️ | **Architecture**    | Analyze the structural design of the system here. Each description should adhere to a 35-token limit,             |
+| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Each description should adhere to a 35-token limit,|
+| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Each description should adhere to a 35-token limit,|
+| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Each description should adhere to a 35-token limit,|
+| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Each description should adhere to a 35-token limit,       |
+| ⚡️ | **Performance**     | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Each description should adhere to a 35-token limit,|
+| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Each description should adhere to a 35-token limit,|
+| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Each description should adhere to a 35-token limit,|
+| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Each description should adhere to a 35-token limit,|
+| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Each description should adhere to a 35-token limit,           |
 
-|      | Feature             | Description                                                                                                           |
-| ---  | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| ⚙️    | **Architecture**    | Examine and detail the repository's structural design, focusing on layout, framework, and key architectural elements. |
-| 📄   | **Documentation**   | Assess the quality, clarity, and completeness of the documentation, highlighting its user-friendliness and detail.    |
-| 🔗   | **Dependencies**    | Identify and comment on external libraries and systems the repository relies on, noting their integration and use.    |
-| 🧩   | **Modularity**      | Evaluate the repository's division into modules and components, discussing its approach to modular design.            |
-| 🧪   | **Testing**         | Analyze the testing practices, including methodologies and tools, emphasizing their effectiveness and coverage.       |
-| ⚡️    | **Performance**     | Discuss the repository's performance, focusing on speed, efficiency, and resource management.                         |
-| 🔐   | **Security**        | Review the security measures implemented for data protection and operational integrity.                               |
-| 🔀   | **Version Control** | Describe the version control system in use, noting its strategy and how it contributes to development.                |
-| 🔌   | **Integrations**    | Examine the repository's interactions with other systems or services, and its integration capabilities.               |
-| 📶   | **Scalability**     | Assess the repository's ability to handle growth, focusing on scalability in terms of user and repository numbers.    |
+Provided information includes:
 
-Each description should adhere to a 40-token limit, ensuring concise yet informative analysis. Tokens include words, punctuation, or symbols.
+- Repository directory structure: {0}
+- Repository dependencies and software: {1}
+- Codebase file summaries: {2}
 
-For guidance, use the following repository information:
-
-- Repository directory tree structure: {1}
-- Codebase dependencies and software: {2}
-- Codebase file summaries: {3}
-
-Please provide detailed insights while respecting the token limit. Thank you for your comprehensive analysis!
+Thank you for your time and effort!
 """
 overview = """Please analyze the codebase located at {0} and provide a robust, yet succinct overview of the project. \
 Provided are summaries of key code file in the repository:\n{3}\n

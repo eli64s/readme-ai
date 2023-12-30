@@ -15,14 +15,12 @@ def construct_markdown_table(
     """Builds a Markdown table from the provided data."""
     headers = ["File", "Summary"]
     table_rows = [headers, ["---", "---"]]
-
     for module, summary in data:
         file_name = str(Path(module).name)
         hyperlink = create_hyperlink(
             file_name, project_name, module, repository
         )
         table_rows.append([hyperlink, summary])
-
     return format_as_markdown_table(table_rows)
 
 
@@ -31,11 +29,11 @@ def create_hyperlink(
 ) -> str:
     """Creates a hyperlink for a file, using its Git URL if possible."""
     logger.debug(
-        f"Creating Git file hyperlink for:\
-            \nFile: {file_name} \
-            \nFull name: {full_name} \
-            \nModule: {module} \
-            \nRepo URL: {repo_url}"
+        f"Creating Git file hyperlink for:\n\
+        File: {file_name} \n\
+        Full name: {full_name} \n\
+        Module: {module} \n\
+        Repo URL: {repo_url}"
     )
     if "invalid" in full_name.lower():
         return file_name
@@ -46,7 +44,7 @@ def create_hyperlink(
 def extract_folder_name(module: str) -> str:
     """Extracts the folder name from a module path."""
     path_parts = Path(module).parts
-    return "/".join(path_parts[:-1]) if len(path_parts) > 1 else "."
+    return ".".join(path_parts[:-1]) if len(path_parts) > 1 else "."
 
 
 def format_as_markdown_table(rows: List[List[str]]) -> str:

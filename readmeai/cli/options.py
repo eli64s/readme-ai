@@ -120,13 +120,13 @@ repository = click.option(
 temperature = click.option(
     "-t",
     "--temperature",
-    default=1.0,
+    default=0.8,
     type=float,
     help="Temperature LLM API parameter for generating README.md file content. A higher temperature value will generate more creative content, while a lower temperature value will generate more predictable content.",
 )
 max_tokens = click.option(
     "--max-tokens",
-    default=3999,
+    default=3899,
     type=int,
     help="Max tokens LLM API parameter for generating README.md file content. This option defines the maximum number of tokens to generate for each section of the README.md file.",
 )

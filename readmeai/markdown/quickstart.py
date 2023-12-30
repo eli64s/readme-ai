@@ -22,8 +22,8 @@ def getting_started(
     try:
         language_counts = {}
         for file_path, file_content in summaries:
-            logger.debug(f"FILE PATH: {file_path}")
-            logger.debug(f"FILE CONTENT: {file_content}")
+            logger.info(f"Code summary: {file_path} - {file_content}")
+
             language = Path(file_path).suffix[1:]
             if language and language not in helper.ignore_files:
                 if language in language_counts:
@@ -32,13 +32,16 @@ def getting_started(
                     language_counts[language] = 1
 
         if language_counts:
-            logger.debug(f"LANGUAGE COUNTS: {language_counts}")
             language_top = max(language_counts, key=language_counts.get)
+
             if "streamlit" in deps:
                 language_top = "streamlit"
+
             language_name = helper.language_names.get(language_top, "n/a")
             language_setup = helper.language_setup.get(language_name, [])
-            logger.info(f"{language_name.upper()} SETUP: {language_setup}")
+
+            logger.info(f"Language counts {language_counts}")
+            logger.info(f"Getting started commands: {language_setup}")
 
             if len(language_setup) >= 3:
                 install_command = language_setup[0]
@@ -46,7 +49,8 @@ def getting_started(
                 test_command = language_setup[2]
 
     except Exception as exc_info:
-        logger.debug(f"Exception while creating setup guide: {exc_info}")
-        logger.info(f"Traceback: {traceback.format_exc()}")
+        logger.debug(
+            f"Exception occurred: {exc_info}\n{traceback.format_exc()}"
+        )
 
     return (install_command, run_command, test_command)

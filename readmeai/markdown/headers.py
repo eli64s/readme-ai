@@ -21,10 +21,10 @@ def build_readme_md(
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
-    all_readme_sections = format_readme_md_contents(
+    readme_md_contents = format_readme_md_contents(
         conf, helper, deps, summaries
     )
-    output_file = "\n".join(all_readme_sections)
+    output_file = "\n".join(readme_md_contents)
     output_path = Path(conf.files.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     factory.FileHandler().write(output_path, output_file)
@@ -37,44 +37,50 @@ def format_readme_md_contents(
     summaries: tuple,
 ) -> List[str]:
     """Formats the README Markdown file contents for each section."""
-    repo_name = conf.git.name
-    repository = conf.git.repository
-    name, _ = vcs.get_remote_full_name(repository)
-    full_name = f"{name}/{repo_name}"
+    repo_url = conf.git.repository
+    username, repo_name = vcs.get_remote_full_name(repo_url)
+    full_name = f"{username}/{repo_name}"
+    repo_path = f"../{repo_name}" if conf.git.source == "local" else repo_url
 
-    formatted_summaries = tables.format_code_summaries(
+    if "skills" not in conf.md.badges_style:
+        md_badges = badges.shieldsio_icons(conf, deps, full_name)
+    else:
+        md_badges = badges.skill_icons(conf, deps)
+
+    formatted_code_summaries = tables.format_code_summaries(
         conf.md.default,
         summaries,
     )
-    md_summary_tables = tables.generate_markdown_tables(
-        conf.md.dropdown, formatted_summaries, full_name, repository
+    md_code_summaries = tables.generate_markdown_tables(
+        conf.md.dropdown, formatted_code_summaries, full_name, repo_url
     )
-
-    if "skills" not in conf.md.badges_style:
-        badge_icons = badges.shieldsio_icons(conf, deps, full_name)
-    else:
-        badge_icons = badges.skill_icons(conf, deps)
-
-    repo_path = f"../{repo_name}" if conf.git.source == "local" else repository
-    instructions = quickstart.getting_started(conf, helper, deps, summaries)
-    md_quickstart = conf.md.setup.format(repo_name, repo_path, *instructions)
-
-    markdown_sections = [
+    md_commands = quickstart.getting_started(conf, helper, deps, summaries)
+    md_quick_start = conf.md.getting_started.format(
+        repo_name=repo_name,
+        repo_url=repo_path,
+        install_command=md_commands[0],
+        run_command=md_commands[1],
+        test_command=md_commands[2],
+    )
+    md_contribute = conf.md.contribute.format(
+        full_name=full_name, repo_name=repo_name
+    )
+    md_headers = [
         conf.md.header,
-        badge_icons,
+        md_badges,
         conf.md.toc.format(repo_name),
-        conf.md.intro,
+        conf.md.overview,
         conf.md.tree,
         conf.md.modules,
-        md_summary_tables,
-        md_quickstart,
-        conf.md.contribute.format(full_name, name.upper()),
+        md_code_summaries,
+        md_quick_start,
+        md_contribute,
     ]
 
     if conf.cli.emojis is False:
-        markdown_sections = remove_emojis_from_headers(markdown_sections)
+        return remove_emojis_from_headers(md_headers)
 
-    return markdown_sections
+    return md_headers
 
 
 def remove_emojis_from_headers(content_list: List[str]) -> List[str]:

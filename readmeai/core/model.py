@@ -74,7 +74,7 @@ class LlmApiHandler:
         Dict[str, str]
             A dictionary mapping file paths to their generated summaries.
         """
-        self.logger.info(f"PROCESSING PROMPT: {prompt_type}")
+        self.logger.info(f"Processing prompt: {prompt_type}")
 
         if prompt_type == "summaries":
             return await self._generate_summaries(context)
@@ -152,7 +152,7 @@ class LlmApiHandler:
             token_count = get_token_count(prompt, self.encoding)
             if token_count > self.tokens_max:
                 self.logger.warning(
-                    f"TRUNCATING TOKENS: {token_count} > {self.tokens_max} MAX"
+                    f"Truncating tokens: {token_count} > {self.tokens_max} max"
                 )
                 prompt = truncate_tokens(prompt, tokens)
 
@@ -183,7 +183,7 @@ class LlmApiHandler:
                     if index != "features"
                     else summary
                 )
-                self.logger.info(f"RESPONSE: {index}\n{summary}")
+                self.logger.info(f"Response: {index}\n{summary}")
                 self.cache[prompt] = summary
                 return index, summary
 

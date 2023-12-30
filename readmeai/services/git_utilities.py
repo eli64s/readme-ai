@@ -3,6 +3,7 @@
 import os
 import re
 from pathlib import Path
+from typing import Tuple
 
 from readmeai.config.settings import GitFileUrl, GitHost
 
@@ -24,7 +25,7 @@ def get_remote_file_url(file_path: str, full_name: str, repo_url: str) -> str:
     return url_template.format(full_name=full_name, file_path=file_path)
 
 
-def get_remote_full_name(url_or_path):
+def get_remote_full_name(url_or_path) -> Tuple[str, str]:
     """Extract user and repository name from a URL or path."""
     if os.path.exists(url_or_path):
         return "local", os.path.basename(url_or_path)
@@ -38,7 +39,7 @@ def get_remote_full_name(url_or_path):
     for _, pattern in patterns.items():
         match = re.match(pattern, url_or_path)
         if match:
-            user, repo = match.groups()
-            return user, repo
+            username, repo_name = match.groups()
+            return username, repo_name
 
     raise ValueError("Error: invalid repository URL or path.")

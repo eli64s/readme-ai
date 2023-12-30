@@ -12,7 +12,7 @@ def adjust_max_tokens(
 ) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())
-    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 5
+    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 2
     return adjusted_max_tokens
 
 
