@@ -166,10 +166,7 @@ class LlmApiHandler:
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "You're a brilliant Staff Software \
-                                Engineer at a startup called ReadmeAI. You're \
-                                working on a new feature for the product that \
-                                will generate README files for any repository",
+                                "content": "You're a brilliant Tech Lead at OpenAI.",
                             },
                             {"role": "user", "content": prompt},
                         ],

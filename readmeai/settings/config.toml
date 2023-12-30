@@ -268,14 +268,10 @@ For guidance, use the following repository information:
 
 Please provide detailed insights while respecting the token limit. Thank you for your comprehensive analysis!
 """
-overview = """Generate a summary, of 99 words or less, that describes the capabilities
-of the code repository {0}. Focus on the project's use-case and value proposition,
-rather than its technical details. Do not refer to the project using the URL provided.
-Attached below are additional artifacts and metadata of the codebase and its components,
-to supplement your analysis. Code repository information:\n
-Directory tree structure: {1}
-Packages and dependencies: {2}
-Code summaries: {3}
+overview = """Please analyze the codebase located at {0} and provide a robust, yet succinct overview of the project. \
+Provided are summaries of key code file in the repository:\n{3}\n
+Craft a 3-4 sentence paragraph that encapsulate the core functionalities of the project, its purpose and value proposition. \
+Avoid technical jargon and focus on the project's use-case and benefits.
 """
 slogan = """Devise an attention-grabbing and memorable slogan for the code repository {0}. \
 Keep the slogan within 15 tokens and avoid using the project's URL or repository name. \

@@ -71,7 +71,6 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 ## 📦 Features
 
-<br>
 <div>
 <details>
     <summary style="display: flex; align-items: center;">
@@ -504,7 +503,7 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 
 </details>
 
-See the [Configuration](#-configuration) section below for the complete list of CLI options.
+See the [Configuration](#-configuration) section below for the complete list of CLI options and settings.
 
 ---
 
@@ -535,7 +534,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 | `--badges`/`-b` | `flat` | Badge style options for your README file. | String | Optional |
 | `--emojis`/`-e` | `False` | Add emojis to section header tiles. | Boolean | Optional |
 | `--image`/`-i` | `blue` | Project logo image displayed in README header. | String | Optional |
-| `--max-tokens` | `3999` | Maximum number of tokens that can be generated. | Integer | Optional |
+| `--max-tokens` | `3999` | Max number of tokens that can be generated. | Integer | Optional |
 | `--model`/`-m` | `gpt-3.5-turbo` | Select GPT model for content generation. | String | Optional |
 | `--offline` | `False` | Generate a README without an API key. | Boolean | Optional |
 | `--output`/`-o` | `readme-ai.md` | README output file name. | Path/String | Optional |
