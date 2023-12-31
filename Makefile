@@ -3,7 +3,7 @@
 SHELL = /bin/bash
 VENV := readmeai
 
-.PHONY: help clean format lint conda-recipe git-rm-cache file-search test
+.PHONY: help clean format lint conda-recipe git-rm-cache file-search test poetry-reqs
 
 help:
 	@echo "Commands:"
@@ -14,6 +14,7 @@ help:
 	@echo "git-rm-cache : fix git untracked files."
 	@echo "file-search  : search for text in files."
 	@echo "test         : executes tests."
+	@echo "poetry-reqs  : generates requirements.txt file."
 
 .PHONY: clean
 clean:
@@ -49,3 +50,7 @@ test:
 	--cov=./ \
 	--cov-report=xml \
 	--cov-report=term-missing
+
+.PHONY: poetry-reqs
+poetry-reqs:
+	poetry export -f requirements.txt --output requirements.txt --without-hashes
