@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import List
 
 from readmeai.config.settings import AppConfig, ConfigHelper
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def getting_started(

@@ -20,7 +20,7 @@ repository = "https://github.com/eli64s/readme-ai"
 
 # GPT Language Model API Settings
 [llm]
-content = "You're a brilliant Tech Lead at OpenAI."
+content = "You're a brilliant Tech Lead and Software Engineer."
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
@@ -250,11 +250,11 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 # Language Model Prompts
 [prompts]
-features = """Hello! Analyze the codebase "{0}" and create a concise analysis of each project component. \
+features = """Hello! Analyze the codebase "{}" and create a concise analysis of each project component. \
 Consider the codebase as a whole and highlight the key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
 
-|    | Category           | Details                                                                                                        |
+|    | Feature           | Description                                                                                                       |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
 | ⚙️ | **Architecture**    | Analyze the structural design of the system here. The description should not exceed 110 characters in total.             |
 | 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. The description should not exceed 110 characters in total.|
@@ -269,28 +269,28 @@ Generate your response as a Markdown table with the following columns:
 
 Provided information includes:
 
-- Repository directory structure: {0}
-- Repository dependencies and software: {1}
-- Codebase file summaries: {2}
+- Repository directory structure: {}
+- Repository dependencies and software: {}
+- Codebase file summaries: {}
 
 Thank you for your time and effort!
 """
-overview = """Please analyze the codebase located at {0} and provide a robust, yet succinct overview of the project. \
-Provided are summaries of key code file in the repository:\n{3}\n
+overview = """Please analyze the codebase located at {} and provide a robust, yet succinct overview of the project. \
+Provided are summaries of key code file in the repository:\n{}\n
 Craft a 3-4 sentence paragraph that encapsulate the core functionalities of the project, its purpose and value proposition. \
 Avoid technical jargon and focus on the project's use-case and benefits.
 """
-slogan = """Conceptualize a catchy and memorable slogan for the project: {0}. \
+slogan = """Conceptualize a catchy and memorable slogan for the project: {}. \
 Limit the project's slogan to 8 words or less. \
 Use the following code summaries from the repository to help you craft the slogan:\n
-{1}
+{}
 """
 summaries = """Deliver a succinct summary in no more than 50 tokens, emphasizing the main role \
 and critical features of this code snippet in relation to its parent repository's architecture. \
 Focus on what the code achieves, steering clear of technical implementation details. Included are \
 supplementary details and materials about the codebase and its elements to enhance your understanding. \
 Provided information includes:\n
-- Repository layout and directory structure: {0}
-- List of dependencies and software used in the codebase: {1}
-- Summaries of key files within the codebase: {2}
+- Repository layout and directory structure: {}
+- List of dependencies and software used in the codebase: {}
+- Summaries of key files within the codebase: {}
 """

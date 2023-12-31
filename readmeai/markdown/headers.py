@@ -6,11 +6,12 @@ import re
 from typing import List
 
 from readmeai.config.settings import AppConfig, ConfigHelper, GitService
-from readmeai.core import factory, logger
+from readmeai.core.factory import FileHandler
+from readmeai.core.logger import Logger
 from readmeai.markdown import badges, quickstart, tables
 from readmeai.services import git_utilities as vcs
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def build_readme_md(
@@ -20,12 +21,12 @@ def build_readme_md(
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
-    readme_md_sections = format_markdown_content(conf, helper, deps, summaries)
+    readme_md_sections = format_readme_md(conf, helper, deps, summaries)
     readme_md_file = "\n".join(readme_md_sections)
-    factory.FileHandler().write(conf.files.output, readme_md_file)
+    FileHandler().write(conf.files.output, readme_md_file)
 
 
-def format_markdown_content(
+def format_readme_md(
     conf: AppConfig,
     helper: ConfigHelper,
     deps: list,
@@ -50,7 +51,7 @@ def format_markdown_content(
         )
         md_badges = badges.shields_icons(conf, deps, full_name)
     else:
-        md_header = "<!-- @eli64s/readme-ai -->\n"
+        md_header = "<!---->\n"
         md_badges = badges.skill_icons(conf, deps)
 
     formatted_code_summaries = tables.format_code_summaries(

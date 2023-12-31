@@ -3,10 +3,10 @@
 from pathlib import Path
 from typing import List, Tuple
 
-from readmeai.core import logger
-from readmeai.services import git_utilities as vcs
+from readmeai.core.logger import Logger
+from readmeai.services.git_utilities import get_remote_file_url
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def construct_markdown_table(
@@ -37,7 +37,7 @@ def create_hyperlink(
     )
     if "invalid" in full_name.lower():
         return file_name
-    git_file_link = vcs.get_remote_file_url(module, full_name, repo_url)
+    git_file_link = get_remote_file_url(module, full_name, repo_url)
     return f"[{file_name}]({git_file_link})"
 
 

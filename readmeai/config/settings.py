@@ -10,9 +10,10 @@ from urllib.parse import urlparse, urlsplit
 import pkg_resources
 from pydantic import BaseModel, validator
 
-from readmeai.core import factory, logger
+from readmeai.core.factory import FileHandler
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 class GitService(str, Enum):
@@ -238,7 +239,7 @@ class ConfigHelper(BaseModel):
 
     def load_helper_files(self):
         """Load helper configuration files."""
-        handler = factory.FileHandler()
+        handler = FileHandler()
         conf_path_list = [
             self.conf.app.files.dependency_files,
             self.conf.app.files.ignore_files,
@@ -261,7 +262,7 @@ class ConfigHelper(BaseModel):
                 self.language_setup.update(conf_dict["language_setup"])
 
 
-def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
+def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
     try:
         resource_path = resources.files("readmeai.settings") / file_path
@@ -287,7 +288,7 @@ def _get_config_dict(handler: factory.FileHandler, file_path: str) -> dict:
 
 def load_config(path: str = "config.toml") -> AppConfig:
     """Load configuration constants from TOML file."""
-    handler = factory.FileHandler()
+    handler = FileHandler()
     conf_dict = _get_config_dict(handler, path)
     return AppConfigModel.parse_obj({"app": conf_dict}).app
 

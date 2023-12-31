@@ -1,10 +1,11 @@
 """Functions for building and formatting the badges in the README.md file."""
 
 from readmeai.config.settings import AppConfig, GitService
-from readmeai.core import factory, logger
+from readmeai.core.factory import FileHandler
+from readmeai.core.logger import Logger
 from readmeai.utils import utils
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def badge_template(conf: AppConfig) -> str:
@@ -67,7 +68,7 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
     )
 
     md_badge_template = badge_template(conf)
-    shields_dict = factory.FileHandler().read(resource_path)
+    shields_dict = FileHandler().read(resource_path)
     shields_icons = md_badge_template.format(
         conf.md.align,
         build_html_badges(shields_dict, deps).format(conf.md.badges_style),
@@ -90,7 +91,7 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     resource_path = utils.get_resource_path(
         __package__, conf.files.skill_icons
     )
-    skill_icons_dict = factory.FileHandler().read(resource_path)
+    skill_icons_dict = FileHandler().read(resource_path)
     skill_icons = [
         icon for icon in skill_icons_dict["icons"]["names"] if icon in deps
     ]

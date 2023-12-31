@@ -1,53 +1,44 @@
 """Unit tests for the CLI commands module."""
 
+import pytest
 from click.testing import CliRunner
 
 from readmeai.cli.commands import commands
 
 
-def test_commands():
-    """Test that the CLI command runs."""
-    runner = CliRunner()
-    result = runner.invoke(
-        commands,
-        [
-            "--repository",
-            "https://github.com/example/repo",
-            "--api-key",
-            "dummy-key",
-        ],
-    )
-    assert result.exit_code == 0, f"Unexpected failure: {result.output}"
+@pytest.fixture
+def runner():
+    return CliRunner()
 
 
-def test_commands_with_options():
-    """Test that the CLI command runs with options."""
-    runner = CliRunner()
+def test_commands_with_defaults(runner):
+    """Test the commands function with default options."""
+    with runner.isolated_filesystem():
+        result = runner.invoke(
+            commands, ["--repository", "https://github.com/test/repo"]
+        )
+        assert result.exit_code == 0
+
+
+def test_commands_with_custom_align(runner):
+    """Test the commands function with a custom alignment."""
     result = runner.invoke(
         commands,
-        [
-            "--repository",
-            "https://github.com/example/repo",
-            "--api-key",
-            "your-api-key",
-            "--model",
-            "gpt-4",
-            "--temperature",
-            "0.8",
-        ],
+        ["--align", "left", "--repository", "https://github.com/test/repo"],
     )
     assert result.exit_code == 0
 
 
-def test_commands_missing_repository():
-    """Test that the CLI command fails when repository option is missing."""
-    runner = CliRunner()
-    result = runner.invoke(commands, ["--badges", "flat"])
+def test_commands_with_invalid_option(runner):
+    """Test the commands function with an invalid option."""
+    result = runner.invoke(
+        commands,
+        ["--align", "invalid", "--repository", "https://github.com/test/repo"],
+    )
     assert result.exit_code != 0
-    assert "Usage: commands" in result.output
 
 
 if __name__ == "__main__":
-    test_commands()
-    test_commands_with_options()
-    test_commands_missing_repository()
+    test_commands_with_defaults()
+    test_commands_with_custom_align()
+    test_commands_with_invalid_option()

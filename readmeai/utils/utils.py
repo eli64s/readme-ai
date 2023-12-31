@@ -8,9 +8,9 @@ from typing import List
 from pkg_resources import resource_filename
 
 from readmeai.config.settings import ConfigHelper
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def is_valid_url(url: str) -> bool:

@@ -3,16 +3,20 @@
 from __future__ import annotations
 
 import os
+from typing import Optional
 
 import click
+from click import Context, Parameter
 
 from readmeai.config.settings import BadgeOptions, ImageOptions
 
 
 def prompt_for_custom_image(
-    ctx: click.Context, param: click.Parameter, value: str
-):
-    """Prompts the user to enter a custom image URL for the README.md file header.
+    context: Optional[Context],
+    parameter: Optional[Parameter],
+    value: Optional[str],
+) -> str:
+    """Prompts the user to input a custom image URL.
 
     Parameters
     ----------

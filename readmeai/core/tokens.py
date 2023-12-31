@@ -2,9 +2,9 @@
 
 from tiktoken import encoding_for_model, get_encoding
 
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def adjust_max_tokens(
@@ -12,7 +12,7 @@ def adjust_max_tokens(
 ) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())
-    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 2
+    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 5
     return adjusted_max_tokens
 
 

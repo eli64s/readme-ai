@@ -4,16 +4,17 @@ from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
 from readmeai.config import settings
-from readmeai.core import logger, tokens
+from readmeai.core.logger import Logger
+from readmeai.core.tokens import get_token_count
 from readmeai.parsers.factory import parser_factory
 from readmeai.utils import utils
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 PARSERS = parser_factory()
 
 
-class RepositoryParser:
+class RepoProcessor:
     """Handles preprocessing of the input codebase."""
 
     def __init__(
@@ -145,7 +146,7 @@ class RepositoryParser:
     def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
         """Tokenizes the content of each file."""
         for content in contents:
-            content["tokens"] = tokens.get_token_count(
+            content["tokens"] = get_token_count(
                 content["content"], self.encoding_name
             )
         return contents

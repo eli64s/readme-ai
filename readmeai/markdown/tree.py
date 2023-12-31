@@ -3,10 +3,10 @@
 from pathlib import Path
 
 from readmeai.config.settings import ConfigHelper
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 from readmeai.utils import utils
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 class TreeGenerator:
@@ -15,20 +15,20 @@ class TreeGenerator:
     def __init__(
         self,
         conf_helper: ConfigHelper,
-        root_directory: Path,
-        repo_url: str,
+        root_dir: Path,
+        repo_url: Path,
         repo_name: str,
         max_depth: int = 3,
     ):
         self.config_helper = conf_helper
-        self.root_directory = root_directory
+        self.root_dir = Path(root_dir)
         self.repo_name = repo_name
         self.repo_url = repo_url
         self.max_depth = max_depth
 
-    def generate_and_format_tree(self) -> str:
+    def run_tree(self) -> str:
         """Generates and formats a tree structure."""
-        tree_str = self._generate_tree(self.root_directory)
+        tree_str = self._generate_tree(self.root_dir)
         formatted_tree_str = self._format_tree(tree_str)
         return formatted_tree_str
 

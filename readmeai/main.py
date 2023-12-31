@@ -9,7 +9,6 @@ import os
 import shutil
 import tempfile
 import traceback
-from pathlib import Path
 
 from readmeai.cli.options import prompt_for_custom_image
 from readmeai.config.settings import (
@@ -21,72 +20,91 @@ from readmeai.config.settings import (
     load_config,
     load_config_helper,
 )
-from readmeai.core import logger, model, preprocess
-from readmeai.markdown import headers, tree
+from readmeai.core.logger import Logger
+from readmeai.core.model import ModelHandler
+from readmeai.core.preprocess import RepoProcessor
+from readmeai.markdown.headers import build_readme_md
+from readmeai.markdown.tree import TreeGenerator
 from readmeai.services.git_operations import clone_repo_to_temp_dir
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    logger.info(f"Processing repository: {conf.git.repository}")
-    logger.info(f"GPT language model engine: {conf.llm.model}")
+    log_cli_settings(conf)
 
-    llm = model.LlmApiHandler(conf)
-    repo_name = conf.git.name.upper()
+    llm = ModelHandler(conf)
+    repo_name = conf.git.name
     repo_url = conf.git.repository
     temp_dir = await asyncio.to_thread(tempfile.mkdtemp)
 
     try:
         await clone_repo_to_temp_dir(repo_url, temp_dir)
-
         conf.md.tree = conf.md.tree.format(
-            tree.TreeGenerator(
+            TreeGenerator(
                 conf_helper=conf_helper,
-                root_directory=Path(temp_dir),
+                root_dir=temp_dir,
                 repo_url=repo_url,
                 repo_name=repo_name,
-            ).generate_and_format_tree()
+            ).run_tree()
         )
-        parser = preprocess.RepositoryParser(conf, conf_helper)
+        parser = RepoProcessor(conf, conf_helper)
         dependencies, file_context = parser.get_dependencies(temp_dir)
         summaries = [
             (file_path, file_content)
             for file_path, file_content in file_context.items()
         ]
-
-        logger.info(f"Dependencies and software: {dependencies}")
-        logger.info(f"Directory tree structure:\n{conf.md.tree}")
+        logger.info(f"Project dependencies: {dependencies}")
+        logger.info(f"Project structure:\n{conf.md.tree}")
 
         async with llm.use_api() as api:
-            context = {
-                "repo": repo_url,
-                "tree": conf.md.tree,
-                "dependencies": dependencies,
-                "summaries": summaries,
-            }
             if conf.cli.offline is False:
-                context["summaries"] = await api.prompt_processor(
-                    "summaries", context
-                )
-                features_response = await api.prompt_processor(
-                    "features", context
-                )
-                overview_response = await api.prompt_processor(
-                    "overview", context
-                )
-                slogan_response = await api.prompt_processor("slogan", context)
-                summaries = context["summaries"]
-                conf.md.features = conf.md.features.format(
-                    features_response["features"]
-                )
-                conf.md.overview = conf.md.overview.format(
-                    overview_response["overview"]
-                )
-                conf.md.slogan = slogan_response["slogan"]
+                prompts = [
+                    {
+                        "type": "summaries",
+                        "context": {
+                            "tree": conf.md.tree,
+                            "dependencies": dependencies,
+                            "summaries": summaries,
+                        },
+                    },
+                    {
+                        "type": "features",
+                        "context": {
+                            "repo": repo_url,
+                            "tree": conf.md.tree,
+                            "dependencies": dependencies,
+                            "summaries": summaries,
+                        },
+                    },
+                    {
+                        "type": "overview",
+                        "context": {
+                            "repo": repo_url,
+                            "summaries": summaries,
+                        },
+                    },
+                    {
+                        "type": "slogan",
+                        "context": {
+                            "repo": repo_url,
+                            "summaries": summaries,
+                        },
+                    },
+                ]
+                responses = await api.batch_text_generator(prompts)
+                (
+                    summaries_response,
+                    features_response,
+                    overview_response,
+                    slogan_response,
+                ) = (response for response in responses)
+                summaries = summaries_response
+                conf.md.features = conf.md.features.format(features_response)
+                conf.md.overview = conf.md.overview.format(overview_response)
+                conf.md.slogan = slogan_response
             else:
-                logger.warning("Offline mode enabled, skipping API calls.")
                 (
                     summaries,
                     conf.md.features,
@@ -94,7 +112,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.slogan,
                 ) = (
                     [
-                        (file_path.as_posix(), conf.md.default)
+                        (str(file_path), conf.md.default)
                         for file_path, _ in file_context.items()
                     ],
                     conf.md.features.format(conf.md.default),
@@ -102,8 +120,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.default,
                 )
 
-        headers.build_readme_md(conf, conf_helper, dependencies, summaries)
-        logger.info("README file successfully created: {conf.files.output}")
+        build_readme_md(conf, conf_helper, dependencies, summaries)
 
     finally:
         shutil.rmtree(temp_dir)
@@ -136,26 +153,38 @@ def main(
         conf.llm.temperature = temperature
         conf.md.align = align
         conf.md.badges_style = badges
-
+        conf.md.image = image
         if image == ImageOptions.CUSTOM.name:
             conf.md.image = prompt_for_custom_image(None, None, image)
-        else:
-            conf.md.image = image
 
-        _set_environment_vars(conf, api_key)
+        export_to_environment(conf, api_key)
 
         asyncio.run(readme_agent(conf, conf_helper))
 
     except Exception as exc_info:
         logger.error(
-            f"Exception during README generation: {exc_info}\n{traceback.format_exc()}"
+            f"Error generating README: {exc_info}\n{traceback.format_exc()}"
         )
 
+    logger.info(
+        "README-AI processing complete. File saved as - {conf.files.output}"
+    )
 
-def _set_environment_vars(config: AppConfig, api_key: str) -> None:
+
+def export_to_environment(config: AppConfig, api_key: str) -> None:
     """Set environment variables for the CLI application."""
     if api_key is not None:
         os.environ["OPENAI_API_KEY"] = api_key
-
     elif "OPENAI_API_KEY" not in os.environ:
         config.cli.offline = True
+
+
+def log_cli_settings(conf: AppConfig) -> None:
+    """Log the settings for the CLI application."""
+    logger.info("Starting README-AI processing...")
+    logger.info(f"Processing repository: {conf.git.repository}")
+    logger.info(f"GPT API model engine: {conf.llm.model}")
+    logger.info(f"Temperature: {conf.llm.temperature}")
+    logger.info(f"Badge style: {conf.md.badges_style}")
+    logger.info(f"Image style: {conf.md.image}")
+    logger.info(f"Header alignment: {conf.md.align}")
