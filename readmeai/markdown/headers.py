@@ -7,11 +7,8 @@ from typing import List
 
 from readmeai.config.settings import AppConfig, ConfigHelper, GitService
 from readmeai.core.factory import FileHandler
-from readmeai.core.logger import Logger
 from readmeai.markdown import badges, quickstart, tables
 from readmeai.services import git_utilities as vcs
-
-logger = Logger(__name__)
 
 
 def build_readme_md(

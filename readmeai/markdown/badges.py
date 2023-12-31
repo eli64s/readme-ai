@@ -2,10 +2,7 @@
 
 from readmeai.config.settings import AppConfig, GitService
 from readmeai.core.factory import FileHandler
-from readmeai.core.logger import Logger
 from readmeai.utils import utils
-
-logger = Logger(__name__)
 
 
 def badge_template(conf: AppConfig) -> str:

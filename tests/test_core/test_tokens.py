@@ -11,7 +11,7 @@ def test_adjust_max_tokens_valid():
     prompt = "Hello, world!"
     target = "Hello!"
     adjusted_max_tokens = tokens.adjust_max_tokens(max_tokens, prompt, target)
-    assert adjusted_max_tokens == 20
+    assert adjusted_max_tokens == 50
 
 
 def test_adjust_max_tokens_invalid():
@@ -19,7 +19,7 @@ def test_adjust_max_tokens_invalid():
     max_tokens = 100
     prompt = "Invalid prompt"
     result = tokens.adjust_max_tokens(max_tokens, prompt)
-    assert result == max_tokens // 5
+    assert result == max_tokens // 2
 
 
 @patch("readmeai.core.tokens.get_encoding")

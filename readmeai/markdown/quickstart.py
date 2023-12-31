@@ -22,8 +22,6 @@ def getting_started(
     try:
         language_counts = {}
         for file_path, file_content in summaries:
-            logger.info(f"Code summary: {file_path} - {file_content}")
-
             language = Path(file_path).suffix[1:]
             if language and language not in helper.ignore_files:
                 if language in language_counts:

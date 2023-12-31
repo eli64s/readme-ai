@@ -26,7 +26,7 @@ class TreeGenerator:
         self.repo_url = repo_url
         self.max_depth = max_depth
 
-    def run_tree(self) -> str:
+    def run(self) -> str:
         """Generates and formats a tree structure."""
         tree_str = self._generate_tree(self.root_dir)
         formatted_tree_str = self._format_tree(tree_str)

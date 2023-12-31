@@ -32,29 +32,19 @@ logger = Logger(__name__)
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    log_cli_settings(conf)
-
     llm = ModelHandler(conf)
-    repo_name = conf.git.name
-    repo_url = conf.git.repository
-    temp_dir = await asyncio.to_thread(tempfile.mkdtemp)
 
+    repo_url = conf.git.repository
+
+    temp_dir = await asyncio.to_thread(tempfile.mkdtemp)
     try:
         await clone_repo_to_temp_dir(repo_url, temp_dir)
-        conf.md.tree = conf.md.tree.format(
-            TreeGenerator(
-                conf_helper=conf_helper,
-                root_dir=temp_dir,
-                repo_url=repo_url,
-                repo_name=repo_name,
-            ).run_tree()
-        )
+
+        tree_command(conf, conf_helper, temp_dir)
+
         parser = RepoProcessor(conf, conf_helper)
         dependencies, file_context = parser.get_dependencies(temp_dir)
-        summaries = [
-            (file_path, file_content)
-            for file_path, file_content in file_context.items()
-        ]
+        summaries = [(path, content) for path, content in file_context.items()]
         logger.info(f"Project dependencies: {dependencies}")
         logger.info(f"Project structure:\n{conf.md.tree}")
 
@@ -64,6 +54,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     {
                         "type": "summaries",
                         "context": {
+                            "repo": repo_url,
                             "tree": conf.md.tree,
                             "dependencies": dependencies,
                             "summaries": summaries,
@@ -81,6 +72,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     {
                         "type": "overview",
                         "context": {
+                            "name": conf.git.name,
                             "repo": repo_url,
                             "summaries": summaries,
                         },
@@ -144,20 +136,22 @@ def main(
         conf = load_config()
         conf_model = AppConfigModel(app=conf)
         conf_helper = load_config_helper(conf_model)
-        conf.git = GitSettings(repository=repository)
-        conf.files.output = output
-        conf.cli.emojis = emojis
-        conf.cli.offline = offline
-        conf.llm.tokens_max = max_tokens
-        conf.llm.model = model
-        conf.llm.temperature = temperature
-        conf.md.align = align
-        conf.md.badges_style = badges
-        conf.md.image = image
-        if image == ImageOptions.CUSTOM.name:
-            conf.md.image = prompt_for_custom_image(None, None, image)
-
+        conf = update_settings(
+            conf,
+            align,
+            badges,
+            emojis,
+            image,
+            max_tokens,
+            model,
+            offline,
+            output,
+            repository,
+            temperature,
+        )
         export_to_environment(conf, api_key)
+
+        log_settings(conf)
 
         asyncio.run(readme_agent(conf, conf_helper))
 
@@ -171,6 +165,37 @@ def main(
     )
 
 
+def update_settings(
+    conf: AppConfig,
+    align: str,
+    badges: str,
+    emojis: bool,
+    image: str,
+    max_tokens: int,
+    model: str,
+    offline: bool,
+    output: str,
+    repository: str,
+    temperature: float,
+) -> AppConfig:
+    """Sets up the application configuration."""
+    conf.git = GitSettings(repository=repository)
+    conf.files.output = output
+    conf.cli.emojis = emojis
+    conf.cli.offline = offline
+    conf.llm.tokens_max = max_tokens
+    conf.llm.model = model
+    conf.llm.temperature = temperature
+    conf.md.align = align
+    conf.md.badges_style = badges
+    conf.md.image = (
+        image
+        if image != ImageOptions.CUSTOM.name
+        else prompt_for_custom_image(None, None, image)
+    )
+    return conf
+
+
 def export_to_environment(config: AppConfig, api_key: str) -> None:
     """Set environment variables for the CLI application."""
     if api_key is not None:
@@ -179,12 +204,27 @@ def export_to_environment(config: AppConfig, api_key: str) -> None:
         config.cli.offline = True
 
 
-def log_cli_settings(conf: AppConfig) -> None:
+def tree_command(
+    conf: AppConfig, conf_helper: ConfigHelper, temp_dir: str
+) -> None:
+    """Updates the markdown tree configuration."""
+    tree_generator = TreeGenerator(
+        conf_helper=conf_helper,
+        root_dir=temp_dir,
+        repo_url=conf.git.repository,
+        repo_name=conf.git.name,
+    )
+    conf.md.tree = conf.md.tree.format(tree_generator.run())
+
+
+def log_settings(conf: AppConfig) -> None:
     """Log the settings for the CLI application."""
     logger.info("Starting README-AI processing...")
     logger.info(f"Processing repository: {conf.git.repository}")
-    logger.info(f"GPT API model engine: {conf.llm.model}")
-    logger.info(f"Temperature: {conf.llm.temperature}")
+    logger.info(f"LLM model engine: {conf.llm.model}")
+    logger.info(f"LLM temperature: {conf.llm.temperature}")
     logger.info(f"Badge style: {conf.md.badges_style}")
     logger.info(f"Image style: {conf.md.image}")
     logger.info(f"Header alignment: {conf.md.align}")
+    logger.info(f"Using emojis: {conf.cli.emojis}")
+    logger.info(f"Offline mode: {conf.cli.offline}")

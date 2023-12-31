@@ -104,5 +104,5 @@ def test_max_depth(depth, expected, mock_config_helper, tmp_path):
         repo_name="TestProject",
         max_depth=depth,
     )
-    tree = tree_gen.run_tree()
+    tree = tree_gen.run()
     assert tree == expected

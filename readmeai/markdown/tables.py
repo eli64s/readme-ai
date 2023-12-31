@@ -29,11 +29,11 @@ def create_hyperlink(
 ) -> str:
     """Creates a hyperlink for a file, using its Git URL if possible."""
     logger.debug(
-        f"Creating Git file hyperlink for:\n\
-        File: {file_name} \n\
-        Full name: {full_name} \n\
-        Module: {module} \n\
-        Repo URL: {repo_url}"
+        f"Creating git host file hyperlink:\n\
+        \tFile: {file_name} \n\
+        \tFull name: {full_name} \n\
+        \tModule: {module} \n\
+        \tRepo URL: {repo_url}"
     )
     if "invalid" in full_name.lower():
         return file_name
