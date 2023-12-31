@@ -578,62 +578,112 @@ Select an image to display in your README header section using the `--image` fla
 
 #### Custom Settings
 
-To customize the README file generation process in the readme-ai CLI tool, you can modify the project's [configuration file](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml). The configuration file is structured using Pydantic models, which are described below in detail.
+The readme-ai tool is designed with flexibility in mind, allowing users to configure various aspects of its operation through a series of models and settings. The [configuration file](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml) covers aspects such as language model settings, git host providers, repository details, markdown templates, and more.
 
-<details closed><summary>🔠 Pydantic Models</summary>
+<details closed><summary>🔠 Configuration Models</summary>
 <br>
 
-`ApiConfig`
-- **Description**: Pydantic model for OpenAI API configuration.
+<!--
+# README-AI Configuration and Settings
+
+This documentation provides an overview of the configuration and settings for the README.ai CLI tool. It details various data models and functions that are used to configure the tool, making it adaptable for different environments and use cases.
+-->
+
+***GitService Enum***
+
+- **Purpose**: Defines Git service details.
 - **Attributes**:
-  - `endpoint`: The endpoint URL for the OpenAI API.
-  - `encoding`: Encoding settings for the API.
-  - `model`: The model of the OpenAI language.
-  - `rate_limit`: API rate limit.
-  - `tokens`: Token limit per request.
-  - `tokens_max`: Maximum token limit.
-  - `temperature`: Temperature setting for the language model.
+  - `LOCAL`, `GITHUB`, `GITLAB`, `BITBUCKET`: Enumerations for different Git services.
+  - `host`: Service host URL.
+  - `api_url`: API base URL for the service.
+  - `file_url`: URL format for accessing files in the repository.
 
-`CliConfig`
-- **Description**: CLI options for the readme-ai application.
-- **Attributes**:
-  - `emojis`: Boolean to enable or disable emojis.
-  - `offline`: Boolean to enable or disable offline mode.
+***BadgeOptions Enum***
 
-`GitConfig`
-- **Description**: Configuration for Git repository settings.
-- **Attributes**:
-  - `repository`: Repository URL or local path.
-  - `source`: Source of the repository (GitHub, GitLab, etc.).
-  - `name`: Optional name for the project.
+- **Purpose**: Provides options for README file badge icons.
+- **Options**: `FLAT`, `FLAT_SQUARE`, `FOR_THE_BADGE`, `PLASTIC`, `SKILLS`, `SKILLS_LIGHT`, `SOCIAL`.
 
-`MarkdownConfig`
-- **Description**: Pydantic model for Markdown code blocks that are used to build and format the README file.
-- **Attributes**: Various attributes for markdown formatting like `align`, `image`, `badges`, etc.
+***ImageOptions Enum***
 
-`PathsConfig`
-- **Description**: Pydantic model for configuration file paths.
-- **Attributes**: Paths for various configuration files like `dependency_files`, `ignore_files`, `language_names`, etc.
+- **Purpose**: Lists CLI options for README file header images.
+- **Options**: `CUSTOM`, `BLACK`, `BLUE`, `GRADIENT`, `PURPLE`, `YELLOW`.
 
-`PromptsConfig`
-- **Description**: Pydantic model for OpenAI prompts.
-- **Attributes**: Contains strings for features, overview, slogan, and summaries prompts.
+***CliSettings***
 
-`AppConfig`
-- **Description**: Nested Pydantic model for the entire configuration.
-- **Sub-Models**: Includes all the above configurations as sub-models.
+- **Purpose**: Defines CLI options for the application.
+- **Fields**:
+  - `emojis`: Enables or disables emoji usage.
+  - `offline`: Indicates offline mode operation.
 
-`AppConfigModel`
-- **Description**: Pydantic model for the entire configuration.
-- **Attributes**: Contains the `AppConfig` as a sub-model.
+***FileSettings***
 
-`ConfigHelper`
-- **Description**: Helper class to load additional configuration files.
-- **Functionality**: This class extends the base configuration with additional settings loaded from TOML files.
+- **Purpose**: Configuration for various file paths used in the application.
+- **Fields**: `dependency_files`, `identifiers`, `ignore_files`, `language_names`, `language_setup`, `output`, `shields_icons`, `skill_icons`.
 
-`Additional Functions`
-- **load_config**: Function to load the main configuration from a TOML file.
-- **load_config_helper**: Function to load multiple configuration helper TOML files.
+***GitSettings***
+
+- **Purpose**: Manages repository settings and validations.
+- **Fields**:
+  - `repository`: The repository URL or path.
+  - `source`: The source of the Git repository.
+  - `name`: The name of the repository.
+
+***LlmApiSettings***
+
+- **Purpose**: Holds settings for OpenAI's LLM API.
+- **Fields**: `content`, `endpoint`, `encoding`, `model`, `rate_limit`, `temperature`, `tokens`, `tokens_max`.
+
+***MarkdownSettings***
+
+- **Purpose**: Contains Markdown templates for different sections of a README.
+- **Fields**: Templates for aligning text, badges, headers, images, features, getting started, overview, tables of contents, etc.
+
+***PromptSettings***
+
+- **Purpose**: Configures prompts for OpenAI's LLM API.
+- **Fields**: `features`, `overview`, `slogan`, `summaries`.
+
+***AppConfig***
+
+- **Purpose**: Nested model encapsulating all application configurations.
+- **Fields**: `cli`, `files`, `git`, `llm`, `md`, `prompts`.
+
+***AppConfigModel***
+
+- **Purpose**: Pydantic model for the entire application configuration.
+- **Sub-models**: `AppConfig`.
+
+***ConfigHelper***
+
+- **Purpose**: Assists in loading additional configuration files.
+- **Methods**: `load_helper_files` to load configuration from different files.
+
+***Functions***
+
+***`_get_config_dict`***
+
+- **Purpose**: Retrieves configuration data from TOML files.
+- **Parameters**:
+  - `handler`: Instance of `FileHandler`.
+  - `file_path`: Path to the configuration file.
+
+***`load_config`***
+
+- **Purpose**: Loads the main configuration file.
+- **Parameters**:
+  - `path`: Path to the configuration file.
+- **Returns**: An instance of `AppConfig`.
+
+***`load_config_helper`***
+
+- **Purpose**: Loads multiple configuration helper files.
+- **Parameters**:
+  - `conf`: An instance of `AppConfigModel`.
+- **Returns**: An instance of `ConfigHelper`.
+
+***Usage***
+
+The configurations are loaded using the `load_config` function, which parses a TOML file into the `AppConfigModel`. This model is then used throughout the application to access various settings. Additional helper files can be loaded using `ConfigHelper`, which further enriches the application's configuration context.
 
 </details>
 
@@ -645,18 +695,17 @@ To customize the README file generation process in the readme-ai CLI tool, you c
 
 ## 🛠 Project Roadmap
 
-- [X] Publish project as a Python library via PyPI for easy installation.
-  - [*PyPI - readmeai*](https://pypi.org/project/readmeai/)
-- [X] Make project available as a Docker image on Docker Hub.
-  - [*Docker Hub - readme-ai*](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general)
-- [X] Integrate and deploy app with Streamlit to make tool more widely accessible.
-  - [*Streamlit Community Cloud - readmeai*](https://readmeai.streamlit.app/)
-- [ ] Refactor our large language model engine to enable more robust README generation.
-  - [ ] Explore [LangChain 🦜️🔗](https://python.langchain.com/docs/get_started/introduction) as an alternative to using the OpenAI API directly.
-  - [ ] Explore [LlamaIndex 🦙](https://gpt-index.readthedocs.io/en/stable/index.html) framework and Retrieval Augmented Generation (RAG) paradigm.
-- [ ] Building template system to create README files for specific use-cases (data, mobile, web, etc.)
+- [X] Publish readme-ai CLI as a Python package on PyPI.
+  - [*PyPI Package*](https://pypi.org/project/readmeai/)
+- [X] Containerize the readme-ai CLI as a Docker image via Docker Hub.
+  - [*Docker Hub Image*](https://hub.docker.com/repository/docker/zeroxeli/readme-ai/general)
+- [X] Serve the readme-ai CLI as a web app, deployed on Streamlit Community Cloud.
+  - [*Streamlit Web Application*](https://readmeai.streamlit.app/)
+- [ ] Integrate singular interface for all LLM API providers (Anthropic, Cohere, Gemini, etc.)
+- [ ] Design template system to give users a variety of README document flavors (ai, data, web, etc.)
+- [ ] Develop robust documentation generation process that can extend to full project docs (i.e. Sphinx, MkDocs, etc.)
 - [ ] Add support for generating README files in any language (i.e. CN, ES, FR, JA, KO, RU).
-- [ ] Develop GitHub Actions script to automatically update the README file when new code is pushed.
+- [ ] Create GitHub Actions script to automatically update README file content on repository push.
 
 ---
 
