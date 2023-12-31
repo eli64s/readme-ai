@@ -84,7 +84,7 @@ def format_code_summaries(
 
 
 def generate_markdown_tables(
-    dropdown_template: str,
+    table_widget: str,
     summaries: List[Tuple[str, str]],
     project_name: str,
     repository_url: str,
@@ -97,7 +97,7 @@ def generate_markdown_tables(
         table_in_markdown = construct_markdown_table(
             entries, repository_url, project_name
         )
-        table_wrapper = dropdown_template.format(folder, table_in_markdown)
+        table_wrapper = table_widget.format(folder, table_in_markdown)
         markdown_tables.append(table_wrapper)
 
     return "\n".join(markdown_tables)

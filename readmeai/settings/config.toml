@@ -11,19 +11,20 @@ ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
 output = "readme-ai.md"
-shieldsio_icons = "data/shieldsio.json"
+shields_icons = "data/shieldsio.json"
 skill_icons = "data/skill_icons.json"
 
 # Git Options
 [git]
 repository = "https://github.com/eli64s/readme-ai"
 
-# Language Model API Settings
+# GPT Language Model API Settings
 [llm]
+content = "You're a brilliant Tech Lead at OpenAI."
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
-rate_limit = 4
+rate_limit = 6
 temperature = 0.9
 tokens = 750
 tokens_max = 3899
@@ -32,18 +33,18 @@ tokens_max = 3899
 [md]
 align = "center"
 default = "<code>► INSERT-TEXT-HERE</code>"
-dropdown = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
 image = ""
+slogan = ""
 tables = ""
 
 header = """\
-<div id="top" align="{0}">
+<div align="{alignment}">
    <h1>
-      <img src="{1}" width="100">
+      <img src="{image}" width="100">
       <br>
-      {2}
+      {repo_name}
    </h1>
-   <h3>◦ {3}</h3>
+   <h3>◦ {slogan}</h3>
    <h3>◦ Developed with the software and tools below.</h3>
 """
 header_left = """[<img src={0} height="120" align="left">]({0})
@@ -58,7 +59,7 @@ badges_offline = """\
 </div>
 <hr>
 """
-badges_shieldsio = """\
+badges_shields = """\
    <p align="{alignment}">
       {badges}
    </p>
@@ -108,14 +109,15 @@ toc = """
 ---
 """
 
-overview = """
-
+overview = """\n
 ## 📍 Overview
 
 {}
 
 ---
+"""
 
+features = """\n
 ## 📦 Features
 
 {}
@@ -137,6 +139,7 @@ tree = """
 modules = """\n
 ## 🧩 Modules
 """
+modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
 
 getting_started = """
 ---
@@ -248,7 +251,7 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 # Language Model Prompts
 [prompts]
-features = """Hello! Analyze the Git codebase {0} and create a concise analysis of each project component. \
+features = """Hello! Analyze the codebase "{0}" and create a concise analysis of each project component. \
 Consider the codebase as a whole and highlight the key characteristics, design patterns, architectural decisions, and any other noteworthy elements.
 Generate your response as a Markdown table with the following columns:
 
@@ -278,7 +281,7 @@ Provided are summaries of key code file in the repository:\n{3}\n
 Craft a 3-4 sentence paragraph that encapsulate the core functionalities of the project, its purpose and value proposition. \
 Avoid technical jargon and focus on the project's use-case and benefits.
 """
-slogan = """Conceptualize a catchy and memorable slogan for the GitHub project: {0}. \
+slogan = """Conceptualize a catchy and memorable slogan for the project: {0}. \
 Limit the project's slogan to 8 words or less. \
 Use the following code summaries from the repository to help you craft the slogan:\n
 {1}

@@ -94,7 +94,7 @@ class FileSettings(BaseModel):
     language_names: str
     language_setup: str
     output: str
-    shieldsio_icons: str
+    shields_icons: str
     skill_icons: str
 
 
@@ -157,6 +157,7 @@ class GitSettings(BaseModel):
 class LlmApiSettings(BaseModel):
     """Pydantic model for OpenAI LLM API details."""
 
+    content: str
     endpoint: str
     encoding: str
     model: str
@@ -171,18 +172,20 @@ class MarkdownSettings(BaseModel):
 
     align: str
     badges_offline: str
-    badges_shieldsio: str
+    badges_shields: str
     badges_skills: str
     badges_style: str
     contribute: str
     default: str
-    dropdown: str
+    features: str
     getting_started: str
     header: str
     header_left: str
     image: str
     modules: str
+    modules_widget: str
     overview: str
+    slogan: str
     tables: str
     toc: str
     tree: str

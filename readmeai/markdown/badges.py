@@ -49,12 +49,12 @@ def badge_template(conf: AppConfig) -> str:
     if conf.git.source == GitService.LOCAL.value:
         return conf.md.badges_offline
     else:
-        return conf.md.badges_shieldsio
+        return conf.md.badges_shields
 
 
-def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
+def shields_icons(conf: AppConfig, packages: list, full_name: str):
     """
-    Generates badges for the README using shieldsio icons, referencing the
+    Generates badges for the README using shields icons, referencing the
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
     repo_url = conf.git.repository
@@ -65,27 +65,27 @@ def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
     host = GitService.get_clean_hostname(host)
 
     resource_path = utils.get_resource_path(
-        __package__, conf.files.shieldsio_icons
+        __package__, conf.files.shields_icons
     )
-    shieldsio_dict = factory.FileHandler().read(resource_path)
+    shields_dict = factory.FileHandler().read(resource_path)
 
-    md_badges = build_html_badge_block(shieldsio_dict, packages).format(
+    md_badges = build_html_badge_block(shields_dict, packages).format(
         conf.md.badges_style
     )
     md_template = badge_template(conf)
-    shieldsio_icons = md_template.format(
+    shields_icons = md_template.format(
         alignment=conf.md.align,
         badges=md_badges,
         badge_style=conf.md.badges_style,
         full_name=full_name,
         host=host,
     )
-    shieldsio_icons = (
-        utils.remove_substring(shieldsio_icons)
+    shields_icons = (
+        utils.remove_substring(shields_icons)
         if "invalid" in full_name.lower()
-        else shieldsio_icons
+        else shields_icons
     )
-    return shieldsio_icons
+    return shields_icons
 
 
 def skill_icons(conf: AppConfig, dependencies: list) -> str:

@@ -120,7 +120,7 @@ repository = click.option(
 temperature = click.option(
     "-t",
     "--temperature",
-    default=0.8,
+    default=0.9,
     type=float,
     help="Temperature LLM API parameter for generating README.md file content. A higher temperature value will generate more creative content, while a lower temperature value will generate more predictable content.",
 )

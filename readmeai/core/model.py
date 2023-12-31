@@ -3,6 +3,7 @@
 import asyncio
 import time
 import traceback
+from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Tuple
 
 import openai
@@ -32,18 +33,25 @@ from readmeai.utils.utils import format_sentence
 
 
 class LlmApiHandler:
-    """LLM API handler that generates various text for the README.md file."""
+    """LLM API handler that generates text for the README.md file."""
 
-    logger = logger.Logger(__name__)
+    @asynccontextmanager
+    async def use_api(self) -> None:
+        """Context manager for manage resources used by the HTTP client."""
+        try:
+            yield
+        finally:
+            await self.close()
+
+    async def close(self) -> None:
+        """Closes the HTTP client."""
+        await self.http_client.aclose()
 
     def __init__(self, config: settings.AppConfig) -> None:
         """Initializes the GPT language model API handler."""
         self.config = config
-        self.endpoint = config.llm.endpoint
-        self.encoding = config.llm.encoding
-        self.model = config.llm.model
+        self.logger = logger.Logger(__name__)
         self.prompts = config.prompts
-        self.temperature = config.llm.temperature
         self.tokens = config.llm.tokens
         self.tokens_max = config.llm.tokens_max
         self.cache = TTLCache(maxsize=1000, ttl=1200)
@@ -137,7 +145,7 @@ class LlmApiHandler:
         return code_summaries
 
     @retry(
-        stop=stop_after_attempt(3),
+        stop=stop_after_attempt(4),
         wait=wait_exponential(multiplier=1, min=2, max=6),
         retry=retry_if_exception_type(
             (
@@ -167,8 +175,7 @@ class LlmApiHandler:
         Tuple[str, str]
             A tuple containing the prompt type and the generated text.
         """
-        token_count = get_token_count(prompt, self.encoding)
-
+        token_count = get_token_count(prompt, self.config.llm.encoding)
         if token_count > self.tokens_max:
             self.logger.warning(
                 f"Truncating tokens: {token_count} > {self.tokens_max} max"
@@ -178,18 +185,18 @@ class LlmApiHandler:
         try:
             async with self.rate_limit_semaphore:
                 response = await self.http_client.post(
-                    self.endpoint,
+                    self.config.llm.endpoint,
                     headers={"Authorization": f"Bearer {openai.api_key}"},
                     json={
                         "messages": [
                             {
                                 "role": "system",
-                                "content": "You're a brilliant Tech Lead at OpenAI.",
+                                "content": self.config.llm.content,
                             },
                             {"role": "user", "content": prompt},
                         ],
-                        "model": self.model,
-                        "temperature": self.temperature,
+                        "model": self.config.llm.model,
+                        "temperature": self.config.llm.temperature,
                         "max_tokens": tokens,
                     },
                 )
@@ -209,7 +216,3 @@ class LlmApiHandler:
         except Exception as exc_info:
             self.logger.error(f"Exception making request: {exc_info}")
             return index, f"{exc_info}: {traceback.format_exc()}"
-
-    async def close(self):
-        """Generator coroutine cleanup."""
-        await self.http_client.aclose()
