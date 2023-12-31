@@ -7,7 +7,6 @@ __package__ = "readmeai"
 import asyncio
 import os
 import traceback
-import shutil
 
 from readmeai.cli.options import prompt_for_custom_image
 from readmeai.config.settings import (
@@ -99,20 +98,19 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.overview.format(conf.md.default),
                     conf.md.default,
                 )
-            logger.info(f"Total summaries generated: {len(summaries)}")
 
-            headers.build_readme_md(conf, conf_helper, dependencies, summaries)
+        logger.info(f"Total summaries generated: {len(summaries)}")
 
-            logger.info(
-                "README-AI file generated successfully: {conf.files.output}"
-            )
+        headers.build_readme_md(conf, conf_helper, dependencies, summaries)
+
+        logger.info(
+            "README-AI file generated successfully: {conf.files.output}"
+        )
+
     except Exception as exc_info:
         logger.error(
             f"Exception occurred: {exc_info}\n{traceback.format_exc()}"
         )
-    finally:
-        if temp_dir is not None:
-            shutil.rmtree(temp_dir)
 
 
 def main(
