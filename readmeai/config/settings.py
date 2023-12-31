@@ -15,44 +15,40 @@ from readmeai.core import factory, logger
 logger = logger.Logger(__name__)
 
 
-class GitHost(str, Enum):
+class GitService(str, Enum):
     """
-    Enum for default hostnames of Git repositories.
-    """
-
-    LOCAL = "local"
-    GITHUB = "github.com"
-    GITLAB = "gitlab.com"
-    BITBUCKET = "bitbucket.org"
-
-    @staticmethod
-    def from_url(url: str):
-        """Returns the Git host from the URL."""
-        for host in GitHost:
-            if host.value in url:
-                return host
-        raise ValueError(f"Unsupported Git host in URL: {url}")
-
-
-class GitApiUrl(str, Enum):
-    """
-    Enum for base URLs of Git repository APIs.
+    Enum class for Git service details.
     """
 
-    GITHUB = "https://api.github.com/repos/"
-    GITLAB = "https://api.gitlab.com/v4/projects/"
-    BITBUCKET = "https://api.bitbucket.org/2.0/repositories/"
+    LOCAL = ("local", None, "{file_path}")
+    GITHUB = (
+        "github.com",
+        "https://api.github.com/repos/",
+        "https://github.com/{full_name}/blob/main/{file_path}",
+    )
+    GITLAB = (
+        "gitlab.com",
+        "https://api.gitlab.com/v4/projects/",
+        "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
+    )
+    BITBUCKET = (
+        "bitbucket.org",
+        "https://api.bitbucket.org/2.0/repositories/",
+        "https://bitbucket.org/{full_name}/src/master/{file_path}",
+    )
 
+    def __new__(cls, host, api_url, file_url) -> object:
+        """Create a new instance of the GitService enum."""
+        obj = str.__new__(cls, host)
+        obj._value_ = host
+        obj.host = host
+        obj.api_url = api_url
+        obj.file_url = file_url
+        return obj
 
-class GitFileUrl(str, Enum):
-    """
-    Enum for URLs pointing to files in Git repositories.
-    """
-
-    LOCAL = "{file_path}"
-    GITHUB = "https://github.com/{full_name}/blob/main/{file_path}"
-    GITLAB = "https://gitlab.com/{full_name}/-/blob/master/{file_path}"
-    BITBUCKET = "https://bitbucket.org/{full_name}/src/master/{file_path}"
+    def get_clean_hostname(host: str) -> str:
+        """Return the hostname without periods."""
+        return host.split(".")[0]
 
 
 class BadgeOptions(str, Enum):
@@ -82,14 +78,14 @@ class ImageOptions(str, Enum):
     YELLOW = "https://img.icons8.com/pulsar-color/96/markdown.png"
 
 
-class CliConfig(BaseModel):
+class CliSettings(BaseModel):
     """CLI options for the readme-ai application."""
 
     emojis: bool = True
     offline: bool = False
 
 
-class FilesConfig(BaseModel):
+class FileSettings(BaseModel):
     """Pydantic model for configuration file paths."""
 
     dependency_files: str
@@ -102,8 +98,8 @@ class FilesConfig(BaseModel):
     skill_icons: str
 
 
-class GitConfig(BaseModel):
-    """Command-line interface configuration."""
+class GitSettings(BaseModel):
+    """Pydantic model for Git repository details."""
 
     repository: str
     source: Optional[str]
@@ -111,6 +107,7 @@ class GitConfig(BaseModel):
 
     @validator("repository", pre=True, always=True)
     def validate_repository(cls, value: str) -> str:
+        """Validate the repository URL or path."""
         path = Path(value)
         if path.is_dir():
             return value
@@ -119,9 +116,8 @@ class GitConfig(BaseModel):
         except ValueError:
             raise ValueError(f"Invalid repository URL or path: {value}")
 
-        if (
-            parsed_url.scheme != "https"
-            or parsed_url.netloc not in GitHost._value2member_map_
+        if parsed_url.scheme != "https" or not any(
+            service.host in parsed_url.netloc for service in GitService
         ):
             raise ValueError(f"Invalid repository URL or path: {value}")
 
@@ -129,32 +125,37 @@ class GitConfig(BaseModel):
 
     @validator("source", pre=True, always=True)
     def set_source(cls, value: str, values: dict) -> str:
-        """Set the source of the repository"""
+        """Sets the Git service source from the repository provided."""
         repo = values.get("repository")
 
         if Path(repo).is_dir():
-            return GitHost.LOCAL.value
+            return GitService.LOCAL.host
 
         parsed_url = urlparse(repo)
-        return GitHost._value2member_map_.get(parsed_url.netloc)
+        for service in GitService:
+            if service.host in parsed_url.netloc:
+                return service.host
+
+        raise ValueError("Unsupported Git service.")
 
     @validator("name", pre=True, always=True)
     def set_name(cls, value: str, values: dict) -> str:
-        """Sets the project name from the repository provided."""
+        """Sets the repository name from the repository provided."""
         repo = values.get("repository")
         parsed_url = urlsplit(repo)
-        if parsed_url.hostname in GitHost._value2member_map_:
-            path = parsed_url.path
-            name = path.rsplit("/", 1)[-1] if "/" in path else path
-            if name.endswith(".git"):
-                name = name[:-4]
-            return name
-        else:
-            return Path(repo).name
+        for service in GitService:
+            if service.host in parsed_url.netloc:
+                path = parsed_url.path
+                name = path.rsplit("/", 1)[-1] if "/" in path else path
+                if name.endswith(".git"):
+                    name = name[:-4]
+                return name
+
+        return Path(repo).name
 
 
-class LlmApiConfig(BaseModel):
-    """Pydantic model for GPT LLM API configuration settings."""
+class LlmApiSettings(BaseModel):
+    """Pydantic model for OpenAI LLM API details."""
 
     endpoint: str
     encoding: str
@@ -165,7 +166,7 @@ class LlmApiConfig(BaseModel):
     tokens_max: int
 
 
-class MarkdownConfig(BaseModel):
+class MarkdownSettings(BaseModel):
     """Pydantic model for Markdown code block templates."""
 
     align: str
@@ -187,7 +188,7 @@ class MarkdownConfig(BaseModel):
     tree: str
 
 
-class PromptsConfig(BaseModel):
+class PromptSettings(BaseModel):
     """Pydantic model for OpenAI prompts."""
 
     features: str
@@ -199,12 +200,12 @@ class PromptsConfig(BaseModel):
 class AppConfig(BaseModel):
     """Nested Pydantic model for the entire configuration."""
 
-    cli: CliConfig
-    files: FilesConfig
-    git: GitConfig
-    llm: LlmApiConfig
-    md: MarkdownConfig
-    prompts: PromptsConfig
+    cli: CliSettings
+    files: FileSettings
+    git: GitSettings
+    llm: LlmApiSettings
+    md: MarkdownSettings
+    prompts: PromptSettings
 
 
 class AppConfigModel(BaseModel):

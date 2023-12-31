@@ -1,4 +1,4 @@
-"""Processes the input codebase and extracts metadata to use for analysis."""
+"""Processes the input codebase for analysis and metadata extraction."""
 
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
@@ -26,7 +26,7 @@ class RepositoryParser:
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
         self.encoding_name = config.llm.encoding
-        self.local_source = settings.GitHost.LOCAL.value
+        self.local_source = settings.GitService.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""
@@ -34,7 +34,7 @@ class RepositoryParser:
 
         repo_source = self.config.git.source
         if repo_source != self.local_source:
-            logger.info(f"TOKENIZING CONTENT FROM SOURCE: {repo_source}")
+            logger.info(f"Tokenizing content from host: {repo_source}")
             contents = self.tokenize_content(contents)
 
         contents = self.process_language_mapping(contents)
@@ -74,7 +74,7 @@ class RepositoryParser:
             parsed_content = parser.parse(content=content["content"])
             parsed_contents.append(parsed_content)
             logger.info(
-                f"Dependency file found: {content['name']}\n\t{parsed_content}"
+                f"Dependency file found {content['name']}\n\t{parsed_content}"
             )
         return utils.flatten_list(parsed_contents)
 

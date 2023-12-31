@@ -12,7 +12,7 @@ from readmeai.markdown.tables import (
     group_summaries_by_folder,
     is_valid_tuple_summary,
 )
-from readmeai.services import git_operations, git_utilities
+from readmeai.services import git_utilities
 
 
 def test_construct_markdown_table(config):

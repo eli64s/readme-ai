@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import List
 
-from readmeai.config.settings import AppConfig, ConfigHelper
+from readmeai.config.settings import AppConfig, ConfigHelper, GitService
 from readmeai.core import factory, logger
 from readmeai.markdown import badges, quickstart, tables
 from readmeai.services import git_utilities as vcs

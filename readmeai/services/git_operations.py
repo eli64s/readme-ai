@@ -20,13 +20,13 @@ def clone_repo_to_temp_dir(repo_path: str) -> Path:
 
         return Path(temp_dir)
 
-    except git.GitCommandError as excinfo:
-        raise ValueError(f"Git clone error: {excinfo}") from excinfo
+    except git.GitCommandError as exc_info:
+        raise ValueError(f"Git clone error: {exc_info}") from exc_info
 
-    except Exception as excinfo:
+    except Exception as exc_info:
         raise ValueError(
-            f"Error cloning git repository: {excinfo}"
-        ) from excinfo
+            f"Error cloning git repository: {exc_info}"
+        ) from exc_info
 
 
 def find_git_executable() -> Optional[Path]:

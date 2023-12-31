@@ -1,6 +1,6 @@
 """Functions for building and formatting the badges in the README.md file."""
 
-from readmeai.config.settings import AppConfig, GitHost
+from readmeai.config.settings import AppConfig, GitService
 from readmeai.core import factory, logger
 from readmeai.utils import utils
 
@@ -46,7 +46,7 @@ def build_html_badge_block(svg_icons: dict, dependencies: list) -> str:
 
 def badge_template(conf: AppConfig) -> str:
     """Return markdown template for badges"""
-    if conf.git.source == GitHost.LOCAL.value:
+    if conf.git.source == GitService.LOCAL.value:
         return conf.md.badges_offline
     else:
         return conf.md.badges_shieldsio
@@ -57,19 +57,28 @@ def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
     Generates badges for the README using shieldsio icons, referencing the
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
+    repo_url = conf.git.repository
+    for service in GitService:
+        if service.host in repo_url:
+            host = service.host
+            break
+    host = GitService.get_clean_hostname(host)
+
     resource_path = utils.get_resource_path(
         __package__, conf.files.shieldsio_icons
     )
     shieldsio_dict = factory.FileHandler().read(resource_path)
 
+    md_badges = build_html_badge_block(shieldsio_dict, packages).format(
+        conf.md.badges_style
+    )
     md_template = badge_template(conf)
     shieldsio_icons = md_template.format(
-        conf.md.align,
-        build_html_badge_block(shieldsio_dict, packages).format(
-            conf.md.badges_style
-        ),
-        full_name,
-        conf.md.badges_style,
+        alignment=conf.md.align,
+        badges=md_badges,
+        badge_style=conf.md.badges_style,
+        full_name=full_name,
+        host=host,
     )
     shieldsio_icons = (
         utils.remove_substring(shieldsio_icons)

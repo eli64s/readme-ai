@@ -19,7 +19,7 @@ def adjust_max_tokens(
 def get_token_count(text: str, encoding_name: str) -> int:
     """Returns the number of tokens in a text string."""
     encoding = get_encoding(encoding_name)
-    num_tokens = len(encoding.encode(text))
+    num_tokens = len(encoding.encode(text, disallowed_special=()))
     return num_tokens
 
 

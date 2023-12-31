@@ -13,7 +13,7 @@ from readmeai.config.settings import (
     AppConfig,
     AppConfigModel,
     ConfigHelper,
-    GitConfig,
+    GitSettings,
     ImageOptions,
     load_config,
     load_config_helper,
@@ -43,7 +43,7 @@ def main(
     conf = load_config()
     conf_model = AppConfigModel(app=conf)
     conf_helper = load_config_helper(conf_model)
-    conf.git = GitConfig(repository=repository)
+    conf.git = GitSettings(repository=repository)
     conf.files.output = output
     conf.cli.emojis = emojis
     conf.cli.offline = offline

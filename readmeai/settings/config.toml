@@ -24,8 +24,8 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 rate_limit = 4
-temperature = 0.8
-tokens = 669
+temperature = 0.9
+tokens = 750
 tokens_max = 3899
 
 # Markdown Templates
@@ -59,13 +59,13 @@ badges_offline = """\
 <hr>
 """
 badges_shieldsio = """\
-   <p align="{0}">
-      {1}
+   <p align="{alignment}">
+      {badges}
    </p>
-   <img src="https://img.shields.io/github/license/{2}?style={3}&color=5D6D7E" alt="github-license">
-   <img src="https://img.shields.io/github/last-commit/{2}?style={3}&color=5D6D7E" alt="github-last-commit">
-   <img src="https://img.shields.io/github/commit-activity/m/{2}?style={3}&color=5D6D7E" alt="github-commit-activity">
-   <img src="https://img.shields.io/github/languages/top/{2}?style={3}&color=5D6D7E" alt="github-top-language">
+   <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&color=blue" alt="license">
+   <img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&color=blue" alt="last-commit">
+   <img src="https://img.shields.io/{host}/stars/{full_name}?style={badge_style}&color=blue" alt="stars">
+   <img src="https://img.shields.io/{host}/v/release/{full_name}?style={badge_style}&color=blue" alt="release-version">
 </div>
 
 ---
@@ -254,16 +254,16 @@ Generate your response as a Markdown table with the following columns:
 
 |    | Category           | Details                                                                                                        |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**    | Analyze the structural design of the system here. Each description should adhere to a 35-token limit,             |
-| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. Each description should adhere to a 35-token limit,|
-| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. Each description should adhere to a 35-token limit,|
-| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. Each description should adhere to a 35-token limit,|
-| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. Each description should adhere to a 35-token limit,       |
-| ⚡️ | **Performance**     | Analyze how well the system performs, considering speed, efficiency, and resource usage here. Each description should adhere to a 35-token limit,|
-| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. Each description should adhere to a 35-token limit,|
-| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. Each description should adhere to a 35-token limit,|
-| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. Each description should adhere to a 35-token limit,|
-| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. Each description should adhere to a 35-token limit,           |
+| ⚙️ | **Architecture**    | Analyze the structural design of the system here. The description should not exceed 110 characters in total.             |
+| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. The description should not exceed 110 characters in total.|
+| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. The description should not exceed 110 characters in total.|
+| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. The description should not exceed 110 characters in total.|
+| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. The description should not exceed 110 characters in total.       |
+| ⚡️ | **Performance**     | Analyze how well the system performs, considering speed, efficiency, and resource usage here. The description should not exceed 110 characters in total.|
+| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. The description should not exceed 110 characters in total.|
+| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. The description should not exceed 110 characters in total.|
+| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. The description should not exceed 110 characters in total.|
+| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. The description should not exceed 110 characters in total.           |
 
 Provided information includes:
 
@@ -278,9 +278,10 @@ Provided are summaries of key code file in the repository:\n{3}\n
 Craft a 3-4 sentence paragraph that encapsulate the core functionalities of the project, its purpose and value proposition. \
 Avoid technical jargon and focus on the project's use-case and benefits.
 """
-slogan = """Devise an attention-grabbing and memorable slogan for the code repository {0}. \
-Keep the slogan within 15 tokens and avoid using the project's URL or repository name. \
-For instance, consider the example: "A simple, fast, and reliable package manager.
+slogan = """Conceptualize a catchy and memorable slogan for the GitHub project: {0}. \
+Limit the project's slogan to 8 words or less. \
+Use the following code summaries from the repository to help you craft the slogan:\n
+{1}
 """
 summaries = """Deliver a succinct summary in no more than 50 tokens, emphasizing the main role \
 and critical features of this code snippet in relation to its parent repository's architecture. \

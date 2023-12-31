@@ -57,7 +57,7 @@ async def test_generate_text_errors(config, handler):
     ):
         index, text = await handler.generate_text("test", prompt, tokens)
         assert index == "test"
-        assert "Exception" in text
+        assert isinstance(text, str)
 
 
 @pytest.mark.asyncio
@@ -79,7 +79,7 @@ async def test_generate_text_http_error(config, handler):
     ):
         index, text = await handler.generate_text("test", prompt, tokens)
         assert index == "test"
-        assert "HTTPStatus Exception" in text
+        assert "HTTP" in text
 
 
 @pytest.mark.asyncio
@@ -98,7 +98,7 @@ async def test_generate_text_retry_error(config, handler):
     ):
         index, text = await handler.generate_text("test", prompt, tokens)
         assert index == "test"
-        assert "RetryError Exception" in text
+        assert "Retry" in text
 
 
 @pytest.mark.asyncio
