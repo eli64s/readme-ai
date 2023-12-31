@@ -2,6 +2,7 @@
 
 import os
 import platform
+import shutil
 import tempfile
 from pathlib import Path
 from typing import Optional
@@ -10,18 +11,26 @@ import git
 
 
 def clone_repo_to_temp_dir(repo_path: str) -> Path:
-    """Clone user repository to a temporary directory."""
+    """Clone the repository to a temporary directory."""
     if Path(repo_path).exists():
         return Path(repo_path)
 
-    temp_dir = tempfile.mkdtemp()
     try:
-        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
-
-        return Path(temp_dir)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            git.Repo.clone_from(
+                repo_path, temp_dir, depth=1, single_branch=True
+            )
+            new_temp_dir = Path(tempfile.mkdtemp())
+            shutil.copytree(temp_dir, new_temp_dir, dirs_exist_ok=True)
+            return new_temp_dir
 
     except git.GitCommandError as exc_info:
         raise ValueError(f"Git clone error: {exc_info}") from exc_info
+
+    except OSError as exc_info:
+        raise ValueError(
+            f"No such file or directory: {repo_path}"
+        ) from exc_info
 
     except Exception as exc_info:
         raise ValueError(

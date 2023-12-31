@@ -20,8 +20,8 @@ def build_readme_md(
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
-    markdown_sections = format_markdown_content(conf, helper, deps, summaries)
-    readme_md_file = "\n".join(markdown_sections)
+    readme_md_sections = format_markdown_content(conf, helper, deps, summaries)
+    readme_md_file = "\n".join(readme_md_sections)
     factory.FileHandler().write(conf.files.output, readme_md_file)
 
 
@@ -41,15 +41,16 @@ def format_markdown_content(
     else:
         repo_path = repo_url
 
-    md_header = conf.md.header.format(
-        alignment=conf.md.align,
-        image=conf.md.image,
-        repo_name=repo_name.upper(),
-        slogan=conf.md.slogan,
-    )
     if "skills" not in conf.md.badges_style:
+        md_header = conf.md.header.format(
+            alignment=conf.md.align,
+            image=conf.md.image,
+            repo_name=repo_name.upper(),
+            slogan=conf.md.slogan,
+        )
         md_badges = badges.shields_icons(conf, deps, full_name)
     else:
+        md_header = "<!-- @eli64s/readme-ai -->\n"
         md_badges = badges.skill_icons(conf, deps)
 
     formatted_code_summaries = tables.format_code_summaries(
@@ -59,6 +60,7 @@ def format_markdown_content(
     md_code_summaries = tables.generate_markdown_tables(
         conf.md.modules_widget, formatted_code_summaries, full_name, repo_url
     )
+
     md_commands = quickstart.getting_started(conf, helper, deps, summaries)
     md_quick_start = conf.md.getting_started.format(
         repo_name=repo_name,
@@ -67,10 +69,12 @@ def format_markdown_content(
         run_command=md_commands[1],
         test_command=md_commands[2],
     )
+
     md_contribute = conf.md.contribute.format(
         full_name=full_name, repo_name=repo_name
     )
-    markdown_sections = [
+
+    readme_md_sections = [
         md_header,
         md_badges,
         conf.md.toc.format(repo_name),
@@ -84,9 +88,9 @@ def format_markdown_content(
     ]
 
     if conf.cli.emojis is False:
-        return remove_emojis_from_headers(markdown_sections)
+        return remove_emojis_from_headers(readme_md_sections)
 
-    return markdown_sections
+    return readme_md_sections
 
 
 def remove_emojis_from_headers(content_list: List[str]) -> List[str]:

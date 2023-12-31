@@ -7,6 +7,7 @@ __package__ = "readmeai"
 import asyncio
 import os
 import traceback
+import shutil
 
 from readmeai.cli.options import prompt_for_custom_image
 from readmeai.config.settings import (
@@ -20,7 +21,7 @@ from readmeai.config.settings import (
 )
 from readmeai.core import logger, model, preprocess
 from readmeai.markdown import headers, tree
-from readmeai.services import git_operations as vcs
+from readmeai.services.git_operations import clone_repo_to_temp_dir
 
 logger = logger.Logger(__name__)
 
@@ -34,7 +35,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         llm = model.LlmApiHandler(conf)
         repo_name = conf.git.name.upper()
         repo_url = conf.git.repository
-        temp_dir = vcs.clone_repo_to_temp_dir(repo_url)
+        temp_dir = clone_repo_to_temp_dir(repo_url)
 
         conf.md.tree = conf.md.tree.format(
             tree.TreeGenerator(
@@ -81,8 +82,8 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                 )
                 conf.md.slogan = slogan_response["slogan"]
             else:
-                logger.debug(
-                    "Offline mode enabled. Skipping LLM API prompt processing."
+                logger.warning(
+                    "Offline mode enabled. Skipping LLM API prompts."
                 )
                 (
                     summaries,
@@ -98,18 +99,20 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.overview.format(conf.md.default),
                     conf.md.default,
                 )
+            logger.info(f"Total summaries generated: {len(summaries)}")
 
-        logger.info(f"Total summaries generated: {len(summaries)}")
-        logger.info(f"Code summary samples: {summaries[0:3]}")
-        headers.build_readme_md(conf, conf_helper, dependencies, summaries)
+            headers.build_readme_md(conf, conf_helper, dependencies, summaries)
 
+            logger.info(
+                "README-AI file generated successfully: {conf.files.output}"
+            )
     except Exception as exc_info:
         logger.error(
             f"Exception occurred: {exc_info}\n{traceback.format_exc()}"
         )
-
-    logger.info("README-AI file generation process complete.")
-    logger.info(f"README file output path: {conf.files.output}")
+    finally:
+        if temp_dir is not None:
+            shutil.rmtree(temp_dir)
 
 
 def main(

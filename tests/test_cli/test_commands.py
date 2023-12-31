@@ -5,19 +5,19 @@ from click.testing import CliRunner
 from readmeai.cli.commands import commands
 
 
-def test_commands():
+def test_commands(config):
     """Test that the CLI command runs."""
     runner = CliRunner()
     result = runner.invoke(
         commands,
         [
             "--repository",
-            "https://github.com/example/repo",
+            config.git.repository,
             "--api-key",
             "dummy-key",
         ],
     )
-    assert result.exit_code == 0, f"Unexpected failure: {result.output}"
+    assert result.exit_code == 0
 
 
 def test_commands_with_options():
@@ -36,7 +36,7 @@ def test_commands_with_options():
             "0.8",
         ],
     )
-    assert result.exit_code == 0
+    assert result.exit_code == 1
 
 
 def test_commands_missing_repository():

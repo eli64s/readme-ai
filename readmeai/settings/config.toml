@@ -72,17 +72,17 @@ badges_shields = """\
 ---
 """
 badges_skills = """\
-<div align="{0}">
-   <h1><img src="{1}" width="100">
+<div align="{alignment}">
+   <h1><img src="{image}" width="100">
       <br>
-      {2}
+      {repo_name}
    </h1>
-   <h3>◦ {3}</h3>
+   <h3>◦ {slogan}</h3>
    <h3>◦ Developed with the software and tools below.</h3>
 </div>
-<p align="{4}">
+<p align="{alignment}">
    <a href="https://skillicons.dev">
-      <img src="{5}">
+      <img src="{badges}">
    </a>
 </p>
 

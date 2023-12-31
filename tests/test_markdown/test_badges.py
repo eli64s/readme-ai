@@ -2,10 +2,7 @@
 
 import pytest
 
-from readmeai.markdown.badges import (
-    build_html_badges,
-    format_html_badges,
-)
+from readmeai.markdown.badges import build_html_badges, format_html_badges
 
 
 @pytest.mark.parametrize(
