@@ -46,9 +46,9 @@ class GitService(str, Enum):
         obj.file_url = file_url
         return obj
 
-    def get_clean_hostname(host: str) -> str:
+    def extract_name_from_host(repo_host: str) -> str:
         """Return the hostname without periods."""
-        return host.split(".")[0]
+        return repo_host.split(".")[0]
 
 
 class BadgeOptions(str, Enum):

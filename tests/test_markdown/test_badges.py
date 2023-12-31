@@ -3,8 +3,8 @@
 import pytest
 
 from readmeai.markdown.badges import (
-    build_html_badge_block,
-    format_html_badge_block,
+    build_html_badges,
+    format_html_badges,
 )
 
 
@@ -18,9 +18,9 @@ from readmeai.markdown.badges import (
         ),
     ],
 )
-def test_format_html_badge_block(badges, expected):
+def test_format_html_badges(badges, expected):
     """Tests the format_html method."""
-    assert format_html_badge_block(badges) == expected
+    assert format_html_badges(badges) == expected
 
 
 @pytest.mark.parametrize(
@@ -34,6 +34,6 @@ def test_format_html_badge_block(badges, expected):
         ),
     ],
 )
-def test_build_html_badge_block(svg_icons, dependencies, expected):
+def test_build_html_badges(svg_icons, dependencies, expected):
     """Tests the generate_html method."""
-    assert build_html_badge_block(svg_icons, dependencies) == expected
+    assert build_html_badges(svg_icons, dependencies) == expected

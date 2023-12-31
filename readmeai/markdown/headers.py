@@ -44,7 +44,7 @@ def format_markdown_content(
     md_header = conf.md.header.format(
         alignment=conf.md.align,
         image=conf.md.image,
-        repo_name=repo_name,
+        repo_name=repo_name.upper(),
         slogan=conf.md.slogan,
     )
     if "skills" not in conf.md.badges_style:

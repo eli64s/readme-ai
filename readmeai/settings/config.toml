@@ -60,13 +60,13 @@ badges_offline = """\
 <hr>
 """
 badges_shields = """\
-   <p align="{alignment}">
-      {badges}
+   <p align="{0}">
+      {1}
    </p>
-   <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&color=blue" alt="license">
-   <img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&color=blue" alt="last-commit">
-   <img src="https://img.shields.io/{host}/stars/{full_name}?style={badge_style}&color=blue" alt="stars">
-   <img src="https://img.shields.io/{host}/v/release/{full_name}?style={badge_style}&color=blue" alt="release-version">
+   <img src="https://img.shields.io/{2}/license/{3}?style={4}&color=blue" alt="license">
+   <img src="https://img.shields.io/{2}/last-commit/{3}?style={4}&color=blue" alt="last-commit">
+   <img src="https://img.shields.io/{2}/stars/{3}?style={4}&color=blue" alt="stars">
+   <img src="https://img.shields.io/{2}/v/release/{3}?style={4}&color=blue" alt="release-version">
 </div>
 
 ---

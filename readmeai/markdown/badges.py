@@ -7,7 +7,28 @@ from readmeai.utils import utils
 logger = logger.Logger(__name__)
 
 
-def format_html_badge_block(badges: list) -> str:
+def badge_template(conf: AppConfig) -> str:
+    """Return markdown template for badges"""
+    if conf.git.source == GitService.LOCAL.value:
+        return conf.md.badges_offline
+    else:
+        return conf.md.badges_shields
+
+
+def build_html_badges(svg_icons: dict, dependencies: list) -> str:
+    """Returns a list of badges for the project dependencies."""
+    badges = [
+        svg_icons[str(dependency).lower()]
+        for dependency in dependencies
+        if str(dependency).lower() in svg_icons
+    ]
+    # Sort badges by hex value (from light to dark color)
+    badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
+    badges = [badge[0] for badge in badges]
+    return format_html_badges(badges)
+
+
+def format_html_badges(badges: list) -> str:
     """Formats the SVG icons into HTML <img src=""> tags."""
     badge_lines = []
     total_badges = len(badges)
@@ -31,64 +52,37 @@ def format_html_badge_block(badges: list) -> str:
     return "\n\n".join(badge_lines)
 
 
-def build_html_badge_block(svg_icons: dict, dependencies: list) -> str:
-    """Returns a list of badges for the project dependencies."""
-    badges = [
-        svg_icons[str(dependency).lower()]
-        for dependency in dependencies
-        if str(dependency).lower() in svg_icons
-    ]
-    # Sort badges by hex value (from light to dark color)
-    badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
-    badges = [badge[0] for badge in badges]
-    return format_html_badge_block(badges)
-
-
-def badge_template(conf: AppConfig) -> str:
-    """Return markdown template for badges"""
-    if conf.git.source == GitService.LOCAL.value:
-        return conf.md.badges_offline
-    else:
-        return conf.md.badges_shields
-
-
-def shields_icons(conf: AppConfig, packages: list, full_name: str):
+def shields_icons(conf: AppConfig, deps: list, full_name: str):
     """
     Generates badges for the README using shields icons, referencing the
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
-    repo_url = conf.git.repository
-    for service in GitService:
-        if service.host in repo_url:
-            host = service.host
-            break
-    host = GitService.get_clean_hostname(host)
+    if conf.git.source == GitService.LOCAL.host:
+        repo_host = GitService.LOCAL.host
+    else:
+        repo_host = GitService.extract_name_from_host(conf.git.source)
 
     resource_path = utils.get_resource_path(
         __package__, conf.files.shields_icons
     )
-    shields_dict = factory.FileHandler().read(resource_path)
 
-    md_badges = build_html_badge_block(shields_dict, packages).format(
-        conf.md.badges_style
+    md_badge_template = badge_template(conf)
+    shields_dict = factory.FileHandler().read(resource_path)
+    shields_icons = md_badge_template.format(
+        conf.md.align,
+        build_html_badges(shields_dict, deps).format(conf.md.badges_style),
+        repo_host,
+        full_name,
+        conf.md.badges_style,
     )
-    md_template = badge_template(conf)
-    shields_icons = md_template.format(
-        alignment=conf.md.align,
-        badges=md_badges,
-        badge_style=conf.md.badges_style,
-        full_name=full_name,
-        host=host,
-    )
-    shields_icons = (
+    return (
         utils.remove_substring(shields_icons)
         if "invalid" in full_name.lower()
         else shields_icons
     )
-    return shields_icons
 
 
-def skill_icons(conf: AppConfig, dependencies: list) -> str:
+def skill_icons(conf: AppConfig, deps: list) -> str:
     """
     Generates badges for the README using skill icons, from the
     repository - https://github.com/tandpfun/skill-icons.
@@ -100,15 +94,12 @@ def skill_icons(conf: AppConfig, dependencies: list) -> str:
         __package__, conf.files.skill_icons
     )
     skill_icons_dict = factory.FileHandler().read(resource_path)
-
-    filtered_icons = [
-        icon
-        for icon in skill_icons_dict["icons"]["names"]
-        if icon in dependencies
+    skill_icons = [
+        icon for icon in skill_icons_dict["icons"]["names"] if icon in deps
     ]
-    filtered_icons.extend(["md", "github", "git"])
-    icon_names = ",".join(filtered_icons)
-    # per_line = (len(filtered_icons) + 2) // 2
+    skill_icons.extend(["md", "github", "git"])
+    icon_names = ",".join(skill_icons)
+    # per_line = (len(skill_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"
     skill_icons = skill_icons_dict["url"]["base_url"] + icon_names
 
