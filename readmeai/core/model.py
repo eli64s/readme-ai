@@ -39,7 +39,7 @@ class LlmApiHandler:
     async def use_api(self) -> None:
         """Context manager for manage resources used by the HTTP client."""
         try:
-            yield
+            yield self
         finally:
             await self.close()
 

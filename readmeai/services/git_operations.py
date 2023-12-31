@@ -3,22 +3,23 @@
 import os
 import platform
 import shutil
-import tempfile
 from pathlib import Path
 from typing import Optional
 
 import git
 
 
-def clone_repo_to_temp_dir(repo_path: str) -> Path:
+async def clone_repo_to_temp_dir(repo_url: str, temp_dir: str) -> str:
     """Clone the repository to a temporary directory."""
-    if Path(repo_path).exists():
-        return Path(repo_path)
-
     try:
-        temp_dir = tempfile.mkdtemp()
-        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
-        return Path(temp_dir)
+        repo_path = Path(repo_url)
+        if repo_path.is_dir():
+            shutil.copytree(repo_url, temp_dir, dirs_exist_ok=True)
+        else:
+            git.Repo.clone_from(
+                repo_url, temp_dir, depth=1, single_branch=True
+            )
+        return temp_dir
 
     except git.GitCommandError as exc_info:
         raise ValueError(f"Git clone error: {exc_info}") from exc_info

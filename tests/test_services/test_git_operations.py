@@ -1,6 +1,6 @@
 """Unit tests for Git operation utility methods."""
 
-import shutil
+import os
 import tempfile
 from pathlib import Path
 from unittest import mock
@@ -14,21 +14,44 @@ from readmeai.services.git_operations import (
     validate_git_executable,
 )
 
-
-@pytest.fixture
-def temp_dir():
-    """Returns a temporary directory."""
-    dir = tempfile.mkdtemp()
-    yield Path(dir)
-    shutil.rmtree(dir)
+TEST_REPO_URL = "https://github.com/eli64s/readme-ai-streamlit"
 
 
-def test_clone_repo_to_temp_dir(temp_dir):
-    """Test that the repo is cloned to a temporary directory."""
-    repo = "https://github.com/eli64s/readme-ai-streamlit"
-    cloned_dir = clone_repo_to_temp_dir(repo)
-    assert isinstance(cloned_dir, Path)
-    assert cloned_dir.exists()
+@pytest.mark.asyncio
+async def test_clone_valid_repo():
+    """Test that a valid repository is cloned."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        cloned_dir = await clone_repo_to_temp_dir(TEST_REPO_URL, temp_dir)
+        assert os.path.isdir(cloned_dir)
+
+
+@pytest.mark.asyncio
+async def test_clone_invalid_repo():
+    """Test that an invalid repository is not cloned."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        with pytest.raises(ValueError):
+            await clone_repo_to_temp_dir("https://invalid/repo.git", temp_dir)
+
+
+@pytest.mark.asyncio
+async def test_clone_local_repo():
+    """Test that a local repository is cloned."""
+    with tempfile.TemporaryDirectory() as source_dir:
+        os.mkdir(
+            os.path.join(source_dir, ".git")
+        )  # Mock a local git repository
+        with tempfile.TemporaryDirectory() as temp_dir:
+            cloned_dir = await clone_repo_to_temp_dir(source_dir, temp_dir)
+            assert os.path.isdir(cloned_dir)
+            assert os.path.exists(os.path.join(cloned_dir, ".git"))
+
+
+@pytest.mark.asyncio
+async def test_clone_nonexistent_local_path():
+    """Test that a nonexistent local path is not cloned."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        with pytest.raises(ValueError):
+            await clone_repo_to_temp_dir("/nonexistent/path", temp_dir)
 
 
 def test_find_git_executable():

@@ -4,7 +4,7 @@ import os
 from enum import Enum
 from importlib import resources
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 from urllib.parse import urlparse, urlsplit
 
 import pkg_resources
@@ -99,59 +99,57 @@ class FileSettings(BaseModel):
 
 
 class GitSettings(BaseModel):
-    """Pydantic model for Git repository details."""
+    """Codebase repository settings and validations."""
 
-    repository: str
+    repository: Union[str, Path]
     source: Optional[str]
     name: Optional[str]
 
     @validator("repository", pre=True, always=True)
-    def validate_repository(cls, value: str) -> str:
+    def validate_repository(cls, value: Union[str, Path]) -> Union[str, Path]:
         """Validate the repository URL or path."""
-        path = Path(value)
-        if path.is_dir():
+        if isinstance(value, str):
+            path = Path(value)
+            if path.is_dir():
+                return value
+            try:
+                parsed_url = urlparse(value)
+                if parsed_url.scheme in ["http", "https"] and any(
+                    service.host in parsed_url.netloc for service in GitService
+                ):
+                    return value
+            except ValueError:
+                pass
+        elif isinstance(value, Path) and value.is_dir():
             return value
-        try:
-            parsed_url = urlparse(value)
-        except ValueError:
-            raise ValueError(f"Invalid repository URL or path: {value}")
-
-        if parsed_url.scheme != "https" or not any(
-            service.host in parsed_url.netloc for service in GitService
-        ):
-            raise ValueError(f"Invalid repository URL or path: {value}")
-
-        return value
+        raise ValueError(f"Invalid repository URL or path: {value}")
 
     @validator("source", pre=True, always=True)
-    def set_source(cls, value: str, values: dict) -> str:
+    def set_source(cls, value: Optional[str], values: dict) -> str:
         """Sets the Git service source from the repository provided."""
         repo = values.get("repository")
-
-        if Path(repo).is_dir():
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
             return GitService.LOCAL.host
 
-        parsed_url = urlparse(repo)
+        parsed_url = urlparse(str(repo))
         for service in GitService:
             if service.host in parsed_url.netloc:
                 return service.host
-
-        raise ValueError("Unsupported Git service.")
+        return GitService.LOCAL.host
 
     @validator("name", pre=True, always=True)
-    def set_name(cls, value: str, values: dict) -> str:
+    def set_name(cls, value: Optional[str], values: dict) -> str:
         """Sets the repository name from the repository provided."""
         repo = values.get("repository")
-        parsed_url = urlsplit(repo)
-        for service in GitService:
-            if service.host in parsed_url.netloc:
-                path = parsed_url.path
-                name = path.rsplit("/", 1)[-1] if "/" in path else path
-                if name.endswith(".git"):
-                    name = name[:-4]
-                return name
-
-        return Path(repo).name
+        if isinstance(repo, Path):
+            return repo.name
+        elif isinstance(repo, str):
+            parsed_url = urlsplit(repo)
+            name = parsed_url.path.split("/")[-1]
+            return name.removesuffix(".git")
+        return "n/a"
 
 
 class LlmApiSettings(BaseModel):
