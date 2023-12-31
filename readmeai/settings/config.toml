@@ -109,24 +109,23 @@ toc = """
 ---
 """
 
-overview = """\n
+overview = """
 ## 📍 Overview
 
-{}
+{0}
 
 ---
 """
 
-features = """\n
+features = """
 ## 📦 Features
 
-{}
+{0}
 
 ---
 """
 
 tree = """
-
 ## 📂 Repository Structure
 
 ```sh
@@ -136,7 +135,7 @@ tree = """
 ---
 """
 
-modules = """\n
+modules = """
 ## 🧩 Modules
 """
 modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
@@ -188,7 +187,7 @@ To execute tests, run:
 """
 
 contribute = """
-\n## 🚧 Project Roadmap
+## 🚧 Project Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

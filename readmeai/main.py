@@ -94,8 +94,8 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         (file_path.as_posix(), conf.md.default)
                         for file_path, _ in file_context.items()
                     ],
-                    conf.md.default,
-                    conf.md.default,
+                    conf.md.features.format(conf.md.default),
+                    conf.md.overview.format(conf.md.default),
                     conf.md.default,
                 )
 

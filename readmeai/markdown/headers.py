@@ -113,7 +113,11 @@ def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
     for section in content_list:
         lines = section.split("\n")
         for index, line in enumerate(lines):
-            if line.startswith("#") or "Table of Contents" in section:
+            if (
+                line.startswith("#")
+                or "Table of Contents" in section
+                or "Quick Links" in section
+            ):
                 lines[index] = emoji_pattern.sub("", line)
         modified_content.append("\n".join(lines))
 
