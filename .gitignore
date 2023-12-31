@@ -39,7 +39,8 @@ notebooks/
 # VSCode workspace settings
 .vscode/
 
-# Pytest cache
+# cache
+.mypy_cache/
 .pytest_cache/
 .ruff_cache/
 
