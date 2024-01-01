@@ -21,16 +21,24 @@ def test_format_html_badges(badges, expected):
 
 
 @pytest.mark.parametrize(
-    "svg_icons, dependencies, expected",
+    "dependencies, git_host, svg_icons, expected",
     [
-        ({}, [], ""),
+        ([], "local", {}, ""),
         (
-            {"python": ["https://img.shields.io/badge/python-3.6-blue.svg"]},
             [],
+            "github",
+            {"python": ["https://img.shields.io/badge/python-3.6-blue.svg"]},
             "",
         ),
     ],
 )
-def test_build_html_badges(svg_icons, dependencies, expected):
+def test_build_html_badges(dependencies, git_host, svg_icons, expected):
     """Tests the generate_html method."""
-    assert build_html_badges(svg_icons, dependencies) == expected
+    assert (
+        build_html_badges(
+            dependencies,
+            git_host,
+            svg_icons,
+        )
+        == expected
+    )

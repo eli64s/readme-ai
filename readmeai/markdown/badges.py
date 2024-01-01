@@ -13,8 +13,13 @@ def badge_template(conf: AppConfig) -> str:
         return conf.md.badges_shields
 
 
-def build_html_badges(svg_icons: dict, dependencies: list) -> str:
+def build_html_badges(
+    dependencies: list,
+    git_host: str,
+    svg_icons: dict,
+) -> str:
     """Returns a list of badges for the project dependencies."""
+    dependencies.extend(["markdown", git_host])
     badges = [
         svg_icons[str(dependency).lower()]
         for dependency in dependencies
@@ -68,7 +73,11 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
     shields_dict = FileHandler().read(resource_path)
     shields_icons = md_badge_template.format(
         conf.md.align,
-        build_html_badges(shields_dict, deps).format(conf.md.badges_style),
+        build_html_badges(
+            deps,
+            repo_host,
+            shields_dict,
+        ).format(conf.md.badges_style),
         repo_host,
         full_name,
         conf.md.badges_style,

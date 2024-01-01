@@ -89,11 +89,13 @@ image = click.option(
     show_choices=True,
     help="""\
         Project logo image displayed in the README file header. The following options are currently available:\n
-        - CUSTOM <enter image url> \n
+        - CUSTOM \n
         - BLACK \n
         - BLUE \n
-        - GRADIENT \n
+        - GREEN \n
+        - GREY \n
         - PURPLE \n
+        - WHITE \n
         - YELLOW \n
         """,
 )

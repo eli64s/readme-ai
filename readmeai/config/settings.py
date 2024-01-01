@@ -74,8 +74,10 @@ class ImageOptions(str, Enum):
     CUSTOM = "CUSTOM"
     BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
     BLUE = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-    GRADIENT = "https://img.icons8.com/nolan/96/markdown.png"
+    GREEN = "https://img.icons8.com/external-tal-revivo-green-tal-revivo/72/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-green-tal-revivo.png"
+    GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
+    WHITE = "https://img.icons8.com/officel/80/markdown.png"
     YELLOW = "https://img.icons8.com/pulsar-color/96/markdown.png"
 
 

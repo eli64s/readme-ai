@@ -3,7 +3,6 @@
 repositories=(
     "https://github.com/eli64s/readme-ai"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
-    "https://github.com/idosal/assistant-chat-gpt-javascript"
     "https://github.com/rumaan/file.io-Android-Client"
     "https://github.com/DownWithUp/CallMon"
     "https://github.com/olliefr/docker-gs-ping"
@@ -16,7 +15,6 @@ repositories=(
 filenames=(
     "readme-python.md"
     "readme-typescript.md"
-    "readme-javascript.md"
     "readme-kotlin.md"
     "readme-rust-c.md"
     "readme-go.md"
@@ -27,7 +25,7 @@ filenames=(
 )
 
 badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills", "skills-light")
-image=("black" "blue" "gradient" "purple" "yellow")
+image=("black" "blue" "grey" "green" "purple" "yellow")
 align=("left" "center")
 
 for index in "${!repositories[@]}"

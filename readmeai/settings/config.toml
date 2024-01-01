@@ -39,13 +39,13 @@ tables = ""
 
 header = """\
 <div align="{alignment}">
-   <h1>
-      <img src="{image}" width="100">
-      <br>
-      {repo_name}
-   </h1>
-   <h3>◦ {slogan}</h3>
-   <h3>◦ Developed with the software and tools below.</h3>
+<h1>
+   <img src="{image}" width="100" height="100" />
+   <br>
+   {repo_name}
+</h1>
+<h3>◦ {slogan}</h3>
+<h3>◦ Developed with the software and tools below.</h3>
 """
 header_left = """[<img src={0} height="120" align="left">]({0})
 # {1}
@@ -60,22 +60,24 @@ badges_offline = """\
 <hr>
 """
 badges_shields = """\
-   <p align="{0}">
-      {1}
-   </p>
-   <img src="https://img.shields.io/{2}/license/{3}?style={4}&color=blue" alt="license">
-   <img src="https://img.shields.io/{2}/last-commit/{3}?style={4}&color=blue" alt="last-commit">
-   <img src="https://img.shields.io/{2}/stars/{3}?style={4}&color=blue" alt="stars">
-   <img src="https://img.shields.io/{2}/v/release/{3}?style={4}&color=blue" alt="release-version">
+<p align="{0}">
+{1}
+</p>
+
+![license](https://img.shields.io/{2}/license/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
+![repo-language-count](https://img.shields.io/{2}/languages/count/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
+![repo-top-language](https://img.shields.io/{2}/languages/top/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
+![last-commit](https://img.shields.io/{2}/last-commit/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
 </div>
 
 ---
 """
 badges_skills = """\
 <div align="{alignment}">
-   <h1><img src="{image}" width="100">
-      <br>
-      {repo_name}
+   <h1>
+   <img src="{image}" width="100" height="100" />
+   <br>
+   {repo_name}
    </h1>
    <h3>◦ {slogan}</h3>
    <h3>◦ Developed with the software and tools below.</h3>
