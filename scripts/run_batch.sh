@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 repositories=(
+    "https://github.com/BerriAI/litellm"
+    "https://github.com/simplistix/sybil"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
     "https://github.com/rumaan/file.io-Android-Client"
@@ -9,10 +11,12 @@ repositories=(
     "https://github.com/avjinder/Minimal-Todo"
     "https://github.com/FerrariDG/async-ml-inference"
     "https://github.com/GokuMohandas/mlops-course"
-    "https://github.com/eli64s/flink-flow"
+    "https://github.com/eli64s/pyflink-poc"
 )
 
 filenames=(
+    "readme-litellm.md"
+    "readme-sybil.md"
     "readme-python.md"
     "readme-typescript.md"
     "readme-kotlin.md"
@@ -24,8 +28,8 @@ filenames=(
     "readme-pyflink.md"
 )
 
-badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills", "skills-light")
-image=("black" "blue" "grey" "green" "purple" "yellow")
+badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
+image=("black" "blue" "grey" "green" "purple" "white" "yellow")
 align=("left" "center")
 
 for index in "${!repositories[@]}"
@@ -37,8 +41,8 @@ do
     alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
     if [ $rand_choice -eq 1 ]; then
-        readmeai -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment" -e
+        python3 -m readmeai.cli.commands -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment" -e
     else
-        readmeai -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment"
+        python3 -m readmeai.cli.commands -o "$filename" -r "$repo" -b "$random_badge" -i "$image_style" -a "$alignment"
     fi
 done
