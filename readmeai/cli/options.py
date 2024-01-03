@@ -95,7 +95,6 @@ image = click.option(
         - BLUE \n
         - GREY \n
         - PURPLE \n
-        - WHITE \n
         - YELLOW \n
         """,
 )
