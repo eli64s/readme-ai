@@ -1,6 +1,7 @@
 """Unit tests for the GPT LLM API handler."""
 
 from unittest.mock import AsyncMock
+
 import pytest
 from cachetools import TTLCache
 from httpx import HTTPStatusError, TimeoutException
