@@ -9,13 +9,13 @@
     <em><code>► INSERT-TEXT-HERE</code></em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat" alt="license">
-	<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square" alt="license">
+	<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square" alt="repo-language-count">
 <p>
 <p align="center">
-    <em>Developed with the software and tools below</em>
+		<em>Developed with the software and tools below</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
@@ -28,7 +28,8 @@
 	<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
 	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker">
 	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
-	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest"></p>
+	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
+</p>
 </div>
 <hr>
 
