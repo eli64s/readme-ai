@@ -63,7 +63,7 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
     )
 
     if conf.md.badges_style == BadgeOptions.STANDARD.value:
-        return metadata_badges
+        return metadata_badges, "<!-- dependency badges -->\n"
 
     badge_set = _read_badge_file(conf.files.shields_icons)
     dependency_badges = build_html_badges(
@@ -71,7 +71,7 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
         badge_set,
         conf.md.badges_style,
     )
-
+    dependency_badges = f"""\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{conf.md.align}">\n\t{dependency_badges}\n"""
     return metadata_badges, dependency_badges
 
 

@@ -471,7 +471,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 |-------------------|---------|-------------|------|--------|
 | `--align`/`-a` | `center` | Set header text alignment (`left`, `center`). | String | Optional |
 | `--api-key`/`-k` | `OPENAI_API_KEY` env var | Your GPT model API key. | String | Optional |
-| `--badges`/`-b` | `minimal` | Badge style options for your README file. | String | Optional |
+| `--badges`/`-b` | `standard` | Badge style options for your README file. | String | Optional |
 | `--emojis`/`-e` | `False` | Add emojis to section header tiles. | Boolean | Optional |
 | `--image`/`-i` | `blue` | Project logo image displayed in README header. | String | Optional |
 | `--max-tokens` | `3899` | Max number of tokens that can be generated. | Integer | Optional |

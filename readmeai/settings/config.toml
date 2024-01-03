@@ -49,10 +49,7 @@ header = """\
 <p align="{alignment}">
     <em>{slogan}</em>
 </p>
-<p align="{alignment}">\n\t{badges_shields}\n<p>
-<p align="{alignment}">
-    <em>Developed with the software and tools below</em>
-</p>
+<p align="{alignment}">\n\t{badges_shields}<p>
 <p align="{alignment}">\n\t{badges}</p>
 </div>
 <hr>
