@@ -1,6 +1,6 @@
 # Makefile
 
-SHELL = /bin/bash
+SHELL := /bin/bash
 VENV := readmeai
 
 .PHONY: help clean format lint conda-recipe git-rm-cache file-search test poetry-reqs
@@ -21,14 +21,16 @@ clean:
 	./scripts/clean.sh clean
 
 .PHONY: format
-format: clean
-	-black .
-	-isort .
+format:
+	@echo -e "\nFormatting in directory: ${CURDIR}"
+	black ${CURDIR}
+	isort ${CURDIR}
 
 .PHONY: lint
 lint:
-	-flake8 ${CURDIR}
-	-ruff ${CURDIR}
+	@echo -e "\nLinting in directory: ${CURDIR}"
+	flake8 ${CURDIR}
+	ruff ${CURDIR}
 
 .PHONY: conda-recipe
 conda-recipe:
