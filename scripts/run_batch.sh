@@ -2,7 +2,6 @@
 
 repositories=(
     "https://github.com/BerriAI/litellm"
-    "https://github.com/simplistix/sybil"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
     "https://github.com/rumaan/file.io-Android-Client"
@@ -17,7 +16,6 @@ repositories=(
 
 filenames=(
     "readme-litellm.md"
-    "readme-sybil.md"
     "readme-python.md"
     "readme-typescript.md"
     "readme-kotlin.md"
@@ -31,7 +29,7 @@ filenames=(
 )
 
 badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
-image=("black" "blue" "grey" "green" "purple" "white" "yellow")
+image=("black" "blue" "grey" "purple" "white" "yellow")
 align=("left" "center")
 
 for index in "${!repositories[@]}"
