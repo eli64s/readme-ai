@@ -8,14 +8,14 @@
     <em>Auto-generate detailed and structured README files, powered by AI.</em>
 </p>
 <p align="center">
-<a href="https://github.com/eli64s/readme-ai/actions" target="_blank">
+<a href="https://github.com/eli64s/readme-ai/actions">
     <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff" alt="Test">
 </a>
-<a href="https://app.codecov.io/gh/eli64s/readme-ai" target="_blank">
+<a href="https://app.codecov.io/gh/eli64s/readme-ai"></a>
     <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff" alt="Publish">
 </a>
-<a href="https://pypi.python.org/pypi/readmeai/" target="_blank">
-    <img src="https://img.shields.io/pypi/v/readmeai?color=c125ff" target="_blank">
+<a href="https://pypi.python.org/pypi/readmeai/">
+    <img src="https://img.shields.io/pypi/v/readmeai?color=c125ff">
     <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff" alt="Package version">
 </a>
 </p>
