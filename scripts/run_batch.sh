@@ -12,6 +12,7 @@ repositories=(
     "https://github.com/FerrariDG/async-ml-inference"
     "https://github.com/GokuMohandas/mlops-course"
     "https://github.com/eli64s/pyflink-poc"
+    "https://github.com/eli64s/readme-ai-streamlit"
 )
 
 filenames=(
@@ -26,6 +27,7 @@ filenames=(
     "readme-fastapi-redis.md"
     "readme-mlops.md"
     "readme-pyflink.md"
+    "readme-streamlit.md"
 )
 
 badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
