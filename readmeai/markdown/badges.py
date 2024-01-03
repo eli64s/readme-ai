@@ -61,10 +61,6 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
         full_name=full_name,
         badges_style=conf.md.badges_style,
     )
-
-    if conf.md.badges_style == BadgeOptions.STANDARD.value:
-        return metadata_badges, "<!-- dependency badges -->\n"
-
     badge_set = _read_badge_file(conf.files.shields_icons)
     dependency_badges = build_html_badges(
         deps,
@@ -72,6 +68,25 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
         conf.md.badges_style,
     )
     dependency_badges = f"""\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{conf.md.align}">\n\t{dependency_badges}\n"""
+
+    if (
+        conf.md.badges_style == BadgeOptions.STANDARD.value
+        and git_host != GitService.LOCAL.host
+    ):
+        return (
+            metadata_badges,
+            "<!-- standard option, no dependency badges. -->\n",
+        )
+
+    if (
+        conf.md.badges_style == BadgeOptions.STANDARD.value
+        and conf.git.source == GitService.LOCAL.host
+    ):
+        return (
+            "<!-- local repository, no metadata badges. -->\n",
+            dependency_badges,
+        )
+
     return metadata_badges, dependency_badges
 
 
