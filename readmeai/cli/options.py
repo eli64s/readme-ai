@@ -92,7 +92,6 @@ image = click.option(
         - CUSTOM \n
         - BLACK \n
         - BLUE \n
-        - GREEN \n
         - GREY \n
         - PURPLE \n
         - WHITE \n

@@ -27,7 +27,8 @@ def construct_markdown_table(
 def create_hyperlink(
     file_name: str, full_name: str, module: str, repo_url: str
 ) -> str:
-    """Creates a hyperlink for a file, using its Git URL if possible."""
+    """
+    Creates a hyperlink for a file, using its Git URL if possible.
     logger.debug(
         f"Creating git host file hyperlink:\n\
         \tFile: {file_name} \n\
@@ -35,6 +36,7 @@ def create_hyperlink(
         \tModule: {module} \n\
         \tRepo URL: {repo_url}"
     )
+    """
     if "invalid" in full_name.lower():
         return file_name
     git_file_link = get_remote_file_url(module, full_name, repo_url)

@@ -144,7 +144,7 @@ class RepoProcessor:
         return contents
 
     def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
-        """Tokenizes the content of each file."""
+        """Tokenize the content of each file."""
         for content in contents:
             content["tokens"] = get_token_count(
                 content["content"], self.encoding_name

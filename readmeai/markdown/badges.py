@@ -5,21 +5,12 @@ from readmeai.core.factory import FileHandler
 from readmeai.utils import utils
 
 
-def badge_template(conf: AppConfig) -> str:
-    """Return markdown template for badges"""
-    if conf.git.source == GitService.LOCAL.value:
-        return conf.md.badges_offline
-    else:
-        return conf.md.badges_shields
-
-
 def build_html_badges(
     dependencies: list,
-    git_host: str,
     svg_icons: dict,
+    style: str,
 ) -> str:
     """Returns a list of badges for the project dependencies."""
-    dependencies.extend(["markdown", git_host])
     badges = [
         svg_icons[str(dependency).lower()]
         for dependency in dependencies
@@ -27,7 +18,7 @@ def build_html_badges(
     ]
     # Sort badges by hex value (from light to dark color)
     badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
-    badges = [badge[0] for badge in badges]
+    badges = [badge[0].format(style) for badge in badges]
     return format_html_badges(badges)
 
 
@@ -61,32 +52,22 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
     if conf.git.source == GitService.LOCAL.host:
-        repo_host = GitService.LOCAL.host
+        git_host = GitService.LOCAL.host
     else:
-        repo_host = GitService.extract_name_from_host(conf.git.source)
+        git_host = GitService.extract_name_from_host(conf.git.source)
 
-    resource_path = utils.get_resource_path(
-        __package__, conf.files.shields_icons
-    )
-
-    md_badge_template = badge_template(conf)
-    shields_dict = FileHandler().read(resource_path)
-    shields_icons = md_badge_template.format(
-        conf.md.align,
-        build_html_badges(
-            deps,
-            repo_host,
-            shields_dict,
-        ).format(conf.md.badges_style),
-        repo_host,
-        full_name,
+    badge_set = _read_badge_file(conf.files.shields_icons)
+    dependency_badges = build_html_badges(
+        deps,
+        badge_set,
         conf.md.badges_style,
     )
-    return (
-        utils.remove_substring(shields_icons)
-        if "invalid" in full_name.lower()
-        else shields_icons
+    metadata_badges = conf.md.badges_shields.format(
+        git_host=git_host,
+        full_name=full_name,
+        badges_style=conf.md.badges_style,
     )
+    return f"{dependency_badges}\n\n{metadata_badges}"
 
 
 def skill_icons(conf: AppConfig, deps: list) -> str:
@@ -94,26 +75,24 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     Generates badges for the README using skill icons, from the
     repository - https://github.com/tandpfun/skill-icons.
     """
-    resource_path = utils.get_resource_path(
-        __package__, conf.files.skill_icons
-    )
-    skill_icons_dict = FileHandler().read(resource_path)
-    skill_icons = [
-        icon for icon in skill_icons_dict["icons"]["names"] if icon in deps
+    icons_dict = _read_badge_file(conf.files.skill_icons)
+    icons_list = [
+        icon for icon in icons_dict["icons"]["names"] if icon in deps
     ]
-    skill_icons.extend(["md", "github", "git"])
-    icon_names = ",".join(skill_icons)
+    skill_icons = ",".join(icons_list)
     # per_line = (len(skill_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"
-    skill_icons = skill_icons_dict["url"]["base_url"] + icon_names
+    skill_icons = icons_dict["url"]["base_url"] + skill_icons
 
     if conf.md.badges_style == "skills-light":
         skill_icons = f"{skill_icons}&theme=light"
 
-    return conf.md.badges_skills.format(
-        alignment=conf.md.align,
-        badges=skill_icons,
-        image=conf.md.image,
-        repo_name=conf.git.name.upper(),
-        slogan=conf.md.slogan,
-    )
+    conf.md.badges_skills = conf.md.badges_skills.format(skill_icons)
+
+    return conf.md.badges_skills
+
+
+def _read_badge_file(file_path: str) -> dict:
+    """Reads the badges file and returns the SVG icons."""
+    resource_path = utils.get_resource_path(__package__, file_path)
+    return FileHandler().read(resource_path)

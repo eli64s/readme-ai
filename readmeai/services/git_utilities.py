@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Tuple
 
 from readmeai.config.settings import GitService
+from readmeai.core.logger import Logger
+
+logger = Logger(__name__)
 
 
 def get_remote_file_url(file_path: str, full_name: str, repo_url: str) -> str:
@@ -40,3 +43,21 @@ def get_remote_full_name(url_or_path) -> Tuple[str, str]:
             return username, repo_name
 
     raise ValueError("Error: invalid repository URL or path.")
+
+
+async def parse_repo_url(repo_url: str) -> str:
+    """Parses the repository URL and returns the API URL."""
+    try:
+        parts = repo_url.rstrip("/").split("/")
+        repo_name = f"{parts[-2]}/{parts[-1]}"
+
+        for service in GitService:
+            if service.host in repo_url:
+                api_url = f"{service.api_url}{repo_name}"
+                logger.info(f"{service.name.upper()} API URL: {api_url}")
+                return api_url
+
+        raise ValueError("Unsupported Git service.")
+
+    except (IndexError, ValueError) as exc_info:
+        raise ValueError(f"Invalid repository URL: {repo_url}") from exc_info

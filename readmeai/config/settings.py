@@ -74,7 +74,6 @@ class ImageOptions(str, Enum):
     CUSTOM = "CUSTOM"
     BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
     BLUE = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-    GREEN = "https://img.icons8.com/external-tal-revivo-green-tal-revivo/72/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-green-tal-revivo.png"
     GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
     WHITE = "https://img.icons8.com/officel/80/markdown.png"
@@ -172,16 +171,14 @@ class MarkdownSettings(BaseModel):
     """Pydantic model for Markdown code block templates."""
 
     align: str
-    badges_offline: str
+    default: str
     badges_shields: str
     badges_skills: str
     badges_style: str
     contribute: str
-    default: str
     features: str
     getting_started: str
     header: str
-    header_left: str
     image: str
     modules: str
     modules_widget: str

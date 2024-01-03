@@ -32,6 +32,7 @@ tokens_max = 3899
 # Markdown Templates
 [md]
 align = "center"
+badges_style = "flat"
 default = "<code>► INSERT-TEXT-HERE</code>"
 image = ""
 slogan = ""
@@ -39,58 +40,35 @@ tables = ""
 
 header = """\
 <div align="{alignment}">
-<h1>
-   <img src="{image}" width="100" height="100" />
-   <br>
-   {repo_name}
-</h1>
-<h3>◦ {slogan}</h3>
-<h3>◦ Developed with the software and tools below.</h3>
-"""
-header_left = """[<img src={0} height="120" align="left">]({0})
-# {1}
-### {2}\n
-"""
-
-badges_offline = """\
-   <p align="{0}">
-      {1}
-   </p>
+<p align="{alignment}">
+  <img src="{image}" width="100" />
+</p>
+<p align="{alignment}">
+    <h1 align="{alignment}">{repo_name}</h1>
+</p>
+<p align="{alignment}">
+    <em>{slogan}</em>
+</p>
+<p align="{alignment}">
+    <em>Developed with the software and tools below</em>
+</p>
+<p align="{alignment}">
+{badges}
+</p>
 </div>
 <hr>
 """
 badges_shields = """\
-<p align="{0}">
-{1}
-</p>
-
-![license](https://img.shields.io/{2}/license/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
-![repo-language-count](https://img.shields.io/{2}/languages/count/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
-![repo-top-language](https://img.shields.io/{2}/languages/top/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
-![last-commit](https://img.shields.io/{2}/last-commit/{3}?style={4}&labelColor=E5E4E2&color=869BB3)
-</div>
-
----
+<img src="https://img.shields.io/{git_host}/license/{full_name}?style={badges_style}" alt="license">
+<img src="https://img.shields.io/{git_host}/last-commit/{full_name}?style={badges_style}" alt="last-commit">
+<img src="https://img.shields.io/{git_host}/languages/top/{full_name}?style={badges_style}" alt="repo-top-language">
+<img src="https://img.shields.io/{git_host}/languages/count/{full_name}?style={badges_style}" alt="repo-language-count">
 """
 badges_skills = """\
-<div align="{alignment}">
-   <h1>
-   <img src="{image}" width="100" height="100" />
-   <br>
-   {repo_name}
-   </h1>
-   <h3>◦ {slogan}</h3>
-   <h3>◦ Developed with the software and tools below.</h3>
-</div>
-<p align="{alignment}">
-   <a href="https://skillicons.dev">
-      <img src="{badges}">
-   </a>
-</p>
-
----
+<a href="https://skillicons.dev">
+   <img src="{}">
+</a>
 """
-badges_style = "flat"
 
 toc = """
 ## 🔗 Quick Links
@@ -103,7 +81,7 @@ toc = """
     - [⚙️ Installation](#-installation)
     - [🤖 Running {0}](#-running-{0})
     - [🧪 Tests](#-tests)
-- [🚧 Roadmap](#-roadmap)
+- [🛠 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -147,14 +125,13 @@ getting_started = """
 
 ## 🚀 Getting Started
 
-***Prerequisites***
+***Requirements***
 
 Ensure you have the following dependencies installed on your system:
 
-- `► INSERT-DEPENDENCY-1`
-- `► INSERT-DEPENDENCY-2`
-- `► INSERT-DEPENDENCY-3`
-- `► ...`
+* {language_name}: `► INSERT-VERSION-HERE`
+* `► ...`
+* `► ...`
 
 ### ⚙️ Installation
 
@@ -189,7 +166,7 @@ To execute tests, run:
 """
 
 contribute = """
-## 🚧 Project Roadmap
+## 🛠 Project Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`
@@ -235,7 +212,6 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 ---
 
 ## 📄 License
-
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 

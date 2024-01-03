@@ -3,12 +3,14 @@
 __package__ = "readmeai"
 
 import re
+from pathlib import Path
 from typing import List
 
 from readmeai.config.settings import AppConfig, ConfigHelper, GitService
-from readmeai.core.factory import FileHandler
-from readmeai.markdown import badges, quickstart, tables
-from readmeai.services import git_utilities as vcs
+from readmeai.core import factory
+from readmeai.markdown import badges, tables
+from readmeai.markdown.quickstart import getting_started
+from readmeai.services.git_utilities import get_remote_full_name
 
 
 def build_readme_md(
@@ -18,9 +20,11 @@ def build_readme_md(
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
-    readme_md_sections = format_readme_md(conf, helper, deps, summaries)
-    readme_md_file = "\n".join(readme_md_sections)
-    FileHandler().write(conf.files.output, readme_md_file)
+    readme_md_contents = format_readme_md(conf, helper, deps, summaries)
+    readme_md_file = "\n".join(readme_md_contents)
+    readme_path = Path(conf.files.output)
+    readme_path.parent.mkdir(parents=True, exist_ok=True)
+    factory.FileHandler().write(readme_path, readme_md_file)
 
 
 def format_readme_md(
@@ -29,28 +33,27 @@ def format_readme_md(
     deps: list,
     summaries: tuple,
 ) -> List[str]:
-    """Formats the README Markdown file contents for each section."""
+    """Formats the README markdown contents."""
     repo_url = conf.git.repository
-    user_name, repo_name = vcs.get_remote_full_name(repo_url)
+    user_name, repo_name = get_remote_full_name(repo_url)
     full_name = f"{user_name}/{repo_name}"
-
     if conf.git.source == GitService.LOCAL.value:
-        repo_path = f"../{repo_name}"
+        repo_source = f"../{repo_name}"
     else:
-        repo_path = repo_url
+        repo_source = repo_url
 
     if "skills" not in conf.md.badges_style:
-        md_header = conf.md.header.format(
-            alignment=conf.md.align,
-            image=conf.md.image,
-            repo_name=repo_name.upper(),
-            slogan=conf.md.slogan,
-        )
         md_badges = badges.shields_icons(conf, deps, full_name)
     else:
-        md_header = "<!---->\n"
         md_badges = badges.skill_icons(conf, deps)
 
+    md_header = conf.md.header.format(
+        alignment=conf.md.align,
+        image=conf.md.image,
+        repo_name=repo_name.upper(),
+        slogan=conf.md.slogan,
+        badges=md_badges,
+    )
     formatted_code_summaries = tables.format_code_summaries(
         conf.md.default,
         summaries,
@@ -59,30 +62,26 @@ def format_readme_md(
         conf.md.modules_widget, formatted_code_summaries, full_name, repo_url
     )
 
-    md_commands = quickstart.getting_started(conf, helper, deps, summaries)
-    md_quick_start = conf.md.getting_started.format(
+    project_setup = getting_started(conf, helper, summaries)
+    md_project_setup = conf.md.getting_started.format(
         repo_name=repo_name,
-        repo_url=repo_path,
-        install_command=md_commands[0],
-        run_command=md_commands[1],
-        test_command=md_commands[2],
-    )
-
-    md_contribute = conf.md.contribute.format(
-        full_name=full_name, repo_name=repo_name
+        repo_url=repo_source,
+        language_name=project_setup.top_language_full_name,
+        install_command=project_setup.install_command,
+        run_command=project_setup.run_command,
+        test_command=project_setup.test_command,
     )
 
     readme_md_sections = [
         md_header,
-        md_badges,
         conf.md.toc.format(repo_name),
         conf.md.overview,
         conf.md.features,
         conf.md.tree,
         conf.md.modules,
         md_code_summaries,
-        md_quick_start,
-        md_contribute,
+        md_project_setup,
+        conf.md.contribute.format(full_name=full_name, repo_name=repo_name),
     ]
 
     if conf.cli.emojis is False:
@@ -110,7 +109,7 @@ def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
         flags=re.UNICODE,
     )
 
-    # Replace emojis for markdown lines starting with header symbols or in the ToC
+    # Replace emojis for markdown lines starting with header symbols or ToC
     modified_content = []
     for section in content_list:
         lines = section.split("\n")

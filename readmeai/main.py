@@ -32,10 +32,7 @@ logger = Logger(__name__)
 
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
-    llm = ModelHandler(conf)
-
     repo_url = conf.git.repository
-
     temp_dir = await asyncio.to_thread(tempfile.mkdtemp)
     try:
         await clone_repo_to_temp_dir(repo_url, temp_dir)
@@ -45,10 +42,11 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         parser = RepoProcessor(conf, conf_helper)
         dependencies, file_context = parser.get_dependencies(temp_dir)
         summaries = [(path, content) for path, content in file_context.items()]
+
         logger.info(f"Project dependencies: {dependencies}")
         logger.info(f"Project structure:\n{conf.md.tree}")
 
-        async with llm.use_api() as api:
+        async with ModelHandler(conf).use_api() as llm:
             if conf.cli.offline is False:
                 prompts = [
                     {
@@ -85,7 +83,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         },
                     },
                 ]
-                responses = await api.batch_text_generator(prompts)
+                responses = await llm.batch_text_generator(prompts)
                 (
                     summaries_response,
                     features_response,
@@ -112,10 +110,16 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.default,
                 )
 
-        build_readme_md(conf, conf_helper, dependencies, summaries)
+            build_readme_md(conf, conf_helper, dependencies, summaries)
 
+    except Exception as exc_info:
+        logger.error(
+            f"Error generating README: {exc_info}\n{traceback.format_exc()}"
+        )
     finally:
         shutil.rmtree(temp_dir)
+
+    logger.info(f"README file successfully generated at {conf.files.output}")
 
 
 def main(
@@ -159,10 +163,6 @@ def main(
         logger.error(
             f"Error generating README: {exc_info}\n{traceback.format_exc()}"
         )
-
-    logger.info(
-        "README-AI processing complete. File saved as - {conf.files.output}"
-    )
 
 
 def update_settings(
