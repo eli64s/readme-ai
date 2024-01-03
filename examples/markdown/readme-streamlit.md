@@ -1,28 +1,22 @@
 <div align="center">
 <p align="center">
-  <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100" />
+  <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 </p>
 <p align="center">
     <h1 align="center">README-AI-STREAMLIT</h1>
 </p>
 <p align="center">
-    <em>Streamline readme creation with AI-powered Streamlit</em>
+    <em>Streamlining readme generation and AI-powered documentation.</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/eli64s/readme-ai-streamlit?style=plastic" alt="license">
-	<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai-streamlit?style=plastic" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=plastic" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=plastic" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/eli64s/readme-ai-streamlit?style=standard" alt="license">
+	<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai-streamlit?style=standard" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=standard" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=standard" alt="repo-language-count">
 <p>
 <p align="center">
-    <em>Developed with the software and tools below</em>
+	<!-- standard option, no dependency badges. -->
 </p>
-<p align="center">
-	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=plastic&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
-	<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=plastic&logo=Streamlit&logoColor=white" alt="Streamlit">
-	<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=plastic&logo=Poetry&logoColor=white" alt="Poetry">
-	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=plastic&logo=Python&logoColor=white" alt="Python">
-	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=plastic&logo=Pytest&logoColor=white" alt="Pytest"></p>
 </div>
 <hr>
 
