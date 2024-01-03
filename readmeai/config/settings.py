@@ -64,6 +64,7 @@ class BadgeOptions(str, Enum):
     SKILLS = "skills"
     SKILLS_LIGHT = "skills-light"
     SOCIAL = "social"
+    STANDARD = "standard"
 
 
 class ImageOptions(str, Enum):

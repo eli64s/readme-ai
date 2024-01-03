@@ -59,7 +59,7 @@ badges = click.option(
     type=click.Choice(
         [opt.value for opt in BadgeOptions], case_sensitive=False
     ),
-    default="flat",
+    default="standard",
     help="""\
         Badge icon style types to select from when generating README.md badges. The following options are currently available:\n
         - flat \n
@@ -69,6 +69,7 @@ badges = click.option(
         - skills \n
         - skills-light \n
         - social \n
+        - standard \n
         """,
 )
 emojis = click.option(

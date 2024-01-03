@@ -78,10 +78,13 @@ def test_shields_icons_success(config):
                 "3776AB",
             ],
         }
-        result = shields_icons(mock_config, deps, "full_name")
-        assert "Python" in result
-        assert "3776AB" in result
-        assert "flat" in result
+        shields_badges, deps_badges = shields_icons(
+            mock_config, deps, "full_name"
+        )
+        assert "license" in shields_badges
+        assert "Python" in deps_badges
+        assert "3776AB" in deps_badges
+        assert "flat" in deps_badges
 
 
 def test_skill_icons_success(config):
@@ -93,17 +96,17 @@ def test_skill_icons_success(config):
         "icons": {"names": ["fastapi", "py", "redis", "md", "github", "git"]},
         "url": {"base_url": "https://skillicons.dev/icons?i="},
     }
-    deps = ["fastapi", "py", "redis", "md", "github", "git"]
+    deps = ["fastapi", "py", "redis", "github", "git"]
 
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = mock_icons
         result = skill_icons(mock_config, deps)
         assert result.startswith("<a href=") is True
-        assert result.endswith("\n</a>\n") is True
+        assert result.endswith("\n\t</a>\n") is True
         assert "&theme=light" in result
         assert """<a href="https://skillicons.dev">""" in result
         assert (
-            """<img src="https://skillicons.dev/icons?i=fastapi,py,redis,md,github,git&theme=light">\n</a>\n"""
+            """\n\t\t<img src="https://skillicons.dev/icons?i=fastapi,py,redis,md,github,git&theme=light">\n\t</a>\n"""
             in result
         )
 

@@ -32,7 +32,7 @@ tokens_max = 3899
 # Markdown Templates
 [md]
 align = "center"
-badges_style = "flat"
+badges_style = "standard"
 default = "<code>► INSERT-TEXT-HERE</code>"
 image = ""
 slogan = ""
@@ -49,25 +49,21 @@ header = """\
 <p align="{alignment}">
     <em>{slogan}</em>
 </p>
+<p align="{alignment}">\n\t{badges_shields}\n<p>
 <p align="{alignment}">
     <em>Developed with the software and tools below</em>
 </p>
-<p align="{alignment}">
-{badges}
-</p>
+<p align="{alignment}">\n\t{badges}</p>
 </div>
 <hr>
 """
-badges_shields = """\
+badges_shields = """
 <img src="https://img.shields.io/{git_host}/license/{full_name}?style={badges_style}" alt="license">
-<img src="https://img.shields.io/{git_host}/last-commit/{full_name}?style={badges_style}" alt="last-commit">
-<img src="https://img.shields.io/{git_host}/languages/top/{full_name}?style={badges_style}" alt="repo-top-language">
-<img src="https://img.shields.io/{git_host}/languages/count/{full_name}?style={badges_style}" alt="repo-language-count">
+\t<img src="https://img.shields.io/{git_host}/last-commit/{full_name}?style={badges_style}" alt="last-commit">
+\t<img src="https://img.shields.io/{git_host}/languages/top/{full_name}?style={badges_style}" alt="repo-top-language">
+\t<img src="https://img.shields.io/{git_host}/languages/count/{full_name}?style={badges_style}" alt="repo-language-count">
 """
-badges_skills = """\
-<a href="https://skillicons.dev">
-   <img src="{}">
-</a>
+badges_skills = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>
 """
 
 toc = """

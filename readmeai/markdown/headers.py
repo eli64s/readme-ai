@@ -6,7 +6,12 @@ import re
 from pathlib import Path
 from typing import List
 
-from readmeai.config.settings import AppConfig, ConfigHelper, GitService
+from readmeai.config.settings import (
+    AppConfig,
+    BadgeOptions,
+    ConfigHelper,
+    GitService,
+)
 from readmeai.core import factory
 from readmeai.markdown import badges, tables
 from readmeai.markdown.quickstart import getting_started
@@ -42,9 +47,10 @@ def format_readme_md(
     else:
         repo_source = repo_url
 
-    if "skills" not in conf.md.badges_style:
-        md_badges = badges.shields_icons(conf, deps, full_name)
+    if BadgeOptions.SKILLS.value not in conf.md.badges_style:
+        md_shields, md_badges = badges.shields_icons(conf, deps, full_name)
     else:
+        md_shields = "<!-- Shields.io badges not used with skill icons. -->"
         md_badges = badges.skill_icons(conf, deps)
 
     md_header = conf.md.header.format(
@@ -52,6 +58,7 @@ def format_readme_md(
         image=conf.md.image,
         repo_name=repo_name.upper(),
         slogan=conf.md.slogan,
+        badges_shields=md_shields,
         badges=md_badges,
     )
     formatted_code_summaries = tables.format_code_summaries(
