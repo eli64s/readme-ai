@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from readmeai.config.settings import ConfigHelper
-from readmeai.utils.utils import (
+from readmeai.core.utils import (
     flatten_list,
     format_sentence,
     get_relative_path,
@@ -35,10 +35,10 @@ def test_format_sentence():
 
 def test_get_relative_path():
     """Test that the relative path is correct."""
-    absolute_path = "readmeai/utils/utils.py"
+    absolute_path = "readmeai/core/utils.py"
     base_path = Path().parent
     relative_path = get_relative_path(absolute_path, base_path)
-    assert str(relative_path) == "readmeai/utils/utils.py"
+    assert str(relative_path) == "readmeai/core/utils.py"
 
 
 def test_remove_substring():

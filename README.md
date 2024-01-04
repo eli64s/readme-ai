@@ -489,7 +489,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 
 **Badge Icons**
 
-Select your preferred badge icon style to display in your output file using the `--badges` flag. The `default` option is the default and displays basic metadata about your repository. If you select another option, the `default` badges will be automatically included.
+Select your preferred badge icon style to display in your output file using the `--badges` flag. The default badge style displays basic metadata about your repository using shields.io badges. If you select another option, the `default` badges will be automatically included.
 
 | **Options**      | **Preview** |
 |------------------|----------|

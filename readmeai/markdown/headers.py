@@ -43,9 +43,7 @@ def format_readme_md(
     user_name, repo_name = get_remote_full_name(repo_url)
     full_name = f"{user_name}/{repo_name}"
     if conf.git.source == GitService.LOCAL.value:
-        repo_source = f"../{repo_name}"
-    else:
-        repo_source = repo_url
+        repo_url = f"../{repo_name}"
 
     if BadgeOptions.SKILLS.value not in conf.md.badges_style:
         md_shields, md_badges = badges.shields_icons(conf, deps, full_name)
@@ -61,6 +59,7 @@ def format_readme_md(
         badges_shields=md_shields,
         badges=md_badges,
     )
+
     formatted_code_summaries = tables.format_code_summaries(
         conf.md.default,
         summaries,
@@ -72,7 +71,7 @@ def format_readme_md(
     project_setup = getting_started(conf, helper, summaries)
     md_project_setup = conf.md.getting_started.format(
         repo_name=repo_name,
-        repo_url=repo_source,
+        repo_url=repo_url,
         language_name=project_setup.top_language_full_name,
         install_command=project_setup.install_command,
         run_command=project_setup.run_command,
@@ -118,6 +117,7 @@ def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
 
     # Replace emojis for markdown lines starting with header symbols or ToC
     modified_content = []
+
     for section in content_list:
         lines = section.split("\n")
         for index, line in enumerate(lines):

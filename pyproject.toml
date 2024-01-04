@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.0985"
+version = "0.4.0986"
 description = "🚀 Generate beautiful README.md files from the terminal using GPT LLM APIs 💫"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -89,16 +89,22 @@ virtual_env = "poetry"
 [tool.flake8]
 max-line-length = 79
 extend-ignore = ["E203", "W503"]
-exclude = ".venv,.git,.tox,docs,venv,bin,lib,deps,build,tests,examples,notebooks"
+exclude = ".venv,.git,.nox,docs,venv,bin,lib,deps,build,tests,examples,notebooks"
 
 [tool.isort]
 line_length = 79
 profile = "black"
-known_third_party = ["tenacity"]
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
+known_first_party = "readmeai"
+known_third_party = [
+    "pytest",
+    "responses",
+]
+sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
+no_lines_before = 'LOCALFOLDER'
 
 [tool.coverage.run]
 # branch = true
@@ -106,7 +112,7 @@ source = ["readmeai", "tests"]
 omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "setup.py"]
 
 [tool.coverage.report]
-fail_under = 69
+fail_under = 70
 show_missing = true
 
 [tool.coverage.xml]

@@ -29,7 +29,7 @@ from readmeai.core.tokens import (
     get_token_count,
     truncate_tokens,
 )
-from readmeai.utils.utils import format_sentence
+from readmeai.core.utils import format_sentence
 
 
 class ModelHandler:

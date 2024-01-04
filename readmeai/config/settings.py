@@ -49,7 +49,10 @@ class GitService(str, Enum):
 
     def extract_name_from_host(repo_host: str) -> str:
         """Return the hostname without periods."""
-        return repo_host.split(".")[0]
+        if repo_host == GitService.LOCAL.host:
+            return GitService.LOCAL.host
+        else:
+            return repo_host.split(".")[0]
 
 
 class BadgeOptions(str, Enum):
@@ -172,6 +175,7 @@ class MarkdownSettings(BaseModel):
 
     align: str
     default: str
+    badges_dependencies: str
     badges_shields: str
     badges_skills: str
     badges_style: str

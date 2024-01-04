@@ -1,6 +1,5 @@
 """Unit tests for generating the 'Quick Start' section of the README."""
 
-from unittest.mock import MagicMock
 from readmeai.markdown.quickstart import (
     ProjectSetup,
     count_languages,

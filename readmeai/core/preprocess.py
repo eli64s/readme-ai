@@ -6,8 +6,8 @@ from typing import Dict, Generator, List, Tuple
 from readmeai.config import settings
 from readmeai.core.logger import Logger
 from readmeai.core.tokens import get_token_count
+from readmeai.core.utils import flatten_list, should_ignore
 from readmeai.parsers.factory import parser_factory
-from readmeai.utils import utils
 
 logger = Logger(__name__)
 
@@ -77,7 +77,7 @@ class RepoProcessor:
             logger.info(
                 f"Dependency file found {content['name']}\n\t{parsed_content}"
             )
-        return utils.flatten_list(parsed_contents)
+        return flatten_list(parsed_contents)
 
     def parse_content(content: Dict) -> List[str]:
         """Helper function to parse the content of a file."""
@@ -91,7 +91,7 @@ class RepoProcessor:
     ) -> Generator[Tuple[str, Path, str], None, None]:
         """Generates a tuple of file information."""
         for file_path in repo_path.rglob("*"):
-            if utils.should_ignore(self.config_helper, file_path):
+            if should_ignore(self.config_helper, file_path):
                 continue
 
             if file_path.is_file():

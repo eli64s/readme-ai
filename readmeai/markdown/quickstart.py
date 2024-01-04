@@ -58,7 +58,7 @@ def get_top_language_setup(
     top_language_key = get_top_language(language_counts)
     language_name = helper.language_names.get(top_language_key, "n/a")
     setup_commands = helper.language_setup.get(
-        language_name, [conf.md.default] * 3
+        language_name, helper.language_setup.get("default", "n/a")
     )
     top_language_full_name = language_name
 
@@ -76,9 +76,7 @@ def getting_started(
     """
     Generates the 'Quick Start' section of the README file.
     """
-    default_setup = ProjectSetup(
-        conf.md.default, conf.md.default, conf.md.default, {}, "", ""
-    )
+    default_setup = ProjectSetup("", "", "", {}, "", "")
 
     try:
         language_counts = count_languages(summaries, helper)

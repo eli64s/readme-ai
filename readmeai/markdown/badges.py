@@ -2,76 +2,82 @@
 
 from typing import Dict, Tuple
 
-from readmeai.config.settings import AppConfig, BadgeOptions, GitService
+from readmeai.config.settings import AppConfig, BadgeOptions
 from readmeai.core.factory import FileHandler
-from readmeai.utils import utils
+from readmeai.core.utils import get_resource_path
+from readmeai.services.git_utilities import GitService
 
 
-def build_html_badges(
-    dependencies: list,
-    svg_icons: dict,
-    style: str,
+def _read_badge_file(file_path: str) -> Dict[str, str]:
+    """Reads the badges file and returns the SVG icons."""
+    resource_path = get_resource_path(__package__, file_path)
+    return FileHandler().read(resource_path)
+
+
+def build_dependency_badges(
+    dependencies: list[str], icons: dict[str, str], style: str
 ) -> str:
-    """Returns a list of badges for the project dependencies."""
+    """Build HTML badges for project dependencies."""
     badges = [
-        svg_icons[str(dependency).lower()]
+        icons[str(dependency).lower()]
         for dependency in dependencies
-        if str(dependency).lower() in svg_icons
+        if str(dependency).lower() in icons
     ]
+
     # Sort badges by hex value (from light to dark color)
     badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
     badges = [badge[0].format(style) for badge in badges]
-    return format_html_badges(badges)
+    return format_badges(badges)
 
 
-def format_html_badges(badges: list) -> str:
-    """Formats the SVG icons into HTML <img src=""> tags."""
-    badge_lines = []
-    total_badges = len(badges)
-    if total_badges < 9:
-        badges_per_line = total_badges
-    else:
-        badges_per_line = total_badges // 2 + (total_badges % 2)
+def build_metadata_badges(
+    config: AppConfig, host: str, repository: str
+) -> str:
+    """Build metadata badges using shields.io."""
+    return config.md.badges_shields.format(
+        git_host=host,
+        full_name=repository,
+        badges_style=config.md.badges_style,
+    )
+
+
+def format_badges(badges: list[str]) -> str:
+    """Format SVG badge icons as HTML."""
+    lines = []
+    badges_per_line = len(badges) if len(badges) < 9 else (len(badges) % 2)
 
     if badges_per_line == 0:
         return ""
 
-    for i in range(0, total_badges, badges_per_line):
+    for i in range(0, len(badges), badges_per_line):
         line = "\n\t".join(
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
             ]
         )
-        badge_lines.append(line)
+        lines.append(line)
 
-    return "\n\t<br>\n\t".join(badge_lines)
+    return """\n\t<br>\n\t""".join(lines)
 
 
 def shields_icons(
     conf: AppConfig, deps: list, full_name: str
 ) -> Tuple[str, str]:
     """
-    Generates badges for the README using shields icons, referencing the
-    repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
+    Generates badges for the README using shields.io icons, referencing
+    the repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
-    if conf.git.source == GitService.LOCAL.host:
-        git_host = GitService.LOCAL.host
-    else:
-        git_host = GitService.extract_name_from_host(conf.git.source)
-
-    metadata_badges = conf.md.badges_shields.format(
-        git_host=git_host,
-        full_name=full_name,
-        badges_style=conf.md.badges_style,
-    )
     badge_set = _read_badge_file(conf.files.shields_icons)
-    dependency_badges = build_html_badges(
-        deps,
-        badge_set,
-        conf.md.badges_style,
+    git_host = GitService.extract_name_from_host(conf.git.source)
+
+    metadata_badges = build_metadata_badges(conf, git_host, full_name)
+    dependency_badges = build_dependency_badges(
+        deps, badge_set, conf.md.badges_style
     )
-    dependency_badges = f"""\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{conf.md.align}">\n\t{dependency_badges}\n"""
+    dependency_badges = conf.md.badges_dependencies.format(
+        alignment=conf.md.align, badges=dependency_badges
+    )
 
     if (
         conf.md.badges_style == BadgeOptions.DEFAULT.value
@@ -82,10 +88,7 @@ def shields_icons(
             "<!-- default option, no dependency badges. -->\n",
         )
 
-    if (
-        conf.md.badges_style == BadgeOptions.DEFAULT.value
-        and git_host == GitService.LOCAL.host
-    ):
+    if git_host == GitService.LOCAL.host:
         return (
             "<!-- local repository, no metadata badges. -->\n",
             dependency_badges,
@@ -115,9 +118,3 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     conf.md.badges_skills = conf.md.badges_skills.format(skill_icons)
 
     return conf.md.badges_skills
-
-
-def _read_badge_file(file_path: str) -> Dict[str, str]:
-    """Reads the badges file and returns the SVG icons."""
-    resource_path = utils.get_resource_path(__package__, file_path)
-    return FileHandler().read(resource_path)

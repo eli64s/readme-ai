@@ -3,8 +3,8 @@
 from pathlib import Path
 
 from readmeai.config.settings import ConfigHelper
+from readmeai.core import utils
 from readmeai.core.logger import Logger
-from readmeai.utils import utils
 
 logger = Logger(__name__)
 

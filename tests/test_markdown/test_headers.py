@@ -1,14 +1,12 @@
 """Unit tests for the markdown headers generator."""
 
-import pytest
+from unittest.mock import patch
 
 from readmeai.markdown.headers import (
     build_readme_md,
     format_readme_md,
     remove_emojis_from_headers,
 )
-
-from unittest.mock import patch
 
 
 def test_build_readme_md(
@@ -36,10 +34,16 @@ def test_format_readme_md_local_source(
     assert len(readme_md) == 9
 
 
-@pytest.mark.skip(reason="Not implemented yet")
-def test_format_readme_md_nonlocal_source(config, config_helper):
+def test_format_readme_md_nonlocal_source(
+    config, config_helper, mock_dependencies, mock_summaries
+):
     """Tests the format_readme_md method."""
-    assert 1 == 1
+    mock_config = config
+    mock_config.cli.offline = True
+    readme_md = format_readme_md(
+        mock_config, config_helper, mock_dependencies, mock_summaries
+    )
+    assert isinstance(readme_md, list)
 
 
 def test_remove_emojis_from_headers_with_emojis():

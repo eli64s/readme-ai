@@ -6,11 +6,36 @@ import pytest
 
 from readmeai.markdown.badges import (
     _read_badge_file,
-    build_html_badges,
-    format_html_badges,
+    build_dependency_badges,
+    build_metadata_badges,
+    format_badges,
     shields_icons,
     skill_icons,
 )
+
+
+def test_read_badge_file_success(config, monkeypatch):
+    """Tests the _read_badge_file method for successful file read."""
+    badge_file_path = config.files.shields_icons
+    mock_file_handler = MagicMock()
+    mock_file_handler.read.return_value = {
+        "icons": {"names": ["Python", "JavaScript"]},
+        "url": {"base_url": "http://example.com/"},
+    }
+    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
+    assert isinstance(_read_badge_file(badge_file_path), dict)
+
+
+def test_read_badge_file_exception(config, monkeypatch):
+    """Tests the _read_badge_file method for exception handling."""
+    badge_file_path = "invalid_path"
+    mock_file_handler = MagicMock()
+    mock_file_handler.read.side_effect = Exception("File read error")
+    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
+
+    with pytest.raises(Exception) as exc_info:
+        _read_badge_file(badge_file_path)
+    assert isinstance(exc_info.value, Exception)
 
 
 @pytest.mark.parametrize(
@@ -25,9 +50,9 @@ from readmeai.markdown.badges import (
         ),
     ],
 )
-def test_format_html_badges(badges, expected):
+def test_format_badges(badges, expected):
     """Tests the format_html method."""
-    assert format_html_badges(badges) == expected
+    assert format_badges(badges) == expected
 
 
 @pytest.mark.parametrize(
@@ -47,16 +72,20 @@ def test_format_html_badges(badges, expected):
         ),
     ],
 )
-def test_build_html_badges(dependencies, svg_icons, style, expected):
+def test_build_dependency_badges(dependencies, svg_icons, style, expected):
     """Tests the generate_html method."""
-    assert (
-        build_html_badges(
-            dependencies,
-            svg_icons,
-            style,
-        )
-        == expected
-    )
+    assert build_dependency_badges(dependencies, svg_icons, style) == expected
+
+
+def test_build_metadata_badges_success(config):
+    """Tests build_metadata_badges with valid inputs."""
+    mock_config = config
+    mock_config.git.source = "github.com"
+    mock_config.md.badges_shields = config.md.badges_shields
+    mock_config.md.badges_style = "flat"
+    badges = build_metadata_badges(mock_config, "github.com", "user/repo")
+    assert isinstance(badges, str)
+    assert "license" in badges
 
 
 def test_shields_icons_success(config):
@@ -109,27 +138,3 @@ def test_skill_icons_success(config):
             """\n\t\t<img src="https://skillicons.dev/icons?i=fastapi,py,redis,md,github,git&theme=light">\n\t</a>\n"""
             in result
         )
-
-
-def test_read_badge_file_success(config, monkeypatch):
-    """Tests the _read_badge_file method for successful file read."""
-    badge_file_path = config.files.shields_icons
-    mock_file_handler = MagicMock()
-    mock_file_handler.read.return_value = {
-        "icons": {"names": ["Python", "JavaScript"]},
-        "url": {"base_url": "http://example.com/"},
-    }
-    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
-    assert isinstance(_read_badge_file(badge_file_path), dict)
-
-
-def test_read_badge_file_exception(config, monkeypatch):
-    """Tests the _read_badge_file method for exception handling."""
-    badge_file_path = "invalid_path"
-    mock_file_handler = MagicMock()
-    mock_file_handler.read.side_effect = Exception("File read error")
-    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
-
-    with pytest.raises(Exception) as exc_info:
-        _read_badge_file(badge_file_path)
-    assert isinstance(exc_info.value, Exception)
