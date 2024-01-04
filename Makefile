@@ -51,7 +51,8 @@ test:
 	-n auto \
 	--cov=./ \
 	--cov-report=xml \
-	--cov-report=term-missing
+	--cov-report=term-missing \
+	--cov-branch
 
 .PHONY: poetry-reqs
 poetry-reqs:
