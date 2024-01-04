@@ -6,14 +6,18 @@
 <p align="center">
     <em>Auto-generate detailed and structured README files, powered by AI.</em>
 </p>
-<div align="center">
-
-[![Test](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff)](https://github.com/eli64s/readme-ai/actions)
-[![Publish](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff)](https://app.codecov.io/gh/eli64s/readme-ai)
-[![PyPI Version](https://img.shields.io/pypi/v/readmeai?color=c125ff)](https://pypi.python.org/pypi/readmeai/)
-![Python Versions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff)
-
-</div>
+<p align="center">
+  <a href="https://github.com/eli64s/readme-ai/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff" alt="Test">
+  </a>
+  <a href="https://app.codecov.io/gh/eli64s/readme-ai">
+    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff" alt="Publish">
+  </a>
+  <a href="https://pypi.python.org/pypi/readmeai/">
+    <img src="https://img.shields.io/pypi/v/readmeai?color=c125ff" alt="PyPI Version">
+    <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff" alt="Python Versions">
+  </a>
+</p>
 
 ---
 
@@ -349,15 +353,16 @@ A repository URL or local path to your codebase is required run readme-ai. The f
 
 An OpenAI API account and API key are needed to use *readme-ai*. The following steps outline the process.
 
-<details closed><summary>🔐 OpenAI API Account Setup</summary>
-
-1. Go to the [OpenAI website](https://platform.openai.com/).
-2. Click the "Sign up for free" button.
-3. Fill out the registration form with your information and agree to the terms of service.
-4. Once logged in, click on the "API" tab.
-5. Follow the instructions to create a new API key.
-6. Copy the API key and keep it in a secure place.
-
+<details closed>
+  <summary>🔐 OpenAI API Account Setup</summary>
+  <ol>
+    <li>Go to the <a href="https://platform.openai.com/">OpenAI website</a>.</li>
+    <li>Click the "Sign up for free" button.</li>
+    <li>Fill out the registration form with your information and agree to the terms of service.</li>
+    <li>Once logged in, click on the "API" tab.</li>
+    <li>Follow the instructions to create a new API key.</li>
+    <li>Copy the API key and keep it in a secure place.</li>
+  </ol>
 </details>
 
 > [!WARNING]
@@ -520,7 +525,7 @@ Select your preferred badge icon style to display in your output file using the 
 
 | **Options**      | **Preview** |
 |------------------|----------|
-| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat) |
+| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff) |
 | `flat`           | ![flat](https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white) |
 | `flat-square`    | ![flat-square](https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white) |
 | `for-the-badge`  | ![for-the-badge](https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white) |

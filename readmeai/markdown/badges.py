@@ -18,6 +18,7 @@ def build_dependency_badges(
     dependencies: list[str], icons: dict[str, str], style: str
 ) -> str:
     """Build HTML badges for project dependencies."""
+    dependencies.extend(["markdown"])
     badges = [
         icons[str(dependency).lower()]
         for dependency in dependencies
@@ -35,30 +36,38 @@ def build_metadata_badges(
 ) -> str:
     """Build metadata badges using shields.io."""
     return config.md.badges_shields.format(
-        git_host=host,
+        host=host,
         full_name=repository,
-        badges_style=config.md.badges_style,
+        badge_style=config.md.badge_style,
+        badge_color=config.md.badge_color,
     )
 
 
 def format_badges(badges: list[str]) -> str:
     """Format SVG badge icons as HTML."""
-    lines = []
-    badges_per_line = len(badges) if len(badges) < 9 else (len(badges) % 2)
-
-    if badges_per_line == 0:
+    len_icons = len(badges)
+    if badges is None or len_icons == 0:
         return ""
 
-    for i in range(0, len(badges), badges_per_line):
+    badges_per_line = (
+        len_icons if len_icons < 9 else (len_icons // 2) + (len_icons % 2)
+    )
+
+    lines = []
+    for i in range(0, len_icons, badges_per_line):
         line = "\n\t".join(
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
             ]
         )
-        lines.append(line)
+        lines.append(
+            f"{line}\n\t<br>"
+            if i + badges_per_line < len_icons
+            else f"{line}\n"
+        )
 
-    return """\n\t<br>\n\t""".join(lines)
+    return "\n\t".join(lines)
 
 
 def shields_icons(
@@ -73,14 +82,14 @@ def shields_icons(
 
     metadata_badges = build_metadata_badges(conf, git_host, full_name)
     dependency_badges = build_dependency_badges(
-        deps, badge_set, conf.md.badges_style
+        deps, badge_set, conf.md.badge_style
     )
-    dependency_badges = conf.md.badges_dependencies.format(
-        alignment=conf.md.align, badges=dependency_badges
+    dependency_badges = conf.md.badges_software.format(
+        align=conf.md.align, badges=dependency_badges
     )
 
     if (
-        conf.md.badges_style == BadgeOptions.DEFAULT.value
+        conf.md.badge_style == BadgeOptions.DEFAULT.value
         and git_host != GitService.LOCAL.host
     ):
         return (
@@ -112,9 +121,11 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     # icon_names = f"{icon_names}"  # &perline={per_line}"
     skill_icons = icons_dict["url"]["base_url"] + skill_icons
 
-    if conf.md.badges_style == "skills-light":
+    if conf.md.badge_style == "skills-light":
         skill_icons = f"{skill_icons}&theme=light"
 
     conf.md.badges_skills = conf.md.badges_skills.format(skill_icons)
-
-    return conf.md.badges_skills
+    dependency_badges = conf.md.badges_software.format(
+        align=conf.md.align, badges=conf.md.badges_skills
+    )
+    return dependency_badges

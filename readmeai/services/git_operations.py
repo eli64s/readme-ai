@@ -9,15 +9,17 @@ from typing import Optional
 import git
 
 
-async def clone_repo_to_temp_dir(repo_url: str, temp_dir: str) -> str:
+async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
     """Clone the repository to a temporary directory."""
     try:
-        repo_path = Path(repo_url)
-        if repo_path.is_dir():
-            shutil.copytree(repo_url, temp_dir, dirs_exist_ok=True)
+        repo_path = Path(repo_source)
+        if repo_path.is_file():
+            raise ValueError("Path is a file, not a directory.")
+        elif repo_path.is_dir():
+            shutil.copytree(repo_path, temp_dir, dirs_exist_ok=True)
         else:
             git.Repo.clone_from(
-                repo_url, temp_dir, depth=1, single_branch=True
+                repo_source, temp_dir, depth=1, single_branch=True
             )
         return temp_dir
 
@@ -25,14 +27,10 @@ async def clone_repo_to_temp_dir(repo_url: str, temp_dir: str) -> str:
         raise ValueError(f"Git clone error: {exc_info}") from exc_info
 
     except OSError as exc_info:
-        raise ValueError(
-            f"No such file or directory: {repo_path}"
-        ) from exc_info
+        raise ValueError(f"OS error: {exc_info}") from exc_info
 
     except Exception as exc_info:
-        raise ValueError(
-            f"Error cloning git repository: {exc_info}"
-        ) from exc_info
+        raise ValueError(f"Unexpected error: {exc_info}") from exc_info
 
 
 def find_git_executable() -> Optional[Path]:

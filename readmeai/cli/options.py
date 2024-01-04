@@ -59,7 +59,7 @@ badges = click.option(
     type=click.Choice(
         [opt.value for opt in BadgeOptions], case_sensitive=False
     ),
-    default=ImageOptions.DEFAULT.name,
+    default=BadgeOptions.DEFAULT.value,
     help="""\
         Badge icon style types to select from when generating README.md badges. The following options are currently available:\n
         - default \n
@@ -92,7 +92,7 @@ image = click.option(
         Project logo image displayed in the README file header. The following options are currently available:\n
         - CUSTOM \n
         - DEFAULT \n
-        - BLUE \n
+        - BLACK \n
         - GREY \n
         - PURPLE \n
         - YELLOW \n

@@ -45,14 +45,14 @@ def format_readme_md(
     if conf.git.source == GitService.LOCAL.value:
         repo_url = f"../{repo_name}"
 
-    if BadgeOptions.SKILLS.value not in conf.md.badges_style:
+    if BadgeOptions.SKILLS.value not in conf.md.badge_style:
         md_shields, md_badges = badges.shields_icons(conf, deps, full_name)
     else:
         md_shields = "<!-- Shields.io badges not used with skill icons. -->"
         md_badges = badges.skill_icons(conf, deps)
 
     md_header = conf.md.header.format(
-        alignment=conf.md.align,
+        align=conf.md.align,
         image=conf.md.image,
         repo_name=repo_name.upper(),
         slogan=conf.md.slogan,

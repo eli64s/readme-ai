@@ -175,10 +175,11 @@ class MarkdownSettings(BaseModel):
 
     align: str
     default: str
-    badges_dependencies: str
+    badge_color: str
+    badge_style: str
+    badges_software: str
     badges_shields: str
     badges_skills: str
-    badges_style: str
     contribute: str
     features: str
     getting_started: str

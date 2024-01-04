@@ -110,7 +110,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.default,
                 )
 
-            build_readme_md(conf, conf_helper, dependencies, summaries)
+        build_readme_md(conf, conf_helper, dependencies, summaries)
 
     except Exception as exc_info:
         logger.error(
@@ -187,7 +187,7 @@ def update_settings(
     conf.llm.model = model
     conf.llm.temperature = temperature
     conf.md.align = align
-    conf.md.badges_style = badges
+    conf.md.badge_style = badges
     conf.md.image = (
         image
         if image != ImageOptions.CUSTOM.name
@@ -223,7 +223,7 @@ def log_settings(conf: AppConfig) -> None:
     logger.info(f"Processing repository: {conf.git.repository}")
     logger.info(f"LLM model engine: {conf.llm.model}")
     logger.info(f"LLM temperature: {conf.llm.temperature}")
-    logger.info(f"Badge style: {conf.md.badges_style}")
+    logger.info(f"Badge style: {conf.md.badge_style}")
     logger.info(f"Image style: {conf.md.image}")
     logger.info(f"Header alignment: {conf.md.align}")
     logger.info(f"Using emojis: {conf.cli.emojis}")

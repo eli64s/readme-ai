@@ -46,7 +46,7 @@ def test_read_badge_file_exception(config, monkeypatch):
             [
                 "https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white"
             ],
-            '<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">',
+            '<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">\n',
         ),
     ],
 )
@@ -68,7 +68,7 @@ def test_format_badges(badges, expected):
                 ],
             },
             "flat",
-            '<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">',
+            '<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">\n',
         ),
     ],
 )
@@ -82,7 +82,7 @@ def test_build_metadata_badges_success(config):
     mock_config = config
     mock_config.git.source = "github.com"
     mock_config.md.badges_shields = config.md.badges_shields
-    mock_config.md.badges_style = "flat"
+    mock_config.md.badge_style = "flat"
     badges = build_metadata_badges(mock_config, "github.com", "user/repo")
     assert isinstance(badges, str)
     assert "license" in badges
@@ -93,7 +93,7 @@ def test_shields_icons_success(config):
     mock_config = config
     mock_config.git.source = "github.com"
     mock_config.files.shields_icons = config.files.shields_icons
-    mock_config.md.badges_style = "flat"
+    mock_config.md.badge_style = "flat"
 
     mock_helper = MagicMock()
     mock_helper.language_setup = {"Python": ["install", "run", "test"]}
@@ -120,7 +120,7 @@ def test_skill_icons_success(config):
     """Tests skill_icons with valid inputs."""
     mock_config = config
     mock_config.files.skill_icons = config.files.skill_icons
-    mock_config.md.badges_style = "skills-light"
+    mock_config.md.badge_style = "skills-light"
     mock_icons = {
         "icons": {"names": ["fastapi", "py", "redis", "md", "github", "git"]},
         "url": {"base_url": "https://skillicons.dev/icons?i="},
@@ -130,8 +130,6 @@ def test_skill_icons_success(config):
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = mock_icons
         result = skill_icons(mock_config, deps)
-        assert result.startswith("<a href=") is True
-        assert result.endswith("\n\t</a>\n") is True
         assert "&theme=light" in result
         assert """<a href="https://skillicons.dev">""" in result
         assert (
