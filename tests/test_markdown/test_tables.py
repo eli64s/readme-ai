@@ -30,9 +30,8 @@ def test_create_hyperlink(config):
     """Test that the create_hyperlink function creates the hyperlink."""
     file_name = "main.py"
     module = f"readmeai/{file_name}"
+    full_name = config.git.full_name
     repo_url = config.git.repository
-    user, project = git_utilities.get_remote_full_name(repo_url)
-    full_name = f"{user}/{project}"
     repo_file_url = git_utilities.get_remote_file_url(
         module, full_name, repo_url
     )

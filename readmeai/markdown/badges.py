@@ -2,7 +2,8 @@
 
 from typing import Dict, Tuple
 
-from readmeai.config.settings import AppConfig, BadgeOptions
+from readmeai.config.enums import BadgeOptions
+from readmeai.config.settings import AppConfig
 from readmeai.core.factory import FileHandler
 from readmeai.core.utils import get_resource_path
 from readmeai.services.git_utilities import GitService
@@ -31,13 +32,11 @@ def build_dependency_badges(
     return format_badges(badges)
 
 
-def build_metadata_badges(
-    config: AppConfig, host: str, repository: str
-) -> str:
+def build_metadata_badges(config: AppConfig, full_name: str, host: str) -> str:
     """Build metadata badges using shields.io."""
     return config.md.badges_shields.format(
         host=host,
-        full_name=repository,
+        full_name=full_name,
         badge_style=config.md.badge_style,
         badge_color=config.md.badge_color,
     )
@@ -71,16 +70,16 @@ def format_badges(badges: list[str]) -> str:
 
 
 def shields_icons(
-    conf: AppConfig, deps: list, full_name: str
+    conf: AppConfig, deps: list, full_name: str, git_host: str
 ) -> Tuple[str, str]:
     """
     Generates badges for the README using shields.io icons, referencing
     the repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
     badge_set = _read_badge_file(conf.files.shields_icons)
-    git_host = GitService.extract_name_from_host(conf.git.source)
 
-    metadata_badges = build_metadata_badges(conf, git_host, full_name)
+    metadata_badges = build_metadata_badges(conf, full_name, git_host)
+
     dependency_badges = build_dependency_badges(
         deps, badge_set, conf.md.badge_style
     )
@@ -90,14 +89,14 @@ def shields_icons(
 
     if (
         conf.md.badge_style == BadgeOptions.DEFAULT.value
-        and git_host != GitService.LOCAL.host
+        and git_host != GitService.LOCAL
     ):
         return (
             metadata_badges,
             "<!-- default option, no dependency badges. -->\n",
         )
 
-    if git_host == GitService.LOCAL.host:
+    if git_host == GitService.LOCAL:
         return (
             "<!-- local repository, no metadata badges. -->\n",
             dependency_badges,

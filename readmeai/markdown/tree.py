@@ -15,70 +15,55 @@ class TreeGenerator:
     def __init__(
         self,
         conf_helper: ConfigHelper,
-        root_dir: Path,
-        repo_url: Path,
         repo_name: str,
+        repo_url: Path,
+        root_dir: Path,
         max_depth: int = 3,
     ):
         self.config_helper = conf_helper
-        self.root_dir = Path(root_dir)
         self.repo_name = repo_name
         self.repo_url = repo_url
+        self.root_dir = Path(root_dir)
         self.max_depth = max_depth
 
     def run(self) -> str:
         """Generates and formats a tree structure."""
         tree_str = self._generate_tree(self.root_dir)
-        formatted_tree_str = self._format_tree(tree_str)
-        return formatted_tree_str
+        return tree_str.replace(self.root_dir.name, f"{self.repo_name}/")
 
     def _generate_tree(
         self,
         directory: Path,
         prefix: str = "",
         is_last: bool = True,
-        parent_prefix: str = "",
         depth: int = 0,
     ) -> str:
         """Generates a tree structure for a given directory."""
-        if depth > self.max_depth:
+        if depth > self.max_depth or utils.should_ignore(
+            self.config_helper, directory
+        ):
             return ""
 
-        if utils.should_ignore(self.config_helper, directory):
+        children = sorted(directory.iterdir()) if directory.is_dir() else []
+        children = [
+            child
+            for child in children
+            if not utils.should_ignore(self.config_helper, child)
+        ]
+
+        # If the directory is empty or contains only ignored files, return an empty string
+        if not children and directory.is_dir():
             return ""
 
-        display_name = "." if directory == self.repo_url else directory.name
-        box_branch = "└── " if is_last else "├── "
-        parts = [parent_prefix + box_branch + display_name]
-
-        if directory.is_dir():
-            parts.append("/\n")
-            children = sorted(
-                [
-                    child
-                    for child in directory.iterdir()
-                    if child.name != ".git"
-                ]
+        parts = [f"{prefix}{'└── ' if is_last else '├── '}{directory.name}"]
+        for index, child in enumerate(children):
+            child_prefix = prefix + ("    " if is_last else "│   ")
+            child_tree = self._generate_tree(
+                child, child_prefix, index == len(children) - 1, depth + 1
             )
-            for index, child in enumerate(children):
-                is_last_child = index == len(children) - 1
-                child_prefix = "    " if is_last else "│   "
-                parts.append(
-                    self._generate_tree(
-                        child,
-                        box_branch,
-                        is_last_child,
-                        f"{parent_prefix}{child_prefix}",
-                        depth + 1,
-                    )
-                )
-        else:
-            parts.append("\n")
 
-        return "".join(parts)
+            # Append the child tree only if it's not empty
+            if child_tree:
+                parts.append(child_tree)
 
-    def _format_tree(self, tree_str: str) -> str:
-        """Formats the directory tree structure."""
-        tree_str = tree_str.split("\n", 1)
-        tree_str[0] = f"└── {self.repo_name}/"
-        return "\n".join(tree_str)
+        return "\n".join(parts)
