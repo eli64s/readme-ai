@@ -473,9 +473,9 @@ Run the `readmeai` command in your terminal with the following options to tailor
 |-------------------|---------|-------------|------|--------|
 | `--align`/`-a` | `center` | Set header text alignment (`left`, `center`). | String | Optional |
 | `--api-key`/`-k` | `OPENAI_API_KEY` env var | Your GPT model API key. | String | Optional |
-| `--badges`/`-b` | `standard` | Badge style options for your README file. | String | Optional |
+| `--badges`/`-b` | `default` | Badge style options for your README file. | String | Optional |
 | `--emojis`/`-e` | `False` | Add emojis to section header tiles. | Boolean | Optional |
-| `--image`/`-i` | `blue` | Project logo image displayed in README header. | String | Optional |
+| `--image`/`-i` | `default` | Project logo image displayed in README header. | String | Optional |
 | `--max-tokens` | `3899` | Max number of tokens that can be generated. | Integer | Optional |
 | `--model`/`-m` | `gpt-3.5-turbo` | Select GPT model for content generation. | String | Optional |
 | `--offline` | `False` | Generate a README without an API key. | Boolean | Optional |
@@ -489,11 +489,11 @@ Run the `readmeai` command in your terminal with the following options to tailor
 
 **Badge Icons**
 
-Select your preferred badge icon style to display in your output file using the `--badges` flag. The `standard` option is the default and displays basic metadata about your repository. If you select another option, the `standard` badges will be automatically included.
+Select your preferred badge icon style to display in your output file using the `--badges` flag. The `default` option is the default and displays basic metadata about your repository. If you select another option, the `default` badges will be automatically included.
 
 | **Options**      | **Preview** |
 |------------------|----------|
-| `standard`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat) |
+| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat) |
 | `flat`           | ![flat](https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white) |
 | `flat-square`    | ![flat-square](https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white) |
 | `for-the-badge`  | ![for-the-badge](https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white) |
@@ -508,9 +508,9 @@ Select your preferred badge icon style to display in your output file using the 
 
 Select an image to display in your README header section using the `--image` flag.
 
-| **Image**    | Black | Blue | Grey | Purple | Yellow |
+| **Image**    | Default | Black | Grey | Purple | Yellow |
 |--------------|-------|------|------|--------|--------|
-| **Preview**  | <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100" height="100" id="markdown"> | <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" height="100" id="markdown"> | <img width="96" height="96" src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" alt="external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo"/> | <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" alt="external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo"/> | <img src="https://img.icons8.com/pulsar-color/96/markdown.png" width="100" height="100" id="markdown"> |
+| **Preview**  | <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" height="100" id="markdown"> | <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100" height="100" id="markdown"> | <img width="96" height="96" src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" alt="external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo"/> | <img width="100" height="100" src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" alt="external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo"/> | <img src="https://img.icons8.com/pulsar-color/96/markdown.png" width="100" height="100" id="markdown"> |
 
 To provide your own image, use the CLI option `--image custom` and you will be prompted to enter a URL to your image.
 <br>

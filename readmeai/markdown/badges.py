@@ -1,5 +1,7 @@
 """Functions for building and formatting the badges in the README.md file."""
 
+from typing import Dict, Tuple
+
 from readmeai.config.settings import AppConfig, BadgeOptions, GitService
 from readmeai.core.factory import FileHandler
 from readmeai.utils import utils
@@ -46,7 +48,9 @@ def format_html_badges(badges: list) -> str:
     return "\n\t<br>\n\t".join(badge_lines)
 
 
-def shields_icons(conf: AppConfig, deps: list, full_name: str):
+def shields_icons(
+    conf: AppConfig, deps: list, full_name: str
+) -> Tuple[str, str]:
     """
     Generates badges for the README using shields icons, referencing the
     repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
@@ -70,17 +74,17 @@ def shields_icons(conf: AppConfig, deps: list, full_name: str):
     dependency_badges = f"""\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{conf.md.align}">\n\t{dependency_badges}\n"""
 
     if (
-        conf.md.badges_style == BadgeOptions.STANDARD.value
+        conf.md.badges_style == BadgeOptions.DEFAULT.value
         and git_host != GitService.LOCAL.host
     ):
         return (
             metadata_badges,
-            "<!-- standard option, no dependency badges. -->\n",
+            "<!-- default option, no dependency badges. -->\n",
         )
 
     if (
-        conf.md.badges_style == BadgeOptions.STANDARD.value
-        and conf.git.source == GitService.LOCAL.host
+        conf.md.badges_style == BadgeOptions.DEFAULT.value
+        and git_host == GitService.LOCAL.host
     ):
         return (
             "<!-- local repository, no metadata badges. -->\n",
@@ -113,7 +117,7 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     return conf.md.badges_skills
 
 
-def _read_badge_file(file_path: str) -> dict:
+def _read_badge_file(file_path: str) -> Dict[str, str]:
     """Reads the badges file and returns the SVG icons."""
     resource_path = utils.get_resource_path(__package__, file_path)
     return FileHandler().read(resource_path)

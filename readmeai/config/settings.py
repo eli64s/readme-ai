@@ -57,6 +57,7 @@ class BadgeOptions(str, Enum):
     Enum for CLI options for README file badge icons.
     """
 
+    DEFAULT = "default"
     FLAT = "flat"
     FLAT_SQUARE = "flat-square"
     FOR_THE_BADGE = "for-the-badge"
@@ -64,7 +65,6 @@ class BadgeOptions(str, Enum):
     SKILLS = "skills"
     SKILLS_LIGHT = "skills-light"
     SOCIAL = "social"
-    STANDARD = "standard"
 
 
 class ImageOptions(str, Enum):
@@ -73,8 +73,8 @@ class ImageOptions(str, Enum):
     """
 
     CUSTOM = "CUSTOM"
+    DEFAULT = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
     BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
-    BLUE = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
     GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
     YELLOW = "https://img.icons8.com/pulsar-color/96/markdown.png"

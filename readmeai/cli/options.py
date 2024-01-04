@@ -59,9 +59,10 @@ badges = click.option(
     type=click.Choice(
         [opt.value for opt in BadgeOptions], case_sensitive=False
     ),
-    default="standard",
+    default=ImageOptions.DEFAULT.name,
     help="""\
         Badge icon style types to select from when generating README.md badges. The following options are currently available:\n
+        - default \n
         - flat \n
         - flat-square \n
         - for-the-badge \n
@@ -69,7 +70,6 @@ badges = click.option(
         - skills \n
         - skills-light \n
         - social \n
-        - standard \n
         """,
 )
 emojis = click.option(
@@ -85,13 +85,13 @@ image = click.option(
     type=click.Choice(
         [opt.name for opt in ImageOptions], case_sensitive=False
     ),
-    default=ImageOptions.BLUE.name,
+    default=ImageOptions.DEFAULT.name,
     callback=prompt_for_custom_image,
     show_choices=True,
     help="""\
         Project logo image displayed in the README file header. The following options are currently available:\n
         - CUSTOM \n
-        - BLACK \n
+        - DEFAULT \n
         - BLUE \n
         - GREY \n
         - PURPLE \n
