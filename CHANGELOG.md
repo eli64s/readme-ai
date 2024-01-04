@@ -16,6 +16,33 @@
 All notable changes to the *readme-ai* project will be documented in this file.
 
 ---
+
+## [v0.5.0] - *2023-01-01*
+
+### 🚀 Features
+
+1. **Enhanced CLI Options:**
+   - Introduced `--align`/`-a` option for header text alignment in the README file, providing options like `left` and `center`.
+   - `--image`/`-i` option now supports a wider range of images for the project logo in the README header. Predefined logo options like `black`, `blue`, `gradient`, `purple`, and `yellow`, alongside the existing `custom` option.
+
+2. **Model Upgrade:** Upgraded the GPT model for content generation to `gpt-3.5-turbo`, improving the quality and relevance of generated content.
+
+---
+
+### 🐛 Bug Fixes
+
+- Addressed various bugs and performance issues to improve the stability and reliability of the CLI.
+
+---
+
+### 🧹 Chore
+
+- **Configuration Instructions:** Updated the CLI documentation to guide users on configuring and utilizing new features effectively.
+- **Refactored LLM API Client:** Refactored the LLM API client to reduce code complexity and improve readability in preparation to integrate more API endpoints.
+- **Testing Framework:** Increased `pytest` test coverage and integrated `nox` for comprehensive testing across multiple Python versions (3.9, 3.10, 3.11, 3.12), ensuring robustness and compatibility.
+
+---
+
 ## [v0.1.6] - *2023-10-24*
 
 ## ✨ Features

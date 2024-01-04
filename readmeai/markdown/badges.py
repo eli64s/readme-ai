@@ -1,115 +1,131 @@
-"""Methods to generate badges for the README file."""
+"""Functions for building and formatting the badges in the README.md file."""
 
-from importlib import resources
-from pathlib import Path
+from typing import Dict, Tuple
 
-from pkg_resources import resource_filename
-
-from readmeai.config.settings import AppConfig, GitHost
-from readmeai.core import factory, logger
-from readmeai.utils import utils
-
-logger = logger.Logger(__name__)
+from readmeai.config.settings import AppConfig, BadgeOptions
+from readmeai.core.factory import FileHandler
+from readmeai.core.utils import get_resource_path
+from readmeai.services.git_utilities import GitService
 
 
-def format_html(badges: list) -> str:
-    """Formats the SVG icons into HTML img tags."""
-    badge_lines = []
-    total_badges = len(badges)
-    if total_badges < 8:
-        badges_per_line = total_badges
-    else:
-        badges_per_line = total_badges // 2 + (total_badges % 2)
+def _read_badge_file(file_path: str) -> Dict[str, str]:
+    """Reads the badges file and returns the SVG icons."""
+    resource_path = get_resource_path(__package__, file_path)
+    return FileHandler().read(resource_path)
 
-    if badges_per_line == 0:
+
+def build_dependency_badges(
+    dependencies: list[str], icons: dict[str, str], style: str
+) -> str:
+    """Build HTML badges for project dependencies."""
+    dependencies.extend(["markdown"])
+    badges = [
+        icons[str(dependency).lower()]
+        for dependency in dependencies
+        if str(dependency).lower() in icons
+    ]
+
+    # Sort badges by hex value (from light to dark color)
+    badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
+    badges = [badge[0].format(style) for badge in badges]
+    return format_badges(badges)
+
+
+def build_metadata_badges(
+    config: AppConfig, host: str, repository: str
+) -> str:
+    """Build metadata badges using shields.io."""
+    return config.md.badges_shields.format(
+        host=host,
+        full_name=repository,
+        badge_style=config.md.badge_style,
+        badge_color=config.md.badge_color,
+    )
+
+
+def format_badges(badges: list[str]) -> str:
+    """Format SVG badge icons as HTML."""
+    len_icons = len(badges)
+    if badges is None or len_icons == 0:
         return ""
 
-    for i in range(0, total_badges, badges_per_line):
-        line = "\n".join(
+    badges_per_line = (
+        len_icons if len_icons < 9 else (len_icons // 2) + (len_icons % 2)
+    )
+
+    lines = []
+    for i in range(0, len_icons, badges_per_line):
+        line = "\n\t".join(
             [
-                f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}" />'
+                f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
             ]
         )
-        badge_lines.append(line)
+        lines.append(
+            f"{line}\n\t<br>"
+            if i + badges_per_line < len_icons
+            else f"{line}\n"
+        )
 
-    return "\n\n".join(badge_lines)
-
-
-def generate_html(svg_icons: dict, dependencies: list) -> str:
-    """Returns a list of badges for the project dependencies."""
-    badges = [
-        svg_icons[str(dependency).lower()]
-        for dependency in dependencies
-        if str(dependency).lower() in svg_icons
-    ]
-    # Sort badges by hex value (from light to dark color)
-    badges.sort(key=lambda b: int(b[1], 16) if b[1] else 0, reverse=True)
-    badges = [badge[0] for badge in badges]
-    return format_html(badges)
+    return "\n\t".join(lines)
 
 
-def get_badges_md_template(conf: AppConfig) -> str:
-    """Return markdown template for badges"""
-    if conf.git.source == GitHost.LOCAL.value:
-        return conf.md.badges_offline
-    else:
-        return conf.md.badges
-
-
-def shieldsio_icons(conf: AppConfig, packages: list, full_name: str):
+def shields_icons(
+    conf: AppConfig, deps: list, full_name: str
+) -> Tuple[str, str]:
     """
-    Generates badges for the README using shieldsio icons, referencing the
-    repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
+    Generates badges for the README using shields.io icons, referencing
+    the repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
     """
-    md_template = get_badges_md_template(conf)
+    badge_set = _read_badge_file(conf.files.shields_icons)
+    git_host = GitService.extract_name_from_host(conf.git.source)
 
-    resource_path = get_resource_path(__package__, conf.paths.shieldsio_icons)
-
-    badges_dict = factory.FileHandler().read(resource_path)
-
-    shieldsio_icons = md_template.format(
-        generate_html(badges_dict, packages).format(conf.md.badge_style),
-        full_name,
-        conf.md.badge_style,
+    metadata_badges = build_metadata_badges(conf, git_host, full_name)
+    dependency_badges = build_dependency_badges(
+        deps, badge_set, conf.md.badge_style
     )
-    shieldsio_icons = (
-        utils.remove_substring(shieldsio_icons)
-        if "invalid" in full_name.lower()
-        else shieldsio_icons
+    dependency_badges = conf.md.badges_software.format(
+        align=conf.md.align, badges=dependency_badges
     )
-    return shieldsio_icons
+
+    if (
+        conf.md.badge_style == BadgeOptions.DEFAULT.value
+        and git_host != GitService.LOCAL.host
+    ):
+        return (
+            metadata_badges,
+            "<!-- default option, no dependency badges. -->\n",
+        )
+
+    if git_host == GitService.LOCAL.host:
+        return (
+            "<!-- local repository, no metadata badges. -->\n",
+            dependency_badges,
+        )
+
+    return metadata_badges, dependency_badges
 
 
-def skill_icons(conf: AppConfig, dependencies: list) -> str:
+def skill_icons(conf: AppConfig, deps: list) -> str:
     """
     Generates badges for the README using skill icons, from the
     repository - https://github.com/tandpfun/skill-icons.
     """
-    conf.md.header = "<!---->\n"
-
-    resource_path = get_resource_path(__package__, conf.paths.skill_icons)
-
-    icons_dict = factory.FileHandler().read(resource_path)
-
-    filtered_icons = [
-        icon for icon in icons_dict["icons"]["names"] if icon in dependencies
+    deps.extend(["md"])
+    icons_dict = _read_badge_file(conf.files.skill_icons)
+    icons_list = [
+        icon for icon in icons_dict["icons"]["names"] if icon in deps
     ]
-    filtered_icons.extend(["git", "github"])
-    icon_names = ",".join(filtered_icons)
-    # per_line = (len(filtered_icons) + 2) // 2
+    skill_icons = ",".join(icons_list)
+    # per_line = (len(skill_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"
-    app_icons = icons_dict["url"]["base_url"] + icon_names
-    app_icons = conf.md.badges_alt.format(
-        conf.git.name.upper(), conf.prompts.slogan, app_icons
+    skill_icons = icons_dict["url"]["base_url"] + skill_icons
+
+    if conf.md.badge_style == "skills-light":
+        skill_icons = f"{skill_icons}&theme=light"
+
+    conf.md.badges_skills = conf.md.badges_skills.format(skill_icons)
+    dependency_badges = conf.md.badges_software.format(
+        align=conf.md.align, badges=conf.md.badges_skills
     )
-    return app_icons
-
-
-def get_resource_path(package: str, resource_name: str) -> Path:
-    """Get the path of a resource in a package, with fallback if not installed via pip."""
-    try:
-        resource_path = resources.files(package) / resource_name
-    except (TypeError, FileNotFoundError):
-        resource_path = resource_filename(package, resource_name)
-    return resource_path
+    return dependency_badges

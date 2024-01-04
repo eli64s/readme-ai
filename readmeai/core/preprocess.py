@@ -1,19 +1,20 @@
-"""Preprocesses and extracts metadata from the user's repository."""
+"""Processes the input codebase for analysis and metadata extraction."""
 
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
 from readmeai.config import settings
-from readmeai.core import logger, tokens
+from readmeai.core.logger import Logger
+from readmeai.core.tokens import get_token_count
+from readmeai.core.utils import flatten_list, should_ignore
 from readmeai.parsers.factory import parser_factory
-from readmeai.utils import utils
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 PARSERS = parser_factory()
 
 
-class RepositoryParser:
+class RepoProcessor:
     """Handles preprocessing of the input codebase."""
 
     def __init__(
@@ -25,8 +26,8 @@ class RepositoryParser:
         self.config_helper = conf_helper
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
-        self.encoding_name = config.api.encoding
-        self.local_source = settings.GitHost.LOCAL.value
+        self.encoding_name = config.llm.encoding
+        self.local_source = settings.GitService.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""
@@ -34,7 +35,7 @@ class RepositoryParser:
 
         repo_source = self.config.git.source
         if repo_source != self.local_source:
-            logger.info(f"Tokenizing content from source: {repo_source}")
+            logger.info(f"Tokenizing content from host: {repo_source}")
             contents = self.tokenize_content(contents)
 
         contents = self.process_language_mapping(contents)
@@ -74,9 +75,9 @@ class RepositoryParser:
             parsed_content = parser.parse(content=content["content"])
             parsed_contents.append(parsed_content)
             logger.info(
-                f"Dependency file found: {content['name']} - {parsed_content}"
+                f"Dependency file found {content['name']}\n\t{parsed_content}"
             )
-        return utils.flatten_list(parsed_contents)
+        return flatten_list(parsed_contents)
 
     def parse_content(content: Dict) -> List[str]:
         """Helper function to parse the content of a file."""
@@ -90,7 +91,7 @@ class RepositoryParser:
     ) -> Generator[Tuple[str, Path, str], None, None]:
         """Generates a tuple of file information."""
         for file_path in repo_path.rglob("*"):
-            if utils.should_ignore(self.config_helper, file_path):
+            if should_ignore(self.config_helper, file_path):
                 continue
 
             if file_path.is_file():
@@ -143,9 +144,9 @@ class RepositoryParser:
         return contents
 
     def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
-        """Tokenizes the content of each file."""
+        """Tokenize the content of each file."""
         for content in contents:
-            content["tokens"] = tokens.get_token_count(
+            content["tokens"] = get_token_count(
                 content["content"], self.encoding_name
             )
         return contents

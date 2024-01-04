@@ -1,46 +1,36 @@
 """Unit tests for generating the 'Quick Start' section of the README."""
 
-import pytest
-
-from readmeai.markdown.quickstart import create_instructions
-
-
-def test_create_instructions_with_default_config(config, config_helper):
-    """Tests the create_instructions method with default config."""
-    summaries = [("module.pyc", "summary")]
-    result = create_instructions(config, config_helper, summaries)
-    assert result == ("► INSERT-TEXT", "► INSERT-TEXT", "► INSERT-TEXT")
-
-
-@pytest.mark.parametrize(
-    "language, setup_commands",
-    [
-        (
-            "py",
-            ["pip install -r requirements.txt", "python main.py", "pytest"],
-        ),
-        ("js", ["npm install", "node app.js", "npm test"]),
-    ],
+from readmeai.markdown.quickstart import (
+    ProjectSetup,
+    count_languages,
+    get_top_language,
+    get_top_language_setup,
+    getting_started,
 )
-def test_create_instructions_with_language_setup(
-    language, setup_commands, config, config_helper
-):
-    """Tests the create_instructions method with language setup."""
-    summaries = [(f"module.{language}", "summary")]
-    result = create_instructions(config, config_helper, summaries)
-    assert result == tuple(setup_commands)
 
 
-def test_create_instructions_with_multiple_languages(config, config_helper):
-    """Tests the create_instructions method with multiple languages."""
-    summaries = [
-        ("module.py", "summary"),
-        ("module.js", "summary"),
-        ("module.py", "summary"),
-    ]
-    result = create_instructions(config, config_helper, summaries)
-    assert result == (
-        "pip install -r requirements.txt",
-        "python main.py",
-        "pytest",
-    )
+def test_count_languages(mock_summaries, config_helper):
+    """Tests the count_languages method."""
+    language_counts = count_languages(mock_summaries, config_helper)
+    assert language_counts == {"py": 2, "yml": 1}
+
+
+def test_get_top_language():
+    """Tests the get_top_language method."""
+    language_counts = {"Python": 5, "JavaScript": 3}
+    top_language = get_top_language(language_counts)
+    assert top_language == "Python"
+
+
+def test_get_top_language_setup(config, config_helper):
+    """Tests the get_top_language_setup method."""
+    language_counts = {"Python": 5, "JavaScript": 3}
+    setup = get_top_language_setup(language_counts, config, config_helper)
+    assert isinstance(setup, ProjectSetup)
+    assert setup.top_language == "Python"
+
+
+def test_getting_started(config, config_helper, mock_summaries):
+    """Tests the getting_started method."""
+    setup = getting_started(config, config_helper, mock_summaries)
+    assert isinstance(setup, ProjectSetup)

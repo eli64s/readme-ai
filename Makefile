@@ -1,9 +1,9 @@
 # Makefile
 
-SHELL = /bin/bash
+SHELL := /bin/bash
 VENV := readmeai
 
-.PHONY: help clean format lint conda-recipe git-rm-cache file-search test
+.PHONY: help clean format lint conda-recipe git-rm-cache test poetry-reqs word-search
 
 help:
 	@echo "Commands:"
@@ -12,8 +12,9 @@ help:
 	@echo "lint         : executes code linting."
 	@echo "conda-recipe  : builds conda package."
 	@echo "git-rm-cache : fix git untracked files."
-	@echo "file-search  : search for text in files."
 	@echo "test         : executes tests."
+	@echo "poetry-reqs  : generates requirements.txt file."
+	@echo "word-search  : searches for a word in the repository."
 
 .PHONY: clean
 clean: format
@@ -21,13 +22,15 @@ clean: format
 
 .PHONY: format
 format:
-	-black .
-	-isort .
+	@echo -e "\nFormatting in directory: ${CURDIR}"
+	black ${CURDIR}
+	isort ${CURDIR}
 
 .PHONY: lint
 lint:
-	-flake8 ${CURDIR}
-	-ruff ${CURDIR}
+	@echo -e "\nLinting in directory: ${CURDIR}"
+	flake8 ${CURDIR}
+	ruff ${CURDIR}
 
 .PHONY: conda-recipe
 conda-recipe:
@@ -38,14 +41,20 @@ conda-recipe:
 git-rm-cache:
 	git rm -r --cached .
 
-.PHONY: file-search
-file-search:
-	grep -R "ENTRYPOINT" .
-
 .PHONY: test
 test:
 	pytest \
 	-n auto \
 	--cov=./ \
 	--cov-report=xml \
-	--cov-report=term-missing
+	--cov-report=term-missing \
+	--cov-branch
+
+.PHONY: poetry-reqs
+poetry-reqs:
+	poetry export -f requirements.txt --output requirements.txt --without-hashes
+
+.PHONY: word-search
+word-search: clean
+	@echo -e "\nSearching for: ${WORD} in directory: ${CURDIR}"
+	grep -Ril ${WORD} readmeai tests

@@ -1,6 +1,7 @@
 # Programming language setup and run instructions
 
 [language_setup]
+default = ["> INSERT-INSTALL-COMMANDS", "> INSERT-RUN-COMMANDS", "> INSERT-TEST-COMMANDS"]
 C = ["gcc -o myapp main.c", "./myapp", "/* No common unit test framework in C */"]
 CPP = ["g++ -o myapp main.cpp", "./myapp", "Insert test command."]
 CSharp = ["dotnet build", "dotnet run", "dotnet test"]
@@ -36,6 +37,7 @@ Rust = ["cargo build", "cargo run", "cargo test"]
 Scala = ["sbt compile", "sbt run", "sbt test"]
 Scheme = ["csi -s main.scm", "/* No common unit test framework in Scheme */"]
 Shell = ["chmod +x main.sh", "./main.sh", "bats *.bats"]
+Streamlit = ["pip install -r requirements.txt", "streamlit run app.py", "pytest"]
 Swift = ["swift build", ".build/debug/myapp", "swift test"]
 TypeScript = ["npm install", "npm run build && node dist/main.js", "npm test"]
 VBScript = ["cscript main.vbs", "/* No common unit test framework in VBScript */"]

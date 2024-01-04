@@ -1,92 +1,83 @@
 <div align="center">
-<h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>README-AI</h1>
-<h3>◦ ► INSERT-TEXT</h3>
-<h3>◦ Developed with the software and tools below.</h3>
-
 <p align="center">
-<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
-<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black" alt="tqdm" />
-<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit" />
-<img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=flat-square&logo=Jupyter&logoColor=white" alt="Jupyter" />
-<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML" />
-<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry" />
-<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI" />
-
-<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python" />
-<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
-<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
-<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat-square&logo=JSON&logoColor=white" alt="JSON" />
+  <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+</p>
+<p align="center">
+    <h1 align="center">README-AI</h1>
+</p>
+<p align="center">
+    <em><code>► INSERT-TEXT-HERE</code></em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square" alt="license">
+	<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square" alt="repo-language-count">
+<p>
+<p align="center">
+		<em>Developed with the software and tools below</em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+	<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black" alt="tqdm">
+	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML">
+	<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry">
+	<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI">
+	<br>
+	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
+	<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker">
+	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
 </p>
 </div>
+<hr>
+
+##  Quick Links
+- [Quick Links](#quick-links)
+- [Overview](#overview)
+- [Features](#features)
+- [Repository Structure](#repository-structure)
+- [Modules](#modules)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Running readme-ai](#running-readme-ai)
+  - [Tests](#tests)
+- [Project Roadmap](#project-roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
-## 📖 Table of Contents
-- [📖 Table of Contents](#-table-of-contents)
-- [📍 Overview](#-overview)
-- [📦 Features](#-features)
-- [📂 repository Structure](#-repository-structure)
-- [⚙️ Modules](#modules)
-- [🚀 Getting Started](#-getting-started)
-    - [🔧 Installation](#-installation)
-    - [🤖 Running readme-ai](#-running-readme-ai)
-    - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
+##  Overview
+
+<code>► INSERT-TEXT-HERE</code>
 
 ---
 
+##  Features
 
-## 📍 Overview
-
-► INSERT-TEXT
-
----
-
-## 📦 Features
-
-► INSERT-TEXT
+<code>► INSERT-TEXT-HERE</code>
 
 ---
 
-
-## 📂 Repository Structure
+##  Repository Structure
 
 ```sh
 └── readme-ai/
     ├── .github/
     │   ├── release-drafter.yml
     │   └── workflows/
-    │       ├── build_image.yml
-    │       ├── publish_package.yml
-    │       └── release-drafter.yml
+    │       ├── coverage.yml
+    │       ├── release-drafter.yml
+    │       └── release-pipeline.yml
     ├── Dockerfile
     ├── Makefile
     ├── examples/
     │   ├── images/
     │   └── markdown/
-    ├── notebooks/
-    │   ├── api/
-    │   │   ├── helper.py
-    │   │   └── parallel.py
-    │   ├── bytes_codebase.ipynb
-    │   ├── code_search.ipynb
-    │   ├── github.ipynb
-    │   ├── langchain.ipynb
-    │   ├── llamaindex/
-    │   │   ├── index/
-    │   │   └── llamaindex.ipynb
-    │   ├── nb_to_py.ipynb
-    │   ├── openai_models.ipynb
-    │   ├── templates.ipynb
-    │   ├── translate.ipynb
-    │   └── translate_latex_book.ipynb
+    ├── noxfile.py
     ├── poetry.lock
     ├── pyproject.toml
     ├── readmeai/
@@ -94,13 +85,11 @@
     │   │   ├── commands.py
     │   │   └── options.py
     │   ├── config/
-    │   │   ├── __Init__.py
     │   │   └── settings.py
     │   ├── core/
     │   │   ├── factory.py
     │   │   ├── logger.py
     │   │   ├── model.py
-    │   │   ├── parser.py
     │   │   ├── preprocess.py
     │   │   └── tokens.py
     │   ├── main.py
@@ -109,31 +98,35 @@
     │   │   ├── headers.py
     │   │   ├── quickstart.py
     │   │   ├── tables.py
-    │   │   ├── template.py
     │   │   └── tree.py
+    │   ├── parsers/
+    │   │   ├── base_parser.py
+    │   │   ├── docker.py
+    │   │   ├── factory.py
+    │   │   ├── gomod.py
+    │   │   ├── gradle.py
+    │   │   ├── maven.py
+    │   │   ├── npm.py
+    │   │   ├── python.py
+    │   │   └── rust.py
     │   ├── services/
-    │   │   └── version_control.py
+    │   │   ├── git_metadata.py
+    │   │   ├── git_operations.py
+    │   │   └── git_utilities.py
     │   ├── settings/
     │   │   ├── config.toml
     │   │   ├── dependency_files.toml
     │   │   ├── identifiers.toml
     │   │   ├── ignore_files.toml
     │   │   ├── language_names.toml
-    │   │   ├── language_setup.toml
-    │   │   └── prompts.toml
-    │   ├── templates/
-    │   │   ├── base.toml
-    │   │   ├── installation.toml
-    │   │   ├── mini.toml
-    │   │   ├── mobile.toml
-    │   │   └── oss.toml
+    │   │   └── language_setup.toml
     │   └── utils/
     │       └── utils.py
     ├── requirements.txt
     ├── scripts/
-    │   ├── build_docker.sh
-    │   ├── build_pypi.sh
     │   ├── clean.sh
+    │   ├── docker.sh
+    │   ├── pypi.sh
     │   ├── run.sh
     │   ├── run_batch.sh
     │   └── test.sh
@@ -145,218 +138,174 @@
 
 ---
 
+##  Modules
 
-## ⚙️ Modules
+<details closed><summary>.</summary>
 
-<details closed><summary>Root</summary>
-
-| File                       | Summary       |
-| ---                        | ---           |
-| [requirements.txt]({file}) | ► INSERT-TEXT |
-| [Dockerfile]({file})       | ► INSERT-TEXT |
-| [Makefile]({file})         | ► INSERT-TEXT |
-| [pyproject.toml]({file})   | ► INSERT-TEXT |
-| [poetry.lock]({file})      | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Setup</summary>
-
-| File                       | Summary       |
-| ---                        | ---           |
-| [setup.sh]({file})         | ► INSERT-TEXT |
-| [environment.yaml]({file}) | ► INSERT-TEXT |
+| File                                                                               | Summary                         |
+| ---                                                                                | ---                             |
+| [requirements.txt](https://github.com/eli64s/readme-ai/blob/main/requirements.txt) | <code>► INSERT-TEXT-HERE</code> |
+| [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile)             | <code>► INSERT-TEXT-HERE</code> |
+| [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile)                 | <code>► INSERT-TEXT-HERE</code> |
+| [pyproject.toml](https://github.com/eli64s/readme-ai/blob/main/pyproject.toml)     | <code>► INSERT-TEXT-HERE</code> |
+| [poetry.lock](https://github.com/eli64s/readme-ai/blob/main/poetry.lock)           | <code>► INSERT-TEXT-HERE</code> |
+| [noxfile.py](https://github.com/eli64s/readme-ai/blob/main/noxfile.py)             | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Scripts</summary>
+<details closed><summary>setup</summary>
 
-| File                      | Summary       |
-| ---                       | ---           |
-| [run_batch.sh]({file})    | ► INSERT-TEXT |
-| [build_pypi.sh]({file})   | ► INSERT-TEXT |
-| [build_docker.sh]({file}) | ► INSERT-TEXT |
-| [run.sh]({file})          | ► INSERT-TEXT |
-| [clean.sh]({file})        | ► INSERT-TEXT |
-| [test.sh]({file})         | ► INSERT-TEXT |
+| File                                                                                     | Summary                         |
+| ---                                                                                      | ---                             |
+| [setup.sh](https://github.com/eli64s/readme-ai/blob/main/setup/setup.sh)                 | <code>► INSERT-TEXT-HERE</code> |
+| [environment.yaml](https://github.com/eli64s/readme-ai/blob/main/setup/environment.yaml) | <code>► INSERT-TEXT-HERE</code> |
+
+</details>
+
+<details closed><summary>scripts</summary>
+
+| File                                                                               | Summary                         |
+| ---                                                                                | ---                             |
+| [run_batch.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run_batch.sh) | <code>► INSERT-TEXT-HERE</code> |
+| [pypi.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/pypi.sh)           | <code>► INSERT-TEXT-HERE</code> |
+| [run.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run.sh)             | <code>► INSERT-TEXT-HERE</code> |
+| [clean.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/clean.sh)         | <code>► INSERT-TEXT-HERE</code> |
+| [test.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/test.sh)           | <code>► INSERT-TEXT-HERE</code> |
+| [docker.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/docker.sh)       | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
 <details closed><summary>.github</summary>
 
-| File                          | Summary       |
-| ---                           | ---           |
-| [release-drafter.yml]({file}) | ► INSERT-TEXT |
+| File                                                                                             | Summary                         |
+| ---                                                                                              | ---                             |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/release-drafter.yml) | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Workflows</summary>
+<details closed><summary>.github.workflows</summary>
 
-| File                          | Summary       |
-| ---                           | ---           |
-| [release-drafter.yml]({file}) | ► INSERT-TEXT |
-| [publish_package.yml]({file}) | ► INSERT-TEXT |
-| [build_image.yml]({file})     | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Notebooks</summary>
-
-| File                                 | Summary       |
-| ---                                  | ---           |
-| [translate.ipynb]({file})            | ► INSERT-TEXT |
-| [code_search.ipynb]({file})          | ► INSERT-TEXT |
-| [github.ipynb]({file})               | ► INSERT-TEXT |
-| [openai_models.ipynb]({file})        | ► INSERT-TEXT |
-| [templates.ipynb]({file})            | ► INSERT-TEXT |
-| [bytes_codebase.ipynb]({file})       | ► INSERT-TEXT |
-| [langchain.ipynb]({file})            | ► INSERT-TEXT |
-| [nb_to_py.ipynb]({file})             | ► INSERT-TEXT |
-| [translate_latex_book.ipynb]({file}) | ► INSERT-TEXT |
+| File                                                                                                         | Summary                         |
+| ---                                                                                                          | ---                             |
+| [coverage.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/coverage.yml)                 | <code>► INSERT-TEXT-HERE</code> |
+| [release-pipeline.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-pipeline.yml) | <code>► INSERT-TEXT-HERE</code> |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-drafter.yml)   | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Llamaindex</summary>
+<details closed><summary>readmeai</summary>
 
-| File                       | Summary       |
-| ---                        | ---           |
-| [llamaindex.ipynb]({file}) | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Index</summary>
-
-| File                        | Summary       |
-| ---                         | ---           |
-| [vector_store.json]({file}) | ► INSERT-TEXT |
-| [graph_store.json]({file})  | ► INSERT-TEXT |
-| [index_store.json]({file})  | ► INSERT-TEXT |
-| [docstore.json]({file})     | ► INSERT-TEXT |
+| File                                                                      | Summary                         |
+| ---                                                                       | ---                             |
+| [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py) | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Api</summary>
+<details closed><summary>readmeai.settings</summary>
 
-| File                  | Summary       |
-| ---                   | ---           |
-| [helper.py]({file})   | ► INSERT-TEXT |
-| [parallel.py]({file}) | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Readmeai</summary>
-
-| File              | Summary       |
-| ---               | ---           |
-| [main.py]({file}) | ► INSERT-TEXT |
+| File                                                                                                           | Summary                         |
+| ---                                                                                                            | ---                             |
+| [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/ignore_files.toml)         | <code>► INSERT-TEXT-HERE</code> |
+| [language_names.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_names.toml)     | <code>► INSERT-TEXT-HERE</code> |
+| [identifiers.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/identifiers.toml)           | <code>► INSERT-TEXT-HERE</code> |
+| [config.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)                     | <code>► INSERT-TEXT-HERE</code> |
+| [dependency_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/dependency_files.toml) | <code>► INSERT-TEXT-HERE</code> |
+| [language_setup.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_setup.toml)     | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Settings</summary>
+<details closed><summary>readmeai.parsers</summary>
 
-| File                            | Summary       |
-| ---                             | ---           |
-| [prompts.toml]({file})          | ► INSERT-TEXT |
-| [ignore_files.toml]({file})     | ► INSERT-TEXT |
-| [language_names.toml]({file})   | ► INSERT-TEXT |
-| [identifiers.toml]({file})      | ► INSERT-TEXT |
-| [config.toml]({file})           | ► INSERT-TEXT |
-| [dependency_files.toml]({file}) | ► INSERT-TEXT |
-| [language_setup.toml]({file})   | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Core</summary>
-
-| File                    | Summary       |
-| ---                     | ---           |
-| [preprocess.py]({file}) | ► INSERT-TEXT |
-| [tokens.py]({file})     | ► INSERT-TEXT |
-| [logger.py]({file})     | ► INSERT-TEXT |
-| [factory.py]({file})    | ► INSERT-TEXT |
-| [model.py]({file})      | ► INSERT-TEXT |
-| [parser.py]({file})     | ► INSERT-TEXT |
+| File                                                                                            | Summary                         |
+| ---                                                                                             | ---                             |
+| [gomod.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/gomod.py)             | <code>► INSERT-TEXT-HERE</code> |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/factory.py)         | <code>► INSERT-TEXT-HERE</code> |
+| [docker.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/docker.py)           | <code>► INSERT-TEXT-HERE</code> |
+| [npm.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/npm.py)                 | <code>► INSERT-TEXT-HERE</code> |
+| [gradle.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/gradle.py)           | <code>► INSERT-TEXT-HERE</code> |
+| [base_parser.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/base_parser.py) | <code>► INSERT-TEXT-HERE</code> |
+| [python.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/python.py)           | <code>► INSERT-TEXT-HERE</code> |
+| [maven.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/maven.py)             | <code>► INSERT-TEXT-HERE</code> |
+| [rust.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/rust.py)               | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Config</summary>
+<details closed><summary>readmeai.core</summary>
 
-| File                  | Summary       |
-| ---                   | ---           |
-| [__Init__.py]({file}) | ► INSERT-TEXT |
-| [settings.py]({file}) | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Markdown</summary>
-
-| File                    | Summary       |
-| ---                     | ---           |
-| [tree.py]({file})       | ► INSERT-TEXT |
-| [badges.py]({file})     | ► INSERT-TEXT |
-| [template.py]({file})   | ► INSERT-TEXT |
-| [tables.py]({file})     | ► INSERT-TEXT |
-| [headers.py]({file})    | ► INSERT-TEXT |
-| [quickstart.py]({file}) | ► INSERT-TEXT |
+| File                                                                                       | Summary                         |
+| ---                                                                                        | ---                             |
+| [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) | <code>► INSERT-TEXT-HERE</code> |
+| [tokens.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/tokens.py)         | <code>► INSERT-TEXT-HERE</code> |
+| [logger.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/logger.py)         | <code>► INSERT-TEXT-HERE</code> |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/factory.py)       | <code>► INSERT-TEXT-HERE</code> |
+| [model.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/model.py)           | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Utils</summary>
+<details closed><summary>readmeai.config</summary>
 
-| File               | Summary       |
-| ---                | ---           |
-| [utils.py]({file}) | ► INSERT-TEXT |
-
-</details>
-
-<details closed><summary>Cli</summary>
-
-| File                  | Summary       |
-| ---                   | ---           |
-| [options.py]({file})  | ► INSERT-TEXT |
-| [commands.py]({file}) | ► INSERT-TEXT |
+| File                                                                                     | Summary                         |
+| ---                                                                                      | ---                             |
+| [settings.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py) | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Templates</summary>
+<details closed><summary>readmeai.markdown</summary>
 
-| File                        | Summary       |
-| ---                         | ---           |
-| [oss.toml]({file})          | ► INSERT-TEXT |
-| [base.toml]({file})         | ► INSERT-TEXT |
-| [installation.toml]({file}) | ► INSERT-TEXT |
-| [mini.toml]({file})         | ► INSERT-TEXT |
-| [mobile.toml]({file})       | ► INSERT-TEXT |
+| File                                                                                           | Summary                         |
+| ---                                                                                            | ---                             |
+| [tree.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tree.py)             | <code>► INSERT-TEXT-HERE</code> |
+| [badges.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/badges.py)         | <code>► INSERT-TEXT-HERE</code> |
+| [tables.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tables.py)         | <code>► INSERT-TEXT-HERE</code> |
+| [headers.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/headers.py)       | <code>► INSERT-TEXT-HERE</code> |
+| [quickstart.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/quickstart.py) | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
-<details closed><summary>Services</summary>
+<details closed><summary>readmeai.utils</summary>
 
-| File                         | Summary       |
-| ---                          | ---           |
-| [version_control.py]({file}) | ► INSERT-TEXT |
+| File                                                                              | Summary                         |
+| ---                                                                               | ---                             |
+| [utils.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/utils/utils.py) | <code>► INSERT-TEXT-HERE</code> |
+
+</details>
+
+<details closed><summary>readmeai.cli</summary>
+
+| File                                                                                  | Summary                         |
+| ---                                                                                   | ---                             |
+| [options.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/options.py)   | <code>► INSERT-TEXT-HERE</code> |
+| [commands.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/commands.py) | <code>► INSERT-TEXT-HERE</code> |
+
+</details>
+
+<details closed><summary>readmeai.services</summary>
+
+| File                                                                                                   | Summary                         |
+| ---                                                                                                    | ---                             |
+| [git_utilities.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_utilities.py)   | <code>► INSERT-TEXT-HERE</code> |
+| [git_operations.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_operations.py) | <code>► INSERT-TEXT-HERE</code> |
+| [git_metadata.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/git_metadata.py)     | <code>► INSERT-TEXT-HERE</code> |
 
 </details>
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
-***Dependencies***
+***Requirements***
 
-Please ensure you have the following dependencies installed on your system:
+Ensure you have the following dependencies installed on your system:
 
-`- ℹ️ Dependency 1`
+* Python: `► INSERT-VERSION-HERE`
+* `► ...`
+* `► ...`
 
-`- ℹ️ Dependency 2`
-
-`- ℹ️ ...`
-
-### 🔧 Installation
+###  Installation
 
 1. Clone the readme-ai repository:
 ```sh
-git clone ../readme-ai
+git clone https://github.com/eli64s/readme-ai
 ```
 
 2. Change to the project directory:
@@ -369,41 +318,38 @@ cd readme-ai
 pip install -r requirements.txt
 ```
 
-### 🤖 Running readme-ai
-
+###  Running readme-ai
+Use the following command to run readme-ai:
 ```sh
 python main.py
 ```
 
-### 🧪 Tests
+###  Tests
+To execute tests, run:
 ```sh
 pytest
 ```
 
 ---
 
+##  Project Roadmap
 
-## 🛣 Project Roadmap
-
-> - [X] `ℹ️  Task 1: Implement X`
-> - [ ] `ℹ️  Task 2: Implement Y`
-> - [ ] `ℹ️ ...`
-
+- [X] `► INSERT-TASK-1`
+- [ ] `► INSERT-TASK-2`
+- [ ] `► ...`
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Submit Pull Requests](https://github.com/local/readme-ai/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/local/readme-ai/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/local/readme-ai/issues)**: Submit bugs found or log feature requests for LOCAL.
-
-#### *Contributing Guidelines*
+- **[Submit Pull Requests](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/eli64s/readme-ai/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/eli64s/readme-ai/issues)**: Submit bugs found or log feature requests for readme-ai.
 
 <details closed>
-<summary>Click to expand</summary>
+<summary>Contributing Guidelines</summary>
 
 1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
@@ -431,17 +377,16 @@ Once your PR is reviewed and approved, it will be merged into the main branch.
 
 ---
 
-## 📄 License
-
+##  License
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
-## 👏 Acknowledgments
+##  Acknowledgments
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**Return**](#Top)
+[**Return**](#-quick-links)
 
 ---

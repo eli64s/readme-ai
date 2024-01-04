@@ -1,10 +1,10 @@
-"""Utilities for handling language tokens."""
+"""Tokenization utilities for the readme-ai CLI application."""
 
 from tiktoken import encoding_for_model, get_encoding
 
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 def adjust_max_tokens(
@@ -12,14 +12,14 @@ def adjust_max_tokens(
 ) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())
-    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 5
+    adjusted_max_tokens = max_tokens if is_valid_prompt else max_tokens // 2
     return adjusted_max_tokens
 
 
 def get_token_count(text: str, encoding_name: str) -> int:
     """Returns the number of tokens in a text string."""
     encoding = get_encoding(encoding_name)
-    num_tokens = len(encoding.encode(text))
+    num_tokens = len(encoding.encode(text, disallowed_special=()))
     return num_tokens
 
 
@@ -48,6 +48,6 @@ def truncate_tokens(text: str, max_tokens: int) -> str:
         truncated_total = int(chars_per_token * max_tokens)
         return text[:truncated_total]
 
-    except Exception as excinfo:
-        logger.error(f"Error truncating tokens: {excinfo}")
+    except Exception as exc_info:
+        logger.error(f"Error truncating tokens: {exc_info}")
         return text

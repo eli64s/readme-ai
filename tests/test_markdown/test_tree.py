@@ -29,9 +29,9 @@ def tree_gen(mock_config_helper, tmp_path):
     (tmp_path / "dir2").mkdir()
     tree_gen = TreeGenerator(
         conf_helper=mock_config_helper,
-        root_directory=tmp_path,
+        root_dir=tmp_path,
         repo_url="http://repo.url",
-        project_name="TestProject",
+        repo_name="TestProject",
         max_depth=3,
     )
     return tree_gen
@@ -41,13 +41,13 @@ def test_initialization(mock_config_helper):
     """Tests the initialization of the TreeGenerator class."""
     tree_gen = TreeGenerator(
         conf_helper=mock_config_helper,
-        root_directory=Path("/test/path"),
+        root_dir=Path("/test/path"),
         repo_url="http://repo.url",
-        project_name="TestProject",
+        repo_name="TestProject",
     )
-    assert tree_gen.root_directory == Path("/test/path")
+    assert tree_gen.root_dir == Path("/test/path")
     assert tree_gen.repo_url == "http://repo.url"
-    assert tree_gen.project_name == "TestProject"
+    assert tree_gen.repo_name == "TestProject"
     assert tree_gen.max_depth == 3
 
 
@@ -99,10 +99,10 @@ def test_max_depth(depth, expected, mock_config_helper, tmp_path):
     (tmp_path / "dir1" / "dir2" / "dir3" / "dir4").mkdir()
     tree_gen = TreeGenerator(
         conf_helper=mock_config_helper,
-        root_directory=tmp_path,
+        root_dir=tmp_path,
         repo_url="http://repo.url",
-        project_name="TestProject",
+        repo_name="TestProject",
         max_depth=depth,
     )
-    tree = tree_gen.generate_and_format_tree()
+    tree = tree_gen.run()
     assert tree == expected

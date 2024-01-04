@@ -2,13 +2,13 @@
 
 import pytest
 
-from readmeai.core.preprocess import RepositoryParser
+from readmeai.core.preprocess import RepoProcessor
 
 
 @pytest.fixture
 def parser(config, config_helper):
-    """Fixture for RepositoryParser."""
-    return RepositoryParser(config, config_helper)
+    """Fixture for RepoProcessor."""
+    return RepoProcessor(config, config_helper)
 
 
 def test_analyze(parser):

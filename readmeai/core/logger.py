@@ -1,4 +1,4 @@
-"""Custom logger class for the project."""
+"""Custom logger implementation using colorlog."""
 
 import logging
 import sys
@@ -23,7 +23,7 @@ class Logger:
     def _configure_logger(self):
         """Configures the logger."""
         formatter = ColoredFormatter(
-            "%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s",
+            "%(log_color)s%(levelname)-8s %(cyan)s[%(process)d:%(module)s]%(reset)s %(blue)s[%(asctime)s]%(reset)s %(purple)s%(message)s",
             datefmt=None,
             reset=True,
             log_colors={

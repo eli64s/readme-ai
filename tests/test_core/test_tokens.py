@@ -1,36 +1,57 @@
-"""Unit tests for tokens module."""
+"""Unit tests for tokenization LL API helper methods."""
 
-from tiktoken import Encoding
+from unittest.mock import patch
 
 from readmeai.core import tokens
 
 
-def test_adjust_max_tokens():
-    """Test adjust_max_tokens method."""
+def test_adjust_max_tokens_valid():
+    """Test that the max tokens is adjusted for a valid prompt."""
     max_tokens = 100
     prompt = "Hello, world!"
     target = "Hello!"
     adjusted_max_tokens = tokens.adjust_max_tokens(max_tokens, prompt, target)
-    assert adjusted_max_tokens == 20
+    assert adjusted_max_tokens == 50
 
 
-def test_get_token_count():
-    """Test get_token_count method."""
-    text = "Hello, world!"
-    encoding_name = "cl100k_base"
-    token_count = tokens.get_token_count(text, encoding_name)
-    assert token_count == 4
+def test_adjust_max_tokens_invalid():
+    """Test that the max tokens is adjusted for an invalid prompt."""
+    max_tokens = 100
+    prompt = "Invalid prompt"
+    result = tokens.adjust_max_tokens(max_tokens, prompt)
+    assert result == max_tokens // 2
 
 
-def test_get_token_encoder():
-    """Test get_token_encoder method."""
-    token_encoder = tokens.get_token_encoder()
-    assert isinstance(token_encoder, Encoding)
+@patch("readmeai.core.tokens.get_encoding")
+def test_get_token_count(mock_get_encoding):
+    """Test that the token count is returned."""
+    text = "Hello world"
+    encoding_name = "mock_encoding"
+    mock_encoding = mock_get_encoding.return_value
+    mock_encoding.encode.return_value = [1, 2, 3]
+    result = tokens.get_token_count(text, encoding_name)
+    mock_get_encoding.assert_called_with(encoding_name)
+    assert result == 3
 
 
-def test_truncate_tokens():
-    """Test truncate_tokens method."""
-    text = "Hello, world!"
-    max_tokens = 5
-    truncated_text = tokens.truncate_tokens(text, max_tokens)
-    assert truncated_text == "Hello, world!"
+@patch("readmeai.core.tokens.encoding_for_model")
+@patch("readmeai.core.tokens.get_encoding")
+def test_get_token_encoder(mock_encoding_for_model, mock_get_encoding, config):
+    """Test that the token encoder is returned."""
+    mock_encoding_for_model.return_value = config.llm.model
+    mock_get_encoding.return_value = config.llm.encoding
+    result = tokens.get_token_encoder()
+    assert result == config.llm.encoding
+
+
+@patch("readmeai.core.tokens.get_token_encoder")
+def test_truncate_tokens(mock_get_encoder):
+    """Test that the tokens are truncated."""
+    text = "Hello world out there"
+    max_tokens = 10
+    mock_encoder = mock_get_encoder.return_value
+    mock_encoder.encode.return_value = [1] * 15
+    result = tokens.truncate_tokens(text, max_tokens)
+    assert len(result) < len(text)
+    mock_get_encoder.side_effect = Exception
+    assert tokens.truncate_tokens(text, 10) == text

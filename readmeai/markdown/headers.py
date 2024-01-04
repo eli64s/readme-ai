@@ -1,4 +1,4 @@
-"""Builds the README Markdown file for your codebase."""
+"""Builds each section of the README Markdown file."""
 
 __package__ = "readmeai"
 
@@ -6,76 +6,94 @@ import re
 from pathlib import Path
 from typing import List
 
-from readmeai.config.settings import AppConfig, ConfigHelper
-from readmeai.core import factory, logger
-from readmeai.markdown import badges, quickstart, tables
-from readmeai.services import git_utilities as vcs
-
-logger = logger.Logger(__name__)
+from readmeai.config.settings import (
+    AppConfig,
+    BadgeOptions,
+    ConfigHelper,
+    GitService,
+)
+from readmeai.core import factory
+from readmeai.markdown import badges, tables
+from readmeai.markdown.quickstart import getting_started
+from readmeai.services.git_utilities import get_remote_full_name
 
 
 def build_readme_md(
     conf: AppConfig,
     helper: ConfigHelper,
-    packages: list,
+    deps: list,
     summaries: tuple,
 ) -> None:
     """Constructs each section of the README Markdown file."""
-    all_readme_sections = format_readme_md_contents(
-        conf, helper, packages, summaries
-    )
-    output_file = "\n".join(all_readme_sections)
-    output_path = Path(conf.paths.output)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    factory.FileHandler().write(output_path, output_file)
-    logger.info(f"README file generated at: {output_path}")
+    readme_md_contents = format_readme_md(conf, helper, deps, summaries)
+    readme_md_file = "\n".join(readme_md_contents)
+    readme_path = Path(conf.files.output)
+    readme_path.parent.mkdir(parents=True, exist_ok=True)
+    factory.FileHandler().write(readme_path, readme_md_file)
 
 
-def format_readme_md_contents(
+def format_readme_md(
     conf: AppConfig,
     helper: ConfigHelper,
-    packages: list,
+    deps: list,
     summaries: tuple,
 ) -> List[str]:
-    """Formats the README Markdown file contents for each section."""
-    repo_name = conf.git.name
-    repository = conf.git.repository
-    name, _ = vcs.get_remote_full_name(repository)
-    full_name = f"{name}/{repo_name}"
+    """Formats the README markdown contents."""
+    repo_url = conf.git.repository
+    user_name, repo_name = get_remote_full_name(repo_url)
+    full_name = f"{user_name}/{repo_name}"
+    if conf.git.source == GitService.LOCAL.value:
+        repo_url = f"../{repo_name}"
 
-    formatted_summaries = tables.format_code_summaries(
+    if BadgeOptions.SKILLS.value not in conf.md.badge_style:
+        md_shields, md_badges = badges.shields_icons(conf, deps, full_name)
+    else:
+        md_shields = "<!-- Shields.io badges not used with skill icons. -->"
+        md_badges = badges.skill_icons(conf, deps)
+
+    md_header = conf.md.header.format(
+        align=conf.md.align,
+        image=conf.md.image,
+        repo_name=repo_name.upper(),
+        slogan=conf.md.slogan,
+        badges_shields=md_shields,
+        badges=md_badges,
+    )
+
+    formatted_code_summaries = tables.format_code_summaries(
         conf.md.default,
         summaries,
     )
-    md_summary_tables = tables.generate_markdown_tables(
-        conf.md.dropdown, formatted_summaries, full_name, repository
+    md_code_summaries = tables.generate_markdown_tables(
+        conf.md.modules_widget, formatted_code_summaries, full_name, repo_url
     )
 
-    if "apps" not in conf.md.badge_style:
-        badge_icons = badges.shieldsio_icons(conf, packages, full_name)
-    else:
-        badge_icons = badges.skill_icons(conf, packages)
+    project_setup = getting_started(conf, helper, summaries)
+    md_project_setup = conf.md.getting_started.format(
+        repo_name=repo_name,
+        repo_url=repo_url,
+        language_name=project_setup.top_language_full_name,
+        install_command=project_setup.install_command,
+        run_command=project_setup.run_command,
+        test_command=project_setup.test_command,
+    )
 
-    repo_path = f"../{repo_name}" if conf.git.source == "local" else repository
-    instructions = quickstart.create_instructions(conf, helper, summaries)
-    md_quickstart = conf.md.setup.format(repo_name, repo_path, *instructions)
-
-    markdown_sections = [
-        conf.md.header,
-        badge_icons,
+    readme_md_sections = [
+        md_header,
         conf.md.toc.format(repo_name),
-        conf.md.intro,
+        conf.md.overview,
+        conf.md.features,
         conf.md.tree,
         conf.md.modules,
-        md_summary_tables,
-        md_quickstart,
-        conf.md.contribute.format(full_name, name.upper()),
+        md_code_summaries,
+        md_project_setup,
+        conf.md.contribute.format(full_name=full_name, repo_name=repo_name),
     ]
 
     if conf.cli.emojis is False:
-        markdown_sections = remove_emojis_from_headers(markdown_sections)
+        return remove_emojis_from_headers(readme_md_sections)
 
-    return markdown_sections
+    return readme_md_sections
 
 
 def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
@@ -97,12 +115,17 @@ def remove_emojis_from_headers(content_list: List[str]) -> List[str]:
         flags=re.UNICODE,
     )
 
-    # Replace emojis for markdown lines starting with header symbols or in the ToC
+    # Replace emojis for markdown lines starting with header symbols or ToC
     modified_content = []
+
     for section in content_list:
         lines = section.split("\n")
         for index, line in enumerate(lines):
-            if line.startswith("#") or "Table of Contents" in section:
+            if (
+                line.startswith("#")
+                or "Table of Contents" in section
+                or "Quick Links" in section
+            ):
                 lines[index] = emoji_pattern.sub("", line)
         modified_content.append("\n".join(lines))
 

@@ -1,13 +1,16 @@
-"""Utility functions for the readmeai package."""
+"""Utility helper functions for the README-AI package."""
 
 import re
+from importlib import resources
 from pathlib import Path
 from typing import List
 
-from readmeai.config.settings import ConfigHelper
-from readmeai.core import logger
+from pkg_resources import resource_filename
 
-logger = logger.Logger(__name__)
+from readmeai.config.settings import ConfigHelper
+from readmeai.core.logger import Logger
+
+logger = Logger(__name__)
 
 
 def is_valid_url(url: str) -> bool:
@@ -109,6 +112,28 @@ def get_relative_path(absolute_path: str, base_path: str) -> str:
     """
     absolute_path = Path(absolute_path)
     return absolute_path.relative_to(base_path)
+
+
+def get_resource_path(package: str, resource_name: str) -> Path:
+    """Use importlib.resources or pkg_resources to get resource path.
+    Python 3.9+ uses importlib.resources, older versions use pkg_resources.
+
+    Parameters
+    ----------
+    package
+        Python package name.
+    resource_name
+        Name of the resource to get the path for.
+
+    Returns
+    -------
+        The path to the resource file.
+    """
+    try:
+        resource_path = resources.files(package) / resource_name
+    except (TypeError, FileNotFoundError):
+        resource_path = resource_filename(package, resource_name)
+    return resource_path
 
 
 def remove_substring(

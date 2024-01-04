@@ -9,34 +9,44 @@ from readmeai.main import main
 
 
 @click.command()
+@options.align
 @options.api_key
 @options.badges
 @options.emojis
-@options.offline
+@options.image
+@options.max_tokens
 @options.model
+@options.offline
 @options.output
 @options.repository
 @options.temperature
+@options.template
 @options.language
-@options.style
 def commands(
+    align: Optional[str],
     api_key: str,
     badges: Optional[str],
     emojis: Optional[bool],
-    offline: Optional[bool],
+    image: Optional[str],
+    max_tokens: Optional[int],
     model: Optional[str],
+    offline: Optional[bool],
     output: Optional[str],
     repository: str,
     temperature: Optional[float],
+    template: Optional[int],
     language: Optional[str],
-    style: Optional[int],
 ):
-    """CLI entrypoint for readme-ai."""
+    """Entry point for the readme-ai CLI application."""
     main(
+        align=align,
+        api_key=api_key,
         badges=badges,
         emojis=emojis,
-        offline=offline,
+        image=image,
+        max_tokens=max_tokens,
         model=model,
+        offline=offline,
         output=output,
         repository=repository,
         temperature=temperature,

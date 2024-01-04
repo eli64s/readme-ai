@@ -2,31 +2,35 @@
 
 import os
 import platform
-import tempfile
+import shutil
 from pathlib import Path
 from typing import Optional
 
 import git
 
 
-def clone_repo_to_temp_dir(repo_path: str) -> Path:
-    """Clone user repository to a temporary directory."""
-    if Path(repo_path).exists():
-        return Path(repo_path)
-
-    temp_dir = tempfile.mkdtemp()
+async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
+    """Clone the repository to a temporary directory."""
     try:
-        git.Repo.clone_from(repo_path, temp_dir, depth=1, single_branch=True)
+        repo_path = Path(repo_source)
+        if repo_path.is_file():
+            raise ValueError("Path is a file, not a directory.")
+        elif repo_path.is_dir():
+            shutil.copytree(repo_path, temp_dir, dirs_exist_ok=True)
+        else:
+            git.Repo.clone_from(
+                repo_source, temp_dir, depth=1, single_branch=True
+            )
+        return temp_dir
 
-        return Path(temp_dir)
+    except git.GitCommandError as exc_info:
+        raise ValueError(f"Git clone error: {exc_info}") from exc_info
 
-    except git.GitCommandError as excinfo:
-        raise ValueError(f"Git clone error: {excinfo}") from excinfo
+    except OSError as exc_info:
+        raise ValueError(f"OS error: {exc_info}") from exc_info
 
-    except Exception as excinfo:
-        raise ValueError(
-            f"Error cloning git repository: {excinfo}"
-        ) from excinfo
+    except Exception as exc_info:
+        raise ValueError(f"Unexpected error: {exc_info}") from exc_info
 
 
 def find_git_executable() -> Optional[Path]:
