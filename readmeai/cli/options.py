@@ -8,7 +8,7 @@ from typing import Optional
 import click
 from click import Context, Parameter
 
-from readmeai.config.settings import BadgeOptions, ImageOptions
+from readmeai.config.enums import BadgeOptions, ImageOptions
 
 
 def prompt_for_custom_image(

@@ -11,20 +11,19 @@ import tempfile
 import traceback
 
 from readmeai.cli.options import prompt_for_custom_image
+from readmeai.config.enums import ImageOptions
 from readmeai.config.settings import (
     AppConfig,
     AppConfigModel,
     ConfigHelper,
     GitSettings,
-    ImageOptions,
     load_config,
     load_config_helper,
 )
 from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import RepoProcessor
-from readmeai.markdown.headers import build_readme_md
-from readmeai.markdown.tree import TreeGenerator
+from readmeai.markdown.builder import ReadmeBuilder, build_readme_md
 from readmeai.services.git_operations import clone_repo_to_temp_dir
 
 logger = Logger(__name__)
@@ -37,14 +36,15 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     try:
         await clone_repo_to_temp_dir(repo_url, temp_dir)
 
-        tree_command(conf, conf_helper, temp_dir)
-
         parser = RepoProcessor(conf, conf_helper)
         dependencies, file_context = parser.get_dependencies(temp_dir)
         summaries = [(path, content) for path, content in file_context.items()]
+        repo_tree = ReadmeBuilder(
+            conf, conf_helper, dependencies, summaries, temp_dir
+        ).md_tree
 
         logger.info(f"Project dependencies: {dependencies}")
-        logger.info(f"Project structure:\n{conf.md.tree}")
+        logger.info(f"Project structure:\n{repo_tree}")
 
         async with ModelHandler(conf).use_api() as llm:
             if conf.cli.offline is False:
@@ -53,7 +53,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         "type": "summaries",
                         "context": {
                             "repo": repo_url,
-                            "tree": conf.md.tree,
+                            "tree": repo_tree,
                             "dependencies": dependencies,
                             "summaries": summaries,
                         },
@@ -62,9 +62,8 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         "type": "features",
                         "context": {
                             "repo": repo_url,
-                            "tree": conf.md.tree,
-                            "dependencies": dependencies,
-                            "summaries": summaries,
+                            "tree": repo_tree,
+                            "summaries": file_context,
                         },
                     },
                     {
@@ -110,7 +109,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                     conf.md.default,
                 )
 
-        build_readme_md(conf, conf_helper, dependencies, summaries)
+        build_readme_md(conf, conf_helper, dependencies, summaries, temp_dir)
 
     except Exception as exc_info:
         logger.error(
@@ -153,9 +152,9 @@ def main(
             repository,
             temperature,
         )
-        export_to_environment(conf, api_key)
-
         log_settings(conf)
+
+        export_to_environment(conf, api_key)
 
         asyncio.run(readme_agent(conf, conf_helper))
 
@@ -204,19 +203,6 @@ def export_to_environment(config: AppConfig, api_key: str) -> None:
         config.cli.offline = True
 
 
-def tree_command(
-    conf: AppConfig, conf_helper: ConfigHelper, temp_dir: str
-) -> None:
-    """Updates the markdown tree configuration."""
-    tree_generator = TreeGenerator(
-        conf_helper=conf_helper,
-        root_dir=temp_dir,
-        repo_url=conf.git.repository,
-        repo_name=conf.git.name,
-    )
-    conf.md.tree = conf.md.tree.format(tree_generator.run())
-
-
 def log_settings(conf: AppConfig) -> None:
     """Log the settings for the CLI application."""
     logger.info("Starting README-AI processing...")
@@ -228,3 +214,4 @@ def log_settings(conf: AppConfig) -> None:
     logger.info(f"Header alignment: {conf.md.align}")
     logger.info(f"Using emojis: {conf.cli.emojis}")
     logger.info(f"Offline mode: {conf.cli.offline}")
+    logger.info(f"Repository validations: {conf.git}")

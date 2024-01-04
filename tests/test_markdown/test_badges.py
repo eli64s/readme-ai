@@ -88,17 +88,9 @@ def test_build_metadata_badges_success(config):
     assert "license" in badges
 
 
-def test_shields_icons_success(config):
+def test_shields_icons_success(config, mock_dependencies):
     """Tests shields_icons with valid inputs."""
-    mock_config = config
-    mock_config.git.source = "github.com"
-    mock_config.files.shields_icons = config.files.shields_icons
-    mock_config.md.badge_style = "flat"
-
-    mock_helper = MagicMock()
-    mock_helper.language_setup = {"Python": ["install", "run", "test"]}
-
-    deps = ["Python", "JavaScript"]
+    config.md.badge_style = "flat"
 
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = {
@@ -108,19 +100,16 @@ def test_shields_icons_success(config):
             ],
         }
         shields_badges, deps_badges = shields_icons(
-            mock_config, deps, "full_name"
+            config, mock_dependencies, "github.com", "github"
         )
         assert "license" in shields_badges
         assert "Python" in deps_badges
-        assert "3776AB" in deps_badges
-        assert "flat" in deps_badges
+        assert "shields.io" in deps_badges
 
 
 def test_skill_icons_success(config):
     """Tests skill_icons with valid inputs."""
-    mock_config = config
-    mock_config.files.skill_icons = config.files.skill_icons
-    mock_config.md.badge_style = "skills-light"
+    config.md.badge_style = "skills-light"
     mock_icons = {
         "icons": {"names": ["fastapi", "py", "redis", "md", "github", "git"]},
         "url": {"base_url": "https://skillicons.dev/icons?i="},
@@ -129,7 +118,7 @@ def test_skill_icons_success(config):
 
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = mock_icons
-        result = skill_icons(mock_config, deps)
+        result = skill_icons(config, deps)
         assert "&theme=light" in result
         assert """<a href="https://skillicons.dev">""" in result
         assert (

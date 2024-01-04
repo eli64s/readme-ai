@@ -10,16 +10,14 @@ logger = Logger(__name__)
 
 
 def construct_markdown_table(
-    data: List[Tuple[str, str]], repository: str, project_name: str
+    data: List[Tuple[str, str]], repo_url: str, full_name: str
 ) -> str:
     """Builds a Markdown table from the provided data."""
     headers = ["File", "Summary"]
     table_rows = [headers, ["---", "---"]]
     for module, summary in data:
         file_name = str(Path(module).name)
-        hyperlink = create_hyperlink(
-            file_name, project_name, module, repository
-        )
+        hyperlink = create_hyperlink(file_name, full_name, module, repo_url)
         table_rows.append([hyperlink, summary])
     return format_as_markdown_table(table_rows)
 
@@ -29,13 +27,6 @@ def create_hyperlink(
 ) -> str:
     """
     Creates a hyperlink for a file, using its Git URL if possible.
-    logger.debug(
-        f"Creating git host file hyperlink:\n\
-        \tFile: {file_name} \n\
-        \tFull name: {full_name} \n\
-        \tModule: {module} \n\
-        \tRepo URL: {repo_url}"
-    )
     """
     if "invalid" in full_name.lower():
         return file_name

@@ -36,3 +36,9 @@ def mock_summaries():
         ("/path/to/file2.py", "This is summary for file2.py"),
         (".github/workflows/ci.yml", "This is summary for ci.yml"),
     ]
+
+
+@pytest.fixture(scope="session")
+def mock_temp_dir(tmp_path_factory):
+    """Returns a temporary directory for the test session."""
+    return tmp_path_factory.mktemp("test_readmeai_temp_dir")

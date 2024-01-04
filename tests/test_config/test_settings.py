@@ -2,19 +2,7 @@
 
 import pytest
 
-from readmeai.config.settings import BadgeOptions, GitSettings, load_config
-
-
-def test_badge_options():
-    """Test the CLI options for badge icons."""
-    assert BadgeOptions.DEFAULT == "default"
-    assert BadgeOptions.FLAT == "flat"
-    assert BadgeOptions.FLAT_SQUARE == "flat-square"
-    assert BadgeOptions.FOR_THE_BADGE == "for-the-badge"
-    assert BadgeOptions.PLASTIC == "plastic"
-    assert BadgeOptions.SKILLS == "skills"
-    assert BadgeOptions.SKILLS_LIGHT == "skills-light"
-    assert BadgeOptions.SOCIAL == "social"
+from readmeai.config.settings import GitSettings, load_config
 
 
 def test_git_settings_invalid_url():

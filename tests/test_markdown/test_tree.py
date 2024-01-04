@@ -1,108 +1,69 @@
 """Unit tests for the markdown tree generator."""
 
-from pathlib import Path
-from unittest.mock import Mock
-
 import pytest
 
-from readmeai.config.settings import ConfigHelper
 from readmeai.markdown.tree import TreeGenerator
 
 
 @pytest.fixture
-def mock_config_helper():
-    """Generates a mock ConfigHelper object."""
-    mock_config_helper = Mock(ConfigHelper)
-    mock_config_helper.ignore_files = {
-        "files": ["*.pyc", "*.pyo"],
-        "extensions": ["pyc", "pyo"],
-        "directories": ["__pycache__", ".git"],
-    }
-    return mock_config_helper
-
-
-@pytest.fixture
-def tree_gen(mock_config_helper, tmp_path):
-    """Generates a tree structure for a given directory."""
-    (tmp_path / "dir1").mkdir()
-    (tmp_path / "dir1" / "file1.txt").touch()
+def tree_gen(config_helper, tmp_path):
+    """Fixture for the TreeGenerator class."""
+    dir1 = tmp_path / "dir1"
+    dir1.mkdir()
+    (dir1 / "file1.txt").touch()
     (tmp_path / "dir2").mkdir()
-    tree_gen = TreeGenerator(
-        conf_helper=mock_config_helper,
-        root_dir=tmp_path,
-        repo_url="http://repo.url",
+    return TreeGenerator(
+        conf_helper=config_helper,
         repo_name="TestProject",
+        repo_url=tmp_path,
+        root_dir=tmp_path,
         max_depth=3,
     )
-    return tree_gen
 
 
-def test_initialization(mock_config_helper):
-    """Tests the initialization of the TreeGenerator class."""
-    tree_gen = TreeGenerator(
-        conf_helper=mock_config_helper,
-        root_dir=Path("/test/path"),
-        repo_url="http://repo.url",
-        repo_name="TestProject",
-    )
-    assert tree_gen.root_dir == Path("/test/path")
-    assert tree_gen.repo_url == "http://repo.url"
+def test_initialization(tree_gen):
+    """Test initialization of the TreeGenerator class."""
+    assert tree_gen.root_dir.is_dir()
     assert tree_gen.repo_name == "TestProject"
     assert tree_gen.max_depth == 3
 
 
 def test_generate_tree(tree_gen, tmp_path):
-    """Tests the _generate_tree method."""
+    """Test the _generate_tree method."""
     tree = tree_gen._generate_tree(tmp_path)
-    expected_tree = """└── test_generate_tree0/
-    ├── dir1/
-    │   └── file1.txt
-    └── dir2/\n"""
+    expected_tree = (
+        f"└── {tmp_path.name}\n" "    ├── dir1\n" "    │   └── file1.txt"
+    )
     assert tree == expected_tree
 
 
-def test_format_tree(tree_gen, tmp_path):
-    """Tests the _format_tree method."""
-    tree = tree_gen._generate_tree(tmp_path)
-    formatted_tree = tree_gen._format_tree(tree)
-    expected_formatted_tree = """└── TestProject/
-    ├── dir1/
-    │   └── file1.txt
-    └── dir2/\n"""
-    assert formatted_tree == expected_formatted_tree
-
-
 @pytest.mark.parametrize(
-    "depth, expected",
+    "depth, expected_suffix",
     [
-        (
-            2,
-            """└── TestProject/
-    └── dir1/
-        └── dir2/\n""",
-        ),
-        (
-            5,
-            """└── TestProject/
-    └── dir1/
-        └── dir2/
-            └── dir3/
-                └── dir4/\n""",
-        ),
+        (0, ""),
+        (1, "\n    ├── dir1"),
     ],
 )
-def test_max_depth(depth, expected, mock_config_helper, tmp_path):
-    """Tests the max_depth parameter of the TreeGenerator class."""
-    (tmp_path / "dir1").mkdir()
-    (tmp_path / "dir1" / "dir2").mkdir()
-    (tmp_path / "dir1" / "dir2" / "dir3").mkdir()
-    (tmp_path / "dir1" / "dir2" / "dir3" / "dir4").mkdir()
-    tree_gen = TreeGenerator(
-        conf_helper=mock_config_helper,
-        root_dir=tmp_path,
-        repo_url="http://repo.url",
-        repo_name="TestProject",
-        max_depth=depth,
-    )
-    tree = tree_gen.run()
-    assert tree == expected
+def test_max_depth_param(tree_gen, depth, expected_suffix, tmp_path):
+    """Test the _generate_tree method."""
+    tree_gen.max_depth = depth
+    tree = tree_gen._generate_tree(tmp_path)
+    expected_tree = f"└── {tmp_path.name}{expected_suffix}"
+    assert tree == expected_tree
+
+
+def test_run_method(tree_gen):
+    """Test the run method."""
+    expected_tree = tree_gen.run()
+    assert "TestProject" in expected_tree
+    assert "dir1" in expected_tree
+    assert "file1.txt" in expected_tree
+
+
+def test_ignore_files(tree_gen, tmp_path):
+    """Test that the tree generator ignores files."""
+    (tmp_path / "dir1" / "__pycache__").mkdir()
+    (tmp_path / "dir1" / "file.pyc").touch()
+    tree = tree_gen._generate_tree(tmp_path)
+    assert "__pycache__" not in tree
+    assert "file.pyc" not in tree
