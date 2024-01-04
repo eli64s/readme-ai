@@ -8,11 +8,32 @@ from readmeai.markdown.headers import (
     remove_emojis_from_headers,
 )
 
+from unittest.mock import patch
 
-@pytest.mark.skip(reason="Not implemented yet")
-def test_format_readme_md_local_source(config, config_helper):
+
+def test_build_readme_md(
+    config, config_helper, mock_dependencies, mock_summaries
+):
+    """Tests the build_readme_md method."""
+    with patch("readmeai.core.factory.FileHandler.write") as mock_write:
+        build_readme_md(
+            config, config_helper, mock_dependencies, mock_summaries
+        )
+        mock_write.assert_called_once()
+        written_content = mock_write.call_args[0][1]
+        assert isinstance(written_content, str)
+        assert len(written_content) > 0
+
+
+def test_format_readme_md_local_source(
+    config, config_helper, mock_dependencies, mock_summaries
+):
     """Tests the format_readme_md method."""
-    assert 1 == 1
+    readme_md = format_readme_md(
+        config, config_helper, mock_dependencies, mock_summaries
+    )
+    assert isinstance(readme_md, list)
+    assert len(readme_md) == 9
 
 
 @pytest.mark.skip(reason="Not implemented yet")
