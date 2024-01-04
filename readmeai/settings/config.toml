@@ -32,34 +32,34 @@ tokens_max = 3899
 # Markdown Templates
 [md]
 align = "center"
-badges_style = "standard"
 default = "<code>► INSERT-TEXT-HERE</code>"
 image = ""
 slogan = ""
 tables = ""
 
 header = """\
-<div align="{alignment}">
-<p align="{alignment}">
+<p align="{align}">
   <img src="{image}" width="100" />
 </p>
-<p align="{alignment}">
-    <h1 align="{alignment}">{repo_name}</h1>
+<p align="{align}">
+    <h1 align="{align}">{repo_name}</h1>
 </p>
-<p align="{alignment}">
+<p align="{align}">
     <em>{slogan}</em>
 </p>
-<p align="{alignment}">\n\t{badges_shields}<p>
-<p align="{alignment}">\n\t{badges}</p>
-</div>
+<p align="{align}">\n\t{badges_shields}<p>
+<p align="{align}">\n\t{badges}</p>
 <hr>
 """
-badges_dependencies = """\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{alignment}">\n\t{badges}\n"""
+
+badge_color = "0080ff"
+badge_style = "standard"
+badges_software = """\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{align}">\n\t{badges}"""
 badges_shields = """
-<img src="https://img.shields.io/{git_host}/license/{full_name}?style={badges_style}" alt="license">
-\t<img src="https://img.shields.io/{git_host}/last-commit/{full_name}?style={badges_style}" alt="last-commit">
-\t<img src="https://img.shields.io/{git_host}/languages/top/{full_name}?style={badges_style}" alt="repo-top-language">
-\t<img src="https://img.shields.io/{git_host}/languages/count/{full_name}?style={badges_style}" alt="repo-language-count">
+<img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&color={badge_color}" alt="license">
+\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&color={badge_color}" alt="last-commit">
+\t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
+\t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
 """
 badges_skills = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>
 """

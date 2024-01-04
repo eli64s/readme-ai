@@ -7,6 +7,7 @@ from readmeai.config.settings import BadgeOptions, GitSettings, load_config
 
 def test_badge_options():
     """Test the CLI options for badge icons."""
+    assert BadgeOptions.DEFAULT == "default"
     assert BadgeOptions.FLAT == "flat"
     assert BadgeOptions.FLAT_SQUARE == "flat-square"
     assert BadgeOptions.FOR_THE_BADGE == "for-the-badge"
