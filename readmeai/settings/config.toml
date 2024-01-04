@@ -54,7 +54,7 @@ header = """\
 
 badge_color = "0080ff"
 badge_style = "standard"
-badges_software = """\t<em>Developed with the software and tools below</em>\n</p>\n<p align="{align}">\n\t{badges}"""
+badges_software = """\t<em>Developed with the software and tools below.</em>\n</p>\n<p align="{align}">\n\t{badges}"""
 badges_shields = """
 <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&color={badge_color}" alt="license">
 \t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&color={badge_color}" alt="last-commit">
@@ -228,24 +228,20 @@ Generate your response as a Markdown table with the following columns:
 
 |    | Feature           | Description                                                                                                       |
 |----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**    | Analyze the structural design of the system here. The description should not exceed 110 characters in total.             |
-| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. The description should not exceed 110 characters in total.|
-| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. The description should not exceed 110 characters in total.|
-| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. The description should not exceed 110 characters in total.|
-| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. The description should not exceed 110 characters in total.       |
-| ⚡️ | **Performance**     | Analyze how well the system performs, considering speed, efficiency, and resource usage here. The description should not exceed 110 characters in total.|
-| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. The description should not exceed 110 characters in total.|
-| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. The description should not exceed 110 characters in total.|
-| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. The description should not exceed 110 characters in total.|
-| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. The description should not exceed 110 characters in total.           |
+| ⚙️ | **Architecture**    | Analyze the structural design of the system here. The description should not exceed 99 characters in total.             |
+| 📄 | **Documentation**  | Discuss the quality and comprehensiveness of the documentation here. The description should not exceed 99 characters in total.|
+| 🔗 | **Dependencies**   | Examine the external libraries or other systems that this system relies on here. The description should not exceed 99 characters in total.|
+| 🧩 | **Modularity**     | Discuss the system's organization into smaller, interchangeable components here. The description should not exceed 99 characters in total.|
+| 🧪 | **Testing**        | Evaluate the system's testing strategies and tools here. The description should not exceed 99 characters in total.       |
+| ⚡️ | **Performance**     | Analyze how well the system performs, considering speed, efficiency, and resource usage here. The description should not exceed 99 characters in total.|
+| 🔐 | **Security**       | Assess the measures the system uses to protect data and maintain functionality here. The description should not exceed 99 characters in total.|
+| 🔀 | **Version Control**| Discuss the system's version control strategies and tools here. The description should not exceed 99 characters in total.|
+| 🔌 | **Integrations**   | Evaluate how the system interacts with other systems and services here. The description should not exceed 99 characters in total.|
+| 📶 | **Scalability**    | Analyze the system's ability to handle growth here. The description should not exceed 99 characters in total.           |
 
 Provided information includes:
-
-- Repository directory structure: {1}
-- Repository dependencies and software: {2}
-- Codebase file summaries: {3}
-
-Thank you for your time and effort!
+Repository directory structure: {1}
+Code files: {2}
 """
 overview = """Analyze the codebase named {} ({}) and provide a robust, yet succinct overview of the project.\n
 Craft a paragraph, 80 TOKEN MAXIMUM, that encapsulate the core functionalities of the project, its purpose and value proposition.\n

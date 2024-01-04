@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple
 
-from readmeai.config import settings
+from readmeai.config import enums, settings
 from readmeai.core.logger import Logger
 from readmeai.core.tokens import get_token_count
 from readmeai.core.utils import flatten_list, should_ignore
@@ -27,20 +27,29 @@ class RepoProcessor:
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
         self.encoding_name = config.llm.encoding
-        self.local_source = settings.GitService.LOCAL.value
 
     def analyze(self, temp_dir: str) -> List[Dict]:
         """Analyzes a local or remote git repository."""
         contents = self.generate_contents(temp_dir)
 
         repo_source = self.config.git.source
-        if repo_source != self.local_source:
+        if repo_source != enums.GitService.LOCAL:
             logger.info(f"Tokenizing content from host: {repo_source}")
             contents = self.tokenize_content(contents)
 
         contents = self.process_language_mapping(contents)
 
         return contents
+
+    def get_dependencies(
+        self, temp_dir: str = None
+    ) -> Tuple[List[str], Dict[str, str]]:
+        """Extracts the dependencies of the user's repository."""
+        contents = self.analyze(temp_dir)
+        dependencies = self.get_dependency_file_contents(contents)
+        attributes = ["extension", "language", "name"]
+        dependencies.extend(self.get_unique_contents(contents, attributes))
+        return list(set(dependencies)), self.get_file_contents(contents)
 
     def generate_contents(self, repo_path: str) -> List[Dict]:
         """Generates a List of Dict of file information."""
@@ -79,13 +88,6 @@ class RepoProcessor:
             )
         return flatten_list(parsed_contents)
 
-    def parse_content(content: Dict) -> List[str]:
-        """Helper function to parse the content of a file."""
-        parser = PARSERS.get(content["name"])
-        if parser:
-            return parser.parse(content["content"])
-        return []
-
     def generate_file_info(
         self, repo_path: Path
     ) -> Generator[Tuple[str, Path, str], None, None]:
@@ -120,27 +122,12 @@ class RepoProcessor:
         unique_contents = {data[key] for key in keys for data in contents}
         return list(unique_contents)
 
-    def get_dependencies(
-        self, temp_dir: str = None
-    ) -> Tuple[List[str], Dict[str, str]]:
-        """Extracts the dependencies of the user's repository."""
-        contents = self.analyze(temp_dir)
-        dependencies = self.get_dependency_file_contents(contents)
-        attributes = ["extension", "language", "name"]
-        dependencies.extend(self.get_unique_contents(contents, attributes))
-        return list(set(dependencies)), self.get_file_contents(contents)
-
     def process_language_mapping(self, contents: List[Dict]) -> List[Dict]:
         """Maps file extensions to their programming languages."""
         for content in contents:
             content["language"] = self.language_names.get(
                 content["extension"], ""
             ).lower()
-            setup = self.language_setup.get(content["language"], "")
-            setup = setup if isinstance(setup, list) else [None, None]
-            while len(setup) < 3:
-                setup.append(None)
-            content["install"], content["run"], content["test"] = setup
         return contents
 
     def tokenize_content(self, contents: List[Dict]) -> List[Dict]:

@@ -1,7 +1,6 @@
 """Data models and functions for configuring the readme-ai CLI tool."""
 
-import os
-from enum import Enum
+import re
 from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
@@ -10,88 +9,112 @@ from urllib.parse import urlparse, urlsplit
 import pkg_resources
 from pydantic import BaseModel, validator
 
+from readmeai.config.enums import GitService
 from readmeai.core.factory import FileHandler
 from readmeai.core.logger import Logger
 
 logger = Logger(__name__)
 
 
-class GitService(str, Enum):
-    """
-    Enum class for Git service details.
-    """
+class GitSettingsValidator:
+    """Validator class for GitSettings."""
 
-    LOCAL = ("local", None, "{file_path}")
-    GITHUB = (
-        "github.com",
-        "https://api.github.com/repos/",
-        "https://github.com/{full_name}/blob/main/{file_path}",
-    )
-    GITLAB = (
-        "gitlab.com",
-        "https://api.gitlab.com/v4/projects/",
-        "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
-    )
-    BITBUCKET = (
-        "bitbucket.org",
-        "https://api.bitbucket.org/2.0/repositories/",
-        "https://bitbucket.org/{full_name}/src/master/{file_path}",
-    )
+    @classmethod
+    def validate_repository(cls, value: Union[str, Path]) -> Union[str, Path]:
+        """Validate the repository URL or path."""
+        if isinstance(value, str):
+            path = Path(value)
+            if path.is_dir():
+                return value
+            try:
+                parsed_url = urlparse(value)
+                if parsed_url.scheme in ["http", "https"] and any(
+                    service in parsed_url.netloc for service in GitService
+                ):
+                    return value
+            except ValueError:
+                pass
+        elif isinstance(value, Path) and value.is_dir():
+            return value
+        raise ValueError(f"Invalid repository URL or path: {value}")
 
-    def __new__(cls, host, api_url, file_url) -> object:
-        """Create a new instance of the GitService enum."""
-        obj = str.__new__(cls, host)
-        obj._value_ = host
-        obj.host = host
-        obj.api_url = api_url
-        obj.file_url = file_url
-        return obj
+    @classmethod
+    def set_host(cls, value: Optional[str], values: dict) -> str:
+        """Sets the Git service host from the repository provided."""
+        repo = values.get("repository")
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
+            return GitService.LOCAL
 
-    def extract_name_from_host(repo_host: str) -> str:
-        """Return the hostname without periods."""
-        if repo_host == GitService.LOCAL.host:
-            return GitService.LOCAL.host
-        else:
-            return repo_host.split(".")[0]
+        parsed_url = urlparse(str(repo))
+        for service in GitService:
+            if service in parsed_url.netloc:
+                return service.split(".")[0]
 
+        return GitService.LOCAL
 
-class BadgeOptions(str, Enum):
-    """
-    Enum for CLI options for README file badge icons.
-    """
+    @classmethod
+    def set_name(cls, value: Optional[str], values: dict) -> str:
+        """Sets the repository name from the repository provided."""
+        repo = values.get("repository")
+        if isinstance(repo, Path):
+            return repo.name
+        elif isinstance(repo, str):
+            parsed_url = urlsplit(repo)
+            name = parsed_url.path.split("/")[-1]
+            return name.removesuffix(".git")
+        return "n/a"
 
-    DEFAULT = "default"
-    FLAT = "flat"
-    FLAT_SQUARE = "flat-square"
-    FOR_THE_BADGE = "for-the-badge"
-    PLASTIC = "plastic"
-    SKILLS = "skills"
-    SKILLS_LIGHT = "skills-light"
-    SOCIAL = "social"
+    @classmethod
+    def set_source(cls, value: Optional[str], values: dict) -> str:
+        repo = values.get("repository")
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
+            return GitService.LOCAL
 
+        parsed_url = urlparse(str(repo))
+        for service in GitService:
+            if service in parsed_url.netloc:
+                return service
+        return GitService.LOCAL
 
-class ImageOptions(str, Enum):
-    """
-    Enum for CLI options for README file header images.
-    """
+    @classmethod
+    def validate_full_name(cls, value: Optional[str], values: dict) -> str:
+        """Validator for getting the full name of the repository."""
+        url_or_path = values.get("repository")
 
-    CUSTOM = "CUSTOM"
-    DEFAULT = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-    BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
-    GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
-    PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
-    YELLOW = "https://img.icons8.com/pulsar-color/96/markdown.png"
+        path = (
+            url_or_path if isinstance(url_or_path, Path) else Path(url_or_path)
+        )
+        if path.exists():
+            return str(path.name)
+
+        patterns = {
+            GitService.GITHUB: r"https?://github.com/([^/]+)/([^/]+)",
+            GitService.GITLAB: r"https?://gitlab.com/([^/]+)/([^/]+)",
+            GitService.BITBUCKET: r"https?://bitbucket.org/([^/]+)/([^/]+)",
+        }
+
+        for _, pattern in patterns.items():
+            match = re.match(pattern, url_or_path)
+            if match:
+                user_name, repo_name = match.groups()
+                return f"{user_name}/{repo_name}"
+
+        raise ValueError("Error: invalid repository URL or path.")
 
 
 class CliSettings(BaseModel):
     """CLI options for the readme-ai application."""
 
-    emojis: bool = True
-    offline: bool = False
+    emojis: bool
+    offline: bool
 
 
 class FileSettings(BaseModel):
-    """Pydantic model for configuration file paths."""
+    """File paths for the readme-ai application."""
 
     dependency_files: str
     identifiers: str
@@ -107,54 +130,26 @@ class GitSettings(BaseModel):
     """Codebase repository settings and validations."""
 
     repository: Union[str, Path]
-    source: Optional[str]
+    full_name: Optional[str]
+    host: Optional[str]
     name: Optional[str]
+    source: Optional[str]
 
-    @validator("repository", pre=True, always=True)
-    def validate_repository(cls, value: Union[str, Path]) -> Union[str, Path]:
-        """Validate the repository URL or path."""
-        if isinstance(value, str):
-            path = Path(value)
-            if path.is_dir():
-                return value
-            try:
-                parsed_url = urlparse(value)
-                if parsed_url.scheme in ["http", "https"] and any(
-                    service.host in parsed_url.netloc for service in GitService
-                ):
-                    return value
-            except ValueError:
-                pass
-        elif isinstance(value, Path) and value.is_dir():
-            return value
-        raise ValueError(f"Invalid repository URL or path: {value}")
-
-    @validator("source", pre=True, always=True)
-    def set_source(cls, value: Optional[str], values: dict) -> str:
-        """Sets the Git service source from the repository provided."""
-        repo = values.get("repository")
-        if isinstance(repo, Path) or (
-            isinstance(repo, str) and Path(repo).is_dir()
-        ):
-            return GitService.LOCAL.host
-
-        parsed_url = urlparse(str(repo))
-        for service in GitService:
-            if service.host in parsed_url.netloc:
-                return service.host
-        return GitService.LOCAL.host
-
-    @validator("name", pre=True, always=True)
-    def set_name(cls, value: Optional[str], values: dict) -> str:
-        """Sets the repository name from the repository provided."""
-        repo = values.get("repository")
-        if isinstance(repo, Path):
-            return repo.name
-        elif isinstance(repo, str):
-            parsed_url = urlsplit(repo)
-            name = parsed_url.path.split("/")[-1]
-            return name.removesuffix(".git")
-        return "n/a"
+    _validate_repository = validator("repository", pre=True, always=True)(
+        GitSettingsValidator.validate_repository
+    )
+    _validate_full_name = validator("full_name", pre=True, always=True)(
+        GitSettingsValidator.validate_full_name
+    )
+    _set_host = validator("host", pre=True, always=True)(
+        GitSettingsValidator.set_host
+    )
+    _set_name = validator("name", pre=True, always=True)(
+        GitSettingsValidator.set_name
+    )
+    _set_source = validator("source", pre=True, always=True)(
+        GitSettingsValidator.set_source
+    )
 
 
 class LlmApiSettings(BaseModel):
@@ -270,21 +265,28 @@ def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
     """Get configuration dictionary from TOML file."""
     try:
         resource_path = resources.files("readmeai.settings") / file_path
-        logger.info(f"Resource path using importlib: {resource_path}")
+        logger.info(f"Using importlib.resources to load: {resource_path}")
+
     except TypeError as exc_info:
-        logger.debug(f"Error with importlib.resources: {exc_info}")
+        logger.debug(f"Error using importlib.resources: {exc_info}")
+
         try:
             resource_path = Path(
                 pkg_resources.resource_filename(
                     "readmeai", f"settings/{file_path}"
                 )
             ).resolve()
-            logger.info(f"Resource path using pkg_resources: {resource_path}")
-        except FileNotFoundError as exc_info:
-            logger.debug(f"Error with pkg_resources: {exc_info}")
-            raise
+            logger.info(
+                f"Using pkg_resources.resource_filename: {resource_path}"
+            )
 
-    if not os.path.exists(resource_path):
+        except FileNotFoundError as exc_info:
+            logger.debug(
+                f"Error using pkg_resources.resource_filename: {exc_info}"
+            )
+            raise FileNotFoundError(f"Config file not found: {file_path}")
+
+    if not resource_path.exists():
         raise FileNotFoundError(f"Config file not found: {resource_path}")
 
     return handler.read(resource_path)
