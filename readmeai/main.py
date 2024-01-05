@@ -6,7 +6,6 @@ __package__ = "readmeai"
 
 import asyncio
 import os
-import shutil
 import tempfile
 import traceback
 from typing import List

@@ -2,11 +2,11 @@
 
 import re
 from importlib import resources
-import pkg_resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 from urllib.parse import urlparse, urlsplit
 
+import pkg_resources
 from pydantic import BaseModel, validator
 
 from readmeai.config.enums import GitService
