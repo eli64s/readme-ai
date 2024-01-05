@@ -29,7 +29,7 @@ from readmeai.core.tokens import (
     get_token_count,
     truncate_tokens,
 )
-from readmeai.core.utils import format_sentence
+from readmeai.core.utils import extract_markdown_table, format_sentence
 
 
 class ModelHandler:
@@ -177,7 +177,7 @@ class ModelHandler:
         Returns
         -------
         List[Tuple[str, str]]
-            List of tuples containing the file path and the generated summary or error message.
+            List of tuples containing the file path and the generated response.
         """
         code_summaries = []
 
@@ -256,7 +256,7 @@ class ModelHandler:
                 summary = (
                     format_sentence(summary)
                     if index != "features"
-                    else summary
+                    else extract_markdown_table(summary)
                 )
                 self.cache[prompt] = summary
                 self.logger.info(f"Response: {index} - {summary}")

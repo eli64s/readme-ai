@@ -1,6 +1,6 @@
 """Unit tests for Go-based dependency parsers."""
 
-from readmeai.parsers.gomod import GoModParser
+from readmeai.parsers.go import GoModParser
 
 content = """
 module geekdemo

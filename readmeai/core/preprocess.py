@@ -1,139 +1,138 @@
-"""Processes the input codebase for analysis and metadata extraction."""
+"""Preprocesses the repository files and extract metadata."""
 
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Generator, List, Tuple
+from typing import Generator, List, Tuple
 
-from readmeai.config import enums, settings
+from readmeai.config import settings
 from readmeai.core.logger import Logger
 from readmeai.core.tokens import get_token_count
-from readmeai.core.utils import flatten_list, should_ignore
+from readmeai.core.utils import should_ignore
 from readmeai.parsers.factory import parser_factory
 
 logger = Logger(__name__)
 
+GITHUB_WORKFLOWS_PATH = ".github/workflows"
 PARSERS = parser_factory()
 
 
+@dataclass
+class FileData:
+    """Data class to store repository file information."""
+
+    path: Path
+    name: str
+    content: str
+    extension: str
+    language: str = field(init=False)
+    tokens: int = 0
+    dependencies: List[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        """Initializes the FileData class."""
+        self.extension = self.name.split(".")[-1] if "." in self.name else ""
+        self.language = self.extension.lower()
+
+
 class RepoProcessor:
-    """Handles preprocessing of the input codebase."""
+    """Processes the repository files and generates a list of FileData."""
 
     def __init__(
         self,
         config: settings.AppConfig,
         conf_helper: settings.ConfigHelper,
     ):
+        """Initializes the RepoProcessor class."""
         self.config = config
         self.config_helper = conf_helper
         self.language_names = conf_helper.language_names
         self.language_setup = conf_helper.language_setup
-        self.encoding_name = config.llm.encoding
 
-    def analyze(self, temp_dir: str) -> List[Dict]:
-        """Analyzes a local or remote git repository."""
-        contents = self.generate_contents(temp_dir)
+    def create_file_data(self, file_info: Tuple[str, Path, str]) -> FileData:
+        """Creates a FileData instance from the file information."""
+        name, path, content = file_info
+        return FileData(name=name, path=path, content=content, extension="")
 
-        repo_source = self.config.git.source
-        if repo_source != enums.GitService.LOCAL:
-            logger.info(f"Tokenizing content from host: {repo_source}")
-            contents = self.tokenize_content(contents)
-
-        contents = self.process_language_mapping(contents)
-
-        return contents
-
-    def get_dependencies(
-        self, temp_dir: str = None
-    ) -> Tuple[List[str], Dict[str, str]]:
-        """Extracts the dependencies of the user's repository."""
-        contents = self.analyze(temp_dir)
-        dependencies = self.get_dependency_file_contents(contents)
-        attributes = ["extension", "language", "name"]
-        dependencies.extend(self.get_unique_contents(contents, attributes))
-        return list(set(dependencies)), self.get_file_contents(contents)
-
-    def generate_contents(self, repo_path: str) -> List[Dict]:
-        """Generates a List of Dict of file information."""
-        repo_path = Path(repo_path)
-
-        data = list(self.generate_file_info(repo_path))
-
-        contents = []
-        for name, path, content in data:
-            extension = Path(name).suffix.lstrip(".")
-            contents.append(
-                {
-                    "name": name,
-                    "path": path,
-                    "content": content,
-                    "extension": extension,
-                }
-            )
-        return contents
-
-    def get_dependency_file_contents(self, contents: List[Dict]) -> List[str]:
+    def extract_dependencies(self, file_data: FileData) -> List[str]:
         """Extracts the dependency file contents using the factory pattern."""
         parsers = PARSERS
 
-        filtered = [c for c in contents if c["name"] in parsers]
-        if not filtered:
+        if file_data.name not in parsers:
             return []
 
-        parsed_contents = []
-        for content in filtered:
-            parser = parsers.get(content["name"])
-            parsed_content = parser.parse(content=content["content"])
-            parsed_contents.append(parsed_content)
-            logger.info(
-                f"Dependency file found {content['name']}\n\t{parsed_content}"
-            )
-        return flatten_list(parsed_contents)
+        logger.info(
+            f"Dependency file found: {file_data.name} - {file_data.content}"
+        )
+        parser = parsers.get(file_data.name)
+        return parser.parse(content=file_data.content)
+
+    def generate_contents(self, repo_path: str) -> List[FileData]:
+        """Generates a List of Dict of file information."""
+        if isinstance(repo_path, str):
+            repo_path = Path(repo_path)
+
+        return [file_data for file_data in self.generate_file_info(repo_path)]
 
     def generate_file_info(
         self, repo_path: Path
-    ) -> Generator[Tuple[str, Path, str], None, None]:
-        """Generates a tuple of file information."""
+    ) -> Generator[FileData, None, None]:
+        """
+        Generates FileData instances for each file in the repository.
+        Ignores files as per the `readmeai.settings.ignore_files.toml`
+        configuration and handles special cases like GitHub workflows.
+        """
         for file_path in repo_path.rglob("*"):
-            if should_ignore(self.config_helper, file_path):
+            if not file_path.is_file() or should_ignore(
+                self.config_helper, file_path
+            ):
                 continue
 
-            if file_path.is_file():
-                if ".github/workflows" in str(
-                    file_path.relative_to(repo_path)
-                ):
-                    yield "github actions", file_path.relative_to(
-                        repo_path
-                    ), ""
+            relative_path = file_path.relative_to(repo_path)
+            relative_path_str = str(relative_path)
+
+            if GITHUB_WORKFLOWS_PATH in relative_path_str:
+                yield FileData(
+                    name="github actions",
+                    path=relative_path,
+                    content="",
+                    extension="",
+                )
+            else:
                 try:
                     with file_path.open(encoding="utf-8") as file:
                         content = file.read()
-                    relative_path = file_path.relative_to(repo_path)
-                    yield file_path.name, relative_path, content
-                except UnicodeDecodeError:
+                    file_data = FileData(
+                        name=file_path.name,
+                        path=relative_path,
+                        content=content,
+                        extension="",
+                    )
+                    file_data.dependencies = self.extract_dependencies(
+                        file_data
+                    )
+                    yield file_data
+
+                except (UnicodeDecodeError, IOError) as exc_info:
+                    logger.warning(
+                        f"Error reading file {file_path}: {exc_info}"
+                    )
                     continue
 
-    def get_file_contents(self, contents: Dict) -> Dict[str, str]:
-        """Extracts the file contents from the list of dicts."""
-        return {content["path"]: content["content"] for content in contents}
-
-    def get_unique_contents(
-        self, contents: Dict, keys: List[str]
-    ) -> List[str]:
-        """Extracts the unique contents from the list of dicts."""
-        unique_contents = {data[key] for key in keys for data in contents}
-        return list(unique_contents)
-
-    def process_language_mapping(self, contents: List[Dict]) -> List[Dict]:
+    def language_mapper(self, contents: List[FileData]) -> List[FileData]:
         """Maps file extensions to their programming languages."""
         for content in contents:
-            content["language"] = self.language_names.get(
-                content["extension"], ""
+            content.language = self.language_names.get(
+                content.extension, ""
             ).lower()
         return contents
 
-    def tokenize_content(self, contents: List[Dict]) -> List[Dict]:
-        """Tokenize the content of each file."""
+    def tokenize_content(self, contents: List[FileData]) -> List[FileData]:
+        """Tokenize each file content and return the token count."""
+        if self.config.cli.offline is True:
+            return contents
+
         for content in contents:
-            content["tokens"] = get_token_count(
-                content["content"], self.encoding_name
+            content.tokens = get_token_count(
+                content.content, self.config.llm.encoding
             )
         return contents

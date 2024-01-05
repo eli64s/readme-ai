@@ -3,13 +3,13 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from readmeai.core import logger
+from readmeai.core.logger import Logger
 
-logger = logger.Logger(__name__)
+logger = Logger(__name__)
 
 
 class FileParser(ABC):
-    """Base class for all depedency file parsers."""
+    """Base class for all dependency file parsers."""
 
     @abstractmethod
     def parse(self, content: str) -> List[str]:

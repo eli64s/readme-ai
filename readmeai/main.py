@@ -9,6 +9,7 @@ import os
 import shutil
 import tempfile
 import traceback
+from typing import List
 
 from readmeai.cli.options import prompt_for_custom_image
 from readmeai.config.enums import ImageOptions
@@ -22,7 +23,7 @@ from readmeai.config.settings import (
 )
 from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
-from readmeai.core.preprocess import RepoProcessor
+from readmeai.core.preprocess import FileData, RepoProcessor
 from readmeai.markdown.builder import ReadmeBuilder, build_readme_md
 from readmeai.services.git_operations import clone_repo_to_temp_dir
 
@@ -32,84 +33,75 @@ logger = Logger(__name__)
 async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     """Orchestrates the README file generation process."""
     repo_url = conf.git.repository
-    temp_dir = await asyncio.to_thread(tempfile.mkdtemp)
+
     try:
-        await clone_repo_to_temp_dir(repo_url, temp_dir)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            await clone_repo_to_temp_dir(repo_url, temp_dir)
 
-        parser = RepoProcessor(conf, conf_helper)
-        dependencies, file_context = parser.get_dependencies(temp_dir)
-        summaries = [(path, content) for path, content in file_context.items()]
-        repo_tree = ReadmeBuilder(
-            conf, conf_helper, dependencies, summaries, temp_dir
-        ).md_tree
+            repo_processor = RepoProcessor(conf, conf_helper)
+            file_context = repo_processor.generate_contents(temp_dir)
+            file_context = repo_processor.language_mapper(file_context)
+            file_context = repo_processor.tokenize_content(file_context)
 
-        logger.info(f"Project dependencies: {dependencies}")
-        logger.info(f"Project structure:\n{repo_tree}")
+            dependencies = set()
+            for file_data in file_context:
+                dependencies.update(file_data.dependencies)
+                dependencies.add(file_data.language)
+                dependencies.add(file_data.name)
+                dependencies.add(file_data.extension)
 
-        async with ModelHandler(conf).use_api() as llm:
-            if conf.cli.offline is False:
-                prompts = [
-                    {
-                        "type": "summaries",
-                        "context": {
-                            "repo": repo_url,
-                            "tree": repo_tree,
-                            "dependencies": dependencies,
-                            "summaries": summaries,
-                        },
-                    },
-                    {
-                        "type": "features",
-                        "context": {
-                            "repo": repo_url,
-                            "tree": repo_tree,
-                            "summaries": file_context,
-                        },
-                    },
-                    {
-                        "type": "overview",
-                        "context": {
-                            "name": conf.git.name,
-                            "repo": repo_url,
-                            "summaries": summaries,
-                        },
-                    },
-                    {
-                        "type": "slogan",
-                        "context": {
-                            "repo": repo_url,
-                            "summaries": summaries,
-                        },
-                    },
-                ]
-                responses = await llm.batch_text_generator(prompts)
-                (
-                    summaries_response,
-                    features_response,
-                    overview_response,
-                    slogan_response,
-                ) = (response for response in responses)
-                summaries = summaries_response
-                conf.md.features = conf.md.features.format(features_response)
-                conf.md.overview = conf.md.overview.format(overview_response)
-                conf.md.slogan = slogan_response
-            else:
-                (
-                    summaries,
-                    conf.md.features,
-                    conf.md.overview,
-                    conf.md.slogan,
-                ) = (
-                    [
-                        (str(file_path), conf.md.default)
-                        for file_path, _ in file_context.items()
-                    ],
-                    conf.md.features.format(conf.md.default),
-                    conf.md.overview.format(conf.md.default),
-                    conf.md.default,
-                )
+            dependencies = list(dependencies)
+            code_files = [(data.path, data.content) for data in file_context]
+            summaries = code_files.copy()
+            conf.md.tree = ReadmeBuilder(
+                conf, conf_helper, dependencies, summaries, temp_dir
+            ).md_tree
 
-        build_readme_md(conf, conf_helper, dependencies, summaries, temp_dir)
+            log_file_data(file_context, list(dependencies), conf.md.tree)
+
+            async with ModelHandler(conf).use_api() as llm:
+                if not conf.cli.offline:
+                    prompts = await generate_prompts(
+                        conf, file_context, dependencies, summaries
+                    )
+                    responses = await llm.batch_text_generator(prompts)
+                    (
+                        summaries_response,
+                        features_response,
+                        overview_response,
+                        slogan_response,
+                    ) = responses
+                    summaries = summaries_response
+                    conf.md.features = conf.md.features.format(
+                        features_response
+                    )
+                    conf.md.overview = conf.md.overview.format(
+                        overview_response
+                    )
+                    conf.md.slogan = slogan_response
+                else:
+                    (
+                        summaries,
+                        conf.md.features,
+                        conf.md.overview,
+                        conf.md.slogan,
+                    ) = (
+                        [
+                            (str(file_path), conf.md.default)
+                            for file_path, _ in summaries
+                        ],
+                        conf.md.features.format(conf.md.default),
+                        conf.md.overview.format(conf.md.default),
+                        conf.md.default,
+                    )
+
+            build_readme_md(
+                conf, conf_helper, dependencies, summaries, temp_dir
+            )
+
+            logger.info(
+                f"README.md file generated successfully @ {conf.files.output}"
+            )
 
     except Exception as exc_info:
         logger.error(
@@ -118,7 +110,52 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     finally:
         shutil.rmtree(temp_dir)
 
-    logger.info(f"README file successfully generated at {conf.files.output}")
+
+async def generate_prompts(
+    conf: AppConfig,
+    file_context: list[FileData],
+    dependencies: List[str],
+    summaries: List[str],
+) -> List[dict]:
+    """Generates the prompts to be used by the LLM API."""
+    return [
+        {"type": prompt_type, "context": context}
+        for prompt_type, context in [
+            (
+                "summaries",
+                {
+                    "repo": conf.git.repository,
+                    "tree": conf.md.tree,
+                    "dependencies": file_context,
+                    "summaries": summaries,
+                },
+            ),
+            (
+                "features",
+                {
+                    "repo": conf.git.repository,
+                    "dependencies": dependencies,
+                    "files": file_context,
+                },
+            ),
+            (
+                "overview",
+                {
+                    "name": conf.git.name,
+                    "repo": conf.git.repository,
+                    "summaries": summaries,
+                },
+            ),
+            (
+                "slogan",
+                {
+                    "name": conf.git.name,
+                    "repo": conf.git.repository,
+                    "summaries": summaries,
+                },
+            ),
+        ]
+    ]
 
 
 def main(
@@ -154,7 +191,7 @@ def main(
         )
         log_settings(conf)
 
-        export_to_environment(conf, api_key)
+        setup_environment(conf, api_key)
 
         asyncio.run(readme_agent(conf, conf_helper))
 
@@ -195,12 +232,13 @@ def update_settings(
     return conf
 
 
-def export_to_environment(config: AppConfig, api_key: str) -> None:
+def setup_environment(config: AppConfig, api_key: str) -> None:
     """Set environment variables for the CLI application."""
     if api_key is not None:
         os.environ["OPENAI_API_KEY"] = api_key
     elif "OPENAI_API_KEY" not in os.environ:
         config.cli.offline = True
+        logger.warning("API key not found. Running in offline mode.")
 
 
 def log_settings(conf: AppConfig) -> None:
@@ -214,4 +252,25 @@ def log_settings(conf: AppConfig) -> None:
     logger.info(f"Header alignment: {conf.md.align}")
     logger.info(f"Using emojis: {conf.cli.emojis}")
     logger.info(f"Offline mode: {conf.cli.offline}")
-    logger.info(f"Repository validations: {conf.git}")
+    logger.info(
+        f"""Repository pydantic validations:\n\
+        Repository URL: {conf.git.repository}\n\
+        Full Name: {conf.git.full_name}\n\
+        Project Name: {conf.git.name}\n\
+        Host: {conf.git.source}\n\
+        Host Name: {conf.git.host}"""
+    )
+
+
+def log_file_data(context: list[FileData], deps: List[str], tree: str) -> None:
+    """Log the processed file data from the repository."""
+    for file_data in context:
+        logger.info(
+            f"""
+            File: {file_data.path}\n\
+            Language: {file_data.language} ({file_data.extension})\n\
+            Tokens: {file_data.tokens}\n\
+            Dependencies: {file_data.dependencies}"""
+        )
+    logger.info(f"Dependencies: {deps}")
+    logger.info(f"Project structure:\n{tree}")

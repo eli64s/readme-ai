@@ -5,7 +5,7 @@ from readmeai.markdown.quickstart import (
     count_languages,
     get_top_language,
     get_top_language_setup,
-    getting_started,
+    setup_guide,
 )
 
 
@@ -30,7 +30,7 @@ def test_get_top_language_setup(config, config_helper):
     assert setup.top_language == "Python"
 
 
-def test_getting_started(config, config_helper, mock_summaries):
-    """Tests the getting_started method."""
-    setup = getting_started(config, config_helper, mock_summaries)
+def test_setup_guide(config, config_helper, mock_summaries):
+    """Tests the setup_guide method."""
+    setup = setup_guide(config, config_helper, mock_summaries)
     assert isinstance(setup, ProjectSetup)

@@ -28,7 +28,7 @@ class GitService(str, Enum):
         """Gets the file URL template for the Git service."""
         return {
             GitService.LOCAL: "{file_path}",
-            GitService.GITHUB: "https://github.com/{full_name}/blob/main/{file_path}",
+            GitService.GITHUB: "https://github.com/{full_name}/blob/master/{file_path}",
             GitService.GITLAB: "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
             GitService.BITBUCKET: "https://bitbucket.org/{full_name}/src/master/{file_path}",
         }.get(self, None)
@@ -60,3 +60,4 @@ class ImageOptions(str, Enum):
     GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
     YELLOW = "https://img.icons8.com/pulsar-color/96/markdown.png"
+    CLOUD = "https://cdn-icons-png.flaticon.com/512/6295/6295417.png"

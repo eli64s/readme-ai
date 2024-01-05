@@ -51,18 +51,17 @@ class TreeGenerator:
             if not utils.should_ignore(self.config_helper, child)
         ]
 
-        # If the directory is empty or contains only ignored files, return an empty string
         if not children and directory.is_dir():
             return ""
 
         parts = [f"{prefix}{'└── ' if is_last else '├── '}{directory.name}"]
+
         for index, child in enumerate(children):
             child_prefix = prefix + ("    " if is_last else "│   ")
             child_tree = self._generate_tree(
                 child, child_prefix, index == len(children) - 1, depth + 1
             )
 
-            # Append the child tree only if it's not empty
             if child_tree:
                 parts.append(child_tree)
 

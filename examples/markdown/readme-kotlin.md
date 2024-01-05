@@ -1,74 +1,73 @@
-<p align="left">
+<p align="center">
   <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100" />
 </p>
-<p align="left">
-    <h1 align="left">FILE.IO-ANDROID-CLIENT</h1>
+<p align="center">
+    <h1 align="center">FILE.IO-ANDROID-CLIENT</h1>
 </p>
-<p align="left">
-    <em>Simple file sharing made effortless and fast.</em>
+<p align="center">
+    <em>Share files seamlessly with file.io-Android-Client!</em>
 </p>
-<p align="left">
+<p align="center">
 	<img src="https://img.shields.io/github/license/rumaan/file.io-Android-Client?style=flat&color=0080ff" alt="license">
 	<img src="https://img.shields.io/github/last-commit/rumaan/file.io-Android-Client?style=flat&color=0080ff" alt="last-commit">
 	<img src="https://img.shields.io/github/languages/top/rumaan/file.io-Android-Client?style=flat&color=0080ff" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/rumaan/file.io-Android-Client?style=flat&color=0080ff" alt="repo-language-count">
 <p>
-<p align="left">
-		<em>Developed with the software and tools below</em>
+<p align="center">
+		<em>Developed with the software and tools below.</em>
 </p>
-<p align="left">
+<p align="center">
 	<img src="https://img.shields.io/badge/Firebase-FFCA28.svg?style=flat&logo=Firebase&logoColor=black" alt="Firebase">
 	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat&logo=YAML&logoColor=white" alt="YAML">
 	<img src="https://img.shields.io/badge/Kotlin-7F52FF.svg?style=flat&logo=Kotlin&logoColor=white" alt="Kotlin">
 	<img src="https://img.shields.io/badge/Org-77AA99.svg?style=flat&logo=Org&logoColor=white" alt="Org">
 	<img src="https://img.shields.io/badge/Google-4285F4.svg?style=flat&logo=Google&logoColor=white" alt="Google">
-	<img src="https://img.shields.io/badge/Android-3DDC84.svg?style=flat&logo=Android&logoColor=white" alt="Android">
 	<br>
+	<img src="https://img.shields.io/badge/Android-3DDC84.svg?style=flat&logo=Android&logoColor=white" alt="Android">
 	<img src="https://img.shields.io/badge/GitHub-181717.svg?style=flat&logo=GitHub&logoColor=white" alt="GitHub">
 	<img src="https://img.shields.io/badge/Gradle-02303A.svg?style=flat&logo=Gradle&logoColor=white" alt="Gradle">
-	<img src="https://img.shields.io/badge/JetBrains-000000.svg?style=flat&logo=JetBrains&logoColor=white" alt="JetBrains">
 	<img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat&logo=openjdk&logoColor=white" alt="java">
-	<img src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" alt="Markdown">
+	<img src="https://img.shields.io/badge/JetBrains-000000.svg?style=flat&logo=JetBrains&logoColor=white" alt="JetBrains">
 </p>
 <hr>
 
 ## 🔗 Quick Links
-- [🔗 Quick Links](#-quick-links)
-- [📍 Overview](#-overview)
-- [📦 Features](#-features)
-- [📂 Repository Structure](#-repository-structure)
-- [🧩 Modules](#modules)
-- [🚀 Getting Started](#-getting-started)
-    - [⚙️ Installation](#-installation)
-    - [🤖 Running file.io-Android-Client](#-running-file.io-Android-Client)
-    - [🧪 Tests](#-tests)
-- [🛠 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
+
+> - [📍 Overview](#-overview)
+> - [📦 Features](#-features)
+> - [📂 Repository Structure](#-repository-structure)
+> - [🧩 Modules](#-modules)
+> - [🚀 Getting Started](#-getting-started)
+>     - [⚙️ Installation](#-installation)
+>     - [🤖 Running file.io-Android-Client](#-running-file.io-Android-Client)
+>     - [🧪 Tests](#-tests)
+> - [🛠 Project Roadmap](#-project-roadmap)
+> - [🤝 Contributing](#-contributing)
+> - [📄 License](#-license)
+> - [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
 ## 📍 Overview
 
-The file.io-Android-Client project is an Android app that provides a convenient and secure way to share files with others. It allows users to easily upload files from their Android devices and generate shareable links. The app also supports downloading files shared through link access. With a simple and intuitive user interface, this project aims to streamline the file sharing process, making it efficient and hassle-free. Whether it's sharing documents, images, or any other file type, this app ensures that users can quickly share files with others while maintaining data privacy and security.
+The file.io-Android-Client project is a mobile application that allows users to easily upload and share files. The app provides a convenient and secure way to quickly send files to others, without the need for complex file-sharing platforms or email attachments. Users can select files from their device and upload them to the file.io server, which generates a unique link that can be shared with recipients. The files are encrypted during transit and stored securely on the server for a limited period of time before being automatically deleted. This project offers a simple and efficient solution for file sharing, making it a valuable tool for both personal and professional use.
 
 ---
 
 ## 📦 Features
 
-|    | Feature           | Description                                                                                                       |
-|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**    | The codebase follows the Model-View-ViewModel (MVVM) architectural pattern.|
-| 📄 | **Documentation**  | The codebase has limited documentation. It could benefit from more comprehensive documentation to improve understanding.|
-| 🔗 | **Dependencies**   | The codebase relies on various external libraries, including Firebase, ConstraintLayout, CardView, and AndroidX.|
-| 🧩 | **Modularity**     | The system is organized into smaller, interchangeable components, with separate modules for tests and Android-specific code.|
-| 🧪 | **Testing**        | The codebase includes unit tests for some classes, but overall, the testing strategy could be improved with more comprehensive test coverage.|
-| ⚡️ | **Performance**     | The performance of the system depends on external factors such as network speeds and file sizes. The codebase itself does not have significant performance optimizations.|
-| 🔐 | **Security**       | The codebase does not explicitly address security measures, but it relies on external systems like Firebase for authentication and data protection.|
-| 🔀 | **Version Control**| The codebase uses Git for version control.|
-| 🔌 | **Integrations**   | The system integrates with Firebase for authentication and Firebase Cloud Storage for file storage.|
-| 📶 | **Scalability**    | The system's scalability depends on external factors, such as the scalability of Firebase Cloud Storage. The codebase itself does not have explicit scalability measures.|
+|    |   Feature         | Description |
+|----|-------------------|---------------------------------------------------------------|
+| ⚙️  | **Architecture**  | The architecture of the project is not mentioned in the repository. |
+| 🔩 | **Code Quality**  | The code quality and style are not explicitly mentioned in the repository. |
+| 📄 | **Documentation** | The extent and quality of documentation are not mentioned in the repository. |
+| 🔌 | **Integrations**  | The key integrations and external dependencies include Firebase, Kittinunf, and WorkManager. |
+| 🧩 | **Modularity**    | The modularity and reusability of the codebase are not mentioned in the repository. |
+| 🧪 | **Testing**       | The testing frameworks and tools used are not mentioned in the repository. |
+| ⚡️  | **Performance**   | The efficiency, speed, and resource usage are not mentioned in the repository. |
+| 🛡️ | **Security**      | The measures used for data protection and access control are not mentioned in the repository. |
+| 📦 | **Dependencies**  | The key external libraries and dependencies include Firebase, Kittinunf, and WorkManager. |
+
 
 ---
 
@@ -77,24 +76,22 @@ The file.io-Android-Client project is an Android app that provides a convenient 
 ```sh
 └── file.io-Android-Client/
     ├── .travis.yml
-    ├── app/
-    │   ├── build/
-    │   │   └── outputs/
+    ├── app
+    │   ├── build
+    │   │   └── outputs
     │   ├── build.gradle
     │   ├── proguard-rules.pro
-    │   ├── release/
+    │   ├── release
     │   │   └── app-release.apk
-    │   └── src/
-    │       ├── androidTest/
-    │       ├── main/
-    │       └── test/
+    │   └── src
+    │       ├── androidTest
+    │       ├── main
+    │       └── test
     ├── build.gradle
-    ├── gradle/
-    │   └── wrapper/
-    ├── screenshots/
-    │   ├── readme.txt
+    ├── gradle
+    ├── screenshots
+    │   └── readme.txt
     └── settings.gradle
-
 ```
 
 ---
@@ -103,122 +100,122 @@ The file.io-Android-Client project is an Android app that provides a convenient 
 
 <details closed><summary>.</summary>
 
-| File                                                                                          | Summary                                                                                                                                                                                                                                                      |
-| ---                                                                                           | ---                                                                                                                                                                                                                                                          |
-| [build.gradle](https://github.com/rumaan/file.io-Android-Client/blob/main/build.gradle)       | The code snippet in the `build.gradle` file sets up the necessary dependencies and repositories for the Android client application in the `file.io` repository. It includes configurations for the Android build tools, Fabric, Google services, and Kotlin. |
-| [settings.gradle](https://github.com/rumaan/file.io-Android-Client/blob/main/settings.gradle) | The code snippet is part of the file.io-Android-Client repository. It plays a key role in the architecture by including the:app file. The repository's layout consists of necessary directories and dependencies to enable the Android client functionality. |
-| [.travis.yml](https://github.com/rumaan/file.io-Android-Client/blob/main/.travis.yml)         | This code snippet includes the configuration for the Android build process in the parent repository. It sets up the necessary dependencies and software, manages caching and licenses, and ensures compatibility with Android versions 26 and 27.            |
+| File                                                                                            | Summary                                                                                                                                                                                                                                    |
+| ---                                                                                             | ---                                                                                                                                                                                                                                        |
+| [build.gradle](https://github.com/rumaan/file.io-Android-Client/blob/master/build.gradle)       | This code snippet in the build.gradle file is responsible for configuring the build and dependencies of the Android client app in the parent repository. It sets up repositories, declares dependencies, and configures the build tools.   |
+| [settings.gradle](https://github.com/rumaan/file.io-Android-Client/blob/master/settings.gradle) | This code snippet, located in the `settings.gradle` file, includes the `app` module in the repository's build process. It ensures that the `app` module is built and included in the final output of the parent repository's architecture. |
+| [.travis.yml](https://github.com/rumaan/file.io-Android-Client/blob/master/.travis.yml)         | This code snippet in the.travis.yml file defines the configuration for continuous integration on the parent repository. It specifies the required JDK, Android SDK components, and caching directories.                                    |
 
 </details>
 
 <details closed><summary>screenshots</summary>
 
-| File                                                                                            | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ---                                                                                             | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| [readme.txt](https://github.com/rumaan/file.io-Android-Client/blob/main/screenshots/readme.txt) | The code snippet in the `app` directory of the `file.io-Android-Client` repository serves as the main Android client for accessing and interacting with the file.io platform. It includes build configurations, source code, and test files necessary for the functionality of the app. The codebase relies on various dependencies and software as documented in the `screenshots/readme.txt` file. Additionally, key files such as `readme.txt`, `screenshot.png`, and `todo-ui.png` provide further information and visual representations about the codebase. |
+| File                                                                                              | Summary                                                                                                                                                                                                                                                                                           |
+| ---                                                                                               | ---                                                                                                                                                                                                                                                                                               |
+| [readme.txt](https://github.com/rumaan/file.io-Android-Client/blob/master/screenshots/readme.txt) | This code snippet is part of the file.io Android Client repository. It contributes to the parent repository's architecture by managing and displaying screenshots in the Android app. The code achieves the critical feature of organizing and presenting screenshots to enhance user experience. |
 
 </details>
 
 <details closed><summary>app</summary>
 
-| File                                                                                                    | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ---                                                                                                     | ---                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [proguard-rules.pro](https://github.com/rumaan/file.io-Android-Client/blob/main/app/proguard-rules.pro) | This code snippet adds and configures ProGuard rules in the Android client of the file.io repository. It ensures proper obfuscation and exclusion of certain classes, while preserving necessary attributes for debugging and Crashlytics integration.                                                                                                                                                                                 |
-| [build.gradle](https://github.com/rumaan/file.io-Android-Client/blob/main/app/build.gradle)             | This code snippet is part of an Android client for the file.io file-sharing service. It applies various plugins and dependencies, including permissions_dispatcher, Firebase Crashlytics, Room, Fuel, Gson, Kotlin, and more. Additionally, it configures build types and sets up necessary dependencies for testing. The code focuses on providing a smooth user experience and robust functionality for file sharing and management. |
+| File                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                               |
+| [proguard-rules.pro](https://github.com/rumaan/file.io-Android-Client/blob/master/app/proguard-rules.pro) | The `proguard-rules.pro` file in the `app` directory of the repository contains project-specific ProGuard rules. It specifies the applied configuration fileEntities and preserves line number and source file information for debugging. It also handles warnings and keeps specific classes and attributes while excluding others. Additionally, it includes rules for the Crashlytics library. |
+| [build.gradle](https://github.com/rumaan/file.io-Android-Client/blob/master/app/build.gradle)             | This code snippet is a build file for an Android application. It specifies various dependencies for the app, such as appcompat, material design, and Firebase Crashlytics. It also applies plugins for Kotlin and Android extensions. The file is a crucial part of the repository's architecture as it defines the project's configuration and dependencies.                                     |
 
 </details>
 
 <details closed><summary>app.src.androidTest.java.com.thecoolguy.rumaan.fileio</summary>
 
-| File                                                                                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                     |
-| ---                                                                                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                         |
-| [ExampleInstrumentedTest.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/ExampleInstrumentedTest.kt)                 | This code snippet is an instrumented test that validates the context of the app under test. It uses the AndroidJUnit4 framework and asserts that the package name matches the expected value. The main role of this code in the repository's architecture is to ensure the correctness of the app's context during testing. |
-| [FileEntityDaoTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/FileEntityDaoTest.java)                         | This code snippet is a test suite for the RoomDatabase in the File.io Android Client repository. It tests the functionality of the FileEntityDao, such as counting rows, inserting and retrieving items, and saving multiple items. The tests ensure that the database operations are working correctly.                    |
-| [UploadHistoryInstrumentedTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/UploadHistoryInstrumentedTest.java) | This code snippet is an instrumented test for the UploadHistoryActivity in the File.io-Android-Client repository. It sets up the database, adds test data, and tests a long press action.                                                                                                                                   |
+| File                                                                                                                                                                                        | Summary                                                                                                                                                                                                                                                                                                            |
+| ---                                                                                                                                                                                         | ---                                                                                                                                                                                                                                                                                                                |
+| [ExampleInstrumentedTest.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/ExampleInstrumentedTest.kt)                 | This code snippet is an instrumented test for the File.io Android client app. It tests the app's context and asserts that the package name is correct. It is part of the app's testing documentation for Android devices.                                                                                          |
+| [FileEntityDaoTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/FileEntityDaoTest.java)                         | This code snippet contains test cases for the RoomDatabase in the Android app. It tests functionalities such as counting the number of rows, inserting and retrieving items from the database. The tests ensure that the database operations are working correctly, by checking various conditions and assertions. |
+| [UploadHistoryInstrumentedTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/androidTest/java/com/thecoolguy/rumaan/fileio/UploadHistoryInstrumentedTest.java) | This code snippet is an Android Instrumentation test for the UploadHistoryActivity. It initializes the UploadHistoryRoomDatabase and adds five FileEntity items to the database. The test method check_longPressItemDelete is empty.                                                                               |
 
 </details>
 
 <details closed><summary>app.src.test.java.com.thecoolguy.rumaan.fileio</summary>
 
-| File                                                                                                                                                             | Summary                                                                                                                                                                                                                                                                                                                        |
-| ---                                                                                                                                                              | ---                                                                                                                                                                                                                                                                                                                            |
-| [ExampleUnitTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/test/java/com/thecoolguy/rumaan/fileio/ExampleUnitTest.java)           | This code snippet contains a unit test file that checks if the addition operation is correct. It is part of an Android client repository for file.io service.                                                                                                                                                                  |
-| [UploadRepositoryTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/test/java/com/thecoolguy/rumaan/fileio/UploadRepositoryTest.java) | This code snippet is a test file within the `UploadRepositoryTest` class, located in the `com.thecoolguy.rumaan.fileio` package. It verifies the functionality of the `getExpireUrl` method by comparing the expected URL with the actual URL. The test checks that the expiration parameter is correctly appended to the URL. |
-| [UrlTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/test/java/com/thecoolguy/rumaan/fileio/UrlTest.java)                           | The code snippet in `UrlTest.java` tests the functionality of `URLParser` in the `Utils` class. It checks if the `parseEncryptUrl` method correctly extracts the base URL from an encrypted URL. The test asserts the expected output with the actual result.                                                                  |
-| [FileEntityTest.java](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/test/java/com/thecoolguy/rumaan/fileio/FileEntityTest.java)             | This code snippet is a test file that verifies the functionality of the FileEntity class within the parent repository. It checks if the name and URL values are properly set and retrieved. The test ensures that the FileEntity object is functioning correctly.                                                              |
+| File                                                                                                                                                               | Summary                                                                                                                                                                                                                                                              |
+| ---                                                                                                                                                                | ---                                                                                                                                                                                                                                                                  |
+| [ExampleUnitTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/test/java/com/thecoolguy/rumaan/fileio/ExampleUnitTest.java)           | This code snippet is a unit test that verifies the correctness of addition operation. It is part of the file.io-Android-Client repository and contributes to ensuring the reliability of the application.                                                            |
+| [UploadRepositoryTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/test/java/com/thecoolguy/rumaan/fileio/UploadRepositoryTest.java) | This code snippet is a test case that checks if the expire URL is correctly generated by the UploadRepository class. It verifies that the generated URL matches the expected URL and also checks if the generated URL matches the URL created using constant values. |
+| [UrlTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/test/java/com/thecoolguy/rumaan/fileio/UrlTest.java)                           | This code snippet contains a unit test for the `parseEncryptUrl` method in the `UrlTest` class. The test validates that the method correctly extracts the base URL from an encrypted URL.                                                                            |
+| [FileEntityTest.java](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/test/java/com/thecoolguy/rumaan/fileio/FileEntityTest.java)             | This code snippet is a test class named FileEntityTest in the Android client of the file.io repository. It tests the functionality of the FileEntity model by checking if its name and URL can be set and retrieved correctly.                                       |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.viewmodel</summary>
 
-| File                                                                                                                                                                       | Summary                                                                                                                                                                                                                       |
-| ---                                                                                                                                                                        | ---                                                                                                                                                                                                                           |
-| [UploadHistoryViewModel.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/viewmodel/UploadHistoryViewModel.kt) | The code snippet is part of the `file.io-Android-Client` repository and is located in the `UploadHistoryViewModel` file. It defines a ViewModel class that retrieves and stores a list of file uploads using a Room database. |
+| File                                                                                                                                                                         | Summary                                                                                                                                                                                                                                                                                           |
+| ---                                                                                                                                                                          | ---                                                                                                                                                                                                                                                                                               |
+| [UploadHistoryViewModel.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/viewmodel/UploadHistoryViewModel.kt) | The code snippet represents the UploadHistoryViewModel class in the file UploadHistoryViewModel.kt. It is responsible for managing the upload history feature in the Android app. It retrieves a list of uploaded files from the UploadHistoryRoomDatabase and provides it as LiveData to the UI. |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.ui</summary>
 
-| File                                                                                                                                                                    | Summary                                                                                                                                                                                                                                                                                                                                                                                                     |
-| ---                                                                                                                                                                     | ---                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [FileioApplication.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/FileioApplication.kt)               | This code snippet is a key file in the repository's architecture. It initializes the application and handles logging and error handling. It uses libraries like Timber and Custom Activity on Crash. The code sets up logging and configures a custom error activity for crashes.                                                                                                                           |
-| [UploadHistoryListAdapter.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/UploadHistoryListAdapter.kt) | The `UploadHistoryListAdapter` is a key file in the `file.io-Android-Client` repository. It handles the UI and data binding for displaying a list of uploaded files in a RecyclerView. It uses different view types to display dates and file details, and handles user interactions such as copying file URLs to the clipboard and showing toast messages.                                                 |
-| [SwipeToDeleteCallBack.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/SwipeToDeleteCallBack.kt)       | The `SwipeToDeleteCallBack` class is a key file in the `com.thecoolguy.rumaan.fileio.ui` package. It provides functionality to enable swiping and deleting items in a RecyclerView. It handles the drawing of the delete icon and the red background, as well as the logic for canceling the swipe action.                                                                                                  |
-| [NotificationHelper.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/NotificationHelper.kt)             | The code snippet is a NotificationHelper class that creates and displays a notification for a successful file upload. It sets the notification's content, icon, and behavior, and also handles the creation of a notification channel for devices running Android O and above. The main role of this code is to provide a convenient way to generate and display notifications for file uploads in the app. |
+| File                                                                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                         |
+| ---                                                                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                             |
+| [FileioApplication.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/FileioApplication.kt)               | The FileioApplication.kt code snippet is responsible for defining the application class for the File.io Android Client repository. It handles initialization tasks such as setting up logging and configuring a custom activity to handle crashes.                                                                              |
+| [UploadHistoryListAdapter.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/UploadHistoryListAdapter.kt) | The UploadHistoryListAdapter code in the Android Client repository is responsible for displaying a list of uploaded files with their corresponding details. It uses two view holders to handle different types of items in the list. The code provides methods for updating the list, handling item clicks, and removing items. |
+| [SwipeToDeleteCallBack.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/SwipeToDeleteCallBack.kt)       | This code snippet is a SwipeToDeleteCallBack class that handles the swipe-to-delete functionality in a RecyclerView. It provides the necessary methods to draw a background and icon for the delete action, as well as handle user interactions with the swipe gesture.                                                         |
+| [NotificationHelper.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/NotificationHelper.kt)             | This code snippet is responsible for creating a notification and handling its behavior when a file upload is successful in the Android application. It sets up the notification with appropriate content, an intent for further action, and handles compatibility with different Android versions.                              |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.ui.fragments</summary>
 
-| File                                                                                                                                                                            | Summary                                                                                                                                                                                                                                                                                                                                                                        |
-| ---                                                                                                                                                                             | ---                                                                                                                                                                                                                                                                                                                                                                            |
-| [NoNetworkDialogFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/NoNetworkDialogFragment.kt) | The code snippet is a Kotlin class file named NoNetworkDialogFragment.kt within the com.thecoolguy.rumaan.fileio.ui.fragments package. It creates a dialog fragment that displays an AlertDialog when there is no network connection. It includes a button that triggers a callback to the parent activity when clicked.                                                       |
-| [HomeFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/HomeFragment.kt)                       | The `HomeFragment` class is part of the `file.io-Android-Client` repository. It represents a UI fragment for displaying the main layout of the app and handles user interactions. It has a callback for choosing a file and storing it in the local file object cache. The fragment communicates with its parent activity using the `OnFragmentInteractionListener` interface. |
-| [ResultFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/ResultFragment.kt)                   | This code snippet is a key file within the ResultFragment package of the Android client app. It handles the logic and UI for displaying the result of a file upload, including the URL and expiration days. Users can copy the link to the clipboard and mark the task as done.                                                                                                |
+| File                                                                                                                                                                              | Summary                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---                                                                                                                                                                               | ---                                                                                                                                                                                                                                                                                                                                                                                            |
+| [NoNetworkDialogFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/NoNetworkDialogFragment.kt) | This code snippet defines a dialog fragment that displays a no network error message to the user. It allows the user to click on the OK button to dismiss the dialog. The fragment communicates with the parent activity using a custom listener interface. This code contributes to the user interface components of the Android client application in the file.io-Android-Client repository. |
+| [HomeFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/HomeFragment.kt)                       | This code snippet represents the HomeFragment class in the file.io-Android-Client repository. It defines the user interface and interactions for the home screen of the file.io Android app. Users can choose a file to upload through a button click. The fragment communicates with the parent activity through a listener interface.                                                        |
+| [ResultFragment.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/fragments/ResultFragment.kt)                   | This code snippet represents the ResultFragment class in the file.io-Android-Client repository. It is responsible for displaying the result of a file upload, including the URL and expiration days. Users can copy the URL to the clipboard and mark the upload as done.                                                                                                                      |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.ui.activities</summary>
 
-| File                                                                                                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                               |
-| ---                                                                                                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                   |
-| [MainActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/MainActivity.kt)                   | The code snippet represents the MainActivity file in the file.io-Android-Client repository. It handles various activities and fragments, including file uploads, displaying results, and handling permissions.                                                                                                                                                        |
-| [ErrorActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/ErrorActivity.kt)                 | This code snippet represents the ErrorActivity class within the Android client of the file.io project. It is responsible for displaying an error screen in case of runtime crashes and allows users to exit the app. Its main features include handling the back button press and setting the error view layout.                                                      |
-| [UploadHistoryActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/UploadHistoryActivity.kt) | This code snippet represents the `UploadHistoryActivity` file in the `file.io-Android-Client` repository. It is responsible for displaying and managing the upload history in the app, including clearing the history and deleting individual items. It uses various components like RecyclerView, ViewModel, WorkManager, and Snackbar for a smooth user experience. |
-| [AboutActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/AboutActivity.kt)                 | The code snippet is a key file in the repository's architecture. It defines the behavior of the About screen in the Android app, including menu options and navigation to the License screen.                                                                                                                                                                         |
-| [LicenseActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/LicenseActivity.kt)             | This code snippet is responsible for displaying a list of open source licenses in the LicenseActivity of the Android app. It uses MaterialAboutLibrary to create license cards for various libraries used in the app, including AOSP Support Libraries, Architecture Components, Fuel, and more.                                                                      |
+| File                                                                                                                                                                           | Summary                                                                                                                                                                                                                                                                                                                                                |
+| ---                                                                                                                                                                            | ---                                                                                                                                                                                                                                                                                                                                                    |
+| [MainActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/MainActivity.kt)                   | This code snippet is the implementation of the main activity in the Android client of the file.io repository. It handles UI interactions, file upload, and navigation between fragments.                                                                                                                                                               |
+| [ErrorActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/ErrorActivity.kt)                 | This code snippet defines the ErrorActivity class in the Android client of the file.io repository. It handles runtime crashes and displays an error screen. It includes methods for handling back button presses and initializing the activity.                                                                                                        |
+| [UploadHistoryActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/UploadHistoryActivity.kt) | This code snippet is part of the Android client for the file.io repository. It represents the UploadHistoryActivity, which displays the user's upload history. It allows the user to clear the history and delete individual items using swipe gestures. The activity also dynamically updates the UI based on the changes in the upload history data. |
+| [AboutActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/AboutActivity.kt)                 | This code snippet is the implementation of the AboutActivity in the file.io Android client repository. It defines the behavior and layout of the About screen, including the options menu and navigation to the LicenseActivity.                                                                                                                       |
+| [LicenseActivity.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/ui/activities/LicenseActivity.kt)             | This code snippet is a part of the File.io Android client repository. It implements the LicenseActivity, which displays a list of open source licenses used in the app. The activity extends MaterialAboutActivity and creates license cards for different libraries used in the app.                                                                  |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.repository</summary>
 
-| File                                                                                                                                                                    | Summary                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ---                                                                                                                                                                     | ---                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| [UploadHistoryWorkers.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/repository/UploadHistoryWorkers.kt) | This code snippet contains two worker classes (`ClearHistoryWorker` and `DeleteSingleItemWorker`) that handle clearing and deleting items from the upload history database in the parent Android client repository. The workers are responsible for interacting with the `UploadHistoryRoomDatabase` and performing the necessary operations for clearing all items or deleting a single item based on the provided ID. |
-| [UploadWorker.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/repository/UploadWorker.kt)                 | The `UploadWorker.kt` file in the `com.thecoolguy.rumaan.fileio.repository` package is responsible for uploading files to a server using Fuel library and WorkManager. It handles file uploads, saves the upload history to a database, and sends a notification about the upload progress.                                                                                                                             |
+| File                                                                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---                                                                                                                                                                       | ---                                                                                                                                                                                                                                                                                                                                                                                         |
+| [UploadHistoryWorkers.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/repository/UploadHistoryWorkers.kt) | These code snippets are part of the `file.io-Android-Client` repository. The `ClearHistoryWorker` and `DeleteSingleItemWorker` classes handle clearing the upload history and deleting a single item respectively, using the UploadHistoryRoomDatabase.                                                                                                                                     |
+| [UploadWorker.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/repository/UploadWorker.kt)                 | This code snippet is part of the file.io-Android-Client repository and is located in the UploadWorker.kt file. It handles the uploading of files to the file.io server, saving the file details in the local database, and creating a notification for the upload. The code utilizes the Fuel library for making HTTP requests and the WorkManager framework for managing background tasks. |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.utils</summary>
 
-| File                                                                                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                    |
-| ---                                                                                                                                                                        | ---                                                                                                                                                                                                                                                                                                                                        |
-| [Extensions.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Extensions.kt)                             | The code snippet in the `Extensions.kt` file provides utility functions to display toast messages and toggle the clickable state of a view in an Android application. These functions enhance user interaction and provide feedback.                                                                                                       |
-| [WorkManagerHelper.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/WorkManagerHelper.kt)               | This code snippet in the file `WorkManagerHelper.kt` is responsible for creating and configuring an upload work request using the Android WorkManager library. The request includes constraints for network connectivity and data input. The request is associated with the `UploadWorker` class and is tagged with the `UPLOAD_WORK_TAG`. |
-| [Utils.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Utils.kt)                                       | This code snippet provides a set of helper methods for various tasks such as retrieving file details, opening files, checking network connectivity, showing dialogs, copying text to clipboard, and parsing URLs and JSON. It is part of the Android client for the file.io repository and enhances the app's functionality.               |
-| [Helpers.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Helpers.kt)                                   | This code snippet contains helper functions that retrieve file metadata, get file details, and compose a FileEntity object. These functions are used in the Android Client repository to handle file operations and data manipulation.                                                                                                     |
-| [FragmentHelperExtensions.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/FragmentHelperExtensions.kt) | This code snippet provides utility functions for adding and replacing fragments in an Android app. It helps manage the view hierarchy and transitions between fragments, enhancing the user experience.                                                                                                                                    |
-| [MaterialIn.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/MaterialIn.kt)                             | The code snippet in the `MaterialIn.kt` file is part of the `file.io-Android-Client` repository. It provides a utility function to animate views using material design principles, including fading and sliding effects. The code determines the animation direction based on gravity and implements the animation using `ObjectAnimator`. |
-| [Constants.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Constants.kt)                               | This code snippet provides global constants for the Android client of the file.io repository. It includes base URLs, expiration parameters, default values, and timestamp formats. It also defines GitHub and Twitter URLs and an email address. The snippet is located in the `utils` package.                                            |
+| File                                                                                                                                                                         | Summary                                                                                                                                                                                                                                                                                                                                                                                       |
+| ---                                                                                                                                                                          | ---                                                                                                                                                                                                                                                                                                                                                                                           |
+| [Extensions.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Extensions.kt)                             | This code snippet in the Extensions.kt file provides two extension functions. The first function allows a string to display a toast message, while the second function toggles the clickability of a view. These functions enhance the functionality of the parent repository's Android client app by providing convenient utilities for displaying messages and modifying view behavior.     |
+| [WorkManagerHelper.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/WorkManagerHelper.kt)               | This code snippet provides a helper function that creates a one-time work request for uploading a file. It includes the necessary constraints, such as requiring a connected network, and sets the input data and tags for the work request.                                                                                                                                                  |
+| [Utils.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Utils.kt)                                       | This code snippet provides a collection of utility methods for various tasks in an Android app. It includes methods for getting file details, opening file streams, checking network connectivity, showing dialogs, copying text to clipboard, parsing URLs and JSON, and handling dates. These utility methods can be used to simplify common tasks in the parent repository's architecture. |
+| [Helpers.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Helpers.kt)                                   | This code snippet in the parent repository's architecture is located at app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Helpers.kt. It contains functions to retrieve file metadata, get file details, and compose them into a file entity. These functions are crucial for handling file operations in the app.                                                                         |
+| [FragmentHelperExtensions.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/FragmentHelperExtensions.kt) | These code snippets in the FragmentHelperExtensions.kt file provide extension functions for the FragmentManager class in the Android app. The functions addFragment and replaceFragment allow easy addition and replacement of fragments in a given container.                                                                                                                                |
+| [MaterialIn.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/MaterialIn.kt)                             | The code snippet in MaterialIn.kt is responsible for animating the entrance of a view in the File.io-Android-Client repository. It uses various animations like slide and fade to give a material design effect. The main function animate triggers the animation on a given view using delay and slide directions. The code handles RTL (Right-to-Left) languages as well.                   |
+| [Constants.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/utils/Constants.kt)                               | The code snippet defines global constants for the file.io Android client. It includes the base URL, parameters, default expiration weeks, and timestamp format. It also defines constants for Github and Twitter URLs and an email address. The constants are used throughout the codebase for consistent values.                                                                             |
 
 </details>
 
 <details closed><summary>app.src.main.java.com.thecoolguy.rumaan.fileio.listeners</summary>
 
-| File                                                                                                                                                                                     | Summary                                                                                                                                                                                                                                                                                                |
-| ---                                                                                                                                                                                      | ---                                                                                                                                                                                                                                                                                                    |
-| [DialogClickListener.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/listeners/DialogClickListener.kt)                     | This code snippet defines an interface called DialogClickListener in the listeners package. It provides a method for handling positive button clicks in a dialog. Its purpose is to enable communication between dialogs and fragments in the file.io-Android-Client repository.                       |
-| [OnFragmentInteractionListener.kt](https://github.com/rumaan/file.io-Android-Client/blob/main/app/src/main/java/com/thecoolguy/rumaan/fileio/listeners/OnFragmentInteractionListener.kt) | This code snippet, located in the `com.thecoolguy.rumaan.fileio.listeners` package, defines an interface called `OnFragmentInteractionListener`. It has two functions: `onUploadFileClick()` and `onDone()`. This interface is part of the larger Android Client codebase for the File.io application. |
+| File                                                                                                                                                                                       | Summary                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---                                                                                                                                                                                        | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [DialogClickListener.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/listeners/DialogClickListener.kt)                     | This code snippet defines an interface called DialogClickListener that is responsible for handling positive click events on a dialog. It takes a Dialog and a DialogFragment as parameters and does not specify any return value. It is a part of the file.io-Android-Client repository and is located in the file DialogClickListener.kt.                                                                                                            |
+| [OnFragmentInteractionListener.kt](https://github.com/rumaan/file.io-Android-Client/blob/master/app/src/main/java/com/thecoolguy/rumaan/fileio/listeners/OnFragmentInteractionListener.kt) | This code snippet defines an interface called OnFragmentInteractionListener, which contains two functions: onUploadFileClick() and onDone(). These functions handle user interactions within a fragment, specifically for the purpose of uploading a file and completing an action. This interface is part of the file.io-Android-Client repository's architecture and is used to enable communication between fragments and their parent activities. |
 
 </details>
 
@@ -230,9 +227,7 @@ The file.io-Android-Client project is an Android app that provides a convenient 
 
 Ensure you have the following dependencies installed on your system:
 
-* Kotlin: `► INSERT-VERSION-HERE`
-* `► ...`
-* `► ...`
+* **Kotlin**:	 x.y.z
 
 ### ⚙️ Installation
 
@@ -277,9 +272,9 @@ gradle test
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Submit Pull Requests](https://github.com/rumaan/file.io-Android-Client/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/rumaan/file.io-Android-Client/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/rumaan/file.io-Android-Client/issues)**: Submit bugs found or log feature requests for file.io-Android-Client.
+- **[Submit Pull Requests](https://github/rumaan/file.io-Android-Client/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github/rumaan/file.io-Android-Client/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github/rumaan/file.io-Android-Client/issues)**: Submit bugs found or log feature requests for File.io-android-client.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
@@ -287,11 +282,11 @@ Contributions are welcome! Here are several ways you can contribute:
 1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
    ```sh
-   git clone <your-forked-repo-url>
+   git clone https://github.com/rumaan/file.io-Android-Client
    ```
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
    ```sh
-   git checkout -b new-feature-x
+   git checkout -b feature/new-feature-x
    ```
 4. **Make Your Changes**: Develop and test your changes locally.
 5. **Commit Your Changes**: Commit with a clear and concise message describing your updates.
@@ -300,7 +295,7 @@ Contributions are welcome! Here are several ways you can contribute:
    ```
 6. **Push to GitHub**: Push the changes to your forked repository.
    ```sh
-   git push origin new-feature-x
+   git push origin feature/new-feature-x
    ```
 7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
 

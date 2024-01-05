@@ -20,13 +20,18 @@ dependency_files = [
     # Python
     'Pipfile',
     'Pipfile.lock',
-    'conda.yml',
+    "poetry.lock",
     'pyproject.toml',
-    'requirements-dev.txt',
+    'conda.yaml',
+    'conda.yml',
+    "environment.yml",
+    "environment.yaml",
     'requirements.in',
+    'requirements.txt',
+    'requirements-dev.txt',
     'requirements-prod.txt',
     'requirements.test.txt',
-    'requirements.txt',
+    "dev-requirements.txt",
     'setup.cfg',
     'setup.py',
 
@@ -37,6 +42,7 @@ dependency_files = [
     # Ruby
     'Gemfile',
     'Gemfile.lock',
+    'Rakefile',
 
     # Clojure
     'project.clj',
@@ -50,6 +56,8 @@ dependency_files = [
     'package.json',
     'yarn.lock',
     'package-lock.json',
+    '.npmrc',
+    '.nvmrc',
 
     # TypeScript
     'tsconfig.json',
@@ -57,9 +65,12 @@ dependency_files = [
     # PHP
     'composer.json',
     'composer.lock',
+    'phpunit.xml',
+    'phpunit.xml.dist',
 
     # Swift
     'Package.swift',
+    'Podfile.lock',
 
     # Kotlin
     'build.gradle.kts',
@@ -70,6 +81,7 @@ dependency_files = [
     # R
     'DESCRIPTION',
     'NAMESPACE',
+    'renv.lock',
 
     # Shell
     'Dockerfile',
@@ -89,10 +101,14 @@ dependency_files = [
     # Haskell
     'stack.yaml',
     'package.yaml',
+    'cabal.project',
+    'myapp.cabal',  # Replace 'myapp' with actual project name
 
     # C#
     '.csproj',
     'packages.config',
+    'Directory.Build.props',
+    'Directory.Build.targets',
 
     # F#
     '.fsproj',
@@ -105,9 +121,17 @@ dependency_files = [
 
     # Perl
     'cpanfile',
+    'Makefile.PL',
+    'Build.PL',
 
     # Docker
     "Dockerfile",
     "docker-compose.yml",
+    "docker-compose.override.yml",
+    "docker-compose.dev.yml",
     "docker-compose.yaml",
+
+    # General/Other
+    '.gitignore',
+    '.dockerignore',
 ]

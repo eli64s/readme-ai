@@ -25,7 +25,7 @@ def test_git_service_api_url(service, expected_api_url):
         (GitService.LOCAL, "{file_path}"),
         (
             GitService.GITHUB,
-            "https://github.com/{full_name}/blob/main/{file_path}",
+            "https://github.com/{full_name}/blob/master/{file_path}",
         ),
         (
             GitService.GITLAB,
