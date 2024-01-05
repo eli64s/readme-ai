@@ -107,8 +107,6 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         logger.error(
             f"Error generating README: {exc_info}\n{traceback.format_exc()}"
         )
-    finally:
-        shutil.rmtree(temp_dir)
 
 
 async def generate_prompts(
