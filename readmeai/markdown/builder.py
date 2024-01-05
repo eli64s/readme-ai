@@ -10,7 +10,7 @@ from readmeai.config.enums import BadgeOptions
 from readmeai.config.settings import AppConfig, ConfigHelper, GitService
 from readmeai.core import factory
 from readmeai.markdown import badges, tables, tree
-from readmeai.markdown.quickstart import getting_started
+from readmeai.markdown.quickstart import setup_guide
 
 
 class ReadmeBuilder:
@@ -20,7 +20,7 @@ class ReadmeBuilder:
         self,
         conf: AppConfig,
         helper: ConfigHelper,
-        dependencies: list,
+        dependencies: List[str],
         summaries: tuple,
         temp_dir: str,
     ):
@@ -90,11 +90,11 @@ class ReadmeBuilder:
     @property
     def md_quickstart(self) -> str:
         """Generates the README Getting Started section."""
-        project_setup = getting_started(self.conf, self.helper, self.summaries)
-        md_project_setup = self.md.getting_started.format(
+        project_setup = setup_guide(self.conf, self.helper, self.summaries)
+        md_project_setup = self.md.quickstart.format(
             repo_name=self.repo_name,
             repo_url=self.repo_url,
-            language_name=project_setup.top_language_full_name,
+            requirements=project_setup.requirements,
             install_command=project_setup.install_command,
             run_command=project_setup.run_command,
             test_command=project_setup.test_command,
@@ -105,7 +105,7 @@ class ReadmeBuilder:
         """Builds the README Markdown file."""
         readme_md_sections = [
             self.md_header,
-            self.md.toc.format(self.repo_name),
+            self.md.toc.format(repo_name=self.repo_name),
             self.md.overview,
             self.md.features,
             self.md_tree,
@@ -113,7 +113,10 @@ class ReadmeBuilder:
             self.md_summaries,
             self.md_quickstart,
             self.md.contribute.format(
-                full_name=self.full_name, repo_name=self.repo_name
+                host=self.host,
+                full_name=self.full_name,
+                repo_name=self.repo_name.capitalize(),
+                repo_url=self.repo_url,
             ),
         ]
 

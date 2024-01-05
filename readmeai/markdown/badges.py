@@ -19,7 +19,6 @@ def build_dependency_badges(
     dependencies: list[str], icons: dict[str, str], style: str
 ) -> str:
     """Build HTML badges for project dependencies."""
-    dependencies.extend(["markdown"])
     badges = [
         icons[str(dependency).lower()]
         for dependency in dependencies

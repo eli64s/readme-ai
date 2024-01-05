@@ -10,6 +10,6 @@ def test_get_remote_file_url():
     repo_url = "https://github.com/eli64s/readme-ai"
     file_url = get_remote_file_url(file_path, full_name, repo_url)
     expected_url = (
-        "https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py"
+        "https://github.com/eli64s/readme-ai/blob/master/readmeai/main.py"
     )
     assert file_url == expected_url

@@ -19,12 +19,20 @@ class CargoTomlParser(FileParser):
         try:
             data = toml.loads(content)
             dependencies = []
+
             if "dependencies" in data:
-                dependencies.extend(data.get("dependencies", {}).keys())
+                dependencies.extend(data["dependencies"].keys())
             if "dev-dependencies" in data:
-                dependencies.extend(data.get("dev-dependencies", {}).keys())
+                dependencies.extend(data["dev-dependencies"].keys())
+
+            for key in data:
+                if key.startswith("dependencies.") and isinstance(
+                    data[key], dict
+                ):
+                    dependencies.extend(data[key].keys())
+
             return dependencies
 
-        except toml.TomlDecodeError as error:
-            self.log_error(TOM_DECODE_ERROR.format(error))
-            return dependencies
+        except toml.TomlDecodeError as exc_info:
+            raise ValueError(TOM_DECODE_ERROR.format(exc_info))
+            return []

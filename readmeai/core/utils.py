@@ -1,4 +1,4 @@
-"""Utility helper functions for the README-AI package."""
+"""Utility helper functions for the readmeai package."""
 
 import re
 from importlib import resources
@@ -11,6 +11,56 @@ from readmeai.config.settings import ConfigHelper
 from readmeai.core.logger import Logger
 
 logger = Logger(__name__)
+
+
+def extract_markdown_table(text: str) -> str:
+    """
+    Pattern to match a Markdown table. Looks for a
+    header row with at least two columns. followed by
+    a separator row, and then one or more data rows.
+    """
+    pattern = r"(\|.*\|.*\n\|[-: ]+\|[-: ]+\|.*\n(?:\|.*\|.*\n)*)"
+
+    match = re.search(pattern, text, re.MULTILINE)
+
+    return match.group(0) if match else ""
+
+
+def format_sentence(text: str) -> str:
+    """Formats output text from the LLM model.
+    i.e. removes extra white space, newlines, tabs, etc.
+
+    Parameters
+    ----------
+    text
+        The text to format.
+
+    Returns
+    -------
+        The formatted text, used to generate the README.
+    """
+    # Remove single and double quotes around any text
+    text = re.sub(r"(?<!\w)['\"](.*?)['\"](?!\w)", r"\1", text)
+
+    # Remove newlines and tabs
+    text = text.replace("\n", "").replace("\t", "")
+
+    # Remove non-letter characters from the beginning of the string
+    text = re.sub(r"^[^a-zA-Z]*", "", text)
+
+    # Remove extra white space around punctuation except for '('
+    text = re.sub(r"\s*([)'.!,?;:])(?!\.\s*\w)", r"\1", text)
+
+    # Remove extra white space before opening parentheses
+    text = re.sub(r"(\()\s*", r"\1", text)
+
+    # Replace multiple consecutive spaces with a single space
+    text = re.sub(r" +", " ", text)
+
+    # Remove extra white space around hyphens
+    text = re.sub(r"\s*-\s*", "-", text)
+
+    return text.strip()
 
 
 def is_valid_url(url: str) -> bool:
@@ -59,61 +109,6 @@ def flatten_list(nested_list: List[List]) -> List:
     return result
 
 
-def format_sentence(text: str) -> str:
-    """Formats output text from the LLM model.
-    i.e. removes extra white space, newlines, tabs, etc.
-
-    Parameters
-    ----------
-    text
-        The text to format.
-
-    Returns
-    -------
-        The formatted text, used to generate the README.
-    """
-    # Remove single and double quotes around any text
-    text = re.sub(r"(?<!\w)['\"](.*?)['\"](?!\w)", r"\1", text)
-
-    # Remove newlines and tabs
-    text = text.replace("\n", "").replace("\t", "")
-
-    # Remove non-letter characters from the beginning of the string
-    text = re.sub(r"^[^a-zA-Z]*", "", text)
-
-    # Remove extra white space around punctuation except for '('
-    text = re.sub(r"\s*([)'.!,?;:])(?!\.\s*\w)", r"\1", text)
-
-    # Remove extra white space before opening parentheses
-    text = re.sub(r"(\()\s*", r"\1", text)
-
-    # Replace multiple consecutive spaces with a single space
-    text = re.sub(r" +", " ", text)
-
-    # Remove extra white space around hyphens
-    text = re.sub(r"\s*-\s*", "-", text)
-
-    return text.strip()
-
-
-def get_relative_path(absolute_path: str, base_path: str) -> str:
-    """Get the relative path of a file.
-
-    Parameters
-    ----------
-    absolute_path
-        Absolute path to the file i.e. the full path on the local machine.
-    base_path
-        Base path to use for the relative path i.e. the project root.
-
-    Returns
-    -------
-        The relative path string of the file.
-    """
-    absolute_path = Path(absolute_path)
-    return absolute_path.relative_to(base_path)
-
-
 def get_resource_path(package: str, resource_name: str) -> Path:
     """Use importlib.resources or pkg_resources to get resource path.
     Python 3.9+ uses importlib.resources, older versions use pkg_resources.
@@ -127,6 +122,7 @@ def get_resource_path(package: str, resource_name: str) -> Path:
 
     Returns
     -------
+    Path
         The path to the resource file.
     """
     try:
@@ -183,7 +179,7 @@ def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
             for directory in ignore_files["directories"]
         )
     ):
-        logger.debug(f"Ignoring item: {file_path.name}")
+        # logger.debug(f"Ignoring item: {file_path.name}")
         return True
 
     return False

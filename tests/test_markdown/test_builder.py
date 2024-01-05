@@ -35,7 +35,7 @@ def test_md_tree(readme_builder):
 
 
 def test_md_quickstart(readme_builder):
-    """Tests if md_quickstart property returns a string."""
+    """Tests if md_quick_start property returns a string."""
     quickstart = readme_builder.md_quickstart
     assert isinstance(quickstart, str)
 

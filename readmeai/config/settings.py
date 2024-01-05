@@ -2,11 +2,11 @@
 
 import re
 from importlib import resources
+import pkg_resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 from urllib.parse import urlparse, urlsplit
 
-import pkg_resources
 from pydantic import BaseModel, validator
 
 from readmeai.config.enums import GitService
@@ -37,6 +37,31 @@ class GitSettingsValidator:
         elif isinstance(value, Path) and value.is_dir():
             return value
         raise ValueError(f"Invalid repository URL or path: {value}")
+
+    @classmethod
+    def validate_full_name(cls, value: Optional[str], values: dict) -> str:
+        """Validator for getting the full name of the repository."""
+        url_or_path = values.get("repository")
+
+        path = (
+            url_or_path if isinstance(url_or_path, Path) else Path(url_or_path)
+        )
+        if path.exists():
+            return str(path.name)
+
+        patterns = {
+            GitService.GITHUB: r"https?://github.com/([^/]+)/([^/]+)",
+            GitService.GITLAB: r"https?://gitlab.com/([^/]+)/([^/]+)",
+            GitService.BITBUCKET: r"https?://bitbucket.org/([^/]+)/([^/]+)",
+        }
+
+        for _, pattern in patterns.items():
+            match = re.match(pattern, url_or_path)
+            if match:
+                user_name, repo_name = match.groups()
+                return f"{user_name}/{repo_name}"
+
+        raise ValueError("Error: invalid repository URL or path.")
 
     @classmethod
     def set_host(cls, value: Optional[str], values: dict) -> str:
@@ -79,31 +104,6 @@ class GitSettingsValidator:
             if service in parsed_url.netloc:
                 return service
         return GitService.LOCAL
-
-    @classmethod
-    def validate_full_name(cls, value: Optional[str], values: dict) -> str:
-        """Validator for getting the full name of the repository."""
-        url_or_path = values.get("repository")
-
-        path = (
-            url_or_path if isinstance(url_or_path, Path) else Path(url_or_path)
-        )
-        if path.exists():
-            return str(path.name)
-
-        patterns = {
-            GitService.GITHUB: r"https?://github.com/([^/]+)/([^/]+)",
-            GitService.GITLAB: r"https?://gitlab.com/([^/]+)/([^/]+)",
-            GitService.BITBUCKET: r"https?://bitbucket.org/([^/]+)/([^/]+)",
-        }
-
-        for _, pattern in patterns.items():
-            match = re.match(pattern, url_or_path)
-            if match:
-                user_name, repo_name = match.groups()
-                return f"{user_name}/{repo_name}"
-
-        raise ValueError("Error: invalid repository URL or path.")
 
 
 class CliSettings(BaseModel):
@@ -177,12 +177,12 @@ class MarkdownSettings(BaseModel):
     badges_skills: str
     contribute: str
     features: str
-    getting_started: str
     header: str
     image: str
     modules: str
     modules_widget: str
     overview: str
+    quickstart: str
     slogan: str
     tables: str
     toc: str
@@ -224,7 +224,7 @@ class ConfigHelper(BaseModel):
     """Helper class to load additional configuration files."""
 
     conf: AppConfigModel
-    dependency_files: List[str] = []
+    dependency_files: Dict[str, str] = {}
     ignore_files: Dict[str, List[str]] = {}
     language_names: Dict[str, str] = {}
     language_setup: Dict[str, List[str]] = {}
@@ -250,9 +250,7 @@ class ConfigHelper(BaseModel):
             conf_dict = _get_config_dict(handler, path)
 
             if "dependency_files" in conf_dict:
-                self.dependency_files.extend(
-                    conf_dict.get("dependency_files", [])
-                )
+                self.dependency_files.update(conf_dict["dependency_files"])
             if "ignore_files" in conf_dict:
                 self.ignore_files.update(conf_dict["ignore_files"])
             if "language_names" in conf_dict:

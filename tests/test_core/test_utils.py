@@ -6,7 +6,6 @@ from readmeai.config.settings import ConfigHelper
 from readmeai.core.utils import (
     flatten_list,
     format_sentence,
-    get_relative_path,
     get_resource_path,
     is_valid_url,
     remove_substring,
@@ -31,14 +30,6 @@ def test_format_sentence():
     text = "'hello world'"
     formatted_sentence = format_sentence(text)
     assert formatted_sentence == "hello world"
-
-
-def test_get_relative_path():
-    """Test that the relative path is correct."""
-    absolute_path = "readmeai/core/utils.py"
-    base_path = Path().parent
-    relative_path = get_relative_path(absolute_path, base_path)
-    assert str(relative_path) == "readmeai/core/utils.py"
 
 
 def test_remove_substring():

@@ -6463,6 +6463,10 @@
         "https://img.shields.io/badge/PostgreSQL-4169E1.svg?style={0}&logo=PostgreSQL&logoColor=white",
         "4169E1"
     ],
+    "psycopg": [
+        "https://img.shields.io/badge/PostgreSQL-4169E1.svg?style={0}&logo=PostgreSQL&logoColor=white",
+        "4169E1"
+    ],
     "postman": [
         "https://img.shields.io/badge/Postman-FF6C37.svg?style={0}&logo=Postman&logoColor=white",
         "FF6C37"

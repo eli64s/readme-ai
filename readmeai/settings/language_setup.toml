@@ -3,7 +3,7 @@
 [language_setup]
 default = ["> INSERT-INSTALL-COMMANDS", "> INSERT-RUN-COMMANDS", "> INSERT-TEST-COMMANDS"]
 C = ["gcc -o myapp main.c", "./myapp", "/* No common unit test framework in C */"]
-CPP = ["g++ -o myapp main.cpp", "./myapp", "Insert test command."]
+CPP = ["g++ -o myapp main.cpp", "./myapp", "googletest"]
 CSharp = ["dotnet build", "dotnet run", "dotnet test"]
 CoffeeScript = ["npm install", "coffee main.coffee", "npm test"]
 Crystal = ["shards install", "./main", "crystal spec"]

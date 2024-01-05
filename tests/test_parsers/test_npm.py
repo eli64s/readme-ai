@@ -1,6 +1,6 @@
 """Unit tests for JSON-based dependency parsers."""
 
-from readmeai.parsers.npm import JsonParser
+from readmeai.parsers.npm import PackageJsonParser, YarnLockParser
 
 package_json_file = """
 {
@@ -38,9 +38,9 @@ package_json_file = """
 """
 
 
-def test_json_parser():
+def test_package_json_parser():
     """Tests the JSON parser."""
-    parser = JsonParser()
+    parser = PackageJsonParser()
     dependencies = parser.parse(package_json_file)
     assert dependencies == [
         "@react-navigation/native",
