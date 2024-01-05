@@ -1,25 +1,39 @@
 site_name: readme-ai
-site_description: Automated README generation for your GitHub repositories.
-#site_url: https://
+repo_url: https://github.com/eli64s/readme-ai
+site_description: "A tool to generate beautiful README.md files for your projects."
 
 theme:
-  name: "material"
-  custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/github-alt
+  name: material
   palette:
-    - scheme: "default"
-      primary: "blueviolet"
-      accent: "deeporange"
-      media: "(prefers-color-scheme: light)"
-      toggle:
-        icon: "material/weather-night"
-        name: "Switch to dark mode"
-    - scheme: "slate"
-      primary: "blueviolet"
-      accent: "deeporange"
-      media: "(prefers-color-scheme: dark)"
-      toggle:
-        icon: "material/weather-sunny"
-        name: "Switch to light mode"
+    primary: "gray"
+    accent: "white"
+    text: "blue"
+    code: "purple"
+    link: "blue"
+    background: "gray"
+
+nav:
+  - Home: index.md
+  - Installation and Setup:
+      - "Installation": installation.md
+      - "Pip": installation.md
+      - "Docker": installation.md
+      - "From Source": installation.md
+  - Quickstart:
+      - "Readme-ai CLI": quickstart.md
+      - "Readme-ai UI": quickstart.md
+  - Examples:
+      - "Examples": examples.md
+  - Features:
+      - "Features": features.md
+  - Configuration:
+      - "Project Structure": configuration.md
+      - "Command Line Arguments": configuration.md
+  - Concepts: concepts.md
+  - Contributing: contribute.md
+
 markdown_extensions:
   - admonition
   - pymdownx.highlight
@@ -27,15 +41,19 @@ markdown_extensions:
   - pymdownx.superfences
   - attr_list
   - md_in_html
+
 extra_css:
   - css/termynal.css
   - css/custom.css
+
 extra_javascript:
   - js/termynal.js
   - js/custom.js
+
 extra:
   version:
     provider: mike
+
 plugins:
   - mkdocstrings
   - mike:

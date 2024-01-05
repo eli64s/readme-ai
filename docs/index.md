@@ -1,39 +1,38 @@
-# README-AI
-
-<img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100" /><img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="100" />
-
-Automatically generate beautiful README files using OpenAI's GPT language models.
-
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Fpublish_package.yml?logo=GitHub&label=cicd&color=c125ff)](https://github.com/eli64s/readme-ai/actions)
-[![Codecov](https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff)](https://app.codecov.io/gh/eli64s/readme-ai)
-[![PyPI version](https://img.shields.io/pypi/v/readmeai?color=c125ff)](https://badge.fury.io/py/readmeai)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff)](https://pypi.python.org/pypi/readmeai/)
-![License: MIT](https://img.shields.io/github/license/eli64s/readme-ai?color=c125ff)
-
----
-
-## Introduction
-
-README-AI is a tool to generate README.md files for your projects. It is written in Python and uses the [GPT-4](https://openai.com/blog/better-language-models/) language model to generate the text.
-
-## Installation
-
-```bash
-pip install readme-ai
-```
-
-## Usage
-
-```bash
-readme-ai --repository https://github/eli64s/readme-ai
-```
-
-## Example
+<p align="center">
+  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100">
+  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="100">
+</p>
+<h1 align="center">README-AI</h1>
+<p align="center">
+    <em>Auto-generate detailed and structured README files, powered by AI.</em>
+</p>
+<p align="center">
+  <a href="https://github.com/eli64s/readme-ai/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff" alt="Test">
+  </a>
+  <a href="https://app.codecov.io/gh/eli64s/readme-ai">
+    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff" alt="Publish">
+  </a>
+  <a href="https://pypi.python.org/pypi/readmeai/">
+    <img src="https://img.shields.io/pypi/v/readmeai?color=c125ff" alt="PyPI Version">
+    <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff" alt="Python Versions">
+  </a>
+</p>
 
 ---
 
-## Motivation
+## Overview
 
-Streamlines documentation creation and maintenance, enhancing developer productivity. <em>README-AI</em> aims to improve the adoption of open-source software, enabling all skill levels and disciplines to understand, utilize, and contribute to projects more effectively.
+***Objective***
+
+Readme-ai is a developer tool that auto-generates README.md files using a combination of data extraction and generative ai. Simply provide a repository URL or local path to your codebase and a well-structured and detailed README file will be generated for you.
+
+***Motivation***
+
+Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.
+
+---
+
+## Key Concepts
 
 ---

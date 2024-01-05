@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 repositories=(
-    "https://github.com/BerriAI/litellm"
-    "https://github.com/fal-ai/fal-js"
+    #"https://github.com/BerriAI/litellm"
+    #"https://github.com/fal-ai/fal-js"
+    "https://github.com/jwills/buenavista"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
     "https://github.com/rumaan/file.io-Android-Client"
@@ -16,8 +17,9 @@ repositories=(
 )
 
 filenames=(
-    "readme-litellm.md"
-    "readme-fal-js.md"
+    #"readme-litellm.md"
+    #"readme-fal-js.md"
+    "readme-postgres.md"
     "readme-python.md"
     "readme-typescript.md"
     "readme-kotlin.md"
@@ -42,7 +44,7 @@ for index in "${!repositories[@]}"; do
     alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
 
-    cmd="python3 -m readmeai.cli.commands -o \"$filename\" -r \"$repo\""
+    cmd="readmeai -o \"$filename\" -r \"$repo\""
 
     if [ "$random_badge" != "default" ]; then
         cmd+=" -b \"$random_badge\""
