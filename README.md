@@ -281,9 +281,9 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
       </tr>
       <tr>
         <td>3️⃣</td>
-        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-javascript.md">readme-javascript.md</a></td>
-        <td><a href="https://github.com/idosal/assistant-chat-gpt-javascript">(repository deleted)</a></td>
-        <td>JavaScript, React</td>
+        <td><a href="https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-postgres.md">readme-postgres.md</a></td>
+        <td><a href="https://github.com/jwills/buenavista">postgres-proxy-server</a></td>
+        <td>Python, Postgres, Duckdb, Docker</td>
       </tr>
       <tr>
         <td>4️⃣</td>
@@ -351,19 +351,7 @@ A repository URL or local path to your codebase is required run readme-ai. The f
 
 **OpenAI API Key**
 
-An OpenAI API account and API key are needed to use *readme-ai*. The following steps outline the process.
-
-<details closed>
-  <summary>🔐 OpenAI API Account Setup</summary>
-  <ol>
-    <li>Go to the <a href="https://platform.openai.com/">OpenAI website</a>.</li>
-    <li>Click the "Sign up for free" button.</li>
-    <li>Fill out the registration form with your information and agree to the terms of service.</li>
-    <li>Once logged in, click on the "API" tab.</li>
-    <li>Follow the instructions to create a new API key.</li>
-    <li>Copy the API key and keep it in a secure place.</li>
-  </ol>
-</details>
+An OpenAI API account and API key are needed to use *readme-ai*. Get started by creating an account [here](https://platform.openai.com/docs/quickstart/account-setup). Once you have an account, you can create an API key on the [API settings page](https://platform.openai.com/api-keys).
 
 > [!WARNING]
 >
@@ -395,11 +383,16 @@ conda install -c conda-forge readmeai
 Alternatively, clone the readme-ai repository and build from source.
 
 ```sh
-git clone https://github.com/eli64s/readme-ai && \
+git clone https://github.com/eli64s/readme-ai
+```
+
+Change into the project directory.
+
+```sh
 cd readme-ai
 ```
 
-Then use one of the methods below to install the project's dependencies (Bash, Conda, Pipenv, or Poetry).
+And install the dependencies using one of the methods below.
 
 Using `bash`
 ```sh
@@ -420,7 +413,7 @@ poetry shell
 
 ---
 
-### 👩‍💻 Running *README-AI*
+### 👩‍💻 Running *readme-ai*
 
 Before running the application, ensure you have an OpenAI API key and its set as an environment variable.
 
@@ -553,11 +546,6 @@ The readme-ai tool is designed with flexibility in mind, allowing users to confi
 
 <details closed><summary>🔠 Configuration Models</summary>
 <br>
-
-<!--
-# README-AI Configuration and Settings
-This documentation provides an overview of the configuration and settings for the README.ai CLI tool. It details various data models and functions that are used to configure the tool, making it adaptable for different environments and use cases.
--->
 
 ***GitService Enum***
 
