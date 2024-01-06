@@ -32,9 +32,9 @@
 > - [ Repository Structure](#-repository-structure)
 > - [ Modules](#-modules)
 > - [ Getting Started](#-getting-started)
->     - [ Installation](#-installation)
->     - [ Running readme-ai-streamlit](#-running-readme-ai-streamlit)
->     - [ Tests](#-tests)
+>   - [ Installation](#-installation)
+>   - [ Running readme-ai-streamlit](#-running-readme-ai-streamlit)
+>   - [ Tests](#-tests)
 > - [ Project Roadmap](#-project-roadmap)
 > - [ Contributing](#-contributing)
 > - [ License](#-license)
@@ -44,7 +44,7 @@
 
 ##  Overview
 
-The readme-ai-streamlit project is a Streamlit application that serves as a user interface for the readmeai command-line tool. Its core functionality is to provide a user-friendly and interactive platform for users to analyze and extract valuable information from README files in software projects. By leveraging natural language processing and machine learning techniques, this project aims to automate the process of understanding and summarizing project documentation. The value proposition lies in saving time and effort for developers and stakeholders by quickly generating insights about project features, dependencies, and usage instructions, ultimately improving the efficiency and effectiveness of software development processes.
+Readme AI Streamlit is a project that aims to provide a streamlined and user-friendly interface for generating and customizing AI-powered README templates. It allows users to easily create professional and informative README files for their projects using natural language processing techniques and machine learning algorithms. By automating the process of generating README files, Readme AI Streamlit saves time and effort for developers, while also ensuring consistency and quality in project documentation. This project is valuable for developers who want to enhance their project's visibility and make a good first impression on potential collaborators or users.
 
 ---
 
@@ -52,15 +52,15 @@ The readme-ai-streamlit project is a Streamlit application that serves as a user
 
 |    |   Feature         | Description |
 |----|-------------------|---------------------------------------------------------------|
-| ⚙️  | **Architecture**  | The project follows a modular architecture with a clear separation of concerns. It uses Streamlit, a Python library for building interactive web apps, as the main framework. It also utilizes the Readme AI library for generating AI-powered READMEs.|
-| 🔩 | **Code Quality**  | The codebase demonstrates good code quality and adherence to coding standards. It follows a clean and readable coding style, making it easy to understand and maintain.|
-| 📄 | **Documentation** | The project has a decent level of documentation. The README file provides an overview of the project and instructions for installation and usage. However, more detailed documentation on specific code components and functionalities would be beneficial.|
-| 🔌 | **Integrations**  | The key integrations include Streamlit, which serves as the main web framework, and Readme AI, which is responsible for generating AI-powered READMEs. There are also dependencies on pytest and other libraries for testing purposes.|
-| 🧩 | **Modularity**    | The codebase exhibits good modularity and reusability. It follows a modular design pattern, allowing for easy extension and maintenance. The project's functions and components are well-organized and can be used in other applications.|
-| 🧪 | **Testing**       | The project uses pytest as the testing framework. It also includes additional tools like pytest-randomly and pytest-cov for improved testing capabilities. Proper test coverage helps ensure the stability and reliability of the codebase.|
-| ⚡️  | **Performance**   | The project's performance is efficient, providing quick response times and minimal resource usage. Streamlit's built-in caching mechanism optimizes code execution and reduces redundant computations.|
-| 🛡️ | **Security**      | The project doesn't explicitly address security measures. Additional security measures such as input validation and access control could be implemented to enhance overall security.|
-| 📦 | **Dependencies**  | Key external libraries and dependencies include Streamlit, Readme AI, and pytest. These libraries are essential for building the web app, generating AI-powered READMEs, and performing testing tasks, respectively.|
+| ⚙️  | **Architecture**  | The project follows a client-server architecture where the Streamlit library is used for the client-side interface and the server-side logic is implemented in Python using the Streamlit and Readmeai libraries. The architecture is modular and allows for easy extension and customization. |
+| 🔩 | **Code Quality**  | The codebase maintains a high level of code quality and follows Python's PEP 8 style guide. The code is well-structured and organized, making it easy to read and maintain. |
+| 📄 | **Documentation** | The project includes a README file that provides a brief overview of the project and describes how to set it up and run it. However, the documentation could be further improved by including detailed explanations of each component and its functionality. |
+| 🔌 | **Integrations**  | The key integrations and external dependencies of the project include Streamlit, Readmeai, and various testing frameworks like pytest for unit testing. These integrations allow for a seamless integration of the AI-powered README generation functionality into Streamlit. |
+| 🧩 | **Modularity**    | The codebase is modular and follows best practices for code organization. The project is well-structured, with separate files for different components and functionalities, promoting code reusability and maintainability. |
+| 🧪 | **Testing**       | The project uses pytest as the testing framework and includes the necessary test files to ensure code correctness and stability. pytest-randomly and pytest-xdist are used to introduce randomness and parallelism in tests, respectively. pytest-cov is used to measure code coverage. |
+| ⚡️  | **Performance**   | The project's performance is efficient, with no known performance issues. The use of Streamlit and Readmeai libraries ensures smooth and responsive user interactions. Resource usage is moderate, and the application can handle typical workloads without significant performance degradation. |
+| 🛡️ | **Security**      | The project does not explicitly mention specific security measures. However, as it is a locally hosted project without external dependencies, security risks are minimal. It is advisable to follow general security practices like input validation and data encryption when using the project in a production environment. |
+| 📦 | **Dependencies**  | The project relies on external libraries and dependencies such as Streamlit, Readmeai, pytest, and others that are specified in the poetry.lock and pyproject.toml files. These libraries provide the necessary functionality and support for the project's features. |
 
 
 ---
@@ -69,13 +69,15 @@ The readme-ai-streamlit project is a Streamlit application that serves as a user
 
 ```sh
 └── readme-ai-streamlit/
+    ├── Makefile
     ├── poetry.lock
     ├── pyproject.toml
     ├── requirements.txt
     ├── scripts
     │   └── clean.sh
     └── src
-        └── app.py
+        ├── app.py
+        └── utils.py
 ```
 
 ---
@@ -84,27 +86,29 @@ The readme-ai-streamlit project is a Streamlit application that serves as a user
 
 <details closed><summary>.</summary>
 
-| File                                                                                           | Summary                                                                                                                                                                                                                                                                                                                             |
-| ---                                                                                            | ---                                                                                                                                                                                                                                                                                                                                 |
-| [requirements.txt](https://github.com/eli64s/readme-ai-streamlit/blob/master/requirements.txt) | This code snippet in `requirements.txt` lists the required packages (`readmeai` and `streamlit`) for the `app.py` file in the `readme-ai-streamlit` repository.                                                                                                                                                                     |
-| [pyproject.toml](https://github.com/eli64s/readme-ai-streamlit/blob/master/pyproject.toml)     | The code snippet is located in the `src/app.py` file and is part of the `readme-ai-streamlit` repository. It serves as a Streamlit app that utilizes the `readmeai` command-line tool. The main purpose of this code is to provide a user interface for the tool, allowing users to interact with it through a Streamlit interface. |
-| [poetry.lock](https://github.com/eli64s/readme-ai-streamlit/blob/master/poetry.lock)           | The code snippet in the `poetry.lock` file is critical for managing dependencies and ensuring reproducibility in the parent repository's architecture. It lists the locked versions of all dependencies used in the codebase.                                                                                                       |
+| File                                                                                           | Summary                                                                                                                                                                                                                                                                                                                                                                            |
+| ---                                                                                            | ---                                                                                                                                                                                                                                                                                                                                                                                |
+| [requirements.txt](https://github.com/eli64s/readme-ai-streamlit/blob/master/requirements.txt) | The code snippet in `requirements.txt` specifies the required packages for the `readme-ai-streamlit` repository. It ensures that the packages `readmeai` and `streamlit` are installed for the application to run properly.                                                                                                                                                        |
+| [Makefile](https://github.com/eli64s/readme-ai-streamlit/blob/master/Makefile)                 | The Makefile in the repository provides various commands for repository file cleanup, code formatting, linting, building a conda package, executing tests, generating requirements.txt file, and searching for a word in the repository.                                                                                                                                           |
+| [pyproject.toml](https://github.com/eli64s/readme-ai-streamlit/blob/master/pyproject.toml)     | The code snippet in `app.py` is a critical component of the `readme-ai-streamlit` repository. It generates beautiful README files on Streamlit using AI. The code utilizes the `streamlit` library and leverages the OpenAI API for generating README templates. The main role of this code is to automate the process of creating README files, enhancing developer productivity. |
+| [poetry.lock](https://github.com/eli64s/readme-ai-streamlit/blob/master/poetry.lock)           | The code snippet in the `app.py` file of the `readme-ai-streamlit` repository serves as the main entry point for the application. It contains critical features and logic for the app's functionality, interacting with user input and displaying results through a Streamlit interface.                                                                                           |
 
 </details>
 
 <details closed><summary>scripts</summary>
 
-| File                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                      |
-| ---                                                                                    | ---                                                                                                                                                                                                                                                                                                                                          |
-| [clean.sh](https://github.com/eli64s/readme-ai-streamlit/blob/master/scripts/clean.sh) | This code snippet, located in the scripts directory, provides a bash script to clean various artifacts and files in the repository. The script removes build artifacts, Python file artifacts, test and coverage artifacts, backup files, cache files, and VS Code settings. It offers different commands for different cleaning operations. |
+| File                                                                                   | Summary                                                                                                                                                                                                                        |
+| ---                                                                                    | ---                                                                                                                                                                                                                            |
+| [clean.sh](https://github.com/eli64s/readme-ai-streamlit/blob/master/scripts/clean.sh) | The `clean.sh` script in the `scripts` directory of the repository is responsible for removing various build, test, coverage, and Python artifacts. It allows for a clean state by removing unnecessary files and directories. |
 
 </details>
 
 <details closed><summary>src</summary>
 
-| File                                                                           | Summary                                                                                                                                                                                                                                                                                                                        |
-| ---                                                                            | ---                                                                                                                                                                                                                                                                                                                            |
-| [app.py](https://github.com/eli64s/readme-ai-streamlit/blob/master/src/app.py) | This code snippet is the main script for a Streamlit application that serves the readme-ai package. It collects user inputs, executes a command to generate a README file, and displays the generated output. The application is powered by GPT and offers configuration options for badge style, emojis, and running offline. |
+| File                                                                               | Summary                                                                                                                                                                                                                                                                                                            |
+| ---                                                                                | ---                                                                                                                                                                                                                                                                                                                |
+| [utils.py](https://github.com/eli64s/readme-ai-streamlit/blob/master/src/utils.py) | This code snippet in `src/utils.py` provides utility functions for the Streamlit app in the parent repository. It includes a function `get_readme_tempfile` which generates a temporary README file and returns its path.                                                                                          |
+| [app.py](https://github.com/eli64s/readme-ai-streamlit/blob/master/src/app.py)     | The code snippet in `app.py` is responsible for creating a Streamlit web app that serves the Python package CLI `readmeai`. It collects user inputs from the sidebar, executes CLI commands to generate a README file, and provides options for previewing, downloading, and copying the generated README content. |
 
 </details>
 

@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+  <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100" />
 </p>
 <p align="left">
     <h1 align="left">MLOPS-COURSE</h1>
@@ -8,30 +8,29 @@
     <em>Streamline, Optimize, Innovate. MLOps made simple.</em>
 </p>
 <p align="left">
-	<img src="https://img.shields.io/github/license/GokuMohandas/mlops-course?style=flat-square&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/GokuMohandas/mlops-course?style=flat-square&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/GokuMohandas/mlops-course?style=flat-square&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/GokuMohandas/mlops-course?style=flat-square&color=0080ff" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/GokuMohandas/mlops-course?style=flat&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/GokuMohandas/mlops-course?style=flat&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/GokuMohandas/mlops-course?style=flat&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/GokuMohandas/mlops-course?style=flat&color=0080ff" alt="repo-language-count">
 <p>
 <p align="left">
 		<em>Developed with the software and tools below</em>
 </p>
 <p align="left">
-	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
-	<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
-	<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=flat-square&logo=scikit-learn&logoColor=white" alt="scikitlearn">
-	<img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=flat-square&logo=Jupyter&logoColor=white" alt="Jupyter">
-	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML">
-	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
-	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+	<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat&logo=pre-commit&logoColor=black" alt="precommit">
+	<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=flat&logo=scikit-learn&logoColor=white" alt="scikitlearn">
+	<img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=flat&logo=Jupyter&logoColor=white" alt="Jupyter">
+	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat&logo=YAML&logoColor=white" alt="YAML">
+	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
 	<br>
-	<img src="https://img.shields.io/badge/pandas-150458.svg?style=flat-square&logo=pandas&logoColor=white" alt="pandas">
-	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
-	<img src="https://img.shields.io/badge/Ray-028CF0.svg?style=flat-square&logo=Ray&logoColor=white" alt="Ray">
-	<img src="https://img.shields.io/badge/MLflow-0194E2.svg?style=flat-square&logo=MLflow&logoColor=white" alt="MLflow">
-	<img src="https://img.shields.io/badge/NumPy-013243.svg?style=flat-square&logo=NumPy&logoColor=white" alt="NumPy">
-	<img src="https://img.shields.io/badge/FastAPI-009688.svg?style=flat-square&logo=FastAPI&logoColor=white" alt="FastAPI">
-	<img src="https://img.shields.io/badge/Markdown-000000.svg?style=flat-square&logo=Markdown&logoColor=white" alt="Markdown">
+	<img src="https://img.shields.io/badge/pandas-150458.svg?style=flat&logo=pandas&logoColor=white" alt="pandas">
+	<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white" alt="Pytest">
+	<img src="https://img.shields.io/badge/Ray-028CF0.svg?style=flat&logo=Ray&logoColor=white" alt="Ray">
+	<img src="https://img.shields.io/badge/MLflow-0194E2.svg?style=flat&logo=MLflow&logoColor=white" alt="MLflow">
+	<img src="https://img.shields.io/badge/FastAPI-009688.svg?style=flat&logo=FastAPI&logoColor=white" alt="FastAPI">
+	<img src="https://img.shields.io/badge/NumPy-013243.svg?style=flat&logo=NumPy&logoColor=white" alt="NumPy">
+	<img src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" alt="Markdown">
 </p>
 <hr>
 
@@ -40,12 +39,12 @@
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
 - [📂 Repository Structure](#-repository-structure)
-- [🧩 Modules](#modules)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
-    - [⚙️ Installation](#-installation)
-    - [🤖 Running mlops-course](#-running-mlops-course)
-    - [🧪 Tests](#-tests)
-- [🛠 Roadmap](#-roadmap)
+  - [⚙️ Installation](#️-installation)
+  - [🤖 Running mlops-course](#-running-mlops-course)
+  - [🧪 Tests](#-tests)
+- [🛠 Project Roadmap](#-project-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
