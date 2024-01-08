@@ -69,7 +69,7 @@ readmeai -r https://github.com/eli64s/readme-ai
 
 Using `streamlit`
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readmeai.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readme-ai.streamlit.app/)
 
 > [!NOTE]
 >

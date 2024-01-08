@@ -8,6 +8,8 @@ from typing import Optional
 
 import git
 
+from readmeai.exceptions import RepositoryCloneError
+
 
 async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
     """Clone the repository to a temporary directory."""

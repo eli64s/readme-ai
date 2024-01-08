@@ -22,8 +22,9 @@ from readmeai.config.settings import (
 )
 from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
-from readmeai.core.preprocess import FileData, RepoProcessor
-from readmeai.markdown.builder import ReadmeBuilder, build_readme_md
+from readmeai.core.preprocess import FileData, process_repository
+from readmeai.exceptions import ReadmeGenerationError
+from readmeai.markdown.builder import build_readme_md
 from readmeai.services.git_operations import clone_repo_to_temp_dir
 
 logger = Logger(__name__)
@@ -37,33 +38,20 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             await clone_repo_to_temp_dir(repo_url, temp_dir)
 
-            repo_processor = RepoProcessor(conf, conf_helper)
-            file_context = repo_processor.generate_contents(temp_dir)
-            file_context = repo_processor.language_mapper(file_context)
-            file_context = repo_processor.tokenize_content(file_context)
+            (
+                file_context,
+                dependencies,
+                summaries,
+                tree,
+            ) = process_repository(conf, conf_helper, temp_dir)
 
-            dependencies = set()
-            for file_data in file_context:
-                dependencies.update(file_data.dependencies)
-                dependencies.add(file_data.language)
-                dependencies.add(file_data.name)
-                dependencies.add(file_data.extension)
-
-            dependencies = list(dependencies)
-            code_files = [(data.path, data.content) for data in file_context]
-            summaries = code_files.copy()
-            conf.md.tree = ReadmeBuilder(
-                conf, conf_helper, dependencies, summaries, temp_dir
-            ).md_tree
-
-            log_file_data(file_context, list(dependencies), conf.md.tree)
+            log_file_data(file_context, list(dependencies), tree)
 
             async with ModelHandler(conf).use_api() as llm:
-                if not conf.cli.offline:
-                    prompts = await generate_prompts(
-                        conf, file_context, dependencies, summaries
+                if conf.cli.offline is False:
+                    responses = await llm.batch_request(
+                        file_context, dependencies, summaries
                     )
-                    responses = await llm.batch_text_generator(prompts)
                     (
                         summaries_response,
                         features_response,
@@ -94,65 +82,14 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         conf.md.default,
                     )
 
-            build_readme_md(
-                conf, conf_helper, dependencies, summaries, temp_dir
-            )
+        build_readme_md(conf, conf_helper, dependencies, summaries, temp_dir)
 
-            logger.info(
-                f"README.md file generated successfully @ {conf.files.output}"
-            )
-
-    except Exception as exc_info:
-        logger.error(
-            f"Error generating README: {exc_info}\n{traceback.format_exc()}"
+        logger.info(
+            f"README.md file generated successfully @ {conf.files.output}"
         )
 
-
-async def generate_prompts(
-    conf: AppConfig,
-    file_context: list[FileData],
-    dependencies: List[str],
-    summaries: List[str],
-) -> List[dict]:
-    """Generates the prompts to be used by the LLM API."""
-    return [
-        {"type": prompt_type, "context": context}
-        for prompt_type, context in [
-            (
-                "summaries",
-                {
-                    "repo": conf.git.repository,
-                    "tree": conf.md.tree,
-                    "dependencies": file_context,
-                    "summaries": summaries,
-                },
-            ),
-            (
-                "features",
-                {
-                    "repo": conf.git.repository,
-                    "dependencies": dependencies,
-                    "files": file_context,
-                },
-            ),
-            (
-                "overview",
-                {
-                    "name": conf.git.name,
-                    "repo": conf.git.repository,
-                    "summaries": summaries,
-                },
-            ),
-            (
-                "slogan",
-                {
-                    "name": conf.git.name,
-                    "repo": conf.git.repository,
-                    "summaries": summaries,
-                },
-            ),
-        ]
-    ]
+    except Exception as exc:
+        raise ReadmeGenerationError(exc, traceback.format_exc()) from exc
 
 
 def main(
@@ -173,18 +110,19 @@ def main(
         conf = load_config()
         conf_model = AppConfigModel(app=conf)
         conf_helper = load_config_helper(conf_model)
-        conf = update_settings(
-            conf,
-            align,
-            badges,
-            emojis,
-            image,
-            max_tokens,
-            model,
-            offline,
-            output,
-            repository,
-            temperature,
+        conf.git = GitSettings(repository=repository)
+        conf.files.output = output
+        conf.cli.emojis = emojis
+        conf.cli.offline = offline
+        conf.llm.tokens_max = max_tokens
+        conf.llm.model = model
+        conf.llm.temperature = temperature
+        conf.md.align = align
+        conf.md.badge_style = badges
+        conf.md.image = (
+            image
+            if image != ImageOptions.CUSTOM.name
+            else prompt_for_custom_image(None, None, image)
         )
         log_settings(conf)
 
@@ -192,41 +130,8 @@ def main(
 
         asyncio.run(readme_agent(conf, conf_helper))
 
-    except Exception as exc_info:
-        logger.error(
-            f"Error generating README: {exc_info}\n{traceback.format_exc()}"
-        )
-
-
-def update_settings(
-    conf: AppConfig,
-    align: str,
-    badges: str,
-    emojis: bool,
-    image: str,
-    max_tokens: int,
-    model: str,
-    offline: bool,
-    output: str,
-    repository: str,
-    temperature: float,
-) -> AppConfig:
-    """Sets up the application configuration."""
-    conf.git = GitSettings(repository=repository)
-    conf.files.output = output
-    conf.cli.emojis = emojis
-    conf.cli.offline = offline
-    conf.llm.tokens_max = max_tokens
-    conf.llm.model = model
-    conf.llm.temperature = temperature
-    conf.md.align = align
-    conf.md.badge_style = badges
-    conf.md.image = (
-        image
-        if image != ImageOptions.CUSTOM.name
-        else prompt_for_custom_image(None, None, image)
-    )
-    return conf
+    except Exception as exc:
+        raise ReadmeGenerationError(exc, traceback.format_exc()) from exc
 
 
 def setup_environment(config: AppConfig, api_key: str) -> None:

@@ -93,9 +93,11 @@ image = click.option(
         - CUSTOM \n
         - DEFAULT \n
         - BLACK \n
+        - GRADIENT \n
         - GREY \n
         - PURPLE \n
         - YELLOW \n
+        - CLOUD \n
         """,
 )
 model = click.option(

@@ -22,6 +22,9 @@ class GitSettingsValidator:
     @classmethod
     def validate_repository(cls, value: Union[str, Path]) -> Union[str, Path]:
         """Validate the repository URL or path."""
+        if any(service.value in value for service in GitService) is False:
+            raise ValueError("Unsupported Git service.")
+
         if isinstance(value, str):
             path = Path(value)
             if path.is_dir():
@@ -284,7 +287,7 @@ def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
             )
             raise FileNotFoundError(f"Config file not found: {file_path}")
 
-    if not resource_path.exists():
+    if resource_path.exists() is False:
         raise FileNotFoundError(f"Config file not found: {resource_path}")
 
     return handler.read(resource_path)

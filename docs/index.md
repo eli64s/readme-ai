@@ -1,8 +1,14 @@
+---
+title: Lorem ipsum dolor sit amet
+---
+
+# Introduction
+
 <p align="center">
-  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100">
-  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="100">
+  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="150">
+  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="150">
 </p>
-<h1 align="center">README-AI</h1>
+<h1 align="center"><strong>README-AI</strong></h1>
 <p align="center">
     <em>Auto-generate detailed and structured README files, powered by AI.</em>
 </p>

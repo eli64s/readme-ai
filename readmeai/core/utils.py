@@ -63,31 +63,6 @@ def format_sentence(text: str) -> str:
     return text.strip()
 
 
-def is_valid_url(url: str) -> bool:
-    """Validate a URL string.
-
-    Parameters
-    ----------
-    url
-        The URL string to validate.
-
-    Returns
-    -------
-        True if the URL is valid, False otherwise.
-    """
-    regex = re.compile(
-        r"^(?:http|ftp)s?://"  # http:// or https://
-        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain
-        r"localhost|"  # localhost
-        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"  # ipv4
-        r"\[?[A-F0-9]*:[A-F0-9:]+\]?)"  # ipv6
-        r"(?::\d+)?"  # optional port
-        r"(?:/?|[/?]\S+)$",
-        re.IGNORECASE,
-    )
-    return re.match(regex, url) is not None
-
-
 def flatten_list(nested_list: List[List]) -> List:
     """Flatten a nested list (list of lists converted to a single list).
 
@@ -132,26 +107,29 @@ def get_resource_path(package: str, resource_name: str) -> Path:
     return resource_path
 
 
-def remove_substring(
-    input_string: str, pattern: str = r"</p>.*?</div>"
-) -> str:
-    """Remove a substring from a string.
+def is_valid_url(url: str) -> bool:
+    """Validate a URL string.
 
     Parameters
     ----------
-    input_string
-        The string to remove the substring from.
-    pattern, optional
-        The substring to remove, by default r"</p>.*?</div>".
+    url
+        The URL string to validate.
 
     Returns
     -------
-        The input string with the substring removed.
+        True if the URL is valid, False otherwise.
     """
-    output_string = re.sub(
-        pattern, "</p>\n</div>", input_string, flags=re.DOTALL
+    regex = re.compile(
+        r"^(?:http|ftp)s?://"  # http:// or https://
+        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain
+        r"localhost|"  # localhost
+        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"  # ipv4
+        r"\[?[A-F0-9]*:[A-F0-9:]+\]?)"  # ipv6
+        r"(?::\d+)?"  # optional port
+        r"(?:/?|[/?]\S+)$",
+        re.IGNORECASE,
     )
-    return output_string
+    return re.match(regex, url) is not None
 
 
 def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:

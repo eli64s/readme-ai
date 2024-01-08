@@ -237,9 +237,9 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
 </details>
 <!-- -->
 <details closed>
-  <summary>🧩 Templates</summary>
-  <br>This feature is currently under development. The template system will allow users to generate README files in different flavors, such as ai, data, web development, etc.
-  <br>
+  <summary>🧩 Template READMEs</summary>
+  <p>This feature is currently under development. The template system will allow users to generate README files in different flavors, such as ai, data, web development, etc.
+  </p>
   <table>
     <tr>
       <td>

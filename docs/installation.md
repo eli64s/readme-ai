@@ -1,20 +1,17 @@
 ## Pip
 
-Using `pip`
 ```sh
 pip install readmeai
 ```
 
 ## Docker
 
-Using `docker`
 ```sh
 docker pull zeroxeli/readme-ai:latest
 ```
 
 ## Conda
 
-Using `conda`
 ```sh
 conda install -c conda-forge readmeai
 ```
@@ -22,17 +19,19 @@ conda install -c conda-forge readmeai
 
 ## From Source
 
-Alternatively, clone the readme-ai repository and build from source.
+Alternatively, clone the `readme-ai` repository and install the project's dependencies.
 
+1. Clone the repository
 ```sh
 git clone https://github.com/eli64s/readme-ai
 ```
 
+2. Change directory
 ```sh
 cd readme-ai
 ```
 
-Then use one of the methods below to install the project's dependencies (Bash, Pipenv, or Poetry).
+3. Install dependencies and activate virtual environment (Bash, Pipenv, or Poetry).
 
 
 Using `bash`

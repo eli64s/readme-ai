@@ -1,13 +1,14 @@
-"""Preprocesses the repository files and extract metadata."""
+"""Processes the input repository files and extracts metadata."""
 
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Generator, List, Tuple
 
-from readmeai.config import settings
+from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core.logger import Logger
 from readmeai.core.tokens import get_token_count
 from readmeai.core.utils import should_ignore
+from readmeai.markdown.builder import ReadmeBuilder
 from readmeai.parsers.factory import parser_factory
 
 logger = Logger(__name__)
@@ -39,8 +40,8 @@ class RepoProcessor:
 
     def __init__(
         self,
-        config: settings.AppConfig,
-        conf_helper: settings.ConfigHelper,
+        config: AppConfig,
+        conf_helper: ConfigHelper,
     ):
         """Initializes the RepoProcessor class."""
         self.config = config
@@ -136,3 +137,36 @@ class RepoProcessor:
                 content.content, self.config.llm.encoding
             )
         return contents
+
+    def get_dependencies(self, contents: List[FileData]) -> List[str]:
+        """Returns a list of dependencies."""
+        try:
+            dependencies = set()
+
+            for file_data in contents:
+                dependencies.update(file_data.dependencies)
+                dependencies.add(file_data.language)
+                dependencies.add(file_data.name)
+                dependencies.add(file_data.extension)
+
+            return list(dependencies)
+
+        except Exception as exc_info:
+            logger.error(f"Error getting dependencies: {exc_info}")
+            return []
+
+
+def process_repository(
+    config: AppConfig, config_helper: ConfigHelper, temp_dir: str
+) -> Tuple[list, set, str]:
+    """Processes the repository and returns the file context."""
+    repo_processor = RepoProcessor(config, config_helper)
+    file_context = repo_processor.generate_contents(temp_dir)
+    file_context = repo_processor.language_mapper(file_context)
+    file_context = repo_processor.tokenize_content(file_context)
+    dependencies = repo_processor.get_dependencies(file_context)
+    summaries = [(file.path, file.content) for file in file_context]
+    config.md.tree = ReadmeBuilder(
+        config, config_helper, dependencies, summaries, temp_dir
+    ).md_tree
+    return file_context, dependencies, summaries, config.md.tree

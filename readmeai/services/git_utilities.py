@@ -19,7 +19,7 @@ def get_remote_file_url(file_path: str, full_name: str, repo_url: str) -> str:
                 full_name=full_name, file_path=file_path
             )
 
-    raise ValueError("Unsupported Git service for URL generation.")
+    return file_path
 
 
 async def parse_repo_url(repo_url: str) -> str:
@@ -27,7 +27,6 @@ async def parse_repo_url(repo_url: str) -> str:
     try:
         parts = repo_url.rstrip("/").split("/")
         repo_name = f"{parts[-2]}/{parts[-1]}"
-
         for service in GitService:
             if service in repo_url:
                 api_url = f"{service.api_url}{repo_name}"

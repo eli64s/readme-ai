@@ -7,13 +7,7 @@ from typing import Any, Callable, Dict, Union
 import toml
 import yaml
 
-
-class ReadFileException(Exception):
-    """Exception raised when a file cannot be read."""
-
-
-class WriteFileException(Exception):
-    """Exception raised when a file cannot be written."""
+from readmeai.exceptions import FileReadError, FileSystemError, FileWriteError
 
 
 class FileHandler:
@@ -41,10 +35,8 @@ class FileHandler:
             content = reader(file_path)
             self.cache[file_path] = content
             return content
-        except Exception as excinfo:
-            raise ReadFileException(
-                f"Exception: failed to read file {file_path}: {excinfo}"
-            )
+        except Exception as exc:
+            raise FileReadError(exc, file_path) from exc
 
     def write(self, file_path: Union[str, Path], content: Any) -> None:
         """Write the content to a file."""
@@ -52,10 +44,8 @@ class FileHandler:
             file_extension = str(file_path).rsplit(".", maxsplit=1)[-1]
             writer = self.get_action(file_extension, "write")
             writer(file_path, content)
-        except Exception as excinfo:
-            raise WriteFileException(
-                f"Exception: failed to write file {file_path}: {excinfo}"
-            )
+        except Exception as exc:
+            raise FileWriteError(exc, file_path) from exc
 
     def get_action(
         self, file_extension: str, action_type: str

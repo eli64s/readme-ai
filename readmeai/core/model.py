@@ -1,8 +1,6 @@
 """GPT language model API handler for document generation."""
 
 import asyncio
-import time
-import traceback
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Tuple, Union
 
@@ -24,6 +22,7 @@ from tenacity import (
 
 import readmeai.config.settings as settings
 from readmeai.core.logger import Logger
+from readmeai.core.preprocess import FileData
 from readmeai.core.tokens import (
     adjust_max_tokens,
     get_token_count,
@@ -34,18 +33,6 @@ from readmeai.core.utils import extract_markdown_table, format_sentence
 
 class ModelHandler:
     """LLM API handler that generates text for the README.md file."""
-
-    @asynccontextmanager
-    async def use_api(self) -> None:
-        """Context manager for managing HTTP client resources used by the the LLM API."""
-        try:
-            yield self
-        finally:
-            await self.close()
-
-    async def close(self) -> None:
-        """Closes the HTTP client."""
-        await self.http_client.aclose()
 
     def __init__(self, config: settings.AppConfig) -> None:
         """Initializes the GPT language model API handler."""
@@ -60,24 +47,30 @@ class ModelHandler:
             timeout=20,
             limits=Limits(max_keepalive_connections=100, max_connections=200),
         )
-        self.last_request_time = time.monotonic()
         self.rate_limit_semaphore = asyncio.Semaphore(config.llm.rate_limit)
 
-    async def batch_text_generator(
-        self, prompts: List[Union[str, Tuple[str, str]]]
+    @asynccontextmanager
+    async def use_api(self) -> None:
+        """Context manager for HTTP client used by the LLM API."""
+        try:
+            yield self
+        finally:
+            await self.close()
+
+    async def close(self) -> None:
+        """Closes the HTTP client."""
+        await self.http_client.aclose()
+
+    async def batch_request(
+        self,
+        file_context: List[FileData],
+        dependencies: List[str],
+        summaries: List[str],
     ) -> List[str]:
-        """Generates text for the README.md file using GPT language models.
-
-        Parameters
-        ----------
-        prompts
-            A list of prompts to generate text from.
-
-        Returns
-        -------
-        List[str]
-            A list of generated text.
-        """
+        """Generates text for the README.md file using GPT language models."""
+        prompts = await self._set_prompt_context(
+            file_context, dependencies, summaries
+        )
         responses = []
         for batch in self._batch_prompts(prompts):
             batch_responses = await asyncio.gather(
@@ -89,43 +82,58 @@ class ModelHandler:
     def _batch_prompts(
         self, prompts: List[Union[str, Tuple[str, str]]], batch_size: int = 5
     ) -> List[List[Union[str, Tuple[str, str]]]]:
-        """Batches prompts for the LLM API.
-
-        Parameters
-        ----------
-        prompts
-            A list of prompts to batch.
-        batch_size, optional
-            The number of prompts to batch, by default 5
-
-        Returns
-        -------
-        List[List[Union[str, Tuple[str, str]]]]
-            A list of batches of prompts.
-
-        Yields
-        ------
-        List[Union[str, Tuple[str, str]]]
-            A batch of prompts.
-        """
+        """Batches prompts for the LLM API."""
         for i in range(0, len(prompts), batch_size):
             yield prompts[i : i + batch_size]
 
-    def build_prompt(self, prompt_type, context) -> str:
-        """Generates a prompt for the LLM API.
+    async def _set_prompt_context(
+        self,
+        file_context: list[FileData],
+        dependencies: List[str],
+        summaries: List[str],
+    ) -> List[dict]:
+        """Generates the prompts to be used by the LLM API."""
+        return [
+            {"type": prompt_type, "context": context}
+            for prompt_type, context in [
+                (
+                    "summaries",
+                    {
+                        "repo": self.config.git.repository,
+                        "tree": self.config.md.tree,
+                        "dependencies": file_context,
+                        "summaries": summaries,
+                    },
+                ),
+                (
+                    "features",
+                    {
+                        "repo": self.config.git.repository,
+                        "dependencies": dependencies,
+                        "files": file_context,
+                    },
+                ),
+                (
+                    "overview",
+                    {
+                        "name": self.config.git.name,
+                        "repo": self.config.git.repository,
+                        "summaries": summaries,
+                    },
+                ),
+                (
+                    "slogan",
+                    {
+                        "name": self.config.git.name,
+                        "repo": self.config.git.repository,
+                        "summaries": summaries,
+                    },
+                ),
+            ]
+        ]
 
-        Parameters
-        ----------
-        prompt_type
-            The type of prompt to generate i.e. features, overview, slogan.
-        context
-            A dictionary containing the context for the prompt.
-
-        Returns
-        -------
-        str
-            The generated prompt.
-        """
+    def _inject_prompt_context(self, prompt_type, context) -> str:
+        """Generates a prompt for the LLM API."""
         prompt_templates = {
             "features": self.prompts.features,
             "overview": self.prompts.overview,
@@ -140,31 +148,20 @@ class ModelHandler:
             return ""
 
     async def _process_prompt(self, prompt: Dict[str, Any]) -> str:
-        """Processes a prompt and returns the generated text.
-
-        Parameters
-        ----------
-        prompt
-            A dictionary containing the prompt type and context.
-
-        Returns
-        -------
-        str
-            The generated text from the LLM API.
-        """
+        """Processes a prompt and returns the generated text."""
         if prompt["type"] == "summaries":
-            return await self._generate_summaries(prompt["context"])
+            return await self._handle_code_summary_response(prompt["context"])
         else:
-            formatted_prompt = self.build_prompt(
+            formatted_prompt = self._inject_prompt_context(
                 prompt["type"], prompt["context"]
             )
             tokens = adjust_max_tokens(self.tokens, formatted_prompt)
-            _, summary = await self.generate_text(
+            _, summary = await self._handle_response(
                 prompt["type"], formatted_prompt, tokens
             )
             return summary
 
-    async def _generate_summaries(
+    async def _handle_code_summary_response(
         self, file_context: List[Tuple[str, str]]
     ) -> List[Tuple[str, str]]:
         """Generates code summaries for the README.md file.
@@ -187,7 +184,7 @@ class ModelHandler:
                 self.config.md.tree, file_path, file_content
             )
             tokens = adjust_max_tokens(self.tokens, prompt)
-            _, summary_or_error = await self.generate_text(
+            _, summary_or_error = await self._handle_response(
                 file_path, prompt, tokens
             )
             code_summaries.append((file_path, summary_or_error))
@@ -199,14 +196,15 @@ class ModelHandler:
         wait=wait_exponential(multiplier=1, min=2, max=6),
         retry=retry_if_exception_type(
             (
-                openai.error.OpenAIError,
+                ConnectionError,
                 HTTPStatusError,
                 NetworkError,
                 TimeoutException,
+                openai.error.OpenAIError,
             )
         ),
     )
-    async def generate_text(
+    async def _handle_response(
         self, index: str, prompt: str, tokens: int
     ) -> Tuple[str, str]:
         """Generates text for the README.md file using GPT language models.
@@ -251,20 +249,24 @@ class ModelHandler:
                     },
                 )
                 response.raise_for_status()
-                llm_text = response.json()
-                summary = llm_text["choices"][0]["message"]["content"]
-                summary = (
-                    format_sentence(summary)
+                llm_response = response.json()
+                llm_text = llm_response["choices"][0]["message"]["content"]
+                llm_text = (
+                    format_sentence(llm_text)
                     if index != "features"
-                    else extract_markdown_table(summary)
+                    else extract_markdown_table(llm_text)
                 )
-                self.cache[prompt] = summary
-                self.logger.info(f"Response: {index} - {summary}")
-                return index, summary
+                self.cache[prompt] = llm_text
+                self.logger.info(f"Response: {index} - {llm_text}")
+                return index, llm_text
 
-        except Exception as exc_info:
-            error_message = f"Error generating summary: {exc_info.__class__.__name__} occurred. See logs for details."
-            self.logger.error(
-                f"Exception making request: {exc_info}\n{traceback.format_exc()}"
-            )
+        except (
+            ConnectionError,
+            HTTPStatusError,
+            NetworkError,
+            TimeoutException,
+            openai.error.OpenAIError,
+        ) as exc:
+            error_message = f"API error occurred: {exc}"
+            self.logger.error(error_message)
             return index, error_message
