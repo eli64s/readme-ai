@@ -4,13 +4,35 @@ from pathlib import Path
 
 from readmeai.config.settings import ConfigHelper
 from readmeai.core.utils import (
+    extract_markdown_table,
     flatten_list,
     format_sentence,
     get_resource_path,
     is_valid_url,
-    remove_substring,
     should_ignore,
 )
+
+
+def test_extract_markdown_table():
+    """Test that the markdown table is extracted from the input string."""
+    test_string = """<remove this>
+    | Column 1 | Column 2 | Column 3 |
+    | -------- | -------- | -------- |
+    | Content  | Content  | Content  |
+    | Content  | Content  | Content  |
+    | Content  | Content  | Content  |
+    and this
+    """
+    result = extract_markdown_table(test_string)
+    assert isinstance(result, str)
+    assert "<remove this>" not in result
+    assert "and this" not in result
+
+
+def test_format_sentence():
+    text = "'hello world'"
+    formatted_sentence = format_sentence(text)
+    assert formatted_sentence == "hello world"
 
 
 def test_is_valid_url():
@@ -26,39 +48,12 @@ def test_flatten_list():
     assert flattened_list == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def test_format_sentence():
-    text = "'hello world'"
-    formatted_sentence = format_sentence(text)
-    assert formatted_sentence == "hello world"
-
-
-def test_remove_substring():
-    """Test that the substring is removed from the input string."""
-    test_string = """
-    <div>
-        <p>Paragraph 1 content.</p>
-        Some content that should remain.
-        <p>Paragraph 2 content with <div> nested tag.</p></div>
-        This content is outside of the div tags.
-        <p>Another paragraph.</p>
-        <div>Content to be removed.</div>
-        <p>Final paragraph.</p>
-        <div>
-            <p>Paragraph inside div.</p>
-            Content inside div that should be removed.
-        </div>
-    </div>
-    """
-    result = remove_substring(test_string)
-    assert isinstance(result, str)
-
-
-def test_should_ignore(config_helper: ConfigHelper):
+def test_should_ignore(mock_config_helper: ConfigHelper):
     """Test that the file is ignored."""
     file_path_ignored = Path("README.md")
     file_path_not_ignored = Path("readmeai/main.py")
-    assert should_ignore(config_helper, file_path_ignored) is True
-    assert should_ignore(config_helper, file_path_not_ignored) is False
+    assert should_ignore(mock_config_helper, file_path_ignored) is True
+    assert should_ignore(mock_config_helper, file_path_not_ignored) is False
 
 
 def test_get_resource_path_from_resources(monkeypatch):

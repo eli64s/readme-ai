@@ -15,10 +15,10 @@ from readmeai.markdown.tables import (
 from readmeai.services import git_utilities
 
 
-def test_construct_markdown_table(config):
+def test_construct_markdown_table(mock_config):
     """Test that the construct_markdown_table function constructs the table."""
     data = [("module1.py", "Summary 1")]
-    repository = config.git.repository
+    repository = mock_config.git.repository
     full_name = "eli64s/readme-ai"
     table = construct_markdown_table(data, repository, full_name)
     assert "Summary" in table
@@ -26,12 +26,12 @@ def test_construct_markdown_table(config):
     assert f"[module1.py]({repository}" in table
 
 
-def test_create_hyperlink(config):
+def test_create_hyperlink(mock_config):
     """Test that the create_hyperlink function creates the hyperlink."""
     file_name = "main.py"
     module = f"readmeai/{file_name}"
-    full_name = config.git.full_name
-    repo_url = config.git.repository
+    full_name = mock_config.git.full_name
+    repo_url = mock_config.git.repository
     repo_file_url = git_utilities.get_remote_file_url(
         module, full_name, repo_url
     )
@@ -59,9 +59,9 @@ def test_format_as_markdown_table():
     assert "Data2" in table
 
 
-def test_format_code_summaries(config):
+def test_format_code_summaries(mock_config):
     """Test that the format_code_summaries function formats the summaries."""
-    placeholder = config.md.default
+    placeholder = mock_config.md.default
     summaries = [("module1.py", placeholder), ("invalid", placeholder)]
     formatted = format_code_summaries(placeholder, summaries)
     assert formatted == [

@@ -36,12 +36,14 @@ def test_get_token_count(mock_get_encoding):
 
 @patch("readmeai.core.tokens.encoding_for_model")
 @patch("readmeai.core.tokens.get_encoding")
-def test_get_token_encoder(mock_encoding_for_model, mock_get_encoding, config):
+def test_get_token_encoder(
+    mock_encoding_for_model, mock_get_encoding, mock_config
+):
     """Test that the token encoder is returned."""
-    mock_encoding_for_model.return_value = config.llm.model
-    mock_get_encoding.return_value = config.llm.encoding
+    mock_encoding_for_model.return_value = mock_config.llm.model
+    mock_get_encoding.return_value = mock_config.llm.encoding
     result = tokens.get_token_encoder()
-    assert result == config.llm.encoding
+    assert result == mock_config.llm.encoding
 
 
 @patch("readmeai.core.tokens.get_token_encoder")

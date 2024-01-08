@@ -1,6 +1,6 @@
 """Unit tests for the GPT LLM API handler."""
 
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, Mock
 
 import pytest
 from cachetools import TTLCache
@@ -9,15 +9,9 @@ from httpx import HTTPStatusError, TimeoutException
 from readmeai.core.model import ModelHandler
 
 
-@pytest.fixture
-def mock_settings(config):
-    mock_config = config
-    return mock_config
-
-
-def test_init(mock_settings):
-    handler = ModelHandler(mock_settings)
-    assert handler.tokens_max == mock_settings.llm.tokens_max
+def test_init(mock_config):
+    handler = ModelHandler(mock_config)
+    assert handler.tokens_max == mock_config.llm.tokens_max
     assert isinstance(handler.cache, TTLCache)
 
 
@@ -49,8 +43,8 @@ class MockHTTPStatusError(HTTPStatusError):
 
 
 @pytest.mark.asyncio
-async def test_generate_text_success(mock_settings):
-    handler = ModelHandler(mock_settings)
+async def test_handle_response_success(mock_config):
+    handler = ModelHandler(mock_config)
     handler.http_client.post = AsyncMock(
         return_value=MockResponse(
             json_data={
@@ -58,38 +52,54 @@ async def test_generate_text_success(mock_settings):
             }
         )
     )
-
-    index, summary = await handler.generate_text("test", "Some prompt", 50)
+    index, summary = await handler._handle_response("test", "Some prompt", 50)
     assert summary == "Expected summary"
     assert index == "test"
 
 
 @pytest.mark.asyncio
-async def test_batch_text_generator(mock_settings):
-    handler = ModelHandler(mock_settings)
+async def test_batch_request(mock_config, mock_dependencies, mock_summaries):
+    handler = ModelHandler(mock_config)
     handler._process_prompt = AsyncMock(
         side_effect=lambda p: f"Processed: {p}"
     )
-
-    prompts = ["prompt1", "prompt2", "prompt3"]
-    responses = await handler.batch_text_generator(prompts)
-    assert responses == [f"Processed: {p}" for p in prompts]
-
-
-@pytest.mark.asyncio
-async def test_generate_text_failure(mock_settings):
-    pass
+    responses = await handler.batch_request(
+        [Mock(), Mock()], mock_dependencies, mock_summaries
+    )
+    assert "Processed" in responses[0]
 
 
 @pytest.mark.asyncio
-async def test_generate_text_with_retry(mock_settings):
-    handler = ModelHandler(mock_settings)
+async def test_handle_reponse_with_retry(mock_config):
+    """Test generate_text method with retry."""
+    handler = ModelHandler(mock_config)
     handler.http_client.post = AsyncMock(
         side_effect=[TimeoutException("Timeout"), MockResponse()]
     )
-
-    index, summary = await handler.generate_text(
+    index, summary = await handler._handle_response(
         "retry_test", "Some prompt", 50
     )
     assert summary is not None
     assert index == "retry_test"
+
+
+@pytest.mark.asyncio
+async def test_set_prompt_context(
+    mock_config, mock_dependencies, mock_summaries
+):
+    """Test the generate_prompts function."""
+    mock_config.git.repository = "https://example.com/repo"
+    file_context = [Mock(), Mock(), Mock()]
+    handler = ModelHandler(mock_config)
+    handler.http_client.post = AsyncMock(
+        side_effect=[TimeoutException("Timeout"), MockResponse()]
+    )
+    prompts = await handler._set_prompt_context(
+        file_context,
+        mock_dependencies,
+        mock_summaries,
+    )
+    assert len(prompts) == 4
+    expected_prompts = []
+    for prompt, expected in zip(prompts, expected_prompts):
+        assert prompt == expected

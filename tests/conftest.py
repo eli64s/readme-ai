@@ -10,15 +10,15 @@ from readmeai.config.settings import (
 
 
 @pytest.fixture(scope="session")
-def config():
+def mock_config():
     """Returns the default configuration."""
     return load_config()
 
 
 @pytest.fixture(scope="session")
-def config_helper(config):
+def mock_config_helper(mock_config):
     """Returns the default configuration helper."""
-    conf_model = AppConfigModel(app=config)
+    conf_model = AppConfigModel(app=mock_config)
     return load_config_helper(conf_model)
 
 
@@ -36,9 +36,3 @@ def mock_summaries():
         ("/path/to/file2.py", "This is summary for file2.py"),
         (".github/workflows/ci.yml", "This is summary for ci.yml"),
     ]
-
-
-@pytest.fixture(scope="session")
-def mock_temp_dir(tmp_path_factory):
-    """Returns a temporary directory for the test session."""
-    return tmp_path_factory.mktemp("test_readmeai_temp_dir")

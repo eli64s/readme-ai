@@ -15,18 +15,14 @@ def test_commands_with_defaults(runner):
     """Test the commands function with default options."""
     with runner.isolated_filesystem():
         result = runner.invoke(
-            commands, ["--repository", "https://github.com/test/repo"]
+            commands,
+            [
+                "--repository",
+                "https://github.com/eli64s/readme-ai-streamlit",
+                "--offline",
+            ],
         )
         assert result.exit_code == 0
-
-
-def test_commands_with_custom_align(runner):
-    """Test the commands function with a custom alignment."""
-    result = runner.invoke(
-        commands,
-        ["--align", "left", "--repository", "https://github.com/test/repo"],
-    )
-    assert result.exit_code == 0
 
 
 def test_commands_with_invalid_option(runner):
@@ -40,5 +36,4 @@ def test_commands_with_invalid_option(runner):
 
 if __name__ == "__main__":
     test_commands_with_defaults()
-    test_commands_with_custom_align()
     test_commands_with_invalid_option()

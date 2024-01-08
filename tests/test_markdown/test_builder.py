@@ -9,10 +9,18 @@ from readmeai.markdown.builder import ReadmeBuilder, build_readme_md
 
 @pytest.fixture
 def readme_builder(
-    config, config_helper, mock_dependencies, mock_summaries, mock_temp_dir
+    mock_config,
+    mock_config_helper,
+    mock_dependencies,
+    mock_summaries,
+    tmp_path,
 ):
     return ReadmeBuilder(
-        config, config_helper, mock_dependencies, mock_summaries, mock_temp_dir
+        mock_config,
+        mock_config_helper,
+        mock_dependencies,
+        mock_summaries,
+        tmp_path,
     )
 
 
@@ -41,9 +49,9 @@ def test_md_quickstart(readme_builder):
 
 
 @patch("readmeai.markdown.builder.ReadmeBuilder.remove_emojis")
-def test_build_with_emojis(mock_remove_emojis, config, readme_builder):
-    """Tests if emojis are removed when the config is set."""
-    config.cli.emojis = False
+def test_build_with_emojis(mock_remove_emojis, mock_config, readme_builder):
+    """Tests if emojis are removed when the mock_config is set."""
+    mock_config.cli.emojis = False
     readme_builder.build()
     mock_remove_emojis.assert_called_once()
 
@@ -51,15 +59,19 @@ def test_build_with_emojis(mock_remove_emojis, config, readme_builder):
 @patch("readmeai.markdown.builder.factory.FileHandler.write")
 def test_build_readme_md(
     mock_write,
-    config,
-    config_helper,
+    mock_config,
+    mock_config_helper,
     mock_dependencies,
     mock_summaries,
-    mock_temp_dir,
+    tmp_path,
 ):
     """Tests the build_readme_md function."""
     build_readme_md(
-        config, config_helper, mock_dependencies, mock_summaries, mock_temp_dir
+        mock_config,
+        mock_config_helper,
+        mock_dependencies,
+        mock_summaries,
+        tmp_path,
     )
     mock_write.assert_called_once()
 

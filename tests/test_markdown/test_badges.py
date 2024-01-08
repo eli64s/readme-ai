@@ -14,9 +14,9 @@ from readmeai.markdown.badges import (
 )
 
 
-def test_read_badge_file_success(config, monkeypatch):
+def test_read_badge_file_success(mock_config, monkeypatch):
     """Tests the _read_badge_file method for successful file read."""
-    badge_file_path = config.files.shields_icons
+    badge_file_path = mock_config.files.shields_icons
     mock_file_handler = MagicMock()
     mock_file_handler.read.return_value = {
         "icons": {"names": ["Python", "JavaScript"]},
@@ -26,7 +26,7 @@ def test_read_badge_file_success(config, monkeypatch):
     assert isinstance(_read_badge_file(badge_file_path), dict)
 
 
-def test_read_badge_file_exception(config, monkeypatch):
+def test_read_badge_file_exception(monkeypatch):
     """Tests the _read_badge_file method for exception handling."""
     badge_file_path = "invalid_path"
     mock_file_handler = MagicMock()
@@ -77,20 +77,18 @@ def test_build_dependency_badges(dependencies, svg_icons, style, expected):
     assert build_dependency_badges(dependencies, svg_icons, style) == expected
 
 
-def test_build_metadata_badges_success(config):
+def test_build_metadata_badges_success(mock_config):
     """Tests build_metadata_badges with valid inputs."""
-    mock_config = config
     mock_config.git.source = "github.com"
-    mock_config.md.badges_shields = config.md.badges_shields
     mock_config.md.badge_style = "flat"
     badges = build_metadata_badges(mock_config, "github.com", "user/repo")
     assert isinstance(badges, str)
     assert "license" in badges
 
 
-def test_shields_icons_success(config, mock_dependencies):
+def test_shields_icons_success(mock_config, mock_dependencies):
     """Tests shields_icons with valid inputs."""
-    config.md.badge_style = "flat"
+    mock_config.md.badge_style = "flat"
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = {
             "python": [
@@ -99,16 +97,16 @@ def test_shields_icons_success(config, mock_dependencies):
             ],
         }
         shields_badges, deps_badges = shields_icons(
-            config, mock_dependencies, "github.com", "github"
+            mock_config, mock_dependencies, "github.com", "github"
         )
         assert "license" in shields_badges
         assert "Python" in deps_badges
         assert "shields.io" in deps_badges
 
 
-def test_skill_icons_success(config):
+def test_skill_icons_success(mock_config):
     """Tests skill_icons with valid inputs."""
-    config.md.badge_style = "skills-light"
+    mock_config.md.badge_style = "skills-light"
     deps = ["fastapi", "py", "redis", "github", "git"]
     mock_icons = {
         "icons": {"names": ["fastapi", "py", "redis", "md", "github", "git"]},
@@ -116,7 +114,7 @@ def test_skill_icons_success(config):
     }
     with patch("readmeai.markdown.badges._read_badge_file") as mock_read:
         mock_read.return_value = mock_icons
-        result = skill_icons(config, deps)
+        result = skill_icons(mock_config, deps)
         assert "&theme=light" in result
         assert """<a href="https://skillicons.dev">""" in result
         assert (

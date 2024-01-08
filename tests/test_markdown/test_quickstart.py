@@ -9,9 +9,9 @@ from readmeai.markdown.quickstart import (
 )
 
 
-def test_count_languages(mock_summaries, config_helper):
+def test_count_languages(mock_summaries, mock_config_helper):
     """Tests the count_languages method."""
-    language_counts = count_languages(mock_summaries, config_helper)
+    language_counts = count_languages(mock_summaries, mock_config_helper)
     assert language_counts == {"py": 2, "yml": 1}
 
 
@@ -22,15 +22,17 @@ def test_get_top_language():
     assert top_language == "Python"
 
 
-def test_get_top_language_setup(config, config_helper):
+def test_get_top_language_setup(mock_config, mock_config_helper):
     """Tests the get_top_language_setup method."""
     language_counts = {"Python": 5, "JavaScript": 3}
-    setup = get_top_language_setup(language_counts, config, config_helper)
+    setup = get_top_language_setup(
+        language_counts, mock_config, mock_config_helper
+    )
     assert isinstance(setup, ProjectSetup)
     assert setup.top_language == "Python"
 
 
-def test_setup_guide(config, config_helper, mock_summaries):
+def test_setup_guide(mock_config, mock_config_helper, mock_summaries):
     """Tests the setup_guide method."""
-    setup = setup_guide(config, config_helper, mock_summaries)
+    setup = setup_guide(mock_config, mock_config_helper, mock_summaries)
     assert isinstance(setup, ProjectSetup)

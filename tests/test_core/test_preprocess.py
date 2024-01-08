@@ -9,9 +9,9 @@ from readmeai.core.preprocess import FileData, RepoProcessor
 
 
 @pytest.fixture
-def repo_processor(config, config_helper):
+def repo_processor(mock_config, mock_config_helper):
     """Fixture for RepoProcessor."""
-    return RepoProcessor(config, config_helper)
+    return RepoProcessor(mock_config, mock_config_helper)
 
 
 def test_generate_contents(repo_processor, tmp_path):
@@ -138,3 +138,55 @@ def test_tokenize_content_offline_mode(repo_processor):
     ]
     result = repo_processor.tokenize_content(contents)
     assert result[0].tokens == 0
+
+
+@pytest.fixture
+def mock_file_data():
+    file1 = FileData(
+        path="path/to/file1.py",
+        name="file1.py",
+        content="",
+        extension="py",
+        dependencies=["dependency1"],
+    )
+    file2 = FileData(
+        path="path/to/file2.js",
+        name="file2.js",
+        content="",
+        extension="js",
+        dependencies=["dependency2"],
+    )
+    file3 = FileData(
+        path="path/to/file3.txt",
+        name="file3.txt",
+        content="",
+        extension="txt",
+        dependencies=[],
+    )
+    return [file1, file2, file3]
+
+
+def test_get_dependencies_normal_behavior(
+    mock_file_data, mock_config, mock_config_helper
+):
+    """Test the get_dependencies method."""
+    processor = RepoProcessor(mock_config, mock_config_helper)
+    dependencies = processor.get_dependencies(mock_file_data)
+    assert len(dependencies) == 8
+    assert "dependency1" in dependencies
+    assert "dependency2" in dependencies
+    assert "py" in dependencies
+    assert "js" in dependencies
+
+
+def test_get_dependencies_exception_handling(
+    mock_file_data, mock_config, mock_config_helper
+):
+    """Test the get_dependencies method."""
+    processor = RepoProcessor(mock_config, mock_config_helper)
+    processor.extract_dependencies = MagicMock(
+        side_effect=Exception("Test exception")
+    )
+    dependencies = processor.get_dependencies(mock_file_data)
+
+    assert isinstance(dependencies, list)

@@ -6,14 +6,14 @@ from readmeai.markdown.tree import TreeGenerator
 
 
 @pytest.fixture
-def tree_gen(config_helper, tmp_path):
+def tree_gen(mock_config_helper, tmp_path):
     """Fixture for the TreeGenerator class."""
     dir1 = tmp_path / "dir1"
     dir1.mkdir()
     (dir1 / "file1.txt").touch()
     (tmp_path / "dir2").mkdir()
     return TreeGenerator(
-        conf_helper=config_helper,
+        conf_helper=mock_config_helper,
         repo_name="TestProject",
         repo_url=tmp_path,
         root_dir=tmp_path,
