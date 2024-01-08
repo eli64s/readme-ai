@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.991"
+version = "0.4.992"
 description = "🎈 Automated README file generator, powered by GPT language model APIs"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -48,7 +48,6 @@ httpx = "^0.24.1"
 h2 = "^4.1.0"
 openai = "^0.27.8"
 pyyaml = "^6.0"
-responses = "^0.23.1"
 tabulate = "^0.9.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
@@ -63,9 +62,11 @@ pytest-cov = "*"
 pytest-randomly = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
+ruff = "*"
 
-[tool.poetry.group.dev.dependencies]
-pytest-asyncio = "^0.23.2"
+[tool.poetry.group.docs.dependencies]
+mkdocs = "*"
+mkdocs-material = "*"
 
 [tool.black]
 line-length = 79
@@ -99,11 +100,7 @@ multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
-known_first_party = "readmeai"
-known_third_party = [
-    "pytest",
-    "responses",
-]
+known_third_party = "pytest"
 sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
 no_lines_before = 'LOCALFOLDER'
 
