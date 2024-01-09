@@ -5,33 +5,30 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt coverage pytest pytest-cov pytest-asyncio pytest-xdist pytest-randomly pytest-sugar
-    - name: Install Project
-      run: |
-        python -m pip install -e .
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
 
-    - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+      - name: Install dependencies
+        run: |
+          poetry install
 
-    - name: Run tests with coverage
-      run: |
-        pytest -n auto --asyncio-mode=auto --cov=. --cov-report=xml --cov-report=term-missing
+      - name: Run tests with coverage
+        run: |
+          poetry run pytest -n auto --asyncio-mode=auto --cov=. --cov-report=xml --cov-report=term-missing
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
-        fail_ci_if_error: true
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: true
