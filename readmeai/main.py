@@ -37,7 +37,6 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
             await clone_repo_to_temp_dir(repo_url, temp_dir)
-
             (
                 file_context,
                 dependencies,

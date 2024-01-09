@@ -5,9 +5,9 @@ from readmeai.exceptions import (
     FileReadError,
     FileSystemError,
     FileWriteError,
+    GitCloneError,
     ReadmeAiException,
     ReadmeGenerationError,
-    RepositoryCloneError,
 )
 
 
@@ -17,9 +17,9 @@ def test_readme_ai_exception():
     assert str(ex) == "General error"
 
 
-def test_repository_clone_exception():
+def test_git_clone_exception():
     """Test the RepositoryCloneException class."""
-    ex = RepositoryCloneError("https://example.com/repo", ValueError())
+    ex = GitCloneError("https://example.com/repo", ValueError())
     assert "Failed to clone repository" in str(ex)
 
 

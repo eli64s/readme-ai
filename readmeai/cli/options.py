@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 import click
 from click import Context, Parameter
@@ -12,26 +11,11 @@ from readmeai.config.enums import BadgeOptions, ImageOptions
 
 
 def prompt_for_custom_image(
-    context: Optional[Context],
-    parameter: Optional[Parameter],
-    value: Optional[str],
+    context: Context | None,
+    parameter: Parameter | None,
+    value: str | None,
 ) -> str:
-    """Prompts the user to input a custom image URL.
-
-    Parameters
-    ----------
-    ctx
-        Click context object.
-    param
-        Click parameter object.
-    value
-        Value of the parameter.
-
-    Returns
-    -------
-    str
-        Custom image URL.
-    """
+    """Prompt the user for a custom image URL."""
     if value == ImageOptions.CUSTOM.name:
         return click.prompt("Enter the URL for your custom image logo")
     elif value in ImageOptions.__members__:

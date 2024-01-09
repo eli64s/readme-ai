@@ -5,7 +5,6 @@ from pathlib import Path
 from readmeai.config.settings import ConfigHelper
 from readmeai.core.utils import (
     extract_markdown_table,
-    flatten_list,
     format_sentence,
     get_resource_path,
     is_valid_url,
@@ -40,12 +39,6 @@ def test_is_valid_url():
     assert is_valid_url("http://www.example.com") is True
     assert is_valid_url("www.example.com") is False
     assert is_valid_url("example.com") is False
-
-
-def test_flatten_list():
-    nested_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    flattened_list = flatten_list(nested_list)
-    assert flattened_list == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_should_ignore(mock_config_helper: ConfigHelper):

@@ -1,10 +1,12 @@
 """Tokenization utilities for the readme-ai CLI application."""
 
-from tiktoken import encoding_for_model, get_encoding
+from tiktoken import get_encoding
 
 from readmeai.core.logger import Logger
 
 logger = Logger(__name__)
+
+_encoding_cache = {}
 
 
 def adjust_max_tokens(
@@ -16,29 +18,32 @@ def adjust_max_tokens(
     return adjusted_max_tokens
 
 
-def get_token_count(text: str, encoding_name: str) -> int:
-    """Returns the number of tokens in a text string."""
-    encoding = get_encoding(encoding_name)
-    num_tokens = len(encoding.encode(text, disallowed_special=()))
+def _set_encoding_cache(encoding_name: str) -> str:
+    """Set the encoding cache for a specific encoding."""
+    if encoding_name not in _encoding_cache:
+        _encoding_cache[encoding_name] = get_encoding(encoding_name)
+
+    return _encoding_cache[encoding_name]
+
+
+def token_counter(text: str, encoding_name: str) -> int:
+    """Return the number of tokens in a text string."""
+    encoding = _set_encoding_cache(encoding_name)
+    try:
+        num_tokens = len(encoding.encode(text))
+    except Exception as exc:
+        logger.error(f"Error in token encoding: {exc}")
+        num_tokens = 0
+
     return num_tokens
 
 
-def get_token_encoder() -> str:
-    """The token encoder to use for the model."""
-    return (
-        encoding_for_model("gpt-3.5-turbo")
-        if "gpt"
-        else get_encoding("cl100k_base")
-    )
-
-
-def truncate_tokens(text: str, max_tokens: int) -> str:
+def truncate_tokens(encoding_name: str, text: str, max_tokens: int) -> str:
     """Truncate a text string to a maximum number of tokens."""
     if not text:
         return text
     try:
-        encoder = get_token_encoder()
-
+        encoder = _set_encoding_cache(encoding_name)
         prompt_token_total = len(encoder.encode(text))
         if prompt_token_total <= max_tokens:
             return text

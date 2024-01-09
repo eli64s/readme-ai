@@ -15,12 +15,12 @@ class RepositoryError(ReadmeAiException):
     pass
 
 
-class RepositoryCloneError(RepositoryError):
+class GitCloneError(RepositoryError):
     """Could not clone repository."""
 
-    def __init__(self, repo_url: str, *args):
-        self.repo_url = repo_url
-        super().__init__(f"Failed to clone repository: {repo_url}", *args)
+    def __init__(self, repository: str, *args):
+        self.repository = repository
+        super().__init__(f"Failed to clone repository: {repository}", *args)
 
 
 class ReadmeGenerationError(ReadmeAiException):

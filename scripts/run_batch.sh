@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+version="0.4.992"
+run_date=$(date +"%Y%m%d")
+filenames=(
+    #"readme-litellm"
+    #"readme-fal-js"
+    "readme-postgres"
+    "readme-python"
+    "readme-typescript"
+    "readme-kotlin"
+    "readme-rust-c"
+    "readme-go"
+    "readme-java"
+    "readme-fastapi-redis"
+    "readme-mlops"
+    "readme-pyflink"
+    "readme-streamlit"
+)
 repositories=(
     #"https://github.com/BerriAI/litellm"
     #"https://github.com/fal-ai/fal-js"
@@ -15,36 +32,19 @@ repositories=(
     "https://github.com/eli64s/pyflink-poc"
     "https://github.com/eli64s/readme-ai-streamlit"
 )
-
-filenames=(
-    #"readme-litellm.md"
-    #"readme-fal-js.md"
-    "readme-postgres.md"
-    "readme-python.md"
-    "readme-typescript.md"
-    "readme-kotlin.md"
-    "readme-rust-c.md"
-    "readme-go.md"
-    "readme-java.md"
-    "readme-fastapi-redis.md"
-    "readme-mlops.md"
-    "readme-pyflink.md"
-    "readme-streamlit.md"
-)
-
-badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
-image=("default" "black" "grey" "purple" "yellow")
 align=("left" "center")
+badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
+image=("default" "black" "cloud" "gradient" "grey" "purple" "yellow")
 
 for index in "${!repositories[@]}"; do
     repo="${repositories[$index]}"
-    filename="${filenames[$index]}"
+    filename="${filenames[$index]}_v${version}_${run_date}.md"
     random_badge=${badge_styles[$RANDOM % ${#badge_styles[@]}]}
     image_style=${image[$RANDOM % ${#image[@]}]}
     alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
 
-    cmd="readmeai -o \"$filename\" -r \"$repo\""
+    cmd="python3 -m readmeai.cli.commands -o \"$filename\" -r \"$repo\""
 
     if [ "$random_badge" != "default" ]; then
         cmd+=" -b \"$random_badge\""

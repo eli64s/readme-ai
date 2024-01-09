@@ -1,6 +1,6 @@
 """Unit tests for JSON-based dependency parsers."""
 
-from readmeai.parsers.npm import PackageJsonParser, YarnLockParser
+from readmeai.parsers.npm import PackageJsonParser
 
 package_json_file = """
 {

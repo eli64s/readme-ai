@@ -21,7 +21,7 @@ class GitService(str, Enum):
             GitService.GITHUB: "https://api.github.com/repos/",
             GitService.GITLAB: "https://api.gitlab.com/v4/projects/",
             GitService.BITBUCKET: "https://api.bitbucket.org/2.0/repositories/",
-        }.get(self, None)
+        }.get(self)
 
     @property
     def file_url_template(self):
@@ -31,7 +31,7 @@ class GitService(str, Enum):
             GitService.GITHUB: "https://github.com/{full_name}/blob/master/{file_path}",
             GitService.GITLAB: "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
             GitService.BITBUCKET: "https://bitbucket.org/{full_name}/src/master/{file_path}",
-        }.get(self, None)
+        }.get(self)
 
 
 class BadgeOptions(str, Enum):

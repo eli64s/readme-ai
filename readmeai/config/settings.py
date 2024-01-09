@@ -12,6 +12,7 @@ from pydantic import BaseModel, validator
 from readmeai.config.enums import GitService
 from readmeai.core.factory import FileHandler
 from readmeai.core.logger import Logger
+from readmeai.exceptions import FileReadError
 
 logger = Logger(__name__)
 
@@ -281,14 +282,11 @@ def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
                 f"Using pkg_resources.resource_filename: {resource_path}"
             )
 
-        except FileNotFoundError as exc_info:
-            logger.debug(
-                f"Error using pkg_resources.resource_filename: {exc_info}"
-            )
-            raise FileNotFoundError(f"Config file not found: {file_path}")
+        except Exception as exc:
+            raise FileReadError("Failed to load file", file_path) from exc
 
     if resource_path.exists() is False:
-        raise FileNotFoundError(f"Config file not found: {resource_path}")
+        raise FileReadError("File not found", resource_path) from None
 
     return handler.read(resource_path)
 

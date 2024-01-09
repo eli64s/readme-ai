@@ -6,7 +6,7 @@ from typing import Generator, List, Tuple
 
 from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core.logger import Logger
-from readmeai.core.tokens import get_token_count
+from readmeai.core.tokens import token_counter
 from readmeai.core.utils import should_ignore
 from readmeai.markdown.builder import ReadmeBuilder
 from readmeai.parsers.factory import parser_factory
@@ -113,7 +113,7 @@ class RepoProcessor:
                     )
                     yield file_data
 
-                except (UnicodeDecodeError, IOError) as exc_info:
+                except (OSError, UnicodeDecodeError) as exc_info:
                     logger.warning(
                         f"Error reading file {file_path}: {exc_info}"
                     )
@@ -133,7 +133,7 @@ class RepoProcessor:
             return contents
 
         for content in contents:
-            content.tokens = get_token_count(
+            content.tokens = token_counter(
                 content.content, self.config.llm.encoding
             )
         return contents

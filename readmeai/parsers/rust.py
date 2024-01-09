@@ -33,6 +33,6 @@ class CargoTomlParser(FileParser):
 
             return dependencies
 
-        except toml.TomlDecodeError as exc_info:
-            raise ValueError(TOM_DECODE_ERROR.format(exc_info))
+        except toml.TomlDecodeError as exc:
+            self.log_error(TOM_DECODE_ERROR.format(exc))
             return []
