@@ -48,7 +48,7 @@ async def test_readme_agent_normal_flow(
 @pytest.mark.asyncio
 async def test_readme_agent_error_handling():
     """Test the readme_agent function."""
-    with patch("readmeai.services.git_operations.clone_repo_to_temp_dir") as clone_mock:
+    with patch("readmeai.services.git_utilities.clone_repo_to_temp_dir") as clone_mock:
         clone_mock.side_effect = Exception("Failed to clone repo")
         conf = Mock()
         conf_helper = Mock()

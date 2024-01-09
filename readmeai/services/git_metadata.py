@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 import aiohttp
 
 from readmeai.core.logger import Logger
-from readmeai.services.git_utilities import parse_repo_url
+from readmeai.services.git_utilities import fetch_git_api_url
 
 logger = Logger(__name__)
 
@@ -79,7 +79,7 @@ async def git_api_request(
     session: aiohttp.ClientSession, repo_url: str
 ) -> GitHubRepoMetadata | None:
     """Retrieves repo metadata and returns a GitHubRepoMetadata instance."""
-    api_url = await parse_repo_url(repo_url)
+    api_url = await fetch_git_api_url(repo_url)
     if not api_url:
         return None
 

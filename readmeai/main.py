@@ -25,7 +25,7 @@ from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import FileData, process_repository
 from readmeai.exceptions import ReadmeGenerationError
 from readmeai.markdown.builder import build_readme_md
-from readmeai.services.git_operations import clone_repo_to_temp_dir
+from readmeai.services.git_utilities import clone_repo_to_temp_dir
 
 logger = Logger(__name__)
 
@@ -58,12 +58,8 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         slogan_response,
                     ) = responses
                     summaries = summaries_response
-                    conf.md.features = conf.md.features.format(
-                        features_response
-                    )
-                    conf.md.overview = conf.md.overview.format(
-                        overview_response
-                    )
+                    conf.md.features = conf.md.features.format(features_response)
+                    conf.md.overview = conf.md.overview.format(overview_response)
                     conf.md.slogan = slogan_response
                 else:
                     (
@@ -83,9 +79,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
 
         build_readme_md(conf, conf_helper, dependencies, summaries, temp_dir)
 
-        logger.info(
-            f"README.md file generated successfully @ {conf.files.output}"
-        )
+        logger.info(f"README.md file generated successfully @ {conf.files.output}")
 
     except Exception as exc:
         raise ReadmeGenerationError(exc, traceback.format_exc()) from exc

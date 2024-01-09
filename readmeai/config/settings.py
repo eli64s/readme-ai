@@ -22,7 +22,10 @@ class GitSettingsValidator:
     @classmethod
     def validate_repository(cls, value: Union[str, Path]) -> Union[str, Path]:
         """Validate the repository URL or path."""
-        if any(service.value in value for service in GitService) is False:
+        if (
+            any(service.value in value for service in GitService) is False
+            and Path(value).is_dir() is False
+        ):
             raise ValueError("Unsupported Git service.")
 
         if isinstance(value, str):

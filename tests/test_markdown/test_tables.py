@@ -32,9 +32,7 @@ def test_create_hyperlink(mock_config):
     module = f"readmeai/{file_name}"
     full_name = mock_config.git.full_name
     repo_url = mock_config.git.repository
-    repo_file_url = git_utilities.get_remote_file_url(
-        module, full_name, repo_url
-    )
+    repo_file_url = git_utilities.fetch_git_file_url(module, full_name, repo_url)
     hyperlink = create_hyperlink(
         file_name,
         full_name,

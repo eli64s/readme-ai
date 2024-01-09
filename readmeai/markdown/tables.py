@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 from readmeai.core.logger import Logger
-from readmeai.services.git_utilities import get_remote_file_url
+from readmeai.services.git_utilities import fetch_git_file_url
 
 logger = Logger(__name__)
 
@@ -22,15 +22,13 @@ def construct_markdown_table(
     return format_as_markdown_table(table_rows)
 
 
-def create_hyperlink(
-    file_name: str, full_name: str, module: str, repo_url: str
-) -> str:
+def create_hyperlink(file_name: str, full_name: str, module: str, repo_url: str) -> str:
     """
     Creates a hyperlink for a file, using its Git URL if possible.
     """
     if "invalid" in full_name.lower():
         return file_name
-    git_file_link = get_remote_file_url(module, full_name, repo_url)
+    git_file_link = fetch_git_file_url(module, full_name, repo_url)
     return f"[{file_name}]({git_file_link})"
 
 
@@ -49,8 +47,7 @@ def format_as_markdown_table(rows: List[List[str]]) -> str:
     formatted_lines = [
         "| "
         + " | ".join(
-            str(item).ljust(width)
-            for item, width in zip(row, max_column_widths)
+            str(item).ljust(width) for item, width in zip(row, max_column_widths)
         )
         + " |"
         for row in rows
