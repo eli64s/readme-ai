@@ -7,6 +7,8 @@ from readmeai.config.settings import (
     load_config,
     load_config_helper,
 )
+from readmeai.core.model import ModelHandler
+from readmeai.core.preprocess import FileData, RepoProcessor
 
 
 @pytest.fixture(scope="session")
@@ -36,3 +38,22 @@ def mock_summaries():
         ("/path/to/file2.py", "This is summary for file2.py"),
         (".github/workflows/ci.yml", "This is summary for ci.yml"),
     ]
+
+
+@pytest.fixture(scope="session")
+def mock_file_data(mock_dependencies):
+    """Returns the default file data."""
+    return FileData(
+        path="/path/to/file1.py",
+        name="file1.py",
+        content="This is content of file1.py",
+        extension="py",
+        tokens=10,
+        dependencies=mock_dependencies,
+    )
+
+
+@pytest.fixture(scope="session")
+def repo_processor(mock_config, mock_config_helper):
+    """Fixture for RepoProcessor class."""
+    return RepoProcessor(mock_config, mock_config_helper)

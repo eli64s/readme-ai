@@ -23,7 +23,7 @@ from readmeai.config.settings import (
 from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import FileData, process_repository
-from readmeai.exceptions import ReadmeGenerationError
+from readmeai.exceptions import ReadmeGeneratorError
 from readmeai.markdown.builder import build_readme_md
 from readmeai.services.git_utils import clone_to_temporary_directory
 
@@ -82,7 +82,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
         logger.info(f"README.md file generated successfully @ {conf.files.output}")
 
     except Exception as exc:
-        raise ReadmeGenerationError(exc, traceback.format_exc()) from exc
+        raise ReadmeGeneratorError(traceback.format_exc()) from exc
 
 
 def main(
@@ -124,7 +124,7 @@ def main(
         asyncio.run(readme_agent(conf, conf_helper))
 
     except Exception as exc:
-        raise ReadmeGenerationError(exc, traceback.format_exc()) from exc
+        raise ReadmeGeneratorError(exc, traceback.format_exc()) from exc
 
 
 def setup_environment(config: AppConfig, api_key: str) -> None:

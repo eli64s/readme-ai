@@ -5,8 +5,14 @@ import functools
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Tuple, Union
 
-import aiohttp
 import openai
+from httpx import (
+    AsyncClient,
+    HTTPStatusError,
+    Limits,
+    NetworkError,
+    TimeoutException,
+)
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -32,19 +38,27 @@ class ModelHandler:
         """Initializes the GPT language model API handler."""
         self.cache = {}
         self.config = config
-        self.encoder = config.llm.encoding
         self.logger = Logger(__name__)
-        self.prompts = config.prompts
-        self.tokens = config.llm.tokens
-        self.tokens_max = config.llm.tokens_max
-        self.http_client = aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=20),
-            connector=aiohttp.TCPConnector(
-                limit=200, limit_per_host=100, enable_cleanup_closed=True
-            ),
-        )
-        self.rate_limit_semaphore = asyncio.Semaphore(config.llm.rate_limit)
+        self._llm_attributes()
+        self._http_client()
         self._handle_response = functools.lru_cache(maxsize=100)(self._handle_response)
+
+    def _llm_attributes(self):
+        """Initializes basic attributes for the class."""
+        self.encoder = self.config.llm.encoding
+        self.prompts = self.config.prompts
+        self.tokens = self.config.llm.tokens
+        self.tokens_max = self.config.llm.tokens_max
+        self.rate_limit = self.config.llm.rate_limit
+
+    def _http_client(self):
+        """Configures the HTTP client for the class."""
+        self.http_client = AsyncClient(
+            http2=True,
+            timeout=20,
+            limits=Limits(max_keepalive_connections=100, max_connections=20),
+        )
+        self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
 
     @asynccontextmanager
     async def use_api(self) -> None:
@@ -56,7 +70,7 @@ class ModelHandler:
 
     async def close(self) -> None:
         """Closes the HTTP client."""
-        await self.http_client.close()
+        await self.http_client.aclose()
 
     async def batch_request(
         self,
@@ -66,21 +80,42 @@ class ModelHandler:
     ) -> List[str]:
         """Generates text for the README.md file using GPT language models."""
         prompts = await self._set_prompt_context(file_context, dependencies, summaries)
+        responses = await self._batch_prompts(prompts)
+        return responses
+
+    async def _batch_prompts(
+        self, prompts: List[Union[str, Tuple[str, str]]], batch_size: int = 5
+    ):
+        """Processes prompts in batches and returns the generated text."""
         responses = []
-        for batch in self._batch_prompts(prompts):
+
+        for batch in self._generate_batches(prompts, batch_size):
             batch_responses = await asyncio.gather(
-                *[self._process_prompt(prompt) for prompt in batch]
+                *[self._process_batch(prompt) for prompt in batch]
                 # , return_exceptions=True
             )
             responses.extend(batch_responses)
+
         return responses
 
-    def _batch_prompts(
-        self, prompts: List[Union[str, Tuple[str, str]]], batch_size: int = 5
-    ) -> List[List[Union[str, Tuple[str, str]]]]:
-        """Batches prompts for the LLM API."""
-        for i in range(0, len(prompts), batch_size):
-            yield prompts[i : i + batch_size]
+    def _generate_batches(self, items: List[Any], batch_size: int):
+        """Generator to create batches from a list of items."""
+        for i in range(0, len(items), batch_size):
+            yield items[i : i + batch_size]
+
+    async def _process_batch(self, prompt: Dict[str, Any]) -> str:
+        """Processes a prompt and returns the generated text."""
+        if prompt["type"] == "summaries":
+            return await self._handle_code_summary_response(prompt["context"])
+        else:
+            formatted_prompt = self._get_prompt_context(
+                prompt["type"], prompt["context"]
+            )
+            tokens = adjust_max_tokens(self.tokens, formatted_prompt)
+            _, summary = await self._handle_response(
+                prompt["type"], formatted_prompt, tokens
+            )
+            return summary
 
     async def _set_prompt_context(
         self,
@@ -128,34 +163,30 @@ class ModelHandler:
             ]
         ]
 
-    def _inject_prompt_context(self, prompt_type, context) -> str:
+    def _get_prompt_context(self, prompt_type, context) -> str:
         """Generates a prompt for the LLM API."""
+        prompt_template = self._get_prompt_template(prompt_type)
+        if not prompt_template:
+            self.logger.error(f"Prompt type '{prompt_type}' not found.")
+            return ""
+        return self._inject_prompt_context(prompt_template, context)
+
+    def _get_prompt_template(self, prompt_type: str) -> str:
+        """Retrieves the template for the given prompt type."""
         prompt_templates = {
             "features": self.prompts.features,
             "overview": self.prompts.overview,
             "slogan": self.prompts.slogan,
         }
-        prompt_template = prompt_templates.get(prompt_type)
+        return prompt_templates.get(prompt_type, "")
 
-        if prompt_template:
-            return prompt_template.format(*[context[key] for key in context])
-        else:
-            self.logger.error(f"Unknown prompt type: {prompt_type}")
+    def _inject_prompt_context(self, template: str, context: dict) -> str:
+        """Formats the template with the provided context."""
+        try:
+            return template.format(*[context[key] for key in context])
+        except KeyError as exc:
+            self.logger.error(f"Missing context for prompt key: {exc}")
             return ""
-
-    async def _process_prompt(self, prompt: Dict[str, Any]) -> str:
-        """Processes a prompt and returns the generated text."""
-        if prompt["type"] == "summaries":
-            return await self._handle_code_summary_response(prompt["context"])
-        else:
-            formatted_prompt = self._inject_prompt_context(
-                prompt["type"], prompt["context"]
-            )
-            tokens = adjust_max_tokens(self.tokens, formatted_prompt)
-            _, summary = await self._handle_response(
-                prompt["type"], formatted_prompt, tokens
-            )
-            return summary
 
     async def _handle_code_summary_response(
         self, file_context: List[Tuple[str, str]]
@@ -190,9 +221,9 @@ class ModelHandler:
         wait=wait_exponential(multiplier=1, min=2, max=6),
         retry=retry_if_exception_type(
             (
-                aiohttp.ClientConnectionError,
-                aiohttp.ClientResponseError,
-                aiohttp.ServerTimeoutError,
+                HTTPStatusError,
+                NetworkError,
+                TimeoutException,
                 openai.error.OpenAIError,
             )
         ),
@@ -228,24 +259,25 @@ class ModelHandler:
             prompt = truncate_tokens(self.encoder, prompt, tokens)
 
         try:
-            async with self.rate_limit_semaphore, self.http_client.post(
-                self.config.llm.endpoint,
-                headers={"Authorization": f"Bearer {openai.api_key}"},
-                json={
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": self.config.llm.content,
-                        },
-                        {"role": "user", "content": prompt},
-                    ],
-                    "model": self.config.llm.model,
-                    "temperature": self.config.llm.temperature,
-                    "max_tokens": tokens,
-                },
-            ) as response:
+            async with self.rate_limit_semaphore:
+                response = await self.http_client.post(
+                    self.config.llm.endpoint,
+                    headers={"Authorization": f"Bearer {openai.api_key}"},
+                    json={
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": self.config.llm.content,
+                            },
+                            {"role": "user", "content": prompt},
+                        ],
+                        "model": self.config.llm.model,
+                        "temperature": self.config.llm.temperature,
+                        "max_tokens": tokens,
+                    },
+                )
                 response.raise_for_status()
-                llm_response = await response.json()
+                llm_response = response.json()
                 llm_text = llm_response["choices"][0]["message"]["content"]
                 llm_text = (
                     format_sentence(llm_text)
@@ -257,9 +289,9 @@ class ModelHandler:
                 return index, llm_text
 
         except (
-            aiohttp.ClientConnectionError,
-            aiohttp.ClientResponseError,
-            aiohttp.ServerTimeoutError,
+            HTTPStatusError,
+            NetworkError,
+            TimeoutException,
             openai.error.OpenAIError,
         ) as exc:
             error_msg = f"Error generating text for {index}: {exc}"

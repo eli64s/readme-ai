@@ -6,16 +6,10 @@ from __future__ import annotations
 class ReadmeAiException(Exception):
     """Base exception for the readme-ai application."""
 
-    pass
+    ...
 
 
-class RepositoryError(ReadmeAiException):
-    """Exceptions related to repository operations."""
-
-    pass
-
-
-class GitCloneError(RepositoryError):
+class GitCloneError(ReadmeAiException):
     """Could not clone repository."""
 
     def __init__(self, repository: str, *args):
@@ -23,16 +17,12 @@ class GitCloneError(RepositoryError):
         super().__init__(f"Failed to clone repository: {repository}", *args)
 
 
-class ReadmeGenerationError(ReadmeAiException):
+class ReadmeGeneratorError(ReadmeAiException):
     """Exceptions related to readme generation."""
 
-    pass
-
-
-class ApiCommunicationError(ReadmeAiException):
-    """Exceptions related to external APIs."""
-
-    pass
+    def __init__(self, traceback, *args):
+        self.traceback = traceback
+        super().__init__(f"Error generating readme: {traceback}", *args)
 
 
 class FileSystemError(ReadmeAiException):
@@ -46,10 +36,10 @@ class FileSystemError(ReadmeAiException):
 class FileReadError(FileSystemError):
     """Could not read file."""
 
-    pass
+    ...
 
 
 class FileWriteError(FileSystemError):
     """Could not write file."""
 
-    pass
+    ...

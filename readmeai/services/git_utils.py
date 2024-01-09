@@ -4,6 +4,7 @@ import os
 import platform
 import shutil
 from pathlib import Path
+from typing import Optional
 
 import git
 
@@ -67,7 +68,7 @@ def fetch_git_file_url(file_path: str, full_name: str, repo_url: str) -> str:
     return file_path
 
 
-def find_git_executable() -> Path | None:
+def find_git_executable() -> Optional[Path]:
     """Find the path to the git executable, if available."""
     git_exec_path = os.environ.get("GIT_PYTHON_GIT_EXECUTABLE")
     if git_exec_path:
@@ -102,7 +103,7 @@ def validate_file_permissions(temp_dir: Path) -> None:
             )
 
 
-def validate_git_executable(git_exec_path: str | None) -> None:
+def validate_git_executable(git_exec_path: str) -> None:
     """Validate the path to the git executable."""
     if not git_exec_path or not Path(git_exec_path).exists():
         raise ValueError(f"Git executable not found at {git_exec_path}")

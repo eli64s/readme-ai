@@ -65,6 +65,7 @@ extensions = [
     #'json5',
     #'jsonl',
     'key',
+    'lock',
     'lockb',
     'log',
     'md',

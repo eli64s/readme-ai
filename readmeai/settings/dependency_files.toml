@@ -2,6 +2,13 @@
 
 [dependency_files]
 dependency_files = [
+    # Docker
+    'Dockerfile',
+    'docker-compose.yml',
+    'docker-compose.yaml',
+    'docker-compose.override.yml',
+    'docker-compose.dev.yml',
+
     # C/C++
     'CMakeLists.txt',
     'Makefile',

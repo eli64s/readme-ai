@@ -77,7 +77,7 @@ async def _fetch_git_metadata(
 
 async def git_api_request(
     session: aiohttp.ClientSession, repo_url: str
-) -> GitHubRepoMetadata | None:
+) -> Optional[GitHubRepoMetadata]:
     """Retrieves repo metadata and returns a GitHubRepoMetadata instance."""
     api_url = await fetch_git_api_url(repo_url)
     if not api_url:

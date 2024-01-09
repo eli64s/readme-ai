@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version="0.4.992"
+version="0.4.998"
 run_date=$(date +"%Y%m%d")
 filenames=(
     #"readme-litellm"
@@ -44,8 +44,8 @@ for index in "${!repositories[@]}"; do
     alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
 
-    #cmd="python3 -m readmeai.cli.commands -o \"$filename\" -r \"$repo\""
-    cmd="readmeai -o \"$filename\" -r \"$repo\""
+    cmd="python3 -m readmeai.cli.commands -o \"$filename\" -r \"$repo\""
+    #cmd="readmeai -o \"$filename\" -r \"$repo\""
 
     if [ "$random_badge" != "default" ]; then
         cmd+=" -b \"$random_badge\""

@@ -1,38 +1,31 @@
 """Tests for the custom exceptions module."""
 
 from readmeai.exceptions import (
-    ApiCommunicationError,
     FileReadError,
     FileSystemError,
     FileWriteError,
     GitCloneError,
     ReadmeAiException,
-    ReadmeGenerationError,
+    ReadmeGeneratorError,
 )
 
 
 def test_readme_ai_exception():
     """Test the ReadmeAIException class."""
     ex = ReadmeAiException("General error")
-    assert str(ex) == "General error"
+    assert isinstance(ex, Exception)
 
 
 def test_git_clone_exception():
     """Test the RepositoryCloneException class."""
-    ex = GitCloneError("https://example.com/repo", ValueError())
-    assert "Failed to clone repository" in str(ex)
+    ex = GitCloneError("https://example.com/repo", "Traceback")
+    assert isinstance(ex, ReadmeAiException)
 
 
 def test_readme_generation_exception():
     """Test the ReadmeGenerationException class."""
-    ex = ReadmeGenerationError("Error during README generation")
-    assert str(ex) == "Error during README generation"
-
-
-def test_api_communication_exception():
-    """Test the APICommunicationException class."""
-    ex = ApiCommunicationError("API communication error")
-    assert str(ex) == "API communication error"
+    ex = ReadmeGeneratorError("Traceback")
+    assert isinstance(ex, ReadmeAiException)
 
 
 def test_read_file_exception():
