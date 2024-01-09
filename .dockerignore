@@ -1,9 +1,9 @@
 # Git and GitHub metadata
+.github/
 .git/
 .gitignore
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
-Makefile
 CHANGELOG.md
 
 # Exclude all .pyc files
@@ -31,3 +31,9 @@ Pipfile.lock
 docs/
 examples/
 mkdocs.yml
+
+# readmeai
+Makefile
+noxfile.py
+readmeai/templates/
+readmeai/markdown/data/badges.json
