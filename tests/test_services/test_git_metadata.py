@@ -64,7 +64,6 @@ def test_metadata_values(metadata):
 def test_metadata_asdict(metadata):
     """Tests the GitHubRepoMetadata asdict method."""
     dict_rep = asdict(metadata)
-
     assert dict_rep["name"] == "test-repo"
     assert dict_rep["topics"] == ["test", "example"]
 
@@ -90,9 +89,7 @@ async def test_git_api_request_success():
             "full_name": full_name,
         },
     ):
-        metadata = await git_api_request(
-            AsyncMock(), "https://github.com/example.com"
-        )
+        metadata = await git_api_request(AsyncMock(), "https://github.com/example.com")
         assert metadata.name == repo_name
         assert metadata.full_name == full_name
 
@@ -107,13 +104,11 @@ async def test_fetch_git_api_failure():
         mock_response.status = 404
         mock_response.headers = {"Content-Type": "application/json"}
         mock_response.json = AsyncMock(return_value={})
-        mock_response.raise_for_status.side_effect = (
-            aiohttp.ClientResponseError(
-                request_info=mock_response.request_info,
-                history=mock_response.history,
-                status=mock_response.status,
-                message="Not Found",
-            )
+        mock_response.raise_for_status.side_effect = aiohttp.ClientResponseError(
+            request_info=mock_response.request_info,
+            history=mock_response.history,
+            status=mock_response.status,
+            message="Not Found",
         )
         mock_get.return_value.__aenter__.return_value = mock_response
 

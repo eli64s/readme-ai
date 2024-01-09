@@ -4,8 +4,6 @@ import re
 from importlib import resources
 from pathlib import Path
 
-from pkg_resources import resource_filename
-
 from readmeai.config.settings import ConfigHelper
 from readmeai.core.logger import Logger
 
@@ -80,8 +78,12 @@ def get_resource_path(package: str, resource_name: str) -> Path:
     """
     try:
         resource_path = resources.files(package) / resource_name
+
     except (TypeError, FileNotFoundError):
-        resource_path = resource_filename(package, resource_name)
+        import pkg_resources
+
+        resource_path = pkg_resources.resource_filename(package, resource_name)
+
     return resource_path
 
 
@@ -131,8 +133,7 @@ def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
         (file_path.name in ignore_files["files"])
         or (file_path.suffix.lstrip(".") in ignore_files["extensions"])
         or any(
-            directory in file_path.parts
-            for directory in ignore_files["directories"]
+            directory in file_path.parts for directory in ignore_files["directories"]
         )
     ):
         # logger.debug(f"Ignoring item: {file_path.name}")
