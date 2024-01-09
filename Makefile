@@ -50,7 +50,8 @@ nox:
 pytest:
 	pytest \
 	-n auto \
-	--cov=./ \
+	--asyncio-mode=auto \
+	--cov=. \
 	--cov-report=xml \
 	--cov-report=term-missing \
 	--cov-branch
