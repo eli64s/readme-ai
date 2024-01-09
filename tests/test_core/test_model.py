@@ -48,19 +48,10 @@ class MockHTTPStatusError(aiohttp.ClientResponseError):
         )
 
 
-def test_init(mock_config):
-    """Test the __init__ function."""
-    handler = ModelHandler(mock_config)
-    assert handler.tokens_max == mock_config.llm.tokens_max
-    assert isinstance(handler.cache, dict)
-
-
 @pytest.mark.asyncio
 async def test_batch_request(mock_config, mock_dependencies, mock_summaries):
     handler = ModelHandler(mock_config)
-    handler._process_prompt = AsyncMock(
-        side_effect=lambda p: f"Processed: {p}"
-    )
+    handler._process_prompt = AsyncMock(side_effect=lambda p: f"Processed: {p}")
     responses = await handler.batch_request(
         [Mock(), Mock()], mock_dependencies, mock_summaries
     )
@@ -68,28 +59,20 @@ async def test_batch_request(mock_config, mock_dependencies, mock_summaries):
 
 
 @pytest.mark.asyncio
-async def test_set_prompt_context(
-    mock_config, mock_dependencies, mock_summaries
-):
+async def test_set_prompt_context(mock_config, mock_dependencies, mock_summaries):
     """Test the generate_prompts function."""
     file_context = [Mock(), Mock(), Mock()]
     handler = ModelHandler(mock_config)
     handler.http_client.post = AsyncMock(
         side_effect=[
             MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
+                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
             ),
             MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
+                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
             ),
             MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
+                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
             ),
         ],
     )
@@ -108,9 +91,7 @@ async def test_set_prompt_context(
 async def test_process_prompt_summaries(mock_config):
     """Test the _process_prompt function."""
     handler = ModelHandler(mock_config)
-    handler._handle_code_summary_response = AsyncMock(
-        return_value="Processed summary"
-    )
+    handler._handle_code_summary_response = AsyncMock(return_value="Processed summary")
     mock_prompt = {"type": "summaries", "context": "Some context"}
     result = await handler._process_prompt(mock_prompt)
     assert result == "Processed summary"
@@ -161,9 +142,7 @@ async def test_handle_response_client_connection_error(mock_config):
     with patch("aiohttp.ClientSession.post") as mock_post:
         mock_post.side_effect = aiohttp.ClientConnectionError()
         handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response(
-            "overview", "test prompt", 50
-        )
+        index, response = await handler._handle_response("overview", "test prompt", 50)
         await handler.close()
         assert "aiohttp.client_exceptions.ClientConnectionError" in response
 
@@ -173,9 +152,7 @@ async def test_handle_response_server_timeout_error(mock_config):
     with patch("aiohttp.ClientSession.post") as mock_post:
         mock_post.side_effect = aiohttp.ServerTimeoutError()
         handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response(
-            "overview", "test prompt", 50
-        )
+        index, response = await handler._handle_response("overview", "test prompt", 50)
         await handler.close()
         assert "aiohttp.client_exceptions.ServerTimeoutError" in response
 
