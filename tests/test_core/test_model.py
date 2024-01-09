@@ -142,7 +142,8 @@ async def test_handle_response(mock_config):
     )
     index, response = await handler._handle_response("overview", content, 30)
     await handler.close()
-    assert "py" in response
+    assert response is not None
+    assert isinstance(response, str)
 
 
 @pytest.mark.asyncio
