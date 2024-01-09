@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.992"
+version = "0.4.993"
 description = "🎈 Automated README file generator, powered by GPT language model APIs"
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -39,59 +39,68 @@ readmeai = "readmeai.cli.commands:commands"
 
 [tool.poetry.dependencies]
 python = "^3.8.1,<4.0.0"
-aiohttp = "^3.8.5"
-cachetools = "^5.3.1"
+aiohttp = "*"
 click = "^8.1.7"
 colorlog = "^6.7.0"
 gitpython = "^3.1.31"
-httpx = "^0.24.1"
-h2 = "^4.1.0"
 openai = "^0.27.8"
 pyyaml = "^6.0"
-tabulate = "^0.9.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
 pydantic = ">=1.10.9,<2.0.0"
 setuptools = "^69.0.3"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+
+[tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 pytest-randomly = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
-ruff = "*"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
 mkdocs-material = "*"
 
-[tool.black]
-line-length = 79
-include = '\.pyi?$'
-exclude = '''
-/(
-      .eggs
-    | .git
-    | .hg
-    | .mypy_cache
-    | .tox
-    | venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | notebooks
-  )/
-'''
-virtual_env = "poetry"
 
-[tool.flake8]
-max-line-length = 79
-extend-ignore = ["E203", "W503"]
-exclude = ".venv,.git,.nox,docs,venv,bin,lib,deps,build,tests,examples,notebooks"
+[tool.ruff]
+exclude = [
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".vscode",
+]
+line-length = 79
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+docstring-code-line-length = 20
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+ignore = [
+    "E501",  # Line too long
+]
 
 [tool.isort]
 line_length = 79
