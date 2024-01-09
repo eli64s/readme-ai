@@ -5,17 +5,16 @@ import platform
 import shutil
 from pathlib import Path
 
+import git
+
 from readmeai.config.settings import GitService
 from readmeai.core.logger import Logger
+from readmeai.exceptions import GitCloneError
 
 logger = Logger(__name__)
 
-import git
 
-from readmeai.exceptions import GitCloneError
-
-
-async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
+async def clone_to_temporary_directory(repo_source: str, temp_dir: str) -> str:
     """Clone the repository to a temporary directory."""
     try:
         repo_path = Path(repo_source)
@@ -23,7 +22,7 @@ async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
         if repo_path.is_file():
             raise GitCloneError(repo_source, "Path is a file, not directory.")
 
-        if repo_path.is_dir():
+        elif repo_path.is_dir():
             shutil.copytree(repo_path, temp_dir, dirs_exist_ok=True)
         else:
             git.Repo.clone_from(repo_source, temp_dir, depth=1, single_branch=True)

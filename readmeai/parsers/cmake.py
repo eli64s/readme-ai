@@ -29,8 +29,8 @@ class CMakeParser(FileParser):
                 dependencies.extend(matches)
             # Clean and return unique dependencies
             return list(set(dep.strip() for dep in dependencies))
-        except re.error as excinfo:
-            self.log_error(f"Error parsing CMakeLists.txt: {str(excinfo)}")
+        except re.error as exc:
+            self.log_error(f"Error parsing CMakeLists.txt: {str(exc)}")
             return []
 
 
@@ -46,8 +46,8 @@ class MakefileAmParser(FileParser):
                 dep for match in matches for dep in filter(None, match.split())
             ]
             return package_names
-        except re.error as excinfo:
-            self.log_error(f"Error parsing Makefile.am: {str(excinfo)}")
+        except re.error as exc:
+            self.log_error(f"Error parsing Makefile.am: {str(exc)}")
             return []
 
 
@@ -59,6 +59,6 @@ class ConfigureAcParser(FileParser):
         try:
             regex = re.compile(r"AC_CHECK_LIB\([^)]+\s+([^)]+)\)")
             return regex.findall(content)
-        except re.error as excinfo:
-            self.log_error(f"Error parsing configure.ac: {str(excinfo)}")
+        except re.error as exc:
+            self.log_error(f"Error parsing configure.ac: {str(exc)}")
             return []

@@ -25,7 +25,7 @@ from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import FileData, process_repository
 from readmeai.exceptions import ReadmeGenerationError
 from readmeai.markdown.builder import build_readme_md
-from readmeai.services.git_utilities import clone_repo_to_temp_dir
+from readmeai.services.git_utils import clone_to_temporary_directory
 
 logger = Logger(__name__)
 
@@ -36,7 +36,7 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
 
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
-            await clone_repo_to_temp_dir(repo_url, temp_dir)
+            await clone_to_temporary_directory(repo_url, temp_dir)
             (
                 file_context,
                 dependencies,

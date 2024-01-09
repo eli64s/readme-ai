@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 from readmeai.core.logger import Logger
-from readmeai.services.git_utilities import fetch_git_file_url
+from readmeai.services.git_utils import fetch_git_file_url
 
 logger = Logger(__name__)
 

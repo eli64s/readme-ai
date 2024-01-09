@@ -80,7 +80,7 @@ async def test_git_api_request_success():
     repo_owner = "example-owner"
     full_name = f"{repo_owner}/{repo_name}"
     with patch(
-        "readmeai.services.git_utilities.fetch_git_api_url",
+        "readmeai.services.git_utils.fetch_git_api_url",
         return_value="api_url",
     ), patch(
         "readmeai.services.git_metadata._fetch_git_metadata",
