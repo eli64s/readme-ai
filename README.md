@@ -431,7 +431,7 @@ poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.co
 
 Use [`pytest`](https://docs.pytest.org/en/7.1.x/contents.html) to run the default test suite.
 ```sh
-make test
+make pytest
 ```
 
 Use [`nox`](https://nox.thea.codes/en/stable/) to run the test suite against multiple Python versions including `(3.9, 3.10, 3.11, 3.12)`.
