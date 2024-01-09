@@ -1,6 +1,5 @@
 """Tests for the readmeai package main module."""
 
-import asyncio
 from unittest.mock import AsyncMock, Mock, patch
 
 import pytest

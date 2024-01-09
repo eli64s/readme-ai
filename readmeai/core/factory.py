@@ -1,5 +1,6 @@
 """File I/O factory class to read and write files."""
 
+import functools
 import json
 from pathlib import Path
 from typing import Any, Callable, Dict, Union
@@ -7,7 +8,7 @@ from typing import Any, Callable, Dict, Union
 import toml
 import yaml
 
-from readmeai.exceptions import FileReadError, FileSystemError, FileWriteError
+from readmeai.exceptions import FileReadError, FileWriteError
 
 
 class FileHandler:
@@ -23,6 +24,8 @@ class FileHandler:
             "yaml": {"read": self.read_yaml, "write": self.write_yaml},
         }
         self.cache = {}
+        self.read_json = functools.lru_cache(maxsize=100)(self.read_json)
+        self.read_toml = functools.lru_cache(maxsize=100)(self.read_toml)
 
     def read(self, file_path: Union[str, Path]) -> Any:
         """Read the content of a file."""
@@ -62,9 +65,10 @@ class FileHandler:
         return action
 
     @staticmethod
+    @functools.lru_cache(maxsize=100)
     def read_json(file_path: Union[str, Path]) -> Dict[str, Any]:
         """Read the content of a JSON file."""
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
     @staticmethod
@@ -74,12 +78,12 @@ class FileHandler:
             return file.read()
 
     @staticmethod
+    @functools.lru_cache(maxsize=100)
     def read_toml(file_path: Union[str, Path]) -> Dict[str, Any]:
         """Read the content of a TOML file."""
         with open(file_path, encoding="utf-8") as file:
             data = toml.load(file)
-        data_cleaned = {key.lower(): value for key, value in data.items()}
-        return data_cleaned
+        return {key.lower(): value for key, value in data.items()}
 
     @staticmethod
     def read_text(file_path: Union[str, Path]) -> str:
@@ -90,7 +94,7 @@ class FileHandler:
     @staticmethod
     def read_yaml(file_path: Union[str, Path]) -> Dict[str, Any]:
         """Read the content of a YAML file."""
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, encoding="utf-8") as file:
             return yaml.safe_load(file)
 
     @staticmethod

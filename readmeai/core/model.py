@@ -1,18 +1,13 @@
 """GPT language model API handler for document generation."""
 
 import asyncio
+import functools
+import traceback
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Tuple, Union
 
+import aiohttp
 import openai
-from cachetools import TTLCache
-from httpx import (
-    AsyncClient,
-    HTTPStatusError,
-    Limits,
-    NetworkError,
-    TimeoutException,
-)
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -25,7 +20,7 @@ from readmeai.core.logger import Logger
 from readmeai.core.preprocess import FileData
 from readmeai.core.tokens import (
     adjust_max_tokens,
-    get_token_count,
+    token_counter,
     truncate_tokens,
 )
 from readmeai.core.utils import extract_markdown_table, format_sentence
@@ -36,18 +31,23 @@ class ModelHandler:
 
     def __init__(self, config: settings.AppConfig) -> None:
         """Initializes the GPT language model API handler."""
-        self.logger = Logger(__name__)
+        self.cache = {}
         self.config = config
+        self.encoder = config.llm.encoding
+        self.logger = Logger(__name__)
         self.prompts = config.prompts
         self.tokens = config.llm.tokens
         self.tokens_max = config.llm.tokens_max
-        self.cache = TTLCache(maxsize=100, ttl=360)
-        self.http_client = AsyncClient(
-            http2=True,
-            timeout=20,
-            limits=Limits(max_keepalive_connections=100, max_connections=200),
+        self.http_client = aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=20),
+            connector=aiohttp.TCPConnector(
+                limit=200, limit_per_host=100, enable_cleanup_closed=True
+            ),
         )
         self.rate_limit_semaphore = asyncio.Semaphore(config.llm.rate_limit)
+        self._handle_response = functools.lru_cache(maxsize=100)(
+            self._handle_response
+        )
 
     @asynccontextmanager
     async def use_api(self) -> None:
@@ -59,7 +59,7 @@ class ModelHandler:
 
     async def close(self) -> None:
         """Closes the HTTP client."""
-        await self.http_client.aclose()
+        await self.http_client.close()
 
     async def batch_request(
         self,
@@ -110,7 +110,7 @@ class ModelHandler:
                     {
                         "repo": self.config.git.repository,
                         "dependencies": dependencies,
-                        "files": file_context,
+                        "files": summaries,
                     },
                 ),
                 (
@@ -196,10 +196,9 @@ class ModelHandler:
         wait=wait_exponential(multiplier=1, min=2, max=6),
         retry=retry_if_exception_type(
             (
-                ConnectionError,
-                HTTPStatusError,
-                NetworkError,
-                TimeoutException,
+                aiohttp.ClientConnectionError,
+                aiohttp.ClientResponseError,
+                aiohttp.ServerTimeoutError,
                 openai.error.OpenAIError,
             )
         ),
@@ -223,50 +222,54 @@ class ModelHandler:
         Tuple[str, str]
             Tuple containing the prompt type and generated response.
         """
-        token_count = get_token_count(prompt, self.config.llm.encoding)
+        key = (index, prompt, tokens)
+        if key in self.cache:
+            return self.cache[key]
+
+        token_count = token_counter(prompt, self.encoder)
         if token_count > self.tokens_max:
             self.logger.warning(
-                f"Truncating tokens: {token_count} > {self.tokens_max} max"
+                f"Truncating tokens for {index} prompt: {token_count} > {self.tokens_max} max"
             )
-            prompt = truncate_tokens(prompt, tokens)
+            prompt = truncate_tokens(self.encoder, prompt, tokens)
 
         try:
-            async with self.rate_limit_semaphore:
-                response = await self.http_client.post(
-                    self.config.llm.endpoint,
-                    headers={"Authorization": f"Bearer {openai.api_key}"},
-                    json={
-                        "messages": [
-                            {
-                                "role": "system",
-                                "content": self.config.llm.content,
-                            },
-                            {"role": "user", "content": prompt},
-                        ],
-                        "model": self.config.llm.model,
-                        "temperature": self.config.llm.temperature,
-                        "max_tokens": tokens,
-                    },
-                )
+            async with self.rate_limit_semaphore, self.http_client.post(
+                self.config.llm.endpoint,
+                headers={"Authorization": f"Bearer {openai.api_key}"},
+                json={
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": self.config.llm.content,
+                        },
+                        {"role": "user", "content": prompt},
+                    ],
+                    "model": self.config.llm.model,
+                    "temperature": self.config.llm.temperature,
+                    "max_tokens": tokens,
+                },
+            ) as response:
                 response.raise_for_status()
-                llm_response = response.json()
+                llm_response = await response.json()
                 llm_text = llm_response["choices"][0]["message"]["content"]
                 llm_text = (
                     format_sentence(llm_text)
                     if index != "features"
                     else extract_markdown_table(llm_text)
                 )
-                self.cache[prompt] = llm_text
                 self.logger.info(f"Response: {index} - {llm_text}")
+                self.cache[key] = llm_text
                 return index, llm_text
 
         except (
-            ConnectionError,
-            HTTPStatusError,
-            NetworkError,
-            TimeoutException,
+            aiohttp.ClientConnectionError,
+            aiohttp.ClientResponseError,
+            aiohttp.ServerTimeoutError,
             openai.error.OpenAIError,
-        ) as exc:
-            error_message = f"API error occurred: {exc}"
+        ):
+            error_message = (
+                f"Error generating text for {index}: {traceback.format_exc()}"
+            )
             self.logger.error(error_message)
             return index, error_message

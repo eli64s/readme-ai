@@ -1,11 +1,14 @@
 """Git host providers helper methods to retrieve repository metadata."""
 
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import aiohttp
 
+from readmeai.core.logger import Logger
 from readmeai.services.git_utilities import parse_repo_url
+
+logger = Logger(__name__)
 
 
 @dataclass
@@ -55,45 +58,43 @@ class GitHubRepoMetadata:
     license_url: Optional[str]
 
 
-async def fetch_git_api(url: str, **kwargs) -> dict:
-    """Fetches the git API and returns the response."""
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, **kwargs) as response:
-            if response.status != 200:
-                raise ValueError(
-                    f"API request failed with status: {response.status}"
-                )
+async def _fetch_git_metadata(
+    session: aiohttp.ClientSession, url: str, **kwargs
+) -> Dict[str, Any]:
+    """Fetches repository metadata from the git host provider."""
+    async with session.get(url, **kwargs) as response:
+        response.raise_for_status()
 
-            content_type = response.headers.get("Content-Type", "")
-            if "application/json" in content_type:
-                return await response.json()
-            else:
-                raise ValueError(f"Unexpected content type: {content_type}")
+        if response.status != 200:
+            raise aiohttp.ClientResponseError(
+                request_info=response.request_info,
+                history=response.history,
+                status=response.status,
+            )
+
+        return await response.json()
 
 
-async def repo_metadata(repo_url: str) -> Optional[GitHubRepoMetadata]:
+async def git_api_request(
+    session: aiohttp.ClientSession, repo_url: str
+) -> GitHubRepoMetadata | None:
     """Retrieves repo metadata and returns a GitHubRepoMetadata instance."""
     api_url = await parse_repo_url(repo_url)
     if not api_url:
-        raise ValueError("Failed to construct API URL.")
+        return None
 
     try:
-        repo_data = await fetch_git_api(api_url)
-        if not repo_data:
-            raise ValueError("Failed to retrieve repository metadata.")
+        repo_data = await _fetch_git_metadata(session, api_url)
+        return process_repo_metadata(repo_data) if repo_data else None
 
-        # Process and return metadata
-        return process_repo_metadata(repo_data)
-    except ValueError as e:
-        raise ValueError(f"Error fetching repository data: {e}")
+    except aiohttp.ClientError as exc:
+        logger.error(f"Clients error while fetching repo metadata: {exc}")
+        return None
 
 
 def process_repo_metadata(repo_data: dict) -> GitHubRepoMetadata:
     """Processes raw repo data into GitHubRepoMetadata."""
-    languages_url = repo_data.get("languages_url", "")
-    languages = {}  # This would be fetched similarly to repo_data if needed
-
-    # Initialize optional values to avoid AttributeError
+    languages = {}
     license_info = repo_data.get("license", {}) or {}
     owner_info = repo_data.get("owner", {}) or {}
 
@@ -115,7 +116,7 @@ def process_repo_metadata(repo_data: dict) -> GitHubRepoMetadata:
         clone_url_http=repo_data.get("clone_url", ""),
         clone_url_ssh=repo_data.get("ssh_url", ""),
         contributors_url=repo_data.get("contributors_url"),
-        languages_url=languages_url,
+        languages_url=repo_data.get("languages_url", ""),
         issues_url=repo_data.get("issues_url"),
         language=repo_data.get("language", ""),
         languages=list(languages.keys()) if languages else [],

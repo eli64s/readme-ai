@@ -3,7 +3,6 @@
 import re
 from importlib import resources
 from pathlib import Path
-from typing import List
 
 from pkg_resources import resource_filename
 
@@ -61,27 +60,6 @@ def format_sentence(text: str) -> str:
     text = re.sub(r"\s*-\s*", "-", text)
 
     return text.strip()
-
-
-def flatten_list(nested_list: List[List]) -> List:
-    """Flatten a nested list (list of lists converted to a single list).
-
-    Parameters
-    ----------
-    nested_list
-        The nested list to flatten.
-
-    Returns
-    -------
-        A flattened list.
-    """
-    result = []
-    for item in nested_list:
-        if isinstance(item, list):
-            result.extend(flatten_list(item))
-        else:
-            result.append(item)
-    return result
 
 
 def get_resource_path(package: str, resource_name: str) -> Path:

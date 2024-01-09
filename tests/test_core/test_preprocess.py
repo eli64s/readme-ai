@@ -109,8 +109,8 @@ def test_language_mapper(repo_processor):
     assert updated[1].language == "markdown"
 
 
-@patch("readmeai.core.tokens.get_token_count", return_value=7)
-def test_tokenize_content(mock_get_token_count, repo_processor):
+@patch("readmeai.core.tokens.token_counter", return_value=7)
+def test_tokenize_content(mock_token_counter, repo_processor):
     """Test the tokenize_content method."""
     contents = [
         FileData(

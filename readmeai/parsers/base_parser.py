@@ -18,4 +18,4 @@ class FileParser(ABC):
 
     def log_error(self, message):
         """Logs error message when parsing fails."""
-        logger.error(message)
+        logger.error(f"Exception occurred while parsing file: {message}")

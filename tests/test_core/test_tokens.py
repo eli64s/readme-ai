@@ -1,59 +1,86 @@
 """Unit tests for tokenization LL API helper methods."""
 
-from unittest.mock import patch
+import pytest
 
-from readmeai.core import tokens
+from readmeai.core.tokens import (
+    _encoding_cache,
+    _set_encoding_cache,
+    adjust_max_tokens,
+    token_counter,
+    truncate_tokens,
+)
 
-
-def test_adjust_max_tokens_valid():
-    """Test that the max tokens is adjusted for a valid prompt."""
-    max_tokens = 100
-    prompt = "Hello, world!"
-    target = "Hello!"
-    adjusted_max_tokens = tokens.adjust_max_tokens(max_tokens, prompt, target)
-    assert adjusted_max_tokens == 50
-
-
-def test_adjust_max_tokens_invalid():
-    """Test that the max tokens is adjusted for an invalid prompt."""
-    max_tokens = 100
-    prompt = "Invalid prompt"
-    result = tokens.adjust_max_tokens(max_tokens, prompt)
-    assert result == max_tokens // 2
+ENCODING_NAME = "cl100k_base"
 
 
-@patch("readmeai.core.tokens.get_encoding")
-def test_get_token_count(mock_get_encoding):
-    """Test that the token count is returned."""
-    text = "Hello world"
-    encoding_name = "mock_encoding"
-    mock_encoding = mock_get_encoding.return_value
-    mock_encoding.encode.return_value = [1, 2, 3]
-    result = tokens.get_token_count(text, encoding_name)
-    mock_get_encoding.assert_called_with(encoding_name)
-    assert result == 3
+class MockEncoder:
+    def encode(self, text):
+        return text.split()
 
 
-@patch("readmeai.core.tokens.encoding_for_model")
-@patch("readmeai.core.tokens.get_encoding")
-def test_get_token_encoder(
-    mock_encoding_for_model, mock_get_encoding, mock_config
-):
-    """Test that the token encoder is returned."""
-    mock_encoding_for_model.return_value = mock_config.llm.model
-    mock_get_encoding.return_value = mock_config.llm.encoding
-    result = tokens.get_token_encoder()
-    assert result == mock_config.llm.encoding
+@pytest.fixture(autouse=True)
+def mock_get_encoding(monkeypatch):
+    def mock_encoder(encoding_name):
+        return MockEncoder()
+
+    monkeypatch.setattr("tiktoken.get_encoding", mock_encoder)
 
 
-@patch("readmeai.core.tokens.get_token_encoder")
-def test_truncate_tokens(mock_get_encoder):
-    """Test that the tokens are truncated."""
-    text = "Hello world out there"
-    max_tokens = 10
-    mock_encoder = mock_get_encoder.return_value
-    mock_encoder.encode.return_value = [1] * 15
-    result = tokens.truncate_tokens(text, max_tokens)
-    assert len(result) < len(text)
-    mock_get_encoder.side_effect = Exception
-    assert tokens.truncate_tokens(text, 10) == text
+def test_adjust_max_tokens_valid_prompt():
+    assert adjust_max_tokens(100, "Hello! This is a test") == 100
+
+
+def test_adjust_max_tokens_invalid_prompt():
+    assert adjust_max_tokens(100, "Invalid prompt") == 50
+
+
+def test_adjust_max_tokens_edge_cases():
+    assert adjust_max_tokens(0, "") == 0
+
+
+def test_set_encoding_cache_new():
+    encoder = _set_encoding_cache(ENCODING_NAME)
+    assert _encoding_cache[ENCODING_NAME] == encoder
+
+
+def test_set_encoding_cache_invalid():
+    with pytest.raises(ValueError) as exc:
+        _set_encoding_cache("invalid-encoding")
+    assert isinstance(exc.value, ValueError)
+
+
+def test_token_counter_valid():
+    assert token_counter("Hello world", ENCODING_NAME) == 2
+
+
+def test_token_counter_exception():
+    with pytest.raises(ValueError) as exc:
+        token_counter("", "invalid-encoding")
+        assert isinstance(exc.value, ValueError)
+
+
+def test_truncate_tokens_less_tokens(mock_get_encoding):
+    assert (
+        truncate_tokens(mock_get_encoding, "Hello world", 10) == "Hello world"
+    )
+
+
+def test_truncate_tokens_more_tokens(mock_get_encoding):
+    assert (
+        truncate_tokens(mock_get_encoding, "Hello world", 1) == "Hello world"
+    )
+
+
+def test_truncate_tokens_empty_string(mock_get_encoding):
+    assert truncate_tokens(mock_get_encoding, "", 10) == ""
+
+
+def test_truncate_tokens_exception(mock_get_encoding, caplog):
+    assert (
+        truncate_tokens(mock_get_encoding, "Hello world", 100) == "Hello world"
+    )
+    assert "Error truncating tokens" in caplog.text
+
+
+def test_truncate_tokens_different_encodings(mock_get_encoding):
+    assert truncate_tokens(mock_get_encoding, "Test", 1) == "Test"

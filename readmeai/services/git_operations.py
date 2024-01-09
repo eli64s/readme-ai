@@ -8,16 +8,18 @@ from typing import Optional
 
 import git
 
-from readmeai.exceptions import RepositoryCloneError
+from readmeai.exceptions import GitCloneError
 
 
 async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
     """Clone the repository to a temporary directory."""
     try:
         repo_path = Path(repo_source)
+
         if repo_path.is_file():
-            raise ValueError("Path is a file, not a directory.")
-        elif repo_path.is_dir():
+            raise GitCloneError(repo_source, "Path is a file, not directory.")
+
+        if repo_path.is_dir():
             shutil.copytree(repo_path, temp_dir, dirs_exist_ok=True)
         else:
             git.Repo.clone_from(
@@ -25,14 +27,12 @@ async def clone_repo_to_temp_dir(repo_source: str, temp_dir: str) -> str:
             )
         return temp_dir
 
-    except git.GitCommandError as exc_info:
-        raise ValueError(f"Git clone error: {exc_info}") from exc_info
-
-    except OSError as exc_info:
-        raise ValueError(f"OS error: {exc_info}") from exc_info
-
-    except Exception as exc_info:
-        raise ValueError(f"Unexpected error: {exc_info}") from exc_info
+    except (
+        git.GitCommandError,
+        git.InvalidGitRepositoryError,
+        OSError,
+    ) as exc:
+        raise GitCloneError(repo_source, exc) from exc
 
 
 def find_git_executable() -> Optional[Path]:
