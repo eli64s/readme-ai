@@ -2,7 +2,6 @@
 
 import asyncio
 import functools
-import traceback
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Tuple, Union
 
@@ -45,9 +44,7 @@ class ModelHandler:
             ),
         )
         self.rate_limit_semaphore = asyncio.Semaphore(config.llm.rate_limit)
-        self._handle_response = functools.lru_cache(maxsize=100)(
-            self._handle_response
-        )
+        self._handle_response = functools.lru_cache(maxsize=100)(self._handle_response)
 
     @asynccontextmanager
     async def use_api(self) -> None:
@@ -68,13 +65,12 @@ class ModelHandler:
         summaries: List[str],
     ) -> List[str]:
         """Generates text for the README.md file using GPT language models."""
-        prompts = await self._set_prompt_context(
-            file_context, dependencies, summaries
-        )
+        prompts = await self._set_prompt_context(file_context, dependencies, summaries)
         responses = []
         for batch in self._batch_prompts(prompts):
             batch_responses = await asyncio.gather(
                 *[self._process_prompt(prompt) for prompt in batch]
+                # , return_exceptions=True
             )
             responses.extend(batch_responses)
         return responses
@@ -184,9 +180,7 @@ class ModelHandler:
                 self.config.md.tree, file_path, file_content
             )
             tokens = adjust_max_tokens(self.tokens, prompt)
-            _, summary_or_error = await self._handle_response(
-                file_path, prompt, tokens
-            )
+            _, summary_or_error = await self._handle_response(file_path, prompt, tokens)
             code_summaries.append((file_path, summary_or_error))
 
         return code_summaries
@@ -267,9 +261,7 @@ class ModelHandler:
             aiohttp.ClientResponseError,
             aiohttp.ServerTimeoutError,
             openai.error.OpenAIError,
-        ):
-            error_message = (
-                f"Error generating text for {index}: {traceback.format_exc()}"
-            )
-            self.logger.error(error_message)
-            return index, error_message
+        ) as exc:
+            error_msg = f"Error generating text for {index}: {exc}"
+            self.logger.error(error_msg)
+            return index, error_msg

@@ -129,9 +129,12 @@ def main(
 
 def setup_environment(config: AppConfig, api_key: str) -> None:
     """Set environment variables for the CLI application."""
-    if api_key is not None:
+    if api_key:
         os.environ["OPENAI_API_KEY"] = api_key
-    elif "OPENAI_API_KEY" not in os.environ:
+        logger.info("API key exported to environment.")
+    elif "OPENAI_API_KEY" in os.environ:
+        logger.info("API key found in environment.")
+    else:
         config.cli.offline = True
         logger.warning("API key not found. Running in offline mode.")
 

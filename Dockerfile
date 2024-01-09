@@ -1,5 +1,5 @@
-# Use a base image with Python 3.9 installed (multi-platform)
-FROM --platform=${BUILDPLATFORM} python:3.9-slim-buster
+# Use a base image with Python 3.10 installed (multi-platform)
+FROM --platform=${BUILDPLATFORM} python:3.10-slim-buster
 
 # Set working directory
 WORKDIR /app
