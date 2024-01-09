@@ -3,34 +3,35 @@
 SHELL := /bin/bash
 VENV := readmeai
 
-.PHONY: help clean format lint conda-recipe git-rm-cache test poetry-reqs word-search
+.PHONY: help clean format lint conda-recipe git-rm-cache nox pytest poetry-reqs word-search
 
 help:
 	@echo "Commands:"
 	@echo "clean        : repository file cleanup."
 	@echo "format       : executes code formatting."
 	@echo "lint         : executes code linting."
-	@echo "conda-recipe  : builds conda package."
+	@echo "conda-recipe : builds conda package."
 	@echo "git-rm-cache : fix git untracked files."
-	@echo "test         : executes tests."
+	@echo "nox          : executes nox test suite."
+	@echo "pytest       : executes tests."
 	@echo "poetry-reqs  : generates requirements.txt file."
 	@echo "word-search  : searches for a word in the repository."
 
 .PHONY: clean
 clean: format
+	@echo -e "\nFile clean up in directory: ${CURDIR}"
 	./scripts/clean.sh clean
 
 .PHONY: format
 format:
 	@echo -e "\nFormatting in directory: ${CURDIR}"
-	black ${CURDIR}
-	isort ${CURDIR}
+	ruff check --select I --fix .
+	ruff format .
 
 .PHONY: lint
 lint:
 	@echo -e "\nLinting in directory: ${CURDIR}"
-	flake8 ${CURDIR}
-	ruff ${CURDIR}
+	ruff check . --fix
 
 .PHONY: conda-recipe
 conda-recipe:
@@ -41,8 +42,12 @@ conda-recipe:
 git-rm-cache:
 	git rm -r --cached .
 
-.PHONY: test
-test:
+.PHONY: nox
+nox:
+	nox -f noxfile.py
+
+.PHONY: pytest
+pytest:
 	pytest \
 	-n auto \
 	--cov=./ \
