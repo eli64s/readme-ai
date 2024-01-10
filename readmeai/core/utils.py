@@ -133,7 +133,8 @@ def should_ignore(conf_helper: ConfigHelper, file_path: Path) -> bool:
         (file_path.name in ignore_files["files"])
         or (file_path.suffix.lstrip(".") in ignore_files["extensions"])
         or any(
-            directory in file_path.parts for directory in ignore_files["directories"]
+            directory in file_path.parts
+            for directory in ignore_files["directories"]
         )
     ):
         # logger.debug(f"Ignoring item: {file_path.name}")

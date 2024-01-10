@@ -108,7 +108,9 @@ async def test_fetch_git_api_url(mock_config):
     git_url = mock_config.git.repository
     full_name = mock_config.git.full_name
     expected_api_url = f"{GitService.GITHUB.api_url}{full_name}"
-    with patch("aiohttp.ClientSession.get", new_callable=AsyncMock) as mock_response:
+    with patch(
+        "aiohttp.ClientSession.get", new_callable=AsyncMock
+    ) as mock_response:
         api_url = await fetch_git_api_url(git_url)
         await mock_response.raise_for_status()
         assert api_url == expected_api_url
@@ -132,7 +134,9 @@ def test_validate_git_executable_invalid_path():
 def test_validate_file_permissions_read_execute():
     """Test file permission validation for lack of read/execute permissions."""
     mock_file = MagicMock()
-    mock_file.stat.return_value.st_mode = 0o200  # Lack of read/execute permissions
+    mock_file.stat.return_value.st_mode = (
+        0o200  # Lack of read/execute permissions
+    )
     with pytest.raises(SystemExit):
         validate_file_permissions(mock_file)
 

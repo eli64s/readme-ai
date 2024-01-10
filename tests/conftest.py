@@ -7,7 +7,6 @@ from readmeai.config.settings import (
     load_config,
     load_config_helper,
 )
-from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import FileData, RepoProcessor
 
 

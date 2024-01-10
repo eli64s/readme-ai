@@ -41,7 +41,9 @@ class ModelHandler:
         self.logger = Logger(__name__)
         self._llm_attributes()
         self._http_client()
-        self._handle_response = functools.lru_cache(maxsize=100)(self._handle_response)
+        self._handle_response = functools.lru_cache(maxsize=100)(
+            self._handle_response
+        )
 
     def _llm_attributes(self):
         """Initializes basic attributes for the class."""
@@ -79,7 +81,9 @@ class ModelHandler:
         summaries: List[str],
     ) -> List[str]:
         """Generates text for the README.md file using GPT language models."""
-        prompts = await self._set_prompt_context(file_context, dependencies, summaries)
+        prompts = await self._set_prompt_context(
+            file_context, dependencies, summaries
+        )
         responses = await self._batch_prompts(prompts)
         return responses
 
@@ -211,7 +215,9 @@ class ModelHandler:
                 self.config.md.tree, file_path, file_content
             )
             tokens = adjust_max_tokens(self.tokens, prompt)
-            _, summary_or_error = await self._handle_response(file_path, prompt, tokens)
+            _, summary_or_error = await self._handle_response(
+                file_path, prompt, tokens
+            )
             code_summaries.append((file_path, summary_or_error))
 
         return code_summaries

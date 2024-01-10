@@ -41,7 +41,9 @@ api_key = click.option(
 badges = click.option(
     "-b",
     "--badges",
-    type=click.Choice([opt.value for opt in BadgeOptions], case_sensitive=False),
+    type=click.Choice(
+        [opt.value for opt in BadgeOptions], case_sensitive=False
+    ),
     default=BadgeOptions.DEFAULT.value,
     help="""\
         Badge icon style types to select from when generating README.md badges. The following options are currently available:\n
@@ -65,7 +67,9 @@ emojis = click.option(
 image = click.option(
     "-i",
     "--image",
-    type=click.Choice([opt.name for opt in ImageOptions], case_sensitive=False),
+    type=click.Choice(
+        [opt.name for opt in ImageOptions], case_sensitive=False
+    ),
     default=ImageOptions.DEFAULT.name,
     callback=prompt_for_custom_image,
     show_choices=True,

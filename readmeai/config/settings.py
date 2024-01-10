@@ -49,7 +49,9 @@ class GitSettingsValidator:
         """Validator for getting the full name of the repository."""
         url_or_path = values.get("repository")
 
-        path = url_or_path if isinstance(url_or_path, Path) else Path(url_or_path)
+        path = (
+            url_or_path if isinstance(url_or_path, Path) else Path(url_or_path)
+        )
         if path.exists():
             return str(path.name)
 
@@ -71,7 +73,9 @@ class GitSettingsValidator:
     def set_host(cls, value: Optional[str], values: dict) -> str:
         """Sets the Git service host from the repository provided."""
         repo = values.get("repository")
-        if isinstance(repo, Path) or (isinstance(repo, str) and Path(repo).is_dir()):
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
             return GitService.LOCAL
 
         parsed_url = urlparse(str(repo))
@@ -96,7 +100,9 @@ class GitSettingsValidator:
     @classmethod
     def set_source(cls, value: Optional[str], values: dict) -> str:
         repo = values.get("repository")
-        if isinstance(repo, Path) or (isinstance(repo, str) and Path(repo).is_dir()):
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
             return GitService.LOCAL
 
         parsed_url = urlparse(str(repo))
@@ -141,8 +147,12 @@ class GitSettings(BaseModel):
     _validate_full_name = validator("full_name", pre=True, always=True)(
         GitSettingsValidator.validate_full_name
     )
-    _set_host = validator("host", pre=True, always=True)(GitSettingsValidator.set_host)
-    _set_name = validator("name", pre=True, always=True)(GitSettingsValidator.set_name)
+    _set_host = validator("host", pre=True, always=True)(
+        GitSettingsValidator.set_host
+    )
+    _set_name = validator("name", pre=True, always=True)(
+        GitSettingsValidator.set_name
+    )
     _set_source = validator("source", pre=True, always=True)(
         GitSettingsValidator.set_source
     )
@@ -268,9 +278,13 @@ def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
             import pkg_resources
 
             resource_path = Path(
-                pkg_resources.resource_filename("readmeai", f"settings/{file_path}")
+                pkg_resources.resource_filename(
+                    "readmeai", f"settings/{file_path}"
+                )
             ).resolve()
-            logger.info(f"Using pkg_resources.resource_filename: {resource_path}")
+            logger.info(
+                f"Using pkg_resources.resource_filename: {resource_path}"
+            )
 
         except Exception as exc:
             raise FileReadError("Failed to load file", file_path) from exc

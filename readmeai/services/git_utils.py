@@ -26,7 +26,9 @@ async def clone_to_temporary_directory(repo_source: str, temp_dir: str) -> str:
         elif repo_path.is_dir():
             shutil.copytree(repo_path, temp_dir, dirs_exist_ok=True)
         else:
-            git.Repo.clone_from(repo_source, temp_dir, depth=1, single_branch=True)
+            git.Repo.clone_from(
+                repo_source, temp_dir, depth=1, single_branch=True
+            )
         return temp_dir
 
     except (

@@ -73,7 +73,9 @@ def test_generate_file_info(repo_processor, tmp_path):
 def test_generate_file_info_exception_handling(repo_processor, caplog):
     """Test the generate_file_info method."""
     mock_file = MagicMock()
-    mock_file.open.side_effect = UnicodeDecodeError("utf-8", b"", 0, 1, "error")
+    mock_file.open.side_effect = UnicodeDecodeError(
+        "utf-8", b"", 0, 1, "error"
+    )
     mock_path = MagicMock()
     mock_path.rglob.return_value = [mock_file]
     list(repo_processor.generate_file_info(mock_path))
@@ -99,7 +101,9 @@ def test_extract_dependencies(repo_processor):
     )
     mock_parser = MagicMock()
     mock_parser.parse.return_value = ["flask==1.1.4"]
-    with patch("readmeai.parsers.factory.parser_factory", return_value=mock_parser):
+    with patch(
+        "readmeai.parsers.factory.parser_factory", return_value=mock_parser
+    ):
         result = repo_processor.extract_dependencies(file_data)
         assert "flask" in result
 
@@ -165,7 +169,7 @@ def test_get_dependencies_normal_behavior(
     """Test the get_dependencies method."""
     processor = RepoProcessor(mock_config, mock_config_helper)
     dependencies = processor.get_dependencies(mock_file_data)
-    assert len(dependencies) == 8
+    assert len(dependencies) == 5
     assert "dependency1" in dependencies
     assert "dependency2" in dependencies
     assert "py" in dependencies
@@ -177,6 +181,8 @@ def test_get_dependencies_exception_handling(
 ):
     """Test the get_dependencies method."""
     processor = RepoProcessor(mock_config, mock_config_helper)
-    processor.extract_dependencies = MagicMock(side_effect=Exception("Test exception"))
+    processor.extract_dependencies = MagicMock(
+        side_effect=Exception("Test exception")
+    )
     dependencies = processor.get_dependencies(mock_file_data)
     assert isinstance(dependencies, list)

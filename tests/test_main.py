@@ -32,9 +32,7 @@ async def test_readme_agent_normal_flow(
         "test_tree",
     )
     mock_config.cli.offline = True
-    mock_model_handler.return_value.use_api.return_value.__aenter__.return_value = (
-        AsyncMock()
-    )
+    mock_model_handler.return_value.use_api.return_value.__aenter__.return_value = AsyncMock()
     mock_build_readme_md.return_value = "test_readme_md"
 
     await readme_agent(mock_config, mock_config_helper)

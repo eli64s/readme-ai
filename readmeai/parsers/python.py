@@ -69,6 +69,16 @@ class TomlParser(FileParser):
                     dependencies.extend(
                         poetry_data_dev.get("dependencies", {}).keys()
                     )
+                if "group" in poetry_data and "test" in poetry_data["group"]:
+                    poetry_data_main = data["tool"]["poetry"]["group"]["test"]
+                    dependencies.extend(
+                        poetry_data_main.get("dependencies", {}).keys()
+                    )
+                # if "group" in poetry_data and "docs" in poetry_data["group"]:
+                #    poetry_data_main = data["tool"]["poetry"]["group"]["docs"]
+                #    dependencies.extend(
+                #        poetry_data_main.get("dependencies", {}).keys()
+                #    )
                 return dependencies
 
             # For pyproject.toml (Flit)

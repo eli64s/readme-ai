@@ -1,6 +1,6 @@
 """Unit tests for the GPT LLM API handler."""
 
-from unittest.mock import AsyncMock, Mock, call, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import httpx
 import pytest
@@ -23,7 +23,9 @@ class MockResponse:
     def raise_for_status(self):
         """Raise an error if the status code is not 200."""
         if self.status_code != 200:
-            raise httpx.HTTPStatusError(message="HTTP Error", request=MockRequest())
+            raise httpx.HTTPStatusError(
+                message="HTTP Error", request=MockRequest()
+            )
 
 
 class MockRequest:
@@ -76,20 +78,28 @@ def test_generate_batches(mock_config):
 
 
 @pytest.mark.asyncio
-async def test_set_prompt_context(mock_config, mock_dependencies, mock_summaries):
+async def test_set_prompt_context(
+    mock_config, mock_dependencies, mock_summaries
+):
     """Test the generate_prompts function."""
     file_context = [Mock(), Mock(), Mock()]
     handler = ModelHandler(mock_config)
     handler.http_client.post = AsyncMock(
         side_effect=[
             MockResponse(
-                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
+                json_data={
+                    "choices": [{"message": {"content": "Expected summary"}}]
+                }
             ),
             MockResponse(
-                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
+                json_data={
+                    "choices": [{"message": {"content": "Expected summary"}}]
+                }
             ),
             MockResponse(
-                json_data={"choices": [{"message": {"content": "Expected summary"}}]}
+                json_data={
+                    "choices": [{"message": {"content": "Expected summary"}}]
+                }
             ),
         ],
     )
@@ -109,7 +119,9 @@ async def test_set_prompt_context(mock_config, mock_dependencies, mock_summaries
 async def test_process_batch_summaries(mock_config):
     """Test the _process_prompt function."""
     handler = ModelHandler(mock_config)
-    handler._handle_code_summary_response = AsyncMock(return_value="Processed summary")
+    handler._handle_code_summary_response = AsyncMock(
+        return_value="Processed summary"
+    )
     mock_prompt = {"type": "summaries", "context": "Some context"}
     result = await handler._process_batch(mock_prompt)
     handler.close()
@@ -157,7 +169,9 @@ async def test_handle_response_http_status_error(mock_config):
         ),
     ):
         handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response("overview", "test prompt", 50)
+        index, response = await handler._handle_response(
+            "overview", "test prompt", 50
+        )
         await handler.close()
         assert "HttpStatusError" in response
 
@@ -172,7 +186,9 @@ async def test_handle_response_network_error(mock_config):
         ),
     ):
         handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response("overview", "test prompt", 50)
+        index, response = await handler._handle_response(
+            "overview", "test prompt", 50
+        )
         await handler.close()
         assert "NetworkError" in response
 
@@ -187,7 +203,9 @@ async def test_handle_response_timeout_error(mock_config):
         ),
     ):
         handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response("overview", "test prompt", 50)
+        index, response = await handler._handle_response(
+            "overview", "test prompt", 50
+        )
         await handler.close()
         assert "TimeoutException" in response
 

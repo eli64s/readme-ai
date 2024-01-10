@@ -47,7 +47,9 @@ def format_badges(badges: list[str]) -> str:
     if badges is None or len_icons == 0:
         return ""
 
-    badges_per_line = len_icons if len_icons < 9 else (len_icons // 2) + (len_icons % 2)
+    badges_per_line = (
+        len_icons if len_icons < 9 else (len_icons // 2) + (len_icons % 2)
+    )
 
     lines = []
     for i in range(0, len_icons, badges_per_line):
@@ -58,7 +60,9 @@ def format_badges(badges: list[str]) -> str:
             ]
         )
         lines.append(
-            f"{line}\n\t<br>" if i + badges_per_line < len_icons else f"{line}\n"
+            f"{line}\n\t<br>"
+            if i + badges_per_line < len_icons
+            else f"{line}\n"
         )
 
     return "\n\t".join(lines)
@@ -75,7 +79,9 @@ def shields_icons(
 
     metadata_badges = build_metadata_badges(conf, full_name, git_host)
 
-    dependency_badges = build_dependency_badges(deps, badge_set, conf.md.badge_style)
+    dependency_badges = build_dependency_badges(
+        deps, badge_set, conf.md.badge_style
+    )
     dependency_badges = conf.md.badges_software.format(
         align=conf.md.align, badges=dependency_badges
     )
@@ -105,7 +111,9 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
     """
     deps.extend(["md"])
     icons_dict = _read_badge_file(conf.files.skill_icons)
-    icons_list = [icon for icon in icons_dict["icons"]["names"] if icon in deps]
+    icons_list = [
+        icon for icon in icons_dict["icons"]["names"] if icon in deps
+    ]
     skill_icons = ",".join(icons_list)
     # per_line = (len(skill_icons) + 2) // 2
     # icon_names = f"{icon_names}"  # &perline={per_line}"

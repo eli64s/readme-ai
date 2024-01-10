@@ -58,8 +58,12 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                         slogan_response,
                     ) = responses
                     summaries = summaries_response
-                    conf.md.features = conf.md.features.format(features_response)
-                    conf.md.overview = conf.md.overview.format(overview_response)
+                    conf.md.features = conf.md.features.format(
+                        features_response
+                    )
+                    conf.md.overview = conf.md.overview.format(
+                        overview_response
+                    )
                     conf.md.slogan = slogan_response
                 else:
                     (
@@ -79,7 +83,9 @@ async def readme_agent(conf: AppConfig, conf_helper: ConfigHelper) -> None:
 
         build_readme_md(conf, conf_helper, dependencies, summaries, temp_dir)
 
-        logger.info(f"README.md file generated successfully @ {conf.files.output}")
+        logger.info(
+            f"README.md file generated successfully @ {conf.files.output}"
+        )
 
     except Exception as exc:
         raise ReadmeGeneratorError(traceback.format_exc()) from exc

@@ -22,7 +22,9 @@ def construct_markdown_table(
     return format_as_markdown_table(table_rows)
 
 
-def create_hyperlink(file_name: str, full_name: str, module: str, repo_url: str) -> str:
+def create_hyperlink(
+    file_name: str, full_name: str, module: str, repo_url: str
+) -> str:
     """
     Creates a hyperlink for a file, using its Git URL if possible.
     """
@@ -47,7 +49,8 @@ def format_as_markdown_table(rows: List[List[str]]) -> str:
     formatted_lines = [
         "| "
         + " | ".join(
-            str(item).ljust(width) for item, width in zip(row, max_column_widths)
+            str(item).ljust(width)
+            for item, width in zip(row, max_column_widths)
         )
         + " |"
         for row in rows

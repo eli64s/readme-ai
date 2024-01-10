@@ -83,8 +83,12 @@ class RepoProcessor:
         configuration and handles special cases like GitHub workflows.
         """
         for file_path in repo_path.rglob("*"):
-            if not file_path.is_file() or should_ignore(
-                self.config_helper, file_path
+            dependency_files = self.config_helper.dependency_files.get(
+                "dependency_files"
+            )
+            ignore = should_ignore(self.config_helper, file_path)
+            if not file_path.is_file() or (
+                ignore is True and str(file_path.name) not in dependency_files
             ):
                 continue
 
@@ -142,12 +146,18 @@ class RepoProcessor:
         """Returns a list of dependencies."""
         try:
             dependencies = set()
+            dependency_files = self.config_helper.dependency_files.get(
+                "dependency_files"
+            )
 
             for file_data in contents:
                 dependencies.update(file_data.dependencies)
                 dependencies.add(file_data.language)
-                dependencies.add(file_data.name)
                 dependencies.add(file_data.extension)
+                if file_data.name in dependency_files:
+                    dependencies.add(file_data.name)
+                if GITHUB_WORKFLOWS_PATH in str(file_data.path):
+                    dependencies.add("github actions")
 
             return list(dependencies)
 
