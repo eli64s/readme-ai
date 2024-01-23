@@ -95,8 +95,8 @@ class ModelHandler:
 
         for batch in self._generate_batches(prompts, batch_size):
             batch_responses = await asyncio.gather(
-                *[self._process_batch(prompt) for prompt in batch]
-                # , return_exceptions=True
+                *[self._process_batch(prompt) for prompt in batch],
+                return_exceptions=True,
             )
             responses.extend(batch_responses)
 
@@ -145,7 +145,7 @@ class ModelHandler:
                     {
                         "repo": self.config.git.repository,
                         "dependencies": dependencies,
-                        "files": summaries,
+                        "summaries": summaries,
                     },
                 ),
                 (
