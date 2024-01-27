@@ -8,7 +8,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/eli64s/readme-ai/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/.github%2Fworkflows%2Frelease-pipeline.yml?logo=GitHub&label=cicd&color=c125ff" alt="Test">
+    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=GitHub&label=cicd&color=c125ff" alt="cicd">
   </a>
   <a href="https://app.codecov.io/gh/eli64s/readme-ai">
     <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&color=c125ff" alt="Publish">
