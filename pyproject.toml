@@ -66,6 +66,8 @@ pytest-xdist = "*"
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
 mkdocs-material = "*"
+mkdocstrings = "*"
+mike = "*"
 
 [tool.ruff]
 exclude = [
