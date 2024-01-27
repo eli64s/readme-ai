@@ -1,38 +1,34 @@
 site_name: readme-ai
 repo_url: https://github.com/eli64s/readme-ai
-site_description: "A tool to generate beautiful README.md files for your projects."
+site_description: "🎈 Automated README file generator, powered by large language model APIs."
 
 theme:
   icon:
     repo: fontawesome/brands/github-alt
   name: material
   palette:
-    primary: "gray"
-    accent: "white"
-    text: "blue"
-    code: "purple"
-    link: "blue"
-    background: "gray"
+    primary: "blueviolet"  # Primary color for the theme
+    accent: "blueviolet"   # Accent color for elements like buttons, active states
+    text: "black"          # Primary text color
+    code: "blueviolet"     # Color for code blocks and inline code
+    link: "blueviolet"     # Color for hyperlinks
+    background: "white"    # Background color for the site
 
 nav:
   - Home: index.md
-  - Installation and Setup:
-      - "Installation": installation.md
-      - "Pip": installation.md
-      - "Docker": installation.md
-      - "From Source": installation.md
+  - Installation: installation.md
   - Quickstart:
-      - "Readme-ai CLI": quickstart.md
-      - "Readme-ai UI": quickstart.md
-  - Examples:
-      - "Examples": examples.md
-  - Features:
-      - "Features": features.md
+      - "Prerequisites": prerequisites.md
+      - "Usage": usage.md
+  - Features: features.md
+  - Examples: examples.md
   - Configuration:
-      - "Project Structure": configuration.md
-      - "Command Line Arguments": configuration.md
-  - Concepts: concepts.md
-  - Contributing: contribute.md
+      - "Settings": configuration.md
+      - "CLI": cli.md
+  - Design:
+      - "How It Works": how-it-works.md
+      - "Core Concepts": concepts.md
+  - Contributing: contributing.md
 
 markdown_extensions:
   - admonition
@@ -50,12 +46,8 @@ extra_javascript:
   - js/termynal.js
   - js/custom.js
 
-extra:
-  version:
-    provider: mike
-
 plugins:
+  - search
   - mkdocstrings
   - mike:
       version_selector: true
-  - search:

@@ -1,12 +1,6 @@
----
-title: Lorem ipsum dolor sit amet
----
-
-# Introduction
-
 <p align="center">
-  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="150">
-  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="150">
+  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="120">
+  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="120">
 </p>
 <h1 align="center"><strong>README-AI</strong></h1>
 <p align="center">
@@ -23,22 +17,16 @@ title: Lorem ipsum dolor sit amet
     <img src="https://img.shields.io/pypi/v/readmeai?color=c125ff" alt="PyPI Version">
     <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff" alt="Python Versions">
   </a>
+<br>
+<br>
+<p align="left">
+  <b>Objective</b>
+  <br>
+    Readme-ai is a developer tool that auto-generates README.md files using a combination of data extraction and generative ai. Simply provide a repository URL or local path to your codebase and a well-structured and detailed README file will be generated for you.
+  <br>
+  <br>
+  <b>Motivation</b>
+  <br>
+    Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.
 </p>
-
----
-
-## Overview
-
-***Objective***
-
-Readme-ai is a developer tool that auto-generates README.md files using a combination of data extraction and generative ai. Simply provide a repository URL or local path to your codebase and a well-structured and detailed README file will be generated for you.
-
-***Motivation***
-
-Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.
-
----
-
-## Key Concepts
-
----
+<hr>

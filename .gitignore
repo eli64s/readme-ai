@@ -56,8 +56,3 @@ examples/markdown/readme-edgecase.md
 readmeai/markdown/data/badges.json
 readmeai/settings/prompts.toml
 templates/
-
-# docs
-docs/css/
-docs/js/
-docs/overrides/

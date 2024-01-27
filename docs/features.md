@@ -8,13 +8,10 @@ Built with flexibility in mind, readme-ai allows users to customize various aspe
 
 Currently, readme-ai uses generative ai to create four sections of the README file.
 
-> i. **Header**: Project slogan that describes the repository in an engaging way.
->
-> ii. **Overview**: Provides an intro to the project's core use-case and value proposition.
->
-> iii. **Features**: Markdown table containing details about the project's technical components.
->
-> iv. **Modules**: Codebase file summaries are generated and formatted into markdown tables.
+* **Header**: Project slogan that describes the repository in an engaging way.
+* **Overview**: Provides an intro to the project's core use-case and value proposition.
+* **Features**: Markdown table containing details about the project's technical components.
+* **Modules**: Codebase file summaries are generated and formatted into markdown tables.
 
 All other content is extracted from processing and analyzing repository metadata and files.
 

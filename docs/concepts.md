@@ -1,14 +1,14 @@
-# readme-ai Core Concepts
+# Core Concepts
 
-readme-ai is a tool for auto-generating README files for code repositories using AI. Here are some of its key concepts:
+Readme-ai is a tool for auto-generating README files for code repositories using AI. Here are some of its key concepts:
 
-## Repository Analysis
+## Codebase Analysis
 
 - Traverses the repository directory tree to build a code structure overview
 - Extracts metadata like dependencies and languages used
 - Analyzes characteristics to inform content generation
 
-## AI-Powered Content Creation
+## Generative AI
 
 - Uses GPT language models via the OpenAI API
 - Structured prompts injected with repository details
@@ -49,9 +49,7 @@ By leveraging these concepts and more, readme-ai aims to offer a flexible platfo
 
 ---
 
- Here is a markdown document discussing some of the core concepts of the readme-ai project:
-
-# README-AI Core Concepts
+# Core Concepts
 
 README-AI is a tool for auto-generating detailed README files for software projects using AI. It utilizes several core concepts and components to analyze codebases and produce high-quality documentation.
 
