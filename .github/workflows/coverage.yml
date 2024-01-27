@@ -1,4 +1,4 @@
-name: Test Coverage
+name: Codecov Coverage
 
 on: [push, pull_request]
 
@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v2
