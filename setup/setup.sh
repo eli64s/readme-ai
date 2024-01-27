@@ -66,6 +66,20 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Check for Rust installation
+if ! command -v rustc &> /dev/null; then
+    echo "Rust is not installed."
+    echo "Would you like to install rust now? (y/n)"
+    read -r install_rust
+    if [ "$install_rust" == "y" ]; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        source "$HOME/.cargo/env"
+    else
+        echo "Please install rust and rerun the script."
+        exit 1
+    fi
+fi
+
 IFS='.' read -ra version_parts <<< "$python_version"
 major=${version_parts[0]}
 minor=${version_parts[1]}
@@ -83,7 +97,7 @@ if conda_env_exists "readmeai"; then
 else
     # Create a new conda environment named 'readmeai'
     echo "Creating a new conda environment named 'readmeai' with Python $python_version ..."
-    conda env create -f setup/environment.yaml || {
+    conda env create -f environment.yaml || {
         echo "Error creating the 'readmeai' environment. Aborting."
         exit 1
     }
@@ -100,7 +114,7 @@ export PATH="$(conda info --base)/envs/readmeai/bin:$PATH"
 
 # Install the required packages using pip
 echo "Installing required packages from 'requirements.txt'..."
-pip install -r requirements.txt || {
+pip install -r ../requirements.txt || {
     echo "Error installing packages from 'requirements.txt'. Aborting."
     conda deactivate
     exit 1
