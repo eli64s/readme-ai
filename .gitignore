@@ -53,7 +53,7 @@ Pipfile.lock
 
 # Temporarily Ignored
 examples/markdown/readme-edgecase.md
-readmeai/markdown/data/badges.json
+readmeai/markdown/data/icons.json
 readmeai/settings/prompts.toml
 templates/
 .github/workflows/ci.yml

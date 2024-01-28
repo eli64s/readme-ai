@@ -4,38 +4,38 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.4.999"
-description = "🎈 Automated README file generator, powered by large language model APIs"
+version = "0.5.0-beta.2"
+description = "🎈 Automated README file generator, powered by GPT language model APIs."
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
-documentation = "https://github.com/eli64s/readme-ai/blob/main/README.md"
+documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
   "python",
   "markdown",
   "readme",
-  "ai",
   "generator",
   "devtools",
   "documentation",
   "documentation-generator",
   "readme-md",
   "readme-generator",
-  "openai-api",
   "automated-readme",
-  "auto-readme",
   "readme-md-generator",
   "shieldsio-badges",
+  "openai",
+  "vertex-ai",
+  "ai",
+  "llms",
+  "llm-agent",
   "gpt-4",
-  "llm",
   "chatgpt",
-  "gpt-readme"
 ]
 include = ["readmeai", "readmeai.*"]
 
 [tool.poetry.scripts]
-readmeai = "readmeai.cli.commands:commands"
+readmeai = "readmeai.cli.commands:main"
 
 [tool.poetry.dependencies]
 python = "^3.8.1,<4.0.0"
@@ -45,18 +45,18 @@ gitpython = "^3.1.31"
 h2 = "*"
 httpx = "*"
 openai = "^0.27.8"
+pydantic = ">=1.10.9,<2.0.0"
 pyyaml = "^6.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
-pydantic = ">=1.10.9,<2.0.0"
 setuptools = "^69.0.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "*"
 
 [tool.poetry.group.test.dependencies]
-pytest = "*"
+pytest = "=7.4.4"
 pytest-asyncio = "*"
 pytest-cov = "*"
 pytest-randomly = "*"
@@ -66,8 +66,13 @@ pytest-xdist = "*"
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
 mkdocs-material = "*"
-mkdocstrings = "*"
-mike = "*"
+
+[tool.poetry.group.optional]
+optional = true
+
+[tool.poetry.group.optional.dependencies]
+google-cloud-aiplatform = "^1.40.0"
+# litellm = "^1.20.0"
 
 [tool.ruff]
 exclude = [
@@ -104,20 +109,9 @@ ignore = [
     "E501",  # Line too long
 ]
 
-[tool.isort]
-line_length = 79
-profile = "black"
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-known_third_party = "pytest"
-sections = 'FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER'
-no_lines_before = 'LOCALFOLDER'
-
 [tool.coverage.run]
 source = ["readmeai", "tests"]
-omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "setup.py"]
+omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "readmeai/llms/base.py", "readmeai/llms/factory.py"]
 
 [tool.coverage.report]
 fail_under = 80

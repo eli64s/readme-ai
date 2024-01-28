@@ -36,4 +36,4 @@ mkdocs.yml
 Makefile
 noxfile.py
 readmeai/templates/
-readmeai/markdown/data/badges.json
+readmeai/markdown/data/icons.json
