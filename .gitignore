@@ -52,8 +52,9 @@ Pipfile
 Pipfile.lock
 
 # Temporarily Ignored
-examples/markdown/readme-edgecase.md
+.github/workflows/ci.yml
 readmeai/markdown/data/icons.json
 readmeai/settings/prompts.toml
+readmeai/llms/base.py
+readmeai/llms/factory.py
 templates/
-.github/workflows/ci.yml

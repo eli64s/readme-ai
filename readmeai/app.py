@@ -97,9 +97,6 @@ async def readme_generator(conf: AppConfig, conf_helper: ConfigHelper) -> None:
                 tree,
             ) = process_repository(conf, conf_helper, temp_dir)
 
-            for fn in file_context:
-                if fn.file_name == "Dockerfile":
-                    logger.info(f"File Context:\n{fn}")
             logger.info(f"Dependencies:\n{dependencies}")
             logger.info(f"Directory Tree:\n{tree}")
 

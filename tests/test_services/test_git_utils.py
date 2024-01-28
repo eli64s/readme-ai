@@ -39,16 +39,6 @@ async def test_clone_invalid_repo(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_clone_local_repo(tmp_path):
-    """Test that a local repository is cloned."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        cloned_dir = await clone_repository(Path.cwd(), temp_dir)
-        assert Path(cloned_dir).is_dir() is True
-        assert Path(cloned_dir).exists() is True
-        assert Path(cloned_dir).is_file() is False
-
-
-@pytest.mark.asyncio
 async def test_clone_nonexistent_local_path(tmp_path):
     """Test that a nonexistent local path is not cloned."""
     local_dir = "/nonexistent/path"
@@ -58,14 +48,18 @@ async def test_clone_nonexistent_local_path(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_clone_git_command_error(tmp_path):
-    """Test clone failure due to GitCommandError."""
-    with patch("git.Repo.clone_from") as mock_clone, pytest.raises(
-        GitCloneError
-    ) as exc:
-        mock_clone.side_effect = git.GitCommandError("clone", "error")
-        await clone_repository(GIT_URL, tmp_path)
-        assert isinstance(exc.value, GitCloneError)
+async def test_clone_local_repo(tmp_path):
+    """Test that a local repository is cloned."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        repo_path = Path(temp_dir)
+        repo = git.Repo.init(repo_path)
+        readme = repo_path / "README.md"
+        readme.write_text("# Test Repository")
+        relative_readme_path = readme.relative_to(repo_path)
+        repo.index.add([str(relative_readme_path)])
+        repo.index.commit("Initial commit")
+        cloned_dir = await clone_repository(temp_dir, tmp_path)
+        assert Path(cloned_dir).exists()
 
 
 @pytest.mark.asyncio

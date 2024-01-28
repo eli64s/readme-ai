@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-version="0.4.998"
+version="0.5.0"
 run_date=$(date +"%Y%m%d")
 filenames=(
     #"readme-litellm"
-    #"readme-fal-js"
-    "readme-postgres"
+    "readme-fal-js"
+    #gitmate-2
+    #gitlab
+    "readme-local"
+    "readme-pyflink"
     "readme-python"
+    "readme-streamlit"
+    "readme-postgres"
     "readme-typescript"
     "readme-kotlin"
     "readme-rust-c"
@@ -14,14 +19,17 @@ filenames=(
     "readme-java"
     "readme-fastapi-redis"
     "readme-mlops"
-    "readme-pyflink"
-    "readme-streamlit"
 )
 repositories=(
     #"https://github.com/BerriAI/litellm"
-    #"https://github.com/fal-ai/fal-js"
-    "https://github.com/jwills/buenavista"
+    "https://github.com/fal-ai/fal-js"
+    #https://gitlab.com/gitmate/open-source/gitmate-2
+    #https://gitlab.com/bavarder/bavarder/
+    "/Users/k01101011/Documents/GitHub/gpt-scripts"
+    "/Users/k01101011/Documents/GitHub/pyflink-poc"
     "https://github.com/eli64s/readme-ai"
+    "https://github.com/eli64s/readme-ai-streamlit"
+    "https://github.com/jwills/buenavista"
     "https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript"
     "https://github.com/rumaan/file.io-Android-Client"
     "https://github.com/DownWithUp/CallMon"
@@ -29,8 +37,6 @@ repositories=(
     "https://github.com/avjinder/Minimal-Todo"
     "https://github.com/FerrariDG/async-ml-inference"
     "https://github.com/GokuMohandas/mlops-course"
-    "https://github.com/eli64s/pyflink-poc"
-    "https://github.com/eli64s/readme-ai-streamlit"
 )
 align=("left" "center")
 badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")

@@ -288,9 +288,12 @@ Explore [example README.md](https://github.com/eli64s/readme-ai/blob/main/exampl
 | ⭑ | [readme-fastapi-redis.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-fastapi-redis.md) | [async-ml-inference](https://github.com/FerrariDG/async-ml-inference) | FastAPI, Redis |
 | ⭑ | [readme-mlops.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-mlops.md) | [mlops-course](https://github.com/GokuMohandas/mlops-course) | Python, Jupyter |
 | ⭑ | [readme-pyflink.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-pyflink.md) | [flink-flow](https://github.com/eli64s/flink-flow) | PyFlink |
+
+<!--
 | ⭑ | [readme-gitlab.md]() | [gitlab](https://github.com/eli64s/flink-flow) | GitLab |
 | ⭑ | [readme-bitbucket.md]() | [bitbucket](https://github.com/eli64s/flink-flow) | BitBucket |
 | ⭑ | [readme-local.md]() | [filesystem](https://github.com/eli64s/flink-flow) | Filesystem |
+-->
 
 ---
 

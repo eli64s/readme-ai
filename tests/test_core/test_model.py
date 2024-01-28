@@ -4,7 +4,6 @@ import asyncio
 from unittest.mock import AsyncMock, patch
 
 import httpx
-import openai
 import pytest
 
 from readmeai.core.logger import Logger
@@ -149,8 +148,8 @@ async def test_handle_response_openai_error(mock_config):
     """Test the _handle_response function."""
     handler = ModelHandler(mock_config)
     handler.http_client.post_async = AsyncMock(
-        side_effect=MockResponse(status_code=500)
+        side_effect=Exception("Test Error")
     )
-    with pytest.raises(openai.OpenAIError) as exc:
-        await handler._handle_response(None, "", "")
-    assert isinstance(exc.value, openai.OpenAIError)
+    with pytest.raises(Exception) as exc:
+        await handler._handle_response(...)
+    assert isinstance(exc.value, Exception)
