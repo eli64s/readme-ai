@@ -1,12 +1,6 @@
-# CLI Options
-[cli]
-emojis = false
-offline = false
-
 # File Resources
 [files]
 dependency_files = "dependency_files.toml"
-identifiers = "identifiers.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
@@ -14,25 +8,27 @@ output = "readme-ai.md"
 shields_icons = "data/shieldsio.json"
 skill_icons = "data/skill_icons.json"
 
-# Git Options
+# Git Repository Settings
 [git]
 repository = "https://github.com/eli64s/readme-ai"
 
-# GPT Language Model API Settings
+# Language Model API Settings
 [llm]
 content = "You're a brilliant Tech Lead and Software Engineer."
 endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
+offline = false
 rate_limit = 6
 temperature = 0.8
 tokens = 750
 tokens_max = 3899
 
-# Markdown Templates
+# Markdown Template Settings
 [md]
 align = "center"
 default = "<code>► INSERT-TEXT-HERE</code>"
+emojis = false
 image = ""
 slogan = ""
 tables = ""
@@ -53,11 +49,12 @@ header = """\
 """
 
 badge_color = "0080ff"
-badge_style = "standard"
-badges_software = """\t<em>Developed with the software and tools below.</em>\n</p>\n<p align="{align}">\n\t{badges}"""
+badge_style = "flat"
+badges_dependencies = """\t<em>Developed with the software and tools below.</em>\n</p>\n<p align="{align}">\n\t{badges}"""
+badge_logo = """<img src="https://img.shields.io/badge/{name}-{badge_color}?style={badge_style}&logo=ReadMe&logoColor=white" alt="project-name">"""
 badges_shields = """
 <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&color={badge_color}" alt="license">
-\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&color={badge_color}" alt="last-commit">
+\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
 \t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
 \t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
 """

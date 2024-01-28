@@ -1,4 +1,4 @@
-"""Enum classes for the readmeai package."""
+"""Enum classes for the readme-ai CLI."""
 
 from enum import Enum
 
