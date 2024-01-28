@@ -82,17 +82,4 @@ Each service has properties for `api_url` and `file_url_template` to facilitate 
 - `YELLOW`
 - `CLOUD`
 
-## Usage
-
-To use these models and enums, import them into your application and instantiate them with the appropriate configuration values.
-
-```python
-from readmeai.config.models import CliSettings, GitSettings
-
-cli_settings = CliSettings(emojis=True, offline=False)
-git_settings = GitSettings(repository='https://github.com/user/repo')
-```
-
-Remember to validate your configuration when instantiating the models to catch any issues early on.
-
 ---

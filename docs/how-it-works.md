@@ -11,7 +11,7 @@ The steps below outline the process of generating a README using the CLI.
 The diagram below shows the high-level architecture of the project.
 
 <div align="left">
-    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/how-it-works.png" alt="Architecture" width="999" />
+    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/how-it-works.png" alt="Architecture" width="350" />
 </div>
 
 ---

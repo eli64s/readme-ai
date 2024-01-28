@@ -1,40 +1,33 @@
 site_name: readme-ai
 repo_url: https://github.com/eli64s/readme-ai
-site_description: "🎈 Automated README file generator, powered by large language model APIs."
+site_description: "🎈 Automated README file generator, powered by GPT language model APIs."
 
 theme:
   icon:
     repo: fontawesome/brands/github-alt
   name: material
-  palette:
-    primary: "blueviolet"  # Primary color for the theme
-    accent: "blueviolet"   # Accent color for elements like buttons, active states
-    text: "black"          # Primary text color
-    code: "blueviolet"     # Color for code blocks and inline code
-    link: "blueviolet"     # Color for hyperlinks
-    background: "white"    # Background color for the site
 
 nav:
   - Home: index.md
   - Installation: installation.md
-  - Quickstart:
+  - Getting Started:
       - "Prerequisites": prerequisites.md
-      - "Usage": usage.md
-  - Features: features.md
+      - "Running the CLI": cli.md
+      - "Streamlit App": streamlit.md
+      - "Configuration": configuration.md
+  - Features:
+      - "Customization": customization.md
+      - "Text Summarization": text-summarization.md
+      - "Dynamic Content": dynamic-content.md
+      - "Templates": templates.md
   - Examples: examples.md
-  - Configuration:
-      - "Settings": configuration.md
-      - "CLI": cli.md
-  - Design:
-      - "How It Works": how-it-works.md
+  - Concepts:
       - "Core Concepts": concepts.md
+      - "How It Works": how-it-works.md
   - Contributing: contributing.md
 
 markdown_extensions:
   - admonition
-  - pymdownx.highlight
-  - pymdownx.snippets
-  - pymdownx.superfences
   - attr_list
   - md_in_html
 
@@ -48,6 +41,3 @@ extra_javascript:
 
 plugins:
   - search
-  - mkdocstrings
-  - mike:
-      version_selector: true
