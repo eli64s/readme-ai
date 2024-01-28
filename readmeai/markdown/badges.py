@@ -82,7 +82,7 @@ def shields_icons(
     dependency_badges = build_dependency_badges(
         deps, badge_set, conf.md.badge_style
     )
-    dependency_badges = conf.md.badges_software.format(
+    dependency_badges = conf.md.badges_dependencies.format(
         align=conf.md.align, badges=dependency_badges
     )
 
@@ -123,7 +123,7 @@ def skill_icons(conf: AppConfig, deps: list) -> str:
         skill_icons = f"{skill_icons}&theme=light"
 
     conf.md.badges_skills = conf.md.badges_skills.format(skill_icons)
-    dependency_badges = conf.md.badges_software.format(
+    dependency_badges = conf.md.badges_dependencies.format(
         align=conf.md.align, badges=conf.md.badges_skills
     )
     return dependency_badges

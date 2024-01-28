@@ -17,6 +17,16 @@ class GitCloneError(ReadmeAiException):
         super().__init__(f"Failed to clone repository: {repository}", *args)
 
 
+class GitValidationError(ReadmeAiException):
+    """Could not validate repository."""
+
+    def __init__(self, repository: str, *args):
+        self.repository = repository
+        super().__init__(
+            f"Failed to validate the provided repository: {repository}", *args
+        )
+
+
 class ReadmeGeneratorError(ReadmeAiException):
     """Exceptions related to readme generation."""
 

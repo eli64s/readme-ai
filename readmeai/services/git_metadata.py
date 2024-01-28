@@ -12,7 +12,7 @@ logger = Logger(__name__)
 
 
 @dataclass
-class GitHubRepoMetadata:
+class RepositoryMetadata:
     """Dataclass to store GitHub repository metadata."""
 
     name: str
@@ -58,47 +58,13 @@ class GitHubRepoMetadata:
     license_url: Optional[str]
 
 
-async def _fetch_git_metadata(
-    session: aiohttp.ClientSession, url: str, **kwargs
-) -> Dict[str, Any]:
-    """Fetches repository metadata from the git host provider."""
-    async with session.get(url, **kwargs) as response:
-        response.raise_for_status()
-
-        if response.status != 200:
-            raise aiohttp.ClientResponseError(
-                request_info=response.request_info,
-                history=response.history,
-                status=response.status,
-            )
-
-        return await response.json()
-
-
-async def git_api_request(
-    session: aiohttp.ClientSession, repo_url: str
-) -> Optional[GitHubRepoMetadata]:
-    """Retrieves repo metadata and returns a GitHubRepoMetadata instance."""
-    api_url = await fetch_git_api_url(repo_url)
-    if not api_url:
-        return None
-
-    try:
-        repo_data = await _fetch_git_metadata(session, api_url)
-        return process_repo_metadata(repo_data) if repo_data else None
-
-    except aiohttp.ClientError as exc:
-        logger.error(f"Clients error while fetching repo metadata: {exc}")
-        return None
-
-
-def process_repo_metadata(repo_data: dict) -> GitHubRepoMetadata:
-    """Processes raw repo data into GitHubRepoMetadata."""
-    languages = {}
+def _parse_repository_metadata(repo_data: dict) -> RepositoryMetadata:
+    """Converts raw repository data from GitHub API into dataclass."""
+    languages = repo_data.get("languages", {})
     license_info = repo_data.get("license", {}) or {}
     owner_info = repo_data.get("owner", {}) or {}
 
-    return GitHubRepoMetadata(
+    return RepositoryMetadata(
         name=repo_data.get("name", ""),
         full_name=repo_data.get("full_name", ""),
         owner=owner_info.get("login", ""),
@@ -129,3 +95,35 @@ def process_repo_metadata(repo_data: dict) -> GitHubRepoMetadata:
         license_name=license_info.get("name", ""),
         license_url=license_info.get("url", ""),
     )
+
+
+async def _fetch_repository_metadata(
+    session: aiohttp.ClientSession, url: str, **kwargs
+) -> Dict[str, Any]:
+    """Fetches repository metadata from the git host provider."""
+    async with session.get(url, **kwargs) as response:
+        response.raise_for_status()
+        if response.status != 200:
+            raise aiohttp.ClientResponseError(
+                request_info=response.request_info,
+                history=response.history,
+                status=response.status,
+            )
+        return await response.json()
+
+
+async def fetch_git_repository_metadata(
+    session: aiohttp.ClientSession, repository: str
+) -> Optional[RepositoryMetadata]:
+    """Retrieves GitHub repository metadata and returns a dataclass."""
+    api_url = await fetch_git_api_url(repository)
+    if not api_url:
+        return None
+
+    try:
+        metadata = await _fetch_repository_metadata(session, api_url)
+        return _parse_repository_metadata(metadata) if metadata else None
+
+    except aiohttp.ClientError as exc:
+        logger.error(f"Client error while fetching repository metadata: {exc}")
+        return None

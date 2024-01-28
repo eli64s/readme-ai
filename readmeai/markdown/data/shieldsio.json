@@ -6683,6 +6683,10 @@
         "https://img.shields.io/badge/PyCharm-000000.svg?style={0}&logo=PyCharm&logoColor=white",
         "000000"
     ],
+    "pydantic": [
+        "https://img.shields.io/badge/Pydantic-E92063.svg?style={0}&logo=Pydantic&logoColor=white",
+        "E92063"
+    ],
     "pyg": [
         "https://img.shields.io/badge/PyG-3C2179.svg?style={0}&logo=PyG&logoColor=white",
         "3C2179"

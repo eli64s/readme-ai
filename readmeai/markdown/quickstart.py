@@ -1,4 +1,4 @@
-"""Dynamically creates the 'Quick Start' section of the README file."""
+"""Dynamically creates the 'Quickstart' section of the README file."""
 
 import traceback
 from dataclasses import dataclass
@@ -97,12 +97,11 @@ def setup_guide(
             get_top_language_setup(language_counts, conf, helper)
             or default_setup
         )
-        logger.info(f"Quick Start setup: {setup}")
 
-    except Exception as exc_info:
-        logger.debug(
-            f"Exception occurred: {exc_info}\n{traceback.format_exc()}"
-        )
+    except Exception as exc:
+        logger.debug(f"Exception: {exc}\n{traceback.format_exc()}")
         setup = default_setup
+
+    logger.info(f"Quickstart data: {setup}")
 
     return setup

@@ -6,8 +6,8 @@ import re
 from pathlib import Path
 from typing import List
 
-from readmeai.config.enums import BadgeOptions
-from readmeai.config.settings import AppConfig, ConfigHelper, GitService
+from readmeai.config.enums import BadgeOptions, GitService
+from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core import factory
 from readmeai.markdown import badges, tables, tree
 from readmeai.markdown.quickstart import setup_guide
@@ -29,13 +29,14 @@ class ReadmeBuilder:
         self.helper = helper
         self.deps = dependencies
         self.summaries = summaries
-        self.temp_dir = temp_dir
+        self.temp_dir = Path(temp_dir)
         self.md = self.conf.md
-        self.host = self.conf.git.host
         self.full_name = self.conf.git.full_name
+        self.host = self.conf.git.host
+        self.host_domain = self.conf.git.host_domain
         self.repo_name = self.conf.git.name
         self.repo_url = self.conf.git.repository
-        if self.host == GitService.LOCAL:
+        if self.host_domain == GitService.LOCAL:
             self.repo_url = f"../{self.repo_name}"
 
     @property
@@ -78,14 +79,13 @@ class ReadmeBuilder:
     @property
     def md_tree(self) -> str:
         """Generates the README directory tree structure."""
-        tree_generator = tree.TreeGenerator(
-            conf_helper=self.helper,
+        generator = tree.TreeGenerator(
             repo_name=self.repo_name,
-            repo_url=self.repo_url,
             root_dir=self.temp_dir,
+            repo_url=self.repo_url,
         )
-        tree_structure = tree_generator.run()
-        return self.md.tree.format(tree_structure)
+        md_tree_struct = generator.tree()
+        return self.md.tree.format(md_tree_struct)
 
     @property
     def md_quickstart(self) -> str:
@@ -113,14 +113,14 @@ class ReadmeBuilder:
             self.md_summaries,
             self.md_quickstart,
             self.md.contribute.format(
-                host=self.host,
+                host=self.host_domain,
                 full_name=self.full_name,
                 repo_name=self.repo_name.capitalize(),
                 repo_url=self.repo_url,
             ),
         ]
 
-        if self.conf.cli.emojis is False:
+        if self.conf.md.emojis is False:
             readme_md_sections = self.remove_emojis(readme_md_sections)
 
         return "\n".join(readme_md_sections)
