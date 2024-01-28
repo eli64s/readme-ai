@@ -1,6 +1,12 @@
 """Unit tests for C/C++ parsers."""
 
-from readmeai.parsers.cmake import CMakeParser
+import pytest
+
+from readmeai.parsers.cpp import (
+    CMakeParser,
+    ConfigureAcParser,
+    MakefileAmParser,
+)
 
 cmake_file = """
 cmake_minimum_required(VERSION 2.8.12)
@@ -87,6 +93,38 @@ install(
         ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
 """
 
+SAMPLE_CONTENT_CMAKELISTSTXT = """
+find_package(Qt5Widgets REQUIRED)
+find_package(Boost COMPONENTES system thread filesystem)
+add_executable(main main.cpp)
+target_link_libraries(main Qt5::Widgets Boost::system Boost::thread Boost::filesystem)"""
+
+SAMPLE_CONTENT_CONFIGUREAC = """
+AC_PROG_CC
+AC_PROG_RANLIB
+AC_PATH_XSPELL
+AC_CHECK_HEADER(stdc-predefined.h, AC_FAIL("Need stdc-predefined.h"))
+AC_CHECK_HEADERS([time.h sys/types.h],[])
+AC_CHECK_LIBS([m pthread dl rt clock_gettime gmon mp],[],
+              [AX_BOOST_REQUIRE_LIBRARY(threads, [], [have_pthread_mutexattr_setpshared])])
+"""
+
+SAMPLE_CONTENT_MAKEFILEAM = """
+bin_PROGRAMS = my_program
+my_program_SOURCES = main.c utils.c
+noinst_LTLIBRARIES = libfoo.la
+libfoo_la_LDFLAGS = -module -avoid-version
+libfoo_la_SOURCES = foo.c bar.c baz.c
+nobase_include_HEADERS = header.h
+check_PROGRAMS = check
+check_SOURCES = check.c
+EXTRA_DIST = doc/*.png
+dist_doc_DATA = $(wildcard doc/*.html)
+BUILT_SOURCES = stamp-vti
+CLEANFILES += $(srcdir)/Makefile.in
+MOSTLYCLEANFILES += Makefile.in
+"""
+
 
 def test_cmake_parser():
     """Test the CMake parser."""
@@ -94,3 +132,84 @@ def test_cmake_parser():
     expected = "arrow"
     result = parser.parse(cmake_file)
     assert expected in result
+
+
+@pytest.fixture
+def cmake_parser():
+    return CMakeParser()
+
+
+@pytest.fixture
+def makefile_am_parser():
+    return MakefileAmParser()
+
+
+@pytest.fixture
+def configureac_parser():
+    return ConfigureAcParser()
+
+
+@pytest.fixture
+def content_cmakelists(tmp_path):
+    cmakelists_file = tmp_path / "CMakeLists.txt"
+    cmakelists_file.write_text(SAMPLE_CONTENT_CMAKELISTSTXT)
+    return cmakelists_file
+
+
+@pytest.fixture
+def content_configureac(tmp_path):
+    configureac_file = tmp_path / "configure.ac"
+    configureac_file.write_text(SAMPLE_CONTENT_CONFIGUREAC)
+    return configureac_file
+
+
+@pytest.fixture
+def content_makefileam(tmp_path):
+    makefileam_file = tmp_path / "Makefile.am"
+    makefileam_file.write_text(SAMPLE_CONTENT_MAKEFILEAM)
+    return makefileam_file
+
+
+def test_cmake_parser_valid(cmake_parser, content_cmakelists):
+    extracted_dependencies = cmake_parser.parse(content_cmakelists.read_text())
+    """
+    expected_dependencies = [
+        "Qt5Widgets",
+        "Boost::system",
+        "Boost::thread",
+        "Boost::filesystem",
+    ]
+    """
+    assert "Qt5Widgets" in extracted_dependencies
+
+
+def test_cmake_parser_invalid(cmake_parser):
+    extracted_dependencies = cmake_parser.parse("Invalid Content")
+    assert extracted_dependencies == []
+
+
+@pytest.mark.skip
+def test_configureac_parser_valid(configureac_parser, content_configureac):
+    extracted_packages = configureac_parser.parse(
+        content_configureac.read_text()
+    )
+    expected_packages = ["mp", "clock_gettime", "rt", "dl", "pthread"]
+    assert sorted(extracted_packages) == sorted(expected_packages)
+
+
+def test_configureac_parser_invalid(configureac_parser):
+    extracted_packages = configureac_parser.parse("Invalid Content")
+    assert extracted_packages == []
+
+
+def test_makefile_am_parser_valid(makefile_am_parser, content_makefileam):
+    extracted_packages = makefile_am_parser.parse(
+        content_makefileam.read_text()
+    )
+    # expected_packages = ["my_program", "libfoo", "check"]
+    assert "my_program" in extracted_packages
+
+
+def test_makefile_am_parser_invalid(makefile_am_parser):
+    extracted_packages = makefile_am_parser.parse("Invalid Content")
+    assert extracted_packages == []

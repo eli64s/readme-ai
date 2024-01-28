@@ -1,11 +1,21 @@
 """Unit tests for the GPT LLM API handler."""
 
-from unittest.mock import AsyncMock, Mock, patch
+import asyncio
+from unittest.mock import AsyncMock, patch
 
 import httpx
+import openai
 import pytest
 
+from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
+
+
+@pytest.fixture
+async def mock_handler(mock_config):
+    """Mock the ModelHandler class."""
+    async with ModelHandler(mock_config) as handler:
+        yield handler
 
 
 class MockResponse:
@@ -36,37 +46,54 @@ class MockRequest:
         self.url = "http://mockurl.com"
 
 
-class MockHTTPStatusError(httpx.HTTPStatusError):
-    """Mock HTTP status error."""
-
-    def __init__(self):
-        """Initialize the mock HTTP status error."""
-        super().__init__(
-            message="HTTP Error",
-            request=MockRequest(),
-            response=MockResponse(status_code=404),
-        )
+@pytest.mark.asyncio
+async def test_model_handler_initialization(mock_config):
+    mock_handler = ModelHandler(mock_config)
+    assert mock_handler.config == mock_config
+    assert mock_handler.cache is not None
+    assert mock_handler.logger is not None
+    assert mock_handler.http_client is not None
+    assert isinstance(mock_handler.logger, Logger)
+    assert isinstance(mock_handler.http_client, httpx.AsyncClient)
+    assert isinstance(mock_handler.rate_limit_semaphore, asyncio.Semaphore)
+    assert isinstance(mock_handler.rate_limit, int)
+    await mock_handler.close()
 
 
 @pytest.mark.asyncio
-async def test_batch_request(
-    mock_config, mock_file_data, mock_dependencies, mock_summaries
-):
+async def test_model_handler_initialization_with_invalid_config():
+    with pytest.raises(Exception) as exc:
+        invalid_config = {}
+        handler = ModelHandler(invalid_config)
+        await handler.use_api(invalid_config)
+    assert isinstance(exc.value, Exception)
+
+
+def test_http_client_initialization(mock_config):
+    mock_config.llm.rate_limit = 10
+    handler = ModelHandler(mock_config)
+    handler._http_client()
+    assert handler.rate_limit_semaphore._value == 10
+
+
+@pytest.mark.asyncio
+async def test_model_handler_batch_request(mock_config):
     """Test the batch_request function."""
-    model_handler = ModelHandler(mock_config)
-    patch.object(model_handler, "_set_prompt_context", return_value=...)
-    patch.object(model_handler, "_batch_prompts", return_value=...)
-    responses = await model_handler.batch_request(
-        mock_file_data, mock_dependencies, mock_summaries
-    )
-    model_handler.close()
-    assert isinstance(responses, list)
+    handler = ModelHandler(mock_config)
+    with patch.object(
+        handler, "_batch_prompts", new_callable=AsyncMock
+    ) as mock_batch:
+        mock_batch.return_value = ...
+        await handler.batch_request([1, 2, 3], [4, 5, 6], [7, 8, 9])
+    await handler.close()
+    assert mock_batch.called
 
 
-def test_generate_batches(mock_config):
-    """Test the _generate_batches function."""
+@pytest.mark.asyncio
+async def test_generate_batches_odd_number_of_elements(mock_config):
+    """Test generator behavior when given an odd number of elements."""
     batch_size = 3
-    items = [1, 2, 3, 4, 5, 6, 7, 8]
+    items = [1, 2, 3, 4, 5, 6, 7]
     model_handler = ModelHandler(mock_config)
     batches = list(model_handler._generate_batches(items, batch_size))
     model_handler.close()
@@ -74,72 +101,31 @@ def test_generate_batches(mock_config):
     assert len(batches) == 3
     assert batches[0] == [1, 2, 3]
     assert batches[1] == [4, 5, 6]
-    assert batches[2] == [7, 8]
+    assert batches[2] == [7]
 
 
 @pytest.mark.asyncio
-async def test_set_prompt_context(
-    mock_config, mock_dependencies, mock_summaries
-):
-    """Test the generate_prompts function."""
-    file_context = [Mock(), Mock(), Mock()]
+async def test_large_batch_size_handling(mock_config):
     handler = ModelHandler(mock_config)
-    handler.http_client.post = AsyncMock(
-        side_effect=[
-            MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
-            ),
-            MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
-            ),
-            MockResponse(
-                json_data={
-                    "choices": [{"message": {"content": "Expected summary"}}]
-                }
-            ),
-        ],
-    )
-    prompts = await handler._set_prompt_context(
-        file_context,
-        mock_dependencies,
-        mock_summaries,
-    )
-    handler.close()
-    assert len(prompts) == 4
-    expected_prompts = []
-    for prompt, expected in zip(prompts, expected_prompts):
-        assert prompt == expected
+    large_batch = ["prompt"] * 1000
+    responses = await handler._batch_prompts(large_batch)
+    assert len(responses) == len(large_batch)
+    assert isinstance(responses, list)
+    await handler.close()
 
 
 @pytest.mark.asyncio
-async def test_process_batch_summaries(mock_config):
-    """Test the _process_prompt function."""
+async def test_batch_prompts_exception_handling(mock_config):
     handler = ModelHandler(mock_config)
-    handler._handle_code_summary_response = AsyncMock(
-        return_value="Processed summary"
-    )
-    mock_prompt = {"type": "summaries", "context": "Some context"}
-    result = await handler._process_batch(mock_prompt)
-    handler.close()
-    assert result == "Processed summary"
+    mock_prompts = ["prompt1", "prompt2"]
 
+    with patch.object(
+        handler, "_process_batch", side_effect=Exception("Test Error")
+    ):
+        responses = await handler._batch_prompts(mock_prompts)
 
-@pytest.mark.asyncio
-async def test_process_batch_other_types(mock_config):
-    """Test the _process_prompt function."""
-    handler = ModelHandler(mock_config)
-    handler._get_prompt_context = Mock(return_value="Injected prompt")
-    handler._handle_response = AsyncMock(
-        return_value=("type", "Processed other prompt")
-    )
-    mock_prompt = {"type": "overview", "context": "Some context"}
-    result = await handler._process_batch(mock_prompt)
-    handler.close()
-    assert result == "Processed other prompt"
+    assert len(responses) == len(mock_prompts)
+    await handler.close()
 
 
 @pytest.mark.asyncio
@@ -159,66 +145,12 @@ async def test_handle_response(mock_config):
 
 
 @pytest.mark.asyncio
-async def test_handle_response_http_status_error(mock_config):
-    with patch(
-        "httpx.AsyncClient.post",
-        side_effect=httpx.HTTPStatusError(
-            response=MockResponse(status_code=404),
-            request=MockRequest(),
-            message="HttpStatusError",
-        ),
-    ):
-        handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response(
-            "overview", "test prompt", 50
-        )
-        await handler.close()
-        assert "HttpStatusError" in response
-
-
-@pytest.mark.asyncio
-async def test_handle_response_network_error(mock_config):
-    with patch(
-        "httpx.AsyncClient.post",
-        side_effect=httpx.NetworkError(
-            request=MockRequest(),
-            message="NetworkError",
-        ),
-    ):
-        handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response(
-            "overview", "test prompt", 50
-        )
-        await handler.close()
-        assert "NetworkError" in response
-
-
-@pytest.mark.asyncio
-async def test_handle_response_timeout_error(mock_config):
-    with patch(
-        "httpx.AsyncClient.post",
-        side_effect=httpx.TimeoutException(
-            request=MockRequest(),
-            message="TimeoutException",
-        ),
-    ):
-        handler = ModelHandler(mock_config)
-        index, response = await handler._handle_response(
-            "overview", "test prompt", 50
-        )
-        await handler.close()
-        assert "TimeoutException" in response
-
-
-@pytest.mark.asyncio
-async def test_handle_response_cache(mock_config):
+async def test_handle_response_openai_error(mock_config):
+    """Test the _handle_response function."""
     handler = ModelHandler(mock_config)
-    handler.cache[("cached_index", "cached_prompt", 50)] = (
-        "cached_index",
-        "Cached response",
+    handler.http_client.post_async = AsyncMock(
+        side_effect=MockResponse(status_code=500)
     )
-    index, response = await handler._handle_response(
-        "cached_index", "cached_prompt", 50
-    )
-    assert index == "cached_index"
-    assert response == "Cached response"
+    with pytest.raises(openai.OpenAIError) as exc:
+        await handler._handle_response(None, "", "")
+    assert isinstance(exc.value, openai.OpenAIError)

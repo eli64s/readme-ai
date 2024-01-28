@@ -7,7 +7,7 @@ from readmeai.config.settings import (
     load_config,
     load_config_helper,
 )
-from readmeai.core.preprocess import FileData, RepoProcessor
+from readmeai.core.preprocess import FileContext, RepoProcessor
 
 
 @pytest.fixture(scope="session")
@@ -42,11 +42,11 @@ def mock_summaries():
 @pytest.fixture(scope="session")
 def mock_file_data(mock_dependencies):
     """Returns the default file data."""
-    return FileData(
-        path="/path/to/file1.py",
-        name="file1.py",
+    return FileContext(
+        file_path="/path/to/file1.py",
+        file_name="file1.py",
+        file_ext="py",
         content="This is content of file1.py",
-        extension="py",
         tokens=10,
         dependencies=mock_dependencies,
     )

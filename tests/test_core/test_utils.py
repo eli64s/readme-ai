@@ -1,18 +1,18 @@
-"""Unit tests for readmeai utility methods."""
+"""Unit tests for utility functions."""
 
 from pathlib import Path
 
 from readmeai.config.settings import ConfigHelper
 from readmeai.core.utils import (
-    extract_markdown_table,
-    format_sentence,
+    format_md_table,
+    format_md_text,
     get_resource_path,
+    is_file_ignored,
     is_valid_url,
-    should_ignore,
 )
 
 
-def test_extract_markdown_table():
+def test_format_md_table():
     """Test that the markdown table is extracted from the input string."""
     test_string = """<remove this>
     | Column 1 | Column 2 | Column 3 |
@@ -22,16 +22,25 @@ def test_extract_markdown_table():
     | Content  | Content  | Content  |
     and this
     """
-    result = extract_markdown_table(test_string)
+    result = format_md_table(test_string)
     assert isinstance(result, str)
     assert "<remove this>" not in result
     assert "and this" not in result
 
 
-def test_format_sentence():
+def test_format_md_text():
+    """Test that the markdown text is extracted from the input string."""
     text = "'hello world'"
-    formatted_sentence = format_sentence(text)
+    formatted_sentence = format_md_text(text)
     assert formatted_sentence == "hello world"
+
+
+def test_is_file_ignored(mock_config_helper: ConfigHelper):
+    """Test that the file is ignored."""
+    file_path_ignored = Path("README.md")
+    file_path_not_ignored = Path("readmeai/main.py")
+    assert is_file_ignored(mock_config_helper, file_path_ignored) is True
+    assert is_file_ignored(mock_config_helper, file_path_not_ignored) is False
 
 
 def test_is_valid_url():
@@ -39,14 +48,6 @@ def test_is_valid_url():
     assert is_valid_url("http://www.example.com") is True
     assert is_valid_url("www.example.com") is False
     assert is_valid_url("example.com") is False
-
-
-def test_should_ignore(mock_config_helper: ConfigHelper):
-    """Test that the file is ignored."""
-    file_path_ignored = Path("README.md")
-    file_path_not_ignored = Path("readmeai/main.py")
-    assert should_ignore(mock_config_helper, file_path_ignored) is True
-    assert should_ignore(mock_config_helper, file_path_not_ignored) is False
 
 
 def test_get_resource_path_from_resources(monkeypatch):

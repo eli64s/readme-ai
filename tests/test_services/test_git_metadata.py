@@ -7,16 +7,16 @@ import aiohttp
 import pytest
 
 from readmeai.services.git_metadata import (
-    GitHubRepoMetadata,
-    _fetch_git_metadata,
-    git_api_request,
+    RepositoryMetadata,
+    _fetch_repository_metadata,
+    fetch_git_repository_metadata,
 )
 
 
 @pytest.fixture
 def metadata():
-    """Returns a GitHubRepoMetadata instance."""
-    return GitHubRepoMetadata(
+    """Returns a RepositoryMetadata instance."""
+    return RepositoryMetadata(
         name="test-repo",
         full_name="owner/test-repo",
         owner="repo-owner",
@@ -50,19 +50,19 @@ def metadata():
 
 
 def test_metadata_types(metadata):
-    """Tests the GitHubRepoMetadata dataclass types."""
+    """Tests the RepositoryMetadata dataclass types."""
     assert isinstance(metadata.name, str)
     assert isinstance(metadata.languages, list)
 
 
 def test_metadata_values(metadata):
-    """Tests the GitHubRepoMetadata dataclass values."""
+    """Tests the RepositoryMetadata dataclass values."""
     assert metadata.forks_count == 5
     assert metadata.language == "Python"
 
 
 def test_metadata_asdict(metadata):
-    """Tests the GitHubRepoMetadata asdict method."""
+    """Tests the RepositoryMetadata asdict method."""
     dict_rep = asdict(metadata)
     assert dict_rep["name"] == "test-repo"
     assert dict_rep["topics"] == ["test", "example"]
@@ -70,12 +70,12 @@ def test_metadata_asdict(metadata):
 
 def test_process_repo_metadata(metadata):
     """Tests the process_repo_metadata method."""
-    assert isinstance(metadata, GitHubRepoMetadata)
+    assert isinstance(metadata, RepositoryMetadata)
 
 
 @pytest.mark.asyncio
-async def test_git_api_request_success():
-    """Tests the git_api_request method."""
+async def test_fetch_git_repository_metadata_success():
+    """Tests the fetch_git_repository_metadata method."""
     repo_name = "example-repo"
     repo_owner = "example-owner"
     full_name = f"{repo_owner}/{repo_name}"
@@ -83,13 +83,13 @@ async def test_git_api_request_success():
         "readmeai.services.git_utils.fetch_git_api_url",
         return_value="api_url",
     ), patch(
-        "readmeai.services.git_metadata._fetch_git_metadata",
+        "readmeai.services.git_metadata._fetch_repository_metadata",
         return_value={
             "name": repo_name,
             "full_name": full_name,
         },
     ):
-        metadata = await git_api_request(
+        metadata = await fetch_git_repository_metadata(
             AsyncMock(), "https://github.com/example.com"
         )
         assert metadata.name == repo_name
@@ -97,7 +97,7 @@ async def test_git_api_request_success():
 
 
 @pytest.mark.asyncio
-async def test_fetch_git_api_failure():
+async def test_fetch_git_repository_metadata_failure():
     """Tests the fetch_git_api method."""
     url = "https://api.github.com/badurl"
 
@@ -115,7 +115,6 @@ async def test_fetch_git_api_failure():
             )
         )
         mock_get.return_value.__aenter__.return_value = mock_response
-
         with pytest.raises(aiohttp.ClientResponseError) as exc:
-            await _fetch_git_metadata(mock_get, url)
+            await _fetch_repository_metadata(mock_get, url)
         assert isinstance(exc.value, aiohttp.ClientResponseError)

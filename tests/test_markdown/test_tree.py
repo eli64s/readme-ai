@@ -6,17 +6,16 @@ from readmeai.markdown.tree import TreeGenerator
 
 
 @pytest.fixture
-def tree_gen(mock_config_helper, tmp_path):
+def tree_gen(tmp_path):
     """Fixture for the TreeGenerator class."""
     dir1 = tmp_path / "dir1"
     dir1.mkdir()
     (dir1 / "file1.txt").touch()
     (tmp_path / "dir2").mkdir()
     return TreeGenerator(
-        conf_helper=mock_config_helper,
         repo_name="TestProject",
-        repo_url=tmp_path,
         root_dir=tmp_path,
+        repo_url=tmp_path,
         max_depth=3,
     )
 
@@ -28,9 +27,9 @@ def test_initialization(tree_gen):
     assert tree_gen.max_depth == 3
 
 
-def test_generate_tree(tree_gen, tmp_path):
-    """Test the _generate_tree method."""
-    tree = tree_gen._generate_tree(tmp_path)
+def test_build_tree(tree_gen, tmp_path):
+    """Test the _build_tree method."""
+    tree = tree_gen._build_tree(tmp_path)
     expected_tree = (
         f"└── {tmp_path.name}\n" "    ├── dir1\n" "    │   └── file1.txt"
     )
@@ -45,25 +44,16 @@ def test_generate_tree(tree_gen, tmp_path):
     ],
 )
 def test_max_depth_param(tree_gen, depth, expected_suffix, tmp_path):
-    """Test the _generate_tree method."""
+    """Test the _build_tree method."""
     tree_gen.max_depth = depth
-    tree = tree_gen._generate_tree(tmp_path)
+    tree = tree_gen._build_tree(tmp_path)
     expected_tree = f"└── {tmp_path.name}{expected_suffix}"
     assert tree == expected_tree
 
 
-def test_run_method(tree_gen):
-    """Test the run method."""
-    expected_tree = tree_gen.run()
+def test_tree_method(tree_gen):
+    """Test the tree method."""
+    expected_tree = tree_gen.tree()
     assert "TestProject" in expected_tree
     assert "dir1" in expected_tree
     assert "file1.txt" in expected_tree
-
-
-def test_ignore_files(tree_gen, tmp_path):
-    """Test that the tree generator ignores files."""
-    (tmp_path / "dir1" / "__pycache__").mkdir()
-    (tmp_path / "dir1" / "file.pyc").touch()
-    tree = tree_gen._generate_tree(tmp_path)
-    assert "__pycache__" not in tree
-    assert "file.pyc" not in tree

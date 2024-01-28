@@ -33,9 +33,9 @@ def test_read_badge_file_exception(monkeypatch):
     mock_file_handler.read.side_effect = Exception("File read error")
     monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
 
-    with pytest.raises(Exception) as exc_info:
+    with pytest.raises(Exception) as exc:
         _read_badge_file(badge_file_path)
-    assert isinstance(exc_info.value, Exception)
+    assert isinstance(exc.value, Exception)
 
 
 @pytest.mark.parametrize(
@@ -79,7 +79,7 @@ def test_build_dependency_badges(dependencies, svg_icons, style, expected):
 
 def test_build_metadata_badges_success(mock_config):
     """Tests build_metadata_badges with valid inputs."""
-    mock_config.git.source = "github.com"
+    mock_config.git.host_domain = "github.com"
     mock_config.md.badge_style = "flat"
     badges = build_metadata_badges(mock_config, "github.com", "user/repo")
     assert isinstance(badges, str)

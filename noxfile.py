@@ -25,4 +25,10 @@ def tests(session):
     """Run the test suite across Python versions"""
     session.install(".")
     session.install(".[test]")
-    session.run("pytest", "--cov=./", "--cov-report=term-missing")
+    session.run(
+        "pytest",
+        "-vv",
+        "--asyncio-mode=auto",
+        "--cov=./",
+        "--cov-report=term-missing",
+    )

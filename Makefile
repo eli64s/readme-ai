@@ -2,6 +2,7 @@
 
 SHELL := /bin/bash
 VENV := readmeai
+VV := \
 
 .PHONY: help clean format lint conda-recipe git-rm-cache nox pytest poetry-reqs word-search
 
@@ -48,19 +49,18 @@ nox:
 
 .PHONY: pytest
 pytest:
-	pytest \
-	-n auto \
+	pytest ${VV} -n auto \
 	--asyncio-mode=auto \
 	--cov=. \
 	--cov-report=xml \
 	--cov-report=term-missing \
-	--cov-branch
+	--cov-branch \
 
 .PHONY: poetry-reqs
 poetry-reqs:
-	poetry export -f requirements.txt --output requirements.txt --without-hashes
+	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
 
 .PHONY: word-search
 word-search: clean
 	@echo -e "\nSearching for: ${WORD} in directory: ${CURDIR}"
-	grep -Ril ${WORD} readmeai tests
+	grep -Ril ${WORD} readmeai tests scripts setup

@@ -5,30 +5,30 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from readmeai.core.preprocess import FileData, RepoProcessor
+from readmeai.core.preprocess import FileContext, RepoProcessor
 
 
 @pytest.fixture
 def mock_file_data():
-    file1 = FileData(
-        path="path/to/file1.py",
-        name="file1.py",
+    file1 = FileContext(
+        file_path="path/to/file1.py",
+        file_name="file1.py",
         content="",
-        extension="py",
+        file_ext="py",
         dependencies=["dependency1"],
     )
-    file2 = FileData(
-        path="path/to/file2.js",
-        name="file2.js",
+    file2 = FileContext(
+        file_path="path/to/file2.js",
+        file_name="file2.js",
         content="",
-        extension="js",
+        file_ext="js",
         dependencies=["dependency2"],
     )
-    file3 = FileData(
-        path="path/to/file3.txt",
-        name="file3.txt",
+    file3 = FileContext(
+        file_path="path/to/file3.txt",
+        file_name="file3.txt",
         content="",
-        extension="txt",
+        file_ext="txt",
         dependencies=[],
     )
     return [file1, file2, file3]
@@ -45,13 +45,12 @@ def test_generate_contents(repo_processor, tmp_path):
     (tmp_path / "ignore.md").touch()
 
     with patch(
-        "readmeai.core.utils.should_ignore",
-        side_effect=lambda x, y: y.name == "ignore.md",
+        "readmeai.core.utils.is_file_ignored",
+        side_effect=lambda x, y: y.file_name == "ignore.md",
     ):
-        result = repo_processor.generate_contents(tmp_path)
-
-    assert len(result) == 3
-    assert any(fd.name == "file1.py" for fd in result)
+        context = repo_processor.generate_contents(tmp_path)
+    assert len(context) == 3
+    assert any(f.file_name == "file1.py" for f in context)
 
 
 def test_generate_file_info(repo_processor, tmp_path):
@@ -63,11 +62,11 @@ def test_generate_file_info(repo_processor, tmp_path):
     (tmp_path / ".github" / "workflows" / "workflow.yml").mkdir(
         parents=True, exist_ok=True
     )
-    with patch("readmeai.core.utils.should_ignore", return_value=False):
+    with patch("readmeai.core.utils.is_file_ignored", return_value=False):
         result = list(repo_processor.generate_file_info(tmp_path))
 
     assert len(result) == 4
-    assert any(fd.name == "file1.py" for fd in result)
+    assert any(fd.file_name == "file1.py" for fd in result)
 
 
 def test_generate_file_info_exception_handling(repo_processor, caplog):
@@ -85,24 +84,24 @@ def test_generate_file_info_exception_handling(repo_processor, caplog):
 def test_create_file_data(repo_processor):
     """Test the create_file_data method."""
     file_info = ("requirements.txt", Path("requirements.txt"), "Flask==1.1.4")
-    file_data = repo_processor.create_file_data(file_info)
-    assert file_data.name == "requirements.txt"
-    assert file_data.path == Path("requirements.txt")
-    assert file_data.content == "Flask==1.1.4"
+    context = repo_processor.create_file_data(file_info)
+    assert context.file_name == "requirements.txt"
+    assert context.file_path == Path("requirements.txt")
+    assert context.content == "Flask==1.1.4"
 
 
 def test_extract_dependencies(repo_processor):
     """Test the extract_dependencies method."""
-    file_data = FileData(
-        name="requirements.txt",
-        path=Path("requirements.txt"),
+    file_data = FileContext(
+        file_name="requirements.txt",
+        file_path=Path("requirements.txt"),
         content="flask==1.1.4",
-        extension="txt",
+        file_ext="txt",
     )
     mock_parser = MagicMock()
     mock_parser.parse.return_value = ["flask==1.1.4"]
     with patch(
-        "readmeai.parsers.factory.parser_factory", return_value=mock_parser
+        "readmeai.parsers.registry.parser_factory", return_value=mock_parser
     ):
         result = repo_processor.extract_dependencies(file_data)
         assert "flask" in result
@@ -121,26 +120,26 @@ def test_extract_dependencies(repo_processor):
 def test_language_mapping(repo_processor, file_extension, expected):
     """Test method that maps file extensions to programming languages."""
     contents = [
-        FileData(
-            name=f"main.{file_extension}",
-            path=Path(f"main.{file_extension}"),
+        FileContext(
+            file_path=Path(f"main.{file_extension}"),
+            file_name=f"main.{file_extension}",
+            file_ext=file_extension,
             content="...",
-            extension=file_extension,
         ),
     ]
     updated = repo_processor.language_mapper(contents)
     assert updated[0].language == expected
 
 
-@patch("readmeai.core.tokens.token_counter", return_value=7)
-def test_tokenize_content(mock_token_counter, repo_processor):
+@patch("readmeai.llms.tokenize.count_tokens", return_value=7)
+def test_tokenize_content(mock_count_tokens, repo_processor):
     """Test the tokenize_content method."""
     contents = [
-        FileData(
-            name="file.py",
-            path=Path("file.py"),
+        FileContext(
+            file_name="file.py",
+            file_path=Path("file.py"),
+            file_ext="py",
             content="print('Hello, world!')",
-            extension="py",
         )
     ]
     file_data = repo_processor.tokenize_content(contents)
@@ -150,13 +149,13 @@ def test_tokenize_content(mock_token_counter, repo_processor):
 
 def test_tokenize_content_offline_mode(repo_processor):
     """Test the tokenize_content method."""
-    repo_processor.config.cli.offline = True
+    repo_processor.config.llm.offline = True
     contents = [
-        FileData(
-            name="file.py",
-            path=Path("file.py"),
+        FileContext(
+            file_name="file.py",
+            file_path=Path("file.py"),
             content="print('Hello, world!')",
-            extension="py",
+            file_ext="py",
         )
     ]
     result = repo_processor.tokenize_content(contents)

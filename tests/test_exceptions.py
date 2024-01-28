@@ -5,6 +5,7 @@ from readmeai.exceptions import (
     FileSystemError,
     FileWriteError,
     GitCloneError,
+    GitValidationError,
     ReadmeAiException,
     ReadmeGeneratorError,
 )
@@ -19,6 +20,12 @@ def test_readme_ai_exception():
 def test_git_clone_exception():
     """Test the RepositoryCloneException class."""
     ex = GitCloneError("https://example.com/repo", "Traceback")
+    assert isinstance(ex, ReadmeAiException)
+
+
+def test_git_validation_exception():
+    """Test the GitValidatorException class."""
+    ex = GitValidationError("repository", "Traceback")
     assert isinstance(ex, ReadmeAiException)
 
 

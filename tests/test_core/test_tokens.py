@@ -2,12 +2,12 @@
 
 import pytest
 
-from readmeai.core.tokens import (
+from readmeai.llms.tokenize import (
     _encoding_cache,
     _set_encoding_cache,
-    adjust_max_tokens,
-    token_counter,
+    count_tokens,
     truncate_tokens,
+    update_max_tokens,
 )
 
 ENCODING_NAME = "cl100k_base"
@@ -26,16 +26,16 @@ def mock_get_encoding(monkeypatch):
     monkeypatch.setattr("tiktoken.get_encoding", mock_encoder)
 
 
-def test_adjust_max_tokens_valid_prompt():
-    assert adjust_max_tokens(100, "Hello! This is a test") == 100
+def test_update_max_tokens_valid_prompt():
+    assert update_max_tokens(100, "Hello! This is a test") == 100
 
 
-def test_adjust_max_tokens_invalid_prompt():
-    assert adjust_max_tokens(100, "Invalid prompt") == 50
+def test_update_max_tokens_invalid_prompt():
+    assert update_max_tokens(100, "Invalid prompt") == 50
 
 
-def test_adjust_max_tokens_edge_cases():
-    assert adjust_max_tokens(0, "") == 0
+def test_update_max_tokens_edge_cases():
+    assert update_max_tokens(0, "") == 0
 
 
 def test_set_encoding_cache_new():
@@ -49,13 +49,13 @@ def test_set_encoding_cache_invalid():
     assert isinstance(exc.value, ValueError)
 
 
-def test_token_counter_valid():
-    assert token_counter("Hello world", ENCODING_NAME) == 2
+def test_count_tokens_valid():
+    assert count_tokens("Hello world", ENCODING_NAME) == 2
 
 
-def test_token_counter_exception():
+def test_count_tokens_exception():
     with pytest.raises(ValueError) as exc:
-        token_counter("", "invalid-encoding")
+        count_tokens("", "invalid-encoding")
         assert isinstance(exc.value, ValueError)
 
 
@@ -84,3 +84,12 @@ def test_truncate_tokens_exception(mock_get_encoding, caplog):
 
 def test_truncate_tokens_different_encodings(mock_get_encoding):
     assert truncate_tokens(mock_get_encoding, "Test", 1) == "Test"
+
+
+def test_truncate_tokens_truncation_required():
+    """Test where the number of tokens exceeds the maximum allowed."""
+    max_tokens = 3
+    long_text = "This is a longer text that needs to be truncated"
+    truncated_text = truncate_tokens(ENCODING_NAME, long_text, max_tokens)
+    assert len(truncated_text) < len(long_text)
+    assert "This is a" in truncated_text

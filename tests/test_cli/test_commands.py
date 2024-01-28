@@ -3,7 +3,7 @@
 import pytest
 from click.testing import CliRunner
 
-from readmeai.cli.commands import commands
+from readmeai.cli.commands import main
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def test_commands_with_defaults(runner):
     """Test the commands function with default options."""
     with runner.isolated_filesystem():
         result = runner.invoke(
-            commands,
+            main,
             [
                 "--repository",
                 "https://github.com/eli64s/readme-ai-streamlit",
@@ -28,7 +28,7 @@ def test_commands_with_defaults(runner):
 def test_commands_with_invalid_option(runner):
     """Test the commands function with an invalid option."""
     result = runner.invoke(
-        commands,
+        main,
         ["--align", "invalid", "--repository", "https://github.com/test/repo"],
     )
     assert result.exit_code != 0

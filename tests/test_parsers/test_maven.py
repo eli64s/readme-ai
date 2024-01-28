@@ -1,5 +1,8 @@
 """Unit tests for Java-based dependency parsers."""
 
+import re
+from unittest.mock import patch
+
 from readmeai.parsers.maven import MavenParser
 
 content = """
@@ -153,3 +156,14 @@ def test_maven_parser():
         "logback-classic",
     ]
     assert sorted(parser.parse(content)) == sorted(expected_dependencies)
+
+
+def test_maven_parser_exception_handling():
+    """Test the Maven parser's exception handling."""
+    parser = MavenParser()
+
+    with patch("re.compile") as mock_compile:
+        mock_compile.side_effect = re.error("Test Exception")
+        with patch.object(parser, "handle_parsing_error") as mock_handle:
+            parser.parse(content)
+            mock_handle.assert_called_once_with("pom.xml: Test Exception")

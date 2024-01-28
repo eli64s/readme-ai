@@ -51,7 +51,7 @@ def test_md_quickstart(readme_builder):
 @patch("readmeai.markdown.builder.ReadmeBuilder.remove_emojis")
 def test_build_with_emojis(mock_remove_emojis, mock_config, readme_builder):
     """Tests if emojis are removed when the mock_config is set."""
-    mock_config.cli.emojis = False
+    mock_config.md.emojis = False
     readme_builder.build()
     mock_remove_emojis.assert_called_once()
 

@@ -2,15 +2,8 @@
 
 import pytest
 
-from readmeai.config.settings import GitSettings, load_config
+from readmeai.config.settings import load_config
 from readmeai.exceptions import FileReadError
-
-
-def test_git_settings_invalid_url():
-    """Test GitSettings with an invalid URL."""
-    with pytest.raises(ValueError) as exc:
-        GitSettings(repository="invalid_url")
-    assert isinstance(exc.value, ValueError)
 
 
 def test_load_config_file_not_found():

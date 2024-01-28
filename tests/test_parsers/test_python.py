@@ -125,3 +125,36 @@ def test_conda_env_yaml_parser():
         "snowflake-connector-python",
     ]
     assert parser.parse(content) == expected_dependencies
+
+
+def test_requirements_parser_success():
+    content = "package1\npackage2==1.0\n# Comment"
+    parser = RequirementsParser()
+    assert parser.parse(content) == ["package1", "package2"]
+
+
+def test_requirements_parser_regex_error():
+    content = "[Invalid Regex"
+    parser = RequirementsParser()
+    data = parser.parse(content)
+    assert data == []
+
+
+def test_toml_parser_toml_decode_error():
+    content = "[Invalid TOML"
+    parser = TomlParser()
+    data = parser.parse(content)
+    assert data == []
+
+
+def test_yaml_parser_success():
+    content = "dependencies:\n  - package1\n  - package2=1.0"
+    parser = YamlParser()
+    assert parser.parse(content) == ["package1", "package2"]
+
+
+def test_yaml_parser_yaml_error():
+    content = "{Invalid YAML"
+    parser = YamlParser()
+    data = parser.parse(content)
+    assert data == []

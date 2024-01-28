@@ -1,4 +1,4 @@
-"""Unit tests that test the markdown table creator methods."""
+"""Tests for building and formatting the markdown tables."""
 
 from unittest.mock import patch
 
@@ -18,12 +18,18 @@ from readmeai.services import git_utils
 def test_construct_markdown_table(mock_config):
     """Test that the construct_markdown_table function constructs the table."""
     data = [("module1.py", "Summary 1")]
-    repository = mock_config.git.repository
-    full_name = "eli64s/readme-ai"
+    repository = str(mock_config.git.repository)
+    full_name = mock_config.git.full_name
+    expected_link = create_hyperlink(
+        "module1.py",
+        full_name,
+        "module1.py",
+        repository,
+    )
     table = construct_markdown_table(data, repository, full_name)
     assert "Summary" in table
     assert "| ---" in table
-    assert f"[module1.py]({repository}" in table
+    assert expected_link in table
 
 
 def test_create_hyperlink(mock_config):

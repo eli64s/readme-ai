@@ -1,6 +1,8 @@
 """Unit tests for JSON-based dependency parsers."""
 
-from readmeai.parsers.npm import PackageJsonParser
+import json
+
+from readmeai.parsers.npm import PackageJsonParser, YarnLockParser
 
 package_json_file = """
 {
@@ -60,3 +62,46 @@ def test_package_json_parser():
         "@types/react-native",
         "typescript",
     ]
+
+
+def test_package_json_parser_success():
+    parser = PackageJsonParser()
+    content = json.dumps(
+        {
+            "dependencies": {"packageA": "1.0.0"},
+            "devDependencies": {"packageB": "2.0.0"},
+            "peerDependencies": {"packageC": "3.0.0"},
+        }
+    )
+    result = parser.parse(content)
+    assert set(result) == {"packageA", "packageB", "packageC"}
+
+
+def test_package_json_parser_no_dependencies():
+    parser = PackageJsonParser()
+    content = json.dumps({})
+    result = parser.parse(content)
+    assert result == []
+
+
+def test_yarn_lock_parser_success():
+    parser = YarnLockParser()
+    content = "packageA@1.0.0:\npackageB@2.0.0:"
+    result = parser.parse(content)
+    assert set(result) == {"packageA", "packageB"}
+
+
+def test_yarn_lock_parser_error():
+    parser = YarnLockParser()
+    content = "(invalid regex["
+    data = parser.parse(content)
+    assert isinstance(data, list)
+    assert data == []
+
+
+def test_package_json_parser_invalid_json():
+    parser = PackageJsonParser()
+    content = '{"dependencies": {"packageA": "1.0.0", invalid json}'
+    data = parser.parse(content)
+    assert isinstance(data, list)
+    assert data == []
