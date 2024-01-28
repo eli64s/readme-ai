@@ -3,9 +3,7 @@
 import re
 from typing import List
 
-from readmeai.parsers.base_parser import FileParser
-
-GRADLE_DECODE_ERROR = "Error decoding build.gradle content: {0}"
+from readmeai.core.base_parser import FileParser
 
 
 class BuildGradleParser(FileParser):
@@ -27,9 +25,8 @@ class BuildGradleParser(FileParser):
 
             return list(package_names)
 
-        except re.error as error:
-            self.log_error(GRADLE_DECODE_ERROR.format(error))
-            return []
+        except re.error as exc:
+            return self.handle_parsing_error(f"build.gradle: {str(exc)}")
 
 
 class BuildGradleKtsParser(FileParser):
@@ -51,5 +48,4 @@ class BuildGradleKtsParser(FileParser):
             return list(package_names)
 
         except re.error as error:
-            self.log_error(GRADLE_DECODE_ERROR.format(error))
-            return []
+            return self.handle_parsing_error(f"build.gradle.kts: {str(error)}")

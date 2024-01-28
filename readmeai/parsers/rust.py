@@ -4,9 +4,7 @@ from typing import List
 
 import toml
 
-from readmeai.parsers.base_parser import FileParser
-
-TOM_DECODE_ERROR = "Error decoding TOML content: {0}"
+from readmeai.core.base_parser import FileParser
 
 
 class CargoTomlParser(FileParser):
@@ -34,5 +32,4 @@ class CargoTomlParser(FileParser):
             return dependencies
 
         except toml.TomlDecodeError as exc:
-            self.log_error(TOM_DECODE_ERROR.format(exc))
-            return []
+            return self.handle_parsing_error(f"cargo.toml: {str(exc)}")

@@ -6,11 +6,7 @@ from typing import List
 import toml
 import yaml
 
-from readmeai.parsers.base_parser import FileParser
-
-TOM_DECODE_ERROR = "Error decoding TOML content: {0}"
-TXT_DECODE_ERROR = "Error decoding TXT content: {0}"
-YML_DECODE_ERROR = "Error decoding YAML content: {0}"
+from readmeai.core.base_parser import FileParser
 
 
 class RequirementsParser(FileParser):
@@ -33,10 +29,8 @@ class RequirementsParser(FileParser):
                     package_names.append(match.group(1))
             return package_names
 
-        except re.error as error:
-            self.log_error(TXT_DECODE_ERROR.format(error))
-
-        return []
+        except re.error as exc:
+            return self.handle_parsing_error(f"requirements.txt: {str(exc)}")
 
 
 class TomlParser(FileParser):
@@ -57,28 +51,33 @@ class TomlParser(FileParser):
                 return packages + dev_packages
 
             # For pyproject.toml (Poetry) and cargo.toml (Rust)
-            elif "tool" in data and "poetry" in data["tool"]:
+            if "tool" in data and "poetry" in data["tool"]:
                 poetry_data = data["tool"]["poetry"]
                 dependencies = list(poetry_data.get("dependencies", {}).keys())
+
                 if "dev-dependencies" in poetry_data:
                     dependencies.extend(
                         poetry_data.get("dev-dependencies", {}).keys()
                     )
+
                 if "group" in poetry_data and "dev" in poetry_data["group"]:
                     poetry_data_dev = data["tool"]["poetry"]["group"]["dev"]
                     dependencies.extend(
                         poetry_data_dev.get("dependencies", {}).keys()
                     )
+
                 if "group" in poetry_data and "test" in poetry_data["group"]:
                     poetry_data_main = data["tool"]["poetry"]["group"]["test"]
                     dependencies.extend(
                         poetry_data_main.get("dependencies", {}).keys()
                     )
-                # if "group" in poetry_data and "docs" in poetry_data["group"]:
-                #    poetry_data_main = data["tool"]["poetry"]["group"]["docs"]
-                #    dependencies.extend(
-                #        poetry_data_main.get("dependencies", {}).keys()
-                #    )
+
+                if "group" in poetry_data and "docs" in poetry_data["group"]:
+                    poetry_data_main = data["tool"]["poetry"]["group"]["docs"]
+                    dependencies.extend(
+                        poetry_data_main.get("dependencies", {}).keys()
+                    )
+
                 return dependencies
 
             # For pyproject.toml (Flit)
@@ -98,9 +97,8 @@ class TomlParser(FileParser):
                         )
                 return dependencies
 
-        except toml.TomlDecodeError as error:
-            self.log_error(TOM_DECODE_ERROR.format(error))
-            return []
+        except toml.TomlDecodeError as exc:
+            return self.handle_parsing_error(f"pyproject.toml: {str(exc)}")
 
     def extract_package_names(self, dependencies: List[str]) -> List[str]:
         """Helper method to extract package names from dependency strings."""
@@ -135,7 +133,7 @@ class YamlParser(FileParser):
                                     dependencies.append(pip_dep.split("==")[0])
                 return dependencies
 
-        except yaml.YAMLError as error:
-            self.log_error(YML_DECODE_ERROR.format(error))
-
-        return []
+        except yaml.YAMLError as exc:
+            return self.handle_parsing_error(
+                f"conda environment.yml: {str(exc)}"
+            )

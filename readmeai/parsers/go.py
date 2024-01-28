@@ -3,7 +3,7 @@
 import re
 from typing import List
 
-from readmeai.parsers.base_parser import FileParser
+from readmeai.core.base_parser import FileParser
 
 
 class GoModParser(FileParser):
@@ -22,5 +22,5 @@ class GoModParser(FileParser):
             )
             return list(package_names)
 
-        except AttributeError:
-            return []
+        except Exception as exc:
+            return self.handle_parsing_error(f"go.mod: {str(exc)}")

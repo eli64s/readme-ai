@@ -3,9 +3,7 @@
 import re
 from typing import List
 
-from readmeai.parsers.base_parser import FileParser
-
-XML_DECODE_ERROR = "Error decoding XML content: {0}"
+from readmeai.core.base_parser import FileParser
 
 
 class MavenParser(FileParser):
@@ -27,6 +25,5 @@ class MavenParser(FileParser):
                 dependencies.append("spring")
             return set(dependencies)
 
-        except Exception as error:
-            self.log_error(XML_DECODE_ERROR.format(error))
-            return []
+        except re.error as exc:
+            return self.handle_parsing_error(f"pom.xml: {str(exc)}")

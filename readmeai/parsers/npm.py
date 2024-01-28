@@ -4,8 +4,8 @@ import json
 import re
 from typing import List
 
+from readmeai.core.base_parser import FileParser
 from readmeai.core.logger import Logger
-from readmeai.parsers.base_parser import FileParser
 
 logger = Logger(__name__)
 
@@ -25,10 +25,8 @@ class PackageJsonParser(FileParser):
                     package_names.extend(data[section].keys())
             return package_names
 
-        except json.JSONDecodeError as exc_info:
-            logger.error(f"Error parsing package.json: {str(exc_info)}")
-
-        return []
+        except json.JSONDecodeError as exc:
+            return self.handle_parsing_error(f"package.json: {str(exc)}")
 
 
 class YarnLockParser(FileParser):
@@ -38,6 +36,5 @@ class YarnLockParser(FileParser):
         """Extracts package names from a yarn.lock file."""
         try:
             return re.findall(r"(\S+)(?=@)", content)
-        except re.error as exc_info:
-            self.log_error(f"Error parsing yarn.lock: {str(exc_info)}")
-            return []
+        except re.error as exc:
+            return self.handle_parsing_error(f"yarn.lock: {str(exc)}")
