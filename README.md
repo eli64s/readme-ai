@@ -419,7 +419,7 @@ Try it directly in your browser on <a href="https://streamlit.io/">Streamlit</a>
 <sub>
 Source code for readme-ai's Streamlit app can be found <a href="https://github.com/eli64s/readme-ai-streamlit">here</a>.
 </sub>
-
+<br>
 <br>
 
 <details closed>
@@ -462,13 +462,11 @@ nox -f noxfile.py
 
 ---
 
-### 🧩 Configuration
+## 🧩 Configuration
 
 Run the `readmeai` command in your terminal with the following options to tailor your README file.
 
-----
-
-#### CLI Options
+### CLI Options
 
 | Option                | Description                                                                            | Values                                                                                           | Default Value  | Data Type      |
 | --------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------- | -------------- |
@@ -492,7 +490,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 
 ---
 
-#### Badges
+### Badges
 
 The `--badges` option lets you select the style of icons used in the README file header.
 
@@ -513,8 +511,6 @@ When providing the `--badges` option, readme-ai does two things:
 1. Formats the default badge set to match the selection (i.e. flat, flat-square, etc.).
 2. Generates an additional badge set representing your projects dependencies and tech stack (i.e. Python, Docker, etc.)
 
-<br>
-
 `Example:`
 
 
@@ -530,27 +526,27 @@ readmeai --repository https://github.com/eli64s/readme-ai --badges flat-square
 >
 > {...project slogan...}
 >
-> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat&color=0080ff">
-> <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat&logo=git&?logoColor=white&color=0080ff">
-> <img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat&color=0080ff">
-> <img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat&color=0080ff">
+> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff">
+> <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&logo=git&?logoColor=white&color=0080ff">
+> <img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0080ff">
+> <img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0080ff">
 >
 > <br>
 >
 >	*Developed with the software and tools below.*
 >
-> <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white">
-> <img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat&logo=tqdm&logoColor=black">
-> <img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat&logo=Pydantic&logoColor=white">
-> <img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat&logo=YAML&logoColor=white" alt="YAML">
-> <img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white">
-> <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat&logo=OpenAI&logoColor=white">
+> <img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white">
+> <img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black">
+> <img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white">
+> <img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML">
+> <img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white">
+> <img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white">
 > <br>
-> <img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white">
-> <img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat&logo=AIOHTTP&logoColor=white">
-> <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white">
-> <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat&logo=GitHub-Actions&logoColor=white">
-> <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white">
+> <img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white">
+> <img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white">
+> <img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white">
+> <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white">
+> <img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white">
 >
 > <br>
 >
@@ -559,7 +555,7 @@ readmeai --repository https://github.com/eli64s/readme-ai --badges flat-square
 
 ---
 
-#### Project Logo
+### Project Logo
 
 Select a project logo using the `--image` option to display in the README file header.
 
@@ -577,9 +573,9 @@ To provide your own image, use `--image custom` which will prompt you for the im
 
 ---
 
-#### Pydantic Models
+### Pydantic Models
 
-For more details about the CLI settings and configuration, see the [documentation](https://eli64s.github.io/readme-ai/) or jump right into the [code!](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)
+For more details about the CLI settings and configuration, see the [documentation](https://eli64s.github.io/readme-ai/) or jump right into the [code!](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py)
 
 <p align="right">
   <a href="#top"><b>Return</b></a>
