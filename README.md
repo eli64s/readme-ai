@@ -58,23 +58,18 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 ## 🤖 Demo
 
-Standard CLI usage with LLM API key set as an environment variable.
+Standard CLI usage, providing a repository URL to generate a README file.
 
-[readmeai-cli-demo](https://github.com/eli64s/readme-ai/assets/43382407/ff5b3db8-a400-4031-86fc-a28f8a0469e2)
+[readmeai-cli-demo](https://github.com/eli64s/artifacts/assets/43382407/55b8d1b9-06a7-4b1f-b6a7-aaeccdb27679
+)
 
-You can also generate README files without an API key by using the `--offline` CLI option.
+Generate a README file without making API calls using the `--offline` CLI option.
 
-[readmeai-cli-offline-demo](https://github.com/eli64s/readme-ai/assets/43382407/a508ab17-6fcf-4de5-9239-fc4055d11d62)
+[readmeai-streamlit-demo](https://github.com/eli64s/artifacts/assets/43382407/3eb39fcf-c1df-49c6-bb5c-63e141857ae3)
 
 > [!TIP]
->
-> Offline mode is useful for quickly generating a boilerplate README without incurring API costs. See an offline mode README file [here](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md).
-
-<!--
-**Streamlit Web App**: Run <em>readme-ai</em> directly in your browser with Streamlit, no installation required!
-
-[readmeai-streamlit-demo](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
--->
+> <sub>Offline mode is useful for generating a boilerplate README at no cost. View the offline README.md example [here!](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
+> </sub>
 
 ---
 
@@ -327,51 +322,68 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 ### ⚙️ Installation
 
-Using `pip`
-```sh
-pip install readmeai
-```
+#### Using `pip`
 
-Using `docker`
-```sh
-docker pull zeroxeli/readme-ai:latest
-```
+> ![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)
+>
+> ```sh
+> pip install readmeai
+> ```
 
-Using `conda`
-```sh
-conda install -c conda-forge readmeai
-```
+#### Using `docker`
 
-Alternatively, clone the readme-ai repository and build from source.
+> ![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)
+>
+> ```sh
+> docker pull zeroxeli/readme-ai:latest
+> ```
 
-```sh
-git clone https://github.com/eli64s/readme-ai
-```
+#### Using `conda`
 
-Change into the project directory.
+> ![conda](https://img.shields.io/badge/Anaconda-44A833.svg?style=flat&logo=Anaconda&logoColor=white)
+>
+> ```sh
+> conda install -c conda-forge readmeai
+> ```
 
-```sh
-cd readme-ai
-```
+<details closed>
+<summary>
+  <h4>From <code>source</code></h4>
+</summary>
 
-And install the dependencies using one of the methods below.
+> Clone repository and change directory.
+>
+> ```console
+> $ git clone https://github.com/eli64s/readme-ai
+>
+> $ cd readme-ai
+> ```
 
-Using `bash`
-```sh
-bash setup/setup.sh
-```
+#### Using `bash`
+>
+> ![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)
+>
+> ```console
+> $ bash setup/setup.sh
+> ```
 
-Using `pipenv`
-```sh
-pipenv install && \
-pipenv shell
-```
+#### Using `poetry`
+>
+> ![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)
+>
+> ```console
+> $ poetry install
+> ```
 
-Using `poetry`
-```sh
-poetry install && \
-poetry shell
-```
+* <sub>Similiary you can use `pipenv` or `pip` install the requirements.txt.</sub>
+
+</details>
+
+> [!TIP]
+>
+> [![pipx](https://img.shields.io/badge/pipx-2CFFAA.svg?style=flat&logo=pipx&logoColor=black)](https://pipxproject.github.io/pipx/installation/)
+>
+> Use [pipx](https://pipx.pypa.io/stable/installation/) to automatically install and run Python CLI applications in isolated environments!
 
 ---
 
@@ -389,60 +401,53 @@ On `Windows`
 $ set OPENAI_API_KEY=YOUR_API_KEY
 ```
 
-Use one of the methods below to run the application (Pip, Docker, Conda, Streamlit, etc).
+#### Using `pip`
 
-Using `pip`
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai
-```
+> ![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)
+>
+> ```sh
+> readmeai --repository https://github.com/eli64s/readme-ai
+> ```
 
-Using `docker`
+#### Using `docker`
 
-```sh
-docker run -it \
--e OPENAI_API_KEY=$OPENAI_API_KEY \
--v "$(pwd)":/app zeroxeli/readme-ai:latest \
--r https://github.com/eli64s/readme-ai
-```
+> ![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)
+>
+> ```sh
+> docker run -it \
+> -e OPENAI_API_KEY=$OPENAI_API_KEY \
+> -v "$(pwd)":/app zeroxeli/readme-ai:latest \
+> -r https://github.com/eli64s/readme-ai
+> ```
 
-Using `conda`
-```sh
-readmeai -r https://github.com/eli64s/readme-ai
-```
+#### Using `streamlit`
 
-Using `streamlit`
-
-Try it directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required!
-
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readme-ai.streamlit.app/)
-
-<sub>
-Source code for readme-ai's Streamlit app can be found <a href="https://github.com/eli64s/readme-ai-streamlit">here</a>.
-</sub>
-<br>
-<br>
+> [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readme-ai.streamlit.app/)
+>
+> Use the app directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required! More details about the web app can be found <a href="https://github.com/eli64s/readme-ai-streamlit">here.</a>
 
 <details closed>
-  <summary>From <code>source</code></summary>
-  <br>
+<summary>
+  <h4>From <code>source</code></h4>
+</summary>
 
-  Using `bash`
-  ```sh
-  conda activate readmeai && \
-  python3 -m readmeai.cli.commands -r https://github.com/eli64s/readme-ai
-  ```
+#### Using `bash`
+>
+> ![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)
+>
+> ```console
+> $ conda activate readmeai
+> $ python3 -m readmeai.cli.commands -r https://github.com/eli64s/readme-ai
+> ```
 
-  Using `pipenv`
-  ```sh
-  pipenv shell && \
-  python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
-  ```
-
-  Using `poetry`
-  ```sh
-  poetry shell && \
-  poetry run python3 -m readmeai.cli.commands -o readme-ai.md -r https://github.com/eli64s/readme-ai
-  ```
+#### Using `poetry`
+>
+> ![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)
+>
+> ```console
+> $ poetry shell
+> $ python3 -m readmeai.cli.commands -r https://github.com/eli64s/readme-ai
+> ```
 
 </details>
 
@@ -450,15 +455,19 @@ Source code for readme-ai's Streamlit app can be found <a href="https://github.c
 
 ### 🧪 Tests
 
-Use [`pytest`](https://docs.pytest.org/en/7.1.x/contents.html) to run the default test suite.
-```sh
-make pytest
-```
+#### Using `pytest`
+> [![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white)](https://docs.pytest.org/en/7.1.x/contents.html)
+> ```console
+> $ make pytest
+> ```
 
-Use [`nox`](https://nox.thea.codes/en/stable/) to run the test suite against multiple Python versions including `(3.9, 3.10, 3.11, 3.12)`.
-```sh
-nox -f noxfile.py
-```
+#### Using `nox`
+> ```console
+> $ nox -f noxfile.py
+> ```
+
+> [!TIP]
+> <sub>Use [nox](https://nox.thea.codes/en/stable/) to test application against multiple Python environments and dependencies!</sub>
 
 ---
 
@@ -492,11 +501,10 @@ Run the `readmeai` command in your terminal with the following options to tailor
 
 ### Badges
 
-The `--badges` option lets you select the style of icons used in the README file header.
-
+The `--badges` option lets you select the style of the default badge set.
 | **Style**      | **Preview** |
 |------------------|----------|
-| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff) |
+| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff) |
 | `flat`           | ![flat](https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white) |
 | `flat-square`    | ![flat-square](https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white) |
 | `for-the-badge`  | ![for-the-badge](https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white) |
@@ -511,15 +519,14 @@ When providing the `--badges` option, readme-ai does two things:
 1. Formats the default badge set to match the selection (i.e. flat, flat-square, etc.).
 2. Generates an additional badge set representing your projects dependencies and tech stack (i.e. Python, Docker, etc.)
 
-`Example:`
-
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai --badges flat-square
-```
-
-`Output:`
-
+#### Example
+>
+> ```console
+> $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
+> ```
+>
+#### Output
+>
 > {... project logo ...}
 >
 > {... project name ...}
@@ -527,7 +534,7 @@ readmeai --repository https://github.com/eli64s/readme-ai --badges flat-square
 > {...project slogan...}
 >
 > <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff">
-> <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&logo=git&?logoColor=white&color=0080ff">
+> <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=0080ff&logo=git&logoColor=white">
 > <img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0080ff">
 > <img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0080ff">
 >
@@ -557,29 +564,18 @@ readmeai --repository https://github.com/eli64s/readme-ai --badges flat-square
 
 ### Project Logo
 
-Select a project logo using the `--image` option to display in the README file header.
+Select a project logo using the `--image` option. The following options are available:
 
-| **Options**   | **Preview** |
-|---------------|----------------|
-| **default**   | <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"> |
-| **black**     | <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"> |
-| **gradient** | <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"> |
-| **grey**      | <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"> |
-| **purple**    | <img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"> |
-| **yellow**    | <img src="https://img.icons8.com/pulsar-color/96/markdown.png" width="100"> |
-| **cloud** | <img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"> |
+|  |  |  |
+|---|---|---|
+| `default` | `gradient` | `black` |
+| <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"> | <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"> |
+| `cloud` | `purple` | `grey` |
+|<img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"> |
 
-To provide your own image, use `--image custom` which will prompt you for the image URL.
+<br>
 
----
-
-### Pydantic Models
-
-For more details about the CLI settings and configuration, see the [documentation](https://eli64s.github.io/readme-ai/) or jump right into the [code!](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py)
-
-<p align="right">
-  <a href="#top"><b>Return</b></a>
-</p>
+Use the `--image custom` option to ivoke a prompt to enter a custom image URL or path.
 
 ---
 
