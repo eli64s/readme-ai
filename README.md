@@ -324,7 +324,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 #### Using `pip`
 
-> ![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)
+> [![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)](https://pypi.org/project/readmeai/)
 >
 > ```sh
 > pip install readmeai
@@ -332,7 +332,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 #### Using `docker`
 
-> ![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)
+> [![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)](https://hub.docker.com/r/zeroxeli/readme-ai)
 >
 > ```sh
 > docker pull zeroxeli/readme-ai:latest
@@ -340,7 +340,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 #### Using `conda`
 
-> ![conda](https://img.shields.io/badge/Anaconda-44A833.svg?style=flat&logo=Anaconda&logoColor=white)
+> [![conda](https://img.shields.io/badge/Anaconda-44A833.svg?style=flat&logo=Anaconda&logoColor=white)](https://anaconda.org/zeroxeli/readmeai)
 >
 > ```sh
 > conda install -c conda-forge readmeai
@@ -361,7 +361,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 #### Using `bash`
 >
-> ![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)
+> [![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)](https://www.gnu.org/software/bash/)
 >
 > ```console
 > $ bash setup/setup.sh
@@ -369,13 +369,13 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 #### Using `poetry`
 >
-> ![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)
+> [![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)](https://python-poetry.org/docs/)
 >
 > ```console
 > $ poetry install
 > ```
 
-* <sub>Similiary you can use `pipenv` or `pip` install the requirements.txt.</sub>
+* <sub>Similiary you can use `pipenv` or `pip` to install the requirements.txt.</sub>
 
 </details>
 
@@ -403,7 +403,7 @@ $ set OPENAI_API_KEY=YOUR_API_KEY
 
 #### Using `pip`
 
-> ![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)
+> [![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)](https://pypi.org/project/readmeai/)
 >
 > ```sh
 > readmeai --repository https://github.com/eli64s/readme-ai
@@ -411,7 +411,7 @@ $ set OPENAI_API_KEY=YOUR_API_KEY
 
 #### Using `docker`
 
-> ![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)
+> [![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)](https://hub.docker.com/r/zeroxeli/readme-ai)
 >
 > ```sh
 > docker run -it \
@@ -433,7 +433,7 @@ $ set OPENAI_API_KEY=YOUR_API_KEY
 
 #### Using `bash`
 >
-> ![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)
+> [![bash](https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white)](https://www.gnu.org/software/bash/)
 >
 > ```console
 > $ conda activate readmeai
@@ -442,7 +442,7 @@ $ set OPENAI_API_KEY=YOUR_API_KEY
 
 #### Using `poetry`
 >
-> ![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)
+> [![poetry](https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white)](https://python-poetry.org/docs/)
 >
 > ```console
 > $ poetry shell
