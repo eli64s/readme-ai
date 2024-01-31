@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.0-beta.2"
+version = "0.5.0"
 description = "🎈 Automated README file generator, powered by GPT language model APIs."
 authors = ["Eli <0x.eli.64s@gmail.com>"]
 license = "MIT"
@@ -71,7 +71,7 @@ mkdocs-material = "*"
 optional = true
 
 [tool.poetry.group.optional.dependencies]
-google-cloud-aiplatform = "^1.40.0"
+# google-cloud-aiplatform = "^1.40.0"
 # litellm = "^1.20.0"
 
 [tool.ruff]
@@ -111,7 +111,7 @@ ignore = [
 
 [tool.coverage.run]
 source = ["readmeai", "tests"]
-omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "readmeai/llms/base.py", "readmeai/llms/factory.py"]
+omit = ["tests/*", "*__init__.py", "*/__init__.py", "noxfile.py", "readmeai/llms/base.py", "readmeai/llms/factory.py", "readmeai/llms/chunk.py"]
 
 [tool.coverage.report]
 fail_under = 80
