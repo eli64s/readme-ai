@@ -137,7 +137,7 @@ Select a project logo using the `--image` option. The following options are avai
     <td><img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"></td>
   </tr>
   <tr>
-    <><strong>cloud</strong></td>
+    <td><strong>cloud</strong></td>
     <td><strong>purple</strong></td>
     <td><strong>grey</strong></td>
   </tr>
