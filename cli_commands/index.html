@@ -71,7 +71,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="purple">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +92,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Readme-ai Docs" class="md-header__button md-logo" aria-label="Readme-ai Docs" data-md-component="logo">
       
@@ -143,11 +145,18 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
       
     </form>
     <div class="md-search__output">
@@ -178,14 +187,8 @@
     
   </nav>
   
-</header>
     
-    <div class="md-container" data-md-component="container">
       
-      
-        
-          
-            
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -235,6 +238,8 @@
       <li class="md-tabs__item md-tabs__item--active">
         <a href="../prerequisites/" class="md-tabs__link">
           
+  
+    
   
   Getting Started
 
@@ -288,6 +293,8 @@
         <a href="../concepts/" class="md-tabs__link">
           
   
+    
+  
   Concepts
 
         </a>
@@ -316,7 +323,13 @@
     </ul>
   </div>
 </nav>
-          
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
       
       <main class="md-main" data-md-component="main">
@@ -407,6 +420,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -537,7 +558,16 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command Line Interface">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -660,6 +690,14 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+    
     
     
     
@@ -671,9 +709,7 @@
         
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -815,7 +851,16 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command Line Interface">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -889,12 +934,18 @@
                   
 
   
+    <a href="https://github.com/eli64s/readme-ai/edit/master/docs/cli_commands.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
   
 
 
   <h1>CLI Commands</h1>
 
 <h2 id="command-line-interface">Command Line Interface</h2>
+<h2 id="configuration">🧩 Configuration</h2>
 <p>Run the <code>readmeai</code> command in your terminal with the following options to tailor your README file.</p>
 <h3 id="cli-options">CLI Options</h3>
 <table>
@@ -912,6 +963,12 @@
 <td>String</td>
 <td>Align the text in the README.md file's header.</td>
 <td><code>center</code></td>
+</tr>
+<tr>
+<td><code>--api-key</code></td>
+<td>String</td>
+<td>LLM API key for text generation.</td>
+<td><code>env var</code></td>
 </tr>
 <tr>
 <td><code>--badges</code>, <code>-b</code></td>
@@ -989,7 +1046,7 @@
 <td><code>--tree-depth</code></td>
 <td>Integer</td>
 <td>Maximum depth of the directory tree structure.</td>
-<td><code>5</code></td>
+<td><code>3</code></td>
 </tr>
 <tr>
 <td><code>🚧 --vertex_ai</code></td>
@@ -1008,17 +1065,46 @@
 <p><sub><em><code>🚧 feature currently under development</code></em></p>
 <hr />
 <h3 id="badges">Badges</h3>
-<p>The <code>--badges</code> option lets you select the style of the default badge set.
-| <strong>Style</strong>      | <strong>Preview</strong> |
-|------------------|----------|
-| <code>default</code>        | <img alt="license" src="https://img.shields.io/github/license/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="last-commit" src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&amp;color=0080ff&amp;logo=git&amp;logoColor=white" /> <img alt="languages" src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="language-count" src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&amp;color=0080ff" /> |
-| <code>flat</code>           | <img alt="flat" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat&amp;logo=Python&amp;logoColor=white" /> |
-| <code>flat-square</code>    | <img alt="flat-square" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat-square&amp;logo=Python&amp;logoColor=white" /> |
-| <code>for-the-badge</code>  | <img alt="for-the-badge" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=for-the-badge&amp;logo=Python&amp;logoColor=white" /> |
-| <code>plastic</code>        | <img alt="plastic" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=plastic&amp;logo=Python&amp;logoColor=white" /> |
-| <code>skills</code>          | <a href="https://skillicons.dev"><img alt="Skills" src="https://skillicons.dev/icons?i=py" /></a> |
-| <code>skills-light</code>    | <a href="https://skillicons.dev"><img alt="Skills-Light" src="https://skillicons.dev/icons?i=py&amp;theme=light" /></a> |
-| <code>social</code>         | <img alt="social" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=social&amp;logo=Python&amp;logoColor=white" /> |</p>
+<p>The <code>--badges</code> option lets you select the style of the default badge set.</p>
+<table>
+  <tr>
+    <th style="text-align: left;">Style</th>
+    <th style="text-align: center;">Preview</th>
+  </tr>
+  <tr>
+    <td><strong>default</strong></td>
+    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
+  </tr>
+  <tr>
+    <td><strong>flat</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>flat-square</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>for-the-badge</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>plastic</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=plastic&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=plastic&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>skills</strong></td>
+    <td align="center"><a href="https://skillicons.dev/" target="_blank"><img src="https://skillicons.dev/icons?i=py" alt="Python Skill Icon"></a></td>
+  </tr>
+  <tr>
+    <td><strong>skills-light</strong></td>
+    <td align="center"><a href="https://skillicons.dev/" target="_blank"><img src="https://skillicons.dev/icons?i=py&theme=light" alt="Python Skill Light Icon"></a></td>
+  </tr>
+  <tr>
+    <td><strong>social</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=social&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=social&logo=Python&logoColor=white"></a></td>
+  </tr>
+</table>
+
 <p>When providing the <code>--badges</code> option, readme-ai does two things:</p>
 <ol>
 <li>Formats the default badge set to match the selection (i.e. flat, flat-square, etc.).</li>
@@ -1061,35 +1147,26 @@ $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
 <h3 id="project-logo">Project Logo</h3>
 <p>Select a project logo using the <code>--image</code> option. The following options are available:</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>default</code></td>
-<td><code>gradient</code></td>
-<td><code>black</code></td>
-</tr>
-<tr>
-<td><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"></td>
-<td><img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"></td>
-<td><img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"></td>
-</tr>
-<tr>
-<td><code>cloud</code></td>
-<td><code>purple</code></td>
-<td><code>grey</code></td>
-</tr>
-<tr>
-<td><img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"></td>
-<td><img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"></td>
-<td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
-</tr>
-</tbody>
+  <tr>
+    <td><strong>blue</strong></td>
+    <td><strong>gradient</strong></td>
+    <td><strong>black</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"></td>
+    <td><img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"></td>
+  </tr>
+  <tr>
+    <><strong>cloud</strong></td>
+    <td><strong>purple</strong></td>
+    <td><strong>grey</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
+  </tr>
 </table>
 <p><br></p>
 <p>Use the <code>--image custom</code> option to invoke a prompt to enter a custom image URL or path.</p>
@@ -1124,6 +1201,46 @@ $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../usage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Running the CLI">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Running the CLI
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../features/" class="md-footer__link md-footer__link--next" aria-label="Next: Features">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Features
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -1145,8 +1262,10 @@ $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.paging", "navigation.prev_next", "navigation.expand", "navigation.top", "navigation.bottom", "navigation.sidebar", "navigation.scrollspy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit", "content.code.annotate", "content.code.copy", "content.tooltips", "search.highlight", "search.share", "search.suggest", "toc.follow", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.e1c3ead8.min.js"></script>
