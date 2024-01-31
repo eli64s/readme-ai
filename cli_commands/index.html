@@ -9,12 +9,16 @@
         <meta name="description" content="🎈 Automated README file generator, powered by GPT language model APIs.">
       
       
+        <meta name="author" content="readme-ai">
       
       
-        <link rel="prev" href="../prerequisites/">
+        <link rel="canonical" href="https://eli64s.github.io/readme-ai/cli_commands/">
       
       
-        <link rel="next" href="../configuration/">
+        <link rel="prev" href="../usage/">
+      
+      
+        <link rel="next" href="../features/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,11 +26,14 @@
     
     
       
-        <title>Running the CLI - readme-ai</title>
+        <title>CLI Commands - Readme-ai Docs</title>
       
     
     
       <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -45,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../css/termynal.css">
-    
       <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/termynal.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -59,7 +66,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="purple">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -68,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#options" class="md-skip">
+        <a href="#command-line-interface" class="md-skip">
           Skip to content
         </a>
       
@@ -80,11 +92,9 @@
     
       
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="readme-ai" class="md-header__button md-logo" aria-label="readme-ai" data-md-component="logo">
+    <a href=".." title="Readme-ai Docs" class="md-header__button md-logo" aria-label="Readme-ai Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -98,21 +108,21 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            readme-ai
+            Readme-ai Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Running the CLI
+              CLI Commands
             
           </span>
         </div>
       </div>
     </div>
     
+      
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -161,7 +171,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
   </div>
   <div class="md-source__repository">
-    GitHub
+    eli64s/readme-ai
   </div>
 </a>
       </div>
@@ -174,6 +184,138 @@
       
       
         
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../prerequisites/" class="md-tabs__link">
+          
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../features/" class="md-tabs__link">
+        
+  
+    
+  
+  Features
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../examples/" class="md-tabs__link">
+        
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../concepts/" class="md-tabs__link">
+          
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
           
         
       
@@ -188,16 +330,18 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="readme-ai" class="md-nav__button md-logo" aria-label="readme-ai" data-md-component="logo">
+    <a href=".." title="Readme-ai Docs" class="md-nav__button md-logo" aria-label="Readme-ai Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    readme-ai
+    Readme-ai Docs
   </label>
   
     <div class="md-nav__source">
@@ -207,7 +351,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
   </div>
   <div class="md-source__repository">
-    GitHub
+    eli64s/readme-ai
   </div>
 </a>
     </div>
@@ -267,7 +411,10 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
@@ -275,7 +422,7 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -318,6 +465,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running the CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -332,7 +500,7 @@
           
   
   <span class="md-ellipsis">
-    Running the CLI
+    CLI Commands
   </span>
   
 
@@ -343,7 +511,7 @@
         
   
   <span class="md-ellipsis">
-    Running the CLI
+    CLI Commands
   </span>
   
 
@@ -363,29 +531,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#command-line-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      Options
+      Command Line Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Line Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Options
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#badges" class="md-nav__link">
     <span class="md-ellipsis">
       Badges
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Badges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#project-logo" class="md-nav__link">
     <span class="md-ellipsis">
       Project Logo
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -398,48 +605,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../streamlit.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Streamlit App
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Configuration
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -453,124 +618,16 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
         
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
   
   <span class="md-ellipsis">
     Features
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Features
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../customization.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Customization
-  </span>
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../text-summarization.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Text Summarization
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../dynamic-content.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Dynamic Content
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../templates.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Templates
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -606,15 +663,20 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -660,11 +722,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-it-works/" class="md-nav__link">
+      <a href="../how_it_works/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     How It Works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic_models.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pydantic Models
   </span>
   
 
@@ -726,29 +809,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#command-line-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      Options
+      Command Line Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Line Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Options
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#badges" class="md-nav__link">
     <span class="md-ellipsis">
       Badges
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Badges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#project-logo" class="md-nav__link">
     <span class="md-ellipsis">
       Project Logo
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -770,199 +892,207 @@
   
 
 
-  <h1>Running the CLI</h1>
+  <h1>CLI Commands</h1>
 
-<h2 id="options">Options</h2>
+<h2 id="command-line-interface">Command Line Interface</h2>
+<p>Run the <code>readmeai</code> command in your terminal with the following options to tailor your README file.</p>
+<h3 id="cli-options">CLI Options</h3>
 <table>
 <thead>
 <tr>
-<th>Flag (Long/Short)</th>
-<th>Default</th>
-<th>Description</th>
+<th>Option</th>
 <th>Type</th>
-<th>Status</th>
+<th>Description</th>
+<th>Default Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>--align</code>/<code>-a</code></td>
+<td><code>--align</code>, <code>-a</code></td>
+<td>String</td>
+<td>Align the text in the README.md file's header.</td>
 <td><code>center</code></td>
-<td>Set header text alignment (<code>left</code>, <code>center</code>).</td>
-<td>String</td>
-<td>Optional</td>
 </tr>
 <tr>
-<td><code>--api-key</code>/<code>-k</code></td>
-<td><code>OPENAI_API_KEY</code> env var</td>
-<td>Your GPT model API key.</td>
+<td><code>--badges</code>, <code>-b</code></td>
 <td>String</td>
-<td>Optional</td>
+<td>Badge icon style types for README.md badges.</td>
+<td><img alt="badge-style" src="https://img.shields.io/badge/badge-style-0080ff" /></td>
 </tr>
 <tr>
-<td><code>--badges</code>/<code>-b</code></td>
-<td><code>default</code></td>
-<td>Badge style options for your README file.</td>
+<td><code>badge-color</code></td>
 <td>String</td>
-<td>Optional</td>
+<td>Badge color name or hex code.</td>
+<td><img alt="badge-color" src="https://img.shields.io/badge/badge-color-0080ff" /></td>
 </tr>
 <tr>
-<td><code>--emojis</code>/<code>-e</code></td>
-<td><code>False</code></td>
-<td>Add emojis to section header tiles.</td>
+<td><code>--emojis</code>, <code>-e</code></td>
 <td>Boolean</td>
-<td>Optional</td>
+<td>Adds emojis to the README.md file's header sections.</td>
+<td><code>False</code></td>
 </tr>
 <tr>
-<td><code>--image</code>/<code>-i</code></td>
-<td><code>default</code></td>
-<td>Project logo image displayed in README header.</td>
+<td><code>--image</code>, <code>-i</code></td>
 <td>String</td>
-<td>Optional</td>
+<td>Project logo image displayed in the README file header.</td>
+<td><code>blue</code></td>
+</tr>
+<tr>
+<td><code>🚧 --language</code></td>
+<td>String</td>
+<td>Language for generating the README.md file.</td>
+<td><code>en</code></td>
 </tr>
 <tr>
 <td><code>--max-tokens</code></td>
-<td><code>3899</code></td>
-<td>Max number of tokens that can be generated.</td>
 <td>Integer</td>
-<td>Optional</td>
+<td>Maximum context window of the LLM API.</td>
+<td><code>3899</code></td>
 </tr>
 <tr>
-<td><code>--model</code>/<code>-m</code></td>
-<td><code>gpt-3.5-turbo</code></td>
-<td>Select GPT model for content generation.</td>
+<td><code>--model</code>, <code>-m</code></td>
 <td>String</td>
-<td>Optional</td>
+<td>LLM API to use for text generation.</td>
+<td><code>gpt-3.5-turbo</code></td>
 </tr>
 <tr>
 <td><code>--offline</code></td>
-<td><code>False</code></td>
-<td>Generate a README without an API key.</td>
 <td>Boolean</td>
-<td>Optional</td>
+<td>Run CLI without a LLM API key.</td>
+<td><code>False</code></td>
 </tr>
 <tr>
-<td><code>--output</code>/<code>-o</code></td>
+<td><code>--output</code>, <code>-o</code></td>
+<td>String</td>
+<td>Output file name for the README file.</td>
 <td><code>readme-ai.md</code></td>
-<td>README output file name.</td>
-<td>Path/String</td>
-<td>Optional</td>
 </tr>
 <tr>
-<td><code>--repository</code>/<code>-r</code></td>
-<td>None</td>
-<td>Repository URL or local path.</td>
-<td>URL/String</td>
-<td>Required</td>
+<td><code>--repository</code>, <code>-r</code></td>
+<td>String</td>
+<td>Repository URL or local directory path.</td>
+<td></td>
 </tr>
 <tr>
-<td><code>--temperature</code>/<code>-t</code></td>
-<td><code>0.8</code></td>
-<td>LLM API creativity level.</td>
+<td><code>--temperature</code>, <code>-t</code></td>
 <td>Float</td>
-<td>Optional</td>
+<td>Sets the creativity level for content generation.</td>
+<td><code>1.0</code></td>
 </tr>
 <tr>
-<td><code>--template</code></td>
-<td>None</td>
-<td>Choose README template.</td>
+<td><code>🚧 --template</code></td>
 <td>String</td>
-<td><em>WIP</em></td>
+<td>README template style.</td>
+<td><code>default</code></td>
 </tr>
 <tr>
-<td><code>--language</code>/<code>-l</code></td>
-<td><code>English (en)</code></td>
-<td>Language for content.</td>
-<td>String</td>
-<td><em>WIP</em></td>
+<td><code>--tree-depth</code></td>
+<td>Integer</td>
+<td>Maximum depth of the directory tree structure.</td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>🚧 --vertex_ai</code></td>
+<td>Tuple (String)</td>
+<td>Google Vertex AI configuration, requires location and project ID.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>--help</code></td>
+<td></td>
+<td>Displays help information about the command and its options.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p><sub><em>WIP</em> = work in progress, or feature currently under development.<br>For additional command-line information, run <code>readmeai --help</code> in your terminal for more details about each option.</sub><br></p>
-<h2 id="badges">Badges</h2>
-<p>Select your preferred badge icon style to display in your output file using the <code>--badges</code> flag. The default badge style displays basic metadata about your repository using shields.io badges. If you select another option, the <code>default</code> badges will be automatically included.</p>
+<p><sub><em><code>🚧 feature currently under development</code></em></p>
+<hr />
+<h3 id="badges">Badges</h3>
+<p>The <code>--badges</code> option lets you select the style of the default badge set.
+| <strong>Style</strong>      | <strong>Preview</strong> |
+|------------------|----------|
+| <code>default</code>        | <img alt="license" src="https://img.shields.io/github/license/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="last-commit" src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&amp;color=0080ff&amp;logo=git&amp;logoColor=white" /> <img alt="languages" src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="language-count" src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&amp;color=0080ff" /> |
+| <code>flat</code>           | <img alt="flat" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat&amp;logo=Python&amp;logoColor=white" /> |
+| <code>flat-square</code>    | <img alt="flat-square" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat-square&amp;logo=Python&amp;logoColor=white" /> |
+| <code>for-the-badge</code>  | <img alt="for-the-badge" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=for-the-badge&amp;logo=Python&amp;logoColor=white" /> |
+| <code>plastic</code>        | <img alt="plastic" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=plastic&amp;logo=Python&amp;logoColor=white" /> |
+| <code>skills</code>          | <a href="https://skillicons.dev"><img alt="Skills" src="https://skillicons.dev/icons?i=py" /></a> |
+| <code>skills-light</code>    | <a href="https://skillicons.dev"><img alt="Skills-Light" src="https://skillicons.dev/icons?i=py&amp;theme=light" /></a> |
+| <code>social</code>         | <img alt="social" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=social&amp;logo=Python&amp;logoColor=white" /> |</p>
+<p>When providing the <code>--badges</code> option, readme-ai does two things:</p>
+<ol>
+<li>Formats the default badge set to match the selection (i.e. flat, flat-square, etc.).</li>
+<li>Generates an additional badge set representing your projects dependencies and tech stack (i.e. Python, Docker, etc.)</li>
+</ol>
+<h4 id="example">Example</h4>
+<blockquote>
+<p><code>console
+$ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai</code>
+</p>
+</blockquote>
+<h4 id="output">Output</h4>
+<blockquote>
+<p>{... project logo ...}</p>
+<p>{... project name ...}</p>
+<p>{...project slogan...}</p>
+<p><img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff">
+<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=0080ff&logo=git&logoColor=white">
+<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0080ff">
+<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0080ff"></p>
+<p><br></p>
+<p><em>Developed with the software and tools below.</em></p>
+<p><img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white">
+<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black">
+<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white">
+<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML">
+<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white">
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white">
+<br>
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white">
+<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white">
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white">
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white"></p>
+<p><br></p>
+<p>{... end of header ...}
+</p>
+</blockquote>
+<hr />
+<h3 id="project-logo">Project Logo</h3>
+<p>Select a project logo using the <code>--image</code> option. The following options are available:</p>
 <table>
 <thead>
 <tr>
-<th><strong>Options</strong></th>
-<th><strong>Preview</strong></th>
+<th></th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>default</code></td>
-<td><img alt="license" src="https://img.shields.io/github/license/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="last-commit" src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="languages" src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&amp;color=0080ff" /> <img alt="language-count" src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&amp;color=0080ff" /></td>
+<td><code>gradient</code></td>
+<td><code>black</code></td>
 </tr>
 <tr>
-<td><code>flat</code></td>
-<td><img alt="flat" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat&amp;logo=Python&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td><code>flat-square</code></td>
-<td><img alt="flat-square" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=flat-square&amp;logo=Python&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td><code>for-the-badge</code></td>
-<td><img alt="for-the-badge" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=for-the-badge&amp;logo=Python&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td><code>plastic</code></td>
-<td><img alt="plastic" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=plastic&amp;logo=Python&amp;logoColor=white" /></td>
-</tr>
-<tr>
-<td><code>skills</code></td>
-<td><a href="https://skillicons.dev"><img alt="Skills" src="https://skillicons.dev/icons?i=py" /></a></td>
-</tr>
-<tr>
-<td><code>skills-light</code></td>
-<td><a href="https://skillicons.dev"><img alt="Skills-Light" src="https://skillicons.dev/icons?i=py&amp;theme=light" /></a></td>
-</tr>
-<tr>
-<td><code>social</code></td>
-<td><img alt="social" src="https://img.shields.io/badge/Python-3776AB.svg?&amp;style=social&amp;logo=Python&amp;logoColor=white" /></td>
-</tr>
-</tbody>
-</table>
-<h2 id="project-logo">Project Logo</h2>
-<p>Select an image to display in your README header section using the <code>--image</code> flag.</p>
-<table>
-<thead>
-<tr>
-<th><strong>Options</strong></th>
-<th><strong>Preview</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>default</strong></td>
 <td><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"></td>
-</tr>
-<tr>
-<td><strong>black</strong></td>
+<td><img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"></td>
 <td><img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"></td>
 </tr>
 <tr>
-<td><strong>gradient</strong></td>
-<td><img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"></td>
+<td><code>cloud</code></td>
+<td><code>purple</code></td>
+<td><code>grey</code></td>
 </tr>
 <tr>
-<td><strong>grey</strong></td>
-<td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
-</tr>
-<tr>
-<td><strong>purple</strong></td>
-<td><img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"></td>
-</tr>
-<tr>
-<td><strong>yellow</strong></td>
-<td><img src="https://img.icons8.com/pulsar-color/96/markdown.png" width="100"></td>
-</tr>
-<tr>
-<td><strong>cloud</strong></td>
 <td><img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"></td>
+<td><img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"></td>
+<td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
 </tr>
 </tbody>
 </table>
-<p>To provide your own image, use the CLI option <code>--image custom</code> and you will be prompted to enter a URL to your image.</p>
+<p><br></p>
+<p>Use the <code>--image custom</code> option to invoke a prompt to enter a custom image URL or path.</p>
 <hr />
 
 
@@ -983,6 +1113,12 @@
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -1010,14 +1146,14 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.paging", "navigation.prev_next", "navigation.expand", "navigation.top", "navigation.bottom", "navigation.sidebar", "navigation.scrollspy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.e1c3ead8.min.js"></script>
       
-        <script src="../js/termynal.js"></script>
-      
         <script src="../js/custom.js"></script>
+      
+        <script src="../js/termynal.js"></script>
       
     
   </body>
