@@ -101,7 +101,7 @@ features = """
 """
 
 # Directory Structure Tree
-tree_depth = 5
+tree_depth = 3
 tree = """
 ## 📂 Repository Structure
 

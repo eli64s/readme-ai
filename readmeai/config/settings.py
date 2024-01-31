@@ -1,6 +1,5 @@
 """Data models and functions for configuring the readme-ai CLI tool."""
 
-import os
 from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
@@ -51,6 +50,7 @@ class GitSettings(BaseModel):
 class ModelSettings(BaseModel):
     """LLM API settings used for generating text for the README.md file."""
 
+    api_key: Optional[str]
     content: Optional[str]
     endpoint: Optional[str]
     encoding: Optional[str]
@@ -60,22 +60,6 @@ class ModelSettings(BaseModel):
     tokens: Optional[int]
     tokens_max: Optional[int]
     rate_limit: Optional[int]
-
-    @validator("offline", pre=True, always=True)
-    def validate_api_key(cls, value):
-        """Validate LLM API key."""
-        if "OPENAI_API_KEY" in os.environ and value:
-            logger.info("Using existing API key found in environment.")
-            logger.info(f"--offline flag set to {value}.")
-            return value
-        elif "OPENAI_API_KEY" in os.environ and value is True:
-            logger.info(
-                "API key exists in environment, but running in offline mode."
-            )
-            return value
-        elif "OPENAI_API_KEY" not in os.environ and value is False:
-            logger.warning("No API key found, running in offline mode.")
-            return True
 
 
 class MarkdownSettings(BaseModel):

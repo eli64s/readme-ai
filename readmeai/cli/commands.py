@@ -10,6 +10,7 @@ from readmeai.cli import options
 
 @click.command()
 @options.align
+@options.api_key
 @options.badges
 @options.badge_color
 @options.emojis
@@ -26,6 +27,7 @@ from readmeai.cli import options
 @options.vertex_ai
 def main(
     align: Optional[str],
+    api_key: Optional[str],
     badges: Optional[str],
     badge_color: Optional[str],
     emojis: Optional[bool],
@@ -44,6 +46,7 @@ def main(
     """Entry point for the readme-ai CLI application."""
     readme_agent(
         align=align,
+        api_key=api_key,
         badges=badges,
         badge_color=badge_color,
         emojis=emojis,

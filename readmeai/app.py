@@ -5,6 +5,7 @@
 __package__ = "readmeai"
 
 import asyncio
+import os
 import tempfile
 import traceback
 from pathlib import Path
@@ -33,6 +34,7 @@ logger = Logger(__name__)
 
 def readme_agent(
     align: Optional[str],
+    api_key: Optional[str],
     badges: Optional[str],
     badge_color: Optional[str],
     emojis: Optional[bool],
@@ -54,14 +56,6 @@ def readme_agent(
         conf_model = AppConfigModel(app=conf)
         conf_helper = load_config_helper(conf_model)
         conf.git = GitSettings(repository=repository)
-        conf.llm = conf.llm.copy(
-            update={
-                "max_tokens": max_tokens,
-                "model": model,
-                "offline": offline,
-                "temperature": temperature,
-            }
-        )
         conf.md = conf.md.copy(
             update={
                 "align": align,
@@ -74,8 +68,15 @@ def readme_agent(
                 else prompt_for_image(None, None, image),
             }
         )
+        conf.llm.model = model
+        conf.llm.offline = offline
+        conf.llm.temperature = temperature
+        conf.llm.tokens_max = max_tokens
+
         logger.info(f"Repository validation: {conf.git}")
         logger.info(f"LLM API validation: {conf.llm}")
+
+        setup_environment(conf, api_key)
 
         asyncio.run(readme_generator(conf, conf_helper, output))
 
@@ -136,11 +137,22 @@ async def readme_generator(
         )
         FileHandler().write(Path(output), md_contents)
 
+        logger.info(f"README file successfully generated @ {output}")
         logger.info(
-            f"README file successfully generated @ {output}\n\
-            Share your README file with the community at:\n\
-            https://github.com/eli64s/readme-ai/discussions"
+            "Share your README with the community @ https://github.com/eli64s/readme-ai/discussions"
         )
 
     except Exception as exc:
         raise ReadmeGeneratorError(traceback.format_exc()) from exc
+
+
+def setup_environment(config: AppConfig, api_key: str) -> None:
+    """Set environment variables for the CLI application."""
+    if api_key:
+        os.environ["OPENAI_API_KEY"] = api_key
+        logger.info("LLM API key exported to environment.")
+    elif "OPENAI_API_KEY" in os.environ:
+        logger.info("LLM API key found in environment.")
+    else:
+        config.llm.offline = True
+        logger.warning("LLM API key not found. Running in offline mode.")
