@@ -74,16 +74,16 @@ def test_get_prompt_context_invalid():
 
 
 @pytest.mark.asyncio
-async def test_set_prompt_context_valid():
-    config = Mock()
-    config.git.repository = "repo"
-    config.git.name = "name"
-    config.md.tree = "tree"
+async def test_set_prompt_context_valid(mock_config):
     file_context = [Mock()]
-    dependencies = ["dep1", "dep2"]
     summaries = ["summary1", "summary2"]
+    result = await set_prompt_context(mock_config, file_context, summaries)
+    assert isinstance(result, list)
 
-    result = await set_prompt_context(
-        config, file_context, dependencies, summaries
-    )
+
+@pytest.mark.asyncio
+async def test_set_other_prompt_context_valid(mock_config):
+    dependencies = ["dependency1", "dependency2"]
+    summaries = ["summary1", "summary2"]
+    result = await set_prompt_context(mock_config, dependencies, summaries)
     assert isinstance(result, list)

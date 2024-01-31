@@ -59,6 +59,19 @@ async def test_model_handler_initialization(mock_config):
     await mock_handler.close()
 
 
+def test_llm_settings(mock_config):
+    """Test the LLM settings."""
+    model_handler = ModelHandler(mock_config)
+    assert isinstance(model_handler.content, str)
+    assert model_handler.encoder is not None
+    assert model_handler.model is not None
+    assert model_handler.prompts is not None
+    assert model_handler.tokens > 0
+    assert model_handler.tokens_max > 0
+    assert isinstance(model_handler.tokens, int)
+    assert isinstance(model_handler.temperature, float)
+
+
 @pytest.mark.asyncio
 async def test_model_handler_initialization_with_invalid_config():
     with pytest.raises(Exception) as exc:
@@ -82,8 +95,8 @@ async def test_model_handler_batch_request(mock_config):
     with patch.object(
         handler, "_batch_prompts", new_callable=AsyncMock
     ) as mock_batch:
-        mock_batch.return_value = ...
-        await handler.batch_request([1, 2, 3], [4, 5, 6], [7, 8, 9])
+        mock_batch.return_value = ["response1", "response2", "response3"]
+        await handler.batch_request([4, 5, 6], [7, 8, 9])
     await handler.close()
     assert mock_batch.called
 

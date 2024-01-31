@@ -1,10 +1,11 @@
 # Makefile
 
+COMMITS := 10
 SHELL := /bin/bash
 VENV := readmeai
 VV := \
 
-.PHONY: help clean format lint conda-recipe git-rm-cache nox pytest poetry-reqs word-search
+.PHONY: help clean format lint conda-recipe git-rm-cache git-log nox pytest poetry-reqs search
 
 help:
 	@echo "Commands:"
@@ -13,10 +14,11 @@ help:
 	@echo "lint         : executes code linting."
 	@echo "conda-recipe : builds conda package."
 	@echo "git-rm-cache : fix git untracked files."
+	@echo "git-log      : displays git log."
 	@echo "nox          : executes nox test suite."
 	@echo "pytest       : executes tests."
 	@echo "poetry-reqs  : generates requirements.txt file."
-	@echo "word-search  : searches for a word in the repository."
+	@echo "search       : searches word in directory."
 
 .PHONY: clean
 clean: format
@@ -43,13 +45,18 @@ conda-recipe:
 git-rm-cache:
 	git rm -r --cached .
 
+.PHONY: git-log
+git-log:
+	git log -n ${COMMITS} --pretty=tformat: --shortstat
+
 .PHONY: nox
 nox:
 	nox -f noxfile.py
 
 .PHONY: pytest
 pytest:
-	pytest ${VV} -n auto \
+	pytest ${VV} \
+	-n auto \
 	--asyncio-mode=auto \
 	--cov=. \
 	--cov-report=xml \
@@ -60,7 +67,7 @@ pytest:
 poetry-reqs:
 	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
 
-.PHONY: word-search
-word-search: clean
+.PHONY: search
+search: clean
 	@echo -e "\nSearching for: ${WORD} in directory: ${CURDIR}"
 	grep -Ril ${WORD} readmeai tests scripts setup

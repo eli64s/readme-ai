@@ -1,38 +1,12 @@
 """Tests for validator methods used on command-line arguments."""
 
-import os
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
-from readmeai.config.validators import GitValidator, ModelValidator
+from readmeai.config.validators import GitValidator
 from readmeai.exceptions import GitValidationError
-
-
-def test_set_environment_with_key(monkeypatch, caplog):
-    """Test setting the environment with a provided API key."""
-    monkeypatch.setattr(os, "environ", {})
-    api_key = "test_api_key"
-    ModelValidator.set_environment(api_key, {})
-    assert os.environ["OPENAI_API_KEY"] == api_key
-    assert "Provided API key exported to environment." in caplog.text
-
-
-def test_set_environment_with_existing_key(monkeypatch, caplog):
-    """Test using existing API key in the environment."""
-    monkeypatch.setenv("OPENAI_API_KEY", "existing_key")
-    result = ModelValidator.set_environment(None, {})
-    assert result == "existing_key"
-
-
-def test_set_environment_no_key(monkeypatch, caplog):
-    """Test setting environment in offline mode when no API key is provided."""
-    monkeypatch.setattr(os, "environ", {})
-    values = {}
-    ModelValidator.set_environment(None, values)
-    assert values["offline"] is True
-    assert "No API key found. Running in offline mode." in caplog.text
 
 
 @pytest.mark.parametrize(

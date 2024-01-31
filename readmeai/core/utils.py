@@ -111,28 +111,3 @@ def is_file_ignored(conf_helper: ConfigHelper, file_path: Path) -> bool:
         return True
 
     return False
-
-
-def is_valid_url(url: str) -> bool:
-    """Validate a URL string.
-
-    Parameters
-    ----------
-    url
-        The URL string to validate.
-
-    Returns
-    -------
-        True if the URL is valid, False otherwise.
-    """
-    regex = re.compile(
-        r"^(?:http|ftp)s?://"  # http:// or https://
-        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain
-        r"localhost|"  # localhost
-        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"  # ipv4
-        r"\[?[A-F0-9]*:[A-F0-9:]+\]?)"  # ipv6
-        r"(?::\d+)?"  # optional port
-        r"(?:/?|[/?]\S+)$",
-        re.IGNORECASE,
-    )
-    return re.match(regex, url) is not None

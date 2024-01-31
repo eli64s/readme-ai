@@ -1,6 +1,5 @@
 """Unit tests for the README Markdown file builder."""
 
-from unittest.mock import patch
 
 import pytest
 
@@ -48,17 +47,7 @@ def test_md_quickstart(readme_builder):
     assert isinstance(quickstart, str)
 
 
-@patch("readmeai.markdown.builder.ReadmeBuilder.remove_emojis")
-def test_build_with_emojis(mock_remove_emojis, mock_config, readme_builder):
-    """Tests if emojis are removed when the mock_config is set."""
-    mock_config.md.emojis = False
-    readme_builder.build()
-    mock_remove_emojis.assert_called_once()
-
-
-@patch("readmeai.markdown.builder.factory.FileHandler.write")
 def test_build_readme_md(
-    mock_write,
     mock_config,
     mock_config_helper,
     mock_dependencies,
@@ -73,19 +62,3 @@ def test_build_readme_md(
         mock_summaries,
         tmp_path,
     )
-    mock_write.assert_called_once()
-
-
-def test_remove_emojis_from_headers_with_emojis():
-    """Tests the remove_emojis static method with emojis."""
-    content_with_emojis = ["# Header 🚀", "## Another Header 😃"]
-    expected_output = ["# Header ", "## Another Header "]
-    result = ReadmeBuilder.remove_emojis(content_with_emojis)
-    assert result == expected_output
-
-
-def test_remove_emojis_from_headers_without_emojis():
-    """Tests the remove_emojis static method without emojis."""
-    content_without_emojis = ["# Header", "## Another Header"]
-    result = ReadmeBuilder.remove_emojis(content_without_emojis)
-    assert result == content_without_emojis

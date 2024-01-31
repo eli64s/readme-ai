@@ -8,7 +8,6 @@ from readmeai.core.utils import (
     format_md_text,
     get_resource_path,
     is_file_ignored,
-    is_valid_url,
 )
 
 
@@ -41,13 +40,6 @@ def test_is_file_ignored(mock_config_helper: ConfigHelper):
     file_path_not_ignored = Path("readmeai/main.py")
     assert is_file_ignored(mock_config_helper, file_path_ignored) is True
     assert is_file_ignored(mock_config_helper, file_path_not_ignored) is False
-
-
-def test_is_valid_url():
-    assert is_valid_url("https://www.example.com") is True
-    assert is_valid_url("http://www.example.com") is True
-    assert is_valid_url("www.example.com") is False
-    assert is_valid_url("example.com") is False
 
 
 def test_get_resource_path_from_resources(monkeypatch):

@@ -95,7 +95,10 @@ class TomlParser(FileParser):
                         dependencies.extend(
                             self.extract_package_names(group_deps)
                         )
-                return dependencies
+            else:
+                dependencies = []
+
+            return dependencies
 
         except toml.TomlDecodeError as exc:
             return self.handle_parsing_error(f"pyproject.toml: {str(exc)}")

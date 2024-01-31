@@ -54,7 +54,17 @@ Pipfile.lock
 # Temporarily Ignored
 .github/workflows/ci.yml
 readmeai/markdown/data/icons.json
-readmeai/settings/prompts.toml
 readmeai/llms/base.py
+readmeai/llms/chunk.py
 readmeai/llms/factory.py
+
+# Templates and Settings
 templates/
+readmeai/settings/markdown.toml
+readmeai/settings/models.toml
+readmeai/settings/prompts.toml
+readmeai/settings/quickstart.toml
+readmeai/settings/quickstart_wip.toml
+
+# dalle images
+examples/images/dalle

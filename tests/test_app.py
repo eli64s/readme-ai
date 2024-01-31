@@ -8,6 +8,12 @@ from readmeai.app import readme_generator
 from readmeai.exceptions import ReadmeGeneratorError
 
 
+@pytest.fixture
+def mock_output_file(tmp_path):
+    """Fixture for a mock output file."""
+    return tmp_path / "test_readme.md"
+
+
 @patch("readmeai.app.clone_repository")
 @patch("readmeai.app.process_repository")
 @patch("readmeai.app.ModelHandler")
@@ -22,6 +28,7 @@ async def test_readme_generator_online(
     mock_config_helper,
     mock_dependencies,
     mock_summaries,
+    mock_output_file,
     tmp_path,
 ):
     """Test the readme_generator function."""
@@ -32,6 +39,7 @@ async def test_readme_generator_online(
         mock_dependencies,
         mock_summaries,
         "test_tree",
+        {"dependency1": "command1", "dependency2": "command2"},
     )
     mock_config.git.repository = tmp_path
     mock_model_handler.return_value.use_api.return_value.__aenter__.return_value.batch_request.return_value = (
@@ -42,7 +50,7 @@ async def test_readme_generator_online(
     )
     mock_build_readme_md.return_value = "test_readme_md"
 
-    await readme_generator(mock_config, mock_config_helper)
+    await readme_generator(mock_config, mock_config_helper, mock_output_file)
 
     mock_clone_repository.assert_called_once()
     mock_process_repository.assert_called_once()
@@ -64,6 +72,7 @@ async def test_readme_generator_offline(
     mock_config_helper,
     mock_dependencies,
     mock_summaries,
+    mock_output_file,
     tmp_path,
 ):
     """Test the readme_generator function."""
@@ -74,11 +83,12 @@ async def test_readme_generator_offline(
         mock_dependencies,
         mock_summaries,
         "test_tree",
+        {"dependency1": "command1", "dependency2": "command2"},
     )
     mock_config.git.repository = tmp_path
     mock_build_readme_md.return_value = "test_readme_md"
 
-    await readme_generator(mock_config, mock_config_helper)
+    await readme_generator(mock_config, mock_config_helper, mock_output_file)
 
     mock_clone_repository.assert_called_once()
     mock_process_repository.assert_called_once()
@@ -92,11 +102,14 @@ async def test_readme_generator_exception_handling(
     mock_clone_repository,
     mock_config,
     mock_config_helper,
+    mock_output_file,
 ):
     """Test the readme_generator function exception handling."""
     mock_clone_repository.side_effect = Exception("Test Exception")
     with pytest.raises(ReadmeGeneratorError):
-        await readme_generator(mock_config, mock_config_helper)
+        await readme_generator(
+            mock_config, mock_config_helper, mock_output_file
+        )
     assert mock_clone_repository.call_count == 1
 
 

@@ -103,6 +103,7 @@ class RepoProcessor:
     def get_dependencies(self, contents: List[FileContext]) -> List[str]:
         """Returns a list of dependencies."""
         try:
+            dependency_dict = {}
             dependencies = set()
             dependency_files = self.config_helper.dependency_files.get(
                 "dependency_files"
@@ -112,12 +113,17 @@ class RepoProcessor:
                 dependencies.update(file_data.dependencies)
                 dependencies.add(file_data.language)
                 dependencies.add(file_data.file_ext)
+
                 if file_data.file_name in dependency_files:
                     dependencies.add(file_data.file_name)
+                    dependency_dict[
+                        file_data.file_name
+                    ] = file_data.dependencies
+
                 if GITHUB_WORKFLOWS_PATH in str(file_data.file_path):
                     dependencies.add("github actions")
 
-            return list(dependencies)
+            return list(dependencies), dependency_dict
 
         except Exception as exc:
             logger.error(f"Error getting dependencies: {exc}")
@@ -199,14 +205,23 @@ def process_repository(
     repo_context = repo_processor.generate_contents(temp_dir)
     repo_context = repo_processor.tokenize_content(repo_context)
     repo_context = repo_processor.language_mapper(repo_context)
-    dependencies = repo_processor.get_dependencies(repo_context)
+
+    dependencies, dependency_dict = repo_processor.get_dependencies(
+        repo_context
+    )
 
     raw_files = [
-        (context.file_path, context.content) for context in repo_context
+        (str(context.file_path), context.content) for context in repo_context
     ]
 
     config.md.tree = ReadmeBuilder(
         config, config_helper, dependencies, raw_files, temp_dir
     ).md_tree
 
-    return repo_context, dependencies, raw_files, config.md.tree
+    return (
+        repo_context,
+        dependencies,
+        raw_files,
+        config.md.tree,
+        dependency_dict,
+    )

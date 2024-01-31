@@ -57,5 +57,5 @@ def test_badge_options():
 def test_image_options():
     """Test the CLI options for header images."""
     assert ImageOptions.CUSTOM == "CUSTOM"
-    assert isinstance(ImageOptions.DEFAULT, str)
+    assert isinstance(ImageOptions.BLUE, str)
     assert isinstance(ImageOptions.BLACK, str)

@@ -167,7 +167,7 @@ def test_get_dependencies_normal_behavior(
 ):
     """Test the get_dependencies method."""
     processor = RepoProcessor(mock_config, mock_config_helper)
-    dependencies = processor.get_dependencies(mock_file_data)
+    dependencies, _ = processor.get_dependencies(mock_file_data)
     assert len(dependencies) == 5
     assert "dependency1" in dependencies
     assert "dependency2" in dependencies
@@ -184,4 +184,4 @@ def test_get_dependencies_exception_handling(
         side_effect=Exception("Test exception")
     )
     dependencies = processor.get_dependencies(mock_file_data)
-    assert isinstance(dependencies, list)
+    assert isinstance(dependencies, tuple)
