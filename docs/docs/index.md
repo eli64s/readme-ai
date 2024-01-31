@@ -19,11 +19,7 @@
   <a href="https://www.pepy.tech/projects/readmeai">
     <img src="https://img.shields.io/pepy/dt/readmeai?logo=Python&logoColor=white&color=c125ff" alt="pepy-total-downloads">
   </a>
-  <!--
-    <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?color=c125ff" alt="python-versions">
-  -->
 </p>
-<br>
 <br>
 <p align="left">
   <b>Objective</b>

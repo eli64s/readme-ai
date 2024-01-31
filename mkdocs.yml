@@ -1,29 +1,47 @@
-site_name: readme-ai
-repo_url: https://github.com/eli64s/readme-ai
+# Readme-ai MkDocs Site Configuration
+
+site_name: Readme-ai Docs
 site_description: "🎈 Automated README file generator, powered by GPT language model APIs."
+site_url: https://eli64s.github.io/readme-ai/
+site_author: readme-ai
+repo_url: https://github.com/eli64s/readme-ai
+repo_name: eli64s/readme-ai
+docs_dir: "docs/docs/"
 
 theme:
   icon:
     repo: fontawesome/brands/github-alt
   name: material
+  palette:
+    primary: "white"
+    accent: "purple"
+  language: en
+  font:
+    text: "Roboto"
+    code: "Roboto Mono"
+  features:
+    - navigation.tabs
+    - navigation.paging
+    - navigation.prev_next
+    - navigation.expand
+    - navigation.top
+    - navigation.bottom
+    - navigation.sidebar
+    - navigation.scrollspy
 
 nav:
   - Home: index.md
   - Installation: installation.md
   - Getting Started:
       - "Prerequisites": prerequisites.md
-      - "Running the CLI": cli.md
-      - "Streamlit App": streamlit.md
-      - "Configuration": configuration.md
-  - Features:
-      - "Customization": customization.md
-      - "Text Summarization": text-summarization.md
-      - "Dynamic Content": dynamic-content.md
-      - "Templates": templates.md
+      - "Running the CLI": usage.md
+      - "CLI Commands": cli_commands.md
+  - Features: features.md
   - Examples: examples.md
   - Concepts:
       - "Core Concepts": concepts.md
-      - "How It Works": how-it-works.md
+      - "How It Works": how_it_works.md
+      - "Pydantic Models": pydantic_models.md
   - Contributing: contributing.md
 
 markdown_extensions:
@@ -32,12 +50,12 @@ markdown_extensions:
   - md_in_html
 
 extra_css:
-  - css/termynal.css
   - css/custom.css
+  - css/termynal.css
 
 extra_javascript:
-  - js/termynal.js
   - js/custom.js
+  - js/termynal.js
 
 plugins:
   - search
