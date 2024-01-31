@@ -13,21 +13,32 @@ theme:
     repo: fontawesome/brands/github-alt
   name: material
   palette:
-    primary: "white"
-    accent: "purple"
+    primary: white
+    accent: blue
   language: en
   font:
     text: "Roboto"
     code: "Roboto Mono"
   features:
-    - navigation.tabs
-    - navigation.paging
-    - navigation.prev_next
-    - navigation.expand
+    - content.action.edit
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
     - navigation.top
-    - navigation.bottom
-    - navigation.sidebar
-    - navigation.scrollspy
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.prune
+    - navigation.footer
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.indexes
+    - navigation.sections
+
 
 nav:
   - Home: index.md

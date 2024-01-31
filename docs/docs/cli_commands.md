@@ -1,5 +1,7 @@
 ## Command Line Interface
 
+## 🧩 Configuration
+
 Run the `readmeai` command in your terminal with the following options to tailor your README file.
 
 ### CLI Options
@@ -7,6 +9,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 | Option | Type | Description | Default Value  |
 | ------ | ---- | ----------- | -------------- |
 | `--align`, `-a` | String | Align the text in the README.md file's header. | `center` |
+| `--api-key` | String | LLM API key for text generation. |  `env var` |
 | `--badges`, `-b` | String | Badge icon style types for README.md badges. | ![badge-style](https://img.shields.io/badge/badge-style-0080ff) |
 | `badge-color` | String | Badge color name or hex code. | ![badge-color](https://img.shields.io/badge/badge-color-0080ff) |
 | `--emojis`, `-e` | Boolean | Adds emojis to the README.md file's header sections. | `False` |
@@ -19,7 +22,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 | `--repository`, `-r` | String | Repository URL or local directory path. | |
 | `--temperature`, `-t` | Float | Sets the creativity level for content generation. | `1.0` |
 | `🚧 --template` | String | README template style. | `default` |
-| `--tree-depth` | Integer | Maximum depth of the directory tree structure. | `5` |
+| `--tree-depth` | Integer | Maximum depth of the directory tree structure. | `3` |
 | `🚧 --vertex_ai` | Tuple (String) | Google Vertex AI configuration, requires location and project ID. | |
 | `--help` | | Displays help information about the command and its options. | |
 
@@ -30,17 +33,45 @@ Run the `readmeai` command in your terminal with the following options to tailor
 ### Badges
 
 The `--badges` option lets you select the style of the default badge set.
-| **Style**      | **Preview** |
-|------------------|----------|
-| `default`        | ![license](https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff) ![last-commit](https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white) ![languages](https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff) ![language-count](https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff) |
-| `flat`           | ![flat](https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white) |
-| `flat-square`    | ![flat-square](https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white) |
-| `for-the-badge`  | ![for-the-badge](https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white) |
-| `plastic`        | ![plastic](https://img.shields.io/badge/Python-3776AB.svg?&style=plastic&logo=Python&logoColor=white) |
-| `skills`          | [![Skills](https://skillicons.dev/icons?i=py)](https://skillicons.dev) |
-| `skills-light`    | [![Skills-Light](https://skillicons.dev/icons?i=py&theme=light)](https://skillicons.dev) |
-| `social`         | ![social](https://img.shields.io/badge/Python-3776AB.svg?&style=social&logo=Python&logoColor=white) |
 
+<table>
+  <tr>
+    <th style="text-align: left;">Style</th>
+    <th style="text-align: center;">Preview</th>
+  </tr>
+  <tr>
+    <td><strong>default</strong></td>
+    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
+  </tr>
+  <tr>
+    <td><strong>flat</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=flat&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>flat-square</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=flat-square&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>for-the-badge</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>plastic</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=plastic&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=plastic&logo=Python&logoColor=white"></a></td>
+  </tr>
+  <tr>
+    <td><strong>skills</strong></td>
+    <td align="center"><a href="https://skillicons.dev/" target="_blank"><img src="https://skillicons.dev/icons?i=py" alt="Python Skill Icon"></a></td>
+  </tr>
+  <tr>
+    <td><strong>skills-light</strong></td>
+    <td align="center"><a href="https://skillicons.dev/" target="_blank"><img src="https://skillicons.dev/icons?i=py&theme=light" alt="Python Skill Light Icon"></a></td>
+  </tr>
+  <tr>
+    <td><strong>social</strong></td>
+    <td align="center"><a href="https://img.shields.io/badge/Python-3776AB.svg?&style=social&logo=Python&logoColor=white" target="_blank"><img src="https://img.shields.io/badge/Python-3776AB.svg?&style=social&logo=Python&logoColor=white"></a></td>
+  </tr>
+</table>
 
 When providing the `--badges` option, readme-ai does two things:
 
@@ -94,13 +125,28 @@ When providing the `--badges` option, readme-ai does two things:
 
 Select a project logo using the `--image` option. The following options are available:
 
-|  |  |  |
-|---|---|---|
-| `default` | `gradient` | `black` |
-| <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"> | <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"> |
-| `cloud` | `purple` | `grey` |
-|<img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"> | <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"> |
-
+<table>
+  <tr>
+    <td><strong>blue</strong></td>
+    <td><strong>gradient</strong></td>
+    <td><strong>black</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100"></td>
+    <td><img src="https://img.icons8.com/?size=512&id=55494&format=png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png" width="100"></td>
+  </tr>
+  <tr>
+    <><strong>cloud</strong></td>
+    <td><strong>purple</strong></td>
+    <td><strong>grey</strong></td>
+  </tr>
+  <tr>
+    <td><img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" width="100"></td>
+    <td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
+  </tr>
+</table>
 <br>
 
 Use the `--image custom` option to invoke a prompt to enter a custom image URL or path.
