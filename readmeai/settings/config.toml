@@ -4,7 +4,6 @@ dependency_files = "dependency_files.toml"
 ignore_files = "ignore_files.toml"
 language_names = "language_names.toml"
 language_setup = "language_setup.toml"
-output = "readme-ai.md"
 shields_icons = "data/shieldsio.json"
 skill_icons = "data/skill_icons.json"
 
@@ -19,13 +18,14 @@ endpoint = "https://api.openai.com/v1/chat/completions"
 encoding = "cl100k_base"
 model = "gpt-3.5-turbo"
 offline = false
-rate_limit = 6
+rate_limit = 5
 temperature = 0.8
 tokens = 750
 tokens_max = 3899
 
 # Markdown Template Settings
 [md]
+# Markdown Settings
 align = "center"
 default = "<code>► INSERT-TEXT-HERE</code>"
 emojis = false
@@ -33,6 +33,7 @@ image = ""
 slogan = ""
 tables = ""
 
+# Header Template
 header = """\
 <p align="{align}">
   <img src="{image}" width="100" />
@@ -48,6 +49,7 @@ header = """\
 <hr>
 """
 
+# Badges
 badge_color = "0080ff"
 badge_style = "flat"
 badges_dependencies = """\t<em>Developed with the software and tools below.</em>\n</p>\n<p align="{align}">\n\t{badges}"""
@@ -60,6 +62,7 @@ badges_shields = """
 """
 badges_skills = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
 
+# Table of Contents
 toc = """
 ## 🔗 Quick Links
 
@@ -79,6 +82,7 @@ toc = """
 ---
 """
 
+# Overview Template
 overview = """
 ## 📍 Overview
 
@@ -87,6 +91,7 @@ overview = """
 ---
 """
 
+# Features Template
 features = """
 ## 📦 Features
 
@@ -95,6 +100,8 @@ features = """
 ---
 """
 
+# Directory Structure Tree
+tree_depth = 5
 tree = """
 ## 📂 Repository Structure
 
@@ -105,11 +112,13 @@ tree = """
 ---
 """
 
+# Codebase Summaries
+modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
 modules = """
 ## 🧩 Modules
 """
-modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
 
+# Quickstart Template
 quickstart = """
 ---
 
@@ -160,6 +169,7 @@ To execute tests, run:
 ---
 """
 
+# Project Roadmap Contributing, License, and Acknowledgments Sections
 contribute = """
 ## 🛠 Project Roadmap
 

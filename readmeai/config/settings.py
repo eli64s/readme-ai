@@ -1,12 +1,13 @@
 """Data models and functions for configuring the readme-ai CLI tool."""
 
+import os
 from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, validator
 
-from readmeai.config.validators import GitValidator, ModelValidator
+from readmeai.config.validators import GitValidator
 from readmeai.core.factory import FileHandler
 from readmeai.core.logger import Logger
 from readmeai.exceptions import FileReadError
@@ -21,7 +22,6 @@ class FileSettings(BaseModel):
     ignore_files: str
     language_names: str
     language_setup: str
-    output: str
     shields_icons: str
     skill_icons: str
 
@@ -51,20 +51,31 @@ class GitSettings(BaseModel):
 class ModelSettings(BaseModel):
     """LLM API settings used for generating text for the README.md file."""
 
-    api_key: Optional[str]
     content: Optional[str]
     endpoint: Optional[str]
     encoding: Optional[str]
     model: Optional[str]
-    offline: bool
+    offline: Optional[bool]
     temperature: Optional[float]
     tokens: Optional[int]
     tokens_max: Optional[int]
     rate_limit: Optional[int]
 
-    _set_environment = validator("api_key", pre=True, always=True)(
-        ModelValidator.set_environment
-    )
+    @validator("offline", pre=True, always=True)
+    def validate_api_key(cls, value):
+        """Validate LLM API key."""
+        if "OPENAI_API_KEY" in os.environ and value:
+            logger.info("Using existing API key found in environment.")
+            logger.info(f"--offline flag set to {value}.")
+            return value
+        elif "OPENAI_API_KEY" in os.environ and value is True:
+            logger.info(
+                "API key exists in environment, but running in offline mode."
+            )
+            return value
+        elif "OPENAI_API_KEY" not in os.environ and value is False:
+            logger.warning("No API key found, running in offline mode.")
+            return True
 
 
 class MarkdownSettings(BaseModel):
@@ -91,6 +102,7 @@ class MarkdownSettings(BaseModel):
     tables: str
     toc: str
     tree: str
+    tree_depth: int
 
 
 class PromptSettings(BaseModel):

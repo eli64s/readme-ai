@@ -10,8 +10,8 @@ from readmeai.cli import options
 
 @click.command()
 @options.align
-@options.api_key
 @options.badges
+@options.badge_color
 @options.emojis
 @options.image
 @options.language
@@ -21,12 +21,13 @@ from readmeai.cli import options
 @options.output
 @options.repository
 @options.temperature
+@options.tree_depth
 @options.template
 @options.vertex_ai
 def main(
     align: Optional[str],
-    api_key: str,
     badges: Optional[str],
+    badge_color: Optional[str],
     emojis: Optional[bool],
     image: Optional[str],
     language: Optional[str],
@@ -37,13 +38,14 @@ def main(
     repository: str,
     temperature: Optional[float],
     template: Optional[str],
+    tree_depth: Optional[int],
     vertex_ai: Optional[Tuple[str, str]],
 ) -> None:
     """Entry point for the readme-ai CLI application."""
     readme_agent(
         align=align,
-        api_key=api_key,
         badges=badges,
+        badge_color=badge_color,
         emojis=emojis,
         image=image,
         # language=language,
@@ -54,6 +56,7 @@ def main(
         repository=repository,
         temperature=temperature,
         # template=template,
+        tree_depth=tree_depth,
         vertex_ai=vertex_ai,
     )
 

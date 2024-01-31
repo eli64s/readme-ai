@@ -1,6 +1,5 @@
 """Methods to validate command-line arguments and settings."""
 
-import os
 import re
 from pathlib import Path
 from typing import Optional, Union
@@ -11,26 +10,6 @@ from readmeai.core.logger import Logger
 from readmeai.exceptions import GitValidationError
 
 logger = Logger(__name__)
-
-
-class ModelValidator:
-    """Pydantic validator class for the LLM API settings."""
-
-    @classmethod
-    def set_environment(cls, value, values, **kwargs):
-        """Validate LLM API key or run in offline mode."""
-        if value:
-            os.environ["OPENAI_API_KEY"] = value
-            logger.info("Provided API key exported to environment.")
-
-        elif "OPENAI_API_KEY" in os.environ:
-            logger.info("Using existing API key found in environment.")
-            return os.environ["OPENAI_API_KEY"]
-
-        else:
-            values["offline"] = True
-            logger.warning("No API key found. Running in offline mode.")
-            return None
 
 
 class GitValidator:

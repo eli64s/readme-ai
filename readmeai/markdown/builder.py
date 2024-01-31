@@ -2,15 +2,14 @@
 
 __package__ = "readmeai"
 
-import re
 from pathlib import Path
 from typing import List
 
 from readmeai.config.enums import BadgeOptions, GitService
 from readmeai.config.settings import AppConfig, ConfigHelper
-from readmeai.core import factory
 from readmeai.markdown import badges, tables, tree
 from readmeai.markdown.quickstart import setup_guide
+from readmeai.markdown.utilities import remove_emojis
 
 
 class ReadmeBuilder:
@@ -64,13 +63,13 @@ class ReadmeBuilder:
     @property
     def md_summaries(self) -> str:
         """Generates the README code summaries section."""
-        formatted_summaries = tables.format_code_summaries(
+        summaries = tables.format_code_summaries(
             self.md.default,
             self.summaries,
         )
         md_summaries = tables.generate_markdown_tables(
             self.md.modules_widget,
-            formatted_summaries,
+            summaries,
             self.full_name,
             self.repo_url,
         )
@@ -79,19 +78,19 @@ class ReadmeBuilder:
     @property
     def md_tree(self) -> str:
         """Generates the README directory tree structure."""
-        generator = tree.TreeGenerator(
+        md_tree = tree.TreeGenerator(
             repo_name=self.repo_name,
             root_dir=self.temp_dir,
             repo_url=self.repo_url,
-        )
-        md_tree_struct = generator.tree()
-        return self.md.tree.format(md_tree_struct)
+            max_depth=self.md.tree_depth,
+        ).tree()
+        return self.md.tree.format(md_tree)
 
     @property
     def md_quickstart(self) -> str:
         """Generates the README Getting Started section."""
         project_setup = setup_guide(self.conf, self.helper, self.summaries)
-        md_project_setup = self.md.quickstart.format(
+        return self.md.quickstart.format(
             repo_name=self.repo_name,
             repo_url=self.repo_url,
             requirements=project_setup.requirements,
@@ -99,11 +98,20 @@ class ReadmeBuilder:
             run_command=project_setup.run_command,
             test_command=project_setup.test_command,
         )
-        return md_project_setup
+
+    @property
+    def md_contributing(self) -> str:
+        """Generates the README Contributing section."""
+        return self.md.contribute.format(
+            host=self.host_domain,
+            full_name=self.full_name,
+            repo_name=self.repo_name.capitalize(),
+            repo_url=self.repo_url,
+        )
 
     def build(self) -> str:
         """Builds the README Markdown file."""
-        readme_md_sections = [
+        md_contents = [
             self.md_header,
             self.md.toc.format(repo_name=self.repo_name),
             self.md.overview,
@@ -112,52 +120,13 @@ class ReadmeBuilder:
             self.md.modules,
             self.md_summaries,
             self.md_quickstart,
-            self.md.contribute.format(
-                host=self.host_domain,
-                full_name=self.full_name,
-                repo_name=self.repo_name.capitalize(),
-                repo_url=self.repo_url,
-            ),
+            self.md_contributing,
         ]
 
         if self.conf.md.emojis is False:
-            readme_md_sections = self.remove_emojis(readme_md_sections)
+            md_contents = remove_emojis(md_contents)
 
-        return "\n".join(readme_md_sections)
-
-    @staticmethod
-    def remove_emojis(content_list: List[str]) -> List[str]:
-        """Removes emojis from headers and ToC."""
-        emoji_pattern = re.compile(
-            pattern="["
-            "\U0001F600-\U0001F64F"  # emoticons
-            "\U0001F300-\U0001F5FF"  # symbols & pictographs
-            "\U0001F680-\U0001F6FF"  # transport & map symbols
-            "\U0001F700-\U0001F77F"  # alchemical symbols
-            "\U0001F780-\U0001F7FF"  # Geometric Shapes Extended
-            "\U0001F800-\U0001F8FF"  # Supplemental Arrows-C
-            "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
-            "\U0001FA00-\U0001FA6F"  # Chess Symbols
-            "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
-            "\U00002702-\U000027B0"  # Dingbats
-            "\U000024C2-\U0001F251"  # flags (iOS)
-            "]+",
-            flags=re.UNICODE,
-        )
-        modified_content = []
-
-        for section in content_list:
-            lines = section.split("\n")
-            for index, line in enumerate(lines):
-                if (
-                    line.startswith("#")
-                    or "Table of Contents" in section
-                    or "Quick Links" in section
-                ):
-                    lines[index] = emoji_pattern.sub("", line)
-            modified_content.append("\n".join(lines))
-
-        return modified_content
+        return "\n".join(md_contents)
 
 
 def build_readme_md(
@@ -169,7 +138,5 @@ def build_readme_md(
 ) -> None:
     """Builds the README Markdown file."""
     builder = ReadmeBuilder(conf, helper, dependencies, summaries, temp_dir)
-    readme_md_file = builder.build()
-    readme_path = Path(conf.files.output)
-    readme_path.parent.mkdir(parents=True, exist_ok=True)
-    factory.FileHandler().write(readme_path, readme_md_file)
+    markdown_sections = builder.build()
+    return markdown_sections

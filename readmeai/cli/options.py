@@ -6,14 +6,13 @@ import os
 from typing import Optional
 
 import click
-from click import Context, Parameter
 
 from readmeai.config.enums import BadgeOptions, ImageOptions
 
 
 def prompt_for_image(
-    context: Optional[Context],
-    parameter: Optional[Parameter],
+    context: Optional[click.Context],
+    parameter: Optional[click.Parameter],
     value: Optional[str],
 ) -> str:
     """Prompt the user for a custom image URL."""
@@ -59,6 +58,13 @@ badges = click.option(
         """,
 )
 
+badge_color = click.option(
+    "--badge-color",
+    type=str,
+    default="0080ff",
+    help="Custom color for the badge icon. Provide a valid color name or hex code.",
+)
+
 emojis = click.option(
     "-e",
     "--emojis",
@@ -73,19 +79,18 @@ image = click.option(
     type=click.Choice(
         [opt.name for opt in ImageOptions], case_sensitive=False
     ),
-    default=ImageOptions.DEFAULT.name,
+    default=ImageOptions.BLUE.name,
     callback=prompt_for_image,
     show_choices=True,
     help="""\
-        Project logo image displayed in the README file header. The following options are currently available:\n
+        Project logo image displayed in the README file header. Choose from the following options:\n
         - CUSTOM \n
-        - DEFAULT \n
         - BLACK \n
+        - BLUE \n
+        - CLOUD \n
         - GRADIENT \n
         - GREY \n
         - PURPLE \n
-        - YELLOW \n
-        - CLOUD \n
         """,
 )
 
@@ -121,7 +126,7 @@ output = click.option(
     "-o",
     "--output",
     default="readme-ai.md",
-    help="Output file name for your README file. If not provided, your README file will be generated in the current working directory as 'readme-ai.md'.",
+    help="Output file name for your README file. Default name is 'readme-ai.md'.",
 )
 
 repository = click.option(
@@ -143,6 +148,13 @@ template = click.option(
     "--template",
     type=str,
     help="README template file to use for generating the README.md file.",
+)
+
+tree_depth = click.option(
+    "--tree-depth",
+    default=5,
+    type=int,
+    help="Maximum depth of the directory tree thats included in the README.md file.",
 )
 
 vertex_ai = click.option(

@@ -7,11 +7,7 @@ class TreeGenerator:
     """Generates a directory tree structure for a code repository."""
 
     def __init__(
-        self,
-        repo_name: str,
-        root_dir: Path,
-        repo_url: Path,
-        max_depth: int = 3,
+        self, repo_name: str, root_dir: Path, repo_url: Path, max_depth: int
     ):
         self.repo_name = repo_name
         self.root_dir = root_dir
@@ -35,6 +31,12 @@ class TreeGenerator:
         if not children and directory.is_dir():
             return ""
 
+        """
+        dir_name = directory.name
+        if depth == 2 and directory.is_dir():
+            dir_name += "               ► summary of directory"
+        parts = [f"{prefix}{'└── ' if is_last else '├── '}{dir_name}"]
+        """
         parts = [f"{prefix}{'└── ' if is_last else '├── '}{directory.name}"]
 
         for index, child in enumerate(children):
