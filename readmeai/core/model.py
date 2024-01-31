@@ -22,10 +22,13 @@ from tenacity import (
 
 from readmeai.config.settings import AppConfig
 from readmeai.core.logger import Logger
-from readmeai.core.preprocess import FileContext
 from readmeai.core.utils import format_response
 from readmeai.llms.cache import CacheManager
-from readmeai.llms.prompts import get_prompt_context, set_prompt_context
+from readmeai.llms.prompts import (
+    get_prompt_context,
+    set_other_prompt_context,
+    set_prompt_context,
+)
 from readmeai.llms.tokenize import (
     count_tokens,
     truncate_tokens,
@@ -81,16 +84,21 @@ class ModelHandler:
 
     async def batch_request(
         self,
-        file_context: List[FileContext],
         dependencies: List[str],
         summaries: List[str],
     ) -> List[str]:
-        """Generates text for the README.md file using GPT language models."""
+        """Generates text for the README.md file using LLM API."""
         prompts = await set_prompt_context(
-            self.config, file_context, dependencies, summaries
+            self.config, dependencies, summaries
         )
-        responses = await self._batch_prompts(prompts)
-        return responses
+        summaries_response = await self._batch_prompts(prompts)
+
+        other_prompts = await set_other_prompt_context(
+            self.config, dependencies, summaries_response
+        )
+        other_responses = await self._batch_prompts(other_prompts)
+
+        return summaries_response + other_responses
 
     async def _batch_prompts(
         self, prompts: List[Union[str, Tuple[str, str]]], batch_size: int = 5
@@ -188,13 +196,15 @@ class ModelHandler:
                     },
                 )
                 response.raise_for_status()
-                self.logger.info(f"Response for {index}:\n{response}")
                 response_json = response.json()
                 response_text = response_json["choices"][0]["message"][
                     "content"
                 ]
                 formatted_text = format_response(index, response_text)
+
+                self.logger.info(f"Response for {index}:\n{response_json}")
                 self.cache.set(index, prompt, tokens, formatted_text)
+
                 return index, formatted_text
 
         except (
@@ -205,9 +215,9 @@ class ModelHandler:
         ) as exc:
             if isinstance(exc, HTTPStatusError):
                 status_code = exc.response.status_code
-                message = f"HTTP error {status_code} for prompt {index}: {exc}"
+                message = f"HTTP error {status_code} for prompt `{index}`"
             else:
-                message = f"Error generating text for prompt {index}: {exc}"
+                message = f"Error generating text for prompt `{index}`: {exc}"
             self.logger.error(message)
             return index, message
 

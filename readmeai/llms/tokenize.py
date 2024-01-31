@@ -21,7 +21,8 @@ def count_tokens(text: str, encoding_name: str) -> int:
     """Return the number of tokens in a text string."""
     encoding = _set_encoding_cache(encoding_name)
     try:
-        num_tokens = len(encoding.encode(text))
+        num_tokens = len(encoding.encode(text, disallowed_special=()))
+
     except Exception as exc:
         logger.error(f"Error in token encoding: {exc}")
         num_tokens = 0

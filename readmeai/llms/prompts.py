@@ -4,7 +4,6 @@ from typing import List
 
 import readmeai.config.settings as AppConfig
 from readmeai.core.logger import Logger
-from readmeai.core.preprocess import FileContext
 
 logger = Logger(__name__)
 
@@ -43,7 +42,6 @@ def inject_prompt_context(template: str, context: dict) -> str:
 
 async def set_prompt_context(
     config: AppConfig,
-    file_context: list[FileContext],
     dependencies: List[str],
     summaries: List[str],
 ) -> List[dict]:
@@ -55,10 +53,23 @@ async def set_prompt_context(
                 "summaries",
                 {
                     "tree": config.md.tree,
-                    "dependencies": file_context,
+                    "dependencies": dependencies,
                     "summaries": summaries,
                 },
             ),
+        ]
+    ]
+
+
+async def set_other_prompt_context(
+    config: AppConfig,
+    dependencies: List[str],
+    summaries: List[str],
+) -> List[dict]:
+    """Generates the prompts to be used by the LLM API."""
+    return [
+        {"type": prompt_type, "context": context}
+        for prompt_type, context in [
             (
                 "features",
                 {
