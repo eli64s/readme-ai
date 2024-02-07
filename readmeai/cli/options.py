@@ -15,7 +15,9 @@ def prompt_for_image(
     value: Optional[str],
 ) -> str:
     """Prompt the user for a custom image URL."""
-    if value == ImageOptions.URL.name:
+    if value == ImageOptions.FILE.name:
+        return click.prompt("Provide an image file path: ")
+    elif value == ImageOptions.URL.name:
         return click.prompt("Provide an image URL: ")
     elif value in ImageOptions.__members__:
         return ImageOptions[value].value

@@ -653,7 +653,10 @@ Select a project logo using the `--image` option. The following options are avai
 </table>
 <br>
 
-Use the `--image custom` option to invoke a prompt to enter a custom image URL or path.
+For custom images, see the following options:
+* Use `--image file` option to invoke a prompt to upload a custom image file.
+* Use `--image url` option to invoke a prompt to enter a custom image URL.
+* Use `--image llm` option to generate a logo using an LLM API (in development).
 
 ---
 
