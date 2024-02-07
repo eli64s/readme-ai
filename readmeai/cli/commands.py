@@ -23,7 +23,7 @@ from readmeai.cli import options
 @options.temperature
 @options.tree_depth
 @options.template
-def main(
+def commands(
     align: Optional[str],
     api: str,
     badges: Optional[str],
@@ -59,4 +59,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    commands()

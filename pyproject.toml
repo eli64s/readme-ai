@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.03"
+version = "0.5.04"
 description = "👾 Automated README file generator"
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -35,11 +35,10 @@ keywords = [
 include = ["readmeai", "readmeai.*"]
 
 [tool.poetry.scripts]
-readmeai = "readmeai.cli.commands:main"
+readmeai = "readmeai.cli.commands:commands"
 
 [tool.poetry.dependencies]
 python = "^3.9,<4.0.0"
-aiohttp = "^3.9.2"
 click = "^8.1.7"
 colorlog = "^6.7.0"
 gitpython = "^3.1.31"
