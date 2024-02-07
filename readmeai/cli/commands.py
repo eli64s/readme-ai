@@ -1,6 +1,6 @@
 """CLI entrypoint for the readme-ai application."""
 
-from typing import Optional, Tuple
+from typing import Optional
 
 import click
 
@@ -10,7 +10,7 @@ from readmeai.cli import options
 
 @click.command()
 @options.align
-@options.api_key
+@options.api
 @options.badges
 @options.badge_color
 @options.emojis
@@ -18,16 +18,14 @@ from readmeai.cli import options
 @options.language
 @options.max_tokens
 @options.model
-@options.offline
 @options.output
 @options.repository
 @options.temperature
 @options.tree_depth
 @options.template
-@options.vertex_ai
 def main(
     align: Optional[str],
-    api_key: Optional[str],
+    api: str,
     badges: Optional[str],
     badge_color: Optional[str],
     emojis: Optional[bool],
@@ -35,18 +33,16 @@ def main(
     language: Optional[str],
     max_tokens: Optional[int],
     model: Optional[str],
-    offline: Optional[bool],
     output: Optional[str],
     repository: str,
     temperature: Optional[float],
     template: Optional[str],
     tree_depth: Optional[int],
-    vertex_ai: Optional[Tuple[str, str]],
 ) -> None:
     """Entry point for the readme-ai CLI application."""
     readme_agent(
         align=align,
-        api_key=api_key,
+        api=api,
         badges=badges,
         badge_color=badge_color,
         emojis=emojis,
@@ -54,13 +50,11 @@ def main(
         # language=language,
         max_tokens=max_tokens,
         model=model,
-        offline=offline,
         output=output,
         repository=repository,
         temperature=temperature,
         # template=template,
         tree_depth=tree_depth,
-        vertex_ai=vertex_ai,
     )
 
 

@@ -54,12 +54,10 @@ Pipfile.lock
 # Temporarily Ignored
 .github/workflows/ci.yml
 readmeai/markdown/data/icons.json
-readmeai/llms/base.py
-readmeai/llms/chunk.py
-readmeai/llms/factory.py
 
-# Templates and Settings
+# Configuration Files, Templates, and Streamlit UI
 templates/
+ui/
 readmeai/settings/markdown.toml
 readmeai/settings/models.toml
 readmeai/settings/prompts.toml

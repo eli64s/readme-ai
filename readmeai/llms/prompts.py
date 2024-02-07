@@ -40,12 +40,12 @@ def inject_prompt_context(template: str, context: dict) -> str:
         return ""
 
 
-async def set_prompt_context(
+async def set_summary_prompt_context(
     config: AppConfig,
     dependencies: List[str],
     summaries: List[str],
 ) -> List[dict]:
-    """Generates the prompts to be used by the LLM API."""
+    """Generates the summary prompts to be used by the LLM API."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
@@ -61,12 +61,12 @@ async def set_prompt_context(
     ]
 
 
-async def set_other_prompt_context(
+async def set_additional_prompt_contexts(
     config: AppConfig,
     dependencies: List[str],
     summaries: List[str],
 ) -> List[dict]:
-    """Generates the prompts to be used by the LLM API."""
+    """Generates additional prompts (features, overview, slogan) for the LLM API."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [

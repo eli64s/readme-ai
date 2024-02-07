@@ -3,7 +3,7 @@
 import re
 from typing import List
 
-from readmeai.core.base_parser import FileParser
+from readmeai.core.parser import FileParser
 
 
 class MavenParser(FileParser):

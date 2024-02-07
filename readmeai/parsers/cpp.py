@@ -3,8 +3,8 @@
 import re
 from typing import List
 
-from readmeai.core.base_parser import FileParser
 from readmeai.core.logger import Logger
+from readmeai.core.parser import FileParser
 
 logger = Logger(__name__)
 

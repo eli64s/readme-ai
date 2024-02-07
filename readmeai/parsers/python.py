@@ -6,7 +6,7 @@ from typing import List
 import toml
 import yaml
 
-from readmeai.core.base_parser import FileParser
+from readmeai.core.parser import FileParser
 
 
 class RequirementsParser(FileParser):

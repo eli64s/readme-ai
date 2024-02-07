@@ -8,6 +8,7 @@ from readmeai.exceptions import (
     GitValidationError,
     ReadmeAiException,
     ReadmeGeneratorError,
+    UnsupportedServiceError,
 )
 
 
@@ -29,12 +30,6 @@ def test_git_validation_exception():
     assert isinstance(ex, ReadmeAiException)
 
 
-def test_readme_generation_exception():
-    """Test the ReadmeGenerationException class."""
-    ex = ReadmeGeneratorError("Traceback")
-    assert isinstance(ex, ReadmeAiException)
-
-
 def test_read_file_exception():
     """Test the ReadFileException class."""
     ex = FileReadError("/path/to/file", FileNotFoundError())
@@ -45,3 +40,15 @@ def test_write_file_exception():
     """Test the WriteFileException class."""
     ex = FileWriteError("/path/to/file", FileNotFoundError())
     assert isinstance(ex, FileSystemError)
+
+
+def test_readme_generation_exception():
+    """Test the ReadmeGenerationException class."""
+    ex = ReadmeGeneratorError("Traceback")
+    assert isinstance(ex, ReadmeAiException)
+
+
+def test_unsupported_file_type_exception():
+    """Test the UnsupportedFileTypeException class."""
+    ex = UnsupportedServiceError("openai_sam_altman")
+    assert isinstance(ex, ReadmeAiException)

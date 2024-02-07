@@ -5,7 +5,7 @@ from typing import List
 
 import yaml
 
-from readmeai.core.base_parser import FileParser
+from readmeai.core.parser import FileParser
 
 
 class DockerfileParser(FileParser):

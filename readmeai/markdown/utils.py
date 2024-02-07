@@ -37,3 +37,36 @@ def remove_emojis(md_content: List[str]) -> List[str]:
         modified_content.append("\n".join(lines))
 
     return modified_content
+
+
+def split_markdown_headings(markdown_text: str) -> dict:
+    """
+    Splits a markdown document by level 2 headings into separate sections.
+    """
+    sections = re.split(r"(?m)^## ", markdown_text)
+    split_sections = {}
+
+    for section in sections:
+        if section.strip():
+            heading = section.split("\n", 1)[0].strip()
+            file_name = heading.lower().replace(" ", "_") + ".md"
+            content = "## " + section if split_sections else section
+            content = content.rstrip("\n")
+            split_sections[file_name] = content
+
+    return split_sections
+
+
+def update_heading_names(md_contents: dict) -> dict:
+    """
+    Updates dict keys by removing leading emojis, underscores, and spaces.
+    """
+    updated_md_headings = {}
+
+    for key in md_contents:
+        new_key = re.sub(r"^[^\w]+", "", key).lstrip("_")
+        if re.match(r"^<.*>.md$", new_key):
+            new_key = "header.md"
+        updated_md_headings[new_key] = md_contents[key]
+
+    return updated_md_headings

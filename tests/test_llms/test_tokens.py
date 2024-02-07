@@ -2,7 +2,7 @@
 
 import pytest
 
-from readmeai.llms.tokenize import (
+from readmeai.llms.tokens import (
     _encoding_cache,
     _set_encoding_cache,
     count_tokens,

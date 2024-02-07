@@ -8,6 +8,7 @@ from readmeai.cli.commands import main
 
 @pytest.fixture
 def runner():
+    """Create a Click CLI runner."""
     return CliRunner()
 
 
@@ -19,7 +20,8 @@ def test_commands_with_defaults(runner):
             [
                 "--repository",
                 "https://github.com/eli64s/readme-ai-streamlit",
-                "--offline",
+                "--api",
+                "offline",
             ],
         )
         assert result.exit_code == 0
@@ -29,7 +31,14 @@ def test_commands_with_invalid_option(runner):
     """Test the commands function with an invalid option."""
     result = runner.invoke(
         main,
-        ["--align", "invalid", "--repository", "https://github.com/test/repo"],
+        [
+            "--align",
+            "right",
+            "--repository",
+            "https://github.com/test/repo",
+            "--api",
+            "offline",
+        ],
     )
     assert result.exit_code != 0
 

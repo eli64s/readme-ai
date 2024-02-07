@@ -131,7 +131,7 @@ def test_language_mapping(repo_processor, file_extension, expected):
     assert updated[0].language == expected
 
 
-@patch("readmeai.llms.tokenize.count_tokens", return_value=7)
+@patch("readmeai.llms.tokens.count_tokens", return_value=7)
 def test_tokenize_content(mock_count_tokens, repo_processor):
     """Test the tokenize_content method."""
     contents = [

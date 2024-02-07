@@ -6,7 +6,7 @@ from unittest.mock import mock_open, patch
 
 import pytest
 
-from readmeai.core.factory import FileHandler
+from readmeai.core.file_io import FileHandler
 from readmeai.exceptions import FileReadError, FileWriteError
 
 
@@ -64,7 +64,7 @@ def test_write_json(file_handler, tmp_path):
 def test_read_exception(file_handler, mock_file_path):
     """Test that a read exception raises a FileReadError."""
     with patch(
-        "readmeai.core.factory.FileHandler.get_action",
+        "readmeai.core.file_io.FileHandler.get_action",
         side_effect=Exception("Read error"),
     ), pytest.raises(FileReadError) as exc:
         file_handler.read(mock_file_path)
@@ -74,7 +74,7 @@ def test_read_exception(file_handler, mock_file_path):
 def test_write_exception(file_handler, mock_file_path, mock_json_data):
     """Test that a write exception raises a FileWriteError."""
     with patch(
-        "readmeai.core.factory.FileHandler.get_action",
+        "readmeai.core.file_io.FileHandler.get_action",
         side_effect=Exception("Write error"),
     ), pytest.raises(FileWriteError) as exc:
         file_handler.write(mock_file_path, mock_json_data)
