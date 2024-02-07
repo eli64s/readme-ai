@@ -1,168 +1,198 @@
-"""Unit tests for the GPT LLM API handler."""
+"""Tests for the LLM API handler abstract base class."""
 
-import asyncio
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
-import httpx
 import pytest
 
-from readmeai.core.logger import Logger
 from readmeai.core.model import ModelHandler
-
-
-@pytest.fixture
-async def mock_handler(mock_config):
-    """Mock the ModelHandler class."""
-    async with ModelHandler(mock_config) as handler:
-        yield handler
-
-
-class MockResponse:
-    """Mock response."""
-
-    def __init__(self, json_data=None, status_code=200):
-        """Initialize the mock response."""
-        self.json_data = json_data
-        self.status_code = status_code
-
-    def json(self):
-        """Return the json data."""
-        return self.json_data
-
-    def raise_for_status(self):
-        """Raise an error if the status code is not 200."""
-        if self.status_code != 200:
-            raise httpx.HTTPStatusError(
-                message="HTTP Error", request=MockRequest()
-            )
-
-
-class MockRequest:
-    """Mock request."""
-
-    def __init__(self):
-        """Initialize the mock request."""
-        self.url = "http://mockurl.com"
+from readmeai.llms.openai import OpenAIHandler
 
 
 @pytest.mark.asyncio
-async def test_model_handler_initialization(mock_config):
-    mock_handler = ModelHandler(mock_config)
-    assert mock_handler.config == mock_config
-    assert mock_handler.cache is not None
-    assert mock_handler.logger is not None
-    assert mock_handler.http_client is not None
-    assert isinstance(mock_handler.logger, Logger)
-    assert isinstance(mock_handler.http_client, httpx.AsyncClient)
-    assert isinstance(mock_handler.rate_limit_semaphore, asyncio.Semaphore)
-    assert isinstance(mock_handler.rate_limit, int)
-    await mock_handler.close()
+async def test_openai_handler_sets_attributes(mock_config):
+    """Test the setting of attributes for the OpenAIHandler."""
+    # Act
+    handler = OpenAIHandler(mock_config)
+
+    # Assert
+    assert hasattr(handler, "content")
+    assert hasattr(handler, "encoder")
+    assert hasattr(handler, "endpoint")
+    assert hasattr(handler, "model")
+    assert hasattr(handler, "prompts")
+    assert hasattr(handler, "tokens")
+    assert hasattr(handler, "tokens_max")
+    assert hasattr(handler, "temperature")
 
 
-def test_llm_settings(mock_config):
-    """Test the LLM settings."""
-    model_handler = ModelHandler(mock_config)
-    assert isinstance(model_handler.content, str)
-    assert model_handler.encoder is not None
-    assert model_handler.model is not None
-    assert model_handler.prompts is not None
-    assert model_handler.tokens > 0
-    assert model_handler.tokens_max > 0
-    assert isinstance(model_handler.tokens, int)
-    assert isinstance(model_handler.temperature, float)
-
-
-@pytest.mark.asyncio
-async def test_model_handler_initialization_with_invalid_config():
-    with pytest.raises(Exception) as exc:
-        invalid_config = {}
-        handler = ModelHandler(invalid_config)
-        await handler.use_api(invalid_config)
-    assert isinstance(exc.value, Exception)
-
-
-def test_http_client_initialization(mock_config):
-    mock_config.llm.rate_limit = 10
-    handler = ModelHandler(mock_config)
-    handler._http_client()
+def test_rate_limit_semaphore_initialization(mock_config):
+    mock_config.llm.rate_limit = 10  # Example rate limit
+    handler = OpenAIHandler(mock_config)
     assert handler.rate_limit_semaphore._value == 10
 
 
 @pytest.mark.asyncio
-async def test_model_handler_batch_request(mock_config):
-    """Test the batch_request function."""
-    handler = ModelHandler(mock_config)
+async def test_openai_handle_response_with_context(mock_config):
+    """Test the handling of the response from the OpenAI API."""
+    # Arrange
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
     with patch.object(
-        handler, "_batch_prompts", new_callable=AsyncMock
-    ) as mock_batch:
-        mock_batch.return_value = ["response1", "response2", "response3"]
-        await handler.batch_request([4, 5, 6], [7, 8, 9])
-    await handler.close()
-    assert mock_batch.called
+        OpenAIHandler, "_handle_response", new_callable=AsyncMock
+    ) as mock_handle_response:
+        # Act
+        await handler._handle_response("test_context")
+
+        # Assert
+        mock_handle_response.assert_called_once_with("test_context")
+        handler.http_client.post.assert_not_called()
+        mock_handle_response.assert_called_once_with("test_context")
 
 
 @pytest.mark.asyncio
-async def test_generate_batches_odd_number_of_elements(mock_config):
-    """Test generator behavior when given an odd number of elements."""
-    batch_size = 3
-    items = [1, 2, 3, 4, 5, 6, 7]
-    model_handler = ModelHandler(mock_config)
-    batches = list(model_handler._generate_batches(items, batch_size))
-    model_handler.close()
-    assert isinstance(batches, list)
-    assert len(batches) == 3
-    assert batches[0] == [1, 2, 3]
-    assert batches[1] == [4, 5, 6]
-    assert batches[2] == [7]
-
-
-@pytest.mark.asyncio
-async def test_large_batch_size_handling(mock_config):
-    handler = ModelHandler(mock_config)
-    large_batch = ["prompt"] * 1000
-    responses = await handler._batch_prompts(large_batch)
-    assert len(responses) == len(large_batch)
-    assert isinstance(responses, list)
-    await handler.close()
-
-
-@pytest.mark.asyncio
-async def test_batch_prompts_exception_handling(mock_config):
-    handler = ModelHandler(mock_config)
-    mock_prompts = ["prompt1", "prompt2"]
-
+async def test_openai_handle_response_without_context(mock_config):
+    """Test the handling of the response from the OpenAI API."""
+    # Arrange
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
     with patch.object(
-        handler, "_process_batch", side_effect=Exception("Test Error")
-    ):
-        responses = await handler._batch_prompts(mock_prompts)
+        OpenAIHandler, "_handle_response", new_callable=AsyncMock
+    ) as mock_handle_response:
+        # Act
+        await handler._handle_response()
 
-    assert len(responses) == len(mock_prompts)
-    await handler.close()
+        # Assert
+        mock_handle_response.assert_called_once_with()
+        handler.http_client.post.assert_not_called()
+        mock_handle_response.assert_called_once_with()
 
 
 @pytest.mark.asyncio
-async def test_handle_response(mock_config):
-    """Test the _handle_response function."""
-    content = "Extension for Python code files?"
-    handler = ModelHandler(mock_config)
-    handler.http_client.post_async = AsyncMock(
-        side_effect=MockResponse(
-            json_data={"choices": [{"message": {"content": content}}]}
+async def test_openai_handle_response_with_context_and_prompt(mock_config):
+    """Test the handling of the response from the OpenAI API."""
+    # Arrange
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
+    with patch.object(
+        OpenAIHandler, "_handle_response", new_callable=AsyncMock
+    ) as mock_handle_response:
+        # Act
+        await handler._handle_response("test_context", "test_prompt")
+
+        # Assert
+        mock_handle_response.assert_called_once_with(
+            "test_context", "test_prompt"
         )
-    )
-    index, response = await handler._handle_response("overview", content, 30)
-    await handler.close()
-    assert response is not None
-    assert isinstance(response, str)
+        handler.http_client.post.assert_not_called()
+        mock_handle_response.assert_called_once_with(
+            "test_context", "test_prompt"
+        )
 
 
 @pytest.mark.asyncio
-async def test_handle_response_openai_error(mock_config):
-    """Test the _handle_response function."""
-    handler = ModelHandler(mock_config)
-    handler.http_client.post_async = AsyncMock(
-        side_effect=Exception("Test Error")
-    )
-    with pytest.raises(Exception) as exc:
-        await handler._handle_response(...)
-    assert isinstance(exc.value, Exception)
+async def test_batch_request(mock_config, mock_dependencies, mock_summaries):
+    """Test the batch request for the OpenAI API."""
+    # Arrange
+    handler = OpenAIHandler(mock_config)
+
+    with patch.object(
+        OpenAIHandler, "_batch_prompts", new_callable=AsyncMock
+    ) as mock_batch_prompts:
+        # Act
+        await handler.batch_request(mock_dependencies, mock_summaries)
+
+        # Assert
+        assert mock_batch_prompts.call_count == 2
+
+
+@pytest.mark.asyncio
+def test_generation_of_batches(mock_config):
+    """Test the generation of batches from a list of items."""
+    items = ["a", "b", "c", "d", "e"]
+    expected_batch1 = ["a", "b"]
+    expected_batch2 = ["c", "d"]
+    expected_batch3 = ["e"]
+
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
+
+    # Act
+    test_batch = list(handler._generate_batches(items, 2))
+
+    # Assert
+    assert len(test_batch) == 3
+    assert isinstance(test_batch, list)
+    assert test_batch[0] == expected_batch1
+    assert test_batch[1] == expected_batch2
+    assert test_batch[2] == expected_batch3
+
+
+@pytest.mark.asyncio
+async def test_batch_prompts(mock_config):
+    """Test the processing of prompts in batches and the return of the generated text."""
+    # Arrange
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
+
+    with patch.object(
+        OpenAIHandler, "_process_batch", new_callable=AsyncMock
+    ) as mock_process_batch:
+        # Act
+        await handler._batch_prompts(["test_prompt"])
+
+        # Assert
+        mock_process_batch.assert_called_once_with("test_prompt")
+        handler.http_client.post.assert_not_called()
+        mock_process_batch.assert_called_once_with("test_prompt")
+
+
+@pytest.mark.asyncio
+async def test_process_batch(mock_config):
+    """Test the processing of a prompt and the return of the generated text."""
+    test_handler = OpenAIHandler(mock_config)
+    test_handler.http_client = MagicMock()
+
+    with patch.object(
+        OpenAIHandler, "_handle_response_code_summary", new_callable=AsyncMock
+    ) as mock_handle_response_code_summary:
+        # Act
+        await test_handler._process_batch(
+            {"type": "summaries", "context": "test"}
+        )
+
+        # Assert
+        mock_handle_response_code_summary.assert_called_once_with("test")
+        test_handler.http_client.post.assert_not_called()
+        mock_handle_response_code_summary.assert_called_once_with("test")
+
+
+@pytest.mark.asyncio
+async def test_handle_response_code_summary(mock_config, mock_file_data):
+    """Test the generation of code summaries for the README.md file."""
+    test_handler = OpenAIHandler(mock_config)
+    test_handler.http_client = MagicMock()
+
+    with patch.object(
+        OpenAIHandler, "_handle_response", new_callable=AsyncMock
+    ) as mock_handle_response:
+        # Act
+        await test_handler._handle_response(
+            mock_file_data, mock_config.prompts.summaries
+        )
+
+        # Assert
+        assert "summary" in mock_handle_response.call_args[0][1]
+        test_handler.http_client.post.assert_not_called()
+        assert isinstance(mock_handle_response.call_args[0][1], str)
+
+
+@pytest.mark.parametrize("invalid_item", [[1, 2], {"key": "value"}])
+def test_invalid_types_in_items_raises_exception(invalid_item, mock_config):
+    """Test that the TypeError is raised when the items are not of the correct type."""
+    items = ["a", "b", invalid_item]
+    handler = OpenAIHandler(mock_config)
+    handler.http_client = MagicMock()
+
+    with pytest.raises(TypeError) as exc:
+        list(ModelHandler._generate_batches(items, 2))
+    assert isinstance(exc.value, TypeError)

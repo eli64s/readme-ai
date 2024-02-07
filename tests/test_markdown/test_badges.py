@@ -22,7 +22,7 @@ def test_read_badge_file_success(mock_config, monkeypatch):
         "icons": {"names": ["Python", "JavaScript"]},
         "url": {"base_url": "http://example.com/"},
     }
-    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
+    monkeypatch.setattr("readmeai.core.file_io.FileHandler", mock_file_handler)
     assert isinstance(_read_badge_file(badge_file_path), dict)
 
 
@@ -31,7 +31,7 @@ def test_read_badge_file_exception(monkeypatch):
     badge_file_path = "invalid_path"
     mock_file_handler = MagicMock()
     mock_file_handler.read.side_effect = Exception("File read error")
-    monkeypatch.setattr("readmeai.core.factory.FileHandler", mock_file_handler)
+    monkeypatch.setattr("readmeai.core.file_io.FileHandler", mock_file_handler)
 
     with pytest.raises(Exception) as exc:
         _read_badge_file(badge_file_path)

@@ -1,6 +1,6 @@
 """Test cases for the file_parser module."""
 
-from readmeai.core.base_parser import FileParser
+from readmeai.core.parser import FileParser
 from readmeai.parsers.python import RequirementsParser, TomlParser
 from readmeai.parsers.registry import parser_factory
 

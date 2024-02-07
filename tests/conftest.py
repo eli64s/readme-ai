@@ -1,4 +1,7 @@
-"""Pytest configuration file."""
+"""Pytest configuration settings."""
+
+import asyncio
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -56,3 +59,50 @@ def mock_file_data(mock_dependencies):
 def repo_processor(mock_config, mock_config_helper):
     """Fixture for RepoProcessor class."""
     return RepoProcessor(mock_config, mock_config_helper)
+
+
+@pytest.fixture
+def mock_http_client():
+    return MagicMock()
+
+
+@pytest.fixture
+def rate_limit_semaphore():
+    semaphore = asyncio.Semaphore(5)
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    return semaphore
+
+
+@pytest.fixture
+def prompts_instances():
+    return {}
+
+
+@pytest.fixture
+def openai_handler_config():
+    return MagicMock()
+
+
+@pytest.fixture
+def vertexai_handler_config():
+    return MagicMock()
+
+
+@pytest.fixture
+def openai_response():
+    return {
+        "summaries_response": "test_summaries",
+        "features_response": "test_features",
+        "overview_response": "test_overview",
+        "slogan_response": "test_slogan",
+    }
+
+
+@pytest.fixture
+def vertex_response():
+    return {
+        "summaries_response": "test_summaries",
+        "features_response": "test_features",
+        "overview_response": "test_overview",
+        "slogan_response": "test_slogan",
+    }
