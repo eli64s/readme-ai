@@ -27,14 +27,6 @@ class GitValidationError(ReadmeAiException):
         )
 
 
-class ReadmeGeneratorError(ReadmeAiException):
-    """Exceptions related to readme generation."""
-
-    def __init__(self, traceback, *args):
-        self.traceback = traceback
-        super().__init__(f"Error generating readme: {traceback}", *args)
-
-
 class FileSystemError(ReadmeAiException):
     """Exceptions related to file system operations."""
 
@@ -53,3 +45,20 @@ class FileWriteError(FileSystemError):
     """Could not write file."""
 
     ...
+
+
+class ReadmeGeneratorError(ReadmeAiException):
+    """Exceptions related to readme generation."""
+
+    def __init__(self, traceback, *args):
+        self.traceback = traceback
+        super().__init__(f"Error generating readme: {traceback}", *args)
+
+
+class UnsupportedServiceError(ReadmeAiException):
+    """Exceptions related to the LLMHandler class."""
+
+    def __init__(self, message, *args):
+        super().__init__(
+            f"Unsupported LLM API service provided: {message}", *args
+        )

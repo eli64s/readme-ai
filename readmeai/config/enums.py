@@ -54,10 +54,35 @@ class ImageOptions(str, Enum):
     Enum for CLI options for README file header images.
     """
 
-    CUSTOM = "CUSTOM"
+    # Default image options
     BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
     BLUE = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
     CLOUD = "https://cdn-icons-png.flaticon.com/512/6295/6295417.png"
     GRADIENT = "https://img.icons8.com/?size=512&id=55494&format=png"
     GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
+
+    # Custom image options
+    FILE = "FILE"
+    LLM = "LLM"
+    URL = "URL"
+
+
+class LLMOptions(str, Enum):
+    """
+    Enum for CLI options for the LLM API key.
+    """
+
+    OFFLINE = "OFFLINE"
+    OPENAI = "OPENAI"
+    VERTEX = "VERTEX"
+
+
+class SecretKeys(str, Enum):
+    """
+    Enum for LLM environment variables.
+    """
+
+    OPENAI_API_KEY = "OPENAI_API_KEY"
+    VERTEXAI_LOCATION = "VERTEXAI_LOCATION"
+    VERTEXAI_PROJECT = "VERTEXAI_PROJECT"

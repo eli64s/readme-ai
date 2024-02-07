@@ -5,11 +5,10 @@
 __package__ = "readmeai"
 
 import asyncio
-import os
 import tempfile
 import traceback
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 from readmeai.cli.options import prompt_for_image
 from readmeai.config.enums import ImageOptions
@@ -21,11 +20,12 @@ from readmeai.config.settings import (
     load_config,
     load_config_helper,
 )
-from readmeai.core.factory import FileHandler
+from readmeai.core.file_io import FileHandler
 from readmeai.core.logger import Logger
-from readmeai.core.model import ModelHandler
 from readmeai.core.preprocess import process_repository
+from readmeai.core.utils import setup_environment
 from readmeai.exceptions import ReadmeGeneratorError
+from readmeai.llms.registry import model_handler
 from readmeai.markdown.builder import build_readme_md
 from readmeai.services.git_utils import clone_repository
 
@@ -34,7 +34,7 @@ logger = Logger(__name__)
 
 def readme_agent(
     align: Optional[str],
-    api_key: Optional[str],
+    api: str,
     badges: Optional[str],
     badge_color: Optional[str],
     emojis: Optional[bool],
@@ -42,13 +42,11 @@ def readme_agent(
     # language: Optional[str],
     max_tokens: Optional[int],
     model: Optional[str],
-    offline: Optional[bool],
     output: Optional[str],
     repository: str,
     temperature: Optional[float],
     # template: Optional[str],
     tree_depth: Optional[int],
-    vertex_ai: Optional[Tuple[str, str]],
 ) -> None:
     """Main method of the readme-ai CLI application."""
     try:
@@ -64,20 +62,22 @@ def readme_agent(
                 "emojis": emojis,
                 "tree_depth": tree_depth,
                 "image": image
-                if image != ImageOptions.CUSTOM.name
+                if image != ImageOptions.URL.name
                 else prompt_for_image(None, None, image),
             }
         )
-        conf.llm.model = model
-        conf.llm.offline = offline
-        conf.llm.temperature = temperature
-        conf.llm.tokens_max = max_tokens
-
+        conf.llm = conf.llm.copy(
+            update={
+                "api": api,
+                "model": model,
+                "temperature": temperature,
+                "tokens_max": max_tokens,
+            }
+        )
         logger.info(f"Repository validation: {conf.git}")
         logger.info(f"LLM API validation: {conf.llm}")
 
-        setup_environment(conf, api_key)
-
+        setup_environment(conf, api)
         asyncio.run(readme_generator(conf, conf_helper, output))
 
     except Exception as exc:
@@ -98,61 +98,29 @@ async def readme_generator(
                 tree,
                 dependency_dict,
             ) = process_repository(conf, conf_helper, temp_dir)
-
+            logger.info(f"Dependency Files:\n{dependency_dict}")
             logger.info(f"Dependencies:\n{dependencies}")
             logger.info(f"Directory Tree:\n{tree}")
 
-            if conf.llm.offline is False:
-                async with ModelHandler(conf).use_api() as llm:
-                    responses = await llm.batch_request(
-                        dependencies, raw_files
-                    )
-                    (
-                        summaries,
-                        features,
-                        overview,
-                        slogan,
-                    ) = responses
-                    conf.md.features = conf.md.features.format(features)
-                    conf.md.overview = conf.md.overview.format(overview)
-                    conf.md.slogan = slogan
-            else:
+            async with model_handler(conf).use_api() as llm:
+                responses = await llm.batch_request(dependencies, raw_files)
                 (
                     summaries,
-                    conf.md.features,
-                    conf.md.overview,
-                    conf.md.slogan,
-                ) = (
-                    [
-                        (str(file_path), conf.md.default)
-                        for file_path, _ in raw_files
-                    ],
-                    conf.md.features.format(conf.md.default),
-                    conf.md.overview.format(conf.md.default),
-                    conf.md.default,
-                )
+                    features,
+                    overview,
+                    slogan,
+                ) = responses
+                conf.md.features = conf.md.features.format(features)
+                conf.md.overview = conf.md.overview.format(overview)
+                conf.md.slogan = slogan
 
-        md_contents = build_readme_md(
+        markdown_content = build_readme_md(
             conf, conf_helper, dependencies, summaries, temp_dir
         )
-        FileHandler().write(Path(output), md_contents)
+        FileHandler().write(Path(output), markdown_content)
 
         logger.info(f"README file successfully generated @ {output}")
-        logger.info(
-            "Share your README with the community @ https://github.com/eli64s/readme-ai/discussions"
-        )
+        logger.info(f"Share your README with us @ {conf.git.discussions}")
 
     except Exception as exc:
         raise ReadmeGeneratorError(traceback.format_exc()) from exc
-
-
-def setup_environment(config: AppConfig, api_key: str) -> None:
-    """Set environment variables for the CLI application."""
-    if api_key:
-        os.environ["OPENAI_API_KEY"] = api_key
-        logger.info("LLM API key exported to environment.")
-    elif "OPENAI_API_KEY" in os.environ:
-        logger.info("LLM API key found in environment.")
-    else:
-        config.llm.offline = True
-        logger.warning("LLM API key not found. Running in offline mode.")

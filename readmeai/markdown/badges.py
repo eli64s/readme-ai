@@ -4,7 +4,7 @@ from typing import Dict, Tuple
 
 from readmeai.config.enums import BadgeOptions
 from readmeai.config.settings import AppConfig
-from readmeai.core.factory import FileHandler
+from readmeai.core.file_io import FileHandler
 from readmeai.core.utils import get_resource_path
 from readmeai.services.git_utils import GitService
 

@@ -7,7 +7,7 @@ from typing import Generator, List, Tuple
 from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core.logger import Logger
 from readmeai.core.utils import is_file_ignored
-from readmeai.llms.tokenize import count_tokens
+from readmeai.llms.tokens import count_tokens
 from readmeai.markdown.builder import ReadmeBuilder
 from readmeai.parsers.registry import parser_factory
 

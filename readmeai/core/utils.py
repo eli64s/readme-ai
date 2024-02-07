@@ -1,10 +1,13 @@
-"""Utility methods for processing files and text."""
+"""Utility methods for the readme-ai CLI application."""
 
+import os
 import re
 from importlib import resources
 from pathlib import Path
+from typing import Any
 
-from readmeai.config.settings import ConfigHelper
+from readmeai.config.enums import LLMOptions, SecretKeys
+from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.core.logger import Logger
 
 logger = Logger(__name__)
@@ -111,3 +114,62 @@ def is_file_ignored(conf_helper: ConfigHelper, file_path: Path) -> bool:
         return True
 
     return False
+
+
+def scan_environment(keys: Any) -> bool:
+    """Check if both keys in the tuple exist in the os.environ."""
+    logger.debug(f"Scanning environment for keys: {keys}")
+    return all(key in os.environ for key in keys)
+
+
+def setup_environment(config: AppConfig, engine: str) -> None:
+    """Set LLM environment variables based on the specified LLM service."""
+    openai_keys = scan_environment((SecretKeys.OPENAI_API_KEY.value,))
+    vertex_keys = scan_environment(
+        (
+            SecretKeys.VERTEXAI_LOCATION.value,
+            SecretKeys.VERTEXAI_PROJECT.value,
+        )
+    )
+
+    if engine is None:
+        logger.info(
+            "LLM engine not specified. Checking environment variables."
+        )
+        if openai_keys is True:
+            logger.info("Using OpenAI API settings found in environment.")
+            config.llm.api = LLMOptions.OPENAI.name
+        elif vertex_keys is True:
+            logger.info("Using GCP Vertex AI settings found in environment.")
+            config.llm.api = LLMOptions.VERTEX.name
+            config.llm.model = "gemini-pro"
+        else:
+            _enable_offline_mode(
+                config, "No LLM API settings exist in environment!"
+            )
+    else:
+        if engine == LLMOptions.OPENAI.name:
+            logger.info("OpenAI LLM API service specified.")
+            if openai_keys is False:
+                _enable_offline_mode(
+                    config, "OpenAI API settings NOT FOUND in environment!"
+                )
+        elif engine == LLMOptions.VERTEX.name:
+            if vertex_keys is True:
+                logger.info("Vertex AI environment variables found.")
+                config.llm.model = "gemini-pro"
+            else:
+                _enable_offline_mode(
+                    config, "Vertex AI settings NOT FOUND in environment!"
+                )
+        else:
+            _enable_offline_mode(config, "Invalid LLM API service specified!")
+
+
+def _enable_offline_mode(config: AppConfig, message: str) -> None:
+    """Set the LLM service to offline mode."""
+    config.llm.api = LLMOptions.OFFLINE.name
+    config.llm.offline = True
+    logger.warning(message)
+    logger.warning("Generating README file in offline mode...")
+    return

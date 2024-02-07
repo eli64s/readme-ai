@@ -9,7 +9,7 @@ from readmeai.config.enums import BadgeOptions, GitService
 from readmeai.config.settings import AppConfig, ConfigHelper
 from readmeai.markdown import badges, tables, tree
 from readmeai.markdown.quickstart import setup_guide
-from readmeai.markdown.utilities import remove_emojis
+from readmeai.markdown.utils import remove_emojis
 
 
 class ReadmeBuilder:
@@ -103,9 +103,10 @@ class ReadmeBuilder:
     def md_contributing(self) -> str:
         """Generates the README Contributing section."""
         return self.md.contribute.format(
-            host=self.host_domain,
+            host=self.host,
+            host_domain=self.host_domain,
             full_name=self.full_name,
-            repo_name=self.repo_name.capitalize(),
+            repo_name=self.repo_name,
             repo_url=self.repo_url,
         )
 

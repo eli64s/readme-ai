@@ -4,10 +4,10 @@ from importlib import resources
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, Field, validator
 
 from readmeai.config.validators import GitValidator
-from readmeai.core.factory import FileHandler
+from readmeai.core.file_io import FileHandler
 from readmeai.core.logger import Logger
 from readmeai.exceptions import FileReadError
 
@@ -15,19 +15,32 @@ logger = Logger(__name__)
 
 
 class FileSettings(BaseModel):
-    """File paths for the readme-ai application."""
+    """File paths used by the readme-ai CLI tool."""
 
-    dependency_files: str
-    ignore_files: str
-    language_names: str
-    language_setup: str
-    shields_icons: str
-    skill_icons: str
+    dependency_files: str = Field(
+        description="Top programming language dependency file name."
+    )
+    ignore_files: str = Field(
+        description="File, directory, and extension names to ignore."
+    )
+    language_names: str = Field(
+        description="Programming language names mapped to extension names."
+    )
+    language_setup: str = Field(
+        description="Programming language install, run, and test commands."
+    )
+    shields_icons: str = Field(
+        description="List of shields.io icons used to build markdown badges."
+    )
+    skill_icons: str = Field(
+        description="List of skill icons used to build markdown badges."
+    )
 
 
 class GitSettings(BaseModel):
-    """Git repository settings, validated via Pydantic."""
+    """User repository settings, sanitized and validated by Pydantic."""
 
+    discussions: str = "https://github.com/eli64s/readme-ai/discussions"
     repository: Union[str, Path]
     full_name: Optional[str]
     host: Optional[str]
@@ -50,7 +63,7 @@ class GitSettings(BaseModel):
 class ModelSettings(BaseModel):
     """LLM API settings used for generating text for the README.md file."""
 
-    api_key: Optional[str]
+    api: str
     content: Optional[str]
     endpoint: Optional[str]
     encoding: Optional[str]
@@ -92,10 +105,19 @@ class MarkdownSettings(BaseModel):
 class PromptSettings(BaseModel):
     """Prompt templates to generate text for the README.md file."""
 
-    features: str
-    overview: str
-    slogan: str
-    summaries: str
+    avatar: str = Field(
+        description="Prompt to generate a project logo .png file."
+    )
+    features: str = Field(
+        description="Prompt to generate a list of project features."
+    )
+    overview: str = Field(description="Prompt to generate a project overview.")
+    slogan: str = Field(
+        description="Prompt to generate a short project slogan or tagline."
+    )
+    summaries: str = Field(
+        description="Prompt to generate a summary of a code file."
+    )
 
 
 class AppConfig(BaseModel):
