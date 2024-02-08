@@ -17,38 +17,33 @@ All notable changes to the readme-ai project will be documented in this file.
 
 ---
 
-## [v0.5.0] - *2024-01-28*
+## [v0.5.05] - *2024-02-07*
 
-Bumped release to align with PyPI package version.
+Bump GitHub release version to align with the latest PyPI release.
 
 ## ✨ Features
 
-- refactor: Restructure core logic to prepare codebase for new features and more accurate README file generation @eli64s (#84)
-- refactor: Improve repository preprocessing design and metadata extraction. @eli64s (#83)
+- feat: Integrate Google Vertex AI LLM @eli64s (#90)
+- feat: Add new CLI options to enhance README customization:
+  - `--align`: adjust the alignment of the README header elements.
+  - `--api`: run the tool using the Google Vertex AI, OpenAI, or offline without an API key.
+  - `--badge-color`: option to change the color of the badge icons in the README header.
+  - `--image`: option to include a project logo (file path, url, multimodal api) in the README header.
+  - `--tree-depth`: option to control the depth of the repository tree structure in the README file.
 
 ## 🧹 Chore
 
-- refactor: Improve repository preprocessing design and metadata extraction. @eli64s (#83)
-- refactor ReadmeBuilder to Class-Based Design and Enhance Configuration @eli64s (#82)
-- chore: Refactor md badge building process. @eli64s (#81)
-- chore: Increase `pytest` coverage and integrate `nox` for comprehensive testing across multiple Python versions (3.9, 3.10, 3.11, 3.12).
-
+- chore: Increase `pytest` coverage and integrate `nox` for robust testing.
+- chore: Improve repository preprocessing design and metadata extraction. @eli64s (#83)
+- chore: Refactor markdown generator to use class-based design @eli64s (#82)
 
 ## 📄 Documentation
 
-- Setup and deploy MkDocs site via github-pages @eli64s (#87)
+- Setup and deploy mkdocs site via github-pages @eli64s (#87)
 
 ## ⚙️ Dependency Updates
 
 - Reduce number of non-standard library dependencies @eli64s (#84)
-
-### 🚀 Features
-
-Introduced new CLI options for customizing the README.md including:
-- `vertex` option to run readme-ai using Google Vertex AI (GCP) for content generation.
-- `--align` option for header text alignment in the README file
-- `--image` option now supports a wider range of images for the project logo in the README header.
-- `--badges` option now supports a wider range of badges for the README header.
 
 ---
 

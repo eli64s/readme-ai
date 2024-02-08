@@ -1,4 +1,3 @@
-<!-- -->
 <p align="center">
   <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="99">
   <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="99">
@@ -9,66 +8,68 @@
 </p>
 <p align="center">
   <a href="https://github.com/eli64s/readme-ai/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=cicd&logoColor=white&color=c125ff" alt="github-actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=CICD&logoColor=white&color=c125ff"
+    alt="github-actions">
   </a>
   <a href="https://app.codecov.io/gh/eli64s/readme-ai">
-    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&color=c125ff" alt="codecov">
+    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&label=Coverage&color=c125ff"
+    alt="codecov">
   </a>
   <a href="https://pypi.python.org/pypi/readmeai/">
-    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&color=c125ff" alt="pypi-version">
+    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&label=PyPI&color=c125ff" alt="pypi-version">
   </a>
   <a href="https://www.pepy.tech/projects/readmeai">
-    <img src="https://img.shields.io/pepy/dt/readmeai?logo=Python&logoColor=white&color=c125ff" alt="pepy-total-downloads">
+    <img src="https://img.shields.io/pepy/dt/readmeai?logo=Python&logoColor=white&label=Downloads&color=c125ff"
+    alt="pepy-total-downloads">
   </a>
 </p>
 
 <!--
 <p align="center">
-  <img src="./examples/images/readmeai-logo-v2.jpg" width="699" alt="readme-ai logo">
-</p>
+  <img src="./examples/images/readmeai-logo.jpg" width="55%" alt="readme-ai-logo">
 <p align="center">
-    <em>Automated <code>README.md</code> file documentation generator, powered by large language model APIs</em>
+    <em>Automated <code>README</code> file generator, powered by large language model APIs</em>
 </p>
 <p align="center">
   <a href="https://github.com/eli64s/readme-ai/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=CICD&logoColor=white&color=5324FF&labelColor=6C6C6C"
+    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=CICD&logoColor=white&color=0041C2&labelColor=6C6C6C"
     alt="github-actions">
   </a>
   <a href="https://app.codecov.io/gh/eli64s/readme-ai">
-    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&label=Coverage&color=5324FF&labelColor=6C6C6C"
+    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&label=Coverage&color=0041C2&labelColor=6C6C6C"
     alt="codecov">
   </a>
   <a href="https://pypi.python.org/pypi/readmeai/">
-    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&label=PyPI&color=5324FF&labelColor=6C6C6C"
+    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&label=PyPI&color=0041C2&labelColor=6C6C6C"
     alt="pypi-version">
   </a>
   <a href="https://www.pepy.tech/projects/readmeai">
-    <img src="https://img.shields.io/pepy/dt/readmeai?logo=PyPI&logoColor=white&label=Downloads&color=5324FF&labelColor=6C6C6C"
+    <img src="https://img.shields.io/pepy/dt/readmeai?logo=PyPI&logoColor=white&label=Downloads&color=0041C2&labelColor=6C6C6C"
     alt="pepy-total-downloads">
   </a>
-  <a href="https://pypi.python.org/pypi/readmeai/">
-    <img src="https://img.shields.io/pypi/pyversions/readmeai.svg?logo=Python&logoColor=white&label=&color=5324FF&labelColor=6C6C6C"
-    alt="python-versions">
-  </a>
   <a href="https://opensource.org/license/mit/">
-    <img src="https://img.shields.io/github/license/eli64s/readme-ai?logo=opensourceinitiative&logoColor=white&label=&color=5324FF&labelColor=6C6C6C"
+    <img src="https://img.shields.io/github/license/eli64s/readme-ai?logo=opensourceinitiative&logoColor=white&label=License&color=0041C2&labelColor=6C6C6C"
     alt="license">
   </a>
 </p>
 -->
 
----
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary><h4>Table of Contents</h4></summary>
 
-## 🔗 Quick Links
-
-> - [📍 Overview](#-overview)
-> - [🤖 Demo](#-demo)
-> - [🔮 Features](#-features)
-> - [⚙️ Installation](#️-installation)
-> - [► Usage](#-running-readme-ai)
-> - [🧩 Configuration](#-configuration)
-> - [🛠 Project Roadmap](#-project-roadmap)
-> - [🤝 Contributing](#-contributing)
+- [📍 Overview](#-overview)
+- [🤖 Demo](#-demo)
+- [🔮 Features](#-features)
+- [🧑‍🎨 Examples](#-example-readmes)
+- [🚀 Getting Started](#-getting-started)
+  - [⚙️ Install](#️-installation)
+  - [🧑‍💻 Usage](#-running-readme-ai)
+  - [🧪 Tests](#-tests)
+- [🧩 Configuration](#-configuration)
+- [🛠 Project Roadmap](#-project-roadmap)
+- [🤝 Contributing](#-contributing)
+</details>
 
 ---
 
@@ -83,7 +84,8 @@ Readme-ai is a developer tool that auto-generates README.md files using a combin
 Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.<br>
 
 > [!IMPORTANT]
-> Readme-ai is currently under development with an opinionated configuration and setup. It is vital to review all text generated by the LLM APIs to ensure it accurately represents your project.
+>
+> <sub>Readme-ai is currently under development with an opinionated configuration and setup. It is vital to review all generated text from the LLM API to ensure it accurately represents your project.</sub>
 
 ---
 
@@ -99,8 +101,8 @@ Generate a README file without making API calls using the `--api offline` CLI op
 [readmeai-streamlit-demo](https://github.com/eli64s/artifacts/assets/43382407/3eb39fcf-c1df-49c6-bb5c-63e141857ae3)
 
 > [!TIP]
-> <sub>Offline mode is useful for generating a boilerplate README at no cost. View the offline README.md example [here!](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)
-> </sub>
+>
+> <sub>Offline mode is useful for generating a boilerplate README at no cost. View the offline README.md example [here!](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)</sub>
 
 ---
 
@@ -296,7 +298,7 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
 
 ---
 
-## Example READMEs
+## 🧑‍🎨 Example READMEs
 
 | ⭑ | **Output File 📄** | **Input Repository 📁** | **Repository Type 🔢** |
 |---|-------------|------------|-----------|
@@ -385,7 +387,6 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 >
 > ```console
 > $ git clone https://github.com/eli64s/readme-ai
->
 > $ cd readme-ai
 > ```
 
@@ -416,22 +417,22 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 ---
 
-### ► Running `readme-ai`
+### 🧑‍💻 Running `readme-ai`
 
-Set your LLM API secret key as an environment variable.
+#### OpenAI API Key
 
-`Linux / macOS:`
+> Set your OpenAI API key as an environment variable.
 > ```console
+> # Using Linux or macOS
 > $ export OPENAI_API_KEY=<your_api_key>
+>
+> # Using Windows
+> $ set OPENAI_API=<your_api_key>
 > ```
 
-`Windows`
->```console
-> $ set OPENAI_API_KEY=<your_api_key>
-> ```
+#### Google Vertex AI
 
-If using Google Vertex AI, set the following environment variables.
-
+> Set your Google Cloud project ID and location as environment variables.
 > ```console
 > $ export VERTEXAI_LOCATION=<your_location>
 > $ export VERTEXAI_PROJECT=<your_project>
@@ -442,7 +443,7 @@ If using Google Vertex AI, set the following environment variables.
 > [![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)](https://pypi.org/project/readmeai/)
 >
 > ```sh
-> readmeai --repository https://github.com/eli64s/readme-ai
+> readmeai --repository https://github.com/eli64s/readme-ai --api openai
 > ```
 
 #### Using `docker`
@@ -460,7 +461,7 @@ If using Google Vertex AI, set the following environment variables.
 
 > [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readme-ai.streamlit.app/)
 >
-> Try directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required! For more details, check out the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository.
+> <sub>Try directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required! For more details, check out the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository.</sub>
 
 <details closed>
 <summary>
@@ -502,6 +503,7 @@ If using Google Vertex AI, set the following environment variables.
 > ```
 
 > [!TIP]
+>
 > <sub>Use [nox](https://nox.thea.codes/en/stable/) to test application against multiple Python environments and dependencies!</sub>
 
 ---
@@ -524,7 +526,7 @@ Run the `readmeai` command in your terminal with the following options to tailor
 | `--max-tokens` | Integer | Maximum context window of the LLM API.  | `3899` |
 | `--model`, `-m` | String | LLM API to use for text generation. | `gpt-3.5-turbo` |
 | `--output`, `-o` | String | Output file name for the README file. | `readme-ai.md` |
-| `--repository`, `-r` | String | Repository URL or local directory path. | |
+| `--repository`, `-r` | String | Repository URL or local directory path. | `None` |
 | `--temperature`, `-t` | Float | Sets the creativity level for content generation. | `1.0` |
 | `🚧 --template` | String | README template style. | `default` |
 | `--tree-depth` | Integer | Maximum depth of the directory tree structure. | `3` |
@@ -545,7 +547,7 @@ The `--badges` option lets you select the style of the default badge set.
   </tr>
   <tr>
     <td><strong>default</strong></td>
-    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
+    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff&logo=opensourceinitiative&logoColor=white" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff&logo=opensourceinitiative&logoColor=white"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
   </tr>
   <tr>
     <td><strong>flat</strong></td>
@@ -588,6 +590,7 @@ When providing the `--badges` option, readme-ai does two things:
 > $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
 > ```
 >
+
 #### Output
 >
 > {... project logo ...}
@@ -596,7 +599,7 @@ When providing the `--badges` option, readme-ai does two things:
 >
 > {...project slogan...}
 >
-> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff">
+> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff&logo=opensourceinitiative&logoColor=white">
 > <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=0080ff&logo=git&logoColor=white">
 > <img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0080ff">
 > <img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0080ff">
@@ -651,7 +654,6 @@ Select a project logo using the `--image` option. The following options are avai
     <td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
   </tr>
 </table>
-<br>
 
 For custom images, see the following options:
 * Use `--image file` option to invoke a prompt to upload a custom image file.
@@ -663,10 +665,10 @@ For custom images, see the following options:
 ## 🛠 Project Roadmap
 
 - [ ] Add new CLI options to enhance README file customization.
+  - [X] `--api` Integrate singular interface for all LLM APIs (OpenAI, Google Cloud, etc.)
   - [ ] `--audit` to review existing README files and suggest improvements.
   - [ ] `--template` to select a README template style (i.e. ai, data, web, etc.)
   - [ ] `--language` to generate README files in any language (i.e. zh-CN, ES, FR, JA, KO, RU)
-- [ ] Integrate singular interface for all LLM APIs (Anthropic, OpenAI, Google Cloud, etc.)
 - [ ] Develop robust documentation generator to build full project docs (i.e. Sphinx, MkDocs)
 - [ ] Create community-driven templates for README files and gallery of readme-ai examples.
 - [ ] GitHub Actions script to automatically update README file content on repository push.
@@ -703,7 +705,7 @@ For custom images, see the following options:
 
 
 <p align="right">
-  <a href="#-quick-links"><b>Return</b></a>
+  <a href="#-overview"><b>Return</b></a>
 </p>
 
 ---
