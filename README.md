@@ -234,7 +234,7 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
   <table>
     <tr>
       <td><b>Getting Started or Quick Start</b><br>
-        <p>Generates structured guides for installing, running, and testing your project. This content is created by identifying dependencies and languages used in the codebase, and mapping this data using static config files such as the<a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/commands.toml">commands.toml</a> file.</p>
+        <p>Generates structured guides for installing, running, and testing your project. This content is created by identifying dependencies and languages used in the codebase, and mapping this data using static config files such as the <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/commands.toml">commands.toml</a> file.</p>
       </td>
     </tr>
     <tr>
