@@ -3,11 +3,15 @@
 import re
 from typing import List
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class GoModParser(FileParser):
+class GoModParser(BaseFileParser):
     """Parser for go.mod files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Parse the content of a go.mod file."""

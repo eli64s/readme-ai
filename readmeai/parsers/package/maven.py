@@ -3,13 +3,15 @@
 import re
 from typing import List
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class MavenParser(FileParser):
-    """
-    Parser for Maven dependency files in pom.xml format.
-    """
+class MavenParser(BaseFileParser):
+    """Parser for Maven dependency files in pom.xml format."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extract packages names from Maven pom.xml files."""

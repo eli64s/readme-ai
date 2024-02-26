@@ -3,11 +3,15 @@
 import re
 from typing import List
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class BuildGradleParser(FileParser):
+class BuildGradleParser(BaseFileParser):
     """Parser for build.gradle dependency files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extracts package names from a build.gradle file."""
@@ -29,7 +33,7 @@ class BuildGradleParser(FileParser):
             return self.handle_parsing_error(f"build.gradle: {str(exc)}")
 
 
-class BuildGradleKtsParser(FileParser):
+class BuildGradleKtsParser(BaseFileParser):
     """Parser for build.gradle.kts dependency files."""
 
     def parse(self, content: str) -> List[str]:

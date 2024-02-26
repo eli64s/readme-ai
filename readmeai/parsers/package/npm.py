@@ -4,13 +4,16 @@ import json
 import re
 from typing import List
 
-from readmeai.core.logger import Logger
-from readmeai.core.parser import FileParser
-
-logger = Logger(__name__)
+from readmeai.core.parsers import BaseFileParser
 
 
-class PackageJsonParser(FileParser):
+class PackageJsonParser(BaseFileParser):
+    """Parser for package.json dependency files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
+
     def parse(self, content: str) -> List[str]:
         """Returns a list of dependencies parsed from a json file."""
         try:
@@ -29,7 +32,7 @@ class PackageJsonParser(FileParser):
             return self.handle_parsing_error(f"package.json: {str(exc)}")
 
 
-class YarnLockParser(FileParser):
+class YarnLockParser(BaseFileParser):
     """Parser for yarn.lock dependency files."""
 
     def parse(self, content: str) -> List[str]:

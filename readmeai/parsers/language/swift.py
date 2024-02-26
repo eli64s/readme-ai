@@ -3,11 +3,15 @@
 import re
 from typing import List
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class SwiftPackageParser(FileParser):
+class SwiftPackageParser(BaseFileParser):
     """Parser for Swift Package.swift files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extracts package names from a Package.swift file."""

@@ -4,13 +4,15 @@ from typing import List
 
 import toml
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class CargoTomlParser(FileParser):
-    """
-    Parser for Rust cargo.toml dependency files.
-    """
+class CargoTomlParser(BaseFileParser):
+    """Parser for Rust cargo.toml dependency files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extract packages names from Rust TOML files."""

@@ -3,14 +3,15 @@
 import re
 from typing import List
 
-from readmeai.core.logger import Logger
-from readmeai.core.parser import FileParser
-
-logger = Logger(__name__)
+from readmeai.core.parsers import BaseFileParser
 
 
-class CMakeParser(FileParser):
+class CMakeParser(BaseFileParser):
     """Parser for CMake dependency files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extracts dependencies, libs, and software from a CMakeLists.txt."""
@@ -42,7 +43,7 @@ class CMakeParser(FileParser):
             return self.handle_parsing_error(f"CMakeLists.txt: {str(exc)}")
 
 
-class ConfigureAcParser(FileParser):
+class ConfigureAcParser(BaseFileParser):
     """Parser for configure.ac dependency files."""
 
     def parse(self, content: str) -> List[str]:
@@ -54,7 +55,7 @@ class ConfigureAcParser(FileParser):
             return self.handle_parsing_error(f"configure.ac: {str(exc)}")
 
 
-class MakefileAmParser(FileParser):
+class MakefileAmParser(BaseFileParser):
     """Parser for Makefile dependency files."""
 
     def parse(self, content: str) -> List[str]:

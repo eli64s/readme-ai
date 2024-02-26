@@ -6,11 +6,15 @@ from typing import List
 import toml
 import yaml
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class RequirementsParser(FileParser):
+class RequirementsParser(BaseFileParser):
     """Parser for requirements.txt files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """
@@ -33,7 +37,7 @@ class RequirementsParser(FileParser):
             return self.handle_parsing_error(f"requirements.txt: {str(exc)}")
 
 
-class TomlParser(FileParser):
+class TomlParser(BaseFileParser):
     """
     Parser for Python TOML dependency files.
     Handles build systems like Pipenv, Poetry, and Flit.
@@ -113,7 +117,7 @@ class TomlParser(FileParser):
         return package_names
 
 
-class YamlParser(FileParser):
+class YamlParser(BaseFileParser):
     """
     Parser for Python YAML based dependency files i.e. environment.yml
     """

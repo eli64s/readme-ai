@@ -1,15 +1,19 @@
-"""Dependency parser for Docker files."""
+"""Parser for Docker (Dockerfile, docker-compose.yaml) configuration files."""
 
 import re
 from typing import List
 
 import yaml
 
-from readmeai.core.parser import FileParser
+from readmeai.core.parsers import BaseFileParser
 
 
-class DockerfileParser(FileParser):
+class DockerfileParser(BaseFileParser):
     """Parser for Dockerfile dependency files."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        super().__init__()
 
     def parse(self, content: str) -> List[str]:
         """Extracts package names from a Dockerfile."""
@@ -34,7 +38,7 @@ class DockerfileParser(FileParser):
             return self.handle_parsing_error(f"Dockerfile: {str(exc)}")
 
 
-class DockerComposeParser(FileParser):
+class DockerComposeParser(BaseFileParser):
     """Parser for Docker related files."""
 
     def parse(self, content: str) -> List[str]:
