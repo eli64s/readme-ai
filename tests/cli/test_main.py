@@ -1,6 +1,8 @@
 """Unit tests for the CLI commands module."""
 
 
+from unittest.mock import patch
+
 import pytest
 from click.testing import CliRunner
 
@@ -13,37 +15,26 @@ def runner():
     return CliRunner()
 
 
-def test_commands_with_defaults(runner, tmp_path):
+@patch("readmeai.readmeai.clone_repository")
+def test_commands_with_defaults(mock_clone, runner, temp_dir, tmp_path):
     """Test the commands function with default options."""
-    test_dir = tmp_path / "repo-dir"
-    test_dir.mkdir()
-    (test_dir / "test_app.py").touch()
-    (tmp_path / "test_src").mkdir()
-    (tmp_path / "test_src" / "test_readme.md").touch()
+    mock_clone.return_value = temp_dir / "repo-dir"
     result = runner.invoke(
         main,
         [
             "--repository",
-            "https://github.com/eli64s/readme-ai-streamlit",
+            temp_dir,
             "--api",
-            "offline",
+            "OFFLINE",
+            "--alignment",
+            "left",
+            "--badge-style",
+            "flat-square",
+            "--output",
+            tmp_path / "test_readme.md",
         ],
     )
     assert result.exit_code == 0
-
-    """Test the commands function with an invalid option."""
-    result = runner.invoke(
-        main,
-        [
-            "--alignment",
-            "right",
-            "--repository",
-            "https://github.com/test/repo",
-            "--api",
-            "offline",
-        ],
-    )
-    assert result.exit_code != 0
 
 
 def test_commands_with_invalid_option(runner, tmp_path):

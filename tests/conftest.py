@@ -9,6 +9,12 @@ from readmeai.core.preprocess import FileContext, RepositoryProcessor
 from readmeai.models.openai import OpenAIHandler
 
 
+@pytest.fixture
+def temp_dir(tmpdir):
+    """Create a temporary directory."""
+    return tmpdir
+
+
 @pytest.fixture(scope="session")
 def mock_config():
     """Returns the default configuration."""

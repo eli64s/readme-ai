@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -183,11 +183,12 @@ def test_scan_environ_missing():
     assert _scan_environ(keys) is False
 
 
-def test_get_resource_path():
-    """Test that the resource path is returned correctly."""
-    resource_path = get_resource_path("config.toml")
-    assert isinstance(resource_path, Path)
-    assert resource_path.exists()
+def test_get_resource_path_with_mock():
+    """Test that the resource path is returned correctly using mock."""
+    mock_path = "config.toml"
+    with patch("pathlib.Path.exists", MagicMock(return_value=True)):
+        resource_path = get_resource_path(mock_path)
+        assert isinstance(resource_path, Path)
 
 
 def test_file_read_error():

@@ -40,10 +40,8 @@ async def test_readme_generator(
         "slogan_response",
         "synthesized_features",
     )
-    mock_build_markdown.return_value = "test_readme_md"
-
+    mock_build_markdown.return_value = str(tmp_path / "test_readme.md")
     await readme_generator(mock_configs)
-
     mock_clone_repository.assert_called_once()
     mock_preprocessor.assert_called_once()
     mock_model_handler.assert_called_once()
