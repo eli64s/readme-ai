@@ -9,10 +9,10 @@ from typing import Optional
 import git
 
 from readmeai.config.enums import GitService
-from readmeai.core.logger import Logger
 from readmeai.exceptions import GitCloneError
+from readmeai.utils.logger import Logger
 
-logger = Logger(__name__)
+_logger = Logger(__name__)
 
 
 async def clone_repository(repository: str, temp_dir: str) -> str:
@@ -72,7 +72,7 @@ async def fetch_git_api_url(repo_url: str) -> str:
         for service in GitService:
             if service in repo_url:
                 api_url = f"{service.api_url}{repo_name}"
-                logger.info(f"{service.name.upper()} API URL: {api_url}")
+                _logger.info(f"{service.name.upper()} API URL: {api_url}")
                 return api_url
 
         raise ValueError("Unsupported Git service.")

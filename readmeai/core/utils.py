@@ -1,107 +1,24 @@
 """Utility methods for the readme-ai CLI application."""
 
+from __future__ import annotations
+
 import os
-import re
 from importlib import resources
 from pathlib import Path
-from typing import Any
 
-from readmeai.config.enums import LLMOptions, SecretKeys
-from readmeai.config.settings import AppConfig, ConfigHelper
-from readmeai.core.logger import Logger
+from readmeai.config.enums import ModelOptions, SecretKeys
+from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.exceptions import FileReadError
+from readmeai.utils.logger import Logger
 
-logger = Logger(__name__)
+_logger = Logger(__name__)
 
 
-def format_md_table(text: str) -> str:
+def filter_file(config_loader: ConfigLoader, file_path: Path) -> bool:
     """
-    Pattern to match a Markdown table. Looks for a
-    header row with at least two columns. followed by
-    a separator row, and then one or more data rows.
+    Check if the given file should be excluded based on provided rules.
     """
-    pattern = r"(\|.*\|.*\n\|[-: ]+\|[-: ]+\|.*\n(?:\|.*\|.*\n)*)"
-    match = re.search(pattern, text, re.MULTILINE)
-    return match.group(0) if match else ""
-
-
-def format_md_text(text: str) -> str:
-    """Format and clean generated text from the LLM."""
-    # Remove single and double quotes around any text
-    text = re.sub(r"(?<!\w)['\"](.*?)['\"](?!\w)", r"\1", text)
-
-    # Remove newlines and tabs
-    text = text.replace("\n", "").replace("\t", "")
-
-    # Remove non-letter characters from the beginning of the string
-    text = re.sub(r"^[^a-zA-Z]*", "", text)
-
-    # Remove extra white space around punctuation except for '('
-    text = re.sub(r"\s*([)'.!,?;:])(?!\.\s*\w)", r"\1", text)
-
-    # Remove extra white space before opening parentheses
-    text = re.sub(r"(\()\s*", r"\1", text)
-
-    # Replace multiple consecutive spaces with a single space
-    text = re.sub(r" +", " ", text)
-
-    # Remove extra white space around hyphens
-    text = re.sub(r"\s*-\s*", "-", text)
-
-    return text.strip()
-
-
-def format_response(prompt_type: str, response_text: str) -> str:
-    """Post-processes the response from the LLM."""
-    return (
-        format_md_text(response_text)
-        if prompt_type != "features"
-        else format_md_table(response_text)
-    )
-
-
-def get_resource_path(package: str, resource_name: str) -> Path:
-    """Use importlib.resources or pkg_resources to get resource path.
-    Python 3.9+ uses importlib.resources, older versions use pkg_resources.
-
-    Parameters
-    ----------
-    package
-        Python package name.
-    resource_name
-        Name of the resource to get the path for.
-
-    Returns
-    -------
-    Path
-        The path to the resource file.
-    """
-    try:
-        resource_path = resources.files(package) / resource_name
-
-    except (TypeError, FileNotFoundError):
-        import pkg_resources
-
-        resource_path = pkg_resources.resource_filename(package, resource_name)
-
-    return resource_path
-
-
-def is_file_ignored(conf_helper: ConfigHelper, file_path: Path) -> bool:
-    """Check if a file should be ignored and not passed to the LLM API.
-    Uses a default list of files - 'readmeai/settings/ignore_files.toml'.
-
-    Parameters
-    ----------
-    conf_helper
-        Configuration helper instance with the ignore files list.
-    file_path
-        The path to the file to check.
-
-    Returns
-    -------
-        True if the file should be ignored, False otherwise.
-    """
-    ignore_files = conf_helper.ignore_files
+    ignore_files = config_loader.blacklist["blacklist"]
 
     if (
         (file_path.name in ignore_files["files"])
@@ -116,60 +33,146 @@ def is_file_ignored(conf_helper: ConfigHelper, file_path: Path) -> bool:
     return False
 
 
-def scan_environment(keys: Any) -> bool:
-    """Check if both keys in the tuple exist in the os.environ."""
-    logger.debug(f"Scanning environment for keys: {keys}")
-    return all(key in os.environ for key in keys)
+def get_resource_path(
+    file_name: str, module: str = "settings", package: str = "readmeai.config"
+) -> None:
+    """
+    Use importlib.resources or pkg_resources to get resource path.
+    - Python >= 3.9+ uses importlib.resources to access files in packages.
+    - Python < 3.9 uses pkg_resources to access files in packages.
+    """
+    try:
+        full_package_path = f"{package}.{module}".replace("/", ".")
+        resource_path = resources.files(full_package_path) / file_name
+    except Exception as exc:
+        _logger.debug(f"Error using importlib.resources: {exc}")
+
+        try:
+            import pkg_resources
+
+            file_path = f"{module}/{file_name}"
+            resource_path = pkg_resources.resource_filename(package, file_path)
+            resource_path = Path(resource_path).resolve()
+
+        except Exception as exc:
+            raise FileReadError(
+                "Error loading file via pkg_resources", file_path
+            ) from exc
+
+    if resource_path.exists() is False:
+        raise FileReadError("File not found", resource_path) from None
+
+    return resource_path
 
 
-def setup_environment(config: AppConfig, engine: str) -> None:
+def set_model_engine(config: Settings) -> None:
     """Set LLM environment variables based on the specified LLM service."""
-    openai_keys = scan_environment((SecretKeys.OPENAI_API_KEY.value,))
-    vertex_keys = scan_environment(
-        (
+    llm_engine = config.llm.api
+    openai_env = _scan_environ([SecretKeys.OPENAI_API_KEY.value])
+    vertex_env = _scan_environ(
+        [
             SecretKeys.VERTEXAI_LOCATION.value,
             SecretKeys.VERTEXAI_PROJECT.value,
-        )
+        ]
     )
 
-    if engine is None:
-        logger.info(
-            "LLM engine not specified. Checking environment variables."
+    if llm_engine is None:
+        _logger.info(
+            "LLM API CLI input not provided. Checking environment variables..."
         )
-        if openai_keys is True:
-            logger.info("Using OpenAI API settings found in environment.")
-            config.llm.api = LLMOptions.OPENAI.name
-        elif vertex_keys is True:
-            logger.info("Using GCP Vertex AI settings found in environment.")
-            config.llm.api = LLMOptions.VERTEX.name
+
+        if openai_env and os.environ["OPENAI_API_KEY"] not in ["", "None"]:
+            config.llm.api = ModelOptions.OPENAI.name
+            config.llm.model = config.llm.model
+            config.llm.offline = False
+            _logger.info("Running CLI with OpenAI API llm engine...")
+            return config
+        elif vertex_env:
+            config.llm.api = ModelOptions.VERTEX.name
             config.llm.model = "gemini-pro"
+            config.llm.offline = False
+            _logger.info("Running CLI with Google Vertex AI llm engine...")
+            return config
+        elif config.llm.api == ModelOptions.OLLAMA.name:
+            config.llm.model = "ollama"
+            config.llm.offline = False
+            _logger.info("Running CLI with Ollama llm engine...")
+            return config
         else:
-            _enable_offline_mode(
-                config, "No LLM API settings exist in environment!"
-            )
-    else:
-        if engine == LLMOptions.OPENAI.name:
-            logger.info("OpenAI LLM API service specified.")
-            if openai_keys is False:
-                _enable_offline_mode(
-                    config, "OpenAI API settings NOT FOUND in environment!"
-                )
-        elif engine == LLMOptions.VERTEX.name:
-            if vertex_keys is True:
-                logger.info("Vertex AI environment variables found.")
-                config.llm.model = "gemini-pro"
+            if config.llm.api == ModelOptions.OFFLINE.name:
+                message = "Offline mode enabled by user via CLI."
             else:
-                _enable_offline_mode(
-                    config, "Vertex AI settings NOT FOUND in environment!"
+                message = (
+                    "\n\n\t\t...No LLM API settings exist in environment..."
                 )
+            return _set_offline(config, message)
+
+    elif llm_engine is not None:
+        _logger.info(f"LLM API CLI input received: {llm_engine}")
+
+        if llm_engine == ModelOptions.OPENAI.name:
+            if "OPENAI_API_KEY" in os.environ:
+                config.llm.api = ModelOptions.OPENAI.name
+                config.llm.model = config.llm.model
+                config.llm.offline = False
+                _logger.info("OpenAI settings found in environment!")
+                return config
+            else:
+                return _set_offline(
+                    config,
+                    "\n\t\t...OpenAI settings NOT FOUND in environment...",
+                )
+
+        elif llm_engine == ModelOptions.OLLAMA.name:
+            config.llm.api = ModelOptions.OLLAMA.name
+            config.llm.model = "ollama"
+            config.llm.offline = False
+            _logger.info("Ollama settings found in environment!")
+            return config
+
+        elif llm_engine == ModelOptions.VERTEX.name:
+            if (
+                "VERTEXAI_LOCATION" in os.environ
+                and "VERTEXAI_PROJECT" in os.environ
+            ):
+                config.llm.model = "gemini-pro"
+                config.llm.offline = False
+                _logger.info("Vertex AI settings found in environment!")
+                return config
+
+            else:
+                return _set_offline(
+                    config,
+                    "\n\t\t...Vertex AI settings NOT FOUND in environment...",
+                )
+
         else:
-            _enable_offline_mode(config, "Invalid LLM API service specified!")
+            if llm_engine == ModelOptions.OFFLINE.name:
+                message = "\n\t\t...Offline mode enabled by user..."
+            else:
+                message = "Invalid LLM API service provided!"
+            return _set_offline(config, message)
 
 
-def _enable_offline_mode(config: AppConfig, message: str) -> None:
+def _scan_environ(keys: list[str]) -> bool:
+    """Check if both keys in the tuple exist in the os.environ."""
+    _logger.debug(f"Scanning environment for keys: {keys}")
+
+    for _, key in enumerate(keys):
+        if key not in os.environ:
+            _logger.debug(f"LLM Secret Key not found: {key}!")
+            return False
+        else:
+            _logger.debug(f"LLM Secret Key found: {key}!")
+
+    return True
+
+
+def _set_offline(config: Settings, log_msg: str) -> Settings:
     """Set the LLM service to offline mode."""
-    config.llm.api = LLMOptions.OFFLINE.name
+    _logger.warning(
+        f"{log_msg}\n\t\t...Generating README.md in offline mode...\n"
+    )
+    config.llm.api = ModelOptions.OFFLINE.name
     config.llm.offline = True
-    logger.warning(message)
-    logger.warning("Generating README file in offline mode...")
-    return
+    return config

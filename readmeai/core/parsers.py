@@ -3,13 +3,15 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from readmeai.core.logger import Logger
-
-logger = Logger(__name__)
+from readmeai.utils.logger import Logger
 
 
-class FileParser(ABC):
+class BaseFileParser(ABC):
     """Abstract base class for dependency file parsers."""
+
+    def __init__(self) -> None:
+        """Initializes the handler with given configuration."""
+        self._logger = Logger(__name__)
 
     @abstractmethod
     def parse(self, content: str) -> List[str]:
@@ -18,7 +20,7 @@ class FileParser(ABC):
 
     def log_error(self, message: str):
         """Logs error message when parsing fails."""
-        logger.error(f"Error parsing dependency file {message}")
+        self._logger.error(f"Error parsing dependency file {message}")
 
     def handle_parsing_error(self, error: Exception) -> List[str]:
         """Standardized error handling for parsing exceptions."""

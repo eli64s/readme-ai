@@ -5,10 +5,10 @@ from typing import Any, Dict, List, Optional
 
 import aiohttp
 
-from readmeai.core.logger import Logger
-from readmeai.services.git_utils import fetch_git_api_url
+from readmeai.services.git import fetch_git_api_url
+from readmeai.utils.logger import Logger
 
-logger = Logger(__name__)
+_logger = Logger(__name__)
 
 
 @dataclass
@@ -125,5 +125,7 @@ async def fetch_git_repository_metadata(
         return _parse_repository_metadata(metadata) if metadata else None
 
     except aiohttp.ClientError as exc:
-        logger.error(f"Client error while fetching repository metadata: {exc}")
+        _logger.error(
+            f"Client error while fetching repository metadata: {exc}"
+        )
         return None
