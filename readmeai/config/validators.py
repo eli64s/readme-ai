@@ -6,10 +6,10 @@ from typing import Optional, Union
 from urllib.parse import urlparse, urlsplit
 
 from readmeai.config.enums import GitService
-from readmeai.core.logger import Logger
 from readmeai.exceptions import GitValidationError
+from readmeai.utils.logger import Logger
 
-logger = Logger(__name__)
+_logger = Logger(__name__)
 
 
 class GitValidator:
@@ -37,7 +37,7 @@ class GitValidator:
                     return value
 
             except Exception as exc:
-                logger.error(f"Error validating repository: {exc}")
+                _logger.error(f"Error validating repository: {exc}")
                 raise GitValidationError(value) from exc
 
         elif isinstance(value, Path) and value.is_dir():
@@ -84,20 +84,6 @@ class GitValidator:
             if service in parsed_url.netloc:
                 return service.split(".")[0]
 
-        return GitService.LOCAL
-
-    @classmethod
-    def set_host_domain(cls, value: Optional[str], values: dict) -> str:
-        repo = values.get("repository")
-        if isinstance(repo, Path) or (
-            isinstance(repo, str) and Path(repo).is_dir()
-        ):
-            return GitService.LOCAL
-
-        parsed_url = urlparse(str(repo))
-        for service in GitService:
-            if service in parsed_url.netloc:
-                return service
         return GitService.LOCAL
 
     @classmethod

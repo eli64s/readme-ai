@@ -1,0 +1,89 @@
+# LLM API prompt templates to generate text for the README.md file
+
+[prompts]
+avatar = """Create a simple, modern icon logo on a white background.\
+The logo should feature a design centered around the project's theme and purpose. Provided below are the project details to guide your design:\n
+================================================================================
+Project Name: {project_name}
+Project Slogan: {slogan}
+Project Overview: {overview}
+================================================================================
+Additional design requirements include:
+- The project name must be prominently displayed across the middle of image in a clean, easily readable font.\n
+- The color scheme includes cool tones, such as shades of {color}, to indicate technology and innovation.\n
+- The design conveys a sense of accessibility, clarity, and innovation, suitable for digital platforms\
+such as git repositories and documentation sites, with a minimalistic yet impactful aesthetic.
+"""
+
+features = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+
+|    |   Feature         | Description |
+|----|-------------------|---------------------------------------------------------------|
+| ⚙️  | **Architecture**  | *Quick facts about the project's architecture. Max 50 words.* |
+| 🔩 | **Code Quality**  | *Quick facts about the code quality and style. Max 50 words.* |
+| 📄 | **Documentation** | *Discuss the extent and quality of documentation. Max 50 words.* |
+| 🔌 | **Integrations**  | *List key integrations and external dependencies. Max 50 words.* |
+| 🧩 | **Modularity**    | *Discuss the modularity and reusability of the codebase. Max 50 words.* |
+| 🧪 | **Testing**       | *List testing frameworks and tools used. Max 50 words.* |
+| ⚡️  | **Performance**   | *Evaluate efficiency, speed and resource usage. Max 50 words.* |
+| 🛡️ | **Security**      | *Discuss measures used for data protection and access control. Max 50 words.* |
+| 📦 | **Dependencies**  | *List key external libraries and dependencies. Max 50 words.* |
+| 🚀 | **Scalability**   | *Assess ability to handle increased traffic and load. Max 50 words.* |
+
+While generating the table, please reference the following codebase details:\n
+================================================================================
+Project dependencies: {1}
+Repository contents: {2}
+================================================================================
+"""
+
+features_synthesized = """Sythensize the markdown table to shorten each row to a list of keywords:\n
+{0}\n
+
+The original markdown table is as follows:\n
+
+|    |   Feature         | Description |
+|----|-------------------|---------------------------------------------------------------|
+| ⚙️  | **Architecture**  | *Quick facts about the project's architecture. Max 50 words.* |
+| 🔩 | **Code Quality**  | *Quick facts about the code quality and style. Max 50 words.* |
+| 📄 | **Documentation** | *Discuss the extent and quality of documentation. Max 50 words.* |
+| 🔌 | **Integrations**  | *List key integrations and external dependencies. Max 50 words.* |
+| 🧩 | **Modularity**    | *Discuss the modularity and reusability of the codebase. Max 50 words.* |
+| 🧪 | **Testing**       | *List testing frameworks and tools used. Max 50 words.* |
+| ⚡️  | **Performance**   | *Evaluate efficiency, speed and resource usage. Max 50 words.* |
+| 🛡️ | **Security**      | *Discuss measures used for data protection and access control. Max 50 words.* |
+| 📦 | **Dependencies**  | *List key external libraries and dependencies. Max 50 words.* |
+| 🚀 | **Scalability**   | *Assess ability to handle increased traffic and load. Max 50 words.* |
+
+Maintain the exact markdown format and ensure the keywords are relevant to the original descriptions.
+"""
+
+file_summary = """Deliver a succinct summary that highlights the main purpose and \
+critical features of this code file in relation to its parent repository's architecture. \
+Focus on what the code achieves, steering clear of technical implementation details. \
+While generating the summaries, please reference the following codebase details: \n
+================================================================================
+Repository structure: {0}
+File path: {1}
+File contents: {2}
+================================================================================
+Additionally, avoid using words like `This file`, `This code`, etc. in your response. \
+Use concise language and ensure the summary response is no more than 50 tokens.
+"""
+
+overview = """Analyze the codebase named {0} ({1}) and provide a robust, yet succinct overview of the project. \
+Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value proposition. \
+Avoid deep technical details and focus on the project's high-level use cases and features. \
+While generating the project overview, please reference the following codebase details: \n
+================================================================================
+Repository structure: {2}
+File summaries: {3}
+================================================================================
+Your response should be no more than 99 words.
+"""
+
+slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}).\n
+Limit the phrase to 8 words or less, and ensure it encapsulates the project's purpose
+and value proposition while engaging the reader. The following code summaries from the
+repository will help you craft your response:\n{2}\n
+"""

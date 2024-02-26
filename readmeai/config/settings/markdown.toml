@@ -1,0 +1,261 @@
+# Markdown template code blocks to construct a README.md file.
+
+[md]
+# Markdown Default Settings
+alignment = "center"
+emojis = false
+image = ""
+placeholder = "<code>► INSERT-TEXT-HERE</code>"
+slogan = ""
+tables = ""
+
+# Header Template
+header = """\
+<p align="{alignment}">
+  <img src="{image}" width="100" alt="project-logo">
+</p>
+<p align="{alignment}">
+    <h1 align="{alignment}">{repo_name}</h1>
+</p>
+<p align="{alignment}">
+    <em>{slogan}</em>
+</p>
+<p align="{alignment}">\n\t{shields_icons}<p>
+<p align="{alignment}">\n\t{badge_icons}</p>
+"""
+
+# Badges
+badge_color = "0080ff"
+badge_style = "flat"
+badge_icons = """\t<em>Developed with the software and tools below.</em>\n</p>\n<p align="{alignment}">\n\t{badge_icons}"""
+shields_icons = """
+<img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="license">
+\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
+\t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
+\t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
+"""
+skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
+
+# Table of Contents
+quick_links = """
+## 🔗 Quick Links
+
+> - [📍 Overview](#-overview)
+> - [📦 Features](#-features)
+> - [📂 Repository Structure](#-repository-structure)
+> - [🧩 Modules](#-modules)
+> - [🚀 Getting Started](#-getting-started)
+>   - [⚙️ Install](#️-install)
+>   - [► Using {repo_name}](#-using-{repo_name})
+>   - [🧪 Tests](#-tests)
+> - [🛠 Project Roadmap](#-project-roadmap)
+> - [🤝 Contributing](#-contributing)
+> - [📄 License](#-license)
+> - [👏 Acknowledgments](#-acknowledgments)
+
+---
+"""
+toc = """\
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary><h4>Table of Contents</h4></summary>
+
+- [📍 Overview](#-overview)
+- [📦 Features](#-features)
+- [📂 Repository Structure](#-repository-structure)
+- [🧩 Modules](#-modules)
+- [🚀 Getting Started](#-getting-started)
+  - [⚙️ Install](#️-install)
+  - [► Using {repo_name}](#-using-{repo_name})
+  - [🧪 Tests](#-tests)
+- [🛠 Project Roadmap](#-project-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [👏 Acknowledgments](#-acknowledgments)
+</details>
+<hr>
+"""
+
+# Overview Template
+overview = """
+## 📍 Overview
+
+{0}
+
+---
+"""
+
+# Features Template
+features = """
+## 📦 Features
+
+{0}
+
+---
+"""
+
+# Directory Structure Tree
+tree_depth = 3
+tree = """
+## 📂 Repository Structure
+
+```sh
+{0}
+```
+
+---
+"""
+
+# Codebase Summaries
+modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
+modules = """
+## 🧩 Modules
+"""
+
+# Quickstart Template
+quickstart = """
+---
+
+## 🚀 Getting Started
+
+***Requirements***
+
+Ensure you have the following dependencies installed on your system:
+
+* {prerequisites}
+
+### ⚙️ Install
+
+1. Clone the {repo_name} repository:
+
+```sh
+git clone {repo_url}
+```
+
+2. Change to the project directory:
+
+```sh
+cd {repo_name}
+```
+
+3. Install the dependencies:
+
+```sh
+{install_command}
+```
+
+### ► Using `{repo_name}`
+
+Use the following command to run {repo_name}:
+
+```sh
+{run_command}
+```
+
+### 🧪 Tests
+
+Use the following command to run tests:
+
+```sh
+{test_command}
+```
+
+---
+"""
+
+# Project Roadmap Contributing, License, and Acknowledgments Sections
+contribute = """
+## 🛠 Project Roadmap
+
+- [X] `► INSERT-TASK-1`
+- [ ] `► INSERT-TASK-2`
+- [ ] `► ...`
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here are several ways you can contribute:
+
+- **[Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
+- **[Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
+
+<details closed>
+<summary>Contributing Guidelines</summary>
+
+1. **Fork the Repository**: Start by forking the project repository to your {host} account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+   ```sh
+   git clone {repo_url}
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to {host}**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+</details>
+
+<details closed>
+<summary>Contributor Graph</summary>
+<br>
+<p align="left">
+   <a href="https://{host_domain}{{/{full_name}/}}graphs/contributors">
+      <img src="https://contrib.rocks/image?repo={full_name}">
+   </a>
+</p>
+</details>
+
+---
+
+## 📄 License
+
+This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
+
+---
+
+## 👏 Acknowledgments
+
+- List any resources, contributors, inspiration, etc. here.
+
+[**Return**](#-overview)
+
+---
+"""
+
+contact = """
+<p align="center">
+  <sub>
+    For {name} issues and feature requests please visit the <a href="https://{host_domain}/{full_name}/issues">issues</a> page, or feel free to start a <a href="https://github.com/eli64s/readme-ai/discussions">discussion!</a>
+  </sub><br>
+</p>
+
+<div align="{alignment}">
+  <a href="https://github.com/eli64s"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="3%" alt="eli64s GitHub"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="3%" alt="Ultralytics LinkedIn"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="3%" alt="Ultralytics Twitter"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+</div>
+"""
+
+contributor_graph = """
+<p align="{alignment}">
+  <a href="https://{host_domain}{/{full_name}/}graphs/contributors">
+    <img src="https://contrib.rocks/image?repo={full_name}" />
+  </a>
+</p>
+"""
+
+custom_badge = """<img src="https://img.shields.io/badge/readmeai-{badge_color}?style={badge_style}&logo=ReadMe&logoColor=white&label=readme-ai" alt="project-name">"""

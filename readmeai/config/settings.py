@@ -1,66 +1,24 @@
 """Data models and functions for configuring the readme-ai CLI tool."""
 
-from importlib import resources
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Optional, Union
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, DirectoryPath, HttpUrl, validator
 
+from readmeai.config.enums import ModelOptions
 from readmeai.config.validators import GitValidator
-from readmeai.core.file_io import FileHandler
-from readmeai.core.logger import Logger
-from readmeai.exceptions import FileReadError
+from readmeai.utils.file_handler import FileHandler
+from readmeai.utils.logger import Logger
 
-logger = Logger(__name__)
-
-
-class FileSettings(BaseModel):
-    """File paths used by the readme-ai CLI tool."""
-
-    dependency_files: str = Field(
-        description="Top programming language dependency file name."
-    )
-    ignore_files: str = Field(
-        description="File, directory, and extension names to ignore."
-    )
-    language_names: str = Field(
-        description="Programming language names mapped to extension names."
-    )
-    language_setup: str = Field(
-        description="Programming language install, run, and test commands."
-    )
-    shields_icons: str = Field(
-        description="List of shields.io icons used to build markdown badges."
-    )
-    skill_icons: str = Field(
-        description="List of skill icons used to build markdown badges."
-    )
+_base_dir = Path(__file__).resolve().parent
+_github_discussions = "https://github.com/eli64s/readme-ai/discussions"
+_output_file = "readme-ai.md"
+_logger = Logger(__name__)
 
 
-class GitSettings(BaseModel):
-    """User repository settings, sanitized and validated by Pydantic."""
-
-    discussions: str = "https://github.com/eli64s/readme-ai/discussions"
-    repository: Union[str, Path]
-    full_name: Optional[str]
-    host: Optional[str]
-    host_domain: Optional[str]
-    name: Optional[str]
-
-    _validate_repository = validator("repository", pre=True, always=True)(
-        GitValidator.validate_repository
-    )
-    _validate_full_name = validator("full_name", pre=True, always=True)(
-        GitValidator.validate_full_name
-    )
-    _set_host = validator("host", pre=True, always=True)(GitValidator.set_host)
-    _set_host_domain = validator("host_domain", pre=True, always=True)(
-        GitValidator.set_host_domain
-    )
-    _set_name = validator("name", pre=True, always=True)(GitValidator.set_name)
-
-
-class ModelSettings(BaseModel):
+class APISettings(BaseModel):
     """LLM API settings used for generating text for the README.md file."""
 
     api: str
@@ -74,18 +32,40 @@ class ModelSettings(BaseModel):
     tokens_max: Optional[int]
     rate_limit: Optional[int]
 
+    def __post_init__(self) -> None:
+        """Set the default values for the LLM API settings."""
+        if self.api != ModelOptions.OFFLINE.name:
+            self.offline = False
+        else:
+            self.offline = True
+
+
+class GitSettings(BaseModel):
+    """User repository settings, sanitized and validated by Pydantic."""
+
+    repository: Union[HttpUrl, DirectoryPath]
+    full_name: Optional[str]
+    host: Optional[str]
+    host_domain: Optional[str]
+    name: Optional[str]
+
+    _validate_repository = validator("repository", pre=True, always=True)(
+        GitValidator.validate_repository
+    )
+    _validate_full_name = validator("full_name", pre=True, always=True)(
+        GitValidator.validate_full_name
+    )
+    _set_host = validator("host", pre=True, always=True)(GitValidator.set_host)
+    _set_name = validator("name", pre=True, always=True)(GitValidator.set_name)
+
 
 class MarkdownSettings(BaseModel):
     """Markdown template blocks for the README.md file."""
 
-    align: str
-    default: str
+    alignment: str
     badge_color: str
     badge_style: str
-    badges_dependencies: str
-    badge_logo: str
-    badges_shields: str
-    badges_skills: str
+    badge_icons: str
     contribute: str
     emojis: bool
     features: str
@@ -94,7 +74,10 @@ class MarkdownSettings(BaseModel):
     modules: str
     modules_widget: str
     overview: str
+    placeholder: str
     quickstart: str
+    shields_icons: str
+    skill_icons: str
     slogan: str
     tables: str
     toc: str
@@ -102,117 +85,70 @@ class MarkdownSettings(BaseModel):
     tree_depth: int
 
 
-class PromptSettings(BaseModel):
-    """Prompt templates to generate text for the README.md file."""
+class ResourceSettings(BaseModel):
+    """File paths used by the readme-ai CLI tool."""
 
-    avatar: str = Field(
-        description="Prompt to generate a project logo .png file."
-    )
-    features: str = Field(
-        description="Prompt to generate a list of project features."
-    )
-    overview: str = Field(description="Prompt to generate a project overview.")
-    slogan: str = Field(
-        description="Prompt to generate a short project slogan or tagline."
-    )
-    summaries: str = Field(
-        description="Prompt to generate a summary of a code file."
-    )
+    blacklist: str
+    commands: str
+    languages: str
+    markdown: str
+    parsers: str
+    prompts: str
+    shields_icons: str
+    skill_icons: str
 
 
-class AppConfig(BaseModel):
+class Settings(BaseModel):
     """Nested data model to store all configuration settings."""
 
-    files: FileSettings
+    discussions: HttpUrl = _github_discussions
+    output_file: Path = _output_file
+
+    llm: APISettings
     git: GitSettings
-    llm: ModelSettings
     md: MarkdownSettings
-    prompts: PromptSettings
-
-
-class AppConfigModel(BaseModel):
-    """Pydantic model to store all configuration settings."""
-
-    app: AppConfig
+    files: ResourceSettings
 
     class Config:
-        """Pydantic model configuration."""
+        """Pydantic configuration settings."""
 
         validate_assignment = True
 
 
-class ConfigHelper(BaseModel):
-    """Helper class to load additional configuration files."""
+class ConfigLoader:
+    """Loads the configuration settings for the readme-ai CLI tool."""
 
-    conf: AppConfigModel
-    dependency_files: Dict[str, str] = {}
-    ignore_files: Dict[str, List[str]] = {}
-    language_names: Dict[str, str] = {}
-    language_setup: Dict[str, List[str]] = {}
+    def __init__(
+        self,
+        config_file: Union[str, Path] = "config.toml",
+        package: str = "readmeai/config",
+        submodule: str = "settings",
+    ) -> None:
+        """Initialize the ConfigLoader."""
+        self.package = package
+        self.submodule = submodule
+        self.config_path = f"{package}/{submodule}/{config_file}"
+        self.config = self._load_base_config()
+        self._load_all_configs()
 
-    class Config:
-        allow_mutation = True
+    def _load_all_configs(self) -> None:
+        """Load additional configuration files specified in the Settings."""
+        for key, file_name in self.config.files.__dict__.items():
+            if not file_name.endswith(".toml"):
+                continue
 
-    def __init__(self, conf: AppConfigModel, **data):
-        super().__init__(conf=conf, **data)
-        self.load_helper_files()
+            file_path = _base_dir / self.submodule / file_name
+            log_path = f"{self.package}/{self.submodule}/{file_name}"
 
-    def load_helper_files(self):
-        """Load helper configuration files."""
-        handler = FileHandler()
-        conf_path_list = [
-            self.conf.app.files.dependency_files,
-            self.conf.app.files.ignore_files,
-            self.conf.app.files.language_names,
-            self.conf.app.files.language_setup,
-        ]
+            if file_path.exists():
+                config_data = FileHandler().read(file_path)
+                setattr(self, key, config_data)
+                _logger.debug(f"Loaded config file @ {log_path}")
+            else:
+                setattr(self, key, None)
+                _logger.warning(f"Config file not found: {log_path}")
 
-        for path in conf_path_list:
-            conf_dict = _get_config_dict(handler, path)
-
-            if "dependency_files" in conf_dict:
-                self.dependency_files.update(conf_dict["dependency_files"])
-            if "ignore_files" in conf_dict:
-                self.ignore_files.update(conf_dict["ignore_files"])
-            if "language_names" in conf_dict:
-                self.language_names.update(conf_dict["language_names"])
-            if "language_setup" in conf_dict:
-                self.language_setup.update(conf_dict["language_setup"])
-
-
-def _get_config_dict(handler: FileHandler, file_path: str) -> dict:
-    """Get configuration dictionary from TOML file."""
-    try:
-        resource_path = resources.files("readmeai.settings") / file_path
-    except TypeError as exc:
-        logger.debug(f"Error using importlib.resources: {exc}")
-
-        try:
-            import pkg_resources
-
-            resource_path = Path(
-                pkg_resources.resource_filename(
-                    "readmeai", f"settings/{file_path}"
-                )
-            ).resolve()
-        except Exception as exc:
-            raise FileReadError(
-                "Error loading file via pkg_resources", file_path
-            ) from exc
-
-    if resource_path.exists() is False:
-        raise FileReadError("File not found", resource_path) from None
-
-    return handler.read(resource_path)
-
-
-def load_config(path: str = "config.toml") -> AppConfig:
-    """Load configuration constants from TOML file."""
-    handler = FileHandler()
-    conf_dict = _get_config_dict(handler, path)
-    return AppConfigModel.parse_obj({"app": conf_dict}).app
-
-
-def load_config_helper(conf: AppConfigModel) -> ConfigHelper:
-    """Load multiple configuration helper TOML files."""
-    return ConfigHelper(conf=conf)
+    def _load_base_config(self) -> Settings:
+        """Load the main configuration file for the readme-ai package."""
+        config_dict = FileHandler().read(self.config_path)
+        return Settings(**config_dict)
