@@ -4,12 +4,12 @@ from typing import Tuple
 
 from readmeai.config.enums import BadgeOptions
 from readmeai.config.settings import ConfigLoader
-from readmeai.core.utils import get_resource_path
+from readmeai.config.utils import get_resource_path
 from readmeai.services.git import GitService
 from readmeai.utils.file_handler import FileHandler
 
-BASE_DIR = "readmeai"
-BASE_SUBDIR = "generators.assets"
+_package = "readmeai.generators"
+_submodule = "assets"
 
 
 def _format_badges(badges: list[str]) -> str:
@@ -67,13 +67,14 @@ def shields_icons(
     conf: ConfigLoader, dependencies: list, full_name: str, git_host: str
 ) -> Tuple[str, str]:
     """
-    Generates badges for the README using shields.io icons, referencing
-    the repository - https://github.com/Aveek-Saha/GitHub-Profile-Badges.
+    Generates badges for the README using shields.io icons.
     """
-    file_path = get_resource_path(
-        conf.files.shields_icons, BASE_SUBDIR, BASE_DIR
+    icons_dict = get_resource_path(
+        FileHandler(),
+        conf.files.shields_icons,
+        _package,
+        _submodule,
     )
-    icons_dict = FileHandler().read(file_path)
 
     default_badges = build_default_badges(conf, full_name, git_host)
 
@@ -109,17 +110,14 @@ def skill_icons(conf: ConfigLoader, dependencies: list) -> str:
     """
     dependencies.extend(["md"])
 
-    file_path = get_resource_path(
-        conf.files.skill_icons, BASE_SUBDIR, BASE_DIR
+    icons_dict = get_resource_path(
+        FileHandler(), conf.files.skill_icons, _package, _submodule
     )
-    icons_dict = FileHandler().read(file_path)
 
     skill_icons = [
         icon for icon in icons_dict["icons"]["names"] if icon in dependencies
     ]
     skill_icons = ",".join(skill_icons)
-    # per_line = (len(skill_icons) + 2) // 2
-    # icon_names = f"{icon_names}"  # &perline={per_line}"
     skill_icons = icons_dict["url"]["base_url"] + skill_icons
 
     if conf.md.badge_style == "skills-light":

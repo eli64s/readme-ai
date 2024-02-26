@@ -8,11 +8,12 @@ from typing import Optional, Union
 from pydantic import BaseModel, DirectoryPath, HttpUrl, validator
 
 from readmeai.config.enums import ModelOptions
+from readmeai.config.utils import get_resource_path
 from readmeai.config.validators import GitValidator
+from readmeai.exceptions import FileReadError
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.logger import Logger
 
-_base_dir = Path(__file__).resolve().parent
 _github_discussions = "https://github.com/eli64s/readme-ai/discussions"
 _output_file = "readme-ai.md"
 _logger = Logger(__name__)
@@ -121,34 +122,32 @@ class ConfigLoader:
     def __init__(
         self,
         config_file: Union[str, Path] = "config.toml",
-        package: str = "readmeai/config",
-        submodule: str = "settings",
     ) -> None:
         """Initialize the ConfigLoader."""
-        self.package = package
-        self.submodule = submodule
-        self.config_path = f"{package}/{submodule}/{config_file}"
+        self.file_handler = FileHandler()
+        self.config_file = config_file
         self.config = self._load_base_config()
         self._load_all_configs()
 
+    def _load_base_config(self) -> Settings:
+        """Load the base configuration file."""
+        config_dict = get_resource_path(self.file_handler, self.config_file)
+        return Settings.parse_obj(config_dict)
+
     def _load_all_configs(self) -> None:
         """Load additional configuration files specified in the Settings."""
-        for key, file_name in self.config.files.__dict__.items():
+        for (
+            key,
+            file_name,
+        ) in self.config.files.dict().items():
             if not file_name.endswith(".toml"):
                 continue
 
-            file_path = _base_dir / self.submodule / file_name
-            log_path = f"{self.package}/{self.submodule}/{file_name}"
-
-            if file_path.exists():
-                config_data = FileHandler().read(file_path)
+            try:
+                config_data = get_resource_path(self.file_handler, file_name)
                 setattr(self, key, config_data)
-                _logger.debug(f"Loaded config file @ {log_path}")
-            else:
-                setattr(self, key, None)
-                _logger.warning(f"Config file not found: {log_path}")
+                _logger.debug(f"Loaded config file: {file_name}")
 
-    def _load_base_config(self) -> Settings:
-        """Load the main configuration file for the readme-ai package."""
-        config_dict = FileHandler().read(self.config_path)
-        return Settings(**config_dict)
+            except FileReadError as exc:
+                setattr(self, key, None)
+                _logger.warning(f"Config file not found: {file_name} - {exc}")

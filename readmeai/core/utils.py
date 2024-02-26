@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 import os
-from importlib import resources
 from pathlib import Path
 
 from readmeai.config.enums import ModelOptions, SecretKeys
 from readmeai.config.settings import ConfigLoader, Settings
-from readmeai.exceptions import FileReadError
 from readmeai.utils.logger import Logger
 
 _logger = Logger(__name__)
@@ -31,29 +29,6 @@ def filter_file(config_loader: ConfigLoader, file_path: Path) -> bool:
         return True
 
     return False
-
-
-def get_resource_path(
-    file_name: str, module: str = "settings", package: str = "readmeai.config"
-) -> Path:
-    """
-    Get the resource path using importlib.resources for Python >= 3.9
-    or fallback to pkg_resources for older Python versions.
-    """
-    try:
-        full_package_path = f"{package}.{module}".replace("/", ".")
-        resource_path = resources.files(full_package_path) / file_name
-    except Exception as exc:
-        _logger.debug(f"Error using importlib.resources: {exc}")
-        raise FileReadError(
-            "Error accessing resource using importlib.resources",
-            str(file_name),
-        ) from exc
-
-    if not resource_path.exists():
-        raise FileReadError("File not found", str(resource_path))
-
-    return resource_path
 
 
 def set_model_engine(config: Settings) -> None:

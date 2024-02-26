@@ -2,18 +2,14 @@
 
 import os
 from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
+from unittest.mock import patch
 
 from readmeai.config.enums import ModelOptions, SecretKeys
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.utils import (
-    FileReadError,
     _scan_environ,
     _set_offline,
     filter_file,
-    get_resource_path,
     set_model_engine,
 )
 
@@ -181,19 +177,3 @@ def test_scan_environ_missing():
     assert _scan_environ(keys) is False
     keys = ("VERTEX_LOCATION", "VERTEX_PROJECT")
     assert _scan_environ(keys) is False
-
-
-@pytest.mark.skip
-def test_get_resource_path_with_mock():
-    """Test that the resource path is returned correctly using mock."""
-    mock_path = "config.toml"
-    with patch("pathlib.Path.exists", MagicMock(return_value=True)):
-        resource_path = get_resource_path(mock_path)
-        assert isinstance(resource_path, Path)
-
-
-def test_file_read_error():
-    """Test that the FileReadError is raised correctly."""
-    with pytest.raises(Exception) as exc:
-        get_resource_path("non_existent_file.toml")
-    assert isinstance(exc.value, FileReadError)
