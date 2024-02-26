@@ -9,6 +9,13 @@ class ReadmeAiException(Exception):
     ...
 
 
+class CLIError(ReadmeAiException):
+    """Exceptions related to the CLI."""
+
+    def __init__(self, message, *args):
+        super().__init__(f"Invalid option provided to CLI: {message}", *args)
+
+
 class GitCloneError(ReadmeAiException):
     """Could not clone repository."""
 
