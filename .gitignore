@@ -51,18 +51,19 @@ notebooks/
 Pipfile
 Pipfile.lock
 
-# Temporarily Ignored
+# Work In Progress
+# Configuration Files (wip)
+scripts/test_gen.sh
+readmeai/config/settings/models.toml
+readmeai/config/settings/quickstart_wip.toml
+readmeai/config/settings/quickstart.toml
+
+# Github Actions
 .github/workflows/ci.yml
-readmeai/markdown/data/icons.json
 
-# Configuration Files, Templates, and Streamlit UI
-templates/
-ui/
-readmeai/settings/markdown.toml
-readmeai/settings/models.toml
-readmeai/settings/prompts.toml
-readmeai/settings/quickstart.toml
-readmeai/settings/quickstart_wip.toml
+# Submodules (wip)
+readmeai/templates/
+readmeai/ui/
 
-# dalle images
+# Dalle-3 Images
 examples/images/dalle
