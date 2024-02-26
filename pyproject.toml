@@ -4,48 +4,49 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.04"
-description = "👾 Automated README file generator"
+version = "0.5.05"
+description = "👾 Automated README file generator, powered by large language model APIs."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
-  "markdown",
-  "readme",
-  "generator",
-  "developer-tools",
-  "documentation",
-  "documentation-generator",
-  "readme-md",
-  "readme-generator",
-  "automated-readme",
-  "readme-md-generator",
-  "shieldsio-badges",
-  "openai",
-  "gemini-pro",
-  "vertex-ai",
-  "chatgpt",
-  "gpt-4",
-  "ai",
-  "llms",
-  "llm-agent",
+    "python",
+    "markdown",
+    "readme",
+    "generator",
+    "developer-tools",
+    "documentation",
+    "documentation-generator",
+    "readme-md",
+    "readme-generator",
+    "automated-readme",
+    "readme-md-generator",
+    "shieldsio-badges",
+    "openai",
+    "gemini-pro",
+    "vertex-ai",
+    "chatgpt",
+    "gpt-4",
+    "ai",
+    "llm",
+    "llms",
 ]
 include = ["readmeai", "readmeai.*"]
 
 [tool.poetry.scripts]
-readmeai = "readmeai.cli.commands:commands"
+readmeai = "readmeai.cli.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.9,<4.0.0"
+aiohttp = "^3.9.3"
 click = "^8.1.7"
 colorlog = "^6.7.0"
 gitpython = "^3.1.31"
 google-cloud-aiplatform = "^1.40.0"
-h2 = "*"
-httpx = "*"
-openai = "^0.27.8"
+# ollama = "^0.1.6"
+openai = "1.12.0"
 pydantic = ">=1.10.9,<2.0.0"
 pyyaml = "^6.0"
 tenacity = "^8.2.2"
@@ -111,7 +112,19 @@ omit = [
     "*/__init__.py",
     "noxfile.py",
     "readmeai/templates/*.py",
-    "readmeai/ui/*.py"
+    "readmeai/ui/*.py",
+    "readmeai/parsers/cicd/*.py",
+    "readmeai/parsers/infrastructure/*.py",
+    "readmeai/parsers/orchestration/*.py",
+    "readmeai/parsers/configuration/ansible.py",
+    "readmeai/parsers/configuration/apache.py",
+    "readmeai/parsers/configuration/nginx.py",
+    "readmeai/parsers/configuration/properties.py",
+    "readmeai/parsers/package/compose.py",
+    "readmeai/parsers/package/gem.py",
+    "readmeai/parsers/package/pip.py",
+    "readmeai/parsers/package/nuget.py",
+    "readmeai/parsers/package/yarn.py",
 ]
 
 [tool.coverage.report]
