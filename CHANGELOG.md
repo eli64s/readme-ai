@@ -17,7 +17,7 @@ All notable changes to the readme-ai project will be documented in this file.
 
 ---
 
-## [v0.5.05] - *2024-02-07*
+## [v0.5.05] - *2024-02-25*
 
 Bump GitHub release version to align with the latest PyPI release.
 
@@ -25,7 +25,7 @@ Bump GitHub release version to align with the latest PyPI release.
 
 - feat: Integrate Google Vertex AI LLM @eli64s (#90)
 - feat: Add new CLI options to enhance README customization:
-  - `--align`: adjust the alignment of the README header elements.
+  - `--alignment`: adjust the alignment of the README header elements.
   - `--api`: run the tool using the Google Vertex AI, OpenAI, or offline without an API key.
   - `--badge-color`: option to change the color of the badge icons in the README header.
   - `--image`: option to include a project logo (file path, url, multimodal api) in the README header.

@@ -1,69 +1,65 @@
-<div align="center">
 <p align="center">
-  <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100" />
+  <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100" alt="project-logo">
 </p>
 <p align="center">
     <h1 align="center">DOCKER-GS-PING</h1>
 </p>
 <p align="center">
-    <em>Fast, reliable pinging in just one container!</em>
+    <em>Deploy. Ping. Simplified. Docker-gs-ping.</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/github/license/olliefr/docker-gs-ping?style=plastic" alt="license">
-	<img src="https://img.shields.io/github/last-commit/olliefr/docker-gs-ping?style=plastic" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/olliefr/docker-gs-ping?style=plastic" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/olliefr/docker-gs-ping?style=plastic" alt="repo-language-count">
+	<img src="https://img.shields.io/github/license/olliefr/docker-gs-ping?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/olliefr/docker-gs-ping?style=for-the-badge&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/olliefr/docker-gs-ping?style=for-the-badge&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/olliefr/docker-gs-ping?style=for-the-badge&color=0080ff" alt="repo-language-count">
 <p>
 <p align="center">
-		<em>Developed with the software and tools below</em>
+		<em>Developed with the software and tools below.</em>
 </p>
 <p align="center">
-	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=plastic&logo=YAML&logoColor=white" alt="YAML">
-	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=plastic&logo=Docker&logoColor=white" alt="Docker">
-	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=plastic&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
-	<img src="https://img.shields.io/badge/Go-00ADD8.svg?style=plastic&logo=Go&logoColor=white" alt="Go">
+	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white" alt="Docker">
+	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+	<img src="https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=Go&logoColor=white" alt="Go">
 </p>
-</div>
-<hr>
 
-## 🔗 Quick Links
-- [🔗 Quick Links](#-quick-links)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary><h4>Table of Contents</h4></summary>
+
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
 - [📂 Repository Structure](#-repository-structure)
-- [🧩 Modules](#modules)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
-    - [⚙️ Installation](#-installation)
-    - [🤖 Running docker-gs-ping](#-running-docker-gs-ping)
-    - [🧪 Tests](#-tests)
-- [🛠 Roadmap](#-roadmap)
+  - [⚙️ Install](#️-install)
+  - [► Using docker-gs-ping](#-using-docker-gs-ping)
+  - [🧪 Tests](#-tests)
+- [🛠 Project Roadmap](#-project-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
-
----
+</details>
+<hr>
 
 ## 📍 Overview
 
-Docker-gs-ping is a project that provides a simple ping service built on Docker and Go. Its core functionality revolves around responding to HTTP requests with a pong message. The purpose of the project is to demonstrate the usage of Docker to containerize a Go application and deploy it as a microservice. By showcasing the seamless integration of Docker and Go, the project highlights the value proposition of containerization and its benefits for easy deployment and scaling of applications.
+The **docker-gs-ping** project is a Dockerized Go application that leverages the Echo framework to create an HTTP server with basic endpoints. The project's core functionality includes building, testing, and deploying the application using multistage Dockerfiles. It incorporates middleware for logging and recovery, along with a custom integer minimum function. The repository includes automated CI/CD workflows for testing and deployment, ensuring the application's integrity. With its streamlined Docker container deployment and robust testing processes, docker-gs-ping offers a reliable solution for building and scaling Go web applications efficiently.
 
 ---
 
 ## 📦 Features
 
-|    | Feature           | Description                                                                                                       |
-|----|--------------------|--------------------------------------------------------------------------------------------------------------------|
-| ⚙️ | **Architecture**    | The codebase follows a simple and straightforward architecture, consisting of a single microservice implemented in Go.|
-| 📄 | **Documentation**  | The codebase includes a README file, providing comprehensive instructions on building, running, and deploying the microservice.|
-| 🔗 | **Dependencies**   | The microservice uses a minimal set of dependencies, including the Go standard library and the `github.com/gorilla/mux` package for routing.|
-| 🧩 | **Modularity**     | The microservice is well-organized into smaller, cohesive components such as handlers, services, and models. The code follows the principles of separation of concerns and modularity.|
-| 🧪 | **Testing**        | The codebase includes unit tests written in Go's standard testing framework. The tests cover the main functionalities of the microservice and can be executed using the `go test` command.|
-| ⚡️ | **Performance**     | The microservice is designed to be lightweight and efficient. It utilizes Goroutines and channels to handle concurrent requests efficiently. The performance can be further improved by implementing caching mechanisms.|
-| 🔐 | **Security**       | The codebase demonstrates basic security measures, such as handling errors, validating input, and preventing SQL injection using prepared statements. However, it lacks advanced security features like authentication and authorization.|
-| 🔀 | **Version Control**| The codebase is hosted on GitHub and utilizes Git for version control. It includes a well-maintained commit history and branches for feature development and bug fixes.|
-| 🔌 | **Integrations**   | The microservice interacts with external systems by exposing a RESTful API. It does not have direct integrations with other systems, but it can be easily integrated with other services through HTTP requests and JSON payloads. |
-
-Overall, the codebase is well-structured and follows best practices for building a Go microservice. It provides clear instructions for building and running the application, as well as a straightforward design that can be easily understood and extended. However, there is room for improvements in terms of documentation and security features.
+|    |   Feature         | Description |
+|----|-------------------|---------------------------------------------------------------|
+| ⚙️  | **Architecture**  | *The project follows a containerized architecture using Docker, with a focus on building and deploying a Go application with exposed port 8080 for listening. It includes a multistage Dockerfile for efficient image builds.* |
+| 🔩 | **Code Quality**  | *The codebase maintains good quality and style with unit tests for basic and table-driven scenarios. Includes middleware setup for logging and recovery and a focus on accurate functionality.* |
+| 📄 | **Documentation** | *The project provides good documentation, including a detailed go.mod file defining dependencies, Dockerfile descriptions, test scenarios, and automated CI/CD workflows using GitHub Actions.* |
+| 🔌 | **Integrations**  | *Key integrations and dependencies include Echo v4, jwt, gommon, and more for building an HTTP server. External integrations like GitHub Actions streamline testing and deployment processes.* |
+| 🧩 | **Modularity**    | *The codebase is modular and reusable, evident from the structured setup of endpoints, middleware, and the integer minimum function implementation. Promotes code reusability and scalability.* |
+| 🧪 | **Testing**       | *Unit tests are implemented for ensuring accurate functionality of the codebase. Testing frameworks and tools used for validating the IntMin function and overall system integrity.* |
+| ⚡️  | **Performance**   | *Efficiently handles resource usage with a multistage Dockerfile for building, testing, and deploying. Employs middleware for logging and recovery, ensuring a fast and reliable HTTP server setup.* |
+| 🛡️ | **Security**      | *Security measures include dependency checksums generated from go.sum for Docker image builds, ensuring secure and reliable deployment. Integrations like jwt provide additional security features.* |
+| 📦 | **Dependencies**  | *Key external libraries and dependencies include Echo v4, jwt, gommon, crypto packages, among others. Dependency management via go.mod and go.sum files for streamlined builds.* |
 
 ---
 
@@ -71,17 +67,16 @@ Overall, the codebase is well-structured and follows best practices for building
 
 ```sh
 └── docker-gs-ping/
-    ├── .github/
-    │   └── workflows/
-    │       ├── ci-cd.yml
-    │       └── ci-smoketest.yml
+    ├── .github
+    │   └── workflows
     ├── Dockerfile
     ├── Dockerfile.multistage
+    ├── LICENSE
+    ├── README.md
     ├── go.mod
     ├── go.sum
     ├── main.go
     └── main_test.go
-
 ```
 
 ---
@@ -90,23 +85,23 @@ Overall, the codebase is well-structured and follows best practices for building
 
 <details closed><summary>.</summary>
 
-| File                                                                                               | Summary                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---                                                                                                | ---                                                                                                                                                                                                                                                                                                                                                                                           |
-| [go.mod](https://github.com/olliefr/docker-gs-ping/blob/main/go.mod)                               | The code snippet in the `docker-gs-ping` repository is a Dockerfile that builds a Go application for pinging a server. It uses the `echo` framework for handling HTTP requests.                                                                                                                                                                                                               |
-| [Dockerfile](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile)                       | This code snippet is part of the parent repository's Docker image build process. It sets up the necessary environment, downloads dependencies, copies the source code, builds the application, and defines the default port for the application to listen on. The resulting Docker image can be used to run the application.                                                                  |
-| [go.sum](https://github.com/olliefr/docker-gs-ping/blob/main/go.sum)                               | This code snippet, located in the docker-gs-ping repository, includes a Dockerfile and related files for building and deploying a Docker image. It uses various dependencies and software packages to enable the ping functionality.                                                                                                                                                          |
-| [Dockerfile.multistage](https://github.com/olliefr/docker-gs-ping/blob/main/Dockerfile.multistage) | The code snippet is part of a repository for a Dockerized Go application. It builds, tests, and deploys the application into a lightweight container image using multi-stage Docker builds. The code also exposes port 8080 and sets a non-root user as the container's entrypoint.                                                                                                           |
-| [main.go](https://github.com/olliefr/docker-gs-ping/blob/main/main.go)                             | This code snippet is the main file in the repository's architecture. It sets up a web server using the Echo framework, with routes for the root endpoint and a health check endpoint. It also includes middleware for logging and error recovery. The code listens on a specified port and starts the server. Additionally, it has a helper function for finding the minimum of two integers. |
-| [main_test.go](https://github.com/olliefr/docker-gs-ping/blob/main/main_test.go)                   | This code snippet contains unit tests for the `IntMin` function. It includes two test cases: `TestIntMinBasic` and `TestIntMinTableDriven`. The tests ensure that the function returns the correct minimum value.                                                                                                                                                                             |
+| File                                                                                                 | Summary                                                                                                                                                         |
+| ---                                                                                                  | ---                                                                                                                                                             |
+| [go.mod](https://github.com/olliefr/docker-gs-ping/blob/master/go.mod)                               | Docker-gs-ping's go.mod defines dependencies for Echo v4, jwt, gommon, and more.                                                                                |
+| [Dockerfile](https://github.com/olliefr/docker-gs-ping/blob/master/Dockerfile)                       | Builds a Go application in a Docker container, enabling easy deployment with exposed port 8080 for listening.                                                   |
+| [go.sum](https://github.com/olliefr/docker-gs-ping/blob/master/go.sum)                               | Generates dependencies checksums from go.sum for Docker image builds in the parent repository.                                                                  |
+| [Dockerfile.multistage](https://github.com/olliefr/docker-gs-ping/blob/master/Dockerfile.multistage) | Multistage Dockerfile for building, testing, and deploying Go application into a minimal image with distroless base.                                            |
+| [main.go](https://github.com/olliefr/docker-gs-ping/blob/master/main.go)                             | Implements an HTTP server using Echo framework with basic endpoints. Includes middleware setup for logging and recovery. Incorporated integer minimum function. |
+| [main_test.go](https://github.com/olliefr/docker-gs-ping/blob/master/main_test.go)                   | Unit tests for basic and table-driven scenarios, ensuring accurate functionality of the IntMin function within the repository's architecture.                   |
 
 </details>
 
 <details closed><summary>.github.workflows</summary>
 
-| File                                                                                                       | Summary                                                                                                                                                                                                                                                                              |
-| ---                                                                                                        | ---                                                                                                                                                                                                                                                                                  |
-| [ci-cd.yml](https://github.com/olliefr/docker-gs-ping/blob/main/.github/workflows/ci-cd.yml)               | The code snippet is responsible for building and testing the application in a Docker container, caching layers for performance optimization, and pushing the release to Docker Hub. It uses GitHub Actions for CI/CD automation and Docker-related actions for container operations. |
-| [ci-smoketest.yml](https://github.com/olliefr/docker-gs-ping/blob/main/.github/workflows/ci-smoketest.yml) | This code snippet is a smoke test in the parent repository's CI/CD workflow. It builds and tests the code using the Go toolchain in a GitHub runner. The test is triggered on any push to the repository and can also be manually triggered.                                         |
+| File                                                                                                         | Summary                                                                                                                                    |
+| ---                                                                                                          | ---                                                                                                                                        |
+| [ci-cd.yml](https://github.com/olliefr/docker-gs-ping/blob/master/.github/workflows/ci-cd.yml)               | Automated CI/CD workflows configured for the Dockerized Go application using GitHub Actions. Streamlines testing and deployment processes. |
+| [ci-smoketest.yml](https://github.com/olliefr/docker-gs-ping/blob/master/.github/workflows/ci-smoketest.yml) | Automated CI smoketest workflow ensures the Dockerized Go application's functionality and integrity.                                       |
 
 </details>
 
@@ -118,35 +113,40 @@ Overall, the codebase is well-structured and follows best practices for building
 
 Ensure you have the following dependencies installed on your system:
 
-* Go: `► INSERT-VERSION-HERE`
-* `► ...`
-* `► ...`
+* **Go**: `version x.y.z`
 
-### ⚙️ Installation
+### ⚙️ Install
 
 1. Clone the docker-gs-ping repository:
+
 ```sh
 git clone https://github.com/olliefr/docker-gs-ping
 ```
 
 2. Change to the project directory:
+
 ```sh
 cd docker-gs-ping
 ```
 
 3. Install the dependencies:
+
 ```sh
 go build -o myapp
 ```
 
-### 🤖 Running docker-gs-ping
+### ► Using `docker-gs-ping`
+
 Use the following command to run docker-gs-ping:
+
 ```sh
 ./myapp
 ```
 
 ### 🧪 Tests
-To execute tests, run:
+
+Use the following command to run tests:
+
 ```sh
 go test
 ```
@@ -165,35 +165,43 @@ go test
 
 Contributions are welcome! Here are several ways you can contribute:
 
+- **[Report Issues](https://github.com/olliefr/docker-gs-ping/issues)**: Submit bugs found or log feature requests for the `docker-gs-ping` project.
 - **[Submit Pull Requests](https://github.com/olliefr/docker-gs-ping/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
 - **[Join the Discussions](https://github.com/olliefr/docker-gs-ping/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/olliefr/docker-gs-ping/issues)**: Submit bugs found or log feature requests for docker-gs-ping.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
 
-1. **Fork the Repository**: Start by forking the project repository to your GitHub account.
-2. **Clone Locally**: Clone the forked repository to your local machine using a Git client.
+1. **Fork the Repository**: Start by forking the project repository to your github account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
    ```sh
-   git clone <your-forked-repo-url>
+   git clone https://github.com/olliefr/docker-gs-ping
    ```
 3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
    ```sh
    git checkout -b new-feature-x
    ```
 4. **Make Your Changes**: Develop and test your changes locally.
-5. **Commit Your Changes**: Commit with a clear and concise message describing your updates.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
    ```sh
    git commit -m 'Implemented new feature x.'
    ```
-6. **Push to GitHub**: Push the changes to your forked repository.
+6. **Push to github**: Push the changes to your forked repository.
    ```sh
    git push origin new-feature-x
    ```
 7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+</details>
 
-Once your PR is reviewed and approved, it will be merged into the main branch.
-
+<details closed>
+<summary>Contributor Graph</summary>
+<br>
+<p align="left">
+   <a href="https://github.com{/olliefr/docker-gs-ping/}graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=olliefr/docker-gs-ping">
+   </a>
+</p>
 </details>
 
 ---
@@ -208,6 +216,6 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 
 - List any resources, contributors, inspiration, etc. here.
 
-[**Return**](#-quick-links)
+[**Return**](#-overview)
 
 ---
