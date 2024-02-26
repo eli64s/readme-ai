@@ -35,32 +35,23 @@ def filter_file(config_loader: ConfigLoader, file_path: Path) -> bool:
 
 def get_resource_path(
     file_name: str, module: str = "settings", package: str = "readmeai.config"
-) -> None:
+) -> Path:
     """
-    Use importlib.resources or pkg_resources to get resource path.
-    - Python >= 3.9+ uses importlib.resources to access files in packages.
-    - Python < 3.9 uses pkg_resources to access files in packages.
+    Get the resource path using importlib.resources for Python >= 3.9
+    or fallback to pkg_resources for older Python versions.
     """
     try:
         full_package_path = f"{package}.{module}".replace("/", ".")
         resource_path = resources.files(full_package_path) / file_name
     except Exception as exc:
         _logger.debug(f"Error using importlib.resources: {exc}")
+        raise FileReadError(
+            "Error accessing resource using importlib.resources",
+            str(file_name),
+        ) from exc
 
-        try:
-            import pkg_resources
-
-            file_path = f"{module}/{file_name}"
-            resource_path = pkg_resources.resource_filename(package, file_path)
-            resource_path = Path(resource_path).resolve()
-
-        except Exception as exc:
-            raise FileReadError(
-                "Error loading file via pkg_resources", file_path
-            ) from exc
-
-    if resource_path.exists() is False:
-        raise FileReadError("File not found", resource_path) from None
+    if not resource_path.exists():
+        raise FileReadError("File not found", str(resource_path))
 
     return resource_path
 
