@@ -18,6 +18,8 @@ filenames=(
     "readme-java"
     "readme-fastapi-redis"
     "readme-mlops"
+    "readme-vertexai"
+    "readme-offline"
 )
 repositories=(
     #"https://github.com/BerriAI/litellm"
@@ -35,11 +37,13 @@ repositories=(
     "https://github.com/avjinder/Minimal-Todo"
     "https://github.com/FerrariDG/async-ml-inference"
     "https://github.com/GokuMohandas/mlops-course"
+    "https://github.com/eli64s/readme-ai"
+    "https://github.com/eli64s/readme-ai-streamlit"
 )
 align=("left" "center")
-badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge" "skills" "skills-light")
+badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge") # "skills" "skills-light")
 image=("blue" "black" "cloud" "gradient" "grey" "purple")
-badge_color=("blue" "green" "red" "yellow" "orange" "pink" "purple" "blueviolet" "white" "black" "brightgreen" "ff69b4" "999999")
+badge_color=("blue" "green" "cyan" "yellow" "orange" "purple" "blueviolet" "white" "black" "brightgreen" "ff69b4" "999999")
 
 for index in "${!repositories[@]}"; do
     repo="${repositories[$index]}"
@@ -50,11 +54,19 @@ for index in "${!repositories[@]}"; do
     alignment=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
 
-    cmd="python3 -m readmeai.cli.commands -o \"$filename\" -r \"$repo\""
-    #cmd="readmeai -o \"$filename\" -r \"$repo\""
+    # cmd="python3 -m readmeai.cli.main --tree-depth 2 -o \"$filename\" -r \"$repo\""
+    # cmd="pipx run readmeai -o \"$filename\" -r \"$repo\""
+
+    if [ $index -eq $((${#repositories[@]} - 2)) ]; then
+        cmd="python3 -m readmeai.cli.main --api vertex -o "$filename" -r "$repo""
+    elif [ $index -eq $((${#repositories[@]} - 1)) ]; then
+        cmd="python3 -m readmeai.cli.main --api offline -o "$filename" -r "$repo""
+    else
+        cmd="python3 -m readmeai.cli.main --api openai --tree-depth 2 -o "$filename" -r "$repo""
+    fi
 
     if [ "$random_badge" != "default" ]; then
-        cmd+=" -b \"$random_badge\""
+        cmd+=" --badge-style \"$random_badge\""
     fi
     if [ "$image_style" != "blue" ]; then
         cmd+=" -i \"$image_style\""
