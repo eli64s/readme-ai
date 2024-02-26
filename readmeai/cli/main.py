@@ -4,15 +4,15 @@ from typing import Optional
 
 import click
 
-from readmeai.app import readme_agent
 from readmeai.cli import options
+from readmeai.readmeai import readme_agent
 
 
 @click.command()
-@options.align
+@options.alignment
 @options.api
-@options.badges
 @options.badge_color
+@options.badge_style
 @options.emojis
 @options.image
 @options.language
@@ -23,11 +23,11 @@ from readmeai.cli import options
 @options.temperature
 @options.tree_depth
 @options.template
-def commands(
-    align: Optional[str],
+def main(
+    alignment: Optional[str],
     api: str,
-    badges: Optional[str],
     badge_color: Optional[str],
+    badge_style: Optional[str],
     emojis: Optional[bool],
     image: Optional[str],
     language: Optional[str],
@@ -41,10 +41,10 @@ def commands(
 ) -> None:
     """Entry point for the readme-ai CLI application."""
     readme_agent(
-        align=align,
+        alignment=alignment,
         api=api,
-        badges=badges,
         badge_color=badge_color,
+        badge_style=badge_style,
         emojis=emojis,
         image=image,
         # language=language,
@@ -59,4 +59,4 @@ def commands(
 
 
 if __name__ == "__main__":
-    commands()
+    main()

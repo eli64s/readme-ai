@@ -6,7 +6,7 @@ from typing import Optional
 
 import click
 
-from readmeai.config.enums import BadgeOptions, ImageOptions, LLMOptions
+from readmeai.config.enums import BadgeOptions, ImageOptions, ModelOptions
 
 
 def prompt_for_image(
@@ -15,19 +15,19 @@ def prompt_for_image(
     value: Optional[str],
 ) -> str:
     """Prompt the user for a custom image URL."""
-    if value == ImageOptions.FILE.name:
-        return click.prompt("Provide an image file path: ")
-    elif value == ImageOptions.URL.name:
-        return click.prompt("Provide an image URL: ")
+    if value == ImageOptions.CUSTOM.name:
+        return click.prompt("Provide an image file path or URL")
+    elif value == ImageOptions.LLM.name:
+        ...
     elif value in ImageOptions.__members__:
         return ImageOptions[value].value
     else:
-        raise click.BadParameter(f"Invalid image URL provided: {value}")
+        raise click.BadParameter(f"Invalid image path entered: {value}")
 
 
-align = click.option(
+alignment = click.option(
     "-a",
-    "--align",
+    "--alignment",
     type=click.Choice(["center", "left"], case_sensitive=False),
     default="center",
     help="Align the text in the README.md file's header to the left or center.",
@@ -35,19 +35,28 @@ align = click.option(
 
 api = click.option(
     "--api",
-    type=click.Choice([opt.value for opt in LLMOptions], case_sensitive=False),
+    type=click.Choice(
+        [opt.value for opt in ModelOptions], case_sensitive=False
+    ),
     default=None,
     help="""LLM service to use for generating the README.md file. The following options are currently supported:\n
 
     - OFFLINE (Generate the README.md file without making any API calls) \n
+    - OLLAMA (Ollama LLM) \n
     - OPENAI (OpenAI GPT-3.5) \n
     - VERTEX (Google Vertex AI) \n
     """,
 )
 
-badges = click.option(
-    "-b",
-    "--badges",
+badge_color = click.option(
+    "--badge-color",
+    type=str,
+    default="0080ff",
+    help="Custom color for the badge icon. Provide a valid color name or hex code.",
+)
+
+badge_style = click.option(
+    "--badge-style",
     type=click.Choice(
         [opt.value for opt in BadgeOptions], case_sensitive=False
     ),
@@ -63,13 +72,6 @@ badges = click.option(
         - skills-light \n
         - social \n
         """,
-)
-
-badge_color = click.option(
-    "--badge-color",
-    type=str,
-    default="0080ff",
-    help="Custom color for the badge icon. Provide a valid color name or hex code.",
 )
 
 emojis = click.option(
@@ -92,6 +94,10 @@ image = click.option(
     help="""\
         Project logo image displayed in the README file header. The following options are currently supported:\n
 
+        Custom image options:\n
+        - CUSTOM (use a custom image file path or URL) \n
+        - LLM (use LLM multi-modal capabilities to generate an image) \n
+
         Default image options:\n
         - BLACK \n
         - BLUE \n
@@ -99,11 +105,6 @@ image = click.option(
         - GRADIENT \n
         - GREY \n
         - PURPLE \n
-
-        Custom image options:\n
-        - FILE (use a local file path to an image) \n
-        - LLM (use LLM multi-modal capabilities to generate an image) \n
-        - URL (use a custom image URL) \n
         """,
 )
 
@@ -116,7 +117,7 @@ language = click.option(
 
 max_tokens = click.option(
     "--max-tokens",
-    default=3899,
+    default=3999,
     type=int,
     help="Maximum number of tokens to generate for each section of the README.md file.",
 )
@@ -145,7 +146,7 @@ repository = click.option(
 temperature = click.option(
     "-t",
     "--temperature",
-    default=1.0,
+    default=0.9,
     type=click.FloatRange(0.0, 2.0, clamp=True),
     help="Setting the model's temperature to a higher value will yield more creative content generated, while a lower value will generate more predictable content.",
 )
@@ -158,7 +159,7 @@ template = click.option(
 
 tree_depth = click.option(
     "--tree-depth",
-    default=5,
+    default=3,
     type=int,
     help="Maximum depth of the directory tree thats included in the README.md file.",
 )
