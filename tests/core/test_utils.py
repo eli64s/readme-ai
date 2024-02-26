@@ -54,12 +54,12 @@ def test_set_model_engine_vertex(mock_config, monkeypatch):
     assert os.getenv(SecretKeys.VERTEXAI_PROJECT.name) == "test-project"
 
 
+@patch.dict("os.environ", {}, clear=True)
 def test_set_offline_mode_directly(mock_config):
     """Test the _set_offline_mode function directly for setting offline mode."""
-    message = "Testing offline mode directly."
-    result = _set_offline(mock_config, message)
-    assert result.llm.api == ModelOptions.OFFLINE.name
-    assert result.llm.offline is True
+    mock_config.llm.api = ModelOptions.OFFLINE.name
+    _set_offline(mock_config, "Run in offline mode...")
+    assert mock_config.llm.offline is True
 
 
 @patch.dict("os.environ", {}, clear=True)

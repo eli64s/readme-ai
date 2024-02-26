@@ -56,6 +56,16 @@ def test_format_response_no_table():
         ("'hello world'", "Hello world"),
         ("Clear, Concise, Captivating**", "Clear, Concise, Captivating"),
         ("main.py** : hello world!", "Hello world!"),
+        ("AI-Driven, Streamlined Success'", "AI-Driven, Streamlined Success"),
+        (
+            "**AI-Driven, Streamlined Success**",
+            "AI-Driven, Streamlined Success",
+        ),
+        ("**AI-Driven, Streamlined Success", "AI-Driven, Streamlined Success"),
+        (
+            "'\AI-Driven, Streamlined Success!",
+            "AI-Driven, Streamlined Success!",
+        ),
     ],
 )
 def test_clean_text(input_text, expected):

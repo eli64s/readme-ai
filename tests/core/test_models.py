@@ -113,6 +113,7 @@ async def test_batch_request(handler, mock_dependencies, mock_summaries):
     """Test the handling of the response from the OpenAI API."""
     # Arrange
     handler.http_client = MagicMock()
+    handler._handle_response = AsyncMock()
     # Act
     test_response = await handler.batch_request(
         mock_dependencies, mock_summaries

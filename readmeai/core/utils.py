@@ -52,18 +52,18 @@ def set_model_engine(config: Settings) -> None:
             config.llm.model = config.llm.model
             config.llm.offline = False
             _logger.info("Running CLI with OpenAI API llm engine...")
-            return config
+
         elif vertex_env:
             config.llm.api = ModelOptions.VERTEX.name
             config.llm.model = "gemini-pro"
             config.llm.offline = False
             _logger.info("Running CLI with Google Vertex AI llm engine...")
-            return config
+
         elif config.llm.api == ModelOptions.OLLAMA.name:
             config.llm.model = "ollama"
             config.llm.offline = False
             _logger.info("Running CLI with Ollama llm engine...")
-            return config
+
         else:
             if config.llm.api == ModelOptions.OFFLINE.name:
                 message = "Offline mode enabled by user via CLI."
@@ -71,7 +71,7 @@ def set_model_engine(config: Settings) -> None:
                 message = (
                     "\n\n\t\t...No LLM API settings exist in environment..."
                 )
-            return _set_offline(config, message)
+                _set_offline(config, message)
 
     elif llm_engine is not None:
         _logger.info(f"LLM API CLI input received: {llm_engine}")
@@ -82,9 +82,9 @@ def set_model_engine(config: Settings) -> None:
                 config.llm.model = config.llm.model
                 config.llm.offline = False
                 _logger.info("OpenAI settings found in environment!")
-                return config
+
             else:
-                return _set_offline(
+                _set_offline(
                     config,
                     "\n\t\t...OpenAI settings NOT FOUND in environment...",
                 )
@@ -94,7 +94,6 @@ def set_model_engine(config: Settings) -> None:
             config.llm.model = "ollama"
             config.llm.offline = False
             _logger.info("Ollama settings found in environment!")
-            return config
 
         elif llm_engine == ModelOptions.VERTEX.name:
             if (
@@ -104,10 +103,9 @@ def set_model_engine(config: Settings) -> None:
                 config.llm.model = "gemini-pro"
                 config.llm.offline = False
                 _logger.info("Vertex AI settings found in environment!")
-                return config
 
             else:
-                return _set_offline(
+                _set_offline(
                     config,
                     "\n\t\t...Vertex AI settings NOT FOUND in environment...",
                 )
@@ -117,7 +115,7 @@ def set_model_engine(config: Settings) -> None:
                 message = "\n\t\t...Offline mode enabled by user..."
             else:
                 message = "Invalid LLM API service provided!"
-            return _set_offline(config, message)
+            _set_offline(config, message)
 
 
 def _scan_environ(keys: list[str]) -> bool:
@@ -141,4 +139,3 @@ def _set_offline(config: Settings, log_msg: str) -> Settings:
     )
     config.llm.api = ModelOptions.OFFLINE.name
     config.llm.offline = True
-    return config

@@ -153,7 +153,7 @@ class BaseModelHandler(ABC):
         additional_responses = await self._batch_prompts(additional_prompts)
 
         synthesize_features_table_prompt = await set_feature_context(
-            additional_responses[0],
+            additional_responses[0]
         )
         synthesize_features_table_response = await self._batch_prompts(
             synthesize_features_table_prompt
@@ -259,13 +259,10 @@ class BaseModelHandler(ABC):
             prompt = self.prompts["prompts"]["file_summary"].format(
                 self.config.md.tree, file_path, file_content
             )
-
             tokens = update_max_tokens(self.tokens, prompt)
-
             _, summary_or_error = await self._handle_response(
                 file_path, prompt, tokens
             )
-
             summary_text.append((file_path, summary_or_error))
 
         return summary_text

@@ -68,7 +68,7 @@ File path: {1}
 File contents: {2}
 ================================================================================
 Additionally, avoid using words like `This file`, `This code`, etc. in your response. \
-Use concise language and ensure the summary response is no more than 50 tokens.
+Use concise language and ensure the summary response is no more than 60 tokens.
 """
 
 overview = """Analyze the codebase named {0} ({1}) and provide a robust, yet succinct overview of the project. \

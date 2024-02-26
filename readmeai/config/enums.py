@@ -1,4 +1,4 @@
-"""Enum classes for the readme-ai CLI."""
+"""Enums for the CLI options, used to customize the README file."""
 
 from enum import Enum
 

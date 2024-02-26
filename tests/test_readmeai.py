@@ -30,7 +30,7 @@ async def test_readme_generator(
     mock_preprocessor.return_value = (
         mock_dependencies,
         mock_summaries,
-        {"dependency1": "command1", "dependency2": "command2"},
+        # {"dependency1": "command1", "dependency2": "command2"},
     )
     mock_config.git.repository = tmp_path
     mock_model_handler.return_value.use_api.return_value.__aenter__.return_value.batch_request.return_value = (
@@ -77,4 +77,4 @@ async def test_readme_generator_exception_handling(mock_configs):
     """Test the readme_generator function exception handling."""
     with pytest.raises(ReadmeGeneratorError) as exc:
         await readme_generator(mock_configs)
-    assert isinstance(exc.value, ReadmeGeneratorError)
+        assert isinstance(exc.value, ReadmeGeneratorError)

@@ -12,6 +12,10 @@ def clean_text(text: str) -> str:
     # Remove any text before and including "**:"
     text = re.sub(r"\*\*:\s*", "", text, flags=re.DOTALL)
 
+    # Remove single and double quotes that are missing their closing counterpart
+    text = re.sub(r"['\"](.*?)$", r"\1", text)
+    text = re.sub(r"^(.*?)['\"]", r"\1", text)
+
     # Remove specific pattern and rephrase
     text = re.sub(
         r"\*\*Code Summary:\*\*\s*(.*?)\s*provides functions to",

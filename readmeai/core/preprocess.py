@@ -11,7 +11,7 @@ from readmeai.models.tokens import count_tokens
 from readmeai.parsers.factory import parser_handler
 from readmeai.utils.logger import Logger
 
-GITHUB_ACTIONS_PATH = ".github/workflows"
+_github_actions_path = ".github/workflows"
 
 
 @dataclass
@@ -113,7 +113,7 @@ class RepositoryProcessor:
                         file_data.file_name
                     ] = file_data.dependencies
 
-                if GITHUB_ACTIONS_PATH in str(file_data.file_path):
+                if _github_actions_path in str(file_data.file_path):
                     dependencies.add("github actions")
 
             return list(dependencies), dependency_dict
@@ -143,7 +143,7 @@ class RepositoryProcessor:
         Processes an individual file path and returns FileContext.
         """
         relative_path = file_path.relative_to(repo_path)
-        if GITHUB_ACTIONS_PATH in str(relative_path):
+        if _github_actions_path in str(relative_path):
             return FileContext(
                 file_path=relative_path,
                 file_name="github actions",
@@ -205,8 +205,8 @@ def preprocessor(
     config = config_loader.config
     repo_processor = RepositoryProcessor(config_loader)
     repo_context = repo_processor.generate_contents(temp_dir)
-    # repo_context = repo_processor.tokenize_content(repo_context)
     repo_context = repo_processor.language_mapper(repo_context)
+    # repo_context = repo_processor.tokenize_content(repo_context)
 
     dependencies, dependency_dict = repo_processor.get_dependencies(
         repo_context
@@ -220,4 +220,4 @@ def preprocessor(
         config_loader, dependencies, raw_files, temp_dir
     ).md_tree
 
-    return dependencies, raw_files, dependency_dict
+    return dependencies, raw_files
