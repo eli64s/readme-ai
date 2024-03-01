@@ -87,14 +87,14 @@ class OpenAIHandler(BaseModelHandler):
     ) -> Tuple[str, str]:
         """Processes OpenAI API LLM responses and returns generated text."""
         try:
-            prompt = await token_handler(self.config, index, prompt, tokens)
+            parameters = await self._build_payload(prompt, tokens)
 
-            data = await self._build_payload(prompt, tokens)
+            prompt = await token_handler(self.config, index, prompt, tokens)
 
             async with self._session.post(
                 self.endpoint,
                 headers=self.headers,
-                json=data,
+                json=parameters,
             ) as response:
                 response.raise_for_status()
                 response = await response.json()

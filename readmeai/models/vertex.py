@@ -33,11 +33,12 @@ class VertexAIHandler(BaseModelHandler):
         """Initializes the Vertex AI LLM settings."""
         self.location = os.environ.get("VERTEXAI_LOCATION")
         self.project_id = os.environ.get("VERTEXAI_PROJECT")
+        self.model_id = self.config.llm.model
         self.temperature = self.config.llm.temperature
         self.tokens = self.config.llm.tokens
         self.top_p = self.config.llm.top_p
-        vertexai.init(location=self.location, project=self.project_id)
-        self.model = GenerativeModel(self.config.llm.model)
+        vertexai.init(project=self.project_id, location=self.location)
+        self.model = GenerativeModel(self.model_id)
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict:
         """Build payload for POST request to Vertex AI API."""
@@ -67,18 +68,18 @@ class VertexAIHandler(BaseModelHandler):
     ) -> Tuple[str, str]:
         """Processes Vertex AI LLM API responses and returns generated text."""
         try:
-            prompt = await token_handler(self.config, index, prompt, tokens)
+            parameters = await self._build_payload(prompt, tokens)
 
-            data = await self._build_payload(prompt, tokens)
+            prompt = await token_handler(self.config, index, prompt, tokens)
 
             async with self.rate_limit_semaphore:
                 response = await self.model.generate_content_async(
                     prompt,
-                    generation_config=data,
+                    generation_config=parameters,
                 )
-                content = response.candidates[0].content.parts[0].text
-                self._logger.info(f"Response for '{index}':\n{content}")
-                return index, clean_response(index, content)
+                response_text = response.text
+                self._logger.info(f"Response for '{index}':\n{response_text}")
+                return index, clean_response(index, response_text)
 
         except (
             aiohttp.ClientError,

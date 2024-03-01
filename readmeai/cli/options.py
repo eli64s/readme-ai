@@ -86,7 +86,7 @@ api = click.option(
     - OFFLINE # Offline mode - no LLM service used \n
     - OLLAMA  # Ollama - llama2 \n
     - OPENAI  # OpenAI - gpt-3.5-turbo \n
-    - VERTEX  # Google Cloud Vertex AI - gemini-pro) \n
+    - VERTEX  # Google Cloud Vertex AI - gemini-1.0-pro) \n
     """,
 )
 

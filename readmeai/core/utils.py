@@ -62,7 +62,7 @@ def get_environment(llm_api: str, llm_model: str) -> tuple:
                 _logger.info(_log_message.format("Goolge Cloud Vertex AI"))
                 return (
                     llms.VERTEX.name,
-                    llm_model if llm_model is not None else "gemini-pro",
+                    llm_model if llm_model is not None else "gemini-1.0-pro",
                 )
 
             else:
@@ -97,7 +97,7 @@ def get_environment(llm_api: str, llm_model: str) -> tuple:
             _logger.info(_log_message.format("Vertex AI"))
             return (
                 llms.VERTEX.name,
-                llm_model if llm_model is not None else "gemini-pro",
+                llm_model if llm_model is not None else "gemini-1.0-pro",
             )
 
         else:

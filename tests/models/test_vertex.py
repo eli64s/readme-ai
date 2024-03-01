@@ -12,15 +12,15 @@ from readmeai.models.vertex import VertexAIHandler
 @pytest.mark.asyncio
 async def test_vertex_handler_sets_attributes(vertex_handler):
     """Test that the Vertex AI handler sets the correct attributes."""
-    # Arrange
-    assert hasattr(vertex_handler, "temperature")
+    assert hasattr(vertex_handler, "location")
+    assert hasattr(vertex_handler, "project_id")
     assert hasattr(vertex_handler, "model")
+    assert hasattr(vertex_handler, "temperature")
+    assert hasattr(vertex_handler, "top_p")
 
 
 @pytest.mark.asyncio
-async def test_vertex_make_request_with_context(
-    vertex_handler, mock_config, mock_configs
-):
+async def test_vertex_make_request_with_context(vertex_handler):
     """Test that the Vertex AI handler handles a response with context."""
     # Arrange
     handler = vertex_handler

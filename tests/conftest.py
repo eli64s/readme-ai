@@ -66,7 +66,7 @@ def vertex_handler(mock_configs):
         },
     ):
         mock_configs.config.llm.api = "VERTEX"
-        mock_configs.config.llm.model = "gemini-pro"
+        mock_configs.config.llm.model = "gemini-1.0-pro"
         yield VertexAIHandler(mock_configs)
 
 

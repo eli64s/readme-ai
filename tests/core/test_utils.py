@@ -31,12 +31,12 @@ def test_get_environment_openai(mock_configs):
 def test_get_environment_vertex(mock_configs):
     """Test that the environment is setup correctly for Vertex AI."""
     mock_configs.config.llm.api = ModelOptions.VERTEX.name
-    mock_configs.config.llm.model = "gemini-pro"
+    mock_configs.config.llm.model = "gemini-1.0-pro"
     test_api, test_model = get_environment(
         mock_configs.config.llm.api, mock_configs.config.llm.model
     )
     assert test_api == ModelOptions.VERTEX.name
-    assert test_model == "gemini-pro"
+    assert test_model == "gemini-1.0-pro"
 
 
 @patch.dict("os.environ", {}, clear=True)
@@ -97,7 +97,7 @@ def test_no_api_specified_but_vertex_settings_exist_in_env(mock_configs):
         mock_configs.config.llm.api, mock_configs.config.llm.model
     )
     assert test_api == ModelOptions.VERTEX.name
-    assert test_model == "gemini-pro"
+    assert test_model == "gemini-1.0-pro"
 
 
 @patch.dict("os.environ", {}, clear=True)
