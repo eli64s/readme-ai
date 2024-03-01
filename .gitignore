@@ -54,9 +54,11 @@ Pipfile.lock
 # Work In Progress
 # Configuration Files (wip)
 scripts/test_gen.sh
+readmeai/config/settings/classifiers.toml
 readmeai/config/settings/models.toml
 readmeai/config/settings/quickstart_wip.toml
 readmeai/config/settings/quickstart.toml
+readmeai/utils/file_cleaner.py
 
 # Github Actions
 .github/workflows/ci.yml
