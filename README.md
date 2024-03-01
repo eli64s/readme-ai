@@ -307,8 +307,8 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
 **Choosing an LLM Service:**
 
 - [**OpenAI**](https://platform.openai.com/docs/quickstart/account-setup): Recommended, requires an API key and account setup.
-- [**Google Vertex AI**](https://cloud.google.com/vertex-ai/docs/quickstart): Requires Google Cloud project and service account
 - [**Ollama**](https://github.com/ollama/ollama): Free and open-source, potentially slower and more resource-intensive.
+- [**Google Vertex AI**](https://cloud.google.com/vertex-ai/docs): Requires Google Cloud project and service account
 - [**Offline Mode**](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md): Free, generates a boilerplate README without making API calls.
 
 
@@ -362,8 +362,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 > ```
 
 <details closed>
-  <summary><h4>From <code>source</code></h4>
-  </summary>
+  <summary>From <code>source</code></summary>
 
 > Clone repository and change directory.
 >
@@ -460,8 +459,7 @@ Using `Ollama`
 > <sub>Try directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required! For more details, check out the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository.</sub>
 
 <details closed>
-  <summary><h4>From <code>source</code></h4>
-  </summary>
+  <summary>From <code>source</code></summary>
 
 #### Using `bash`
 >

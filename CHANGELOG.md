@@ -17,13 +17,14 @@ All notable changes to the readme-ai project will be documented in this file.
 
 ---
 
-## [v0.5.64] - *2024-03-01*
+## [v0.5.65] - *2024-03-01*
 
 This release introduces new LLM integrations (`Google Vertex AI` and `Ollama`), enhances the CLI, and improves the project's documentation. Additionally, this release is bumped to version `0.5.64` to align with the PyPI package version.
 
 ## 🚀 Features
 
 ### CLI Options
+
 - feat: Add CLI options to enhance README.md file customization.
   - **`--alignment`**: Rename option to control the alignment of the README header text from *--align* to *--alignment*.
   - **`--api`**: Select LLM API service to use for generating README content - *offline*, *ollama*, *openai*, *vertex*.
@@ -36,10 +37,8 @@ This release introduces new LLM integrations (`Google Vertex AI` and `Ollama`), 
 
 ### LLM Integrations
 
+- feat: Integrate Ollama for local model support. @eli64s (#92)
 - feat: Integrate Google Vertex AI LLM @eli64s (#90)
-  - Export `VERTEXAI_LOCATION` and `VERTEXAI_PROJECT` to environment.
-  - Add CLI flag `--api VERTEX` to use the Google Vertex AI LLM.
-
 
 ## 🧹 Chore
 
