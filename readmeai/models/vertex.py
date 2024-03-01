@@ -13,7 +13,10 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-from vertexai.generative_models import GenerationConfig, GenerativeModel
+from vertexai.preview.generative_models import (
+    GenerationConfig,
+    GenerativeModel,
+)
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.models import BaseModelHandler
@@ -31,11 +34,11 @@ class VertexAIHandler(BaseModelHandler):
 
     def _model_settings(self):
         """Initializes the Vertex AI LLM settings."""
+        self.location = os.environ.get("VERTEXAI_LOCATION")
+        self.project_id = os.environ.get("VERTEXAI_PROJECT")
         self.temperature = self.config.llm.temperature
         self.tokens = self.config.llm.tokens
         self.top_p = self.config.llm.top_p
-        self.location = os.environ.get("VERTEXAI_LOCATION")
-        self.project_id = os.environ.get("VERTEXAI_PROJECT")
         vertexai.init(location=self.location, project=self.project_id)
         self.model = GenerativeModel(self.config.llm.model)
 
@@ -78,8 +81,9 @@ class VertexAIHandler(BaseModelHandler):
                     prompt,
                     generation_config=data,
                 )
-                self._logger.info(f"Response for '{index}':\n{response.text}")
-                return index, clean_response(index, response.text)
+                response_text = response.text
+                self._logger.info(f"Response for '{index}':\n{response_text}")
+                return index, clean_response(index, response_text)
 
         except (
             aiohttp.ClientError,
