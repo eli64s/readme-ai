@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.063"
-description = "👾 Automated README file generator, powered by large language model APIs."
+version = "0.5.064"
+description = "👾 Automated README file generator, powered by LLM APIs."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -15,23 +15,24 @@ keywords = [
     "python",
     "markdown",
     "readme",
-    "generator",
+    "readme-md",
+    "devtools",
     "developer-tools",
     "documentation",
     "documentation-generator",
-    "readme-md",
+    "large-language-models",
+    "generative-ai",
     "readme-generator",
-    "automated-readme",
     "readme-md-generator",
+    "readme-badges",
     "shieldsio-badges",
+    "ollama",
     "openai",
-    "gemini-pro",
-    "vertex-ai",
     "chatgpt",
     "gpt-4",
-    "ai",
+    "genai",
     "llm",
-    "llms",
+    "ai",
 ]
 include = ["readmeai", "readmeai.*"]
 
@@ -44,11 +45,9 @@ aiohttp = "^3.9.3"
 click = "^8.1.7"
 colorlog = "^6.7.0"
 gitpython = "^3.1.31"
-google-cloud-aiplatform = "^1.40.0"
-# ollama = "^0.1.6"
-openai = "1.12.0"
+google-cloud-aiplatform = ">=1.38"
+openai = "*"
 pydantic = ">=1.10.9,<2.0.0"
-pyyaml = "^6.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 toml = "^0.10.2"
@@ -101,7 +100,8 @@ select = [
     "I",
 ]
 ignore = [
-    "E501",  # Line too long
+    # Line too long
+    "E501",
 ]
 
 [tool.coverage.run]
@@ -125,6 +125,7 @@ omit = [
     "readmeai/parsers/package/pip.py",
     "readmeai/parsers/package/nuget.py",
     "readmeai/parsers/package/yarn.py",
+    "readmeai/utils/file_cleaner.py",
 ]
 
 [tool.coverage.report]
