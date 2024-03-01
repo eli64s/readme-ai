@@ -1,18 +1,56 @@
-"""Git operations for cloning and validating repositories."""
+"""
+Git operations for cloning and validating user repositories.
+"""
 
 import os
 import platform
 import shutil
+from enum import Enum
 from pathlib import Path
 from typing import Optional
 
 import git
 
-from readmeai.config.enums import GitService
-from readmeai.exceptions import GitCloneError
-from readmeai.utils.logger import Logger
+from readmeai._exceptions import GitCloneError
+from readmeai.core.logger import Logger
 
 _logger = Logger(__name__)
+
+
+class GitHost(str, Enum):
+    """
+    Enum class for Git service providers. Enum data includes the following:
+        - domain name of the Git service
+        - api url to fetch repository details
+        - file url to format links in the generated README.md file
+    """
+
+    LOCAL = "local"
+    GITHUB = "github.com"
+    GITLAB = "gitlab.com"
+    BITBUCKET = "bitbucket.org"
+
+    @property
+    def api_url(self):
+        """Gets the API URL for the Git service."""
+        api_urls = {
+            "local": None,
+            "github.com": "https://api.github.com/repos/",
+            "gitlab.com": "https://api.gitlab.com/v4/projects/",
+            "bitbucket.org": "https://api.bitbucket.org/2.0/repositories/",
+        }
+        return api_urls[self.value]
+
+    @property
+    def file_url_template(self):
+        """Gets the file URL template for accessing files on the Git service."""
+        file_url_templates = {
+            "local": "{file_path}",
+            "github.com": "https://github.com/{full_name}/blob/master/{file_path}",
+            "gitlab.com": "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
+            "bitbucket.org": "https://bitbucket.org/{full_name}/src/master/{file_path}",
+        }
+        return file_url_templates[self.value]
 
 
 async def clone_repository(repository: str, temp_dir: str) -> str:
@@ -69,7 +107,7 @@ async def fetch_git_api_url(repo_url: str) -> str:
     try:
         parts = repo_url.rstrip("/").split("/")
         repo_name = f"{parts[-2]}/{parts[-1]}"
-        for service in GitService:
+        for service in GitHost:
             if service in repo_url:
                 api_url = f"{service.api_url}{repo_name}"
                 _logger.info(f"{service.name.upper()} API URL: {api_url}")
@@ -84,9 +122,9 @@ async def fetch_git_api_url(repo_url: str) -> str:
 def fetch_git_file_url(file_path: str, full_name: str, repo_url: str) -> str:
     """Returns the URL of the file in the remote repository."""
     if Path(repo_url).exists():
-        return GitService.LOCAL.file_url_template.format(file_path=file_path)
+        return GitHost.LOCAL.file_url_template.format(file_path=file_path)
 
-    for service in GitService:
+    for service in GitHost:
         if service in repo_url:
             return service.file_url_template.format(
                 full_name=full_name, file_path=file_path

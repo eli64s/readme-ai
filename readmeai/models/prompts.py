@@ -1,9 +1,11 @@
-"""Methods for processing prompts used in LLM API requests."""
+"""
+Methods for processing prompts used in LLM API requests.
+"""
 
 from typing import Dict, List, Union
 
 import readmeai.config.settings as Settings
-from readmeai.utils.logger import Logger
+from readmeai.core.logger import Logger
 
 _logger = Logger(__name__)
 
@@ -24,7 +26,6 @@ def get_prompt_template(prompts: dict, prompt_type: str) -> str:
     prompt_templates = {
         # "avatar": prompts["prompts"]["avatar"],
         "features": prompts["prompts"]["features"],
-        "features_synthesized": prompts["prompts"]["features_synthesized"],
         "overview": prompts["prompts"]["overview"],
         "slogan": prompts["prompts"]["slogan"],
     }
@@ -45,7 +46,7 @@ async def set_additional_contexts(
     dependencies: List[str],
     file_summaries: List[str],
 ) -> List[dict]:
-    """Generates additional prompts (features, overview, slogan) for the LLM API."""
+    """Generates additional prompts (features, overview, slogan) for LLM."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
@@ -72,23 +73,6 @@ async def set_additional_contexts(
                     "name": config.git.name,
                     "repo": config.git.repository,
                     "file_summary": file_summaries,
-                },
-            ),
-        ]
-    ]
-
-
-async def set_feature_context(
-    features: str,
-) -> List[dict]:
-    """Generates additional prompts (features, overview, slogan) for the LLM API."""
-    return [
-        {"type": prompt_type, "context": context}
-        for prompt_type, context in [
-            (
-                "features_synthesized",
-                {
-                    "features": features,
                 },
             ),
         ]

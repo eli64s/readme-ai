@@ -17,39 +17,48 @@ All notable changes to the readme-ai project will be documented in this file.
 
 ---
 
-## [v0.5.05] - *2024-02-25*
+## [v0.5.64] - *2024-03-01*
 
-Bump GitHub release version to align with the latest PyPI release.
+This release introduces new LLM integrations (`Google Vertex AI` and `Ollama`), enhances the CLI, and improves the project's documentation. Additionally, this release is bumped to version `0.5.64` to align with the PyPI package version.
 
-## ✨ Features
+## 🚀 Features
+
+### CLI Options
+- feat: Add CLI options to enhance README.md file customization.
+  - **`--alignment`**: Rename option to control the alignment of the README header text from *--align* to *--alignment*.
+  - **`--api`**: Select LLM API service to use for generating README content - *offline*, *ollama*, *openai*, *vertex*.
+  - **`--badge-color`**: Add option to change the color of the badge icons in the README header.
+  - **`--badge-style`**: Rename option to change the style of the badge icons in the README header from *--badges* to *--badge-style*.
+  - **`--image`**: option to include a project logo (file path, url, multimodal api) in the README header.
+  - **`--rate-limit`**: Add option to control the rate limit for the LLM model.
+  - **`--tree-depth`**: Add option to control depth of the generated repository tree structure.
+  - **`--top-p`**: Add option to control the top-p value for the LLM model.
+
+### LLM Integrations
 
 - feat: Integrate Google Vertex AI LLM @eli64s (#90)
-- feat: Add new CLI options to enhance README customization:
-  - `--alignment`: adjust the alignment of the README header elements.
-  - `--api`: run the tool using the Google Vertex AI, OpenAI, or offline without an API key.
-  - `--badge-color`: option to change the color of the badge icons in the README header.
-  - `--image`: option to include a project logo (file path, url, multimodal api) in the README header.
-  - `--tree-depth`: option to control the depth of the repository tree structure in the README file.
+  - Export `VERTEXAI_LOCATION` and `VERTEXAI_PROJECT` to environment.
+  - Add CLI flag `--api VERTEX` to use the Google Vertex AI LLM.
+
 
 ## 🧹 Chore
 
-- chore: Increase `pytest` coverage and integrate `nox` for robust testing.
-- chore: Improve repository preprocessing design and metadata extraction. @eli64s (#83)
-- chore: Refactor markdown generator to use class-based design @eli64s (#82)
+- chore: Increase `pytest` coverage to over 90 percent.
+- chore: Integrate `nox` for testing codebase against multiple Python versions.
+
+## ⚙️ Dependencies
+
+- Reduce number of non-standard library dependencies @eli64s (#84)
 
 ## 📄 Documentation
 
 - Setup and deploy mkdocs site via github-pages @eli64s (#87)
 
-## ⚙️ Dependency Updates
-
-- Reduce number of non-standard library dependencies @eli64s (#84)
-
 ---
 
 ## [v0.1.6] - *2023-10-24*
 
-## ✨ Features
+## 🚀 Features
 
 - refactor: Reduce complexity of markdown table generator methods. @eli64s (#70)
 - enhancement: Add more context to LLM prompts. @eli64s (#69)

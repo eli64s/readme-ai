@@ -1,5 +1,6 @@
-"""Unit tests for the CLI commands module."""
-
+"""
+Tests for the entry point of the CLI.
+"""
 
 from unittest.mock import patch
 
@@ -15,7 +16,7 @@ def runner():
     return CliRunner()
 
 
-@patch("readmeai.readmeai.clone_repository")
+@patch("readmeai._agent.clone_repository")
 def test_commands_with_defaults(mock_clone, runner, temp_dir, tmp_path):
     """Test the commands function with default options."""
     mock_clone.return_value = temp_dir / "repo-dir"

@@ -1,10 +1,11 @@
-"""Tests for building and formatting the markdown tables."""
+"""
+Tests for building and formatting the markdown tables.
+"""
 
 from unittest.mock import patch
 
 from readmeai.generators.tables import (
     construct_markdown_table,
-    create_hyperlink,
     extract_folder_name,
     format_as_markdown_table,
     format_code_summaries,
@@ -12,40 +13,19 @@ from readmeai.generators.tables import (
     group_summaries_by_folder,
     is_valid_tuple_summary,
 )
-from readmeai.services import git
+from readmeai.services.git import fetch_git_file_url
 
 
 def test_construct_markdown_table(mock_config):
     """Test that the construct_markdown_table function constructs the table."""
     data = [("module1.py", "Summary 1")]
-    repository = str(mock_config.git.repository)
+    repo_url = str(mock_config.git.repository)
     full_name = mock_config.git.full_name
-    expected_link = create_hyperlink(
-        "module1.py",
-        full_name,
-        "module1.py",
-        repository,
-    )
-    table = construct_markdown_table(data, repository, full_name)
-    assert "Summary" in table
-    assert "| ---" in table
-    assert expected_link in table
-
-
-def test_create_hyperlink(mock_config):
-    """Test that the create_hyperlink function creates the hyperlink."""
-    file_name = "main.py"
-    module = f"readmeai/{file_name}"
-    full_name = mock_config.git.full_name
-    repo_url = mock_config.git.repository
-    repo_file_url = git.fetch_git_file_url(module, full_name, repo_url)
-    hyperlink = create_hyperlink(
-        file_name,
-        full_name,
-        module,
-        repo_url,
-    )
-    assert f"[{file_name}]({repo_file_url}" in hyperlink
+    expected_link = fetch_git_file_url(repo_url, full_name, "module1.py")
+    table = construct_markdown_table(data, repo_url, full_name)
+    assert expected_link in f"[module1.py]({expected_link})"
+    assert "module1.py" in table
+    assert "Summary 1" in table
 
 
 def test_extract_folder_name():

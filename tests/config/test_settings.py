@@ -1,9 +1,11 @@
-"""Unit tests for Pydantic models and configuration settings."""
+"""
+Tests Pydantic models and configuration settings.
+"""
 
 import pytest
 
+from readmeai._exceptions import FileReadError
 from readmeai.config.settings import ConfigLoader
-from readmeai.exceptions import FileReadError
 
 
 def test_load_config_file_not_found():

@@ -1,4 +1,6 @@
-"""File I/O factory class to read and write files."""
+"""
+File I/O factory class to read and write files.
+"""
 
 import functools
 import json
@@ -8,7 +10,7 @@ from typing import Any, Callable, Dict, Union
 import toml
 import yaml
 
-from readmeai.exceptions import FileReadError, FileWriteError
+from readmeai._exceptions import FileReadError, FileWriteError
 
 
 class FileHandler:

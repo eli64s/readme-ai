@@ -1,22 +1,24 @@
-"""Custom exceptions class for the readme-ai application."""
+"""
+Custom exceptions for the readme-ai package.
+"""
 
 from __future__ import annotations
 
 
-class ReadmeAiException(Exception):
-    """Base exception for the readme-ai application."""
+class ReadmeAIError(Exception):
+    """Base class for exceptions in this module."""
 
     ...
 
 
-class CLIError(ReadmeAiException):
+class CLIError(ReadmeAIError):
     """Exceptions related to the CLI."""
 
     def __init__(self, message, *args):
         super().__init__(f"Invalid option provided to CLI: {message}", *args)
 
 
-class GitCloneError(ReadmeAiException):
+class GitCloneError(ReadmeAIError):
     """Could not clone repository."""
 
     def __init__(self, repository: str, *args):
@@ -24,17 +26,15 @@ class GitCloneError(ReadmeAiException):
         super().__init__(f"Failed to clone repository: {repository}", *args)
 
 
-class GitValidationError(ReadmeAiException):
+class GitValidationError(ReadmeAIError):
     """Could not validate repository."""
 
     def __init__(self, repository: str, *args):
         self.repository = repository
-        super().__init__(
-            f"Failed to validate the provided repository: {repository}", *args
-        )
+        super().__init__(f"Failed to validate repository: {repository}", *args)
 
 
-class FileSystemError(ReadmeAiException):
+class FileSystemError(ReadmeAIError):
     """Exceptions related to file system operations."""
 
     def __init__(self, message, path, *args):
@@ -54,7 +54,7 @@ class FileWriteError(FileSystemError):
     ...
 
 
-class ReadmeGeneratorError(ReadmeAiException):
+class ReadmeGeneratorError(ReadmeAIError):
     """Exceptions related to readme generation."""
 
     def __init__(self, traceback, *args):
@@ -62,10 +62,8 @@ class ReadmeGeneratorError(ReadmeAiException):
         super().__init__(f"Error generating readme: {traceback}", *args)
 
 
-class UnsupportedServiceError(ReadmeAiException):
+class UnsupportedServiceError(ReadmeAIError):
     """Exceptions related to the LLMHandler class."""
 
     def __init__(self, message, *args):
-        super().__init__(
-            f"Unsupported LLM API service provided: {message}", *args
-        )
+        super().__init__(message, *args)

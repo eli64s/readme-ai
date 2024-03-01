@@ -37,27 +37,6 @@ Repository contents: {2}
 ================================================================================
 """
 
-features_synthesized = """Sythensize the markdown table to shorten each row to a list of keywords:\n
-{0}\n
-
-The original markdown table is as follows:\n
-
-|    |   Feature         | Description |
-|----|-------------------|---------------------------------------------------------------|
-| ⚙️  | **Architecture**  | *Quick facts about the project's architecture. Max 50 words.* |
-| 🔩 | **Code Quality**  | *Quick facts about the code quality and style. Max 50 words.* |
-| 📄 | **Documentation** | *Discuss the extent and quality of documentation. Max 50 words.* |
-| 🔌 | **Integrations**  | *List key integrations and external dependencies. Max 50 words.* |
-| 🧩 | **Modularity**    | *Discuss the modularity and reusability of the codebase. Max 50 words.* |
-| 🧪 | **Testing**       | *List testing frameworks and tools used. Max 50 words.* |
-| ⚡️  | **Performance**   | *Evaluate efficiency, speed and resource usage. Max 50 words.* |
-| 🛡️ | **Security**      | *Discuss measures used for data protection and access control. Max 50 words.* |
-| 📦 | **Dependencies**  | *List key external libraries and dependencies. Max 50 words.* |
-| 🚀 | **Scalability**   | *Assess ability to handle increased traffic and load. Max 50 words.* |
-
-Maintain the exact markdown format and ensure the keywords are relevant to the original descriptions.
-"""
-
 file_summary = """Deliver a succinct summary that highlights the main purpose and \
 critical features of this code file in relation to its parent repository's architecture. \
 Focus on what the code achieves, steering clear of technical implementation details. \
@@ -67,8 +46,11 @@ Repository structure: {0}
 File path: {1}
 File contents: {2}
 ================================================================================
-Additionally, avoid using words like `This file`, `This code`, etc. in your response. \
-Use concise language and ensure the summary response is no more than 60 tokens.
+Additional Requirements: \n
+- Avoid using words like 'This file', 'The file', 'This code', etc. but instead begin \
+each response with a verb or a noun to make the summary more engaging and impactful. \
+- Do not include quotes, code snippets, or bullet points in your response. \
+- Your response should be a maximum of 50 words.
 """
 
 overview = """Analyze the codebase named {0} ({1}) and provide a robust, yet succinct overview of the project. \
@@ -82,8 +64,11 @@ File summaries: {3}
 Your response should be no more than 99 words.
 """
 
-slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}).\n
-Limit the phrase to 8 words or less, and ensure it encapsulates the project's purpose
-and value proposition while engaging the reader. The following code summaries from the
-repository will help you craft your response:\n{2}\n
+slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}). \
+Your response should encapsulate the project's purpose and value propositio, and engage the reader.
+While generating the slogan, please reference the following codebase details: \n
+================================================================================
+File contents: {2}
+================================================================================
+Limit your response to a maximum of 8 words and DO NOT include the project name in the slogan.
 """

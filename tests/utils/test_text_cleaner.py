@@ -1,12 +1,14 @@
-"""Tests for utility functions in the core module."""
+"""
+Tests for helper functions that clean and format text from LLM responses.
+"""
 
 import pytest
 
-from readmeai.utils.formatter import (
+from readmeai.utils.text_cleaner import (
+    clean_response,
     clean_text,
     fix_md_table_rows,
     format_md_table,
-    format_response,
 )
 
 
@@ -18,7 +20,7 @@ def test_fix_md_table_rows():
     assert len(formatted_md_table.split("\n")) == 4
 
 
-def test_format_response():
+def test_clean_response():
     """Test that the markdown table is extracted from the input string."""
     test_string = """<remove this>
     | Column 1 | Column 2 | Column 3 |
@@ -28,16 +30,16 @@ def test_format_response():
     | Content  | Content  | Content  |
     and this
     """
-    result = format_response("features", test_string)
+    result = clean_response("features", test_string)
     assert isinstance(result, str)
     assert "<remove this>" not in result
     assert "and this" not in result
 
 
-def test_format_response_no_table():
+def test_clean_response_no_table():
     """Test that the markdown table is extracted from the input string."""
     test_string = "This is a test string."
-    result = format_response("features", test_string)
+    result = clean_response("features", test_string)
     assert isinstance(result, str)
     assert len(result) == 0
 

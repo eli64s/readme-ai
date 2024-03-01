@@ -23,7 +23,7 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary><h4>Table of Contents</h4></summary>
+  <summary>Table of Contents</summary>
 
 - [ Overview](#-overview)
 - [ Features](#-features)

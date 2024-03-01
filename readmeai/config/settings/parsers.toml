@@ -27,11 +27,13 @@ parsers = [
     'cloudformation/*.json',
     'cloudformation/*.yml',
     'cloudformation/*.yaml',
-    '.terraform/',
-    '.tf',
-    '.tfstate',
-    '.tfvars',
-    '.tfvars.json',
+    'main.tf',
+    'provider.tf',
+    # '.terraform/',
+    # '.tf',
+    # '.tfstate',
+    # '.tfvars',
+    # '.tfvars.json',
 
     # Monitoring and Logging
     'dashboards/',              # (Datadog)

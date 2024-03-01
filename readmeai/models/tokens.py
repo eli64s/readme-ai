@@ -1,8 +1,11 @@
-"""Tokenization utilities for the readme-ai CLI application."""
+"""
+Tokenizer utilities for tokenizing and truncating text.
+"""
 
 from tiktoken import get_encoding
 
-from readmeai.utils.logger import Logger
+from readmeai.config.settings import Settings
+from readmeai.core.logger import Logger
 
 _encoding_cache = {}
 _logger = Logger(__name__)
@@ -12,40 +15,58 @@ def _set_encoding_cache(encoding_name: str) -> str:
     """Set the encoding cache for a specific encoding."""
     if encoding_name not in _encoding_cache:
         _encoding_cache[encoding_name] = get_encoding(encoding_name)
-
     return _encoding_cache[encoding_name]
 
 
-def count_tokens(text: str, encoding_name: str) -> int:
+async def token_handler(
+    config: Settings, index: str, prompt: str, tokens: int
+) -> str:
+    """Handle token count for the prompt."""
+    encoder = config.llm.encoder
+    max_count = config.llm.context_window
+    token_count = count_tokens(prompt, encoder)
+
+    if token_count > max_count:
+        _logger.debug(
+            f"Truncating '{index}' prompt: {token_count} > {max_count} tokens!"
+        )
+        prompt = truncate_tokens(encoder, prompt, tokens)
+
+    return prompt
+
+
+def count_tokens(text: str, encoder: str) -> int:
     """Return the number of tokens in a text string."""
-    encoding = _set_encoding_cache(encoding_name)
+    encoding = _set_encoding_cache(encoder)
     try:
-        num_tokens = len(encoding.encode(text, disallowed_special=()))
+        token_count = len(encoding.encode(text, disallowed_special=()))
 
     except Exception as exc:
-        _logger.error(f"Error in token encoding: {exc}")
-        num_tokens = 0
+        _logger.error(
+            f"Error counting tokens for '{text}' with {encoder}: {exc}"
+        )
+        token_count = 0
 
-    return num_tokens
+    return token_count
 
 
-def truncate_tokens(encoding_name: str, text: str, max_tokens: int) -> str:
+def truncate_tokens(encoder: str, text: str, max_count: int) -> str:
     """Truncate a text string to a maximum number of tokens."""
     if not text:
         return text
     try:
-        encoder = _set_encoding_cache(encoding_name)
-        prompt_token_total = len(encoder.encode(text))
-        if prompt_token_total <= max_tokens:
+        encoder = _set_encoding_cache(encoder)
+        token_count = len(encoder.encode(text))
+        if token_count <= max_count:
             return text
 
         char_total = len(text)
-        chars_per_token = char_total / prompt_token_total
-        truncated_total = int(chars_per_token * max_tokens)
+        chars_per_token = char_total / token_count
+        truncated_total = int(chars_per_token * max_count)
         return text[:truncated_total]
 
     except Exception as exc:
-        _logger.error(f"Error truncating tokens: {exc}")
+        _logger.error(f"Error truncating tokens for '{text}': {exc}")
         return text
 
 

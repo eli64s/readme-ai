@@ -1,4 +1,6 @@
-"""Google Vertex AI LLM API implementation."""
+"""
+Google Cloud's Vertex AI LLM API implementation.
+"""
 
 import os
 from typing import List, Tuple
@@ -11,36 +13,41 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-from vertexai.preview.generative_models import GenerativeModel
+from vertexai.generative_models import GenerationConfig, GenerativeModel
 
-from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.config.settings import ConfigLoader
 from readmeai.core.models import BaseModelHandler
-from readmeai.utils.formatter import format_response
+from readmeai.models.tokens import token_handler
+from readmeai.utils.text_cleaner import clean_response
 
 
 class VertexAIHandler(BaseModelHandler):
-    """Vertex AI Generative Models API LLM implementation."""
+    """Google Cloud Vertex AI LLM API implementation."""
 
-    def __init__(self, config: Settings, config_loader: ConfigLoader) -> None:
+    def __init__(self, config_loader: ConfigLoader) -> None:
         """Initialize GCP Vertex AI API LLM handler."""
-        super().__init__(config, config_loader)
-        self._gcloud_auth()
-        self._llm_settings()
+        super().__init__(config_loader)
+        self._model_settings()
 
-    def _gcloud_auth(self) -> None:
-        """Authenticate with Google Cloud."""
-        self.location = os.getenv("VERTEXAI_LOCATION", None)
-        self.project_id = os.getenv("VERTEXAI_PROJECT", None)
-        vertexai.init(project=self.project_id, location=self.location)
-
-    def _llm_settings(self):
-        """Initializes basic attributes for the class."""
-        self.content = self.config.llm.content
-        self.encoding = self.config.llm.encoding
-        self.model = "gemini-pro"
-        self.tokens = self.config.llm.tokens
-        self.tokens_max = self.config.llm.tokens_max
+    def _model_settings(self):
+        """Initializes the Vertex AI LLM settings."""
         self.temperature = self.config.llm.temperature
+        self.tokens = self.config.llm.tokens
+        self.top_p = self.config.llm.top_p
+        self.location = os.environ.get("VERTEXAI_LOCATION")
+        self.project_id = os.environ.get("VERTEXAI_PROJECT")
+        vertexai.init(location=self.location, project=self.project_id)
+        self.model = GenerativeModel(self.config.llm.model)
+
+    async def _build_payload(
+        self, prompt: str, tokens: int
+    ) -> GenerationConfig:
+        """Build payload for POST request to Vertex AI API."""
+        return GenerationConfig(
+            max_output_tokens=self.tokens,
+            temperature=self.temperature,
+            top_p=self.top_p,
+        )
 
     @retry(
         stop=stop_after_attempt(3),
@@ -53,7 +60,7 @@ class VertexAIHandler(BaseModelHandler):
             )
         ),
     )
-    async def _handle_response(
+    async def _make_request(
         self,
         index: str,
         prompt: str,
@@ -62,17 +69,17 @@ class VertexAIHandler(BaseModelHandler):
     ) -> Tuple[str, str]:
         """Processes Vertex AI LLM API responses and returns generated text."""
         try:
-            prompt = await self._token_handler(index, prompt, tokens)
+            prompt = await token_handler(self.config, index, prompt, tokens)
+
+            data = await self._build_payload(prompt, tokens)
 
             async with self.rate_limit_semaphore:
-                model = GenerativeModel(self.model)
-                response = await model.generate_content_async(
+                response = await self.model.generate_content_async(
                     prompt,
+                    generation_config=data,
                 )
-                response_text = response.text
-                formatted_text = format_response(index, response_text)
-                self._logger.info(f"Response for '{index}':\n{formatted_text}")
-                return index, formatted_text
+                self._logger.info(f"Response for '{index}':\n{response.text}")
+                return index, clean_response(index, response.text)
 
         except (
             aiohttp.ClientError,
@@ -80,20 +87,6 @@ class VertexAIHandler(BaseModelHandler):
             aiohttp.ClientConnectorError,
         ) as exc:
             self._logger.error(
-                f"Error making API request for `{index}`: {exc}"
+                f"Error making request to Vertex AI for `{index}`: {exc}"
             )
             return index, self.config.md.placeholder
-
-    async def close(self) -> None:
-        """Ensure the HTTP client is closed properly."""
-        if self._session:
-            await self._session.close()
-
-    async def __aenter__(self):
-        """Initialize the HTTP client for Vertex AI."""
-        self._session = aiohttp.ClientSession()
-        return self
-
-    async def __aexit__(self, *exc_info):
-        """Close the HTTP client."""
-        await self.close()

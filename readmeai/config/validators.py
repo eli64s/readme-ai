@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import Optional, Union
 from urllib.parse import urlparse, urlsplit
 
-from readmeai.config.enums import GitService
-from readmeai.exceptions import GitValidationError
-from readmeai.utils.logger import Logger
+from readmeai._exceptions import GitValidationError
+from readmeai.core.logger import Logger
+from readmeai.services.git import GitHost
 
 _logger = Logger(__name__)
 
@@ -20,7 +20,7 @@ class GitValidator:
         """Validate the repository URL or path."""
         value_str = str(value)
         if (
-            any(service.value in value_str for service in GitService) is False
+            any(service.value in value_str for service in GitHost) is False
             and not Path(value_str).is_dir()
         ):
             raise GitValidationError(value)
@@ -32,7 +32,7 @@ class GitValidator:
             try:
                 parsed_url = urlparse(value)
                 if parsed_url.scheme in ["http", "https"] and any(
-                    service in parsed_url.netloc for service in GitService
+                    service in parsed_url.netloc for service in GitHost
                 ):
                     return value
 
@@ -57,9 +57,9 @@ class GitValidator:
             return str(path.name)
 
         patterns = {
-            GitService.GITHUB: r"https?://github.com/([^/]+)/([^/]+)",
-            GitService.GITLAB: r"https?://gitlab.com/([^/]+)/([^/]+)",
-            GitService.BITBUCKET: r"https?://bitbucket.org/([^/]+)/([^/]+)",
+            GitHost.GITHUB: r"https?://github.com/([^/]+)/([^/]+)",
+            GitHost.GITLAB: r"https?://gitlab.com/([^/]+)/([^/]+)",
+            GitHost.BITBUCKET: r"https?://bitbucket.org/([^/]+)/([^/]+)",
         }
 
         for _, pattern in patterns.items():
@@ -77,14 +77,14 @@ class GitValidator:
         if isinstance(repo, Path) or (
             isinstance(repo, str) and Path(repo).is_dir()
         ):
-            return GitService.LOCAL
+            return GitHost.LOCAL
 
         parsed_url = urlparse(str(repo))
-        for service in GitService:
+        for service in GitHost:
             if service in parsed_url.netloc:
                 return service.split(".")[0]
 
-        return GitService.LOCAL
+        return GitHost.LOCAL
 
     @classmethod
     def set_name(cls, value: Optional[str], values: dict) -> str:

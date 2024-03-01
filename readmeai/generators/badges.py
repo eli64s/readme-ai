@@ -2,11 +2,11 @@
 
 from typing import Tuple
 
-from readmeai.config.enums import BadgeOptions
+from readmeai.cli.options import BadgeOptions
 from readmeai.config.settings import ConfigLoader
-from readmeai.config.utils import get_resource_path
-from readmeai.services.git import GitService
+from readmeai.services.git import GitHost
 from readmeai.utils.file_handler import FileHandler
+from readmeai.utils.resource_loader import get_resource_path
 
 _package = "readmeai.generators"
 _submodule = "assets"
@@ -87,14 +87,14 @@ def shields_icons(
 
     if (
         conf.md.badge_style == BadgeOptions.DEFAULT.value
-        and git_host != GitService.LOCAL
+        and git_host != GitHost.LOCAL
     ):
         return (
             default_badges,
             "<!-- default option, no dependency badges. -->\n",
         )
 
-    if git_host == GitService.LOCAL:
+    if git_host == GitHost.LOCAL:
         return (
             "<!-- local repository, no metadata badges. -->\n",
             project_badges,

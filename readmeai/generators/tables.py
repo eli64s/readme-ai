@@ -3,7 +3,10 @@
 from pathlib import Path
 from typing import List, Tuple
 
+from readmeai.core.logger import Logger
 from readmeai.services.git import fetch_git_file_url
+
+_logger = Logger(__name__)
 
 
 def construct_markdown_table(
@@ -12,23 +15,16 @@ def construct_markdown_table(
     """Builds a Markdown table from the provided data."""
     headers = ["File", "Summary"]
     table_rows = [headers, ["---", "---"]]
+
     for module, summary in data:
         file_name = str(Path(module).name)
-        hyperlink = create_hyperlink(file_name, full_name, module, repo_url)
-        table_rows.append([hyperlink, summary])
+        if "invalid" in full_name.lower():
+            return file_name
+        host_url = fetch_git_file_url(module, full_name, repo_url)
+        md_format_host_url = f"[{file_name}]({host_url})"
+        table_rows.append([md_format_host_url, summary])
+
     return format_as_markdown_table(table_rows)
-
-
-def create_hyperlink(
-    file_name: str, full_name: str, module: str, repo_url: str
-) -> str:
-    """
-    Creates a hyperlink for a file, using its Git URL if possible.
-    """
-    if "invalid" in full_name.lower():
-        return file_name
-    git_file_link = fetch_git_file_url(module, full_name, repo_url)
-    return f"[{file_name}]({git_file_link})"
 
 
 def extract_folder_name(module: str) -> str:
@@ -60,6 +56,8 @@ def format_code_summaries(
     placeholder: str, code_summaries: Tuple[str, str]
 ) -> List[Tuple[str, str]]:
     """Converts the given code summaries into a formatted list."""
+    _logger.debug(f"Formatting code summaries: {code_summaries}")
+
     formatted_summaries = []
 
     for summary in code_summaries:
