@@ -76,9 +76,10 @@ class VertexAIHandler(BaseModelHandler):
                     prompt,
                     generation_config=data,
                 )
-                response_text = response.text
-                self._logger.info(f"Response for '{index}':\n{response_text}")
-                return index, clean_response(index, response_text)
+                response = response.to_dict()
+                text = response["candidates"][0]["content"]["parts"][0]["text"]
+                self._logger.info(f"Response for '{index}':\n{text}")
+                return index, clean_response(index, text)
 
         except (
             aiohttp.ClientError,

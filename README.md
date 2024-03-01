@@ -413,6 +413,16 @@ Using `OpenAI API Key`
 > $ set OPENAI_API=<your_api_key>
 > ```
 
+Using `Ollama`
+
+> Set Ollama local host as an environment variable.
+> ```console
+> $ export OLLAMA_HOST=127.0.0.1
+> $ ollama pull mistral:latest    # llama2, etc.
+> $ ollama serve                  # run if not using the Ollama desktop app
+> ```
+> <sub>For more details, check out the [Ollama](https://github.com/ollama/ollama-python?tab=readme-ov-file) repository.</sub>
+
 Using `Google Vertex AI`
 
 > Set your Google Cloud project ID and location as environment variables.
@@ -420,16 +430,6 @@ Using `Google Vertex AI`
 > $ export VERTEXAI_LOCATION=<your_location>
 > $ export VERTEXAI_PROJECT=<your_project>
 > ```
-
-Using `Ollama`
-
-> Set Ollama local host as an environment variable.
-> ```console
-> $ export OLLAMA_HOST=127.0.0.1
-> $ ollama pull mistral:latest    # llama2, etc.
-> $ ollama serve
-> ```
-> <sub>For more details, check out the [Ollama](https://github.com/ollama/ollama-python?tab=readme-ov-file) repository.</sub>
 
 **2. Run CLI**
 
