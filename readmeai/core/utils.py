@@ -3,139 +3,108 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
+from enum import Enum
 
-from readmeai.config.enums import ModelOptions, SecretKeys
-from readmeai.config.settings import ConfigLoader, Settings
-from readmeai.utils.logger import Logger
+from readmeai.cli.options import ModelOptions as llms
+from readmeai.core.logger import Logger
 
 _logger = Logger(__name__)
 
 
-def filter_file(config_loader: ConfigLoader, file_path: Path) -> bool:
+class SecretKey(str, Enum):
     """
-    Check if the given file should be excluded based on provided rules.
+    Enum class to store the environment variable keys for the LLM API services.
     """
-    ignore_files = config_loader.blacklist["blacklist"]
 
-    if (
-        (file_path.name in ignore_files["files"])
-        or (file_path.suffix.lstrip(".") in ignore_files["extensions"])
-        or any(
-            directory in file_path.parts
-            for directory in ignore_files["directories"]
-        )
-    ):
-        return True
-
-    return False
+    OLLAMA_HOST = "OLLAMA_HOST"
+    OPENAI_API_KEY = "OPENAI_API_KEY"
+    VERTEXAI_LOCATION = "VERTEXAI_LOCATION"
+    VERTEXAI_PROJECT = "VERTEXAI_PROJECT"
 
 
-def set_model_engine(config: Settings) -> None:
+def _set_offline(message: str) -> tuple:
+    """Set the LLM service to offline mode."""
+    _logger.warning(f"{message}\n\t\t...Generating README without LLM API...")
+    return llms.OFFLINE.name, llms.OFFLINE.name
+
+
+def get_environment(llm_api: str, llm_model: str) -> tuple:
     """Set LLM environment variables based on the specified LLM service."""
-    llm_engine = config.llm.api
-    openai_env = _scan_environ([SecretKeys.OPENAI_API_KEY.value])
-    vertex_env = _scan_environ(
-        [
-            SecretKeys.VERTEXAI_LOCATION.value,
-            SecretKeys.VERTEXAI_PROJECT.value,
-        ]
-    )
+    _log_message = "\n\t\t...{} settings NOT FOUND in environment..."
 
-    if llm_engine is None:
-        _logger.info(
-            "LLM API CLI input not provided. Checking environment variables..."
+    if llm_api:
+        _log_message = "{} settings FOUND in environment!"
+        if llm_api == llms.OPENAI.name:
+            if SecretKey.OPENAI_API_KEY.value in os.environ:
+                _logger.info(_log_message.format("OpenAI"))
+                return (
+                    llms.OPENAI.name,
+                    llm_model if llm_model is not None else "gpt-3.5-turbo",
+                )
+            else:
+                return _set_offline(_log_message.format("OpenAI"))
+
+        elif llm_api == llms.OLLAMA.name:
+            if SecretKey.OLLAMA_HOST.value in os.environ:
+                _logger.info(_log_message.format("Ollama"))
+                return (
+                    llms.OLLAMA.name,
+                    llm_model if llm_model is not None else "mistral",
+                )
+            else:
+                return _set_offline(_log_message.format("Ollama"))
+
+        elif llm_api == llms.VERTEX.name:
+            if (
+                SecretKey.VERTEXAI_LOCATION.value in os.environ
+                and SecretKey.VERTEXAI_PROJECT.value in os.environ
+            ):
+                _logger.info(_log_message.format("Goolge Cloud Vertex AI"))
+                return (
+                    llms.VERTEX.name,
+                    llm_model if llm_model is not None else "gemini-pro",
+                )
+
+            else:
+                return _set_offline(_log_message.format("Vertex AI"))
+
+        elif llm_api == llms.OFFLINE.name:
+            return _set_offline("\n\t\t...Offline mode enabled by user...")
+
+    else:
+        _log_message = "Running CLI with {} API llm engine..."
+        _logger.warning(
+            "NO LLM service provided to CLI. Checking environment."
         )
 
-        if openai_env and os.environ["OPENAI_API_KEY"] not in ["", "None"]:
-            config.llm.api = ModelOptions.OPENAI.name
-            config.llm.model = config.llm.model
-            config.llm.offline = False
-            _logger.info("Running CLI with OpenAI API llm engine...")
+        if SecretKey.OPENAI_API_KEY.value in os.environ:
+            _logger.info(_log_message.format("OpenAI"))
+            return (
+                llms.OPENAI.name,
+                llm_model if llm_model is not None else "gpt-3.5-turbo",
+            )
 
-        elif vertex_env:
-            config.llm.api = ModelOptions.VERTEX.name
-            config.llm.model = "gemini-pro"
-            config.llm.offline = False
-            _logger.info("Running CLI with Google Vertex AI llm engine...")
-
-        elif config.llm.api == ModelOptions.OLLAMA.name:
-            config.llm.model = "ollama"
-            config.llm.offline = False
-            _logger.info("Running CLI with Ollama llm engine...")
+        elif SecretKey.OLLAMA_HOST.value in os.environ:
+            _logger.info(_log_message.format("Ollama"))
+            return (
+                llms.OLLAMA.name,
+                llm_model if llm_model is not None else "mistral",
+            )
+        elif (
+            SecretKey.VERTEXAI_LOCATION.value in os.environ
+            and SecretKey.VERTEXAI_PROJECT.value in os.environ
+        ):
+            _logger.info(_log_message.format("Vertex AI"))
+            return (
+                llms.VERTEX.name,
+                llm_model if llm_model is not None else "gemini-pro",
+            )
 
         else:
-            if config.llm.api == ModelOptions.OFFLINE.name:
+            if llm_api == llms.OFFLINE.name:
                 message = "Offline mode enabled by user via CLI."
             else:
                 message = (
-                    "\n\n\t\t...No LLM API settings exist in environment..."
+                    "\n\n\t\t...No LLM API settings found in environment..."
                 )
-                _set_offline(config, message)
-
-    elif llm_engine is not None:
-        _logger.info(f"LLM API CLI input received: {llm_engine}")
-
-        if llm_engine == ModelOptions.OPENAI.name:
-            if "OPENAI_API_KEY" in os.environ:
-                config.llm.api = ModelOptions.OPENAI.name
-                config.llm.model = config.llm.model
-                config.llm.offline = False
-                _logger.info("OpenAI settings found in environment!")
-
-            else:
-                _set_offline(
-                    config,
-                    "\n\t\t...OpenAI settings NOT FOUND in environment...",
-                )
-
-        elif llm_engine == ModelOptions.OLLAMA.name:
-            config.llm.api = ModelOptions.OLLAMA.name
-            config.llm.model = "ollama"
-            config.llm.offline = False
-            _logger.info("Ollama settings found in environment!")
-
-        elif llm_engine == ModelOptions.VERTEX.name:
-            if (
-                "VERTEXAI_LOCATION" in os.environ
-                and "VERTEXAI_PROJECT" in os.environ
-            ):
-                config.llm.model = "gemini-pro"
-                config.llm.offline = False
-                _logger.info("Vertex AI settings found in environment!")
-
-            else:
-                _set_offline(
-                    config,
-                    "\n\t\t...Vertex AI settings NOT FOUND in environment...",
-                )
-
-        else:
-            if llm_engine == ModelOptions.OFFLINE.name:
-                message = "\n\t\t...Offline mode enabled by user..."
-            else:
-                message = "Invalid LLM API service provided!"
-            _set_offline(config, message)
-
-
-def _scan_environ(keys: list[str]) -> bool:
-    """Check if both keys in the tuple exist in the os.environ."""
-    _logger.debug(f"Scanning environment for keys: {keys}")
-
-    for _, key in enumerate(keys):
-        if key not in os.environ:
-            _logger.debug(f"LLM Secret Key not found: {key}!")
-            return False
-        else:
-            _logger.debug(f"LLM Secret Key found: {key}!")
-
-    return True
-
-
-def _set_offline(config: Settings, log_msg: str) -> Settings:
-    """Set the LLM service to offline mode."""
-    _logger.warning(
-        f"{log_msg}\n\t\t...Generating README.md in offline mode...\n"
-    )
-    config.llm.api = ModelOptions.OFFLINE.name
-    config.llm.offline = True
+                return _set_offline(message)
