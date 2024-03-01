@@ -20,10 +20,6 @@ from readmeai.core.models import BaseModelHandler
 from readmeai.models.tokens import token_handler
 from readmeai.utils.text_cleaner import clean_response
 
-_location = os.environ.get("VERTEXAI_LOCATION")
-_project_id = os.environ.get("VERTEXAI_PROJECT")
-vertexai.init(location=_location, project=_project_id)
-
 
 class VertexAIHandler(BaseModelHandler):
     """Google Cloud Vertex AI LLM API implementation."""
@@ -35,10 +31,13 @@ class VertexAIHandler(BaseModelHandler):
 
     def _model_settings(self):
         """Initializes the Vertex AI LLM settings."""
-        self.model = GenerativeModel(self.config.llm.model)
         self.temperature = self.config.llm.temperature
         self.tokens = self.config.llm.tokens
         self.top_p = self.config.llm.top_p
+        self.location = os.environ.get("VERTEXAI_LOCATION")
+        self.project_id = os.environ.get("VERTEXAI_PROJECT")
+        vertexai.init(location=self.location, project=self.project_id)
+        self.model = GenerativeModel(self.config.llm.model)
 
     async def _build_payload(
         self, prompt: str, tokens: int
