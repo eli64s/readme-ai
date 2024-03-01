@@ -76,7 +76,7 @@ class VertexAIHandler(BaseModelHandler):
                     prompt,
                     generation_config=data,
                 )
-                content = response.text if response.text else response
+                content = response.candidates[0].content.parts[0].text
                 self._logger.info(f"Response for '{index}':\n{content}")
                 return index, clean_response(index, content)
 
