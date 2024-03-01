@@ -3,9 +3,9 @@
 from importlib import resources
 from pathlib import Path
 
-from readmeai.exceptions import FileReadError
+from readmeai._exceptions import FileReadError
+from readmeai.core.logger import Logger
 from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.logger import Logger
 
 _logger = Logger(__name__)
 
@@ -19,7 +19,9 @@ def get_resource_path(
     """Get configuration dictionary from TOML file."""
     try:
         resource_path = resources.files(package).joinpath(submodule, file_path)
-        _logger.debug(f"Loading file via importlib.resources: {resource_path}")
+        _logger.debug(
+            f"Loading file via importlib: {package}.{submodule}.{file_path}"
+        )
 
     except TypeError as exc:
         _logger.debug(f"Error using importlib.resources: {exc}")
