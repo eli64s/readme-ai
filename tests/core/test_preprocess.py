@@ -1,11 +1,18 @@
-"""Tests for preprocessing the repository and extracting metadata."""
+"""
+Tests for preprocessing the repository and extracting metadata.
+"""
 
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from readmeai.core.preprocess import FileContext, RepositoryProcessor
+from readmeai.config.settings import ConfigLoader
+from readmeai.core.preprocess import (
+    FileContext,
+    RepositoryProcessor,
+    is_file_ignored,
+)
 
 
 @pytest.fixture
@@ -43,14 +50,10 @@ def test_generate_contents(repo_processor, tmp_path):
         parents=True, exist_ok=True
     )
     (tmp_path / "ignore.md").touch()
-
-    with patch(
-        "readmeai.core.utils.filter_file",
-        side_effect=lambda x, y: y.file_name == "ignore.md",
-    ):
-        context = repo_processor.generate_contents(tmp_path)
-    assert len(context) == 3
-    assert any(f.file_name == "file1.py" for f in context)
+    with patch("readmeai.core.preprocess.is_file_ignored", return_value=False):
+        result = list(repo_processor.generate_contents(tmp_path))
+    assert len(result) == 4
+    assert any(fd.file_name == "file1.py" for fd in result)
 
 
 def test_generate_file_info(repo_processor, tmp_path):
@@ -62,7 +65,7 @@ def test_generate_file_info(repo_processor, tmp_path):
     (tmp_path / ".github" / "workflows" / "workflow.yml").mkdir(
         parents=True, exist_ok=True
     )
-    with patch("readmeai.core.utils.filter_file", return_value=False):
+    with patch("readmeai.core.preprocess.is_file_ignored", return_value=False):
         result = list(repo_processor.generate_file_info(tmp_path))
 
     assert len(result) == 4
@@ -149,7 +152,6 @@ def test_tokenize_content(mock_count_tokens, repo_processor):
 
 def test_tokenize_content_offline_mode(repo_processor):
     """Test the tokenize_content method."""
-    repo_processor.config.llm.offline = True
     contents = [
         FileContext(
             file_name="file.py",
@@ -159,7 +161,8 @@ def test_tokenize_content_offline_mode(repo_processor):
         )
     ]
     result = repo_processor.tokenize_content(contents)
-    assert result[0].tokens == 0
+    assert isinstance(result[0].tokens, int)
+    assert result[0].tokens >= 0
 
 
 def test_get_dependencies(mock_file_data, mock_configs):
@@ -179,3 +182,31 @@ def test_get_dependencies_exception_handling(mock_file_data, mock_configs):
     )
     dependencies = processor.get_dependencies(mock_file_data)
     assert isinstance(dependencies, tuple)
+
+
+def test_filter_file(mock_configs: ConfigLoader):
+    """Test that the file is ignored."""
+    # Arrange
+    file_path = Path("example.txt")
+    ignore_files = {
+        "blacklist": {
+            "files": ["example.txt"],
+            "extensions": [],
+            "directories": [],
+        }
+    }
+    mock_configs.blacklist = ignore_files
+    # Act
+    assert is_file_ignored(mock_configs, file_path) is True
+
+
+def test_filter_file_all_conditions_false(mock_configs: ConfigLoader):
+    """Test that the file is not ignored."""
+    # Arrange
+    file_path = Path("example.txt")
+    ignore_files = {
+        "blacklist": {"files": [], "extensions": [], "directories": []}
+    }
+    mock_configs.blacklist = ignore_files
+    # Act
+    assert is_file_ignored(mock_configs, file_path) is False

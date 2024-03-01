@@ -1,8 +1,10 @@
-"""Unit tests for the README Markdown file builder."""
+"""
+Tests for the README.md builder module in the generators package.
+"""
 
 import pytest
 
-from readmeai.generators.builder import ReadmeBuilder, build_markdown
+from readmeai.generators.builder import MarkdownBuilder
 
 
 @pytest.fixture
@@ -12,7 +14,7 @@ def readme_builder(
     mock_summaries,
     tmp_path,
 ):
-    return ReadmeBuilder(
+    return MarkdownBuilder(
         mock_configs,
         mock_dependencies,
         mock_summaries,
@@ -44,16 +46,19 @@ def test_md_quickstart(readme_builder):
     assert isinstance(quickstart, str)
 
 
-def test_build_markdown(
+def test_build(
     mock_configs,
     mock_dependencies,
     mock_summaries,
     tmp_path,
 ):
     """Tests the build_markdown function."""
-    build_markdown(
+    md_contents = MarkdownBuilder(
         mock_configs,
         mock_dependencies,
         mock_summaries,
         tmp_path,
-    )
+    ).build()
+    assert isinstance(md_contents, str)
+    assert "Overview" in md_contents
+    assert "Getting Started" in md_contents

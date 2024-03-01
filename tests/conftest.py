@@ -1,14 +1,21 @@
 """Pytest configuration settings."""
 
+import json
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+import toml
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.preprocess import FileContext, RepositoryProcessor
+from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
+from readmeai.models.vertex import VertexAIHandler
+from readmeai.utils.file_handler import FileHandler
 
 
+# General fixtures
 @pytest.fixture
 def temp_dir(tmpdir):
     """Create a temporary directory."""
@@ -29,13 +36,72 @@ def mock_configs(mock_config):
     return config_loader
 
 
+# Model handler fixtures
 @pytest.fixture
-def handler(mock_config, mock_configs):
+@patch.dict("os.environ", {"OPENAI_API_KEY": "sk-test-key"}, clear=True)
+def openai_handler(mock_configs):
     """Fixture for OpenAIHandler class."""
-    with patch.dict("os.environ", {"OPENAI_API_KEY": "sk-test-key"}):
-        yield OpenAIHandler(mock_config, mock_configs)
+    mock_configs.config.llm.api = "OPENAI"
+    mock_configs.config.llm.model = "gpt-3.5-turbo"
+    return OpenAIHandler(mock_configs)
 
 
+@pytest.fixture
+def offline_handler(mock_configs):
+    """Fixture for OpenAIHandler class."""
+    with patch.dict("os.environ", {}, clear=True):
+        mock_configs.config.llm.api = "OFFLINE"
+        mock_configs.config.llm.model = "offline"
+        yield OfflineHandler(mock_configs)
+
+
+@pytest.fixture
+def vertex_handler(mock_configs):
+    """Fixture for OpenAIHandler class."""
+    with patch.dict(
+        "os.environ",
+        {
+            "VERTEXAI_PROJECT": "test-project",
+            "VERTEXAI_LOCATION": "us-central1",
+        },
+    ):
+        mock_configs.config.llm.api = "VERTEX"
+        mock_configs.config.llm.model = "gemini-pro"
+        yield VertexAIHandler(mock_configs)
+
+
+# File handler fixtures
+@pytest.fixture
+def file_handler():
+    """Return a FileHandler instance."""
+    return FileHandler()
+
+
+@pytest.fixture
+def mock_json_file_path():
+    """Return a mock file path."""
+    return Path("mock/path/file.json")
+
+
+@pytest.fixture
+def mock_json_data():
+    """Return a JSON string."""
+    return json.dumps({"key": "value"})
+
+
+@pytest.fixture
+def mock_toml_file_path():
+    """Return a mock file path for a TOML file."""
+    return Path("mock/path/file.toml")
+
+
+@pytest.fixture
+def mock_toml_data():
+    """Return a TOML string."""
+    return toml.dumps({"key": "value"})
+
+
+# Preprocess fixtures
 @pytest.fixture(scope="session")
 def mock_dependencies():
     """Returns the default dependencies."""

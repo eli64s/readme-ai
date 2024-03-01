@@ -1,12 +1,14 @@
-"""Tests for validator methods used on command-line arguments."""
+"""
+Tests for validator methods used on command-line arguments.
+"""
 
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
+from readmeai._exceptions import GitValidationError
 from readmeai.config.validators import GitValidator
-from readmeai.exceptions import GitValidationError
 
 
 @pytest.mark.parametrize(

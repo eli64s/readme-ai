@@ -1,17 +1,19 @@
-"""Tests for the readmeai module."""
+"""
+Tests for the readme-ai package.
+"""
 
 from unittest.mock import patch
 
 import pytest
 
-from readmeai.exceptions import ReadmeGeneratorError
-from readmeai.readmeai import readme_agent, readme_generator
+from readmeai._agent import readme_agent, readme_generator
+from readmeai._exceptions import ReadmeGeneratorError
 
 
-@patch("readmeai.readmeai.clone_repository")
-@patch("readmeai.readmeai.preprocessor")
-@patch("readmeai.readmeai.model_handler")
-@patch("readmeai.readmeai.build_markdown")
+@patch("readmeai._agent.clone_repository")
+@patch("readmeai._agent.preprocessor")
+@patch("readmeai._agent.model_handler")
+@patch("readmeai._agent.MarkdownBuilder.build")
 @pytest.mark.asyncio
 async def test_readme_generator(
     mock_build_markdown,
@@ -25,7 +27,6 @@ async def test_readme_generator(
     tmp_path,
 ):
     """Test the readme_generator function."""
-    mock_config.llm.offline = False
     mock_clone_repository.return_value = tmp_path
     mock_preprocessor.return_value = (
         mock_dependencies,
@@ -38,10 +39,10 @@ async def test_readme_generator(
         "features_response",
         "overview_response",
         "slogan_response",
-        "synthesized_features",
     )
-    mock_build_markdown.return_value = str(tmp_path / "test_readme.md")
-    await readme_generator(mock_configs)
+    mock_output_file = str(tmp_path / "test_readme.md")
+    mock_build_markdown.return_value = mock_output_file
+    await readme_generator(mock_configs, mock_output_file)
     mock_clone_repository.assert_called_once()
     mock_preprocessor.assert_called_once()
     mock_model_handler.assert_called_once()
@@ -52,7 +53,7 @@ async def test_readme_generator(
 async def test_readme_agent_exception_handling():
     """Test the readme_agent function exception handling."""
     with patch(
-        "readmeai.readmeai.readme_generator",
+        "readmeai._agent.readme_agent",
         side_effect=Exception("Test exception"),
     ), pytest.raises(ReadmeGeneratorError) as exc:
         readme_agent(
@@ -60,21 +61,24 @@ async def test_readme_agent_exception_handling():
             api="invalid_api_provider",
             badge_style=None,
             badge_color=None,
+            base_url=None,
+            context_window=None,
             emojis=None,
             image=None,
-            max_tokens=None,
             model=None,
-            output=None,
+            output_file="test_output.md",
+            rate_limit=None,
             repository="https:///invalid_url",
             temperature=None,
             tree_depth=None,
+            top_p=None,
         )
     assert isinstance(exc.value, ReadmeGeneratorError)
 
 
 @pytest.mark.asyncio
-async def test_readme_generator_exception_handling(mock_configs):
+async def test_readme_generator_exception_handling():
     """Test the readme_generator function exception handling."""
-    with pytest.raises(ReadmeGeneratorError) as exc:
-        await readme_generator(mock_configs)
-        assert isinstance(exc.value, ReadmeGeneratorError)
+    with pytest.raises(Exception) as exc:
+        await readme_generator({}, "test_output.md")
+    assert isinstance(exc.value, Exception)

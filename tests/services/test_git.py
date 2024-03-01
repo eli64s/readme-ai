@@ -1,4 +1,6 @@
-"""Unit tests for git service helper functions."""
+"""
+Tests git service utility methods.
+"""
 
 import os
 import tempfile
@@ -8,8 +10,9 @@ from unittest.mock import MagicMock, patch
 import git
 import pytest
 
-from readmeai.exceptions import GitCloneError
+from readmeai._exceptions import GitCloneError
 from readmeai.services.git import (
+    GitHost,
     clone_repository,
     fetch_git_api_url,
     fetch_git_file_url,
@@ -19,13 +22,50 @@ from readmeai.services.git import (
     validate_git_executable,
 )
 
-GIT_URL = "https://github.com/eli64s/readme-ai-streamlit"
+_repository_url = "https://github.com/eli64s/readme-ai-streamlit"
+
+
+@pytest.mark.parametrize(
+    "service, expected_api_url",
+    [
+        (GitHost.LOCAL, None),
+        (GitHost.GITHUB, "https://api.github.com/repos/"),
+        (GitHost.GITLAB, "https://api.gitlab.com/v4/projects/"),
+        (GitHost.BITBUCKET, "https://api.bitbucket.org/2.0/repositories/"),
+    ],
+)
+def test_git_service_api_url(service, expected_api_url):
+    """Test the API URL for the Git service."""
+    assert service.api_url == expected_api_url
+
+
+@pytest.mark.parametrize(
+    "service, expected_file_url_template",
+    [
+        (GitHost.LOCAL, "{file_path}"),
+        (
+            GitHost.GITHUB,
+            "https://github.com/{full_name}/blob/master/{file_path}",
+        ),
+        (
+            GitHost.GITLAB,
+            "https://gitlab.com/{full_name}/-/blob/master/{file_path}",
+        ),
+        (
+            GitHost.BITBUCKET,
+            "https://bitbucket.org/{full_name}/src/master/{file_path}",
+        ),
+    ],
+)
+def test_git_service_file_url_template(service, expected_file_url_template):
+    """Test the file URL template for the Git service."""
+    assert service.file_url_template == expected_file_url_template
 
 
 @pytest.mark.asyncio
 async def test_clone_valid_repo(tmp_path):
     """Test that a valid repository is cloned."""
-    cloned_dir = await clone_repository(GIT_URL, tmp_path)
+    cloned_dir = await clone_repository(_repository_url, tmp_path)
     assert os.path.isdir(cloned_dir)
 
 
