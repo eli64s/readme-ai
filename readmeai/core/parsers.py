@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from readmeai.utils.logger import Logger
+from readmeai.core.logger import Logger
 
 
 class BaseFileParser(ABC):

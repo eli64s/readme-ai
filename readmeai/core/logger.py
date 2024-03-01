@@ -1,4 +1,6 @@
-"""Custom logger implementation for the readme-ai CLI."""
+"""
+Custom logger implementation for the readme-ai package.
+"""
 
 import logging
 import sys

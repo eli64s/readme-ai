@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from readmeai.config.settings import ConfigLoader
-from readmeai.utils.logger import Logger
+from readmeai.core.logger import Logger
 
 _logger = Logger(__name__)
 

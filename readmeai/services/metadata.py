@@ -5,8 +5,8 @@ from typing import Any, Dict, List, Optional
 
 import aiohttp
 
+from readmeai.core.logger import Logger
 from readmeai.services.git import fetch_git_api_url
-from readmeai.utils.logger import Logger
 
 _logger = Logger(__name__)
 

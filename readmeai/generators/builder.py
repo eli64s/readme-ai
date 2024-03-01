@@ -5,13 +5,14 @@ __package__ = "readmeai"
 from pathlib import Path
 from typing import List
 
-from readmeai.config.enums import BadgeOptions, GitService
+from readmeai.cli.options import BadgeOptions
 from readmeai.config.settings import ConfigLoader
 from readmeai.generators import badges, tables, tree, utils
 from readmeai.generators.quickstart import get_setup_data
+from readmeai.services.git import GitHost
 
 
-class ReadmeBuilder:
+class MarkdownBuilder:
     """Builds each section of the README Markdown file."""
 
     def __init__(
@@ -21,7 +22,7 @@ class ReadmeBuilder:
         summaries: tuple,
         temp_dir: str,
     ):
-        """Initializes the ReadmeBuilder class."""
+        """Initializes the MarkdownBuilder class."""
         self.config_loader = config_loader
         self.config = config_loader.config
         self.deps = dependencies
@@ -33,7 +34,7 @@ class ReadmeBuilder:
         self.host_domain = self.config.git.host_domain
         self.repo_name = self.config.git.name
         self.repo_url = self.config.git.repository
-        if self.host_domain == GitService.LOCAL.value:
+        if self.host_domain == GitHost.LOCAL:
             self.repo_url = f"../{self.repo_name}"
 
     @property
@@ -91,10 +92,10 @@ class ReadmeBuilder:
         return self.md.quickstart.format(
             repo_name=self.repo_name,
             repo_url=self.repo_url,
-            prerequisites=setup_data.prerequisites,
             install_command=setup_data.install_command,
             run_command=setup_data.run_command,
             test_command=setup_data.test_command,
+            system_requirements=setup_data.prerequisites,
         )
 
     @property
@@ -126,16 +127,3 @@ class ReadmeBuilder:
             md_contents = utils.remove_emojis(md_contents)
 
         return "\n".join(md_contents)
-
-
-def build_markdown(
-    config_loader: ConfigLoader,
-    dependencies: list,
-    summaries: tuple,
-    temp_dir: str,
-) -> None:
-    """Builds the README Markdown file."""
-    md_contents = ReadmeBuilder(
-        config_loader, dependencies, summaries, temp_dir
-    )
-    return md_contents.build()

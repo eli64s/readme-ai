@@ -1,15 +1,17 @@
-"""Processes the input repository files and extracts metadata."""
+"""
+Pre-processes the input repository files and extracts metadata.
+"""
 
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Generator, List, Tuple
 
+from readmeai.cli.options import ModelOptions as Models
 from readmeai.config.settings import ConfigLoader
-from readmeai.core.utils import filter_file
-from readmeai.generators.builder import ReadmeBuilder
+from readmeai.core.logger import Logger
+from readmeai.generators.builder import MarkdownBuilder
 from readmeai.models.tokens import count_tokens
 from readmeai.parsers.factory import parser_handler
-from readmeai.utils.logger import Logger
 
 _github_actions_path = ".github/workflows"
 
@@ -127,12 +129,12 @@ class RepositoryProcessor:
         Determines if a file should be ignored based on configurations.
         """
         if (
-            filter_file(self.config_loader, file_path)
+            is_file_ignored(self.config_loader, file_path)
             and str(file_path.name) in self.parser_files
         ):
             return False
 
-        return not file_path.is_file() or filter_file(
+        return not file_path.is_file() or is_file_ignored(
             self.config_loader, file_path
         )
 
@@ -188,12 +190,12 @@ class RepositoryProcessor:
         self, contents: List[FileContext]
     ) -> List[FileContext]:
         """Tokenize each file content and return the token count."""
-        if self.config.llm.offline is True:
+        if self.config.llm.api == Models.OFFLINE.name:
             return contents
 
         for content in contents:
             content.tokens = count_tokens(
-                content.content, self.config.llm.encoding
+                content.content, self.config.llm.encoder
             )
         return contents
 
@@ -216,8 +218,20 @@ def preprocessor(
         (str(context.file_path), context.content) for context in repo_context
     ]
 
-    config.md.tree = ReadmeBuilder(
+    config.md.tree = MarkdownBuilder(
         config_loader, dependencies, raw_files, temp_dir
     ).md_tree
 
     return dependencies, raw_files
+
+
+def is_file_ignored(config: ConfigLoader, file_path: Path) -> bool:
+    """Determines if a file should be ignored based on the configuration."""
+    blacklist = config.blacklist["blacklist"]
+    return any(
+        [
+            file_path.name in blacklist["files"],
+            file_path.suffix.lstrip(".") in blacklist["extensions"],
+            any(dir in file_path.parts for dir in blacklist["directories"]),
+        ]
+    )
