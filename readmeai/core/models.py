@@ -39,7 +39,7 @@ class BaseModelHandler(ABC):
         ...
 
     @abstractmethod
-    async def _build_payload(self, prompt: str, tokens: int) -> Any:
+    async def _build_payload(self, prompt: str, tokens: int) -> Dict[str, Any]:
         """Builds the payload for the POST request to the LLM API."""
         ...
 

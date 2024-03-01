@@ -13,10 +13,7 @@ from tenacity import (
     stop_after_attempt,
     wait_exponential,
 )
-from vertexai.preview.generative_models import (
-    GenerationConfig,
-    GenerativeModel,
-)
+from vertexai.preview.generative_models import GenerativeModel
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.models import BaseModelHandler
@@ -42,15 +39,13 @@ class VertexAIHandler(BaseModelHandler):
         vertexai.init(location=self.location, project=self.project_id)
         self.model = GenerativeModel(self.config.llm.model)
 
-    async def _build_payload(
-        self, prompt: str, tokens: int
-    ) -> GenerationConfig:
+    async def _build_payload(self, prompt: str, tokens: int) -> dict:
         """Build payload for POST request to Vertex AI API."""
-        return GenerationConfig(
-            max_output_tokens=self.tokens,
-            temperature=self.temperature,
-            top_p=self.top_p,
-        )
+        return {
+            "max_output_tokens": tokens,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+        }
 
     @retry(
         stop=stop_after_attempt(3),
