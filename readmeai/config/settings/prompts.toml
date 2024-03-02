@@ -53,15 +53,17 @@ each response with a verb or a noun to make the summary more engaging and impact
 - Your response should be a maximum of 50 words.
 """
 
-overview = """Analyze the codebase named {0} ({1}) and provide a robust, yet succinct overview of the project. \
-Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value proposition. \
-Avoid deep technical details and focus on the project's high-level use cases and features. \
-While generating the project overview, please reference the following codebase details: \n
+overview = """Analyze the codebase, {0} ({1}), and provide a robust, yet succinct overview of the software \
+project. Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value \
+proposition. While generating the project overview, please reference the following codebase details: \n
 ================================================================================
-Repository structure: {2}
-File summaries: {3}
+File summaries: {2}
 ================================================================================
-Your response should be no more than 99 words.
+Additional Requirements: \n
+- Avoid deep technical details and focus on the project's high-level use cases and features.
+- Do not include quotes, code snippets, or bullet points in your response.
+- The project name should be mentioned at least once in the overview.
+- Your response should be a maximum of 100 words.
 """
 
 slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}). \
