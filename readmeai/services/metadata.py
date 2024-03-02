@@ -1,4 +1,6 @@
-"""Git host providers helper methods to retrieve repository metadata."""
+"""
+Retrieve metadata of a git repository via the host provider's API.
+"""
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional

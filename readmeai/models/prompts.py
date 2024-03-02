@@ -63,7 +63,6 @@ async def set_additional_contexts(
                 {
                     "name": config.git.name,
                     "repo": config.git.repository,
-                    "tree": config.md.tree,
                     "file_summary": file_summaries,
                 },
             ),

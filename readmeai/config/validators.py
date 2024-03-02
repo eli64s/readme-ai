@@ -71,7 +71,7 @@ class GitValidator:
         raise GitValidationError(url_or_path)
 
     @classmethod
-    def set_host(cls, value: Optional[str], values: dict) -> str:
+    def set_host_domain(cls, value: Optional[str], values: dict) -> str:
         """Sets the Git service host from the repository provided."""
         repo = values.get("repository")
         if isinstance(repo, Path) or (
@@ -82,9 +82,20 @@ class GitValidator:
         parsed_url = urlparse(str(repo))
         for service in GitHost:
             if service in parsed_url.netloc:
-                return service.split(".")[0]
+                return service
 
         return GitHost.LOCAL
+
+    @classmethod
+    def set_host(cls, value: Optional[str], values: dict) -> str:
+        """Set the host based on the repository URL."""
+        repo = values.get("repository")
+        if isinstance(repo, Path) or (
+            isinstance(repo, str) and Path(repo).is_dir()
+        ):
+            return GitHost.LOCAL.value.lower()
+        parsed_url = urlsplit(repo)
+        return parsed_url.netloc.split(".")[0]
 
     @classmethod
     def set_name(cls, value: Optional[str], values: dict) -> str:

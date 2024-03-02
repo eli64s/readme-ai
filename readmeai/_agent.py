@@ -20,7 +20,7 @@ from readmeai.core.preprocess import preprocessor
 from readmeai.core.utils import get_environment
 from readmeai.generators.builder import MarkdownBuilder
 from readmeai.models.factory import model_handler
-from readmeai.services.git import GitHost, clone_repository
+from readmeai.services.git import clone_repository
 from readmeai.utils.file_handler import FileHandler
 
 _logger = Logger(__name__)
@@ -49,13 +49,14 @@ def readme_agent(
     try:
         conf = ConfigLoader()
         conf.config.api.rate_limit = rate_limit
-        llm_api, llm_model = get_environment(api, model)
+        conf.config.git = GitSettings(repository=repository)
+        api, model = get_environment(api, model)
         conf.config.llm = conf.config.llm.copy(
             update={
-                "api": llm_api,
+                "api": api,
                 "base_url": base_url,
                 "context_window": context_window,
-                "model": llm_model,
+                "model": model,
                 "temperature": temperature,
                 "top_p": top_p,
             }
@@ -73,12 +74,6 @@ def readme_agent(
                 else prompt_for_image(image),
             }
         )
-        try:
-            conf.config.git = GitSettings(repository=repository)
-            conf.config.git.host_domain = conf.config.git.repository.host
-        except Exception:
-            conf.config.git.host_domain = GitHost.LOCAL.name
-
         asyncio.run(readme_generator(conf, output_file))
 
     except Exception as exc:
@@ -87,18 +82,18 @@ def readme_agent(
 
 async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
     """Orchestrates the README.md file generation process."""
-    repo = conf.config.git.repository
     _logger.info(f"Repository settings validated: {conf.config.git}")
     _logger.info(f"LLM API settings validated: {conf.config.llm}")
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        await clone_repository(repo, temp_dir)
+        await clone_repository(conf.config.git.repository, temp_dir)
         (
             dependencies,
             raw_files,
         ) = preprocessor(conf, temp_dir)
-        _logger.info(f"Dependencies extracted: {dependencies}")
-        _logger.info(f"Total files analyzed: {len(raw_files)}")
+
+        _logger.info(f"Total files preprocessed: {len(raw_files)}")
+        _logger.info(f"Dependencies found: {dependencies}")
 
         async with model_handler(conf).use_api() as llm:
             responses = await llm.batch_request(dependencies, raw_files)
@@ -115,8 +110,8 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
         readme_md = MarkdownBuilder(
             conf, dependencies, summaries, temp_dir
         ).build()
-        FileHandler().write(output_file, readme_md)
 
+        FileHandler().write(output_file, readme_md)
         _logger.info("README generation process completed successfully!")
         _logger.info(f"README.md file saved to: {output_file}")
         _logger.info("Share it @ github.com/eli64s/readme-ai/discussions")

@@ -1,4 +1,6 @@
-"""Data models and functions for configuring the readme-ai CLI tool."""
+"""
+Core data models and configuration settings for the readme-ai package.
+"""
 
 from __future__ import annotations
 
@@ -7,13 +9,9 @@ from typing import Optional, Union
 
 from pydantic import BaseModel, DirectoryPath, HttpUrl, validator
 
-from readmeai._exceptions import FileReadError
 from readmeai.config.validators import GitValidator
-from readmeai.core.logger import Logger
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.resource_loader import get_resource_path
-
-_logger = Logger(__name__)
 
 
 class APISettings(BaseModel):
@@ -43,8 +41,8 @@ class GitSettings(BaseModel):
 
     repository: Union[HttpUrl, DirectoryPath]
     full_name: Optional[str]
-    host: Optional[str]
     host_domain: Optional[str]
+    host: Optional[str]
     name: Optional[str]
 
     _validate_repository = validator("repository", pre=True, always=True)(
@@ -52,6 +50,9 @@ class GitSettings(BaseModel):
     )
     _validate_full_name = validator("full_name", pre=True, always=True)(
         GitValidator.validate_full_name
+    )
+    _set_host_domain = validator("host_domain", pre=True, always=True)(
+        GitValidator.set_host_domain
     )
     _set_host = validator("host", pre=True, always=True)(GitValidator.set_host)
     _set_name = validator("name", pre=True, always=True)(GitValidator.set_name)
@@ -137,12 +138,5 @@ class ConfigLoader:
         ) in self.config.files.dict().items():
             if not file_name.endswith(".toml"):
                 continue
-
-            try:
-                config_data = get_resource_path(self.file_handler, file_name)
-                setattr(self, key, config_data)
-                _logger.debug(f"Loaded config file: {file_name}")
-
-            except FileReadError as exc:
-                setattr(self, key, None)
-                _logger.warning(f"Config file not found: {file_name} - {exc}")
+            data_dict = get_resource_path(self.file_handler, file_name)
+            setattr(self, key, data_dict)

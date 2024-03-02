@@ -6,11 +6,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Generator, List, Tuple
 
-from readmeai.cli.options import ModelOptions as Models
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.logger import Logger
 from readmeai.generators.builder import MarkdownBuilder
-from readmeai.models.tokens import count_tokens
 from readmeai.parsers.factory import parser_handler
 
 _github_actions_path = ".github/workflows"
@@ -24,7 +22,6 @@ class FileContext:
     file_name: str
     file_ext: str
     content: str
-    tokens: int = 0
     language: str = field(init=False)
     dependencies: List[str] = field(default_factory=list)
 
@@ -43,7 +40,6 @@ class RepositoryProcessor:
         """Initializes the RepositoryProcessor class."""
         self._logger = Logger(__name__)
         self.config_loader = config_loader
-        self.config = config_loader.config
         self.blacklist = config_loader.blacklist.get("blacklist")
         self.commands = config_loader.commands
         self.languages = config_loader.languages.get("language_names")
@@ -64,24 +60,22 @@ class RepositoryProcessor:
     def extract_dependencies(self, file_data: FileContext) -> List[str]:
         """Extracts the dependency file contents using the factory pattern."""
         parsers = parser_handler()
-
         if file_data.file_name not in parsers:
             return []
 
         parser = parsers.get(file_data.file_name)
-        dependency_names = parser.parse(content=file_data.content)
+        dependencies = parser.parse(content=file_data.content)
 
         self._logger.info(
-            f"Dependency file found: {file_data.file_name}:\n{dependency_names}"
+            f"Dependency file found: {file_data.file_name}:\n{dependencies}"
         )
 
-        return dependency_names
+        return dependencies
 
     def generate_contents(self, repo_path: str) -> List[FileContext]:
         """Generates a List of Dict of file information."""
         if isinstance(repo_path, str):
             repo_path = Path(repo_path)
-
         return [file_data for file_data in self.generate_file_info(repo_path)]
 
     def generate_file_info(
@@ -128,15 +122,28 @@ class RepositoryProcessor:
         """
         Determines if a file should be ignored based on configurations.
         """
-        if (
-            is_file_ignored(self.config_loader, file_path)
-            and str(file_path.name) in self.parser_files
-        ):
+        blacklist = self.config_loader.blacklist["blacklist"]
+        is_file_ignored = any(
+            [
+                file_path.name in blacklist["files"],
+                file_path.suffix.lstrip(".") in blacklist["extensions"],
+                any(
+                    dir in file_path.parts for dir in blacklist["directories"]
+                ),
+            ]
+        )
+        if is_file_ignored and str(file_path.name) in self.parser_files:
             return False
 
-        return not file_path.is_file() or is_file_ignored(
-            self.config_loader, file_path
-        )
+        return not file_path.is_file() or is_file_ignored
+
+    def _language_mapper(
+        self, contents: List[FileContext]
+    ) -> List[FileContext]:
+        """Maps file extensions to their programming languages."""
+        for content in contents:
+            content.language = self.languages.get(content.file_ext, "").lower()
+        return contents
 
     def _process_file_path(
         self, file_path: Path, repo_path: Path
@@ -154,6 +161,9 @@ class RepositoryProcessor:
             )
 
         try:
+            if file_path.is_dir():
+                return
+
             with file_path.open(encoding="utf-8") as file:
                 content = file.read()
 
@@ -178,38 +188,14 @@ class RepositoryProcessor:
         except (OSError, UnicodeDecodeError) as exc:
             self._logger.warning(f"Error reading file {file_path}: {exc}")
 
-    def language_mapper(
-        self, contents: List[FileContext]
-    ) -> List[FileContext]:
-        """Maps file extensions to their programming languages."""
-        for content in contents:
-            content.language = self.languages.get(content.file_ext, "").lower()
-        return contents
-
-    def tokenize_content(
-        self, contents: List[FileContext]
-    ) -> List[FileContext]:
-        """Tokenize each file content and return the token count."""
-        if self.config.llm.api == Models.OFFLINE.name:
-            return contents
-
-        for content in contents:
-            content.tokens = count_tokens(
-                content.content, self.config.llm.encoder
-            )
-        return contents
-
 
 def preprocessor(
     config_loader: ConfigLoader, temp_dir: str
 ) -> Tuple[List[FileContext], List[str], List[Tuple[str, str]], str]:
     """Processes the repository files and returns the context."""
-    config = config_loader.config
     repo_processor = RepositoryProcessor(config_loader)
     repo_context = repo_processor.generate_contents(temp_dir)
-    repo_context = repo_processor.language_mapper(repo_context)
-    # repo_context = repo_processor.tokenize_content(repo_context)
-
+    repo_context = repo_processor._language_mapper(repo_context)
     dependencies, dependency_dict = repo_processor.get_dependencies(
         repo_context
     )
@@ -218,20 +204,8 @@ def preprocessor(
         (str(context.file_path), context.content) for context in repo_context
     ]
 
-    config.md.tree = MarkdownBuilder(
+    config_loader.config.md.tree = MarkdownBuilder(
         config_loader, dependencies, raw_files, temp_dir
     ).md_tree
 
     return dependencies, raw_files
-
-
-def is_file_ignored(config: ConfigLoader, file_path: Path) -> bool:
-    """Determines if a file should be ignored based on the configuration."""
-    blacklist = config.blacklist["blacklist"]
-    return any(
-        [
-            file_path.name in blacklist["files"],
-            file_path.suffix.lstrip(".") in blacklist["extensions"],
-            any(dir in file_path.parts for dir in blacklist["directories"]),
-        ]
-    )

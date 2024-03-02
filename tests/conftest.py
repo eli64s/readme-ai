@@ -1,4 +1,4 @@
-"""Pytest configuration settings."""
+"""Pytest fixtures for reuse across the test suite."""
 
 import json
 from pathlib import Path
@@ -101,7 +101,13 @@ def mock_toml_data():
     return toml.dumps({"key": "value"})
 
 
-# Preprocess fixtures
+# Repository preprocessor fixtures
+@pytest.fixture(scope="session")
+def repo_processor(mock_configs):
+    """Fixture for RepositoryProcessor class."""
+    return RepositoryProcessor(mock_configs)
+
+
 @pytest.fixture(scope="session")
 def mock_dependencies():
     """Returns the default dependencies."""
@@ -119,18 +125,28 @@ def mock_summaries():
 
 
 @pytest.fixture(scope="session")
-def mock_file_data(mock_dependencies):
+def mock_file_data():
     """Returns the default file data."""
-    return FileContext(
-        file_path="/path/to/file1.py",
-        file_name="file1.py",
-        file_ext="py",
-        content="This is content of file1.py",
-        dependencies=mock_dependencies,
-    )
-
-
-@pytest.fixture(scope="session")
-def repo_processor(mock_configs):
-    """Fixture for RepositoryProcessor class."""
-    return RepositoryProcessor(mock_configs)
+    return [
+        FileContext(
+            file_path="path/to/file1.py",
+            file_name="file1.py",
+            content="",
+            file_ext="py",
+            dependencies=["dependency1"],
+        ),
+        FileContext(
+            file_path="path/to/file2.js",
+            file_name="file2.js",
+            content="",
+            file_ext="js",
+            dependencies=["dependency2"],
+        ),
+        FileContext(
+            file_path="path/to/file3.txt",
+            file_name="file3.txt",
+            content="",
+            file_ext="txt",
+            dependencies=[],
+        ),
+    ]
