@@ -8,7 +8,7 @@ from functools import cached_property
 from pathlib import Path
 from typing import Optional, Union
 
-from pydantic import BaseModel, Field, HttpUrl, validator
+from pydantic import BaseModel, DirectoryPath, Field, HttpUrl, validator
 
 from readmeai.config.validators import GitValidator
 from readmeai.core.logger import Logger
@@ -41,7 +41,10 @@ class FileSettings(BaseModel):
 class GitSettings(BaseModel):
     """User repository settings, sanitized and validated by Pydantic."""
 
-    repository: str = Field(..., description="The repository URL.")
+    repository: Union[HttpUrl, DirectoryPath] = Field(
+        ...,
+        description="The URL or directory path to the repository.",
+    )
     full_name: Optional[str] = Field(
         None, description="The full name of the repository."
     )
