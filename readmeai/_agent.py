@@ -13,13 +13,14 @@ from pathlib import Path
 from typing import Optional
 
 from readmeai._exceptions import ReadmeGeneratorError
-from readmeai.cli.options import ImageOptions, prompt_for_image
+from readmeai.cli.options import ImageOptions
 from readmeai.config.settings import ConfigLoader, GitSettings
 from readmeai.core.logger import Logger
 from readmeai.core.preprocess import preprocessor
 from readmeai.core.utils import get_environment
 from readmeai.generators.builder import MarkdownBuilder
-from readmeai.models.factory import model_handler
+from readmeai.models.dalle import DalleHandler
+from readmeai.models.factory import ModelFactory
 from readmeai.services.git import clone_repository
 from readmeai.utils.file_handler import FileHandler
 
@@ -45,12 +46,11 @@ def readme_agent(
     tree_depth: Optional[int],
     top_p: Optional[float],
 ) -> None:
-    """Setup agent with user inputs and generate README.md file."""
+    """Configures and runs the README file generator agent."""
     try:
         conf = ConfigLoader()
-        conf.config.api.rate_limit = rate_limit
-        conf.config.git = GitSettings(repository=repository)
         api, model = get_environment(api, model)
+        conf.config.api.rate_limit = rate_limit
         conf.config.llm = conf.config.llm.copy(
             update={
                 "api": api,
@@ -67,13 +67,14 @@ def readme_agent(
                 "badge_color": badge_color,
                 "badge_style": badge_style,
                 "emojis": emojis,
+                "image": image,
                 "tree_depth": tree_depth,
-                "image": image
-                if image
-                not in [ImageOptions.CUSTOM.name, ImageOptions.LLM.name]
-                else prompt_for_image(image),
             }
         )
+        conf.config.git = GitSettings(repository=repository)
+        _logger.info(f"Repository validated: {conf.config.git}")
+        _logger.info(f"LLM API settings: {conf.config.llm}")
+
         asyncio.run(readme_generator(conf, output_file))
 
     except Exception as exc:
@@ -82,9 +83,6 @@ def readme_agent(
 
 async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
     """Orchestrates the README.md file generation process."""
-    _logger.info(f"Repository settings validated: {conf.config.git}")
-    _logger.info(f"LLM API settings validated: {conf.config.llm}")
-
     with tempfile.TemporaryDirectory() as temp_dir:
         await clone_repository(conf.config.git.repository, temp_dir)
         (
@@ -92,10 +90,10 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
             raw_files,
         ) = preprocessor(conf, temp_dir)
 
-        _logger.info(f"Total files preprocessed: {len(raw_files)}")
+        _logger.info(f"Total files analyzed: {len(raw_files)}")
         _logger.info(f"Dependencies found: {dependencies}")
 
-        async with model_handler(conf).use_api() as llm:
+        async with ModelFactory.model_handler(conf).use_api() as llm:
             responses = await llm.batch_request(dependencies, raw_files)
             (
                 summaries,
@@ -107,6 +105,12 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
             conf.config.md.overview = conf.config.md.overview.format(overview)
             conf.config.md.slogan = slogan
 
+        if conf.config.md.image == ImageOptions.LLM.value:
+            conf.config.md.width = "50%"
+            dalle = DalleHandler(conf)
+            image_url = dalle.run()
+            conf.config.md.image = dalle.download(image_url)
+
         readme_md = MarkdownBuilder(
             conf, dependencies, summaries, temp_dir
         ).build()
@@ -115,4 +119,3 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
         _logger.info("README generation process completed successfully!")
         _logger.info(f"README.md file saved to: {output_file}")
         _logger.info("Share it @ github.com/eli64s/readme-ai/discussions")
-        _logger.info("Thank you for using readme-ai!")
