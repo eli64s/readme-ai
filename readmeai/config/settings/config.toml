@@ -38,11 +38,12 @@ image = ""
 placeholder = "<code>► INSERT-TEXT-HERE</code>"
 slogan = ""
 tables = ""
+width = "100"
 
 # Header Template
 header = """\
 <p align="{alignment}">
-  <img src="{image}" width="100" alt="project-logo">
+  <img src="{image}" width="{width}" alt="project-logo">
 </p>
 <p align="{alignment}">
     <h1 align="{alignment}">{repo_name}</h1>
@@ -80,16 +81,15 @@ quick_links = """
 >  - [🧪 Tests](#-tests)
 > - [🛠 Project Roadmap](#-project-roadmap)
 > - [🤝 Contributing](#-contributing)
-> - [📄 License](#-license)
-> - [👏 Acknowledgments](#-acknowledgments)
+> - [🎗 License](#-license)
+> - [🔗 Acknowledgments](#-acknowledgments)
 
 ---
 """
 
-toc = """\
-<!-- TABLE OF CONTENTS -->
+toc = """<br><!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Table of Contents</summary><br>
 
 - [📍 Overview](#-overview)
 - [🧩 Features](#-features)
@@ -101,8 +101,8 @@ toc = """\
   - [🧪 Tests](#-tests)
 - [🛠 Project Roadmap](#-project-roadmap)
 - [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
+- [🎗 License](#-license)
+- [🔗 Acknowledgments](#-acknowledgments)
 </details>
 <hr>
 """
@@ -247,13 +247,13 @@ Contributions are welcome! Here are several ways you can contribute:
 
 ---
 
-## 📄 License
+## 🎗 License
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
-## 👏 Acknowledgments
+## 🔗 Acknowledgments
 
 - List any resources, contributors, inspiration, etc. here.
 

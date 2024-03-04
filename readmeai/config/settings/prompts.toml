@@ -1,20 +1,6 @@
-# LLM API prompt templates to generate text for the README.md file
+# Large language model prompt templates for generative tasks.
 
 [prompts]
-avatar = """Create a simple, modern icon logo on a white background.\
-The logo should feature a design centered around the project's theme and purpose. Provided below are the project details to guide your design:\n
-================================================================================
-Project Name: {project_name}
-Project Slogan: {slogan}
-Project Overview: {overview}
-================================================================================
-Additional design requirements include:
-- The project name must be prominently displayed across the middle of image in a clean, easily readable font.\n
-- The color scheme includes cool tones, such as shades of {color}, to indicate technology and innovation.\n
-- The design conveys a sense of accessibility, clarity, and innovation, suitable for digital platforms\
-such as git repositories and documentation sites, with a minimalistic yet impactful aesthetic.
-"""
-
 features = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
 
 |    |   Feature         | Description |
@@ -53,12 +39,26 @@ each response with a verb or a noun to make the summary more engaging and impact
 - Your response should be a maximum of 50 words.
 """
 
-overview = """Analyze the codebase, {0} ({1}), and provide a robust, yet succinct overview of the software \
+logo = """Design a sleek and modern logo for '{project_name}'. \
+The logo should embody a sense of forward-thinking and efficiency.
+Incorporate a simple yet bold icon that captures the essence of the project,
+paired with the project name in a clean, sans-serif font. \
+The icon should be abstract or geometric, suggesting movement or progress. \
+The overall look should be minimalistic, with a monochromatic color palette, \
+ensuring the logo is versatile for use across various mediums. \
+Provide ample margin space around the logo to enhance its visibility and impact.
+--------------------------------------------------------------------------------
+Project Name: {project_name}
+Project Slogan: {project_slogan}
+--------------------------------------------------------------------------------
+"""
+
+overview = """Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software \
 project. Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value \
 proposition. While generating the project overview, please reference the following codebase details: \n
-================================================================================
-File summaries: {2}
-================================================================================
+--------------------------------------------------------------------------------
+File Summaries: {1}
+--------------------------------------------------------------------------------
 Additional Requirements: \n
 - Avoid deep technical details and focus on the project's high-level use cases and features.
 - Do not include quotes, code snippets, or bullet points in your response.
@@ -67,10 +67,34 @@ Additional Requirements: \n
 """
 
 slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}). \
-Your response should encapsulate the project's purpose and value propositio, and engage the reader.
+Your response should encapsulate the project's purpose, value proposition, and engage the audience. \
 While generating the slogan, please reference the following codebase details: \n
-================================================================================
+--------------------------------------------------------------------------------
 File contents: {2}
-================================================================================
-Limit your response to a maximum of 8 words and DO NOT include the project name in the slogan.
+-------------------------------------------------------------------------------- \n
+Other Requirements: \n
+- DO NOT include the project name in the slogan.
+- Your response should be a maximum of 8 words.
+- The slogan should be concise and memorable.
+"""
+
+mermaid = """Create a visual representation of the software project '{0}' using a flowchart diagram. \
+The diagram should clearly illustrate the main components and the flow of data or control between them, \
+representing the codebase's architecture and execution path. The output should be formatted as a Markdown code block with Mermaid syntax. \
+Below is a template for the Mermaid flowchart that you can customize based on the project's specifics: \n
+--------------------------------------------------------------------------------
+
+```mermaid
+flowchart LR
+
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
+
+--------------------------------------------------------------------------------
+While generating the diagram, please reference the following codebase details:
+File Summaries: {1}
+--------------------------------------------------------------------------------
 """
