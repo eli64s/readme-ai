@@ -37,12 +37,13 @@
 - [🧩 Features](#-features)
 - [🗂️ Examples](#️-examples)
 - [🚀 Getting Started](#-getting-started)
-  - [📦 Installation](#-installation)
+  - [⚙️ Installation](#-installation)
   - [🤖 Usage](#-usage)
   - [🧪 Tests](#-tests)
-- [⚙️ Configuration](#️-configuration)
+- [📦 Configuration](#️-configuration)
 - [🔭 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
+- [🧑‍💻 Contributing](#-contributing)
+- [🎗 License](#-license)
 </details>
 
 ---
@@ -93,7 +94,7 @@ Readme-ai uses a balanced approach to building README files, combining data extr
 
 Over a dozen CLI options are available to customize the README generation process:
 
-- **LLM Options**: Run the tool with OpenAI, Ollama, or Google Vertex AI services, or in offline mode.
+- **LLM Options**: Run the tool with OpenAI, Ollama, Google Gemini, or in offline mode.
 - **Offline Mode**: Generate a [README](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md) without making API calls. Readme-ai is still able to populate a significant portion of the README using metadata collected during preprocessing.
 - **Project Badges**: Choose from an array of [badge styles](https://shields.io/), colors, and alignments.
 - **Project Logo**: Select from the default set, upload your own, or let the LLM give it a try!
@@ -143,7 +144,7 @@ A few examples of the CLI options in action:
   </tr>
 </table>
 
-See the <a href="#-configuration">Configuration</a> section below for the complete list of CLI options and settings.<br>
+See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#%EF%B8%8F-configuration">Configuration</a> section for a complete list of CLI options.
 
 <details closed>
   <summary><strong>👋 Overview</strong></summary><br>
@@ -340,7 +341,7 @@ See the <a href="#-configuration">Configuration</a> section below for the comple
 
   - Python 3.9+
   - Package manager/Container: `pip`, `pipx`, `docker`
-  - LLM service: `OpenAI`, `Ollama`, `Google Vertex AI`, `Offline Mode`
+  - LLM service: `OpenAI`, `Ollama`, `Google Gemini`, `Offline Mode`
 
 **Repository URL or Local Path:**
 
@@ -355,7 +356,7 @@ Make sure to have a repository URL or local directory path ready for the CLI.
 
 - [**OpenAI**](https://platform.openai.com/docs/quickstart/account-setup): Recommended, requires an account setup and API key.
 - [**Ollama**](https://github.com/ollama/ollama): Free and open-source, potentially slower and more resource-intensive.
-- [**Google Vertex AI**](https://cloud.google.com/vertex-ai/docs): Requires Google Cloud project and service account.
+- [**Google Gemini**](https://ai.google.dev/tutorials/python_quickstart): Requires a Google ClouD account and API key.
 - [**Offline Mode**](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md): Generates a boilerplate README without making API calls.
 
 <!--
@@ -374,7 +375,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 ---
 
-### 📦 Installation
+### ⚙️ Installation
 
 #### Using `pip`
 
@@ -466,12 +467,11 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 > ```
 > <sub>For more details, check out the [Ollama](https://github.com/ollama/ollama-python?tab=readme-ov-file) repository.</sub>
 
-#### Using `Google Vertex AI`
+#### Using `Google Gemini`
 
 > Set your Google Cloud project ID and location as environment variables.
 > ```console
-> $ export VERTEXAI_LOCATION=<your_location>
-> $ export VERTEXAI_PROJECT=<your_project>
+> $ export GOOGLE_API_KEY=<your_api_key>
 > ```
 
 **Run the CLI**
@@ -550,7 +550,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 
 ---
 
-## ⚙️ Configuration
+## 📦 Configuration
 
 Customize the README file using the CLI options below.
 
@@ -559,7 +559,7 @@ Customize the README file using the CLI options below.
 | `--alignment`, `-a` | String | Align the text in the README.md file's header. | `center` |
 | `--api` | String | LLM API service to use for text generation. | `offline` |
 | `--badge-color` | String | Badge color name or hex code. | `0080ff` |
-| `--badge-style` | String | Badge icon style type. | [see below](https://github.com/eli64s/readme-ai?tab=readme-ov-file#badges) |
+| `--badge-style` | String | Badge icon style type. | [see below][0] |
 | `--base-url` | String | Base URL for the repository. | `v1/chat/completions` |
 | `--context-window` | Integer | Maximum context window of the LLM API. | `3999` |
 | `--emojis`, `-e` | Boolean | Adds emojis to the README.md file's header sections. | `False` |
@@ -576,6 +576,8 @@ Customize the README file using the CLI options below.
 | `--help` | | Displays help information about the command and its options. | |
 
 <sub><code>🚧 feature under development</code></sub>
+
+[0]: https://github.com/eli64s/readme-ai?tab=readme-ov-file#badges "see below"
 
 ---
 
@@ -700,14 +702,14 @@ Select a project logo using the `--image` option.
 
 For custom images, see the following options:
 * Use `--image custom` to invoke a prompt to upload a local image file path or URL.
-* Use `--image llm` to generate a project logo using a LLM API (in development).
+* Use `--image llm` to generate a project logo using a LLM API (OpenAI only).
 
 ---
 
 ## 🔭 Roadmap
 
 - [ ] Add new CLI options to enhance README file customization.
-  - [X] `--api` Integrate singular interface for all LLM APIs (OpenAI, Gemini, Ollama, etc.)
+  - [X] `--api` Integrate singular interface for all LLM APIs (OpenAI, Ollama, Gemini, etc.)
   - [ ] `--audit` to review existing README files and suggest improvements.
   - [ ] `--template` to select a README template style (i.e. ai, data, web, etc.)
   - [ ] `--language` to generate README files in any language (i.e. zh-CN, ES, FR, JA, KO, RU)
@@ -719,11 +721,11 @@ For custom images, see the following options:
 
 ## 📒 Changelog
 
-[Changelog](https://github.com/eli64s/readme-ai/blob/main/CHANGELOG.md)
+[Changelog][0]
 
 ---
 
-## 🤝 Contributing
+## 🧑‍💻 Contributing
 
 To grow the project, we need your help! See the links below to get started.
 
@@ -731,10 +733,7 @@ To grow the project, we need your help! See the links below to get started.
 - [👋 Start a Discussion][2]
 - [🐛 Open an Issue][3]
 
-[1]: https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md "🔰 Contributing Guide"
-[2]: https://github.com/eli64s/readme-ai/discussions "👋 Start a Discussion"
-[3]: https://github.com/eli64s/readme-ai/issues "🐛 Open an Issue"
-
+<br>
 <p align="left">
   <a href="https://github.com{/eli64s/readme-ai/}graphs/contributors">
     <img src="https://contrib.rocks/image?repo=eli64s/readme-ai">
@@ -743,22 +742,27 @@ To grow the project, we need your help! See the links below to get started.
 
 ---
 
-## 📄 License
+## 🎗 License
 
-[MIT](https://github.com/eli64s/readme-ai/blob/main/LICENSE)
+[MIT][4]
 
 ---
 
-## 🤗 Acknowledgments
+## 👊 Acknowledgments
 
 - [Shields.io](https://shields.io/)
 - [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
 - [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
 - [tandpfun/skill-icons](https://github.com/tandpfun/skill-icons)
 
-
 <p align="right">
   <a href="#-overview"><b>Return</b></a>
 </p>
 
 ---
+
+[0]: https://github.com/eli64s/readme-ai/blob/main/CHANGELOG.md "📒 Changelog"
+[1]: https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md "🔰 Contributing Guide"
+[2]: https://github.com/eli64s/readme-ai/discussions "👋 Start a Discussion"
+[3]: https://github.com/eli64s/readme-ai/issues "🐛 Open an Issue"
+[4]: https://github.com/eli64s/readme-ai/blob/main/LICENSE "🎗 License"
