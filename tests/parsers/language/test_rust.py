@@ -1,8 +1,13 @@
 """Unit tests for Rust-based dependency parsers."""
 
-import toml
+import sys
 
 from readmeai.parsers.language.rust import CargoTomlParser
+
+if sys.version_info < (3, 11):
+    import toml
+else:
+    import tomllib as toml
 
 content = """
 [package]

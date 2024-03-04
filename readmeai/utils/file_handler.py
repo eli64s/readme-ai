@@ -14,12 +14,8 @@ from readmeai._exceptions import FileReadError, FileWriteError
 
 if sys.version_info < (3, 11):
     import toml
-
-    enc = "utf-8"
 else:
     import tomllib as toml
-
-    enc = "rb"
 
 
 class FileHandler:
@@ -92,8 +88,12 @@ class FileHandler:
     @functools.lru_cache(maxsize=100)
     def read_toml(file_path: Union[str, Path]) -> Dict[str, Any]:
         """Read the content of a TOML file."""
-        with open(file_path, encoding=enc) as file:
-            data = toml.load(file)
+        if sys.version_info < (3, 11):
+            with open(file_path, encoding="utf-8") as file:
+                data = toml.load(file)
+        else:
+            with open(file_path, "rb") as file:
+                data = toml.load(file)
         return {key.lower(): value for key, value in data.items()}
 
     @staticmethod
