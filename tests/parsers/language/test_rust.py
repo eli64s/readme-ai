@@ -1,13 +1,8 @@
-"""Unit tests for Rust-based dependency parsers."""
-
-import sys
+"""
+Tests for parsing cargo.toml Rust files.
+"""
 
 from readmeai.parsers.language.rust import CargoTomlParser
-
-if sys.version_info < (3, 11):
-    import toml
-else:
-    import tomllib as toml
 
 content = """
 [package]
@@ -58,19 +53,23 @@ def test_cargo_toml_parser():
 
 def test_cargo_toml_parser_missing_section():
     parser = CargoTomlParser()
-    content = toml.dumps({"dependencies": {"packageA": "1.0.0"}})
+    content = """
+    [dependencies]
+    packageA = "1.0.0"
+    """
     result = parser.parse(content)
     assert set(result) == {"packageA"}
 
 
 def test_cargo_toml_parser_extended_dependency_tables():
     parser = CargoTomlParser()
-    content = toml.dumps(
-        {
-            "dependencies": {"packageA": "1.0.0"},
-            "dependencies.some_feature": {"packageC": "3.0.0"},
-        }
-    )
+    content = """
+    [dependencies]
+    packageA = "1.0.0"
+
+    [dev-dependencies]
+    packageC = "3.0.0"
+    """
     result = parser.parse(content)
     assert set(result) == {"packageA", "packageC"}
 
