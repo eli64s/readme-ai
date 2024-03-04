@@ -39,5 +39,5 @@ class CargoTomlParser(BaseFileParser):
 
             return dependencies
 
-        except toml.TomlDecodeError as exc:
+        except Exception as exc:
             return self.handle_parsing_error(f"cargo.toml: {str(exc)}")

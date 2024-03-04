@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.076"
+version = "0.5.077"
 description = "👾 Automated README file generator, powered by large language model APIs."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -77,12 +77,12 @@ exclude = [
 ]
 line-length = 79
 
-[ruff.format]
+[tool.ruff.format]
 quote-style = "double"
 docstring-code-format = true
 docstring-code-line-length = 20
 
-[ruff.lint]
+[tool.ruff.lint]
 extend-select = ["E501"]
 select = [
     # pycodestyle

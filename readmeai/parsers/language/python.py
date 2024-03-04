@@ -109,7 +109,7 @@ class TomlParser(BaseFileParser):
 
             return dependencies
 
-        except toml.TomlDecodeError as exc:
+        except Exception as exc:
             return self.handle_parsing_error(f"pyproject.toml: {str(exc)}")
 
     def extract_package_names(self, dependencies: List[str]) -> List[str]:
