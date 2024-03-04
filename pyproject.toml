@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "readmeai"
-version = "0.5.075"
+version = "0.5.076"
 description = "👾 Automated README file generator, powered by large language model APIs."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -45,7 +45,7 @@ click = "^8.1.7"
 gitpython = "^3.1.31"
 google-generativeai = "^0.4.0"
 openai = "*"
-pydantic = "^2.0.0"
+pydantic = ">=1.10.9,<2.0.0"
 pyyaml = "^6.0.1"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
