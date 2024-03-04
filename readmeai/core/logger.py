@@ -4,8 +4,7 @@ Custom logger implementation for the readme-ai package.
 
 import logging
 import sys
-
-from colorlog import ColoredFormatter
+from typing import Dict
 
 LOG_LEVEL_EMOJIS = {
     "DEBUG": "⚙︎",
@@ -15,22 +14,37 @@ LOG_LEVEL_EMOJIS = {
     "CRITICAL": "‼",
 }
 
+LOG_LEVEL_COLORS = {
+    "DEBUG": "\033[34m",
+    "INFO": "\033[35m",
+    # "INFO": "\033[32m,
+    "WARNING": "\033[33m",
+    "ERROR": "\033[31m",
+    "CRITICAL": "\033[31m\033[1m",
+}
 
-class CustomFormatter(ColoredFormatter):
-    """Custom colored log formatter."""
+
+RESET_COLOR = "\033[0m"
+
+
+class CustomFormatter(logging.Formatter):
+    """Custom log formatter with color and emoji support."""
 
     def format(self, record) -> str:
-        """Formats the log record."""
+        """Format the log record."""
         record.emoji = LOG_LEVEL_EMOJIS.get(record.levelname, "")
-        return super().format(record)
+        record.color = LOG_LEVEL_COLORS.get(record.levelname, "")
+        super().format(record)
+        return f"{record.color}{record.emoji} {record.levelname} | {record.asctime} | {record.name} | {RESET_COLOR}{record.message}"
 
 
 class Logger:
     """Custom logger implementation."""
 
-    _instances = {}
+    _instances: Dict[str, "Logger"] = {}
 
     def __new__(cls, name, level="DEBUG"):
+        """Creates a new logger instance."""
         if name not in cls._instances:
             instance = super().__new__(cls)
             instance._name = name
@@ -42,16 +56,8 @@ class Logger:
     def _configure_logger(self):
         """Configures the logger."""
         formatter = CustomFormatter(
-            "%(log_color)s%(emoji)s %(levelname)s | %(white)s%(asctime)s | %(cyan)s%(name)s | %(purple)s%(message)s",
+            "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
-            reset=True,
-            log_colors={
-                "DEBUG": "blue",
-                "INFO": "green",
-                "WARNING": "yellow",
-                "ERROR": "red",
-                "CRITICAL": "red,bg_white",
-            },
         )
         handler = logging.StreamHandler(sys.stderr)
         handler.setFormatter(formatter)
