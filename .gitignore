@@ -53,7 +53,7 @@ Pipfile.lock
 
 # Work In Progress
 # Configuration Files (wip)
-scripts/test_gen.sh
+
 readmeai/config/settings/classifiers.toml
 readmeai/config/settings/models.toml
 readmeai/config/settings/quickstart_wip.toml
