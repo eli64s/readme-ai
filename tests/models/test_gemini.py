@@ -1,33 +1,31 @@
 """
-Tests for Google Cloud Vertex AI LLM API handler implementation.
+Tests for Google Cloud Gemini API LLM handler implementation.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from readmeai.models.vertex import VertexAIHandler
+from readmeai.models.gemini import GeminiHandler
 
 
 @pytest.mark.asyncio
-async def test_vertex_handler_sets_attributes(vertex_handler):
-    """Test that the Vertex AI handler sets the correct attributes."""
-    assert hasattr(vertex_handler, "location")
-    assert hasattr(vertex_handler, "project_id")
-    assert hasattr(vertex_handler, "model")
-    assert hasattr(vertex_handler, "temperature")
-    assert hasattr(vertex_handler, "top_p")
+async def test_gemini_handler_sets_attributes(gemini_handler):
+    """Test that the Gemini API handler sets the correct attributes."""
+    assert hasattr(gemini_handler, "model")
+    assert hasattr(gemini_handler, "temperature")
+    assert hasattr(gemini_handler, "tokens")
 
 
 @pytest.mark.asyncio
-async def test_vertex_make_request_with_context(vertex_handler):
-    """Test that the Vertex AI handler handles a response with context."""
+async def test_gemini_make_request_with_context(gemini_handler):
+    """Test that the Gemini API handler handles a response with context."""
     # Arrange
-    handler = vertex_handler
+    handler = gemini_handler
     handler.http_client = MagicMock()
     # Act
     with patch.object(
-        VertexAIHandler, "_make_request", new_callable=AsyncMock
+        GeminiHandler, "_make_request", new_callable=AsyncMock
     ) as mock_make_request:
         # Act
         await handler._make_request()
@@ -39,7 +37,7 @@ async def test_vertex_make_request_with_context(vertex_handler):
 
 @pytest.mark.asyncio
 async def test_make_request_success(mock_config, mock_configs):
-    """Test that the Vertex AI handler handles a successful response."""
+    """Test that the Gemini API handler handles a successful response."""
     mock_config.llm.context_window = 100
     mock_response = MagicMock()
     mock_response.text = "Generated text"
@@ -47,9 +45,9 @@ async def test_make_request_success(mock_config, mock_configs):
     mock_model.generate_content_async = AsyncMock(return_value=mock_response)
 
     with patch(
-        "readmeai.models.vertex.GenerativeModel", return_value=mock_model
+        "readmeai.models.gemini.genai.GenerativeModel", return_value=mock_model
     ):
-        handler = VertexAIHandler(mock_configs)
+        handler = GeminiHandler(mock_configs)
         response_index, response_text = await handler._make_request(
             "test_index", "test_prompt", 100
         )

@@ -1,4 +1,6 @@
-"""Tests for the LLM prompt functions."""
+"""
+Tests prompt builder to inject context for LLM API requests.
+"""
 
 from unittest.mock import patch
 

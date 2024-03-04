@@ -52,6 +52,7 @@ class MarkdownBuilder:
         return self.md.header.format(
             alignment=self.md.alignment,
             image=self.md.image,
+            width=self.md.width,
             repo_name=self.git.name.upper(),
             slogan=self.md.slogan,
             shields_icons=md_shields,

@@ -3,10 +3,7 @@
 from pathlib import Path
 from typing import List, Tuple
 
-from readmeai.core.logger import Logger
 from readmeai.services.git import fetch_git_file_url
-
-_logger = Logger(__name__)
 
 
 def construct_markdown_table(
@@ -56,8 +53,6 @@ def format_code_summaries(
     placeholder: str, code_summaries: Tuple[str, str]
 ) -> List[Tuple[str, str]]:
     """Converts the given code summaries into a formatted list."""
-    _logger.debug(f"Formatting code summaries: {code_summaries}")
-
     formatted_summaries = []
 
     for summary in code_summaries:

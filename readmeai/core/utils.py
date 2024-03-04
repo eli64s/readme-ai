@@ -1,6 +1,6 @@
-"""Utility methods for the readme-ai CLI application."""
-
-from __future__ import annotations
+"""
+Utility methods to configure the LLM API environments.
+"""
 
 import os
 from enum import Enum
@@ -18,93 +18,65 @@ class SecretKey(str, Enum):
 
     OLLAMA_HOST = "OLLAMA_HOST"
     OPENAI_API_KEY = "OPENAI_API_KEY"
-    VERTEXAI_LOCATION = "VERTEXAI_LOCATION"
-    VERTEXAI_PROJECT = "VERTEXAI_PROJECT"
+    GOOGLE_API_KEY = "GOOGLE_API_KEY"
 
 
 def _set_offline(message: str) -> tuple:
     """Set the LLM service to offline mode."""
-    _logger.warning(f"{message}\n\t\t...Generating README without LLM API...")
+    _logger.warning(f"{message}\n\t\t\t\tGenerating README without LLM API\n")
     return llms.OFFLINE.name, llms.OFFLINE.name
 
 
-def get_environment(llm_api: str, llm_model: str) -> tuple:
+def get_environment(llm_api: str = "", llm_model: str = "") -> tuple:
     """Set LLM environment variables based on the specified LLM service."""
-    _log_message = "\n\t\t...{} settings NOT FOUND in environment..."
+    default_models = {
+        llms.OPENAI.name: "gpt-3.5-turbo",
+        llms.OLLAMA.name: "mistral",
+        llms.GEMINI.name: "gemini-pro",
+    }
 
-    if llm_api:
-        _log_message = "{} settings FOUND in environment!"
-        if llm_api == llms.OPENAI.name:
-            if SecretKey.OPENAI_API_KEY.value in os.environ:
-                _logger.info(_log_message.format("OpenAI"))
-                return (
-                    llms.OPENAI.name,
-                    llm_model if llm_model is not None else "gpt-3.5-turbo",
-                )
-            else:
-                return _set_offline(_log_message.format("OpenAI"))
+    env_keys = {
+        llms.OPENAI.name: SecretKey.OPENAI_API_KEY.value,
+        llms.OLLAMA.name: SecretKey.OLLAMA_HOST.value,
+        llms.GEMINI.name: SecretKey.GOOGLE_API_KEY.value,
+    }
 
-        elif llm_api == llms.OLLAMA.name:
-            if SecretKey.OLLAMA_HOST.value in os.environ:
-                _logger.info(_log_message.format("Ollama"))
-                return (
-                    llms.OLLAMA.name,
-                    llm_model if llm_model is not None else "mistral",
-                )
-            else:
-                return _set_offline(_log_message.format("Ollama"))
-
-        elif llm_api == llms.VERTEX.name:
-            if (
-                SecretKey.VERTEXAI_LOCATION.value in os.environ
-                and SecretKey.VERTEXAI_PROJECT.value in os.environ
-            ):
-                _logger.info(_log_message.format("Goolge Cloud Vertex AI"))
-                return (
-                    llms.VERTEX.name,
-                    llm_model if llm_model is not None else "gemini-1.0-pro",
-                )
-
-            else:
-                return _set_offline(_log_message.format("Vertex AI"))
-
-        elif llm_api == llms.OFFLINE.name:
-            return _set_offline("\n\t\t...Offline mode enabled by user...")
-
-    else:
-        _log_message = "Running CLI with {} API llm engine..."
-        _logger.warning(
-            "NO LLM service provided to CLI. Checking environment."
+    if llm_api and llm_api not in env_keys:
+        if llm_api == llms.OFFLINE.name:
+            return _set_offline("\n\n\t\t\t\tOffline mode enabled by user")
+        _logger.warning("Invalid LLM service provided to CLI.")
+        return _set_offline(
+            "\n\n\t\t...No LLM API settings found in environment..."
         )
 
-        if SecretKey.OPENAI_API_KEY.value in os.environ:
-            _logger.info(_log_message.format("OpenAI"))
-            return (
-                llms.OPENAI.name,
-                llm_model if llm_model is not None else "gpt-3.5-turbo",
-            )
+    # If OPENAI_API_KEY does not exist in env when --api OPENAI is set
+    if (
+        llm_api == llms.OPENAI.name
+        and SecretKey.OPENAI_API_KEY.value not in os.environ
+    ):
+        return _set_offline(
+            "OPENAI_API_KEY not found in environment. Switching to offline mode."
+        )
 
-        elif SecretKey.OLLAMA_HOST.value in os.environ:
-            _logger.info(_log_message.format("Ollama"))
-            return (
-                llms.OLLAMA.name,
-                llm_model if llm_model is not None else "mistral",
-            )
-        elif (
-            SecretKey.VERTEXAI_LOCATION.value in os.environ
-            and SecretKey.VERTEXAI_PROJECT.value in os.environ
-        ):
-            _logger.info(_log_message.format("Vertex AI"))
-            return (
-                llms.VERTEX.name,
-                llm_model if llm_model is not None else "gemini-1.0-pro",
-            )
+    # If GOOGLE_API_KEY does not exist in env when --api gemini is set
+    if (
+        llm_api == llms.GEMINI.name
+        and SecretKey.GOOGLE_API_KEY.value not in os.environ
+    ):
+        return _set_offline(
+            "GOOGLE_API_KEY not found in environment. Switching to offline mode."
+        )
 
-        else:
-            if llm_api == llms.OFFLINE.name:
-                message = "Offline mode enabled by user via CLI."
-            else:
-                message = (
-                    "\n\n\t\t...No LLM API settings found in environment..."
-                )
-                return _set_offline(message)
+    # If no specific API is provided or the provided API is valid
+    for api_name, env_key in env_keys.items():
+        if llm_api == api_name or (not llm_api and env_key in os.environ):
+            model = llm_model if llm_model else default_models[api_name]
+            _logger.info(f"{api_name} settings FOUND in environment!")
+            return api_name, model
+
+    # If no environment variables are found or OFFLINE is explicitly set
+    if llm_api == llms.OFFLINE.name:
+        return _set_offline("Offline mode enabled by user via CLI.")
+    return _set_offline(
+        "\n\n\t\t...No LLM API settings found in environment..."
+    )

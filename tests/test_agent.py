@@ -12,7 +12,7 @@ from readmeai._exceptions import ReadmeGeneratorError
 
 @patch("readmeai._agent.clone_repository")
 @patch("readmeai._agent.preprocessor")
-@patch("readmeai._agent.model_handler")
+@patch("readmeai._agent.ModelFactory.model_handler")
 @patch("readmeai._agent.MarkdownBuilder.build")
 @pytest.mark.asyncio
 async def test_readme_generator(

@@ -24,7 +24,6 @@ def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
 def get_prompt_template(prompts: dict, prompt_type: str) -> str:
     """Retrieves the template for the given prompt type."""
     prompt_templates = {
-        # "avatar": prompts["prompts"]["avatar"],
         "features": prompts["prompts"]["features"],
         "overview": prompts["prompts"]["overview"],
         "slogan": prompts["prompts"]["slogan"],
@@ -62,7 +61,6 @@ async def set_additional_contexts(
                 "overview",
                 {
                     "name": config.git.name,
-                    "repo": config.git.repository,
                     "file_summary": file_summaries,
                 },
             ),

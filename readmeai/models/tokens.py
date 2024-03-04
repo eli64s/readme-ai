@@ -37,11 +37,11 @@ async def token_handler(
 
 def count_tokens(text: str, encoder: str) -> int:
     """Return the number of tokens in a text string."""
-    encoding = _set_encoding_cache(encoder)
     try:
+        encoding = _set_encoding_cache(encoder)
         token_count = len(encoding.encode(text, disallowed_special=()))
 
-    except Exception as exc:
+    except (UnicodeEncodeError, ValueError) as exc:
         _logger.error(
             f"Error counting tokens for '{text}' with {encoder}: {exc}"
         )
@@ -59,7 +59,6 @@ def truncate_tokens(encoder: str, text: str, max_count: int) -> str:
         token_count = len(encoder.encode(text))
         if token_count <= max_count:
             return text
-
         char_total = len(text)
         chars_per_token = char_total / token_count
         truncated_total = int(chars_per_token * max_count)

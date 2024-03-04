@@ -5,10 +5,10 @@ Tests for the abstract base LLM API handler.
 import pytest
 
 from readmeai._exceptions import UnsupportedServiceError
-from readmeai.models.factory import model_handler
+from readmeai.models.factory import ModelFactory
+from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
-from readmeai.models.vertex import VertexAIHandler
 
 
 def test_model_handler_openai(openai_handler):
@@ -16,9 +16,9 @@ def test_model_handler_openai(openai_handler):
     assert isinstance(openai_handler, OpenAIHandler)
 
 
-def test_model_handler_vertex(vertex_handler):
-    """Test model handler returns the correct handler for Vertex AI."""
-    assert isinstance(vertex_handler, VertexAIHandler)
+def test_model_handler_gemini(gemini_handler):
+    """Test model handler returns the correct handler for Gemini."""
+    assert isinstance(gemini_handler, GeminiHandler)
 
 
 def test_model_handler_offline(offline_handler):
@@ -31,6 +31,6 @@ def test_model_handler_unsupported_service(mock_config, mock_configs):
     mock_config.llm.api = "OpenAGI"
     mock_config.llm.model = "agi-turbo-3000"
     with pytest.raises(Exception) as exc:
-        model_handler(mock_config, mock_configs)
+        ModelFactory.model_handler(mock_config, mock_configs)
         assert isinstance(exc.value, UnsupportedServiceError)
         assert str(exc.value) == "Unsupported service: OpenAGI"

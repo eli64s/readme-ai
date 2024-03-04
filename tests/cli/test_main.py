@@ -38,7 +38,7 @@ def test_commands_with_defaults(mock_clone, runner, temp_dir, tmp_path):
     assert result.exit_code == 0
 
 
-def test_commands_with_invalid_option(runner, tmp_path):
+def test_commands_with_invalid_option(runner):
     """Test the commands function with an invalid option."""
     result = runner.invoke(
         main,

@@ -1,4 +1,6 @@
-"""Command-line interface options for the readme-ai application."""
+"""
+Command-line interface options for the readme-ai package.
+"""
 
 from __future__ import annotations
 
@@ -49,7 +51,7 @@ class ModelOptions(str, Enum):
     OFFLINE = "OFFLINE"
     OLLAMA = "OLLAMA"
     OPENAI = "OPENAI"
-    VERTEX = "VERTEX"
+    GEMINI = "GEMINI"
 
 
 def prompt_for_image(
@@ -83,10 +85,10 @@ api = click.option(
     ),
     default=None,
     help="""LLM service to use for generating the README.md file. The following services are currently supported:\n
-    - OFFLINE # Offline mode - no LLM service used \n
-    - OLLAMA  # Ollama - llama2 \n
     - OPENAI  # OpenAI - gpt-3.5-turbo \n
-    - VERTEX  # Google Cloud Vertex AI - gemini-1.0-pro) \n
+    - OLLAMA  # Ollama - llama2 \n
+    - GEMINI  # Google Gemini API - gemini-pro \n
+    - OFFLINE # Offline mode - no LLM service used \n
     """,
 )
 
@@ -187,8 +189,8 @@ output = click.option(
 
 rate_limit = click.option(
     "--rate-limit",
-    default=5,
-    type=click.IntRange(1, 20, clamp=True),
+    default=10,
+    type=click.IntRange(1, 25, clamp=True),
     help="Rate limit for the number of API requests per minute.",
 )
 

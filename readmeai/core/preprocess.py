@@ -173,9 +173,7 @@ class RepositoryProcessor:
                 file_ext=file_path.suffix,
                 content=content,
             )
-
             file_data.dependencies = self.extract_dependencies(file_data)
-
             try:
                 file_data.language = self.languages.get(
                     file_data.file_ext, self.languages.get("default")
@@ -190,22 +188,21 @@ class RepositoryProcessor:
 
 
 def preprocessor(
-    config_loader: ConfigLoader, temp_dir: str
+    conf: ConfigLoader, temp_dir: str
 ) -> Tuple[List[FileContext], List[str], List[Tuple[str, str]], str]:
     """Processes the repository files and returns the context."""
-    repo_processor = RepositoryProcessor(config_loader)
+    repo_processor = RepositoryProcessor(conf)
     repo_context = repo_processor.generate_contents(temp_dir)
     repo_context = repo_processor._language_mapper(repo_context)
     dependencies, dependency_dict = repo_processor.get_dependencies(
         repo_context
     )
-
     raw_files = [
         (str(context.file_path), context.content) for context in repo_context
     ]
-
-    config_loader.config.md.tree = MarkdownBuilder(
-        config_loader, dependencies, raw_files, temp_dir
+    conf.config.md.tree = MarkdownBuilder(
+        conf, dependencies, raw_files, temp_dir
     ).md_tree
-
+    _logger = Logger(__name__)
+    _logger.info(f"Dependencies: {dependency_dict}")
     return dependencies, raw_files

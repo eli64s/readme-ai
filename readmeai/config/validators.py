@@ -1,4 +1,6 @@
-"""Methods to validate command-line arguments and settings."""
+"""
+Pydantic validators for the CLI inputs and package settings.
+"""
 
 import re
 from pathlib import Path

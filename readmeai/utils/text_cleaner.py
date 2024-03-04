@@ -7,12 +7,12 @@ import re
 
 def clean_response(prompt_type: str, response_text: str) -> str:
     """Post-processes the response from the LLM."""
-    if "features" not in prompt_type:
+    if prompt_type == "mermaid":
+        return response_text
+    if prompt_type != "features":
         return clean_text(response_text)
     elif prompt_type == "features":
         return format_md_table(response_text)
-    elif prompt_type == "features_synthesized":
-        return fix_md_table_rows(response_text)
     else:
         return response_text
 
@@ -20,7 +20,6 @@ def clean_response(prompt_type: str, response_text: str) -> str:
 def clean_text(text: str) -> str:
     """Format and clean generated text from the LLM."""
     # Dynamically remove all text before and including the first colon if any exist
-    # Corrected the regular expression to handle the colon properly
     text = re.sub(r"^[^:]*:\s*", "", text)
 
     # Remove any text before and including "**:"
@@ -37,7 +36,6 @@ def clean_text(text: str) -> str:
         text,
         flags=re.DOTALL,
     )
-
     # Remove single and double quotes around any text
     text = re.sub(r"(?<!\w)['\"](.*?)['\"](?!\w)", r"\1", text)
 
@@ -65,7 +63,6 @@ def clean_text(text: str) -> str:
     text = text.strip()
 
     # Ensure the first letter is capitalized if it's alphabetic
-    # This step is refined to check after cleaning operations
     if text and not text[0].isupper() and text[0].isalpha():
         text = text[0].upper() + text[1:]
 

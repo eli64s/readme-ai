@@ -1,4 +1,6 @@
-"""Functions for building and formatting the badges in the README.md file."""
+"""
+Methods to generate and format svg badges for the README file.
+"""
 
 from typing import Tuple
 
@@ -6,7 +8,7 @@ from readmeai.cli.options import BadgeOptions
 from readmeai.config.settings import ConfigLoader
 from readmeai.services.git import GitHost
 from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.resource_loader import get_resource_path
+from readmeai.utils.file_resources import get_resource_path
 
 _package = "readmeai.generators"
 _submodule = "assets"
@@ -69,14 +71,14 @@ def shields_icons(
     """
     Generates badges for the README using shields.io icons.
     """
-    icons_dict = get_resource_path(
-        FileHandler(),
+    icons_path = get_resource_path(
         conf.files.shields_icons,
         _package,
         _submodule,
     )
+    icons_dict = FileHandler().read(icons_path)
 
-    default_badges = build_default_badges(conf, full_name, git_host)
+    default_icons = build_default_badges(conf, full_name, git_host)
 
     project_badges = build_project_badges(
         dependencies, icons_dict, conf.md.badge_style
@@ -90,7 +92,7 @@ def shields_icons(
         and git_host != GitHost.LOCAL
     ):
         return (
-            default_badges,
+            default_icons,
             "<!-- default option, no dependency badges. -->\n",
         )
 
@@ -100,7 +102,7 @@ def shields_icons(
             project_badges,
         )
 
-    return default_badges, project_badges
+    return default_icons, project_badges
 
 
 def skill_icons(conf: ConfigLoader, dependencies: list) -> str:
@@ -110,9 +112,10 @@ def skill_icons(conf: ConfigLoader, dependencies: list) -> str:
     """
     dependencies.extend(["md"])
 
-    icons_dict = get_resource_path(
-        FileHandler(), conf.files.skill_icons, _package, _submodule
+    icons_path = get_resource_path(
+        conf.files.skill_icons, _package, _submodule
     )
+    icons_dict = FileHandler().read(icons_path)
 
     skill_icons = [
         icon for icon in icons_dict["icons"]["names"] if icon in dependencies

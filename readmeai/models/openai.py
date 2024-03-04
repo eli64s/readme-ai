@@ -48,7 +48,6 @@ class OpenAIHandler(BaseModelHandler):
             self.client = openai.OpenAI(
                 base_url=_localhost, api_key=llms.OLLAMA.name
             )
-
         self.headers = {"Authorization": f"Bearer {self.client.api_key}"}
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict:
@@ -87,9 +86,8 @@ class OpenAIHandler(BaseModelHandler):
     ) -> Tuple[str, str]:
         """Processes OpenAI API LLM responses and returns generated text."""
         try:
-            parameters = await self._build_payload(prompt, tokens)
-
             prompt = await token_handler(self.config, index, prompt, tokens)
+            parameters = await self._build_payload(prompt, tokens)
 
             async with self._session.post(
                 self.endpoint,

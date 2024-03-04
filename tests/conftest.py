@@ -1,18 +1,25 @@
-"""Pytest fixtures for reuse across the test suite."""
+"""
+Pytest fixtures for reuse across the test suite.
+"""
 
 import json
+import sys
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-import toml
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.preprocess import FileContext, RepositoryProcessor
+from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
-from readmeai.models.vertex import VertexAIHandler
 from readmeai.utils.file_handler import FileHandler
+
+if sys.version_info < (3, 11):
+    import toml
+else:
+    import tomllib as toml
 
 
 # General fixtures
@@ -56,18 +63,17 @@ def offline_handler(mock_configs):
 
 
 @pytest.fixture
-def vertex_handler(mock_configs):
+def gemini_handler(mock_configs):
     """Fixture for OpenAIHandler class."""
     with patch.dict(
         "os.environ",
         {
-            "VERTEXAI_PROJECT": "test-project",
-            "VERTEXAI_LOCATION": "us-central1",
+            "GOOGLE_API_KEY": "sk-test-key",
         },
     ):
-        mock_configs.config.llm.api = "VERTEX"
-        mock_configs.config.llm.model = "gemini-1.0-pro"
-        yield VertexAIHandler(mock_configs)
+        mock_configs.config.llm.api = "GEMINI"
+        mock_configs.config.llm.model = "gemini-pro"
+        yield GeminiHandler(mock_configs)
 
 
 # File handler fixtures

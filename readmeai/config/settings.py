@@ -1,17 +1,19 @@
 """
-Core data models and configuration settings for the readme-ai package.
+Data models and configuration settings for the readme-ai package.
 """
 
 from __future__ import annotations
 
+from functools import cached_property
 from pathlib import Path
 from typing import Optional, Union
 
-from pydantic import BaseModel, DirectoryPath, HttpUrl, validator
+from pydantic import BaseModel, Field, HttpUrl, validator
 
 from readmeai.config.validators import GitValidator
+from readmeai.core.logger import Logger
 from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.resource_loader import get_resource_path
+from readmeai.utils.file_resources import get_resource_path
 
 
 class APISettings(BaseModel):
@@ -39,11 +41,17 @@ class FileSettings(BaseModel):
 class GitSettings(BaseModel):
     """User repository settings, sanitized and validated by Pydantic."""
 
-    repository: Union[HttpUrl, DirectoryPath]
-    full_name: Optional[str]
-    host_domain: Optional[str]
-    host: Optional[str]
-    name: Optional[str]
+    repository: str = Field(..., description="The repository URL.")
+    full_name: Optional[str] = Field(
+        None, description="The full name of the repository."
+    )
+    host_domain: Optional[str] = Field(
+        None, description="The domain of the repository host."
+    )
+    host: Optional[str] = Field(None, description="The repository host.")
+    name: Optional[str] = Field(
+        None, description="The name of the repository."
+    )
 
     _validate_repository = validator("repository", pre=True, always=True)(
         GitValidator.validate_repository
@@ -82,12 +90,13 @@ class MarkdownSettings(BaseModel):
     toc: str
     tree: str
     tree_depth: int
+    width: str
 
 
 class ModelSettings(BaseModel):
     """LLM API settings used for generating text for the README.md file."""
 
-    api: str
+    api: Optional[str]
     base_url: Optional[HttpUrl]
     context_window: Optional[int]
     encoder: Optional[str]
@@ -118,25 +127,50 @@ class ConfigLoader:
     def __init__(
         self,
         config_file: Union[str, Path] = "config.toml",
+        sub_module: str = "settings",
     ) -> None:
         """Initialize ConfigLoader with the base configuration file."""
+        self._logger = Logger(__name__)
         self.file_handler = FileHandler()
         self.config_file = config_file
-        self.config = self._load_base_config()
-        self._load_all_configs()
+        self.sub_module = sub_module
+        self.config = self._base_config
+        self.load_settings()
 
-    def _load_base_config(self) -> Settings:
-        """Load the base configuration file."""
-        config_dict = get_resource_path(self.file_handler, self.config_file)
+    @cached_property
+    def _base_config(self) -> Settings:
+        """Loads the base configuration file."""
+        file_path = get_resource_path(
+            file_path=self.config_file, sub_module=self.sub_module
+        )
+        config_dict = self.file_handler.read(file_path)
         return Settings.parse_obj(config_dict)
 
-    def _load_all_configs(self) -> None:
-        """Load additional configuration files specified in the Settings."""
-        for (
-            key,
-            file_name,
-        ) in self.config.files.dict().items():
+    def load_settings(self) -> dict[str, dict]:
+        """Loads all configuration settings.
+
+        - Loads the base configuration file from `settings/config.toml`.
+        - Loads any additional configuration files specified in the base settings
+          under the `files` key.
+
+        Returns:
+            A dictionary containing all loaded configuration settings, where
+            the keys are the section names from `Settings` and the values
+            are their respective data dictionaries.
+        """
+        settings = self._base_config.dict()
+
+        for key, file_name in settings["files"].items():
             if not file_name.endswith(".toml"):
                 continue
-            data_dict = get_resource_path(self.file_handler, file_name)
+            file_path = get_resource_path(
+                file_path=file_name,
+            )
+            data_dict = self.file_handler.read(file_path)
+            settings[key] = data_dict
             setattr(self, key, data_dict)
+            self._logger.info(
+                f"Loaded configuration file: {self.sub_module}/{file_name}"
+            )
+
+        return settings

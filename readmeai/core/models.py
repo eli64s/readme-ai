@@ -100,18 +100,17 @@ class BaseModelHandler(ABC):
             raw_files = [
                 file for file in raw_files if not file[0].endswith(".lock")
             ]
-        file_summary_prompts = await set_summary_context(
+        summaries_prompts = await set_summary_context(
             self.config, dependencies, raw_files
         )
-        file_summary_responses = await self._batch_prompts(
-            file_summary_prompts
-        )
+        summaries_responses = await self._batch_prompts(summaries_prompts)
+
         additional_prompts = await set_additional_contexts(
-            self.config, dependencies, file_summary_responses
+            self.config, dependencies, summaries_responses
         )
         additional_responses = await self._batch_prompts(additional_prompts)
 
-        return file_summary_responses + additional_responses
+        return summaries_responses + additional_responses
 
     async def _batch_prompts(
         self, prompts: List[Union[str, Tuple[str, str]]], batch_size: int = 10

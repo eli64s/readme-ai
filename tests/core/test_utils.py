@@ -25,18 +25,18 @@ def test_get_environment_openai(mock_configs):
 
 @patch.dict(
     "os.environ",
-    {"VERTEXAI_LOCATION": "us-central1", "VERTEXAI_PROJECT": "test-project"},
+    {"GOOGLE_API_KEY": "sk-google-key"},
     clear=True,
 )
-def test_get_environment_vertex(mock_configs):
-    """Test that the environment is setup correctly for Vertex AI."""
-    mock_configs.config.llm.api = ModelOptions.VERTEX.name
-    mock_configs.config.llm.model = "gemini-1.0-pro"
+def test_get_environment_gemini(mock_configs):
+    """Test that the environment is setup correctly for Gemini API."""
+    mock_configs.config.llm.api = ModelOptions.GEMINI.name
+    mock_configs.config.llm.model = "gemini-pro"
     test_api, test_model = get_environment(
         mock_configs.config.llm.api, mock_configs.config.llm.model
     )
-    assert test_api == ModelOptions.VERTEX.name
-    assert test_model == "gemini-1.0-pro"
+    assert test_api == ModelOptions.GEMINI.name
+    assert test_model == "gemini-pro"
 
 
 @patch.dict("os.environ", {}, clear=True)
@@ -86,18 +86,18 @@ def test_no_api_specified_but_openai_settings_exist_in_env(mock_configs):
 
 @patch.dict(
     "os.environ",
-    {"VERTEXAI_LOCATION": "us-central1", "VERTEXAI_PROJECT": "test-project"},
+    {"GOOGLE_API_KEY": "sk-google-key"},
     clear=True,
 )
-def test_no_api_specified_but_vertex_settings_exist_in_env(mock_configs):
+def test_no_api_specified_but_gemini_settings_exist_in_env(mock_configs):
     """Test that the environment variables are scanned correctly."""
     mock_configs.config.llm.api = None
     mock_configs.config.llm.model = None
     test_api, test_model = get_environment(
         mock_configs.config.llm.api, mock_configs.config.llm.model
     )
-    assert test_api == ModelOptions.VERTEX.name
-    assert test_model == "gemini-1.0-pro"
+    assert test_api == ModelOptions.GEMINI.name
+    assert test_model == "gemini-pro"
 
 
 @patch.dict("os.environ", {}, clear=True)
@@ -112,9 +112,9 @@ def test_missing_openai_settings_so_set_offline_mode(mock_configs):
 
 
 @patch.dict("os.environ", {}, clear=True)
-def test_missing_vertex_settings_so_set_offline_mode(mock_configs):
+def test_missing_gemini_settings_so_set_offline_mode(mock_configs):
     """Test that the environment variables are scanned correctly."""
-    mock_configs.config.llm.api = ModelOptions.VERTEX.name
+    mock_configs.config.llm.api = ModelOptions.GEMINI.name
     test_api, test_model = get_environment(
         mock_configs.config.llm.api, mock_configs.config.llm.model
     )
