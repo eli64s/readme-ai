@@ -1,12 +1,17 @@
 """Python dependency file parsers methods."""
 
 import re
+import sys
 from typing import List
 
-import toml
 import yaml
 
 from readmeai.core.parsers import BaseFileParser
+
+if sys.version_info < (3, 11):
+    import toml
+else:
+    import tomllib as toml
 
 
 class RequirementsParser(BaseFileParser):

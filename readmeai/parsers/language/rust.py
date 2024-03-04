@@ -1,10 +1,16 @@
-"""Parser for Rust dependency files."""
+"""
+Parser for Rust cargo.toml dependency files.
+"""
 
+import sys
 from typing import List
 
-import toml
-
 from readmeai.core.parsers import BaseFileParser
+
+if sys.version_info < (3, 11):
+    import toml
+else:
+    import tomllib as toml
 
 
 class CargoTomlParser(BaseFileParser):
