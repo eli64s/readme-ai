@@ -356,7 +356,7 @@ Make sure to have a repository URL or local directory path ready for the CLI.
 
 - [**OpenAI**](https://platform.openai.com/docs/quickstart/account-setup): Recommended, requires an account setup and API key.
 - [**Ollama**](https://github.com/ollama/ollama): Free and open-source, potentially slower and more resource-intensive.
-- [**Google Gemini**](https://ai.google.dev/tutorials/python_quickstart): Requires a Google ClouD account and API key.
+- [**Google Gemini**](https://ai.google.dev/tutorials/python_quickstart): Requires a Google Cloud account and API key.
 - [**Offline Mode**](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md): Generates a boilerplate README without making API calls.
 
 <!--
