@@ -1,4 +1,6 @@
-"""Test automation with nox and pytest."""
+"""
+Nox file for running tests across multiple Python versions.
+"""
 
 import nox
 
@@ -28,7 +30,10 @@ def tests(session):
     session.run(
         "pytest",
         "-vv",
+        "-n auto",
         "--asyncio-mode=auto",
         "--cov=./",
+        "--cov-branch",
+        "--cov-report=xml",
         "--cov-report=term-missing",
     )
