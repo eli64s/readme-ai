@@ -35,6 +35,7 @@ class DalleHandler:
             "prompt": self.conf.prompts["prompts"]["logo"].format(
                 project_name=self.conf.config.git.name,
                 project_slogan=self.conf.config.md.slogan,
+                project_overview=self.conf.config.md.overview,
             ),
             "model": self.model,
             "size": self.size,

@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Optional
 
 from readmeai._exceptions import ReadmeGeneratorError
-from readmeai.cli.options import ImageOptions
+from readmeai.cli.options import ImageOptions, ModelOptions
 from readmeai.config.settings import ConfigLoader, GitSettings
 from readmeai.core.logger import Logger
 from readmeai.core.preprocess import preprocessor
@@ -74,7 +74,6 @@ def readme_agent(
         conf.config.git = GitSettings(repository=repository)
         _logger.info(f"Repository validated: {conf.config.git}")
         _logger.info(f"LLM API settings: {conf.config.llm}")
-
         asyncio.run(readme_generator(conf, output_file))
 
     except Exception as exc:
@@ -89,7 +88,6 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
             dependencies,
             raw_files,
         ) = preprocessor(conf, temp_dir)
-
         _logger.info(f"Total files analyzed: {len(raw_files)}")
         _logger.info(f"Dependencies found: {dependencies}")
 
@@ -105,16 +103,23 @@ async def readme_generator(conf: ConfigLoader, output_file: Path) -> None:
             conf.config.md.overview = conf.config.md.overview.format(overview)
             conf.config.md.slogan = slogan
 
-        if conf.config.md.image == ImageOptions.LLM.value:
-            conf.config.md.width = "50%"
+        if (
+            conf.config.md.image == ImageOptions.LLM.value
+            and conf.config.llm.api != ModelOptions.OFFLINE.value
+        ):
+            conf.config.md.width = "60%"
             dalle = DalleHandler(conf)
             image_url = dalle.run()
             conf.config.md.image = dalle.download(image_url)
+        elif (
+            conf.config.md.image == ImageOptions.LLM.value
+            and conf.config.llm.api == ModelOptions.OFFLINE.value
+        ):
+            conf.config.md.image = ImageOptions.BLUE.value
 
         readme_md = MarkdownBuilder(
             conf, dependencies, summaries, temp_dir
         ).build()
-
         FileHandler().write(output_file, readme_md)
         _logger.info("README generation process completed successfully!")
         _logger.info(f"README.md file saved to: {output_file}")

@@ -39,17 +39,16 @@ each response with a verb or a noun to make the summary more engaging and impact
 - Your response should be a maximum of 50 words.
 """
 
-logo = """Design a sleek and modern logo for '{project_name}'. \
-The logo should embody a sense of forward-thinking and efficiency.
-Incorporate a simple yet bold icon that captures the essence of the project,
-paired with the project name in a clean, sans-serif font. \
-The icon should be abstract or geometric, suggesting movement or progress. \
-The overall look should be minimalistic, with a monochromatic color palette, \
-ensuring the logo is versatile for use across various mediums. \
-Provide ample margin space around the logo to enhance its visibility and impact.
+logo = """Design a square app logo for the software project - "{project_name}". \
+The logo should feature the project name in bold and easily readable letters. \
+The color scheme should be engaging and suitable for a technology-focused app, \
+with a white background behind the stylized app logo square with rounded corners. \
+While designing the logo, please reference the following codebase details: \n
 --------------------------------------------------------------------------------
+Repository Details:
 Project Name: {project_name}
-Project Slogan: {project_slogan}
+Project Overview: {project_overview}
+Project Catch Phrase/Slogan: {project_slogan}
 --------------------------------------------------------------------------------
 """
 

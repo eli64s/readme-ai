@@ -42,18 +42,19 @@ class GitSettings(BaseModel):
     """User repository settings, sanitized and validated by Pydantic."""
 
     repository: Union[str, Path] = Field(
-        ...,
-        description="The URL or directory path to the repository.",
+        ..., description="URL or directory path to the repository."
     )
     full_name: Optional[str] = Field(
         None, description="The full name of the repository."
     )
     host_domain: Optional[str] = Field(
-        None, description="The domain of the repository host."
+        None, description="Domain of the repository host."
     )
-    host: Optional[str] = Field(None, description="The repository host.")
+    host: Optional[str] = Field(
+        None, description="The repository host i.e. 'github'."
+    )
     name: Optional[str] = Field(
-        None, description="The name of the repository."
+        None, description="Project name i.e. 'readme-ai'."
     )
 
     _validate_repository = validator("repository", pre=True, always=True)(
