@@ -55,13 +55,13 @@ nox:
 
 .PHONY: pytest
 pytest:
-	pytest ${VV} \
-	-n auto \
-	--asyncio-mode=auto \
-	--cov=. \
-	--cov-report=xml \
-	--cov-report=term-missing \
-	--cov-branch \
+	poetry run pytest ${VV} \
+		-n auto \
+		--asyncio-mode=auto \
+		--cov=. \
+		--cov-branch \
+		--cov-report=xml \
+		--cov-report=term-missing \
 
 .PHONY: poetry-reqs
 poetry-reqs:
