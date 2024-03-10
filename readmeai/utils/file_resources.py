@@ -45,7 +45,7 @@ def get_resource_path(
             sub_module, file_path
         )
 
-    except TypeError:
+    except TypeError:  # pragma: no cover
         try:
             import pkg_resources
 
@@ -56,7 +56,7 @@ def get_resource_path(
                 )
             ).resolve()
 
-        except Exception as exc:
+        except Exception as exc:  # pragma: no cover
             raise FileReadError(
                 "Error loading resource file using pkg_resources",
                 str(resource_path),

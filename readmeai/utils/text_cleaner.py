@@ -7,12 +7,10 @@ import re
 
 def clean_response(prompt_type: str, response_text: str) -> str:
     """Post-processes the response from the LLM."""
-    if prompt_type == "mermaid":
-        return response_text
-    if prompt_type != "features":
-        return clean_text(response_text)
-    elif prompt_type == "features":
+    if prompt_type == "features":
         return format_md_table(response_text)
+    elif prompt_type != "features":
+        return clean_text(response_text)
     else:
         return response_text
 
