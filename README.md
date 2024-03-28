@@ -454,7 +454,7 @@ An OpenAI API account and API key are needed to use readme-ai. Get started by cr
 > $ export OPENAI_API_KEY=<your_api_key>
 >
 > # Using Windows
-> $ set OPENAI_API=<your_api_key>
+> $ set OPENAI_API_KEY=<your_api_key>
 > ```
 
 #### Using `Ollama`
