@@ -3,6 +3,7 @@ Git operations for cloning and validating user repositories.
 """
 
 import os
+import stat
 import platform
 import shutil
 from enum import Enum
@@ -94,10 +95,13 @@ async def clone_repository(repository: str, temp_dir: str) -> str:
 
 async def remove_hidden_contents(directory: Path) -> None:
     """Remove hidden files and directories from a specified directory."""
+    def delete(func, path, execinfo):
+        os.chmod(path, stat.S_IWUSR)
+        func(path)
     for item in directory.iterdir():
         if item.name.startswith(".") and item.name != ".github":
             if item.is_dir():
-                shutil.rmtree(item)
+                shutil.rmtree(item, onerror=delete)
             else:
                 item.unlink()
 
