@@ -51,6 +51,18 @@ def test_offline_mode_when_no_env_vars_set(mock_configs):
     assert test_model == ModelOptions.OFFLINE.name
 
 
+@patch.dict("os.environ", {"TELNYX_API_KEY": "KEYXXX"}, clear=True)
+def test_get_environment_telnyx(mock_configs):
+    """Test that the environment is setup correctly for OpenAI."""
+    mock_configs.config.llm.api = ModelOptions.TELNYX.name
+    mock_configs.config.llm.model = "meta-llama/Meta-Llama-3-70B"
+    test_api, test_model = get_environment(
+        mock_configs.config.llm.api, mock_configs.config.llm.model
+    )
+    assert test_api == ModelOptions.TELNYX.name
+    assert test_model == "meta-llama/Meta-Llama-3-70B"
+
+
 @patch.dict("os.environ", {}, clear=True)
 def test_set_offline_mode(mock_configs):
     """Test that the environment is setup correctly for offline mode."""
