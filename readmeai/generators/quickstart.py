@@ -42,7 +42,7 @@ def count_languages(
         ]:
             continue
 
-        if language and language not in config_loader.blacklist:
+        if language not in config_loader.blacklist:
             language_counts[language] = language_counts.get(language, 0) + 1
 
     return language_counts
