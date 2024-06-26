@@ -108,6 +108,8 @@ class ModelSettings(BaseModel):
     temperature: Optional[float]
     tokens: Optional[int]
     top_p: Optional[float]
+    telnyx_base_url: Optional[HttpUrl]
+    telnyx_base_model: Optional[str]
 
 
 class Settings(BaseModel):

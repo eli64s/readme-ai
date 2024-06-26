@@ -48,6 +48,13 @@ class OpenAIHandler(BaseModelHandler):
             self.client = openai.OpenAI(
                 base_url=_localhost, api_key=llms.OLLAMA.name
             )
+        elif self.config.llm.api == llms.TELNYX.name:
+            self.endpoint = self.config.llm.telnyx_base_url
+            self.model = self.config.llm.telnyx_base_model
+            self.client = openai.OpenAI(
+                base_url=self.endpoint,
+                api_key=os.environ.get("TELNYX_API_KEY"),
+            )
         self.headers = {"Authorization": f"Bearer {self.client.api_key}"}
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict:

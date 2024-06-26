@@ -28,6 +28,8 @@ model = "gpt-3.5-turbo"
 temperature = 0.9
 tokens = 650
 top_p = 0.9
+telnyx_base_url = "https://api.telnyx.com/v2/ai/chat/completions"
+telnyx_base_model = "meta-llama/Meta-Llama-3-70B-Instruct"
 
 # Markdown Template Settings
 [md]

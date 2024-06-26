@@ -19,6 +19,7 @@ class ModelFactory:
         llms.OLLAMA.value: OpenAIHandler,
         llms.OPENAI.value: OpenAIHandler,
         llms.GEMINI.value: GeminiHandler,
+        llms.TELNYX.value: OpenAIHandler,
     }
 
     @staticmethod
