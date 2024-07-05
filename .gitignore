@@ -1,35 +1,33 @@
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
 # Compiled Python files
 *.pyc
 *.pyo
 __pycache__/
-.venv/
 
-# Compiled Cython files
-*.so
-*.c
+# Virtual environment
+.venv/
+.env
 
 # System-specific files
 .DS_Store
-Thumbs.db
 
 # Temporary files
 *~
 
-# Test coverage results
+# Logging
+logs/
+*.log
+
+# Testing
 .nox/
 .coverage
 .coverage.*
 coverage.xml
 htmlcov/
-
-# Log files
-logs/
-*.log
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
@@ -39,33 +37,22 @@ notebooks/
 # VSCode workspace settings
 .vscode/
 
-# cache
+# Python Tools
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
 
-# Benchmarks
-.benchmarks/
-
-# Package Management
-Pipfile
-Pipfile.lock
-
-# Work In Progress
-# Configuration Files (wip)
-
+# Work In Progress (WIP)
 readmeai/config/settings/classifiers.toml
 readmeai/config/settings/models.toml
-readmeai/config/settings/quickstart_wip.toml
-readmeai/config/settings/quickstart.toml
 readmeai/utils/file_cleaner.py
 
-# Github Actions
+# Github Actions (WIP)
 .github/workflows/ci.yml
 
-# Submodules (wip)
+# Submodules (WIP)
 readmeai/templates/
 readmeai/ui/
 
-# Dalle-3 Images
+# Dalle-3 Images (WIP)
 examples/images/dalle

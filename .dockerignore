@@ -1,53 +1,77 @@
-# Git and GitHub metadata
-.github/
-.git/
-.gitignore
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
-CHANGELOG.md
-
-# Exclude all .pyc files
-**/__pycache__
-
 # Build artifacts
+build/
 dist/
-*.tar.gz
-*.whl
+*.egg-info/
 
-# Test and setup scripts
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+.venv/
+.env
+
+# System-specific files
+.DS_Store
+
+# Temporary files
+*~
+
+# Logging
+logs/
+*.log
+
+# Testing
+noxfile.py
+.nox/
 .coverage
+.coverage.*
+coverage.xml
+htmlcov/
 tests/
 setup/
 scripts/
 
-# Jupyter notebooks
+# Git
+.github/
+.git/
+.gitignore
+
+# Markdown
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+outputs/
 notebooks/
 
-# Package Management
-Pipfile
-Pipfile.lock
+# VSCode workspace settings
+.vscode/
 
-# Documentation and Automation Files
+# Python Tools
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Documentation
 docs/
 examples/
 mkdocs.yml
 Makefile
-noxfile.py
 
-# Work In Progress
-# Configuration Files (wip)
-
+# Work In Progress (WIP)
 readmeai/config/settings/classifiers.toml
 readmeai/config/settings/models.toml
-readmeai/config/settings/quickstart_wip.toml
-readmeai/config/settings/quickstart.toml
 
-# Github Actions
+# Github Actions (WIP)
 .github/workflows/ci.yml
 
-# Submodules (wip)
+# Submodules (WIP)
 readmeai/templates/
 readmeai/ui/
 
-# Dalle-3 Images
+# Dalle-3 Images (WIP)
 examples/images/dalle
