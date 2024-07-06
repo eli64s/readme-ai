@@ -1,4 +1,4 @@
-# Pre-commit hooks - https://pre-commit.com/
+# https://pre-commit.com/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -18,8 +18,11 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.11
+    rev: v0.4.0
     hooks:
       - id: ruff
-        args: [ --fix ]
+        name: Run Linter Check (Ruff)
+        args: [--fix]
+        files: ^(readmeai|tests)/
       - id: ruff-format
+        name: Run Formatter (Ruff)
