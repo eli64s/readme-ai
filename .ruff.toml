@@ -1,0 +1,46 @@
+exclude = [
+    ".git",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pyenv",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".env,",
+    ".venv",
+    ".vscode",
+    "venv",
+]
+line-length = 79
+indent-width = 4
+target-version = "py311"
+
+[lint]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+extend-select = ["E501"]
+select = [
+    "ARG",      # unused arguments
+    "B",        # flake8-bugbear
+    "COM812",   # flake8-comprehensions
+    "E",        # pycodestyle
+    "E722",     # bare except statements
+    "F",        # pyflakes
+    "F401",     # remove unused imports
+    "I",        # isort
+    "N",        # pep8-naming
+    "RUF",      # ruff
+    "SIM",      # flake8-simplify
+    "UP",       # pyupgrade
+]
+fixable = ["ALL"]
+ignore = []
+unfixable = []
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
