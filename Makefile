@@ -1,73 +1,69 @@
-# Makefile
-
 COMMITS := 10
 SHELL := /bin/bash
 VENV := readmeai
 VV := \
 
-.PHONY: help clean format lint conda-recipe git-rm-cache git-log nox pytest poetry-reqs search
-
-help:
-	@echo "Commands:"
-	@echo "clean        : repository file cleanup."
-	@echo "format       : executes code formatting."
-	@echo "lint         : executes code linting."
-	@echo "conda-recipe : builds conda package."
-	@echo "git-rm-cache : fix git untracked files."
-	@echo "git-log      : displays git log."
-	@echo "nox          : executes nox test suite."
-	@echo "pytest       : executes tests."
-	@echo "poetry-reqs  : generates requirements.txt file."
-	@echo "search       : searches word in directory."
-
 .PHONY: clean
-clean: format
+clean: ## Remove project build artifacts
 	@echo -e "\nFile clean up in directory: ${CURDIR}"
 	./scripts/clean.sh clean
 
 .PHONY: format
-format:
+format: ## Format codebase using Ruff
 	@echo -e "\nFormatting in directory: ${CURDIR}"
 	ruff check --select I --fix .
 	ruff format .
 
 .PHONY: lint
-lint:
+lint: ## Lint codebase using Ruff
 	@echo -e "\nLinting in directory: ${CURDIR}"
 	ruff check . --fix
 
 .PHONY: conda-recipe
-conda-recipe:
+conda-recipe: ## Create conda recipe for conda-forge
 	grayskull pypi readmeai
 	conda build .
 
 .PHONY: git-rm-cache
-git-rm-cache:
+git-rm-cache: ## Remove all files from git cache
 	git rm -r --cached .
 
 .PHONY: git-log
-git-log:
+git-log: ## Display git log for last ${COMMITS} commits
 	git log -n ${COMMITS} --pretty=tformat: --shortstat
 
 .PHONY: nox
-nox:
+nox: ## Run nox test automation against multiple Python versions
 	nox -f noxfile.py
 
 .PHONY: pytest
-pytest:
-	poetry run pytest ${VV} \
-		-n auto \
-		--asyncio-mode=auto \
-		--cov=. \
-		--cov-branch \
-		--cov-report=xml \
-		--cov-report=term-missing \
+pytest: ## Run unit tests using pytest
+	poetry run pytest ${VV}
 
-.PHONY: poetry-reqs
-poetry-reqs:
+.PHONY: poetry-clean
+poetry-clean: ## Removes Poetry virtual environment and lock file.
+	poetry env remove --all && rm poetry.lock
+
+.PHONY: poetry-install
+poetry-install: ## Install dependencies using Poetry.
+	poetry install
+
+.PHONY: poetry-shell
+poetry-shell: ## Launch a shell within Poetry virtual environment.
+	poetry shell
+
+.PHONY: poetry-to-requirements
+poetry-to-requirements: ## Export poetry requirements to requirements.txt
 	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
 
 .PHONY: search
-search: clean
+search: ## Search for a word in the codebase
 	@echo -e "\nSearching for: ${WORD} in directory: ${CURDIR}"
 	grep -Ril ${WORD} readmeai tests scripts setup
+
+.PHONY: help
+help: Makefile ## Display this help message
+	@echo -e ""
+	@echo -e "Usage: make [target]"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@echo -e "__________________________________________________________________________________________\n"
