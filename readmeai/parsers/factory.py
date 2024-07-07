@@ -1,35 +1,35 @@
-"""Abstract factory module for all project file parsers."""
-
-from typing import Dict, Type
+"""
+Abstract factory module for all project file parsers.
+"""
 
 from readmeai.core.parsers import BaseFileParser
-from readmeai.parsers.configuration.docker import (
-    DockerComposeParser,
-    DockerfileParser,
-)
-from readmeai.parsers.configuration.properties import PropertiesParser
-from readmeai.parsers.language.cpp import (
+from readmeai.parsers.cpp import (
     CMakeParser,
     ConfigureAcParser,
     MakefileAmParser,
 )
-from readmeai.parsers.language.go import GoModParser
-from readmeai.parsers.language.python import (
+from readmeai.parsers.docker import (
+    DockerComposeParser,
+    DockerfileParser,
+)
+from readmeai.parsers.go import GoModParser
+from readmeai.parsers.gradle import (
+    BuildGradleKtsParser,
+    BuildGradleParser,
+)
+from readmeai.parsers.maven import MavenParser
+from readmeai.parsers.npm import PackageJsonParser
+from readmeai.parsers.properties import PropertiesParser
+from readmeai.parsers.python import (
     RequirementsParser,
     TomlParser,
     YamlParser,
 )
-from readmeai.parsers.language.rust import CargoTomlParser
-from readmeai.parsers.language.swift import SwiftPackageParser
-from readmeai.parsers.package.gradle import (
-    BuildGradleKtsParser,
-    BuildGradleParser,
-)
-from readmeai.parsers.package.maven import MavenParser
-from readmeai.parsers.package.npm import PackageJsonParser
-from readmeai.parsers.package.yarn import YarnLockParser
+from readmeai.parsers.rust import CargoTomlParser
+from readmeai.parsers.swift import SwiftPackageParser
+from readmeai.parsers.yarn import YarnLockParser
 
-ParserRegistryType = dict[str, Type[BaseFileParser]]
+ParserRegistryType = dict[str, type[BaseFileParser]]
 
 PARSER_REGISTRY = {
     # Configuration
@@ -73,6 +73,6 @@ PARSER_REGISTRY = {
 }
 
 
-def parser_handler() -> Dict[str, BaseFileParser]:
+def parser_handler() -> dict[str, BaseFileParser]:
     """Returns a dictionary of callable file parser methods."""
     return PARSER_REGISTRY

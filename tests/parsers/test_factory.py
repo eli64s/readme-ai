@@ -1,7 +1,7 @@
 """Test cases for the file_parser module."""
 
 from readmeai.parsers.factory import parser_handler
-from readmeai.parsers.language.python import RequirementsParser, TomlParser
+from readmeai.parsers.python import RequirementsParser, TomlParser
 
 
 def test_parser_handler():
