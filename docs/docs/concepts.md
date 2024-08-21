@@ -22,7 +22,7 @@ Readme-ai is a tool for auto-generating README files for code repositories using
 - Flexible configuration system
 - CLI options to tweak badge icons, images, model settings
 - Supports different badge styles like flat, plastic, skills
-- Can provide custom images and set text alignment
+- Can provide custom images and set text align
 - Edit prompt templates to influence content
 
 ## Modular Design
@@ -93,7 +93,7 @@ Overall, this promotes maintainability, testability and flexibility.
 
 Users can customize the look and feel of the generated README by providing a range of CLI options.
 
-- **Appearance**: Choose badge styles, header images, alignment options and more for unique styling.
+- **Appearance**: Choose badge styles, header images, align options and more for unique styling.
 
 - **Content**: Control language model behavior with parameters like temperature and max tokens. Toggle emojis in text.
 
@@ -123,7 +123,7 @@ The `cli` category holds boolean settings related to the CLI itself, primarily `
 
 #### Files
 
-The `files` category manages various file paths used in the application. Specific properties include `dependency_files`, `identifiers`, `ignore_files`, `language_names`, `language_setup`, `output`, `shields_icons`, and `skill_icons`. All these fields hold either absolute file paths or relative references to files managed by the application.
+The `files` category manages various file paths used in the application. Specific properties include `dependency_files`, `identifiers`, `ignore_files`, `language_names`, `language_setup`, `output`, `shieldsio_icons`, and `skill_icons`. All these fields hold either absolute file paths or relative references to files managed by the application.
 
 #### Git
 
