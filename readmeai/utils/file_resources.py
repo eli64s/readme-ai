@@ -11,8 +11,8 @@ from readmeai._exceptions import FileReadError
 def get_resource_path(
     file_path: str,
     package: str = "readmeai.config",
-    sub_module: str = "settings",
-) -> Path:
+    submodule: str = "settings",
+) -> str:
     """Retrieves the path to a resource file within the package.
 
     This function attempts to first use `importlib.resources` for preferred
@@ -41,28 +41,27 @@ def get_resource_path(
     """
     resource_path = None
     try:
-        resource_path = resources.files(package).joinpath(
-            sub_module, file_path
-        )
+        resource_path = resources.files(package).joinpath(submodule, file_path)
 
     except TypeError:  # pragma: no cover
         try:
             import pkg_resources
 
-            submodule = sub_module.replace(".", "/")
+            submodule = submodule.replace(".", "/")
             resource_path = Path(
                 pkg_resources.resource_filename(
-                    "readmeai", f"{submodule}/{file_path}"
-                )
+                    "readmeai",
+                    f"{submodule}/{file_path}",
+                ),
             ).resolve()
 
         except Exception as exc:  # pragma: no cover
             raise FileReadError(
-                "Error loading resource file using pkg_resources",
+                "Error loading resource file via pkg_resources",
                 str(resource_path),
             ) from exc
 
-    if not resource_path.exists():
+    if resource_path is None:
         raise FileReadError("Resource file not found", str(resource_path))
 
-    return resource_path
+    return str(resource_path)

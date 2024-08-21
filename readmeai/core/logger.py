@@ -4,7 +4,7 @@ Custom logger implementation for the readme-ai package.
 
 import logging
 import sys
-from typing import Dict
+import typing
 
 LOG_LEVEL_EMOJIS = {
     "DEBUG": "⚙︎",
@@ -17,7 +17,6 @@ LOG_LEVEL_EMOJIS = {
 LOG_LEVEL_COLORS = {
     "DEBUG": "\033[34m",
     "INFO": "\033[35m",
-    # "INFO": "\033[32m,
     "WARNING": "\033[33m",
     "ERROR": "\033[31m",
     "CRITICAL": "\033[31m\033[1m",
@@ -28,7 +27,9 @@ RESET_COLOR = "\033[0m"
 
 
 class CustomFormatter(logging.Formatter):
-    """Custom log formatter with color and emoji support."""
+    """
+    Custom logging formatter with color and emoji support.
+    """
 
     def format(self, record) -> str:
         """Format the log record."""
@@ -39,9 +40,11 @@ class CustomFormatter(logging.Formatter):
 
 
 class Logger:
-    """Custom logger implementation."""
+    """
+    Custom logger class for the readme-ai package.
+    """
 
-    _instances: Dict[str, "Logger"] = {}
+    _instances: typing.ClassVar[dict[str, "Logger"]] = {}
 
     def __new__(cls, name, level="DEBUG"):
         """Creates a new logger instance."""

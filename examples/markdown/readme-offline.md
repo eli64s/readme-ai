@@ -293,7 +293,7 @@
 | ---                                                                                                       | ---                             |
 | [prompts.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/prompts.toml)     | <code>► INSERT-TEXT-HERE</code> |
 | [parsers.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/parsers.toml)     | <code>► INSERT-TEXT-HERE</code> |
-| [blacklist.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/blacklist.toml) | <code>► INSERT-TEXT-HERE</code> |
+| [ignore_list.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/ignore_list.toml) | <code>► INSERT-TEXT-HERE</code> |
 | [languages.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/languages.toml) | <code>► INSERT-TEXT-HERE</code> |
 | [utils.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/utils.py)             | <code>► INSERT-TEXT-HERE</code> |
 | [config.toml](https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/config.toml)       | <code>► INSERT-TEXT-HERE</code> |

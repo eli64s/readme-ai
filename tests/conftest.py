@@ -156,3 +156,10 @@ def mock_file_data():
             dependencies=[],
         ),
     ]
+
+
+# Local host fixtures
+@pytest.fixture(scope="session")
+def ollama_localhost():
+    """Returns the default local host path."""
+    return "http://localhost:11434/"

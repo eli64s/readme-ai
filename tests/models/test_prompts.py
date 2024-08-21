@@ -17,15 +17,20 @@ from readmeai.models.prompts import (
 
 def test_get_prompt_context_found(mock_config, mock_configs):
     """Test the retrieval of a prompt context."""
-    with patch(
-        "readmeai.models.prompts.get_prompt_template",
-        return_value="Hello, {name}!",
-    ), patch(
-        "readmeai.models.prompts.inject_prompt_context",
-        return_value="Hello, World!",
+    with (
+        patch(
+            "readmeai.models.prompts.get_prompt_template",
+            return_value="Hello, {name}!",
+        ),
+        patch(
+            "readmeai.models.prompts.inject_prompt_context",
+            return_value="Hello, World!",
+        ),
     ):
         result = get_prompt_context(
-            mock_configs.prompts, "greeting", {"name": "World"}
+            mock_configs.prompts,
+            "greeting",
+            {"name": "World"},
         )
         assert result == "Hello, World!"
 
@@ -43,7 +48,10 @@ def test_get_prompt_template(mock_config, mock_configs):
 
 
 def test_inject_prompt_context_success(
-    mock_config, mock_configs, mock_dependencies, mock_summaries
+    mock_config,
+    mock_configs,
+    mock_dependencies,
+    mock_summaries,
 ):
     """Test the injection of a prompt context."""
     context = get_prompt_context(

@@ -1,38 +1,37 @@
 ## Command Line Interface
 
-## 🧩 Configuration
+## 🔧 Configuration
 
-Run the `readmeai` command in your terminal with the following options to tailor your README file.
+Customize your README generation using these CLI options:
 
-### CLI Options
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--align` | Text align in header | `center` |
+| `--api` | LLM API service (openai, ollama, offline) | `offline` |
+| `--badge-color` | Badge color name or hex code | `0080ff` |
+| `--badge-style` | Badge icon style type |  `flat` |
+| `--base-url` | Base URL for the repository | `v1/chat/completions` |
+| `--context-window` | Maximum context window of the LLM API | `3999` |
+| `--emojis` | Adds emojis to the README header sections | `False` |
+| `--header-style` | Header style for the README file | `default` |
+| `--image` | Project logo image | `blue` |
+| `--model` | Specific LLM model to use | `gpt-3.5-turbo` |
+| `--output` | Output filename | `readme-ai.md` |
+| `--rate-limit` | Maximum API requests per minute | `5` |
+| `--repository` | Repository URL or local directory path | `None` |
+| `--temperature` | Creativity level for content generation | `0.9` |
+| `--top-p` | Probability of the top-p sampling method | `0.9` |
+| `--tree-depth` | Maximum depth of the directory tree structure | `2` |
 
-| Option | Type | Description | Default Value  |
-| ------ | ---- | ----------- | -------------- |
-| `--align`, `-a` | String | Align the text in the README.md file's header. | `center` |
-| `--api-key` | String | LLM API key for text generation. |  `env var` |
-| `--badges`, `-b` | String | Badge icon style types for README.md badges. | ![badge-style](https://img.shields.io/badge/badge-style-0080ff) |
-| `badge-color` | String | Badge color name or hex code. | ![badge-color](https://img.shields.io/badge/badge-color-0080ff) |
-| `--emojis`, `-e` | Boolean | Adds emojis to the README.md file's header sections. | `False` |
-| `--image`, `-i` | String | Project logo image displayed in the README file header. | `blue` |
-| `🚧 --language` | String | Language for generating the README.md file. | `en` |
-| `--max-tokens` | Integer | Maximum context window of the LLM API.  | `3899` |
-| `--model`, `-m` | String | LLM API to use for text generation. | `gpt-3.5-turbo` |
-| `--offline` | Boolean | Run CLI without a LLM API key. | `False` |
-| `--output`, `-o` | String | Output file name for the README file. | `readme-ai.md` |
-| `--repository`, `-r` | String | Repository URL or local directory path. | |
-| `--temperature`, `-t` | Float | Sets the creativity level for content generation. | `1.0` |
-| `🚧 --template` | String | README template style. | `default` |
-| `--tree-depth` | Integer | Maximum depth of the directory tree structure. | `3` |
-| `🚧 --vertex_ai` | Tuple (String) | Google Vertex AI configuration, requires location and project ID. | |
-| `--help` | | Displays help information about the command and its options. | |
-
-<sub><em><code>🚧 feature currently under development</code></em>
+> [!TIP]
+> For a full list of options, run `readmeai --help` in your terminal.
+> See the official documentation for more details on [CLI options](https://eli64s.github.io/readme-ai/cli-options).
 
 ---
 
-### Badges
+### Badge Customization
 
-The `--badges` option lets you select the style of the default badge set.
+The `--badge-style` option lets you select the style of the default badge set.
 
 <table>
   <tr>
@@ -41,7 +40,7 @@ The `--badges` option lets you select the style of the default badge set.
   </tr>
   <tr>
     <td><strong>default</strong></td>
-    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
+    <td align="center"><a href="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff&logo=opensourceinitiative&logoColor=white" target="_blank"><img src="https://img.shields.io/github/license/eli64s/readme-ai?flat&color=0080ff&logo=opensourceinitiative&logoColor=white"></a> <a href="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white" target="_blank"><img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?flat&color=0080ff&logo=git&logoColor=white"></a> <a href="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?flat&color=0080ff"></a> <a href="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff" target="_blank"><img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?flat&color=0080ff"></a></td>
   </tr>
   <tr>
     <td><strong>flat</strong></td>
@@ -73,17 +72,18 @@ The `--badges` option lets you select the style of the default badge set.
   </tr>
 </table>
 
-When providing the `--badges` option, readme-ai does two things:
+When providing the `--badge-style` option, readme-ai does two things:
 
 1. Formats the default badge set to match the selection (i.e. flat, flat-square, etc.).
 2. Generates an additional badge set representing your projects dependencies and tech stack (i.e. Python, Docker, etc.)
 
 #### Example
 >
-> ```console
-> $ readmeai --badges flat-square --repository https://github.com/eli64s/readme-ai
+> ```sh
+> ❯ readmeai --badge-style flat-square --repository https://github.com/eli64s/readme-ai
 > ```
 >
+
 #### Output
 >
 > {... project logo ...}
@@ -92,7 +92,7 @@ When providing the `--badges` option, readme-ai does two things:
 >
 > {...project slogan...}
 >
-> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff">
+> <img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=0080ff&logo=opensourceinitiative&logoColor=white">
 > <img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=0080ff&logo=git&logoColor=white">
 > <img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0080ff">
 > <img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0080ff">
@@ -123,7 +123,7 @@ When providing the `--badges` option, readme-ai does two things:
 
 ### Project Logo
 
-Select a project logo using the `--image` option. The following options are available:
+Select a project logo using the `--image` option.
 
 <table>
   <tr>
@@ -147,8 +147,9 @@ Select a project logo using the `--image` option. The following options are avai
     <td><img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png" width="100"></td>
   </tr>
 </table>
-<br>
 
-Use the `--image custom` option to invoke a prompt to enter a custom image URL or path.
+For custom images, see the following options:
+* Use `--image custom` to invoke a prompt to upload a local image file path or URL.
+* Use `--image llm` to generate a project logo using a LLM API (OpenAI only).
 
 ---

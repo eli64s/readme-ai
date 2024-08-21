@@ -38,18 +38,29 @@ each response with a verb or a noun to make the summary more engaging and impact
 - Do not include quotes, code snippets, or bullet points in your response. \
 - Your response should be a maximum of 50 words.
 """
+logo = """
+Create a **simple, cute mascot icon** in a **minimalist style** specifically designed as a standalone iPhone app icon. The icon should have a **singular main centerpiece** that defines the entire shape of the icon, without any external borders or background.
 
-logo = """Design a square app logo for the software project - "{project_name}". \
-The logo should feature the project name in bold and easily readable letters. \
-The color scheme should be engaging and suitable for a technology-focused app, \
-with a white background behind the stylized app logo square with rounded corners. \
-While designing the logo, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-Repository Details:
-Project Name: {project_name}
-Project Overview: {project_overview}
-Project Catch Phrase/Slogan: {project_slogan}
---------------------------------------------------------------------------------
+**Characteristics:**
+1. Use **thick, rounded outlines** to define the mascot's shape.
+2. Employ **basic geometric shapes** for facial features (e.g., dots for eyes, simple shapes for nose/mouth).
+3. Ensure a **chunky, squat body proportion** for a cute appearance.
+4. Incorporate **distinctive features** of the mascot animal/character/hero in a **simplified form**.
+5. Maintain a **friendly, approachable expression**.
+6. Fill the **square app-icon canvas** with the mascot, centered and occupying most of the space.
+7. The mascot's shape itself should form the icon boundary—**no additional borders or background elements**.
+8. The design should be **visually complete and balanced** without relying on a background.
+
+**Mascot Concept:**
+- Design a [insert specific animal or character relevant to your project, e.g., 'playful robot', 'curious owl', 'friendly octopus'].
+- The aesthetic should be **clean, adorable, and instantly recognizable** even at small sizes.
+
+**Project Context:**
+- **Project Name:** {project_name}
+- **Project Overview:** {project_overview}
+- **Project Slogan:** {project_slogan}
+
+The mascot should embody the spirit of your project, capturing its essence and purpose. The final design must function as a standalone icon, with the mascot's shape defining the boundaries and serving as the singular main centerpiece.
 """
 
 overview = """Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software \
@@ -75,25 +86,4 @@ Other Requirements: \n
 - DO NOT include the project name in the slogan.
 - Your response should be a maximum of 8 words.
 - The slogan should be concise and memorable.
-"""
-
-mermaid = """Create a visual representation of the software project '{0}' using a flowchart diagram. \
-The diagram should clearly illustrate the main components and the flow of data or control between them, \
-representing the codebase's architecture and execution path. The output should be formatted as a Markdown code block with Mermaid syntax. \
-Below is a template for the Mermaid flowchart that you can customize based on the project's specifics: \n
---------------------------------------------------------------------------------
-
-```mermaid
-flowchart LR
-
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
---------------------------------------------------------------------------------
-While generating the diagram, please reference the following codebase details:
-File Summaries: {1}
---------------------------------------------------------------------------------
 """

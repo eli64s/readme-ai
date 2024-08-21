@@ -1,14 +1,30 @@
 """
-Custom exceptions for the readme-ai package.
+Custom exceptions classes for the readme-ai package.
 """
 
 from __future__ import annotations
 
 
 class ReadmeAIError(Exception):
-    """Base class for exceptions in this module."""
+    """
+    Base class for exceptions in this module.
+    """
 
     ...
+
+
+class ReadmeGeneratorError(Exception):
+    """
+    Raised when an error occurs during README generation.
+    """
+
+    def __init__(self, exc, traceback):
+        self.exc = exc
+        self.traceback = traceback
+        super().__init__(f"README generation error occurred: {exc}")
+
+
+# ----------------- CLI ----------------------------------
 
 
 class CLIError(ReadmeAIError):
@@ -18,24 +34,13 @@ class CLIError(ReadmeAIError):
         super().__init__(f"Invalid option provided to CLI: {message}", *args)
 
 
-class GitCloneError(ReadmeAIError):
-    """Could not clone repository."""
-
-    def __init__(self, repository: str, *args):
-        self.repository = repository
-        super().__init__(f"Failed to clone repository: {repository}", *args)
-
-
-class GitValidationError(ReadmeAIError):
-    """Could not validate repository."""
-
-    def __init__(self, repository: str, *args):
-        self.repository = repository
-        super().__init__(f"Failed to validate repository: {repository}", *args)
+# ----------------- File System ----------------------------------
 
 
 class FileSystemError(ReadmeAIError):
-    """Exceptions related to file system operations."""
+    """
+    Exceptions related to file system operations.
+    """
 
     def __init__(self, message, path, *args):
         self.file_path = path
@@ -43,27 +48,28 @@ class FileSystemError(ReadmeAIError):
 
 
 class FileReadError(FileSystemError):
-    """Could not read file."""
+    """
+    Raised when a file cannot be read.
+    """
 
     ...
 
 
 class FileWriteError(FileSystemError):
-    """Could not write file."""
+    """
+    Raised when a file cannot be written to.
+    """
 
     ...
 
 
-class ReadmeGeneratorError(ReadmeAIError):
-    """Exceptions related to readme generation."""
-
-    def __init__(self, traceback, *args):
-        self.traceback = traceback
-        super().__init__(f"Error generating readme: {traceback}", *args)
+# ----------------- LLM API ----------------------------------
 
 
 class UnsupportedServiceError(ReadmeAIError):
-    """Exceptions related to the LLMHandler class."""
+    """
+    Raised when an unsupported LLM service is provided.
+    """
 
     def __init__(self, message, *args):
         super().__init__(message, *args)

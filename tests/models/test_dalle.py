@@ -13,7 +13,7 @@ from readmeai.models.dalle import DalleHandler
 def cleanup_mock_png_files(directory="."):
     """Cleanup mock png files."""
     pattern = re.compile(
-        r"<MagicMock name='mock\.config\.git\.name' id='\d+'>\.png"
+        r"<MagicMock name='mock\.config\.git\.name' id='\d+'>\.png",
     )
     for filename in Path(directory).glob("*.png"):
         if pattern.match(filename.name):
@@ -28,12 +28,12 @@ def test_image_generator(mock_client):
     config = MagicMock()
     image_generator = DalleHandler(config)
     image_generator._build_prompt = MagicMock(return_value="prompt")
-    image_generator.client.images.run = MagicMock(
-        return_value=MagicMock(data=[MagicMock(url="url")])
+    image_generator.client.images._make_request = MagicMock(
+        return_value=MagicMock(data=[MagicMock(url="url")]),
     )
 
     # When
-    result = image_generator.run()
+    result = image_generator._make_request()
 
     # Then
     assert result is not None
@@ -88,7 +88,7 @@ def test_image_download_failure(mock_get):
     with patch("builtins.open", MagicMock()) as mock_open:
         assert result == ImageOptions.BLUE.value
         image_generator._logger.error.assert_called_once_with(
-            "Failed to download image: 404"
+            "Failed to download image: 404",
         )
         mock_open.assert_not_called()
         mock_response.content = b"image"

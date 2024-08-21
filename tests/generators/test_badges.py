@@ -6,7 +6,7 @@ from readmeai.generators.badges import (
     _format_badges,
     build_default_badges,
     build_project_badges,
-    shields_icons,
+    shieldsio_icons,
     skill_icons,
 )
 
@@ -17,7 +17,7 @@ from readmeai.generators.badges import (
         ([], ""),
         (
             [
-                "https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white"
+                "https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white",
             ],
             '<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">\n',
         ),
@@ -59,11 +59,14 @@ def test_build_default_badges_success(mock_config):
     assert "license" in badges
 
 
-def test_shields_icons_success(mock_config, mock_dependencies):
-    """Tests shields_icons with valid inputs."""
+def test_shieldsio_icons_success(mock_config, mock_dependencies):
+    """Tests shieldsio_icons with valid inputs."""
     mock_config.md.badge_style = "flat"
-    badges = shields_icons(
-        mock_config, mock_dependencies, "github.com", "user/repo"
+    badges = shieldsio_icons(
+        mock_config,
+        mock_dependencies,
+        "github.com",
+        "user/repo",
     )
     assert isinstance(badges, tuple)
     assert any("style=flat" in badge for badge in badges)
