@@ -233,8 +233,7 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
       </td>
     </tr>
     <tr>
-      <td align="center">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/llm-summaries.png" alt="llm-summaries" width="700" />
+      <td align="/examples/images/llm-summaries.png" alt="llm-summaries" width="700" />
       </td>
     </tr>
   </table>
@@ -280,7 +279,7 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
       </td>
     </tr>
     <tr>
-      <td align="center"><img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/contributing-guidelines.png" alt="contributing-guidelines" width="700" /></td>
+      <td align="center"><img src="/examples/images/contributing_guidelines.png" alt="contributing-guidelines" width="700" /></td>
     </tr>
     <tr>
       <td><b>Additional Sections</b><br>
@@ -292,7 +291,7 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
       </td>
     </tr>
     <tr>
-      <td align="center"><img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/additional-sections.png" alt="contributing-and-more" width="700" /></td>
+      <td align="center"><img src="/examples/images/additional-sections.png" alt="contributing-and-more" width="700" /></td>
     </tr>
   </table>
 </details>
