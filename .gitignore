@@ -43,16 +43,8 @@ notebooks/
 .ruff_cache/
 
 # Work In Progress (WIP)
+examples/images/dalle
+readmeai/config/settings/themes
 readmeai/config/settings/classifiers.toml
 readmeai/config/settings/models.toml
 readmeai/utils/file_cleaner.py
-
-# Github Actions (WIP)
-.github/workflows/ci.yml
-
-# Submodules (WIP)
-readmeai/templates/
-readmeai/ui/
-
-# Dalle-3 Images (WIP)
-examples/images/dalle
