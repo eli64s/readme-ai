@@ -19,7 +19,9 @@ from readmeai.models.tokens import token_handler
     ],
 )
 async def test_openai_make_request(
-    openai_handler, input_context, expected_call_count
+    openai_handler,
+    input_context,
+    expected_call_count,
 ):
     """Test that the OpenAI handler handles a response."""
     # Arrange
@@ -53,18 +55,22 @@ async def test_openai_make_request_with_context(openai_handler):
     # Arrange
     openai_handler.http_client = MagicMock()
     with patch.object(
-        OpenAIHandler, "_make_request", new_callable=AsyncMock
+        OpenAIHandler,
+        "_make_request",
+        new_callable=AsyncMock,
     ) as mock_make_request:
         # Act
         await openai_handler._make_request("test_context", "test_prompt")
 
         # Assert
         mock_make_request.assert_called_once_with(
-            "test_context", "test_prompt"
+            "test_context",
+            "test_prompt",
         )
         openai_handler.http_client.post.assert_not_called()
         mock_make_request.assert_called_once_with(
-            "test_context", "test_prompt"
+            "test_context",
+            "test_prompt",
         )
 
 
@@ -74,24 +80,30 @@ async def test_openai_make_request_without_context(openai_handler):
     # Arrange
     openai_handler.http_client = MagicMock()
     with patch.object(
-        OpenAIHandler, "_make_request", new_callable=AsyncMock
+        OpenAIHandler,
+        "_make_request",
+        new_callable=AsyncMock,
     ) as mock_make_request:
         # Act
         await openai_handler._make_request("test_context", "test_prompt")
 
         # Assert
         mock_make_request.assert_called_once_with(
-            "test_context", "test_prompt"
+            "test_context",
+            "test_prompt",
         )
         openai_handler.http_client.post.assert_not_called()
         mock_make_request.assert_called_once_with(
-            "test_context", "test_prompt"
+            "test_context",
+            "test_prompt",
         )
 
 
 @pytest.mark.asyncio
 async def test_batch_request(
-    openai_handler, mock_dependencies, mock_summaries
+    openai_handler,
+    mock_dependencies,
+    mock_summaries,
 ):
     """Test the handling of the response from the OpenAI API."""
     # Arrange
@@ -99,7 +111,8 @@ async def test_batch_request(
     openai_handler._make_request = AsyncMock()
     # Act
     test_response = await openai_handler.batch_request(
-        mock_dependencies, mock_summaries
+        mock_dependencies,
+        mock_summaries,
     )
     # Assert
     assert isinstance(test_response, list)
@@ -135,7 +148,10 @@ async def test_make_request_code_summary(openai_handler, mock_file_data):
     openai_handler._make_request_code_summary = AsyncMock()
     # Act
     await openai_handler._make_request_code_summary(
-        "file_summary", "test_prompt", 100, mock_file_data
+        "file_summary",
+        "test_prompt",
+        100,
+        mock_file_data,
     )
     # Assert
     openai_handler._make_request_code_summary.assert_called_once()

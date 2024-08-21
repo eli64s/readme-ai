@@ -29,50 +29,47 @@ from readmeai.parsers.rust import CargoTomlParser
 from readmeai.parsers.swift import SwiftPackageParser
 from readmeai.parsers.yarn import YarnLockParser
 
-ParserRegistryType = dict[str, type[BaseFileParser]]
-
-PARSER_REGISTRY = {
-    # Configuration
-    ".properties": PropertiesParser,
-    # Language/Framework
-    # Python
-    "Pipfile": TomlParser(),
-    "pyproject.toml": TomlParser(),
-    "requirements.in": RequirementsParser(),
-    "requirements.txt": RequirementsParser(),
-    "requirements-dev.txt": RequirementsParser(),
-    "requirements-test.txt": RequirementsParser(),
-    "requirements-prod.txt": RequirementsParser(),
-    "dev-requirements.txt": RequirementsParser(),
-    "environment.yml": YamlParser(),
-    "environment.yaml": YamlParser(),
-    # "setup.py": setup_py_parser,
-    # "setup.cfg": setup_cfg_parser,
-    # C/C++
-    "cmakeLists.txt": CMakeParser(),
-    "configure.ac": ConfigureAcParser(),
-    "Makefile.am": MakefileAmParser(),
-    # JavaScript/Node.js
-    "package.json": PackageJsonParser(),
-    "yarn.lock": YarnLockParser(),
-    # Kotlin and Kotlin DSL
-    "build.gradle": BuildGradleParser(),
-    "build.gradle.kts": BuildGradleKtsParser(),
-    # Go
-    "go.mod": GoModParser(),
-    # Java
-    "pom.xml": MavenParser(),
-    # Rust
-    "cargo.toml": CargoTomlParser(),
-    # Swift
-    "Package.swift": SwiftPackageParser(),
-    "Dockerfile": DockerfileParser(),
-    "docker-compose.yaml": DockerComposeParser(),
-    # Package Managers
-    # Monitoring and Logging
-}
+ParserRegistryType = dict[str, BaseFileParser]
 
 
-def parser_handler() -> dict[str, BaseFileParser]:
-    """Returns a dictionary of callable file parser methods."""
-    return PARSER_REGISTRY
+def parser_handler() -> ParserRegistryType:
+    """
+    Returns a dictionary of callable file parser methods.
+    """
+    return {
+        # Python
+        "Pipfile": TomlParser(),
+        "pyproject.toml": TomlParser(),
+        "requirements.in": RequirementsParser(),
+        "requirements.txt": RequirementsParser(),
+        "requirements-dev.txt": RequirementsParser(),
+        "requirements-test.txt": RequirementsParser(),
+        "requirements-prod.txt": RequirementsParser(),
+        "dev-requirements.txt": RequirementsParser(),
+        "environment.yml": YamlParser(),
+        "environment.yaml": YamlParser(),
+        # "setup.py": setup_py_parser,
+        # "setup.cfg": setup_cfg_parser,
+        # C/C++
+        "cmakeLists.txt": CMakeParser(),
+        "configure.ac": ConfigureAcParser(),
+        "Makefile.am": MakefileAmParser(),
+        # JavaScript/Node.js
+        "package.json": PackageJsonParser(),
+        "yarn.lock": YarnLockParser(),
+        # Kotlin/Kotlin DSL
+        "build.gradle": BuildGradleParser(),
+        "build.gradle.kts": BuildGradleKtsParser(),
+        # Go
+        "go.mod": GoModParser(),
+        # Java
+        "pom.xml": MavenParser(),
+        # Rust
+        "cargo.toml": CargoTomlParser(),
+        # Swift
+        "Package.swift": SwiftPackageParser(),
+        # Docker
+        "Dockerfile": DockerfileParser(),
+        "docker-compose.yaml": DockerComposeParser(),
+        ".properties": PropertiesParser(),
+    }

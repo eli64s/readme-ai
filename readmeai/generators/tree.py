@@ -1,13 +1,21 @@
-"""Generates a directory tree structure for a code repository."""
+"""
+Generates a directory tree structure for a code repository.
+"""
 
 from pathlib import Path
 
 
 class TreeGenerator:
-    """Generates a directory tree structure for a code repository."""
+    """
+    Generates a directory tree structure for a code repository.
+    """
 
     def __init__(
-        self, repo_name: str, root_dir: Path, repo_url: Path, max_depth: int
+        self,
+        repo_name: str,
+        root_dir: Path,
+        repo_url: Path,
+        max_depth: int,
     ):
         self.repo_name = repo_name
         self.root_dir = root_dir
@@ -21,7 +29,9 @@ class TreeGenerator:
         is_last: bool = True,
         depth: int = 0,
     ) -> str:
-        """Generates a tree structure for a given directory."""
+        """
+        Generates a tree structure for a given directory.
+        """
         if depth > self.max_depth:
             return ""
 
@@ -42,7 +52,10 @@ class TreeGenerator:
         for index, child in enumerate(children):
             child_prefix = prefix + ("    " if is_last else "│   ")
             child_tree = self._build_tree(
-                child, child_prefix, index == len(children) - 1, depth + 1
+                child,
+                child_prefix,
+                index == len(children) - 1,
+                depth + 1,
             )
 
             if child_tree:
@@ -51,9 +64,12 @@ class TreeGenerator:
         return "\n".join(parts)
 
     def tree(self) -> str:
-        """Generates and formats a tree structure."""
+        """
+        Generates and formats a tree structure.
+        """
         md_tree = self._build_tree(self.root_dir)
         formatted_md_tree = md_tree.replace(
-            self.root_dir.name, f"{self.repo_name}/"
+            self.root_dir.name,
+            f"{self.repo_name}/",
         )
         return formatted_md_tree

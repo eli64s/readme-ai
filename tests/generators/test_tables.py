@@ -4,6 +4,8 @@ Tests for building and formatting the markdown tables.
 
 from unittest.mock import patch
 
+import pytest
+
 from readmeai.generators.tables import (
     construct_markdown_table,
     extract_folder_name,
@@ -13,19 +15,150 @@ from readmeai.generators.tables import (
     group_summaries_by_folder,
     is_valid_tuple_summary,
 )
-from readmeai.services.git import fetch_git_file_url
+
+mock_data = [
+    ("file1.py", "Summary 1"),
+    ("dir/file2.py", "Summary 2"),
+    ("file3.py", "Summary 3"),
+]
 
 
-def test_construct_markdown_table(mock_config):
-    """Test that the construct_markdown_table function constructs the table."""
-    data = [("module1.py", "Summary 1")]
-    repo_url = str(mock_config.git.repository)
-    full_name = mock_config.git.full_name
-    expected_link = fetch_git_file_url(repo_url, full_name, "module1.py")
-    table = construct_markdown_table(data, repo_url, full_name)
-    assert expected_link in f"[module1.py]({expected_link})"
-    assert "module1.py" in table
-    assert "Summary 1" in table
+@pytest.fixture
+def mock_logger():
+    with patch("readmeai.generators.tables._logger") as mock:
+        yield mock
+
+
+def test_construct_markdown_table_local_repo(mock_logger):
+    with patch("pathlib.Path.exists", return_value=True):
+        result = construct_markdown_table(
+            mock_data,
+            "/local/repo",
+            "local_repo",
+        )
+
+    assert "| File | Summary |" in result
+    assert "| [file1.py](/local/repo/file1.py) | Summary 1 |" in result
+    assert "| [file2.py](/local/repo/dir/file2.py) | Summary 2 |" in result
+    assert "| [file3.py](/local/repo/file3.py) | Summary 3 |" in result
+
+
+def test_construct_markdown_table_remote_repo(mock_logger):
+    with (
+        patch("pathlib.Path.exists", return_value=False),
+        patch("readmeai.generators.tables.GitURL") as mock_git_url,
+    ):
+        mock_git_url.create.return_value.get_file_url.side_effect = [
+            "https://github.com/owner/repo/blob/main/file1.py",
+            "https://github.com/owner/repo/blob/main/dir/file2.py",
+            "https://github.com/owner/repo/blob/main/file3.py",
+        ]
+        result = construct_markdown_table(
+            mock_data,
+            "https://github.com/owner/repo.git",
+            "owner/repo",
+        )
+
+    assert "| File | Summary |" in result
+    assert (
+        "| [file1.py](https://github.com/owner/repo/blob/main/file1.py) | Summary 1 |"
+        in result
+    )
+    assert (
+        "| [file2.py](https://github.com/owner/repo/blob/main/dir/file2.py) | Summary 2 |"
+        in result
+    )
+    assert (
+        "| [file3.py](https://github.com/owner/repo/blob/main/file3.py) | Summary 3 |"
+        in result
+    )
+
+
+def test_construct_markdown_table_max_rows(mock_logger):
+    result = construct_markdown_table(
+        mock_data,
+        "/local/repo",
+        "local_repo",
+        max_rows=2,
+    )
+
+    assert "| File | Summary |" in result
+    assert "| [file1.py](/local/repo/file1.py) | Summary 1 |" in result
+    assert "| [file2.py](/local/repo/dir/file2.py) | Summary 2 |" in result
+    assert "| ... | ... |" in result
+    assert "| [file3.py](/local/repo/file3.py) | Summary 3 |" not in result
+    mock_logger.warning.assert_called_once()
+
+
+def test_construct_markdown_table_empty_data(mock_logger):
+    result = construct_markdown_table([], "/local/repo", "local_repo")
+
+    assert result == ""
+    mock_logger.warning.assert_called_once()
+
+
+def test_construct_markdown_table_invalid_git_url(mock_logger):
+    with (
+        patch("pathlib.Path.exists", return_value=False),
+        patch("readmeai.generators.tables.GitURL") as mock_git_url,
+    ):
+        mock_git_url.create.side_effect = ValueError("Invalid Git URL")
+        result = construct_markdown_table(
+            mock_data,
+            "invalid_url",
+            "owner/repo",
+        )
+
+    assert "| File | Summary |" in result
+    mock_logger.error.assert_called_once()
+
+
+def test_construct_markdown_table_git_url_file_error(mock_logger):
+    with (
+        patch("pathlib.Path.exists", return_value=False),
+        patch("readmeai.generators.tables.GitURL") as mock_git_url,
+    ):
+        mock_git_url.create.return_value.get_file_url.side_effect = [
+            "https://github.com/owner/repo/blob/main/file1.py",
+            ValueError("Invalid file path"),
+            "https://github.com/owner/repo/blob/main/file3.py",
+        ]
+        result = construct_markdown_table(
+            mock_data,
+            "https://github.com/owner/repo.git",
+            "owner/repo",
+        )
+
+    assert "| File | Summary |" in result
+    assert (
+        "| [file1.py](https://github.com/owner/repo/blob/main/file1.py) | Summary 1 |"
+        in result
+    )
+    assert "| file2.py | Summary 2 |" in result
+    assert (
+        "| [file3.py](https://github.com/owner/repo/blob/main/file3.py) | Summary 3 |"
+        in result
+    )
+    mock_logger.error.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    "invalid_input",
+    [
+        ("not a list", "/local/repo", "local_repo"),
+        (
+            [("file1.py", "Summary 1"), "not a tuple"],
+            "/local/repo",
+            "local_repo",
+        ),
+        (mock_data, 12345, "local_repo"),
+        (mock_data, "/local/repo", 12345),
+        (mock_data, "/local/repo", "local_repo", "not an int"),
+    ],
+)
+def test_construct_markdown_table_invalid_input(invalid_input):
+    with pytest.raises(AssertionError):
+        construct_markdown_table(*invalid_input)
 
 
 def test_extract_folder_name():

@@ -2,16 +2,13 @@
 Methods to generate and format svg badges for the README file.
 """
 
-from typing import Tuple
-
-from readmeai.cli.options import BadgeOptions
-from readmeai.config.settings import ConfigLoader
-from readmeai.services.git import GitHost
+from readmeai.config.settings import BadgeOptions, Settings
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.file_resources import get_resource_path
+from readmeai.vcs.providers import GitHost
 
 _package = "readmeai.generators"
-_submodule = "assets"
+_submodule = "svg"
 
 
 def _format_badges(badges: list[str]) -> str:
@@ -28,20 +25,22 @@ def _format_badges(badges: list[str]) -> str:
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
-            ]
+            ],
         )
         lines.append(
-            f"{line}\n\t<br>" if i + badges_per_line < total else f"{line}\n"
+            f"{line}\n\t<br>" if i + badges_per_line < total else f"{line}\n",
         )
 
     return "\n\t".join(lines)
 
 
 def build_default_badges(
-    config: ConfigLoader, full_name: str, host: str
+    config: Settings,
+    full_name: str,
+    host: str,
 ) -> str:
     """Build metadata badges using shields.io."""
-    return config.md.shields_icons.format(
+    return config.md.shieldsio_icons.format(
         host=host,
         full_name=full_name,
         badge_color=config.md.badge_color,
@@ -50,7 +49,9 @@ def build_default_badges(
 
 
 def build_project_badges(
-    dependencies: list[str], icons: dict[str, str], style: str
+    dependencies: list[str],
+    icons: dict[str, str],
+    style: str,
 ) -> str:
     """Build HTML badges for project dependencies."""
     badges = [
@@ -65,14 +66,17 @@ def build_project_badges(
     return _format_badges(badges)
 
 
-def shields_icons(
-    conf: ConfigLoader, dependencies: list, full_name: str, git_host: str
-) -> Tuple[str, str]:
+def shieldsio_icons(
+    conf: Settings,
+    dependencies: list,
+    full_name: str,
+    git_host: str,
+) -> tuple[str, str]:
     """
     Generates badges for the README using shields.io icons.
     """
     icons_path = get_resource_path(
-        conf.files.shields_icons,
+        conf.files.shieldsio_icons,
         _package,
         _submodule,
     )
@@ -81,31 +85,34 @@ def shields_icons(
     default_icons = build_default_badges(conf, full_name, git_host)
 
     project_badges = build_project_badges(
-        dependencies, icons_dict, conf.md.badge_style
+        dependencies,
+        icons_dict,
+        conf.md.badge_style,
     )
     project_badges = conf.md.badge_icons.format(
-        alignment=conf.md.alignment, badge_icons=project_badges
+        align=conf.md.align,
+        badge_icons=project_badges,
     )
 
     if (
         conf.md.badge_style == BadgeOptions.DEFAULT.value
-        and git_host != GitHost.LOCAL
+        and git_host != GitHost.LOCAL.name
     ):
         return (
             default_icons,
             "<!-- default option, no dependency badges. -->\n",
         )
 
-    if git_host == GitHost.LOCAL:
+    if git_host == GitHost.LOCAL.name:
         return (
-            "<!-- local repository, no metadata badges. -->\n",
+            "<!-- local repository, no metadata badges. -->",
             project_badges,
         )
 
     return default_icons, project_badges
 
 
-def skill_icons(conf: ConfigLoader, dependencies: list) -> str:
+def skill_icons(conf: Settings, dependencies: list) -> str:
     """
     Generates badges for the README using skill icons, from the
     repository - https://github.com/tandpfun/skill-icons.
@@ -113,21 +120,23 @@ def skill_icons(conf: ConfigLoader, dependencies: list) -> str:
     dependencies.extend(["md"])
 
     icons_path = get_resource_path(
-        conf.files.skill_icons, _package, _submodule
+        conf.files.skill_icons,
+        _package,
+        _submodule,
     )
     icons_dict = FileHandler().read(icons_path)
 
-    skill_icons = [
+    icons = [
         icon for icon in icons_dict["icons"]["names"] if icon in dependencies
     ]
-    skill_icons = ",".join(skill_icons)
-    skill_icons = icons_dict["url"]["base_url"] + skill_icons
+    formatted_icons = icons_dict["url"]["base_url"] + ",".join(icons)
 
     if conf.md.badge_style == "skills-light":
-        skill_icons = f"{skill_icons}&theme=light"
+        formatted_icons = f"{formatted_icons}&theme=light"
 
-    conf.md.skill_icons = conf.md.skill_icons.format(skill_icons)
+    conf.md.skill_icons = conf.md.skill_icons.format(formatted_icons)
 
     return conf.md.badge_icons.format(
-        alignment=conf.md.alignment, badge_icons=conf.md.skill_icons
+        align=conf.md.align,
+        badge_icons=conf.md.skill_icons,
     )

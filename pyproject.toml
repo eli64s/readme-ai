@@ -1,37 +1,28 @@
-[build-system]
-requires = ["poetry-core", "setuptools"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.poetry]
 name = "readmeai"
-version = "0.5.079"
-description = "👾 Automated README file generator, powered by large language model APIs."
+version = "0.5.080"
+description = "README file generator, powered by large language model APIs 👾"
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
-    "python",
-    "markdown",
-    "readme",
-    "readme-md",
-    "devtools",
+    "ai",
+    "ai-documentation",
+    "badge-generator",
     "developer-tools",
+    "devtools",
     "documentation",
     "documentation-generator",
-    "large-language-models",
-    "generative-ai",
+    "markdown",
+    "markdown-generator",
+    "python",
+    "readme",
     "readme-generator",
+    "readme-md",
     "readme-md-generator",
-    "readme-badges",
-    "shieldsio-badges",
-    "ollama",
-    "openai",
-    "chatgpt",
-    "gpt-4",
-    "genai",
-    "ai",
+    "readme-template",
 ]
 include = ["readmeai", "readmeai.*"]
 
@@ -40,18 +31,21 @@ readmeai = "readmeai.cli.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.9,<4.0.0"
-aiohttp = "^3.9.3"
+aiohttp = "^3.9.5"
 click = "^8.1.7"
 gitpython = "^3.1.31"
-google-generativeai = "^0.4.0"
-openai = "*"
-pydantic = ">=1.10.9,<2.0.0"
+google-generativeai = "^0.7.1"
+openai = "^1.16.2"
+pydantic = "^2.8.0"
+pydantic-extra-types = "^2.9.0"
 pyyaml = "^6.0.1"
+requests = "^2.32.3"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
-toml = { version = "*", python = "<3.11" }
 
 [tool.poetry.group.dev.dependencies]
+mypy = "*"
+pre-commit = "*"
 ruff = "*"
 
 [tool.poetry.group.test.dependencies]
@@ -66,70 +60,53 @@ pytest-xdist = "*"
 mkdocs = "*"
 mkdocs-material = "*"
 
-[tool.ruff]
-exclude = [
-    ".ipynb_checkpoints",
-    ".mypy_cache",
-    ".nox",
-    ".pytest_cache",
-    ".ruff_cache",
-    ".vscode",
-]
-line-length = 79
+[tool.poetry.group.anthropic]
+optional = true
 
-[tool.ruff.format]
-quote-style = "double"
-docstring-code-format = true
-docstring-code-line-length = 20
+[tool.poetry.group.anthropic.dependencies]
+anthropic = "*"
 
-[tool.ruff.lint]
-extend-select = ["E501"]
-select = [
-    # pycodestyle
-    "E",
-    # Pyflakes
-    "F",
-    # pyupgrade
-    "UP",
-    # flake8-bugbear
-    "B",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
+[tool.pytest.ini_options]
+addopts = [
+    "-vvv",
+    "-rfEsxX",
+    "--durations=10",
+    "--asyncio-mode=auto",
+    "--numprocesses=auto",
+    "--cov=readmeai",
+    "--cov-branch",
+    "--cov-report=xml",
+    "--cov-report=term-missing",
 ]
-ignore = [
-    # Line too long
-    "E501",
+env = [
+    "OLLAMA_HOST=127.0.0.1",
 ]
+pythonpath = ["readmeai"]
+testpaths = ["tests"]
 
-[tool.coverage.run]
-source = ["readmeai", "tests"]
+[tool.coverage.report]
+exclude_also = [
+    "if __name__ == '__main__':",
+    "pragma: no cover",
+    "raise NotImplementedError",
+]
+fail_under = 80
+precision = 2
+show_missing = true
+skip_covered = true
+skip_empty = true
+sort = "cover"
 omit = [
     "tests/*",
     "*__init__.py",
     "*/__init__.py",
     "noxfile.py",
-    "readmeai/templates/*.py",
-    "readmeai/ui/*.py",
-    "readmeai/parsers/cicd/*.py",
-    "readmeai/parsers/infrastructure/*.py",
-    "readmeai/parsers/orchestration/*.py",
-    "readmeai/parsers/configuration/ansible.py",
-    "readmeai/parsers/configuration/apache.py",
-    "readmeai/parsers/configuration/nginx.py",
-    "readmeai/parsers/configuration/properties.py",
-    "readmeai/parsers/package/compose.py",
-    "readmeai/parsers/package/gem.py",
-    "readmeai/parsers/package/pip.py",
-    "readmeai/parsers/package/nuget.py",
-    "readmeai/parsers/package/yarn.py",
+    "readmeai/models/gemini.py",
     "readmeai/utils/file_cleaner.py",
+    "readmeai/vcs/metadata.py",
+    "readmeai/vcs/providers.py",
 ]
 
-[tool.coverage.report]
-fail_under = 80
-show_missing = true
-
-[tool.coverage.xml]
-output = "coverage.xml"
+[build-system]
+requires = ["poetry-core", "setuptools"]
+build-backend = "poetry.core.masonry.api"

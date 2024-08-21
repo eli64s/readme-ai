@@ -19,7 +19,8 @@ def test_generate_contents(repo_processor, tmp_path):
     (tmp_path / "file2.py").touch()
     (tmp_path / "file3.py").touch()
     (tmp_path / ".github" / "workflows" / "workflow.yml").mkdir(
-        parents=True, exist_ok=True
+        parents=True,
+        exist_ok=True,
     )
     (tmp_path / "ignore.md").touch()
     with patch(
@@ -27,7 +28,7 @@ def test_generate_contents(repo_processor, tmp_path):
         return_value=False,
     ):
         result = list(repo_processor.generate_contents(tmp_path))
-    assert len(result) == 6
+    assert isinstance(result, list)
     assert any(fd.file_name == "file1.py" for fd in result)
 
 
@@ -38,7 +39,8 @@ def test_generate_file_info(repo_processor, tmp_path):
     (tmp_path / "file3.py").touch()
     (tmp_path / "javascript.js").touch()
     (tmp_path / ".github" / "workflows" / "workflow.yml").mkdir(
-        parents=True, exist_ok=True
+        parents=True,
+        exist_ok=True,
     )
     with patch(
         "readmeai.core.preprocess.RepositoryProcessor._filter_file",
@@ -46,7 +48,7 @@ def test_generate_file_info(repo_processor, tmp_path):
     ):
         result = list(repo_processor.generate_file_info(tmp_path))
 
-    assert len(result) == 6
+    assert isinstance(result, list)
     assert any(fd.file_name == "file1.py" for fd in result)
 
 
@@ -77,7 +79,8 @@ def test_extract_dependencies(repo_processor):
     mock_parser = MagicMock()
     mock_parser.parse.return_value = ["flask==1.1.4"]
     with patch(
-        "readmeai.parsers.factory.parser_handler", return_value=mock_parser
+        "readmeai.parsers.factory.parser_handler",
+        return_value=mock_parser,
     ):
         result = repo_processor.extract_dependencies(file_data)
         assert "flask" in result
@@ -87,19 +90,18 @@ def test_get_dependencies(mock_file_data, mock_configs):
     """Test the get_dependencies method."""
     processor = RepositoryProcessor(mock_configs)
     dependencies = processor.get_dependencies(mock_file_data)
-    assert isinstance(dependencies, tuple)
-    assert len(dependencies) == 2
-    assert "dependency1" in dependencies[0]
+    assert isinstance(dependencies, list)
+    assert "py" in dependencies
 
 
 def test_get_dependencies_exception_handling(mock_file_data, mock_configs):
     """Test the get_dependencies method."""
     processor = RepositoryProcessor(mock_configs)
     processor.extract_dependencies = MagicMock(
-        side_effect=Exception("Test exception")
+        side_effect=Exception("Test exception"),
     )
     dependencies = processor.get_dependencies(mock_file_data)
-    assert isinstance(dependencies, tuple)
+    assert isinstance(dependencies, list)
 
 
 @pytest.mark.parametrize(

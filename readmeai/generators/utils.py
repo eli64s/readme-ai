@@ -1,7 +1,8 @@
-"""Utilities to remove default emojis from markdown content."""
+"""
+Utilities to remove default emojis from markdown content.
+"""
 
 import re
-from typing import List
 
 EMOJI_PATTERN = re.compile(
     pattern="["
@@ -21,8 +22,10 @@ EMOJI_PATTERN = re.compile(
 )
 
 
-def remove_emojis(md_content: List[str]) -> List[str]:
-    """Removes emojis from the content list."""
+def remove_emojis(md_content: list[str]) -> list[str]:
+    """
+    Removes emojis from the content list.
+    """
     modified_content = []
 
     for section in md_content:
@@ -44,7 +47,8 @@ def split_markdown_headings(markdown_text: str) -> dict:
     Splits a markdown document by level 2 headings into separate sections.
     """
     sections = re.split(r"(?m)^## ", markdown_text)
-    split_sections = {}
+
+    split_sections: dict[str, str] = {}
 
     for section in sections:
         if section.strip():

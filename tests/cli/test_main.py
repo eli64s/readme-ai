@@ -16,7 +16,7 @@ def runner():
     return CliRunner()
 
 
-@patch("readmeai._agent.clone_repository")
+@patch("readmeai.__main__.retrieve_repository")
 def test_commands_with_defaults(mock_clone, runner, temp_dir, tmp_path):
     """Test the commands function with default options."""
     mock_clone.return_value = temp_dir / "repo-dir"
@@ -24,15 +24,11 @@ def test_commands_with_defaults(mock_clone, runner, temp_dir, tmp_path):
         main,
         [
             "--repository",
-            temp_dir,
-            "--api",
-            "OFFLINE",
-            "--alignment",
+            "https://github.com/eli64s/readme-ai-streamlit",
+            "--align",
             "left",
-            "--badge-style",
-            "flat-square",
-            "--output",
-            tmp_path / "test_readme.md",
+            "--api",
+            "offline",
         ],
     )
     assert result.exit_code == 0
@@ -43,7 +39,7 @@ def test_commands_with_invalid_option(runner):
     result = runner.invoke(
         main,
         [
-            "--alignment",
+            "--align",
             "right",
             "--repository",
             None,

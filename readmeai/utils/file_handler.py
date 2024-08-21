@@ -5,8 +5,9 @@ File I/O factory class to read and write files.
 import functools
 import json
 import sys
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable, Dict, Union
+from typing import Any
 
 import yaml
 
@@ -23,7 +24,7 @@ class FileHandler:
 
     def __init__(self):
         """Initialize the file handler."""
-        self.file_actions: Dict[str, Dict[str, Callable[[str], Any]]] = {
+        self.file_actions: dict[str, dict[str, Callable[[str], Any]]] = {
             "json": {"read": self.read_json, "write": self.write_json},
             "md": {"read": self.read_markdown, "write": self.write_markdown},
             "toml": {"read": self.read_toml, "write": self.write_toml},
@@ -34,7 +35,7 @@ class FileHandler:
         self.read_json = functools.lru_cache(maxsize=100)(self.read_json)
         self.read_toml = functools.lru_cache(maxsize=100)(self.read_toml)
 
-    def read(self, file_path: Union[str, Path]) -> Any:
+    def read(self, file_path: str | Path) -> Any:
         """Read the content of a file."""
         if file_path in self.cache:
             return self.cache[file_path]
@@ -48,7 +49,7 @@ class FileHandler:
         except Exception as exc:
             raise FileReadError(exc, file_path) from exc
 
-    def write(self, file_path: Union[str, Path], content: Any) -> None:
+    def write(self, file_path: str | Path, content: Any) -> None:
         """Write the content to a file."""
         try:
             file_extension = str(file_path).rsplit(".", maxsplit=1)[-1]
@@ -73,20 +74,20 @@ class FileHandler:
 
     @staticmethod
     @functools.lru_cache(maxsize=100)
-    def read_json(file_path: Union[str, Path]) -> Dict[str, Any]:
+    def read_json(file_path: str | Path) -> dict[str, Any]:
         """Read the content of a JSON file."""
         with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
     @staticmethod
-    def read_markdown(file_path: Union[str, Path]) -> str:
+    def read_markdown(file_path: str | Path) -> str:
         """Read the content of a Markdown file."""
         with open(file_path, encoding="utf-8") as file:
             return file.read()
 
     @staticmethod
     @functools.lru_cache(maxsize=100)
-    def read_toml(file_path: Union[str, Path]) -> Dict[str, Any]:
+    def read_toml(file_path: str | Path) -> dict[str, Any]:
         """Read the content of a TOML file."""
         if sys.version_info < (3, 11):
             with open(file_path, encoding="utf-8") as file:
@@ -97,49 +98,43 @@ class FileHandler:
         return {key.lower(): value for key, value in data.items()}
 
     @staticmethod
-    def read_text(file_path: Union[str, Path]) -> str:
+    def read_text(file_path: str | Path) -> str:
         """Read the content of a TXT file."""
         with open(file_path, encoding="utf-8") as file:
             return file.read()
 
     @staticmethod
-    def read_yaml(file_path: Union[str, Path]) -> Dict[str, Any]:
+    def read_yaml(file_path: str | Path) -> dict[str, Any]:
         """Read the content of a YAML file."""
         with open(file_path, encoding="utf-8") as file:
             return yaml.safe_load(file)
 
     @staticmethod
-    def write_json(
-        file_path: Union[str, Path], content: Dict[str, Any]
-    ) -> None:
+    def write_json(file_path: str | Path, content: dict[str, Any]) -> None:
         """Write the content to a JSON file."""
         with open(file_path, "w", encoding="utf-8") as file:
             json.dump(content, file, indent=4)
 
     @staticmethod
-    def write_markdown(file_path: Union[str, Path], content: str) -> None:
+    def write_markdown(file_path: str | Path, content: str) -> None:
         """Write the content to a Markdown file."""
         with open(file_path, "w", encoding="utf-8") as file:
             file.write(content)
 
     @staticmethod
-    def write_toml(
-        file_path: Union[str, Path], content: Dict[str, Any]
-    ) -> None:
+    def write_toml(file_path: str | Path, content: dict[str, Any]) -> None:
         """Write the content to a TOML file."""
         with open(file_path, "w", encoding="utf-8") as file:
             toml.dump(content, file)
 
     @staticmethod
-    def write_text(file_path: Union[str, Path], content: str) -> None:
+    def write_text(file_path: str | Path, content: str) -> None:
         """Write the content to a TXT file."""
         with open(file_path, "w", encoding="utf-8") as file:
             file.write(content)
 
     @staticmethod
-    def write_yaml(
-        file_path: Union[str, Path], content: Dict[str, Any]
-    ) -> None:
+    def write_yaml(file_path: str | Path, content: dict[str, Any]) -> None:
         """Write the content to a YAML file."""
         with open(file_path, "w", encoding="utf-8") as file:
             yaml.safe_dump(content, file)

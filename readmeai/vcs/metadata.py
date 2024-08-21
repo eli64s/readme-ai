@@ -3,25 +3,27 @@ Retrieve metadata of a git repository via the host provider's API.
 """
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import aiohttp
 
 from readmeai.core.logger import Logger
-from readmeai.services.git import fetch_git_api_url
+from readmeai.vcs.url_builder import GitURL
 
 _logger = Logger(__name__)
 
 
 @dataclass
 class RepositoryMetadata:
-    """Dataclass to store GitHub repository metadata."""
+    """
+    Dataclass to store GitHub repository metadata.
+    """
 
     name: str
     full_name: str
     owner: str
-    owner_url: Optional[str]
-    description: Optional[str]
+    owner_url: str | None
+    description: str | None
 
     # Repository statistics
     stars_count: int
@@ -39,29 +41,31 @@ class RepositoryMetadata:
     # Repository URLs
     clone_url_http: str
     clone_url_ssh: str
-    contributors_url: Optional[str]
+    contributors_url: str | None
     languages_url: str
-    issues_url: Optional[str]
+    issues_url: str | None
 
     # Programming languages and topics
-    language: Optional[str]
-    languages: List[str]
-    topics: List[str]
+    language: str | None
+    languages: list[str]
+    topics: list[str]
 
     # Additional repository settings
     has_wiki: bool
     has_issues: bool
     has_projects: bool
     is_private: bool
-    homepage_url: Optional[str]
+    homepage_url: str | None
 
     # License information
-    license_name: Optional[str]
-    license_url: Optional[str]
+    license_name: str | None
+    license_url: str | None
 
 
 def _parse_repository_metadata(repo_data: dict) -> RepositoryMetadata:
-    """Converts raw repository data from GitHub API into dataclass."""
+    """
+    Converts raw repository data from GitHub API into dataclass.
+    """
     languages = repo_data.get("languages", {})
     license_info = repo_data.get("license", {}) or {}
     owner_info = repo_data.get("owner", {}) or {}
@@ -100,9 +104,13 @@ def _parse_repository_metadata(repo_data: dict) -> RepositoryMetadata:
 
 
 async def _fetch_repository_metadata(
-    session: aiohttp.ClientSession, url: str, **kwargs
-) -> Dict[str, Any]:
-    """Fetches repository metadata from the git host provider."""
+    session: aiohttp.ClientSession,
+    url: str,
+    **kwargs,
+) -> dict[str, Any]:
+    """
+    Fetches repository metadata from the git host provider.
+    """
     async with session.get(url, **kwargs) as response:
         response.raise_for_status()
         if response.status != 200:
@@ -115,19 +123,22 @@ async def _fetch_repository_metadata(
 
 
 async def fetch_git_repository_metadata(
-    session: aiohttp.ClientSession, repository: str
-) -> Optional[RepositoryMetadata]:
-    """Retrieves GitHub repository metadata and returns a dataclass."""
-    api_url = await fetch_git_api_url(repository)
+    session: aiohttp.ClientSession,
+    repository: str,
+) -> RepositoryMetadata | None:
+    """
+    Retrieves GitHub repository metadata and returns a dataclass.
+    """
+    api_url = GitURL.create(repository).get_api_url()
+
     if not api_url:
         return None
 
     try:
         metadata = await _fetch_repository_metadata(session, api_url)
         return _parse_repository_metadata(metadata) if metadata else None
-
     except aiohttp.ClientError as exc:
         _logger.error(
-            f"Client error while fetching repository metadata: {exc}"
+            f"Client error while fetching repository metadata: {exc}",
         )
         return None

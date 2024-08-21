@@ -18,11 +18,8 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.0
+    rev: v0.6.1
     hooks:
       - id: ruff
-        name: Run Linter Check (Ruff)
         args: [--fix]
-        files: ^(readmeai|tests)/
       - id: ruff-format
-        name: Run Formatter (Ruff)

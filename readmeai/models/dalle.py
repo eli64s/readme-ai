@@ -1,8 +1,10 @@
 """
-Multi-modal model for generating images using OpenAI's DALL-E model.
+Handler for generating images using OpenAI's DALL-E model.
 """
 
 import os
+from collections.abc import Generator
+from contextlib import contextmanager
 
 from openai import Client, OpenAIError
 from requests import get
@@ -13,21 +15,32 @@ from readmeai.core.logger import Logger
 
 
 class DalleHandler:
-    """Generates and downloads images using OpenAI's DALL-E model."""
+    """
+    Generates and downloads images using OpenAI's DALL-E model.
+    """
 
-    def __init__(self, config: ConfigLoader) -> None:
+    def __init__(self, conf: ConfigLoader) -> None:
         """Initialize the ImageGenerator class."""
-        self.client = Client(api_key=os.getenv("OPENAI_API_KEY"))
-        self.conf = config
+        self.conf = conf
+        self.filename = f"{conf.config.git.name}.png"
         self._logger = Logger(__name__)
         self._model_settings()
 
     def _model_settings(self) -> None:
         """Initializes the DALL-E settings."""
+        self.client = Client(api_key=os.getenv("OPENAI_API_KEY"))
         self.model = "dall-e-3"
         self.size = "1792x1024"
         self.quality = "standard"
         self.n = 1
+
+    @contextmanager
+    def use_api(self) -> Generator:
+        """Yields the DALL-E handler."""
+        try:
+            yield self
+        finally:
+            self._logger.debug(f"Closed {self.model.upper()} API session.")
 
     def _build_payload(self) -> str:
         """Formats the prompt string using configuration data."""
@@ -43,7 +56,7 @@ class DalleHandler:
             "n": self.n,
         }
 
-    def run(self) -> str:
+    def _make_request(self) -> str:
         """Generates an image and returns its URL."""
         try:
             payload = self._build_payload()
@@ -52,31 +65,31 @@ class DalleHandler:
                 return response.data[0].url
             else:
                 self._logger.error(
-                    f"Failed to generate {self.model.upper()} image: {response}"
+                    f"Failed to generate {self.model.upper()} image: {response}",
                 )
                 return ImageOptions.BLUE.value
 
         except (Exception, OpenAIError) as exc:
             self._logger.error(
-                f"{self.model.upper()} image generation error: {exc}"
+                f"{self.model.upper()} image generation error: {exc}",
             )
             return ImageOptions.BLUE.value
 
     def download(self, image_url) -> str:
         """Downloads an image from the given URL."""
-        filename = f"{self.conf.config.git.name}.png"
         try:
             response = get(image_url)
-            if response.status_code == 200:
-                with open(filename, "wb") as f:
+            status_code = response.status_code
+
+            if status_code == 200:
+                with open(self.filename, "wb") as f:
                     f.write(response.content)
-                return filename
+                self._logger.info(f"Image downloaded at: {image_url}")
+                return self.filename
             else:
-                self._logger.error(
-                    f"Failed to download image: {response.status_code}"
-                )
-                return ImageOptions.BLUE.value
+                self._logger.error(f"Failed to download image: {status_code}")
 
         except Exception as exc:
             self._logger.error(f"Failed to download image: {exc}")
-            return ImageOptions.BLUE.value
+
+        return ImageOptions.BLUE.value

@@ -6,20 +6,20 @@ from unittest.mock import patch
 
 import pytest
 
-from readmeai._agent import readme_agent, readme_generator
+from readmeai.__main__ import readme_agent, readme_generator
 from readmeai._exceptions import ReadmeGeneratorError
 
 
-@patch("readmeai._agent.clone_repository")
-@patch("readmeai._agent.preprocessor")
-@patch("readmeai._agent.ModelFactory.model_handler")
-@patch("readmeai._agent.MarkdownBuilder.build")
+@patch("readmeai.__main__.retrieve_repository")
+@patch("readmeai.__main__.preprocessor")
+@patch("readmeai.__main__.ModelRegistry.get_backend")
+@patch("readmeai.__main__.MarkdownBuilder.build")
 @pytest.mark.asyncio
 async def test_readme_generator(
     mock_build_markdown,
-    mock_model_handler,
+    mock_get_backend,
     mock_preprocessor,
-    mock_clone_repository,
+    mock_retrieve_repository,
     mock_config,
     mock_configs,
     mock_dependencies,
@@ -27,14 +27,14 @@ async def test_readme_generator(
     tmp_path,
 ):
     """Test the readme_generator function."""
-    mock_clone_repository.return_value = tmp_path
+    mock_retrieve_repository.return_value = tmp_path
     mock_preprocessor.return_value = (
         mock_dependencies,
         mock_summaries,
         # {"dependency1": "command1", "dependency2": "command2"},
     )
     mock_config.git.repository = tmp_path
-    mock_model_handler.return_value.use_api.return_value.__aenter__.return_value.batch_request.return_value = (
+    mock_get_backend.return_value.use_api.return_value.__aenter__.return_value.batch_request.return_value = (
         "summaries_response",
         "features_response",
         "overview_response",
@@ -43,34 +43,39 @@ async def test_readme_generator(
     mock_output_file = str(tmp_path / "test_readme.md")
     mock_build_markdown.return_value = mock_output_file
     await readme_generator(mock_configs, mock_output_file)
-    mock_clone_repository.assert_called_once()
+    mock_retrieve_repository.assert_called_once()
     mock_preprocessor.assert_called_once()
-    mock_model_handler.assert_called_once()
+    mock_get_backend.assert_called_once()
     mock_build_markdown.assert_called_once()
 
 
 @pytest.mark.asyncio
 async def test_readme_agent_exception_handling():
     """Test the readme_agent function exception handling."""
-    with patch(
-        "readmeai._agent.readme_agent",
-        side_effect=Exception("Test exception"),
-    ), pytest.raises(ReadmeGeneratorError) as exc:
+    with (
+        patch(
+            "readmeai.__main__.readme_agent",
+            side_effect=Exception("Test exception"),
+        ),
+        pytest.raises(ReadmeGeneratorError) as exc,
+    ):
         readme_agent(
-            alignment=None,
+            align=None,
             api="invalid_api_provider",
             badge_style=None,
             badge_color=None,
             base_url=None,
             context_window=None,
             emojis=None,
+            header_style=None,
             image=None,
             model=None,
-            output_file="test_output.md",
+            output="test_output.md",
             rate_limit=None,
             repository="https:///invalid_url",
             temperature=None,
             tree_depth=None,
+            toc_style="bullets",
             top_p=None,
         )
     assert isinstance(exc.value, ReadmeGeneratorError)

@@ -46,20 +46,26 @@ def test_write_json(file_handler, tmp_path):
 
 def test_read_exception(file_handler, mock_json_file_path):
     """Test that a read exception raises a FileReadError."""
-    with patch(
-        "readmeai.utils.file_handler.FileHandler.get_action",
-        side_effect=Exception("Read error"),
-    ), pytest.raises(FileReadError) as exc:
+    with (
+        patch(
+            "readmeai.utils.file_handler.FileHandler.get_action",
+            side_effect=Exception("Read error"),
+        ),
+        pytest.raises(FileReadError) as exc,
+    ):
         file_handler.read(mock_json_file_path)
         assert isinstance(exc.value, FileReadError)
 
 
 def test_write_exception(file_handler, mock_json_file_path, mock_json_data):
     """Test that a write exception raises a FileWriteError."""
-    with patch(
-        "readmeai.utils.file_handler.FileHandler.get_action",
-        side_effect=Exception("Write error"),
-    ), pytest.raises(FileWriteError) as exc:
+    with (
+        patch(
+            "readmeai.utils.file_handler.FileHandler.get_action",
+            side_effect=Exception("Write error"),
+        ),
+        pytest.raises(FileWriteError) as exc,
+    ):
         file_handler.write(mock_json_file_path, mock_json_data)
         assert isinstance(exc.value, FileWriteError)
 

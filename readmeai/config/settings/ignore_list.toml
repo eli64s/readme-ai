@@ -1,6 +1,6 @@
 # Directories, file extensions, and file names to be excluded from preprocessing.
 
-[blacklist]
+[ignore_list]
 directories = [
     ".DS_Store",
     ".dvc",

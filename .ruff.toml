@@ -22,7 +22,6 @@ extend-select = ["E501"]
 select = [
     "ARG",      # unused arguments
     "B",        # flake8-bugbear
-    "COM812",   # flake8-comprehensions
     "E",        # pycodestyle
     "E722",     # bare except statements
     "F",        # pyflakes

@@ -5,8 +5,8 @@
 filenames=(
     #"readme-litellm"
     #"readme-fal-js"
-    #gitmate-2
     #gitlab
+    #bitbucket
     "readme-local"
     "readme-python"
     "readme-streamlit"
@@ -18,14 +18,14 @@ filenames=(
     "readme-java"
     "readme-fastapi-redis"
     "readme-mlops"
-    "readme-vertexai"
+    "readme-gemini"
     "readme-offline"
 )
 repositories=(
     #"https://github.com/BerriAI/litellm"
     #"https://github.com/fal-ai/fal-js"
-    #https://gitlab.com/gitmate/open-source/gitmate-2
-    #https://gitlab.com/bavarder/bavarder/
+    #https://gitlab.com/rohanrk/gitmate-2
+    #https://bitbucket.org/jwalton/opup
     "/Users/k01101011/Documents/GitHub/pyflink-poc"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/eli64s/readme-ai-streamlit"
@@ -51,7 +51,7 @@ for index in "${!repositories[@]}"; do
     random_badge=${badge_styles[$RANDOM % ${#badge_styles[@]}]}
     random_badge_color=${badge_color[$RANDOM % ${#badge_color[@]}]}
     image_style=${image[$RANDOM % ${#image[@]}]}
-    alignment=${align[$RANDOM % ${#align[@]}]}
+    align=${align[$RANDOM % ${#align[@]}]}
     rand_choice=$((RANDOM % 2))
 
     # cmd="python3 -m readmeai.cli.main --tree-depth 2 -o \"$filename\" -r \"$repo\""
@@ -59,7 +59,7 @@ for index in "${!repositories[@]}"; do
 
     if [ $index -eq $((${#repositories[@]} - 2)) ]; then
         cmd="python3 -m readmeai.cli.main --api vertex -o "$filename" -r "$repo""
-    elif [ $index -eq $((${#repositories[@]} - 1)) ]; then
+        elif [ $index -eq $((${#repositories[@]} - 1)) ]; then
         cmd="python3 -m readmeai.cli.main --api offline -o "$filename" -r "$repo""
     else
         cmd="python3 -m readmeai.cli.main --api openai --tree-depth 2 -o "$filename" -r "$repo""
@@ -71,8 +71,8 @@ for index in "${!repositories[@]}"; do
     if [ "$image_style" != "blue" ]; then
         cmd+=" -i \"$image_style\""
     fi
-    if [ "$alignment" != "center" ]; then
-        cmd+=" -a \"$alignment\""
+    if [ "$align" != "center" ]; then
+        cmd+=" -a \"$align\""
     fi
     if [ $rand_choice -eq 1 ]; then
         cmd+=" -e"

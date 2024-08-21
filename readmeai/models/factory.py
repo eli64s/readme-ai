@@ -1,32 +1,38 @@
 """
-Model factory that returns the appropriate LLM handler based on CLI input.
+Factory class that selects appropriate LLM API service based on CLI input.
 """
 
+from typing import ClassVar
+
 from readmeai._exceptions import UnsupportedServiceError
-from readmeai.cli.options import ModelOptions as llms
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import ConfigLoader, ModelOptions
 from readmeai.core.models import BaseModelHandler
 from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
 
 
-class ModelFactory:
-    """Factory that returns the appropriate LLM handler based on CLI input."""
+class ModelRegistry:
+    """
+    Returns the appropriate LLM API handler based on CLI input.
+    """
 
-    _model_map = {
-        llms.OFFLINE.value: OfflineHandler,
-        llms.OLLAMA.value: OpenAIHandler,
-        llms.OPENAI.value: OpenAIHandler,
-        llms.GEMINI.value: GeminiHandler,
+    _model_map: ClassVar[dict] = {
+        # ModelOptions.ANTHROPIC.value: AnthropicHandler,
+        ModelOptions.GEMINI.value: GeminiHandler,
+        ModelOptions.OFFLINE.value: OfflineHandler,
+        ModelOptions.OLLAMA.value: OpenAIHandler,
+        ModelOptions.OPENAI.value: OpenAIHandler,
     }
 
     @staticmethod
-    def model_handler(conf: ConfigLoader) -> BaseModelHandler:
-        """Returns the appropriate LLM API handler based on CLI input."""
-        llm_handler = ModelFactory._model_map.get(conf.config.llm.api)
-        if llm_handler is None:
+    def get_backend(conf: ConfigLoader) -> BaseModelHandler:
+        """
+        Returns the appropriate LLM API handler based on CLI input.
+        """
+        backend_service = ModelRegistry._model_map.get(conf.config.llm.api)
+        if backend_service is None:
             raise UnsupportedServiceError(
-                f"Unsupported LLM service provided: {conf.config.llm.api}"
+                f"Unsupported LLM service provided: {conf.config.llm.api}",
             )
-        return llm_handler(conf)
+        return backend_service(conf)
