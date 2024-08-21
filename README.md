@@ -227,14 +227,14 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
         <b>File Summaries</b><br>
         <p>
         <ol>
-          - Summarizes key files in the codebase, and also used as context for additional <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/prompts.toml#L3">prompts!</a>
+          - Summarizes key files in the codebase, and also used as context for additional <a href="https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/prompts.toml">prompts!</a>
         </ol>
         </p>
       </td>
     </tr>
     <tr>
-      <td align="/examples/images/llm-summaries.png" alt="llm-summaries" width="700" />
-      </td>
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/llm-summaries.png" alt="llm-summaries" width="700" />
     </tr>
   </table>
 </details>
