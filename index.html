@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="🎈 Automated README file generator, powered by GPT language model APIs.">
+        <meta name="description" content="README file generator, powered by large language model APIs 👾">
       
       
         <meta name="author" content="readme-ai">
@@ -16,7 +16,7 @@
       
       
       
-        <link rel="next" href="installation/">
+        <link rel="next" href="prerequisites/">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Readme-ai Docs</title>
+        <title>README-AI Docs</title>
       
     
     
@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#welcome-to-readme-ai" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -89,7 +94,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Readme-ai Docs" class="md-header__button md-logo" aria-label="Readme-ai Docs" data-md-component="logo">
+    <a href="." title="README-AI Docs" class="md-header__button md-logo" aria-label="README-AI Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -103,7 +108,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Readme-ai Docs
+            README-AI Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -209,23 +214,6 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="installation/" class="md-tabs__link">
-        
-  
-    
-  
-  Installation
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
     
     
       <li class="md-tabs__item">
@@ -246,16 +234,19 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="features/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="overview/" class="md-tabs__link">
+          
   
     
   
   Features
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -273,26 +264,6 @@
 
       </a>
     </li>
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="concepts/" class="md-tabs__link">
-          
-  
-    
-  
-  Concepts
-
-        </a>
-      </li>
-    
   
 
       
@@ -341,13 +312,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Readme-ai Docs" class="md-nav__button md-logo" aria-label="Readme-ai Docs" data-md-component="logo">
+    <a href="." title="README-AI Docs" class="md-nav__button md-logo" aria-label="README-AI Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Readme-ai Docs
+    README-AI Docs
   </label>
   
     <div class="md-nav__source">
@@ -377,6 +348,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="." class="md-nav__link md-nav__link--active">
         
@@ -388,26 +372,43 @@
 
       </a>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="installation/" class="md-nav__link">
         
-  
-  <span class="md-ellipsis">
-    Installation
-  </span>
-  
 
-      </a>
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Links
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Features
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -420,6 +421,8 @@
   
     
     
+      
+        
       
         
       
@@ -470,50 +473,8 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="features/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Features
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="examples/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Examples
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     
     
-      
-        
       
         
       
@@ -537,11 +498,11 @@
         
   
   
-    <a href="concepts/" class="md-nav__link">
+    <a href="overview/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Concepts
+    Features
   </span>
   
 
@@ -552,6 +513,26 @@
   
 
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -593,6 +574,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Links
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Features
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -615,41 +624,26 @@
   
 
 
-<p align="center">
-  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="99">
-  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="99">
-</p>
-<h1 align="center">README-AI</h1>
-<p align="center">
-    <em>Automated README file generator, powered by LLM APIs</em>
-</p>
-<p align="center">
-  <a href="https://github.com/eli64s/readme-ai/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=cicd&logoColor=white&color=c125ff" alt="github-actions">
-  </a>
-  <a href="https://app.codecov.io/gh/eli64s/readme-ai">
-    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&color=c125ff" alt="codecov">
-  </a>
-  <a href="https://pypi.python.org/pypi/readmeai/">
-    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&color=c125ff" alt="pypi-version">
-  </a>
-  <a href="https://www.pepy.tech/projects/readmeai">
-    <img src="https://img.shields.io/pepy/dt/readmeai?logo=Python&logoColor=white&color=c125ff" alt="pepy-total-downloads">
-  </a>
-</p>
-<p><br></p>
-<p align="left">
-  <b>Objective</b>
-  <br>
-    Readme-ai is a developer tool that auto-generates README.md files using a combination of data extraction and generative ai. Simply provide a repository URL or local path to your codebase and a well-structured and detailed README file will be generated for you.
-  <br>
-  <br>
-  <b>Motivation</b>
-  <br>
-    Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.
-</p>
-
+<h1 id="welcome-to-readme-ai">Welcome to Readme-ai</h1>
+<p>Readme-ai is an automated README file generator powered by large language model APIs. It streamlines documentation creation and maintenance, enhancing developer productivity across all skill levels and domains.</p>
+<h2 id="quick-links">Quick Links</h2>
+<ul>
+<li><a href="installation/">Installation</a></li>
+<li><a href="usage/">Usage</a></li>
+<li><a href="features/overview.md">Features</a></li>
+<li><a href="examples/basic-usage.md">Examples</a></li>
+<li><a href="contributing/guidelines.md">Contributing</a></li>
+</ul>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Flexible README Generation</strong>: Robust repository context extraction combined with generative AI.</li>
+<li><strong>Multiple LLM Support</strong>: Compatible with OpenAI, Ollama, Google Gemini, and Offline Mode.</li>
+<li><strong>Customizable Output</strong>: Dozens of CLI options for styling, badges, header designs, and more.</li>
+<li><strong>Language Agnostic</strong>: Works with a wide range of programming languages and project types.</li>
+<li><strong>Offline Mode</strong>: Generate a boilerplate README without calling an external API.</li>
+</ul>
 <hr />
+<p>For more information on getting started, check out our <a href="installation/">Installation</a> and <a href="usage/">Usage</a> guides.</p>
 
 
 
@@ -686,13 +680,13 @@
         
         
           
-          <a href="installation/" class="md-footer__link md-footer__link--next" aria-label="Next: Installation">
+          <a href="prerequisites/" class="md-footer__link md-footer__link--next" aria-label="Next: System Requirements">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Installation
+                System Requirements
               </div>
             </div>
             <div class="md-footer__button md-icon">
