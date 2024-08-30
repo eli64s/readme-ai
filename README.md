@@ -502,6 +502,7 @@ Advanced Options:
 #### Using `streamlit`
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://readme-ai.streamlit.app/)
+
 <sub>Try directly in your browser on <a href="https://streamlit.io/">Streamlit</a>, no installation required! For more details, see the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository.</sub>
 
 #### From `source`
