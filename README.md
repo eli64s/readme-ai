@@ -101,14 +101,14 @@ See a few examples of the README-AI customization options below:
   <!-- row 0 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="/examples/images/project-logo-custom.png" alt="default-header" width="900"/><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/project-logo-custom.png" alt="default-header" width="900"/><br>
       <code>--emojis --image custom --badge-color DE3163 --header-style compact --toc-style links</code>
     </td>
   </tr>
   <!-- row 1 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="/examples/images/header-minimal.png" width="900"/><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/header-minimal.png" width="900"/><br>
       <code>--image cloud --header-style compact --toc-style fold</code>
     </td>
   </tr>
@@ -148,21 +148,21 @@ See a few examples of the README-AI customization options below:
   <!-- row 5 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="/examples/images/header-default-v2.png" alt="default-header" width="900"/><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/header-default-v2.png" alt="default-header" width="900"/><br>
       <code>--image custom --badge-color 00ffe9 --badge-style flat-square --header-style classic</code>
     </td>
   </tr>
   <!-- row 6 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="/examples/images/project-logo-dalle.png" alt="default-header" width="900"/><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/project-logo-dalle.png" alt="default-header" width="900"/><br>
       <code>--image llm --badge-style plastic --header-style classic</code>
     </td>
   </tr>
   <!-- row 7 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="/examples/images/header-padded.png" alt="default-header" width="900"/><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/header-padded.png" alt="default-header" width="900"/><br>
       <code>--image custom --badge-color BA0098 --badge-style flat-square --header-style modern --toc-style fold</code>
     </td>
   </tr>
@@ -279,7 +279,7 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
       </td>
     </tr>
     <tr>
-      <td align="center"><img src="/examples/images/contributing_guidelines.png" alt="contributing-guidelines" width="700" /></td>
+      <td align="center"><img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/contributing_guidelines.png" alt="contributing-guidelines" width="700" /></td>
     </tr>
     <tr>
       <td><b>Additional Sections</b><br>
@@ -291,7 +291,7 @@ See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configu
       </td>
     </tr>
     <tr>
-      <td align="center"><img src="/examples/images/additional-sections.png" alt="contributing-and-more" width="700" /></td>
+      <td align="center"><img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/images/additional-sections.png" alt="contributing-and-more" width="700" /></td>
     </tr>
   </table>
 </details>

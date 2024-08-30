@@ -53,8 +53,8 @@ class HeaderTemplate(BaseTemplate):
 
 #### {slogan}
 
-<p align="{align}">\n\t{shields_icons}</p>
-<p align="{align}">\n\t{badge_icons}</p>
+<p align="left">\n\t{shields_icons}</p>
+<p align="left">\n\t{badge_icons}</p>
 
 <br>
 """,

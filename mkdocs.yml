@@ -1,7 +1,7 @@
 # Readme-ai MkDocs Site Configuration
 
-site_name: Readme-ai Docs
-site_description: "🎈 Automated README file generator, powered by GPT language model APIs."
+site_name: README-AI Docs
+site_description: "README file generator, powered by large language model APIs 👾"
 site_url: https://eli64s.github.io/readme-ai/
 site_author: readme-ai
 repo_url: https://github.com/eli64s/readme-ai
@@ -39,20 +39,17 @@ theme:
     - navigation.indexes
     - navigation.sections
 
-
 nav:
   - Home: index.md
-  - Installation: installation.md
   - Getting Started:
-      - "Prerequisites": prerequisites.md
-      - "Running the CLI": usage.md
-      - "CLI Commands": cli_commands.md
-  - Features: features.md
+      - "System Requirements": prerequisites.md
+      - "Installation": installation.md
+      - "Usage": usage.md
+      - "Configuration": configuration.md
+  - Features:
+      - "Overview": overview.md
+      - "LLM Integrations": llm_integrations.md
   - Examples: examples.md
-  - Concepts:
-      - "Core Concepts": concepts.md
-      - "How It Works": how_it_works.md
-      - "Pydantic Models": pydantic_models.md
   - Contributing: contributing.md
 
 markdown_extensions:
