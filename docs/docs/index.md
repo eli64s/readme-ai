@@ -1,4 +1,4 @@
-# Welcome to Readme-ai
+# Welcome to README-AI
 
 Readme-ai is an automated README file generator powered by large language model APIs. It streamlines documentation creation and maintenance, enhancing developer productivity across all skill levels and domains.
 

@@ -1,6 +1,6 @@
 # Readme-ai MkDocs Site Configuration
 
-site_name: README-AI Docs
+site_name: readme-ai
 site_description: "README file generator, powered by large language model APIs 👾"
 site_url: https://eli64s.github.io/readme-ai/
 site_author: readme-ai
