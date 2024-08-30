@@ -1,19 +1,14 @@
 # Installation
 
-Readme-ai can be installed using several methods. Choose the one that best fits your workflow.
+Install `readmeai` using one of the following methods:
 
-## Prerequisites
-
-- Python 3.9+
-- Package manager/Container: `pip`, `pipx`, `docker`
-
-## Using pip
+### Pip
 
 ```sh
 pip install readmeai
 ```
 
-## Using pipx
+### Pipx
 
 [pipx](https://pipxproject.github.io/pipx/installation/) is recommended for installing Python CLI applications:
 
@@ -21,13 +16,13 @@ pip install readmeai
 pipx install readmeai
 ```
 
-## Using Docker
+### Docker
 
 ```sh
 docker pull zeroxeli/readme-ai:latest
 ```
 
-## From source
+### From Source
 
 1. Clone the repository:
    ```sh
@@ -53,4 +48,4 @@ After installation, verify that readme-ai is correctly installed by running:
 readmeai --version
 ```
 
-For usage instructions, see the [Usage](usage.md) guide.
+For usage instructions, see the [Usage](usage/cli.md) documentation.

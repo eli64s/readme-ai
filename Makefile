@@ -50,6 +50,10 @@ ruff-format: ## Format codebase using Ruff
 ruff-lint: ## Lint codebase using Ruff
 	ruff check . --fix
 
+.PHONY: run-docs
+run-docs: ## Run the MkDocs server
+	mkdocs serve
+
 .PHONY: search
 search: ## Search for a word in the codebase
 	grep -Ril ${WORD} readmeai tests scripts setup

@@ -1,23 +1,16 @@
-# Welcome to README-AI
+# Home
 
 Readme-ai is an automated README file generator powered by large language model APIs. It streamlines documentation creation and maintenance, enhancing developer productivity across all skill levels and domains.
 
-## Quick Links
+## Where to Start
 
-- [Installation](installation.md)
-- [Usage](usage.md)
-- [Features](features/overview.md)
-- [Examples](examples/basic-usage.md)
-- [Contributing](contributing/guidelines.md)
+- [Quickstart](quickstart/requirements.md)
+- [Usage](quickstart/usage/cli.md)
+- [Features](features/index.md)
+- [Examples](configuration/index.md)
+- [Contributing](contributing.md)
 
-## Key Features
 
-- **Flexible README Generation**: Robust repository context extraction combined with generative AI.
-- **Multiple LLM Support**: Compatible with OpenAI, Ollama, Google Gemini, and Offline Mode.
-- **Customizable Output**: Dozens of CLI options for styling, badges, header designs, and more.
-- **Language Agnostic**: Works with a wide range of programming languages and project types.
-- **Offline Mode**: Generate a boilerplate README without calling an external API.
+## FAQ
 
----
-
-For more information on getting started, check out our [Installation](installation.md) and [Usage](usage.md) guides.
+- *WIP*

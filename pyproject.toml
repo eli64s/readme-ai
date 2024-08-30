@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.084"
+version = "0.5.085"
 description = "README file generator, powered by large language model APIs 👾"
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -59,6 +59,7 @@ pytest-xdist = "*"
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
 mkdocs-material = "*"
+mkdocs-minify-plugin = "*"
 
 [tool.poetry.group.anthropic]
 optional = true

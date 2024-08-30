@@ -53,5 +53,3 @@ Contributors to our project will be acknowledged in the project's README.md file
 By contributing to our project, you agree to license your contributions under the project's open source license. The project's license can be found in the [LICENSE](https://github.com/eli64s/readme-ai/blob/main/LICENSE)
 
 Thank you for your interest in contributing to readme-ai! We appreciate your help and look forward to working with you.
-
----

@@ -30,11 +30,10 @@
 
 > <details><summary>Documentation</summary>
 >
-> - [Read the official readme-ai docs (🚧 wip)](https://eli64s.github.io/readme-ai)
-> - [YouTube tutorial created by the community](https://www.youtube.com/watch?v=NiUrm1ni7bE)
+> - [Read the official readme-ai docs *(🚧 WIP)*](https://eli64s.github.io/readme-ai)
 >
 > </details>
-
+>
 > <details><summary>Quick Links</summary>
 >
 > - [📍 Overview](#-overview)
@@ -72,28 +71,34 @@ Streamlines documentation creation and maintenance, enhancing developer producti
 
 ## 👾 Demo
 
-**CLI Usage**
+### CLI
 
-[readmeai-cli-demo](https://github.com/eli64s/artifacts/assets/43382407/55b8d1b9-06a7-4b1f-b6a7-aaeccdb27679
-)
+[readmeai-cli-demo](https://github.com/eli64s/artifacts/assets/43382407/55b8d1b9-06a7-4b1f-b6a7-aaeccdb27679)
 
-**Offline Mode**
+### Streamlit
 
 [readmeai-streamlit-demo](https://github.com/eli64s/artifacts/assets/43382407/3eb39fcf-c1df-49c6-bb5c-63e141857ae3)
 
 > [!TIP]
 >
+> <sub>Check out this [YouTube tutorial](https://www.youtube.com/watch?v=NiUrm1ni7bE) created by a community member!</sub>
+>
+
+<!--
+> [!TIP]
+>
 > <sub>Offline mode is useful for generating a boilerplate README at no cost. View the offline README.md example [here!](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-offline.md)</sub>
+-->
 
 ---
 
 ## 🧬 Features
 
-- **Flexible README Generation**: Robust repository context extraction combined with generative AI.
-- **Multiple LLM Support**: Compatible with `OpenAI`, `Ollama`, `Google Gemini` and `Offline Mode`.
-- **Customizable Output**: Dozens of CLI options for styling, badges, header designs, and more.
-- **Language Agnostic**: Works with a wide range of programming languages and project types.
-- **Offline Mode**: Generate a boilerplate README without calling an external API.
+- **Flexible README Generation**: Robust repository context extraction engine combined with generative AI.
+- **Customizable Output**: Dozens of CLI options for styling/formatting, badges, header designs, and more.
+- **Language Agnostic**: Works across a wide range of programming languages and project types.
+- **Multi-LLM Support**: Compatible with `OpenAI`, `Ollama`, `Google Gemini` and `Offline Mode`.
+  - **Offline Mode**: Generate a boilerplate README without calling an external API.
 
 See a few examples of the README-AI customization options below:
 
@@ -383,7 +388,6 @@ Clone repository and navigate to the project directory:
 
 ```sh
 ❯ git clone https://github.com/eli64s/readme-ai
-
 ❯ cd readme-ai
 ```
 
@@ -400,10 +404,6 @@ Clone repository and navigate to the project directory:
 ```sh
 ❯ poetry install
 ```
-
-<!--
-* <sub>Similiary you can use `pipenv` or `pip` to install the requirements.txt.</sub>
--->
 
 </details>
 
@@ -454,37 +454,38 @@ Generate a Google API key and set it as the environment variable `GOOGLE_API_KEY
 With OpenAI API:
 ```sh
 ❯ readmeai --repository https://github.com/eli64s/readme-ai \
-          --api openai \
-          --model gpt-3.5-turbo
+        --api openai \
+        --model gpt-3.5-turbo
 ```
 
 With Ollama:
 ```sh
 ❯ readmeai --repository https://github.com/eli64s/readme-ai \
-          --api ollama \
-          --model llama3
+        --api ollama \
+        --model llama3
 ```
 
 With Gemini:
 ```sh
 ❯ readmeai --repository https://github.com/eli64s/readme-ai \
-          --api gemini
-          --model gemini-1.5-flash
+        --api gemini
+        --model gemini-1.5-flash
 ```
 
 Advanced Options:
 ```sh
 ❯ readmeai --repository https://github.com/eli64s/readme-ai \
-         --api openai \
-         --model gpt-4-turbo \
-         --badge-color blueviolet \
-         --badge-style flat-square \
-         --header-style compact \
-         --toc-style fold \
-         --temperature 0.1 \
-         --tree-depth 2
-         --image LLM \
-         --emojis \
+        --output readmeai.md \
+        --api openai \
+        --model gpt-4-turbo \
+        --badge-color A931EC \
+        --badge-style flat-square \
+        --header-style compact \
+        --toc-style fold \
+        --temperature 0.1 \
+        --tree-depth 2
+        --image LLM \
+        --emojis
 ```
 
 #### Using `docker`
@@ -493,9 +494,9 @@ Advanced Options:
 
 ```sh
 ❯ docker run -it \
--e OPENAI_API_KEY=$OPENAI_API_KEY \
--v "$(pwd)":/app zeroxeli/readme-ai:latest \
--r https://github.com/eli64s/readme-ai
+        -e OPENAI_API_KEY=$OPENAI_API_KEY \
+        -v "$(pwd)":/app zeroxeli/readme-ai:latest \
+        -r https://github.com/eli64s/readme-ai
 ```
 
 #### Using `streamlit`
@@ -533,13 +534,13 @@ Advanced Options:
 [![pytest](https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white)](https://docs.pytest.org/en/7.1.x/contents.html)
 
 ```sh
-❯ make pytest
+❯ make test
 ```
 
 #### Using `nox`
 
 ```sh
-❯ nox -f noxfile.py
+❯ make test-nox
 ```
 
 > [!TIP]
@@ -709,20 +710,42 @@ For custom images, see the following options:
 
 | Language/Framework | Output File | Input Repository | Description |
 |--------------------|-------------|------------------|-------------|
-| Python | [readme-python.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-python.md) | [readme-ai](https://github.com/eli64s/readme-ai) | Core readme-ai project |
-| TypeScript & React | [readme-typescript.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-typescript.md) | [ChatGPT App](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript) | React Native ChatGPT app |
-| PostgreSQL & DuckDB | [readme-postgres.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-postgres.md) | [Buenavista](https://github.com/jwills/buenavista) | Postgres proxy server |
-| Kotlin & Android | [readme-kotlin.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-kotlin.md) | [file.io Client](https://github.com/rumaan/file.io-Android-Client) | Android file sharing app |
-| Python & Streamlit | [readme-streamlit.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-streamlit.md) | [readme-ai-streamlit](https://github.com/eli64s/readme-ai-streamlit) | Streamlit UI for readme-ai |
-| Rust & C | [readme-rust-c.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-rust-c.md) | [CallMon](https://github.com/DownWithUp/CallMon) | System call monitoring tool |
-| Go | [readme-go.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-go.md) | [docker-gs-ping](https://github.com/olliefr/docker-gs-ping) | Dockerized Go app |
-| Java | [readme-java.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-java.md) | [Minimal-Todo](https://github.com/avjinder/Minimal-Todo) | Minimalist todo app |
-| FastAPI & Redis | [readme-fastapi-redis.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-fastapi-redis.md) | [async-ml-inference](https://github.com/FerrariDG/async-ml-inference) | Async ML inference service |
-| Python & Jupyter | [readme-mlops.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-mlops.md) | [mlops-course](https://github.com/GokuMohandas/mlops-course) | MLOps course materials |
-| Flink & Python | [readme-local.md](https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-local.md) | Local Directory | Example using local files |
+| Python | [readme-python.md][0a] | [readme-ai][0b] | Core readme-ai project |
+| TypeScript & React | [readme-typescript.md][1a] | [ChatGPT App][1b] | React Native ChatGPT app |
+| PostgreSQL & DuckDB | [readme-postgres.md][2a] | [Buenavista][2b] | Postgres proxy server |
+| Kotlin & Android | [readme-kotlin.md][3a] | [file.io Client][3b] | Android file sharing app |
+| Streamlit | [readme-streamlit.md][4a] | [readme-ai-streamlit][4b] | Streamlit UI for readme-ai app |
+| Rust & C | [readme-rust-c.md][5a] | [CallMon][5b] | System call monitoring tool |
+| Docker & Go | [readme-go.md][6a] | [docker-gs-ping][6b] | Dockerized Go app |
+| Java | [readme-java.md][7a] | [Minimal-Todo][7b] | Minimalist todo Java app |
+| FastAPI & Redis | [readme-fastapi-redis.md][8a] | [async-ml-inference][8b] | Async ML inference service |
+| Jupyter Notebook | [readme-mlops.md][9a] | [mlops-course][9b] | MLOps course repository |
+| Apache Flink | [readme-local.md][10a] | Local Directory | Example using a local directory |
 
 > [!NOTE]
 > See additional README file examples [here](https://github.com/eli64s/readme-ai/tree/main/examples/markdown).
+
+[0a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-python.md "readme-python.md"
+[0b]: https://github.com/eli64s/readme-ai "readme-ai"
+[1a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-typescript.md "readme-typescript.md"
+[1b]: https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript "ChatGPT App"
+[2a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-postgres.md "readme-postgres.md"
+[2b]: https://github.com/jwills/buenavista "Buenavista"
+[3a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-kotlin.md "readme-kotlin.md"
+[3b]: https://github.com/rumaan/file.io-Android-Client "file.io Client"
+[4a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-streamlit.md "readme-streamlit.md"
+[4b]: https://github.com/eli64s/readme-ai-streamlit "readme-ai-streamlit"
+[5a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-rust-c.md "readme-rust-c.md"
+[5b]: https://github.com/DownWithUp/CallMon "CallMon"
+[6a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-go.md "readme-go.md"
+[6b]: https://github.com/olliefr/docker-gs-ping "docker-gs-ping"
+[7a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-java.md "readme-java.md"
+[7b]: https://github.com/avjinder/Minimal-Todo "Minimal-Todo"
+[8a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-fastapi-redis.md "readme-fastapi-redis.md"
+[8b]: https://github.com/FerrariDG/async-ml-inference "async-ml-inference"
+[9a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-mlops.md "readme-mlops.md"
+[9b]: https://github.com/GokuMohandas/mlops-course "mlops-course"
+[10a]: https://github.com/eli64s/readme-ai/blob/main/examples/markdown/readme-local.md "readme-local.md"
 
 ---
 

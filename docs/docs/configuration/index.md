@@ -1,8 +1,8 @@
-# Configuration
+# Configuration Options
 
 Readme-ai offers a wide range of configuration options to customize your README generation. This page provides a comprehensive list of all available options with detailed explanations.
 
-## CLI Options
+## Command-Line Options
 
 | Option | Description | Default | Impact |
 |--------|-------------|---------|--------|
@@ -30,6 +30,14 @@ Readme-ai offers a wide range of configuration options to customize your README 
 - Options: `openai`, `ollama`, `gemini`, `offline`
 - Impact: Determines the AI service used for generating README content. Each service has its own strengths and may produce slightly different results.
 
+### --model
+- Options vary by API service
+- Impact: Different models have varying capabilities and may produce different quality or style of content. Higher-tier models (e.g., GPT-4) generally produce better results but may be slower or more expensive.
+
+### --badge-color
+- Options: Any valid color name or hex code
+- Impact: Changes the color of status badges in the README. You can match the color scheme to your project's branding or theme.
+
 ### --badge-style
 - Options: `flat`, `flat-square`, `for-the-badge`, `plastic`, `skills`, `skills-light`, `social`
 - Impact: Changes the visual appearance of status badges in the README. Different styles can better match your project's aesthetic.
@@ -38,21 +46,13 @@ Readme-ai offers a wide range of configuration options to customize your README 
 - Options: `classic`, `modern`, `compact`
 - Impact: Alters the layout and design of the README header, including how the project title, description, and badges are displayed.
 
-### --image
-- Options: `blue`, `gradient`, `black`, `cloud`, `purple`, `grey`, `custom`, `llm`
-- Impact: Sets the main visual element of your README. Using `custom` allows you to specify your own image, while `llm` generates an image using AI.
-
-### --model
-- Options vary by API service
-- Impact: Different models have varying capabilities and may produce different quality or style of content. Higher-tier models (e.g., GPT-4) generally produce better results but may be slower or more expensive.
-
-### --temperature
-- Range: 0.0 to 1.0
-- Impact: Lower values produce more focused and deterministic output, while higher values increase creativity and randomness.
-
 ### --toc-style
 - Options: `bullet`, `fold`, `links`, `number`
 - Impact: Changes how the table of contents is formatted. The `fold` option creates a collapsible ToC, which can be useful for longer READMEs.
+
+### --image
+- Options: `blue`, `gradient`, `black`, `cloud`, `purple`, `grey`, `custom`, `llm`
+- Impact: Sets the main visual element of your README. Using `custom` allows you to specify your own image, while `llm` generates an image using AI.
 
 ## Best Practices
 

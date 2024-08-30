@@ -1,20 +1,19 @@
-# Readme-ai MkDocs Site Configuration
+# README-AI MkDocs Site Configuration
 
-site_name: readme-ai
-site_description: "README file generator, powered by large language model APIs 👾"
-site_url: https://eli64s.github.io/readme-ai/
+site_name: README-AI Docs
+site_description: Explore readme-ai, a README file generator powered by large language model APIs.
+site_url: https://docs.readme-ai.com/
 site_author: readme-ai
 repo_url: https://github.com/eli64s/readme-ai
 repo_name: eli64s/readme-ai
+remote_name: https://github.com/readme-ai/docs
 docs_dir: "docs/docs/"
 
 theme:
-  icon:
-    repo: fontawesome/brands/github-alt
   name: material
   palette:
     primary: white
-    accent: blue
+    accent: blueviolet
   language: en
   font:
     text: "Roboto"
@@ -38,24 +37,51 @@ theme:
     - navigation.instant.progress
     - navigation.indexes
     - navigation.sections
+    - navigation.expand
+    - header.autohide
 
 nav:
   - Home: index.md
-  - Getting Started:
-      - "System Requirements": prerequisites.md
-      - "Installation": installation.md
-      - "Usage": usage.md
-      - "Configuration": configuration.md
+  - Quickstart:
+      - "Requirements": quickstart/requirements.md
+      - "Installation": quickstart/installation.md
+      - Usage:
+          - CLI: quickstart/usage/cli.md
+          - Docker: quickstart/usage/docker.md
+          - Streamlit: quickstart/usage/streamlit.md
   - Features:
-      - "Overview": overview.md
-      - "LLM Integrations": llm_integrations.md
-  - Examples: examples.md
+      - "features/index.md"
+      - Integrations:
+          - "features/integrations/index.md"
+          - OpenAI: features/integrations/openai.md
+          - Ollama: features/integrations/ollama.md
+          - Google Gemini: features/integrations/google-gemini.md
+          - Offline Mode: features/integrations/offline-mode.md
+  - Configuration:
+      - configuration/index.md
+      - "Basic": configuration/basic-examples.md
+      - "Advanced": configuration/advanced-examples.md
+      - Markdown Contents:
+          - "Project Badges": configuration/content/project-badges.md
+          - "Project Logo": configuration/content/project-logo.md
+      - Markdown Templates:
+          - "Header": configuration/templates/headers.md
+          - "Table of Content": configuration/templates/table-of-contents.md
+      - Examples:
+          - "README Gallery": configuration/gallery.md
   - Contributing: contributing.md
 
 markdown_extensions:
   - admonition
   - attr_list
   - md_in_html
+  - pymdownx.arithmatex
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.keys
+  - pymdownx.magiclink
 
 extra_css:
   - css/custom.css
