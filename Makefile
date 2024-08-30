@@ -13,6 +13,10 @@ conda-recipe: ## Create conda recipe for conda-forge
 	grayskull pypi readmeai
 	conda build .
 
+.PHONY: docker-build
+docker-build: ## Build Docker image for application
+	docker build -t zeroxeli/readme-ai:latest .
+
 .PHONY: git-log
 git-log: ## Display git log for last 'N' commits
 	git log -n ${COMMITS} --pretty=tformat: --shortstat
