@@ -13,14 +13,14 @@ Readme-ai offers a wide range of configuration options to customize your README 
 | `--base-url` | Base URL for the repository | `v1/chat/completions` | Used for API requests to the chosen LLM service |
 | `--context-window` | Max context window of LLM API | `3999` | Limits the amount of context provided to the LLM |
 | `--emojis` | Add emojis to README sections | `False` | Adds visual flair to section headers |
-| `--header-style` | Header template style | `default` | Changes the overall look of the README header |
+| `--header-style` | Header template style | `classic` | Changes the overall look of the README header |
 | `--image` | Project logo image | `blue` | Sets the main image displayed in the README |
 | `--model` | Specific LLM model to use | `gpt-3.5-turbo` | Chooses the AI model for content generation |
 | `--output` | Output filename | `readme-ai.md` | Specifies the name of the generated README file |
 | `--rate-limit` | Max API requests per minute | `5` | Prevents exceeding API rate limits |
 | `--repository` | Repository URL or local path | `None` | Specifies the project to analyze |
 | `--temperature` | Creativity level for generation | `0.9` | Controls the randomness of the AI's output |
-| `--toc-style` | Table of contents style | `bullets` | Changes the format of the table of contents |
+| `--toc-style` | Table of contents style | `bullet` | Changes the format of the table of contents |
 | `--top-p` | Top-p sampling probability | `0.9` | Fine-tunes the AI's output diversity |
 | `--tree-depth` | Max depth of directory tree | `2` | Controls the detail level of the project structure |
 
@@ -31,11 +31,11 @@ Readme-ai offers a wide range of configuration options to customize your README 
 - Impact: Determines the AI service used for generating README content. Each service has its own strengths and may produce slightly different results.
 
 ### --badge-style
-- Options: `default`, `flat`, `flat-square`, `for-the-badge`, `plastic`, `skills`, `skills-light`, `social`
+- Options: `flat`, `flat-square`, `for-the-badge`, `plastic`, `skills`, `skills-light`, `social`
 - Impact: Changes the visual appearance of status badges in the README. Different styles can better match your project's aesthetic.
 
 ### --header-style
-- Options: `default`, `classic`, `modern`, `compact`
+- Options: `classic`, `modern`, `compact`
 - Impact: Alters the layout and design of the README header, including how the project title, description, and badges are displayed.
 
 ### --image
@@ -51,7 +51,7 @@ Readme-ai offers a wide range of configuration options to customize your README 
 - Impact: Lower values produce more focused and deterministic output, while higher values increase creativity and randomness.
 
 ### --toc-style
-- Options: `bullets`, `numbers`, `fold`
+- Options: `bullet`, `fold`, `links`, `number`
 - Impact: Changes how the table of contents is formatted. The `fold` option creates a collapsible ToC, which can be useful for longer READMEs.
 
 ## Best Practices

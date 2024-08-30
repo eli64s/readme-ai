@@ -30,8 +30,8 @@
 
 > <details><summary>Documentation</summary>
 >
-> - [Read the official documentation for readme-ai](https://eli64s.github.io/readme-ai)
-> - [Watch a tutorial created by community member](https://www.youtube.com/watch?v=NiUrm1ni7bE)
+> - [Read the official readme-ai docs (🚧 wip)](https://eli64s.github.io/readme-ai)
+> - [YouTube tutorial created by the community](https://www.youtube.com/watch?v=NiUrm1ni7bE)
 >
 > </details>
 
@@ -561,14 +561,14 @@ Customize your README generation using these CLI options:
 | `--base-url` | Base URL for the repository | `v1/chat/completions` |
 | `--context-window` | Maximum context window of the LLM API | `3999` |
 | `--emojis` | Adds emojis to the README header sections | `False` |
-| `--header-style` | Header template style | `default` |
+| `--header-style` | Header template style | `classic` |
 | `--image` | Project logo image | `blue` |
 | `--model` | Specific LLM model to use | `gpt-3.5-turbo` |
 | `--output` | Output filename | `readme-ai.md` |
 | `--rate-limit` | Maximum API requests per minute | `5` |
 | `--repository` | Repository URL or local directory path | `None` |
 | `--temperature` | Creativity level for content generation | `0.9` |
-| `--toc-style` | Table of contents template style | `bullets` |
+| `--toc-style` | Table of contents template style | `bullet` |
 | `--top-p` | Probability of the top-p sampling method | `0.9` |
 | `--tree-depth` | Maximum depth of the directory tree structure | `2` |
 
