@@ -1,17 +1,17 @@
-import enum
+from enum import Enum
 from typing import Any, ClassVar
 
 from .base_template import BaseTemplate
 
 
-class HeaderStyle(enum.StrEnum):
+class HeaderStyle(Enum):
     """
     Enum containing header styles for the README file.
     """
 
-    CLASSIC = enum.auto()
-    COMPACT = enum.auto()
-    MODERN = enum.auto()
+    CLASSIC = "classic"
+    COMPACT = "compact"
+    MODERN = "modern"
 
 
 class HeaderTemplate(BaseTemplate):
