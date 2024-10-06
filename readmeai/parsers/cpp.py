@@ -4,7 +4,7 @@ Dependency file parsers for C/C++ projects.
 
 import re
 
-from readmeai.core.parsers import BaseFileParser
+from readmeai.parsers.base import BaseFileParser
 
 
 class CMakeParser(BaseFileParser):

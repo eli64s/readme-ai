@@ -1,18 +1,15 @@
-"""Tests for the readme-ai CLI options module."""
-
-from readmeai.cli.options import BadgeOptions, ImageOptions
+from readmeai.cli.options import BadgeStyleOptions, ImageOptions
 
 
 def test_badge_options():
     """Test the CLI options for badge icons."""
-    assert BadgeOptions.DEFAULT == "default"
-    assert BadgeOptions.FLAT == "flat"
-    assert BadgeOptions.FLAT_SQUARE == "flat-square"
-    assert BadgeOptions.FOR_THE_BADGE == "for-the-badge"
-    assert BadgeOptions.PLASTIC == "plastic"
-    assert BadgeOptions.SKILLS == "skills"
-    assert BadgeOptions.SKILLS_LIGHT == "skills-light"
-    assert BadgeOptions.SOCIAL == "social"
+    assert BadgeStyleOptions.FLAT == "flat"
+    assert BadgeStyleOptions.FLAT_SQUARE == "flat-square"
+    assert BadgeStyleOptions.FOR_THE_BADGE == "for-the-badge"
+    assert BadgeStyleOptions.PLASTIC == "plastic"
+    assert BadgeStyleOptions.SKILLS == "skills"
+    assert BadgeStyleOptions.SKILLS_LIGHT == "skills-light"
+    assert BadgeStyleOptions.SOCIAL == "social"
 
 
 def test_image_options():

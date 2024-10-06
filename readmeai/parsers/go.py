@@ -4,7 +4,7 @@ Parser for go.mod dependency files.
 
 import re
 
-from readmeai.core.parsers import BaseFileParser
+from readmeai.parsers.base import BaseFileParser
 
 
 class GoModParser(BaseFileParser):

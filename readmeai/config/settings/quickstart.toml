@@ -1,10 +1,10 @@
 [default]
 tool = "Default"
-install = "echo 'No specific installation instructions available'"
-run = "echo 'No specific run instructions available'"
-test = "echo 'No specific test instructions available'"
-shield = "https://img.shields.io/badge/Tool-Generic-lightgrey?style={badge_style}"
-website = "https://example.com"
+install = "echo 'INSERT-INSTALL-COMMANDS'"
+run = "echo 'INSERT-RUN-COMMANDS'"
+test = "echo 'INSERT-TEST-COMMANDS'"
+shield = ""
+website = ""
 
 [bash]
 tool = "Bash"
@@ -15,92 +15,84 @@ shield = "https://img.shields.io/badge/Shell_Script-121011.svg?style={badge_styl
 website = "https://www.gnu.org/software/bash/"
 
 [dockerfile]
-tool = "Docker"
+tool = ["Dockerfile", "Dockerfile.dev", "Dockerfile.prod"]
 install = "docker build -t {project_name} ."
 run = "docker run -it {project_name}"
 test = "docker exec -it {project_name} pytest"
 shield = "https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white"
 website = "https://www.docker.com/"
 
-[docker_compose_yml]
-tool = "Docker Compose"
+[docker_compose]
+tool = ["docker-compose.yml", "docker-compose.dev.yml", "docker-compose.prod.yml"]
 install = "docker-compose build"
-run = "docker-compose up"
-test = "docker-compose run --rm {service} pytest"
+run = ["docker-compose up -d", "docker-compose up --build -d"]
+test = "docker-compose run --rm {service}"
 shield = "https://img.shields.io/badge/Docker_Compose-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white"
 website = "https://docs.docker.com/compose/"
 
-[docker_compose_yaml]
-tool = "Docker Compose"
-install = "docker-compose build"
-run = "docker-compose up"
-test = "docker-compose run --rm {service} pytest"
-shield = "https://img.shields.io/badge/Docker_Compose-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white"
-website = "https://docs.docker.com/compose/"
-
-[makefile]
-tool = "Make"
-install = "make install"
-run = "make run"
-test = "make test"
-shield = "https://img.shields.io/badge/GNU_Make-A8B9CC.svg?style={badge_style}&logo=gnu-make&logoColor=white"
-website = "https://www.gnu.org/software/make/"
-
-[poetry_lock]
-tool = "Poetry"
-install = "poetry install"
-run = "poetry run python {entrypoint}"
-test = "poetry run pytest"
-shield = "https://img.shields.io/badge/Poetry-3B5526.svg?style={badge_style}&logo=poetry&logoColor=white"
-website = "https://python-poetry.org/"
-
-[pipfile_lock]
-tool = "Pipenv"
-install = "pipenv install"
-run = "pipenv shell && pipenv run python {entrypoint}"
-test = "pipenv shell && pipenv run pytest"
-shield = "https://img.shields.io/badge/Pipenv-3775A9.svg?style={badge_style}&logo=pypi&logoColor=white"
-website = "https://pipenv.pypa.io/"
-
-[requirements_txt]
-tool = "Pip"
+[pip]
+tool = ["requirements.txt", "requirements-dev.txt", "requirements-prod.txt", "requirements.in", "requirements.test.txt"]
 install = "pip install -r requirements.txt"
 run = "python {entrypoint}"
 test = "pytest"
 shield = "https://img.shields.io/badge/pip-3775A9.svg?style={badge_style}&logo=pypi&logoColor=white"
 website = "https://pip.pypa.io/"
 
-[environment_yaml]
-tool = "Conda"
+[pipx]
+tool = ["requirements.txt", "requirements-dev.txt", "requirements-prod.txt", "requirements.in", "requirements.test.txt"]
+install = "pipx install -r requirements.txt"
+run = "pipx run {entrypoint} {args}"
+test = "pytest"
+shield = ""
+website = "https://pipxproject.github.io/pipx/"
+
+[poetry]
+tool = ["pyproject.toml", "poetry.lock"]
+install = "poetry install"
+run = "poetry run python {entrypoint}"
+test = "poetry run pytest"
+shield = "https://img.shields.io/badge/Poetry-3B5526.svg?style={badge_style}&logo=poetry&logoColor=white"
+website = "https://python-poetry.org/"
+
+[pipfile]
+tool = ["Pipfile", "Pipfile.lock"]
+install = "pipenv install"
+run = "pipenv shell\npipenv run python {entrypoint}"
+test = "pipenv shell\npipenv run pytest"
+shield = "https://img.shields.io/badge/Pipenv-3775A9.svg?style={badge_style}&logo=pypi&logoColor=white"
+website = "https://pipenv.pypa.io/"
+
+[conda]
+tool = ["conda.yml", "conda.yaml", "environment.yml", "environment.yaml"]
 install = "conda env create -f environment.yaml"
-run = "conda activate <myenv> && python {entrypoint}"
-test = "conda activate <myenv> && pytest"
+run = "conda activate {venv}\npython {entrypoint}"
+test = "conda activate {venv}\npytest"
 shield = "https://img.shields.io/badge/conda-342B029.svg?style={badge_style}&logo=anaconda&logoColor=white"
 website = "https://docs.conda.io/"
 
-[environment_yml]
-tool = "Conda"
-install = "conda env create -f environment.yaml"
-run = "conda activate <myenv> && python {entrypoint}"
-test = "conda activate <myenv> && pytest"
-shield = "https://img.shields.io/badge/conda-342B029.svg?style={badge_style}&logo=anaconda&logoColor=white"
-website = "https://docs.conda.io/"
-
-[pyproject_toml_flit]
-tool = "Flit"
+[flit]
+tool = ["pyproject.toml", "flit.ini"]
 install = "flit install"
 run = "python -m {entrypoint}"
 test = "python -m pytest"
 shield = "https://img.shields.io/badge/Flit-3B5526.svg?style={badge_style}&logo=flit&logoColor=white"
 website = "https://flit.readthedocs.io/"
 
-[pyproject_toml_pdm]
-tool = "PDM"
+[pdm]
+tool = ["pyproject.toml", "pdm.lock"]
 install = "pdm install"
 run = "pdm run python {entrypoint}"
 test = "pdm run pytest"
 shield = "https://img.shields.io/badge/PDM-AC75D7.svg?style={badge_style}&logo=PDM&logoColor=white"
 website = "https://pdm.fming.dev/"
+
+[streamlit]
+tool = ["requirements.txt", "app.py"]
+install = "pip install -r requirements.txt"
+run = "streamlit run {entrypoint}"
+test = "pytest"
+shield = "https://img.shields.io/badge/Streamlit-FF4B4B.svg?style={badge_style}&logo=streamlit&logoColor=white"
+website = "https://streamlit.io/"
 
 [package_json]
 tool = "Npm"
@@ -221,14 +213,6 @@ run = "deno run {entrypoint}"
 test = "deno test"
 shield = "https://img.shields.io/badge/Deno-000000.svg?style={badge_style}&logo=deno&logoColor=white"
 website = "https://deno.land/"
-
-[streamlit]
-tool = "Streamlit"
-install = "pip install -r requirements.txt"
-run = "streamlit run {entrypoint}"
-test = "pytest"
-shield = "https://img.shields.io/badge/Streamlit-FF4B4B.svg?style={badge_style}&logo=streamlit&logoColor=white"
-website = "https://streamlit.io/"
 
 [sbt_build]
 tool = "sbt"

@@ -1,18 +1,16 @@
-"""
-Tests for the OpenAI API LLM handler implementation.
-"""
-
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import aiohttp
-import openai
 import pytest
+import tenacity
 
-from readmeai.cli.options import ModelOptions as llms
+from readmeai.cli.options import LLMService
+from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.models.openai import OpenAIHandler
 
 
 @pytest.mark.asyncio
-async def test_openai_handler_sets_attributes(openai_handler):
+async def test_openai_handler_sets_attributes(openai_handler: OpenAIHandler):
     """Test that the OpenAI handler sets the correct attributes."""
     assert hasattr(openai_handler, "model")
     assert hasattr(openai_handler, "temperature")
@@ -22,33 +20,33 @@ async def test_openai_handler_sets_attributes(openai_handler):
 
 @pytest.mark.asyncio
 async def test_openai_endpoint_configuration_for_openai(
-    mock_configs,
-    openai_handler,
+    config_loader_fixture: ConfigLoader,
+    openai_handler: OpenAIHandler,
 ):
     """Test that the correct endpoint is set for OpenAI API."""
-    mock_configs.config.llm.api = llms.OPENAI.name
+    config_loader_fixture.config.llm.api = LLMService.OPENAI.name
     assert (
         openai_handler.url
-        == f"{mock_configs.config.llm.host_name}{mock_configs.config.llm.path}"
+        == f"{config_loader_fixture.config.llm.host_name}{config_loader_fixture.config.llm.path}"
     )
 
 
 @pytest.mark.asyncio
 async def test_openai_endpoint_configuration_for_ollama(
-    mock_configs,
-    ollama_localhost,
+    config_loader_fixture: ConfigLoader,
+    ollama_localhost: str,
 ):
     """Test that the correct endpoint is set for OLLAMA."""
-    mock_configs.config.llm.api = llms.OLLAMA.name
-    mock_configs.config.llm.localhost = ollama_localhost
+    config_loader_fixture.config.llm.api = LLMService.OLLAMA.name
+    config_loader_fixture.config.llm.localhost = ollama_localhost
     assert (
         "v1/chat/completions"
-        in f"{mock_configs.config.llm.localhost}{mock_configs.config.llm.path}"
+        in f"{config_loader_fixture.config.llm.localhost}{config_loader_fixture.config.llm.path}"
     )
 
 
 @pytest.mark.asyncio
-async def test_openai_build_payload(openai_handler):
+async def test_openai_build_payload(openai_handler: OpenAIHandler):
     """Test that the OpenAI handler builds the correct payload."""
     # Arrange
     prompt = "test_prompt"
@@ -63,7 +61,7 @@ async def test_openai_build_payload(openai_handler):
 
 @pytest.mark.asyncio
 @patch("readmeai.models.openai.aiohttp.ClientSession.post")
-async def test_make_request_success(mock_post, openai_handler):
+async def test_make_request_success(mock_post, openai_handler: OpenAIHandler):
     """Test _make_request with a successful response."""
     mock_response_cm = AsyncMock()
     mock_response = AsyncMock(
@@ -88,7 +86,7 @@ async def test_make_request_success(mock_post, openai_handler):
     assert mock_response.json.call_count == 1
     assert isinstance(result, str)
     assert index == "test_index"
-    assert result == "Test_response"
+    assert result == "test_response"
     assert (
         mock_response.json.return_value["choices"][0]["message"]["content"]
         == "test_response"
@@ -96,7 +94,7 @@ async def test_make_request_success(mock_post, openai_handler):
 
 
 @pytest.mark.asyncio
-async def test_openai_make_request_with_context(openai_handler):
+async def test_openai_make_request_with_context(openai_handler: OpenAIHandler):
     """Test that the OpenAI handler handles a response with context."""
     # Arrange
     openai_handler.http_client = MagicMock()
@@ -116,7 +114,9 @@ async def test_openai_make_request_with_context(openai_handler):
 
 
 @pytest.mark.asyncio
-async def test_openai_make_request_without_context(openai_handler):
+async def test_openai_make_request_without_context(
+    openai_handler: OpenAIHandler,
+):
     """Test that the OpenAI handler handles a response without context."""
     # Arrange
     openai_handler.http_client = MagicMock()
@@ -136,7 +136,9 @@ async def test_openai_make_request_without_context(openai_handler):
 
 
 @pytest.mark.asyncio
-async def test_make_request_error_handling(mock_config, openai_handler):
+async def test_make_request_error_handling(
+    config_fixture: Settings, openai_handler: OpenAIHandler
+):
     """Test error handling in _make_request."""
 
     @patch("readmeai.models.openai.aiohttp.ClientSession.post")
@@ -153,9 +155,9 @@ async def test_make_request_error_handling(mock_config, openai_handler):
         )
 
         assert index == "test_index"
-        assert result == mock_config.md.placeholder
+        assert result == config_fixture.md.placeholder
         assert mock_post.call_count == 1
 
-    await run_test(aiohttp.ClientError())
-    await run_test(aiohttp.ClientConnectionError())
-    await run_test(openai.OpenAIError())
+    with pytest.raises(tenacity.RetryError) as e:
+        await run_test(aiohttp.ClientError())
+    assert "ClientError" in str(e.value)

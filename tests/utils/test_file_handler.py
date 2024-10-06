@@ -1,17 +1,14 @@
-"""
-Tests read and write operations for file handling.
-"""
-
 import json
+from pathlib import Path
 from unittest.mock import mock_open, patch
 
 import pytest
 
-from readmeai._exceptions import FileReadError, FileWriteError
+from readmeai.errors import FileReadError, FileWriteError
 from readmeai.utils.file_handler import FileHandler
 
 
-def test_read_json(file_handler, tmp_path):
+def test_read_json(file_handler: FileHandler, tmp_path: Path):
     """Test that a JSON file is read."""
     test_data = {"key": "value"}
     file = tmp_path / "data.json"
@@ -20,7 +17,7 @@ def test_read_json(file_handler, tmp_path):
     assert data == test_data
 
 
-def test_read_json_cache(file_handler, tmp_path):
+def test_read_json_cache(file_handler: FileHandler, tmp_path: Path):
     """Test that a file read is cached."""
     test_data = {"key": "value"}
     file = tmp_path / "data.json"
@@ -35,7 +32,7 @@ def test_read_json_cache(file_handler, tmp_path):
         read_json_mock.assert_not_called()
 
 
-def test_write_json(file_handler, tmp_path):
+def test_write_json(file_handler: FileHandler, tmp_path: Path):
     """Test that a JSON file is written."""
     test_data = {"key": "value"}
     file = tmp_path / "out.json"
@@ -44,7 +41,9 @@ def test_write_json(file_handler, tmp_path):
     assert data == test_data
 
 
-def test_read_exception(file_handler, mock_json_file_path):
+def test_read_exception(
+    file_handler: FileHandler, json_file_path_fixture: Path
+):
     """Test that a read exception raises a FileReadError."""
     with (
         patch(
@@ -53,11 +52,15 @@ def test_read_exception(file_handler, mock_json_file_path):
         ),
         pytest.raises(FileReadError) as exc,
     ):
-        file_handler.read(mock_json_file_path)
+        file_handler.read(json_file_path_fixture)
         assert isinstance(exc.value, FileReadError)
 
 
-def test_write_exception(file_handler, mock_json_file_path, mock_json_data):
+def test_write_exception(
+    file_handler: FileHandler,
+    json_file_path_fixture: Path,
+    json_data_fixture: str,
+):
     """Test that a write exception raises a FileWriteError."""
     with (
         patch(
@@ -66,44 +69,52 @@ def test_write_exception(file_handler, mock_json_file_path, mock_json_data):
         ),
         pytest.raises(FileWriteError) as exc,
     ):
-        file_handler.write(mock_json_file_path, mock_json_data)
+        file_handler.write(json_file_path_fixture, json_data_fixture)
         assert isinstance(exc.value, FileWriteError)
 
 
-def test_caching(file_handler, mock_json_data, mock_json_file_path):
+def test_caching(
+    file_handler: FileHandler,
+    json_data_fixture: str,
+    json_file_path_fixture: Path,
+):
     """Test that file reads are cached."""
     with patch(
-        "builtins.open", mock_open(read_data=mock_json_data), create=True
+        "builtins.open", mock_open(read_data=json_data_fixture), create=True
     ):
-        file_handler.read(mock_json_file_path)
+        file_handler.read(json_file_path_fixture)
 
     with patch.object(FileHandler, "read_json") as read_json_mock:
-        file_handler.read(mock_json_file_path)
+        file_handler.read(json_file_path_fixture)
         read_json_mock.assert_not_called()
         assert isinstance(file_handler.cache, dict)
 
 
-def test_unsupported_file_type_read(file_handler):
+def test_unsupported_file_type_read(file_handler: FileHandler):
     """Test that an unsupported file type raises a FileReadError."""
     with pytest.raises(FileReadError) as exc:
         file_handler.read("unsupported_file.xyz")
     assert isinstance(exc.value, FileReadError)
 
 
-def test_unsupported_file_type_write(file_handler, mock_json_data):
+def test_unsupported_file_type_write(
+    file_handler: FileHandler, json_data_fixture: str
+):
     """Test that an unsupported file type raises a FileWriteError."""
     with pytest.raises(FileWriteError) as exc:
-        file_handler.write("unsupported_file.xyz", mock_json_data)
+        file_handler.write("unsupported_file.xyz", json_data_fixture)
     assert isinstance(exc.value, FileWriteError)
 
 
-def test_unsupported_action_type(file_handler):
+def test_unsupported_action_type(file_handler: FileHandler):
     """Test that an unsupported action type raises a ValueError."""
     with pytest.raises(ValueError):
         file_handler.get_action("json", "unsupported_action")
 
 
-def test_read_write_json(file_handler, mock_json_file_path):
+def test_read_write_json(
+    file_handler: FileHandler, json_file_path_fixture: Path
+):
     """Test that a JSON file is read and written."""
     test_data = {"key": "value"}
     with patch(
@@ -111,23 +122,27 @@ def test_read_write_json(file_handler, mock_json_file_path):
         mock_open(read_data=json.dumps(test_data)),
         create=True,
     ):
-        file_handler.write_json(mock_json_file_path, test_data)
-        content = file_handler.read_json(mock_json_file_path)
+        file_handler.write_json(json_file_path_fixture, test_data)
+        content = file_handler.read_json(json_file_path_fixture)
         assert content == test_data
 
 
-def test_read_write_markdown(file_handler, mock_json_file_path):
+def test_read_write_markdown(
+    file_handler: FileHandler, json_file_path_fixture: Path
+):
     """Test that a Markdown file is read and written."""
     test_content = "# Markdown Content"
     with patch(
         "builtins.open", mock_open(read_data=test_content), create=True
     ):
-        file_handler.write_markdown(mock_json_file_path, test_content)
-        content = file_handler.read_markdown(mock_json_file_path)
+        file_handler.write_markdown(json_file_path_fixture, test_content)
+        content = file_handler.read_markdown(json_file_path_fixture)
         assert content == test_content
 
 
-def test_read_write_yaml(file_handler, mock_json_file_path):
+def test_read_write_yaml(
+    file_handler: FileHandler, json_file_path_fixture: Path
+):
     """Test that a YAML file is read and written."""
     test_data = {"key": "value"}
     with patch(
@@ -135,6 +150,6 @@ def test_read_write_yaml(file_handler, mock_json_file_path):
         mock_open(read_data=json.dumps(test_data)),
         create=True,
     ):
-        file_handler.write_yaml(mock_json_file_path, test_data)
-        content = file_handler.read_yaml(mock_json_file_path)
+        file_handler.write_yaml(json_file_path_fixture, test_data)
+        content = file_handler.read_yaml(json_file_path_fixture)
         assert content == test_data

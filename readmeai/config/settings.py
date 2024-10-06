@@ -1,13 +1,9 @@
-"""
-Pydantic models and settings for the readme-ai package.
-"""
+"""Pydantic models and settings for the readme-ai package."""
 
 from __future__ import annotations
 
-from enum import Enum
-from functools import cached_property
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Self
 
 from pydantic import (
     AnyHttpUrl,
@@ -15,50 +11,28 @@ from pydantic import (
     ConfigDict,
     Field,
     FilePath,
-    PositiveFloat,
+    NonNegativeFloat,
     PositiveInt,
     field_validator,
     model_validator,
 )
 from pydantic_extra_types.color import Color
 
-from readmeai.core.logger import Logger
+from readmeai.config.constants import (
+    BadgeStyleOptions,
+    ImageOptions,
+    LLMService,
+)
+from readmeai.errors import GitValidationError
+from readmeai.logger import get_logger
+from readmeai.readers.git.providers import GitURL, parse_git_url
+from readmeai.templates.banner import convert_svg_to_html
+from readmeai.templates.header import HeaderStyleOptions
+from readmeai.templates.table_of_contents import TocStyleOptions
 from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.file_resources import get_resource_path
-from readmeai.vcs.errors import GitValidationError
-from readmeai.vcs.url_builder import GitURL, parse_git_url
+from readmeai.utils.file_resource import get_resource_path
 
-_logger = Logger(__name__)
-
-
-class BadgeOptions(str, Enum):
-    DEFAULT = "default"
-    FLAT = "flat"
-    FLAT_SQUARE = "flat-square"
-    FOR_THE_BADGE = "for-the-badge"
-    PLASTIC = "plastic"
-    SKILLS = "skills"
-    SKILLS_LIGHT = "skills-light"
-    SOCIAL = "social"
-
-
-class ImageOptions(str, Enum):
-    CUSTOM = "CUSTOM"
-    LLM = "LLM"
-    BLACK = "https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png"
-    BLUE = "https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg"
-    CLOUD = "https://cdn-icons-png.flaticon.com/512/6295/6295417.png"
-    GRADIENT = "https://img.icons8.com/?size=512&id=55494&format=png"
-    GREY = "https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png"
-    PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
-
-
-class ModelOptions(str, Enum):
-    # ANTHROPIC = "ANTHROPIC"
-    GEMINI = "GEMINI"
-    OFFLINE = "OFFLINE"
-    OLLAMA = "OLLAMA"
-    OPENAI = "OPENAI"
+_logger = get_logger(__name__)
 
 
 class APISettings(BaseModel):
@@ -75,12 +49,12 @@ class FileSettings(BaseModel):
     File path resources for the readme-ai package.
     """
 
-    commands: str = Field(description="'Quickstart' setup commands.")
     ignore_list: str = Field(description="List of files to ignore.")
     languages: str = Field(description="Extension to language mappings.")
-    markdown: str = Field(description="Markdown code template blocks.")
     parsers: str = Field(description="Common dependency file names.")
     prompts: str = Field(description="LLM API prompt templates.")
+    tool_config: str = Field(description="Development tool configurations.")
+    tooling: str = Field(description="Development tools and utilities.")
     shieldsio_icons: str = Field(description="Shields.io svg icon badges.")
     skill_icons: str = Field(description="Skill icon badges.")
 
@@ -91,7 +65,6 @@ class GitSettings(BaseModel):
     """
 
     repository: Path | str
-    git_url: GitURL | None = None
     full_name: str | None = None
     host_domain: str | None = None
     host: str | None = None
@@ -101,9 +74,7 @@ class GitSettings(BaseModel):
 
     @field_validator("repository")
     def validate_repository(cls, value: Path | str) -> Path | str:
-        """
-        Validates the repository path or Git URL.
-        """
+        """Validates the repository path or Git URL."""
         if isinstance(value, Path) or (
             isinstance(value, str)
             and Path(value).is_dir()
@@ -117,43 +88,13 @@ class GitSettings(BaseModel):
                 f"Invalid Git repository URL or path: {value}",
             ) from exc
 
-    @field_validator("git_url")
-    def set_git_url(cls, value: GitURL | None, values) -> GitURL | None:
-        """
-        Set Git URL from the repository path if not provided.
-        """
-        if value is None and "repository" in values:
-            return GitURL.create(str(values["repository"]))
-        return value
-
     @model_validator(mode="after")
-    def set_git_attributes(self) -> GitSettings:
-        """
-        Parse and set Git repository attributes.
-        """
-        if self.git_url:
-            self.host_domain = self.git_url.host_domain
-            self.host = self.git_url.host.name if self.git_url.host else None
-            self.name = self.git_url.name
-            self.full_name = self.git_url.full_name
-        else:
-            self.host_domain, self.host, self.name, self.full_name = (
-                parse_git_url(str(self.repository))
-            )
+    def set_git_attributes(self) -> Self:
+        """Parse and set Git repository attributes."""
+        self.host_domain, self.host, self.name, self.full_name = parse_git_url(
+            str(self.repository)
+        )
         return self
-
-    def get_file_url(self, file_path: str) -> str:
-        """
-        Generates a URL for a file in the repository.
-        """
-        if self.git_url:
-            return self.git_url.get_file_url(file_path)
-        elif isinstance(self.repository, Path) or (
-            isinstance(self.repository, str) and Path(self.repository).is_dir()
-        ):
-            return str(Path(self.repository) / file_path)
-        else:
-            raise GitValidationError("Failed to generate git file URL")
 
 
 class MarkdownSettings(BaseModel):
@@ -162,92 +103,58 @@ class MarkdownSettings(BaseModel):
     """
 
     align: Literal["left", "center", "right"] = Field(
-        default="center",
-        description="align for markdown content.",
+        default="center", description="align for markdown content."
     )
     badge_color: Color = Field(
         default_factory=lambda: Color("blue"),
         description="Badge color (https://www.w3.org/TR/SVG11/types.html#ColorKeywords)",
     )
-    badge_style: BadgeOptions = Field(
-        default=BadgeOptions.FLAT,
-        description="Badge icon style type.",
+    badge_style: BadgeStyleOptions = Field(
+        default=BadgeStyleOptions.DEFAULT, description="Badge icon style type."
     )
-    badge_icons: str
+    badges_tech_stack: str
     contribute: str
     emojis: bool = Field(
-        default=False,
-        description="Enable emoji prefixes for headers.",
+        default=False, description="Enable emoji prefixes for headers."
     )
     features: str = Field(
         default="❯ INSERT-PROJECT-FEATURES",
-        description="Project feature content.",
+        description="Project feature markdown table content.",
     )
     header_style: str = Field(
-        default="classic",
-        description="Header style for the README file.",
+        default=HeaderStyleOptions.CLASSIC,
+        description="Header style for the project README.",
     )
     image: AnyHttpUrl | FilePath | str = Field(
         default=ImageOptions.BLUE,
-        description="Image URL or path for the project logo.",
+        description="Project image URL or file path.",
     )
-    image_width: str = Field(
-        default="20%",
-        description="Project logo width",
-    )
-    modules: str
-    modules_widget: str
-    overview: str = Field(
-        default="❯ INSERT-PROJECT-OVERVIEW",
-        description="Project overview content.",
-    )
-    placeholder: str = Field(
-        default="<code>❯ REPLACE-ME</code>",
-        description="Placeholder image for missing content.",
-    )
+    image_width: str = Field(default="20%")
+    overview: str = Field(default="❯ INSERT-PROJECT-OVERVIEW")
+    placeholder: str = Field(default="<code>❯ REPLACE-ME</code>")
+    project_index: str
     quickstart: str
-    requirements: str = Field(
-        default="",
-        description="Project system prerequisites.",
-    )
     shieldsio_icons: str
     skill_icons: str
-    slogan: str = Field(
-        default="❯ INSERT-PROJECT-SLOGAN",
-        description="Project tagline or slogan.",
-    )
+    slogan: str = Field(default="❯ INSERT-PROJECT-SLOGAN")
     tables: str = Field(default="", description="Markdown table options.")
-    toc_style: str = Field(
-        default="bullet",
-        description="Table of contents content.",
-    )
+    toc_style: str = Field(default=TocStyleOptions.BULLET)
     tree: str
-    tree_depth: PositiveInt = Field(
-        default=2,
-        ge=1,
-        le=5,
-        description="Depth of directory tree.",
+    tree_depth: PositiveInt = Field(default=2, ge=1, le=5)
+
+    model_config = ConfigDict(
+        use_enum_values=True,
+        arbitrary_types_allowed=True,
     )
 
     @field_validator("badge_color")
     def set_color(cls, value: str) -> str:
-        """
-        Validates badge color value and returns the hex code.
-        """
+        """Field validator to set the badge color."""
         try:
-            return Color(value).as_hex().strip("#")
-        except ValueError as exc:
-            _logger.error(f"Invalid color value '{value}': {exc}")
+            return Color(value).as_hex(format="long").lstrip("#")
+        except ValueError:
+            _logger.error(f"Invalid color provided: {value}", exc_info=True)
             return cls.model_fields["badge_color"].default
-
-    @model_validator(mode="after")
-    def set_width(self) -> MarkdownSettings:
-        """
-        Validates and sets the width for the project logo image.
-        """
-        if str(self.image).lower() == ImageOptions.LLM.name.lower():
-            self.image_width = "60%"
-        return self
 
 
 class ModelSettings(BaseModel):
@@ -255,10 +162,7 @@ class ModelSettings(BaseModel):
     LLM API model settings and parameters.
     """
 
-    api: str | None = Field(
-        default=ModelOptions.OFFLINE,
-        description="API key for the LLM model.",
-    )
+    api: str = Field(default=LLMService.OFFLINE)
     base_url: str
     context_window: PositiveInt
     encoder: str
@@ -266,9 +170,9 @@ class ModelSettings(BaseModel):
     localhost: AnyHttpUrl
     model: str
     path: str
-    temperature: float
+    temperature: NonNegativeFloat
     tokens: PositiveInt
-    top_p: PositiveFloat
+    top_p: NonNegativeFloat
 
 
 class Settings(BaseModel):
@@ -286,51 +190,61 @@ class Settings(BaseModel):
         validate_assignment=True,
     )
 
+    @model_validator(mode="after")
+    def validate_markdown(self) -> Self:
+        """Model validator to set conditional settings."""
+        image_path = str(self.md.image)
+        if image_path == ImageOptions.LLM.name:
+            self.md.image_width = "60%"
+
+        if image_path == ImageOptions.BANNER.name:
+            self.md.image = convert_svg_to_html(
+                title=str(self.git.name),
+                output_svg_path=f"{self.git.name}-banner.svg",
+            )
+            self.md.image_width = "80%"
+
+        if self.md.header_style == HeaderStyleOptions.MODERN.value:
+            self.md.align = "left"
+
+        return self
+
 
 class ConfigLoader:
     """
     Loads the configuration settings for the readme-ai package.
     """
 
-    def __init__(
-        self,
-        config_file: str = "config.toml",
-        submodule: str = "settings",
-    ) -> None:
-        """Initialize ConfigLoader with the base configuration file."""
-        self.file_handler = FileHandler()
-        self.config_file = config_file
-        self.submodule = submodule
-        self.config = self._load_config
-        self.load_settings()
+    file_handler: FileHandler = FileHandler()
+    config_file: str = "config.toml"
+    module: str = "readmeai.config"
+    submodule: str = "settings"
 
-    @cached_property
+    def __init__(self) -> None:
+        """Initialize ConfigLoader with the base configuration file."""
+        self._load_config()
+        self._load_settings()
+
     def _load_config(self) -> Settings:
         """Loads the base configuration file."""
         file_path = get_resource_path(
             file_path=self.config_file,
             submodule=self.submodule,
         )
-        config_dict = self.file_handler.read(str(file_path))
-        return Settings.model_validate(config_dict)
+        config_dict = self.file_handler.read(file_path)
+        self.config = Settings.model_validate(config_dict)
+        return self.config
 
-    def load_settings(self) -> dict[str, dict]:
-        """
-        Loads all configuration settings.
-        1. Loads the base configuration file from 'settings/config.toml'.
-        2. Loads all additional TOML files defined in 'FileSettings.'
-        """
-        settings = self._load_config.model_dump()
+    def _load_settings(self) -> dict[str, dict]:
+        """Loads all TOML config files from ./config/settings/*.toml."""
+        settings = self.config.model_dump()
 
         for key, file_path in settings["files"].items():
-            if not file_path.endswith(".toml"):
-                continue
-
-            file_path = get_resource_path(file_path=file_path)
-            data_config = self.file_handler.read(file_path)
-            settings[key] = data_config
-            setattr(self, key, data_config)
-
-            _logger.info(f"Config loaded: {self.submodule}/{file_path}")
+            if file_path.endswith(".toml"):
+                file_path = get_resource_path(file_path=file_path)
+                config_dict = self.file_handler.read(file_path)
+                settings[key] = config_dict
+                setattr(self, key, config_dict)
+                _logger.info(f"Configuration file loaded: {file_path}")
 
         return settings

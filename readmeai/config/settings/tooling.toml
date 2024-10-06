@@ -1,0 +1,192 @@
+# Universal Master TOML for Package Managers, Configuration Files, and Runtime Tools
+
+[package_managers]
+
+# Python
+pip = ["requirements.txt", "requirements-dev.txt", "requirements-prod.txt", "requirements.in", "requirements.test.txt"]
+conda = ["conda.yml", "conda.yaml", "environment.yml", "environment.yaml"]
+poetry = ["poetry.lock"]
+pipenv = ["Pipfile", "Pipfile.lock"]
+pdm = ["pdm.lock"]
+flit = ["flit.ini"]
+tox = ["tox.ini"]
+
+# JavaScript/Node.js
+npm = ["package.json", "package-lock.json", ".npmrc", ".nvmrc"]
+yarn = ["yarn.lock"]
+bower = ["bower.json"]
+
+# Ruby
+bundler = ["Gemfile", "Gemfile.lock"]
+rake = ["Rakefile"]
+
+# Java
+maven = ["pom.xml"]
+gradle = ["build.gradle", "build.gradle.kts"]
+
+# C#
+nuget = ["nuget.config", "NuGet.Config", "packages.config", ".csproj"]
+msbuild = ["Directory.Build.props", "Directory.Build.targets"]
+
+# PHP
+composer = ["composer.json", "composer.lock"]
+
+# Go
+"go modules" = ["go.mod", "go.sum"]
+
+# Rust
+cargo = ["Cargo.toml", "Cargo.lock"]
+
+# Swift
+swiftpm = ["Package.swift"]
+
+# R
+renv = ["renv.lock"]
+
+# Haskell
+stack = ["stack.yaml"]
+cabal = ["cabal.project", "*.cabal"]
+
+# Elixir
+mix = ["mix.exs", "mix.lock"]
+
+# C/C++
+cmake = ["CMakeLists.txt"]
+autotools = ["Makefile.am", "configure.ac"]
+
+# Dart
+pub = ["pubspec.yaml", "pubspec.lock"]
+
+# Perl
+cpan = ["Build.PL", "cpanfile", "Makefile.PL"]
+
+# Scala
+sbt = ["build.sbt"]
+
+# Properties Files
+properties = ["*.properties", "application.properties", "application-*.properties"]
+
+# API Documentation
+[api_documentation]
+swagger = ["swagger.yml", "swagger.yaml", "swagger.json"]
+openapi = ["openapi.yml", "openapi.yaml", "openapi.json"]
+postman = ["postman_collection.json", "postman_environment.json"]
+
+# CI/CD
+[cicd]
+bitbucket_pipelines = ["bitbucket-pipelines.yml", "bitbucket-pipelines.yaml"]
+circleci = [".circleci/config.yml", ".circleci/config.yaml"]
+github_actions = [".github/workflows/*.yml", ".github/workflows/*.yaml"]
+gitlab_ci = [".gitlab-ci.yml", ".gitlab-ci.yaml"]
+travisci = [".travis.yml", ".travis.yaml"]
+jenkins = ["Jenkinsfile"]
+
+# Cloud Computing
+[cloud]
+aws = [".aws/config", "cloudformation/*.yaml", "cloudformation/*.json"]
+azure = ["azure-pipelines.yml", "*.json"]
+gcp = ["app.yaml", "cloudbuild.yaml"]
+
+# Linting and Code Formatting
+[code_quality]
+eslint = [".eslintrc.json", ".eslintrc.js", ".eslintignore"]
+prettier = [".prettierrc", ".prettierrc.json", ".prettierrc.js", ".prettierignore"]
+stylelint = [".stylelintrc", ".stylelintrc.json", ".stylelintignore"]
+black = ["black.toml"]
+flake8 = [".flake8"]
+ruff = [".ruff.toml"]
+
+[configuration_management]
+ansible = ["site.yml", "playbook.yml", "roles/**/*.yml"]
+puppet = ["manifests/*.pp", "modules/**/*.pp"]
+chef = ["cookbooks/**/*.rb", "recipes/**/*.rb"]
+
+# Containers
+[containers]
+docker = ["Dockerfile", "Dockerfile.*", "docker-compose.yml", "docker-compose.yaml", ".env"]
+podman = ["Containerfile", "Podfile", "Podfile.lock"]
+singularity = ["Singularity"]
+
+# Database Management
+[database_management]
+mysql = ["my.cnf", "my.ini"]
+postgresql = ["postgresql.conf", "pg_hba.conf"]
+mongodb = ["mongod.conf", "mongo.conf"]
+redis = ["redis.conf"]
+
+# Documentation Generators
+[documentation]
+sphinx = ["conf.py", "index.rst"]
+mkdocs = ["mkdocs.yml", "docs/index.md"]
+typedoc = ["typedoc.json"]
+doxygen = ["Doxyfile"]
+
+# Game Development
+[game_development]
+unity = ["*.unity"]
+unreal = ["*.uproject"]
+
+# Infrastructure as Code
+[iac]
+terraform = ["main.tf", "provider.tf", "*.tf", "*.tfvars", "*.tfstate"]
+cloudformation = ["cloudformation/*.json", "cloudformation/*.yml", "cloudformation/*.yaml"]
+helm = ["helm/*.yaml", "helm/*.yml"]
+
+# Load Balancers and Proxy
+[load_balancers]
+nginx = ["nginx.conf", "nginx.*.conf"]
+haproxy = ["haproxy.cfg"]
+
+# Make
+[make]
+makefile = ["Makefile", "Makefile.am", "configure.ac"]
+
+# Message Brokers
+[message_brokers]
+rabbitmq = ["rabbitmq.conf", "rabbitmq-env.conf"]
+kafka = ["server.properties", "zookeeper.properties"]
+nats = ["nats-server.conf"]
+
+# Orchestration
+[orchestration]
+kubernetes = ["k8s.yml", "k8s.yaml"]
+helm = ["helm/*.yaml", "helm/*.yml"]
+openshift = ["openshift.yml", "openshift.yaml"]
+nomad = ["nomad.hcl"]
+
+# Infrastructure Monitoring
+[monitoring]
+prometheus = ["prometheus.yml", "prometheus.yaml"]
+grafana = ["grafana.ini", "grafana/dashboards/*"]
+datadog = ["dashboards/*"]
+elk_stack = ["logstash.conf", "kibana.yml", "elasticsearch.yml"]
+zabbix = ["zabbix_agentd.conf", "zabbix_server.conf"]
+
+# Serverless
+[serverless]
+aws_sam = ["template.yaml", "template.yml"]
+serverless = ["serverless.yml", "serverless.yaml"]
+
+# Testing Frameworks
+[testing_frameworks]
+jest = ["jest.config.js", "jest.setup.js"]
+mocha = ["mocha.opts", "test/**/*.js"]
+pytest = ["pytest.ini", "conftest.py"]
+unittest = ["test_*.py"]
+cypress = ["cypress.json", "cypress.env.json"]
+selenium = ["selenium.conf.js", "tests/**/*.py"]
+
+# Performance Testing
+[performance_testing]
+jmeter = ["jmeter.jmx"]
+gatling = ["gatling.conf", "user-files/simulations/*.scala"]
+locust = ["locustfile.py"]
+
+# Secrets Management
+[secrets_management]
+hashicorp_vault = ["vault.hcl"]
+aws_secrets_manager = ["secretsmanager.yaml"]
+
+# Virtualization
+[virtualization]
+vagrant = ["Vagrantfile"]

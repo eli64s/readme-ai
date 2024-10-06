@@ -1,30 +1,25 @@
-"""
-File I/O factory class to read and write files.
-"""
+"""File handler module to read and write various file formats."""
 
 import functools
 import json
-import sys
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 import yaml
 
-from readmeai._exceptions import FileReadError, FileWriteError
-
-if sys.version_info < (3, 11):
-    import toml
-else:
-    import tomllib as toml
+from readmeai.errors import FileReadError, FileWriteError
+from readmeai.utils.helpers import is_available
 
 
 class FileHandler:
-    """File I/O factory class to read and write files."""
+    """
+    File I/O support for md, json, toml, txt, and yaml formats.
+    """
 
     def __init__(self):
-        """Initialize the file handler."""
-        self.file_actions: dict[str, dict[str, Callable[[str], Any]]] = {
+        self.file_actions = {
+            "html": {"read": self.read_text, "write": self.write_text},
             "json": {"read": self.read_json, "write": self.write_json},
             "md": {"read": self.read_markdown, "write": self.write_markdown},
             "toml": {"read": self.read_toml, "write": self.write_toml},
@@ -61,7 +56,7 @@ class FileHandler:
     def get_action(
         self, file_extension: str, action_type: str
     ) -> Callable[[str], Any]:
-        """Get method for the passed file extension and I/O operation."""
+        """Get the method for the passed file extension and I/O operation."""
         file_actions = self.file_actions.get(file_extension)
         if not file_actions:
             raise ValueError(f"Unsupported file type: {file_extension}")
@@ -71,6 +66,12 @@ class FileHandler:
             raise ValueError(f"Unsupported action type: {action_type}")
 
         return action
+
+    @staticmethod
+    def read_html(file_path: str | Path) -> str:
+        """Read the content of an HTML file."""
+        with open(file_path, encoding="utf-8") as file:
+            return file.read()
 
     @staticmethod
     @functools.lru_cache(maxsize=100)
@@ -89,12 +90,30 @@ class FileHandler:
     @functools.lru_cache(maxsize=100)
     def read_toml(file_path: str | Path) -> dict[str, Any]:
         """Read the content of a TOML file."""
-        if sys.version_info < (3, 11):
-            with open(file_path, encoding="utf-8") as file:
-                data = toml.load(file)
-        else:
+        if is_available("tomllib"):  # pragma: no cover
+            import tomllib
+
             with open(file_path, "rb") as file:
-                data = toml.load(file)
+                data = tomllib.load(file)
+
+        elif is_available("tomli"):  # pragma: no cover
+            import tomli  # type: ignore
+
+            with open(file_path, "rb") as file:
+                data = tomli.load(file)
+
+        elif is_available("tomlkit"):  # pragma: no cover
+            import tomlkit  # type: ignore
+
+            with open(file_path) as file:
+                data = tomlkit.load(file)
+
+        else:  # pragma: no cover
+            raise ImportError(
+                "No TOML provider found in the current environment. "
+                "Please install tomli using 'pip install tomli'. "
+                "Alternatively, run readme-ai using Python 3.11+."
+            )
         return {key.lower(): value for key, value in data.items()}
 
     @staticmethod
@@ -108,6 +127,12 @@ class FileHandler:
         """Read the content of a YAML file."""
         with open(file_path, encoding="utf-8") as file:
             return yaml.safe_load(file)
+
+    @staticmethod
+    def write_html(file_path: str | Path, content: str) -> None:
+        """Write the content to an HTML file."""
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(content)
 
     @staticmethod
     def write_json(file_path: str | Path, content: dict[str, Any]) -> None:
@@ -124,8 +149,7 @@ class FileHandler:
     @staticmethod
     def write_toml(file_path: str | Path, content: dict[str, Any]) -> None:
         """Write the content to a TOML file."""
-        with open(file_path, "w", encoding="utf-8") as file:
-            toml.dump(content, file)
+        raise NotImplementedError("Writing to TOML files is not supported.")
 
     @staticmethod
     def write_text(file_path: str | Path, content: str) -> None:

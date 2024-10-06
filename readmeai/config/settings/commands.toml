@@ -1,7 +1,7 @@
-# Programming language install, run, and test commands.-vs-binding = {
+# Programming language install, run, and test commands.
 
 [quickstart_guide]
-default = ["❯ INSERT-INSTALL-COMMANDS", "❯ INSERT-RUN-COMMANDS", "❯ INSERT-TEST-COMMANDS"]
+default = ["echo 'INSERT-INSTALL-COMMANDS'", "echo 'INSERT-RUN-COMMANDS'", "echo 'INSERT-TEST-COMMANDS'"]
 C = ["gcc -o myapp main.c", "./myapp", "/* No common unit test framework in C */"]
 CPP = ["g++ -o myapp main.cpp", "./myapp", "googletest"]
 CSharp = ["dotnet build", "dotnet run", "dotnet test"]

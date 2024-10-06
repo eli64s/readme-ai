@@ -1,175 +1,249 @@
-"""
-Creates Markdown tables to store LLM text responses in the README file.
-"""
-
 from pathlib import Path
 
-from readmeai.core.logger import Logger
-from readmeai.vcs.url_builder import GitURL
+from readmeai.logger import get_logger
 
-_logger = Logger(__name__)
+_logger = get_logger(__name__)
 
 
-def construct_markdown_table(
-    data: list[tuple[str, str]],
+def build_submodule_disclosure_widget(
+    data: dict[str, dict | list[tuple[str, str]]],
     repo_path: str | Path,
-    full_name: str,
-    max_rows: int = 100,
+    repo_url: str,
 ) -> str:
     """
-    Builds a Markdown table to store LLM text responses in README file.
+    Builds expandable sections via <details> HTML element,
+    for each module with nested submodules using HTML tables.
     """
-    assert isinstance(data, list), "Data must be a list"
-    assert all(
-        isinstance(item, tuple) and len(item) == 2 for item in data
-    ), "Each data item must be a tuple of (str, str)"
-    assert isinstance(
-        repo_path,
-        str | Path,
-    ), "repo_path must be a string or Path"
-    assert isinstance(full_name, str), "full_name must be a string"
-    assert (
-        isinstance(max_rows, int) and max_rows > 0
-    ), "max_rows must be a positive integer"
-
     if not data:
-        _logger.warning("Empty data provided for Markdown table")
+        _logger.warning("No file summaries found.")
         return ""
 
     is_local_repo = Path(repo_path).exists()
 
-    if not is_local_repo:
-        try:
-            git_url = GitURL.create(str(repo_path))
-        except ValueError:
-            _logger.error(f"Invalid Git repository URL: {repo_path}")
-            is_local_repo = True  # Fallback to treating it as a local path
+    project_name = (
+        Path(repo_path).name
+        if is_local_repo
+        else repo_url.rstrip("/").split("/")[-1]
+    )
 
-    headers = ["File", "Summary"]
-    table_rows = [headers, ["---", "---"]]
+    sections = [
+        "<details open>",
+        f"\t<summary><b><code>{project_name.upper()}/</code></b></summary>",
+    ]
 
-    for module, summary in data[:max_rows]:
-        file_name = Path(module).name
-        if is_local_repo:
-            file_path = Path(repo_path) / module
-            md_format_file_url = f"[{file_name}]({file_path})"
+    for module_name, module_data in data.items():
+        # Root module
+        if module_name == {project_name}:
+            section = [
+                f"\t<details> <!-- {module_name} Submodule -->",
+                f"\t\t<summary><b>{module_name}</b></summary>",
+                "\t\t<blockquote>",
+                "\t\t\t<table>",
+            ]
+            # Generate table rows for root files
+            section.extend(
+                _generate_table_rows(
+                    module_data,
+                    repo_path,
+                    is_local_repo,
+                    repo_url,
+                    indent="\t\t\t",
+                )
+            )
+            section.extend(
+                ("\t\t\t</table>", "\t\t</blockquote>", "\t</details>")
+            )
         else:
-            try:
-                file_url = git_url.get_file_url(module)
-                md_format_file_url = f"[{file_name}]({file_url})"
-            except ValueError as e:
-                _logger.error(f"Error generating file URL for {module}: {e}")
-                md_format_file_url = file_name
+            # Handle other modules
+            section = [
+                f"\t<details> <!-- {module_name} Submodule -->",
+                f"\t\t<summary><b>{module_name}</b></summary>",
+                "\t\t<blockquote>",
+            ]
+            # Generate content for submodules or files
+            section.extend(
+                _generate_nested_module_content(
+                    module_data,
+                    repo_path,
+                    is_local_repo,
+                    repo_url,
+                    indent="\t\t\t",
+                )
+            )
+            section.extend(("\t\t</blockquote>", "\t</details>"))
 
-        table_rows.append([md_format_file_url, summary])
+        sections.extend(section)
 
-    if len(data) > max_rows:
-        _logger.warning(
-            f"Table truncated. Showing {max_rows} out of {len(data)} rows.",
-        )
-        table_rows.append(["...", "..."])
+    sections.append("</details>\n")
 
-    return _format_as_markdown_table(table_rows)
-
-
-def _format_as_markdown_table(rows: list[list[str]]) -> str:
-    """
-    Formats the given rows as a Markdown table.
-    """
-    assert len(rows) >= 3, "Table must have at least headers and separator"
-    assert all(
-        len(row) == len(rows[0]) for row in rows
-    ), "All rows must have the same number of columns"
-
-    return "\n".join(f"| {' | '.join(row)} |" for row in rows)
-
-
-def extract_folder_name(module: str) -> str:
-    """
-    Extracts the folder name from a module path.
-    """
-    path_parts = Path(module).parts
-    return ".".join(path_parts[:-1]) if len(path_parts) > 1 else "."
-
-
-def format_as_markdown_table(rows: list[list[str]]) -> str:
-    """
-    Formats rows of data as a Markdown table.
-    """
-    max_column_widths = [
-        max(len(str(row[col])) for row in rows) for col in range(len(rows[0]))
-    ]
-
-    formatted_lines = [
-        "| "
-        + " | ".join(
-            str(item).ljust(width)
-            for item, width in zip(row, max_column_widths, strict=False)
-        )
-        + " |"
-        for row in rows
-    ]
-
-    return "\n".join(formatted_lines)
+    return "\n".join(sections)
 
 
 def format_code_summaries(
     placeholder: str,
     code_summaries: list[tuple[str, str]],
-) -> list[tuple[str, str]]:
+) -> list:
+    """Converts the given code summaries into a formatted list."""
+    return [
+        (module, summary_text)
+        if isinstance(summary, tuple) and len(summary) == 2
+        else (summary, placeholder)
+        for summary in code_summaries
+        for module, summary_text in (
+            [summary]
+            if isinstance(summary, tuple) and len(summary) == 2
+            else [(summary, placeholder)]
+        )
+    ]
+
+
+def format_summary(summary: str) -> str:
     """
-    Converts the given code summaries into a formatted list.
+    Formats the summary with multi-line support if needed.
     """
-    formatted_summaries = []
-
-    for summary in code_summaries:
-        if is_valid_tuple_summary(summary):
-            module, summary_text = summary
-        else:
-            module, summary_text = summary, placeholder
-
-        formatted_summaries.append((module, summary_text))
-
-    return formatted_summaries
+    lines = summary.strip().split(". ")
+    if len(lines) > 1:
+        return "<br>".join(f"- {line.strip()}" for line in lines)
+    return summary.strip()
 
 
-def generate_markdown_tables(
-    table_widget: str,
+def _generate_nested_module_content(
+    module_data: dict[str, dict | list[tuple[str, str]]]
+    | list[tuple[str, str]],
+    repo_path: str | Path,
+    is_local_repo: bool,
+    repo_url: str,
+    indent: str = "",
+) -> list[str]:
+    """Generates nested content for modules and submodules using HTML tables."""
+    content = []
+
+    if isinstance(module_data, list):
+        # module_data is a list of files
+        content.append(f"{indent}<table>")
+        content.extend(
+            _generate_table_rows(
+                module_data,
+                repo_path,
+                is_local_repo,
+                repo_url,
+                indent=indent,
+            )
+        )
+        content.append(f"{indent}</table>")
+    elif isinstance(module_data, dict):
+        # Check if there are files at this module level
+        files = module_data.get("", [])
+        if files:
+            content.append(f"{indent}<table>")
+            content.extend(
+                _generate_table_rows(
+                    files,
+                    repo_path,
+                    is_local_repo,
+                    repo_url,
+                    indent=indent,
+                )
+            )
+            content.append(f"{indent}</table>")
+        # Process submodules
+        for submodule_name, submodule_data in module_data.items():
+            if submodule_name == "":
+                continue
+            content.extend(
+                (
+                    f"{indent}<details>",
+                    f"{indent}\t<summary><b>{submodule_name}</b></summary>",
+                    f"{indent}\t<blockquote>",
+                )
+            )
+            # Recurse into submodule
+            content.extend(
+                _generate_nested_module_content(
+                    submodule_data,
+                    repo_path,
+                    is_local_repo,
+                    repo_url,
+                    indent=indent + "\t\t",
+                )
+            )
+            content.extend((f"{indent}\t</blockquote>", f"{indent}</details>"))
+    else:
+        _logger.warning(
+            f"Unexpected data type in module data: {type(module_data)}"
+        )
+    return content
+
+
+def generate_nested_module_tables(
     summaries: list[tuple[str, str]],
-    project_name: str,
+    project_path: str | Path,
     repository_url: str,
 ) -> str:
-    """
-    Produces Markdown tables for each project sub-directory.
-    """
-    summaries_by_folder = group_summaries_by_folder(summaries)
+    """Create structured Markdown tables with nested submodules."""
+    summaries_by_module = group_summaries_by_nested_module(summaries)
+    return build_submodule_disclosure_widget(
+        summaries_by_module, project_path, repository_url
+    )
 
-    markdown_tables = []
-    for folder, entries in summaries_by_folder.items():
-        table_in_markdown = construct_markdown_table(
-            entries,
-            repository_url,
-            project_name,
+
+def _generate_table_rows(
+    files: list[tuple[str, str]],
+    repo_path: str | Path,
+    is_local_repo: bool,
+    repo_url: str,
+    indent: str = "",
+) -> list[str]:
+    """Generates table rows for files."""
+    content = []
+    for file, summary in files:
+        file_name = Path(file).name
+        file_link = _get_file_hyperlink(
+            file, repo_path, is_local_repo, repo_url
         )
-        table_wrapper = table_widget.format(folder, table_in_markdown)
-        markdown_tables.append(table_wrapper)
+        formatted_summary = format_summary(summary)
+        content.append(
+            f"{indent}<tr>"
+            f"\n{indent}\t<td><b><a href='{file_link}'>{file_name}</a></b></td>"
+            f"\n{indent}\t<td>{formatted_summary}</td>"
+            f"\n{indent}</tr>"
+        )
+    return content
 
-    return "\n".join(markdown_tables)
+
+def _get_file_hyperlink(
+    file_path_str: str,
+    repo_path: str | Path,
+    is_local: bool,
+    repo_url: str,
+) -> str:
+    """Generates a hyperlink to the file in the remote git repository."""
+    if not is_local:
+        return f"{repo_url.rstrip('/')}/blob/master/{file_path_str}"
+    file_path = Path(repo_path) / file_path_str
+    return f"{file_path.as_posix()}"
 
 
-def group_summaries_by_folder(summaries: list[tuple[str, str]]) -> dict:
-    """
-    Groups code summaries by their sub-directory.
-    """
-    folder_map: dict[str, list[tuple[str, str]]] = {}
+def group_summaries_by_nested_module(
+    summaries: list[tuple[str, str]],
+) -> dict[str, dict | list[tuple[str, str]]]:
+    """Group code summaries by their nested module structure."""
+    module_map: dict[str, dict | list[tuple[str, str]]] = {"__root__": []}
+
     for module, summary in summaries:
-        folder_name = extract_folder_name(module)
-        folder_map.setdefault(folder_name, []).append((module, summary))
-    return folder_map
+        if not isinstance(module, str) or not isinstance(summary, str):
+            _logger.error(f"Invalid entry: ({module}, {summary}). Skipping...")
+            continue
 
+        parts = Path(module).parts
 
-def is_valid_tuple_summary(summary: tuple[str, str]) -> bool:
-    """
-    Checks if a summary is a valid tuple format.
-    """
-    return isinstance(summary, tuple) and len(summary) == 2
+        if len(parts) == 1:
+            # File in the root directory
+            module_map["__root__"].append((module, summary))
+        else:
+            current = module_map
+            for part in parts[:-1]:
+                current = current.setdefault(part, {})
+            current.setdefault("", []).append((module, summary))
+
+    return module_map

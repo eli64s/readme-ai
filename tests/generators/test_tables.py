@@ -1,224 +1,199 @@
-"""
-Tests for building and formatting the markdown tables.
-"""
-
-from unittest.mock import patch
+from pathlib import Path
 
 import pytest
 
 from readmeai.generators.tables import (
-    construct_markdown_table,
-    extract_folder_name,
-    format_as_markdown_table,
+    _generate_nested_module_content,
+    _generate_table_rows,
+    _get_file_hyperlink,
+    build_submodule_disclosure_widget,
     format_code_summaries,
-    generate_markdown_tables,
-    group_summaries_by_folder,
-    is_valid_tuple_summary,
+    format_summary,
+    generate_nested_module_tables,
+    group_summaries_by_nested_module,
 )
-
-mock_data = [
-    ("file1.py", "Summary 1"),
-    ("dir/file2.py", "Summary 2"),
-    ("file3.py", "Summary 3"),
-]
 
 
 @pytest.fixture
-def mock_logger():
-    with patch("readmeai.generators.tables._logger") as mock:
-        yield mock
+def sample_summaries() -> list[tuple[str, str]]:
+    return [
+        ("Makefile", "Facilitates project maintenance and development tasks."),
+        ("pyproject.toml", "Contains project metadata and dependencies."),
+        ("scripts/clean.sh", "Script to clean build artifacts."),
+        ("src/cli.py", "Defines the command-line interface."),
+        ("src/app.py", "Main application logic."),
+        ("src/utils/helpers.py", "Utility functions for the app."),
+    ]
 
 
-def test_construct_markdown_table_local_repo(mock_logger):
-    with patch("pathlib.Path.exists", return_value=True):
-        result = construct_markdown_table(
-            mock_data,
-            "/local/repo",
-            "local_repo",
-        )
-
-    assert "| File | Summary |" in result
-    assert "| [file1.py](/local/repo/file1.py) | Summary 1 |" in result
-    assert "| [file2.py](/local/repo/dir/file2.py) | Summary 2 |" in result
-    assert "| [file3.py](/local/repo/file3.py) | Summary 3 |" in result
+@pytest.fixture
+def project_path() -> Path:
+    return Path("/path/to/readme-ai-streamlit")
 
 
-def test_construct_markdown_table_remote_repo(mock_logger):
-    with (
-        patch("pathlib.Path.exists", return_value=False),
-        patch("readmeai.generators.tables.GitURL") as mock_git_url,
-    ):
-        mock_git_url.create.return_value.get_file_url.side_effect = [
-            "https://github.com/owner/repo/blob/main/file1.py",
-            "https://github.com/owner/repo/blob/main/dir/file2.py",
-            "https://github.com/owner/repo/blob/main/file3.py",
-        ]
-        result = construct_markdown_table(
-            mock_data,
-            "https://github.com/owner/repo.git",
-            "owner/repo",
-        )
+@pytest.fixture
+def repository_url() -> str:
+    return "https://github.com/eli64s/readme-ai-streamlit"
 
-    assert "| File | Summary |" in result
+
+def test_format_summary():
+    input_summary = "This is a test. It has multiple sentences."
+    expected_output = "- This is a test<br>- It has multiple sentences."
+    assert format_summary(input_summary) == expected_output
+
+    input_summary = "Single sentence summary"
+    expected_output = "Single sentence summary"
+    assert format_summary(input_summary) == expected_output
+
+
+def test_group_summaries_by_nested_module(sample_summaries):
+    grouped = group_summaries_by_nested_module(sample_summaries)
+    expected = {
+        "__root__": [
+            (
+                "Makefile",
+                "Facilitates project maintenance and development tasks.",
+            ),
+            ("pyproject.toml", "Contains project metadata and dependencies."),
+        ],
+        "scripts": {
+            "": [
+                ("scripts/clean.sh", "Script to clean build artifacts."),
+            ]
+        },
+        "src": {
+            "": [],
+            "utils": {
+                "": [
+                    ("src/utils/helpers.py", "Utility functions for the app."),
+                ]
+            },
+            "cli.py": {},
+            "app.py": {},
+        },
+    }
+    assert grouped["__root__"] == expected["__root__"]
+    assert grouped["scripts"] == expected["scripts"]
+    assert grouped["src"]["utils"] == expected["src"]["utils"]
+
+
+def test_generate_nested_module_tables(
+    sample_summaries, project_path, repository_url
+):
+    output = generate_nested_module_tables(
+        sample_summaries, project_path, repository_url
+    )
+    assert "<details open>" in output
     assert (
-        "| [file1.py](https://github.com/owner/repo/blob/main/file1.py) | Summary 1 |"
-        in result
+        "<details open>\n\t<summary><b><code>README-AI-STREAMLIT/"
+        "</code></b></summary>\n\t<details>" in output
     )
-    assert (
-        "| [file2.py](https://github.com/owner/repo/blob/main/dir/file2.py) | Summary 2 |"
-        in result
-    )
-    assert (
-        "| [file3.py](https://github.com/owner/repo/blob/main/file3.py) | Summary 3 |"
-        in result
-    )
-
-
-def test_construct_markdown_table_max_rows(mock_logger):
-    result = construct_markdown_table(
-        mock_data,
-        "/local/repo",
-        "local_repo",
-        max_rows=2,
-    )
-
-    assert "| File | Summary |" in result
-    assert "| [file1.py](/local/repo/file1.py) | Summary 1 |" in result
-    assert "| [file2.py](/local/repo/dir/file2.py) | Summary 2 |" in result
-    assert "| ... | ... |" in result
-    assert "| [file3.py](/local/repo/file3.py) | Summary 3 |" not in result
-    mock_logger.warning.assert_called_once()
-
-
-def test_construct_markdown_table_empty_data(mock_logger):
-    result = construct_markdown_table([], "/local/repo", "local_repo")
-
-    assert result == ""
-    mock_logger.warning.assert_called_once()
-
-
-def test_construct_markdown_table_invalid_git_url(mock_logger):
-    with (
-        patch("pathlib.Path.exists", return_value=False),
-        patch("readmeai.generators.tables.GitURL") as mock_git_url,
-    ):
-        mock_git_url.create.side_effect = ValueError("Invalid Git URL")
-        result = construct_markdown_table(
-            mock_data,
-            "invalid_url",
-            "owner/repo",
-        )
-
-    assert "| File | Summary |" in result
-    mock_logger.error.assert_called_once()
-
-
-def test_construct_markdown_table_git_url_file_error(mock_logger):
-    with (
-        patch("pathlib.Path.exists", return_value=False),
-        patch("readmeai.generators.tables.GitURL") as mock_git_url,
-    ):
-        mock_git_url.create.return_value.get_file_url.side_effect = [
-            "https://github.com/owner/repo/blob/main/file1.py",
-            ValueError("Invalid file path"),
-            "https://github.com/owner/repo/blob/main/file3.py",
-        ]
-        result = construct_markdown_table(
-            mock_data,
-            "https://github.com/owner/repo.git",
-            "owner/repo",
-        )
-
-    assert "| File | Summary |" in result
-    assert (
-        "| [file1.py](https://github.com/owner/repo/blob/main/file1.py) | Summary 1 |"
-        in result
-    )
-    assert "| file2.py | Summary 2 |" in result
-    assert (
-        "| [file3.py](https://github.com/owner/repo/blob/main/file3.py) | Summary 3 |"
-        in result
-    )
-    mock_logger.error.assert_called_once()
+    assert "Makefile" in output
+    assert "cli.py" in output
+    assert "helpers.py" in output
 
 
 @pytest.mark.parametrize(
-    "invalid_input",
+    "file_path_str, is_local, expected_link",
     [
-        ("not a list", "/local/repo", "local_repo"),
         (
-            [("file1.py", "Summary 1"), "not a tuple"],
-            "/local/repo",
-            "local_repo",
+            "src/app.py",
+            False,
+            "https://github.com/eli64s/readme-ai-streamlit/blob/master/src/app.py",
         ),
-        (mock_data, 12345, "local_repo"),
-        (mock_data, "/local/repo", 12345),
-        (mock_data, "/local/repo", "local_repo", "not an int"),
+        (
+            "Makefile",
+            False,
+            "https://github.com/eli64s/readme-ai-streamlit/blob/master/Makefile",
+        ),
+        (
+            "src/utils/helpers.py",
+            True,
+            "/path/to/readme-ai-streamlit/src/utils/helpers.py",
+        ),
     ],
 )
-def test_construct_markdown_table_invalid_input(invalid_input):
-    with pytest.raises(AssertionError):
-        construct_markdown_table(*invalid_input)
-
-
-def test_extract_folder_name():
-    """Test that the extract_folder_name function extracts the folder name."""
-    assert extract_folder_name("folder/module.py") == "folder"
-    assert extract_folder_name("module.py") == "."
-
-
-def test_format_as_markdown_table():
-    """Test that the format_as_markdown_table function formats the table."""
-    rows = [["Header1", "Header2"], ["---", "---"], ["Data1", "Data2"]]
-    table = format_as_markdown_table(rows)
-    assert "Header1" in table
-    assert "--" in table
-    assert "Data2" in table
-
-
-def test_format_code_summaries(mock_config):
-    """Test that the format_code_summaries function formats the summaries."""
-    placeholder = mock_config.md.placeholder
-    summaries = [("module1.py", placeholder), ("invalid", placeholder)]
-    formatted = format_code_summaries(placeholder, summaries)
-    assert formatted == [
-        ("module1.py", placeholder),
-        ("invalid", placeholder),
-    ]
-
-
-@patch("readmeai.generators.tables.group_summaries_by_folder")
-@patch("readmeai.generators.tables.construct_markdown_table")
-def test_generate_markdown_tables(mock_construct, mock_group):
-    """Test that the generate_markdown_tables function generates the tables."""
-    mock_group.return_value = {"folder1": [("module1.py", "Summary 1")]}
-    mock_construct.return_value = "Mocked Table"
-    dropdown_template = "## {0}\n{1}"
-    result = generate_markdown_tables(
-        dropdown_template,
-        [("module1.py", "Summary 1")],
-        "ProjectName",
-        "RepoURL",
+def test_get_file_hyperlink(
+    file_path_str, is_local, expected_link, project_path, repository_url
+):
+    link = _get_file_hyperlink(
+        file_path_str, project_path, is_local, repository_url
     )
-    assert result == "## folder1\nMocked Table"
+    assert link == expected_link
 
 
-def test_group_summaries_by_folder():
-    """Test that the group_summaries_by_folder function groups the summaries."""
-    summaries = [
-        ("folder1/module1.py", "Summary 1"),
-        ("folder2/module2.py", "Summary 2"),
+def test_build_submodule_disclosure_widget(
+    sample_summaries, project_path, repository_url
+):
+    grouped = group_summaries_by_nested_module(sample_summaries)
+    output = build_submodule_disclosure_widget(
+        grouped, project_path, repository_url
+    )
+    assert "<details open>" in output
+    assert "<table>" in output
+    assert "Facilitates project maintenance and development tasks." in output
+
+
+def test_generate_table_rows():
+    files = [
+        ("src/app.py", "Main application logic."),
+        ("src/cli.py", "Defines the command-line interface."),
     ]
-    grouped = group_summaries_by_folder(summaries)
-    assert grouped == {
-        "folder1": [("folder1/module1.py", "Summary 1")],
-        "folder2": [("folder2/module2.py", "Summary 2")],
-    }
+    repo_path = "/path/to/readme-ai-streamlit"
+    repo_url = "https://github.com/eli64s/readme-ai-streamlit"
+    is_local_repo = False
+    rows = _generate_table_rows(
+        files, repo_path, is_local_repo, repo_url, indent=""
+    )
+    assert "<tr>" in rows[0]
+    assert "app.py" in rows[0]
+    assert "<tr>\n\t<td><b><a href=" in rows[1]
+    assert len(rows) == 2
 
 
-def test_is_valid_tuple_summary():
-    """Test that the is_valid_tuple_summary function validates the summary."""
-    valid_summary = ("module.py", "Summary")
-    invalid_summary = "Invalid Summary"
-    assert is_valid_tuple_summary(valid_summary)
-    assert not is_valid_tuple_summary(invalid_summary)
+def test_generate_nested_module_content(
+    sample_summaries, project_path, repository_url
+):
+    grouped = group_summaries_by_nested_module(sample_summaries)
+    src_module = grouped["src"]
+    content = _generate_nested_module_content(
+        src_module, project_path, True, repository_url
+    )
+    assert "<table>" in content[0]
+    assert (
+        "<tr>\n\t<td><b><a href='/path/to/readme-ai-streamlit/src/cli.py'>"
+        "cli.py</a></b></td>\n\t<td>"
+    ) in content[1]
+    assert "helpers.py" in "".join(content)
+
+
+def test_invalid_summary_handling():
+    invalid_summaries = [
+        (None, "Valid summary"),
+        ("src/app.py", None),
+        (123, "Summary with non-string module"),
+    ]
+    grouped = group_summaries_by_nested_module(invalid_summaries)
+    assert grouped == {"__root__": []}
+
+
+def test_empty_summaries():
+    empty_summaries = []
+    output = generate_nested_module_tables(
+        empty_summaries, "/path", "https://repo.url"
+    )
+    assert (
+        "<blockquote>\n\t\t\t<table>\n\t\t\t</table>\n\t\t</blockquote>"
+        in output
+    )
+
+
+def test_format_code_summaries():
+    code_summaries = [("module.py", "Summary of module.")]
+    placeholder = "No summary available."
+    formatted = format_code_summaries(placeholder, code_summaries)
+    assert formatted == [("module.py", "Summary of module.")]
+
+    code_summaries = ["module.py"]
+    formatted = format_code_summaries(placeholder, code_summaries)
+    assert formatted == [("module.py", "No summary available.")]

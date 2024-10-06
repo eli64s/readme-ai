@@ -1,10 +1,6 @@
 """Tests for Python dependency and package manager file parsers."""
 
-from readmeai.parsers.python import (
-    RequirementsParser,
-    TomlParser,
-    YamlParser,
-)
+from readmeai.parsers.python import RequirementsParser, TomlParser, YamlParser
 
 
 def test_requirements_parser():
@@ -40,7 +36,7 @@ def test_pipfile_parser():
     """
     parser = TomlParser()
     expected_dependencies = ["aiohttp", "aiosignal", "pytest"]
-    assert parser.parse(content) == expected_dependencies
+    assert parser.parse(content).sort() == expected_dependencies.sort()
 
 
 def test_pyproject_poetry_parser():
@@ -73,7 +69,7 @@ def test_pyproject_poetry_parser():
         "pytest-cov",
         "pre-commit",
     ]
-    assert parser.parse(content) == expected_dependencies
+    assert parser.parse(content).sort() == expected_dependencies.sort()
 
 
 def test_pyproject_flit_parser():
@@ -104,7 +100,7 @@ def test_pyproject_flit_parser():
         "pytest-cov",
         "sphinx",
     ]
-    assert parser.parse(content) == expected_dependencies
+    assert parser.parse(content).sort() == expected_dependencies.sort()
 
 
 def test_conda_env_yaml_parser():

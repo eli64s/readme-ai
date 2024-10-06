@@ -1,16 +1,16 @@
 # Default API Settings
 [api]
 rate_limit = 10
-system_message = "You're a brilliant Tech Lead and Software Engineer with a passion for open-source projects."
+system_message = "You're a brilliant Tech Lead and Staff Software Engineer with a passion for open-source projects."
 
 # File Resources
 [files]
 ignore_list = "ignore_list.toml"
-commands = "commands.toml"
 languages = "languages.toml"
-markdown = "markdown.toml"
 parsers = "parsers.toml"
 prompts = "prompts.toml"
+tool_config = "tool_config.toml"
+tooling = "tooling.toml"
 shieldsio_icons = "shieldsio_icons.json"
 skill_icons = "skill_icons.json"
 
@@ -22,30 +22,78 @@ repository = "https://github.com/eli64s/readme-ai"
 [llm]
 api = "openai"
 base_url = "https://api.openai.com/v1/engines/"
-context_window = 3999
+context_window = 3900
 encoder = "cl100k_base"
 host_name = "https://api.openai.com/"
 localhost = "http://localhost:11434/"
 model = "gpt-3.5-turbo"
 path = "v1/chat/completions"
-temperature = 0.0
+temperature = 0.1
 tokens = 699
 top_p = 0.9
 
-# Markdown Template Settings
+# Logging Configuration
+[log]
+log_level = "info"
+indent = 2
+pad_event = 20
+use_json = true
+
+# [badges]
+
+# badges_tech_stack = """
+# \t<em>Built with the tools and technologies:</em>
+# </p>
+# <p align="{align}">
+# \t{badges_tech_stack}
+# """
+
+# github_stats = """
+# ![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# ![GitHub Stars](https://img.shields.io/github/stars/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# ![GitHub Watchers](https://img.shields.io/github/watchers/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# ![GitHub Issues](https://img.shields.io/github/issues/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# ![GitHub Release](https://img.shields.io/github/v/release/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+# """
+
+# shieldsio_icons = """
+# <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="license">
+# \t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
+# \t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
+# \t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
+# """
+
+# skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
+
+
+# Markdown Configuration
 [md]
-# Badges
-badge_icons = """\t<em>Built with the tools and technologies:</em>\n</p>\n<p align="{align}">\n\t{badge_icons}"""
+badges_tech_stack = """
+\t<em>Built with the tools and technologies:</em>
+</p>
+<p align="{align}">
+\t{badges_tech_stack}
+"""
+
+github_stats = """
+![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Stars](https://img.shields.io/github/stars/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Watchers](https://img.shields.io/github/watchers/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Issues](https://img.shields.io/github/issues/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Release](https://img.shields.io/github/v/release/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+"""
+
 shieldsio_icons = """
 <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="license">
 \t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
 \t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
 \t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
 """
-skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
-readmeai_badge = """<img src="https://img.shields.io/badge/readme--ai-8A2BE2?style=for-the-badge&logo=ReadMe&logoColor=white" alt="readme-ai">"""
 
-# Overview Template
+skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
+
 overview = """
 ## 📍 Overview
 
@@ -54,7 +102,6 @@ overview = """
 ---
 """
 
-# Features Template
 features = """
 ## 👾 Features
 
@@ -63,36 +110,30 @@ features = """
 ---
 """
 
-# Directory Structure
 tree = """
-## 📂 Repository Structure
+## 📁 Project Structure
 
 ```sh
 {0}
 ```
-
----
 """
 
-# Codebase Summaries
-modules_widget = """<details closed><summary>{0}</summary>\n\n{1}\n\n</details>\n"""
-modules = """
-## 🧩 Modules
-"""
+project_index = "\n### 📂 Project Index"
 
-# Quickstart Template
 quickstart = """
 ---
 
 ## 🚀 Getting Started
 
-### 🔖 Prerequisites
+### ☑️ Prerequisites
 
-{prerequisites}
+Prerequisites to run the project:
 
-### 📦 Installation
+- **Programming Language:** {programming_language} `{programming_language_version}`\n{system_requirements}
 
-Build the project from source:
+### ⚙️ Installation
+
+##### Build from Source
 
 1. Clone the {repo_name} repository:
 ```sh
@@ -104,47 +145,41 @@ Build the project from source:
 ❯ cd {repo_name}
 ```
 
-3. Install the required dependencies:
-```sh
-❯ {install_command}
-```
+3. Install the project dependencies:
+
+{install_commands}
 
 ### 🤖 Usage
 
-To run the project, execute the following command:
+Run {repo_name} using the following command:
 
-```sh
-❯ {run_command}
-```
+{usage_commands}
 
-### 🧪 Tests
+### 🧪 Testing
 
 Execute the test suite using the following command:
 
-```sh
-❯ {test_command}
-```
+{test_commands}
 
 ---
 """
 
-# Roadmap Contributing, License, and Acknowledgments
-contribute = """
-## 📌 Project Roadmap
 
+# -- Contributing Section -----------------------------------------------------------
+
+
+contribute = """---\n## 📌 Project Roadmap\n
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.
 
 ---
 
-## 🤝 Contributing
+## 🔰 Contributing
 
-Contributions are welcome! Here are several ways you can contribute:
-
-- **[Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
-- **[Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
+- **💬 [Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
+- **🐛 [Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
+- **💡 [Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
 
 <details closed>
 <summary>Contributing Guidelines</summary>
@@ -196,21 +231,41 @@ This project is protected under the [SELECT-A-LICENSE](https://choosealicense.co
 ---
 """
 
-contact = """
-<p align="center">
-  <sub>
-    For {name} issues and feature requests please visit the <a href="https://{host_domain}/{full_name}/issues">issues</a> page, or feel free to start a <a href="https://github.com/eli64s/readme-ai/discussions">discussion!</a>
-  </sub><br>
-</p>
+contributing = """
+## 🔰 Contributing
 
-<div align="{align}">
-  <a href="https://github.com/eli64s"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="3%" alt="eli64s GitHub"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="3%" alt="Ultralytics LinkedIn"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="3%" alt="Ultralytics Twitter"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
-</div>
+- **💬 [Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
+- **🐛 [Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
+- **💡 [Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+
+---
+"""
+
+contributing_guidelines = """
+<details open><summary>Contributing Guidelines</summary><br>
+
+1. **Fork the Repository**: Start by forking the project repository to your {host} account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+   ```sh
+   git clone {repo_url}
+   ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+   ```sh
+   git checkout -b new-feature-x
+   ```
+4. **Make Changes**: Develop and test your changes locally.
+5. **Commit Changes**: Commit with a clear message describing your updates.
+   ```sh
+   git commit -m 'Implemented new feature x.'
+   ```
+6. **Push to {host}**: Push the changes to your forked repository.
+   ```sh
+   git push origin new-feature-x
+   ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+
+</details>
 """
 
 contributor_graph = """
@@ -221,8 +276,49 @@ contributor_graph = """
 </p>
 """
 
+
+# -- Contact Section -----------------------------------------------------------
+
+
+contact = """
+<p align="center">
+  <sub>
+    For {name} issues and feature requests please visit the <a href="https://{host_domain}/{full_name}/issues">issues</a> page, or feel free to start a <a href="https://github.com/eli64s/readme-ai/discussions">discussion!</a>
+  </sub><br>
+</p>
+<div align="center">
+  <a href="https://github.com/eli64s"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="3%" alt="eli64s GitHub"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="3%" alt="Ultralytics LinkedIn"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="3%" alt="Ultralytics Twitter"></a>
+  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="3%" alt="space">
+</div>
+"""
+
+# -- API Documentation Section -----------------------------------------------------------
+
+
+api_docs = """
+### API Documentation
+
+The project API documentation is available at: [API Documentation]({api_url}).
+
+---
+"""
+
+env_variables = """
+### Environment Variables
+
+To run this project, you will need to add the following environment variables to your environment:
+
+{env_variables}
+
+---
+"""
+
 cli_docs = """
-#### Command-Line Interface
+### Command-Line Interface
 
 The project supports the following command-line interface options:
 
@@ -233,26 +329,25 @@ The project supports the following command-line interface options:
 ---
 """
 
-api_docs = """
-#### API Documentation
-
-The project API documentation is available at: [API Documentation]({api_url}).
-
----
-"""
-
 test_framework = """
 ### 🧪 Testing
 
-This project uses **`{test_framework}`** for testing.
-
-- **`{test_framework}`**
-
-Execute the test suite using the following command:
+This project uses [{test_framework}]() for testing. Execute the test suite using the following command:
 
 ```sh
 ❯ {test_command}
 ```
 
 ---
+"""
+
+signature = """
+<p align="center">
+  <sub>Generated by <a href="https://github.com/eli64s/readme-ai">readme-ai</a></sub>
+</p>
+<p align="center">
+  <a href="https://github.com/eli64s/readme-ai">
+    <img src="https://img.shields.io/badge/readme--ai-DDDDDD?style=flat&logo=ReadMe&logoColor=blueviolet" alt="readme-ai">
+  </a>
+</p>
 """

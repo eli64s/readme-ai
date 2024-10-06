@@ -1,89 +1,104 @@
-"""
-Tests for the readme-ai package.
-"""
-
-from unittest.mock import patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from readmeai.__main__ import readme_agent, readme_generator
-from readmeai._exceptions import ReadmeGeneratorError
+from readmeai.__main__ import (
+    error_handler,
+    generate_image,
+    log_process_completion,
+    log_repository_context,
+    readme_agent,
+    should_generate_image,
+)
+from readmeai.config.constants import ImageOptions, LLMService
+from readmeai.config.settings import ConfigLoader
+from readmeai.errors import ReadmeGeneratorError
+from readmeai.ingestion.models import RepositoryContext
 
 
-@patch("readmeai.__main__.retrieve_repository")
-@patch("readmeai.__main__.preprocessor")
-@patch("readmeai.__main__.ModelRegistry.get_backend")
-@patch("readmeai.__main__.MarkdownBuilder.build")
-@pytest.mark.asyncio
-async def test_readme_generator(
-    mock_build_markdown,
-    mock_get_backend,
-    mock_preprocessor,
-    mock_retrieve_repository,
-    mock_config,
-    mock_configs,
-    mock_dependencies,
-    mock_summaries,
-    tmp_path,
-):
-    """Test the readme_generator function."""
-    mock_retrieve_repository.return_value = tmp_path
-    mock_preprocessor.return_value = (
-        mock_dependencies,
-        mock_summaries,
-        # {"dependency1": "command1", "dependency2": "command2"},
-    )
-    mock_config.git.repository = tmp_path
-    mock_get_backend.return_value.use_api.return_value.__aenter__.return_value.batch_request.return_value = (
-        "summaries_response",
-        "features_response",
-        "overview_response",
-        "slogan_response",
-    )
-    mock_output_file = str(tmp_path / "test_readme.md")
-    mock_build_markdown.return_value = mock_output_file
-    await readme_generator(mock_configs, mock_output_file)
-    mock_retrieve_repository.assert_called_once()
-    mock_preprocessor.assert_called_once()
-    mock_get_backend.assert_called_once()
-    mock_build_markdown.assert_called_once()
+def test_error_handler_with_exception():
+    """Test that ReadmeGeneratorError is raised when an error occurs."""
+    with pytest.raises(ReadmeGeneratorError), error_handler():
+        raise ValueError("Test error")
+
+
+@patch("readmeai.__main__.asyncio.run")
+def test_readme_agent(mock_asyncio_run, config_loader_fixture: ConfigLoader):
+    """Test readme_agent calls asyncio.run."""
+    readme_agent(config_loader_fixture, "readme-ai.md")
+    mock_asyncio_run.assert_called_once()
 
 
 @pytest.mark.asyncio
-async def test_readme_agent_exception_handling():
-    """Test the readme_agent function exception handling."""
-    with (
-        patch(
-            "readmeai.__main__.readme_agent",
-            side_effect=Exception("Test exception"),
-        ),
-        pytest.raises(ReadmeGeneratorError) as exc,
-    ):
-        readme_agent(
-            align=None,
-            api="invalid_api_provider",
-            badge_style=None,
-            badge_color=None,
-            base_url=None,
-            context_window=None,
-            emojis=None,
-            header_style=None,
-            image=None,
-            model=None,
-            output="test_output.md",
-            rate_limit=None,
-            repository="https:///invalid_url",
-            temperature=None,
-            tree_depth=None,
-            toc_style="bullets",
-            top_p=None,
+async def test_generate_image(config_loader_fixture: ConfigLoader):
+    """Test generate_image generates an image using DalleHandler."""
+    config_loader_fixture.config.md.image = ImageOptions.LLM.value
+    with patch("readmeai.__main__.DalleHandler") as mock_dalle_handler_class:
+        mock_dalle_handler = AsyncMock()
+        mock_dalle_handler_class.return_value.__aenter__.return_value = (
+            mock_dalle_handler
         )
-    assert isinstance(exc.value, ReadmeGeneratorError)
+        mock_dalle_handler._make_request.return_value = "image_url"
+        mock_dalle_handler.download.return_value = "image_path"
+        mock_config = config_loader_fixture
+        await generate_image(mock_config)
+        assert mock_config.config.md.image == "image_path"
 
 
-@pytest.mark.asyncio
-async def test_readme_generator_exception_handling():
-    """Test the readme_generator function exception handling."""
-    with pytest.raises(Exception) as exc:
-        await readme_generator({}, "test_output.md")
-    assert isinstance(exc.value, Exception)
+def test_should_generate_image_true(config_loader_fixture: ConfigLoader):
+    """Test should_generate_image returns True when conditions are met."""
+    # Ensure the API is not set to offline
+    mock_config = config_loader_fixture
+    mock_config.config.llm.api = "valid_api"
+    mock_config.config.md.image = ImageOptions.LLM.value
+    result = should_generate_image(mock_config)
+    assert result is True
+
+
+def test_should_generate_image_false_due_to_image_option(
+    config_loader_fixture: ConfigLoader,
+):
+    """Test should_generate_image returns False when image option is not LLM."""
+    mock_config = config_loader_fixture
+    mock_config.config.md.image = "not-llm"
+    result = should_generate_image(mock_config)
+    assert result is False
+
+
+def test_should_generate_image_false_due_to_offline_mode(
+    config_loader_fixture: ConfigLoader,
+):
+    """Test should_generate_image returns False when API is offline."""
+    mock_config = config_loader_fixture
+    mock_config.config.llm.api = LLMService.OFFLINE.value
+    result = should_generate_image(mock_config)
+    assert result is False
+
+
+@patch("readmeai.__main__._logger")
+def test_log_repository_context(mock_logger):
+    """Test that log_repository_context logs repository context information."""
+    context = MagicMock(spec=RepositoryContext)
+    context.files = ["file1.py", "file2.py"]
+    context.metadata = {"author": "John Doe"}
+    context.dependencies = ["numpy", "pandas"]
+    context.language_counts = {"Python": 2}
+
+    log_repository_context(context)
+
+    mock_logger.info.assert_any_call("Total files analyzed: 2")
+    mock_logger.info.assert_any_call(f"Metadata extracted: {context.metadata}")
+    mock_logger.info.assert_any_call(f"Dependencies: {context.dependencies}")
+    mock_logger.info.assert_any_call(f"Languages: {context.language_counts}")
+
+
+@patch("readmeai.__main__._logger")
+def test_log_process_completion(mock_logger):
+    """Test that log_process_completion logs README generation completion."""
+    output_file = "README.md"
+    log_process_completion(output_file)
+    mock_logger.info.assert_any_call("README.md file generated successfully.")
+    mock_logger.info.assert_any_call(f"Output file saved @ {output_file}")
+    mock_logger.info.assert_any_call(
+        "Share with us @ github.com/eli64s/readme-ai/discussions"
+    )

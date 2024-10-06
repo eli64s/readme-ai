@@ -24,11 +24,11 @@ directories = [
     "testing",
     "tools",
     "__pycache__",
-    "Examples",
 ]
 
 extensions = [
-    # 'apk', 'app',
+    # 'apk",
+    # 'app",
     "bak",
     "backup",
     "bmp",
@@ -57,11 +57,13 @@ extensions = [
     "h5",
     "ico",
     "iml",
-    "ini",
+    # "ini",
     "jar",
     "jpeg",
     "jpg",
-    # 'json', 'json5', 'jsonl',
+    # "json",
+    # "json5",
+    # "jsonl",
     "key",
     # "lock",
     "lockb",
@@ -114,7 +116,6 @@ files = [
     ".gitattributes",
     ".gitignore",
     ".gitkeep",
-    ".gitlab-ci",
     ".gitmodules",
     ".npmignore",
     ".pre-commit-config.yaml",
@@ -139,5 +140,4 @@ files = [
     "__init__.py",
     "start",
     "test_binary",
-    "mkdocs.yml",
 ]

@@ -1,89 +1,167 @@
-# Large language model prompt templates for generative tasks.
+# LLM prompts for various text generation tasks.
 
 [prompts]
-features = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+features_list = """Create a list of key features for a software framework. \
+Each feature should start with a relevant emoji that aligns with the feature’s theme. \
+The features should focus on various aspects of the framework, such as performance, scalability, flexibility, integration with other tools, automation, or any other significant benefit.
 
-|    |   Feature         | Description |
-|----|-------------------|---------------------------------------------------------------|
-| ⚙️  | **Architecture**  | *Quick facts about the project's architecture. Max 50 words.* |
-| 🔩 | **Code Quality**  | *Quick facts about the code quality and style. Max 50 words.* |
-| 📄 | **Documentation** | *Discuss the extent and quality of documentation. Max 50 words.* |
-| 🔌 | **Integrations**  | *List key integrations and external dependencies. Max 50 words.* |
-| 🧩 | **Modularity**    | *Discuss the modularity and reusability of the codebase. Max 50 words.* |
-| 🧪 | **Testing**       | *List testing frameworks and tools used. Max 50 words.* |
-| ⚡️  | **Performance**   | *Evaluate efficiency, speed and resource usage. Max 50 words.* |
-| 🛡️ | **Security**      | *Discuss measures used for data protection and access control. Max 50 words.* |
-| 📦 | **Dependencies**  | *List key external libraries and dependencies. Max 50 words.* |
-| 🚀 | **Scalability**   | *Assess ability to handle increased traffic and load. Max 50 words.* |
+Here’s an example structure:
 
-While generating the table, please reference the following codebase details:\n
-================================================================================
-Project dependencies: {1}
-Repository contents: {2}
-================================================================================
+- 🚀 **Feature 1**: Describe a feature that highlights performance or efficiency.
+- 🔧 **Feature 2**: Emphasize flexibility or customization options available to users.
+- 🌐 **Feature 3**: Explain how the framework integrates with other tools or platforms to enhance the development experience.
+- 🔒 **Feature 4**: Highlight security measures that protect user data or the system.
+- ⚡ **Feature 5**: Focus on automation or any process that simplifies complex tasks.
+
+Each feature should be clear, concise, and no longer than two sentences, while maintaining a professional and engaging tone. \
+Feel free to vary the themes to cover a broad range of potential benefits.
+
+While generating the response, please reference the following codebase context information:
+
+CONTEXT:
+------------------------
+DEPENDENCIES: {1}
+DOCUMENTATION: {2}
+FILE CONTENTS: {3}
+------------------------
+
+Output must be in Markdown format. Cheers!
+"""
+
+features_table = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+
+|      | Feature         | Summary       |
+| :--- | :---:           | :---          |
+| ⚙️  | **Architecture**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔩 | **Code Quality**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📄 | **Documentation** | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔌 | **Integrations**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧩 | **Modularity**    | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧪 | **Testing**       | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| ⚡️  | **Performance**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🛡️ | **Security**      | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📦 | **Dependencies**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🚀 | **Scalability**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+
+While generating the markdown table, please reference the following codebase details: \n
+
+CONTEXT DETAILS:
+------------------------
+DEPENDENCIES: {1}
+DOCUMENTATION: {2}
+FILE CONTENTS: {3}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Highlight the key tools and technologies using the " `<tool>` " where necessary.
+2. Include 2-4 bullet points per feature.
+3. Include links or references to the codebase where applicable.
+------------------------
+
+Cheers!
 """
 
 file_summary = """Deliver a succinct summary that highlights the main purpose and \
-critical features of this code file in relation to its parent repository's architecture. \
-Focus on what the code achieves, steering clear of technical implementation details. \
-While generating the summaries, please reference the following codebase details: \n
-================================================================================
-Repository structure: {0}
-File path: {1}
-File contents: {2}
-================================================================================
-Additional Requirements: \n
-- Avoid using words like 'This file', 'The file', 'This code', etc. but instead begin \
-each response with a verb or a noun to make the summary more engaging and impactful. \
-- Do not include quotes, code snippets, or bullet points in your response. \
-- Your response should be a maximum of 50 words.
+use of the code file provided in regards to the entire codebase architecture. Focus \
+on what the code achieves, steering clear of technical implementation details. \
+While generating the summary, reference additional data about the project below: \n
+
+CONTEXT DETAILS:
+------------------------
+PROJECT STRUCTURE: {0}
+FILE PATH: {1}
+FILE CONTENT: {2}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Avoid using words like 'This file', 'The file', 'This code', etc.
+  1a. Summary should start with a verb or noun to make it more clear and concise.
+2. Do not include quotes, code snippets, bullets, or lists in your response.
+3. RESPONSE LENGTH: 50-70 words.
+------------------------
+
+Thank you for your hard work!
 """
+
 logo = """
-Create a **simple, cute mascot icon** in a **minimalist style** specifically designed as a standalone iPhone app icon. The icon should have a **singular main centerpiece** that defines the entire shape of the icon, without any external borders or background.
+You are tasked with creating a simple, cute mascot icon in a minimalist style specifically designed as a standalone iPhone app icon. Your goal is to design an icon with a singular main centerpiece that defines the entire shape of the icon, without any external borders or background.
 
-**Characteristics:**
-1. Use **thick, rounded outlines** to define the mascot's shape.
-2. Employ **basic geometric shapes** for facial features (e.g., dots for eyes, simple shapes for nose/mouth).
-3. Ensure a **chunky, squat body proportion** for a cute appearance.
-4. Incorporate **distinctive features** of the mascot animal/character/hero in a **simplified form**.
-5. Maintain a **friendly, approachable expression**.
-6. Fill the **square app-icon canvas** with the mascot, centered and occupying most of the space.
-7. The mascot's shape itself should form the icon boundary—**no additional borders or background elements**.
-8. The design should be **visually complete and balanced** without relying on a background.
+First, review the project details:
 
-**Mascot Concept:**
-- Design a [insert specific animal or character relevant to your project, e.g., 'playful robot', 'curious owl', 'friendly octopus'].
-- The aesthetic should be **clean, adorable, and instantly recognizable** even at small sizes.
+<project_name>
+{project_name}
+</project_name>
 
-**Project Context:**
-- **Project Name:** {project_name}
-- **Project Overview:** {project_overview}
-- **Project Slogan:** {project_slogan}
+<project_overview>
+{project_overview}
+</project_overview>
 
-The mascot should embody the spirit of your project, capturing its essence and purpose. The final design must function as a standalone icon, with the mascot's shape defining the boundaries and serving as the singular main centerpiece.
+<project_slogan>
+{project_slogan}
+</project_slogan>
+
+Now, follow these detailed instructions to create the mascot icon:
+
+1. Use thick, rounded outlines to define the mascot's shape.
+2. Employ basic geometric shapes for facial features (e.g., dots for eyes, simple shapes for nose/mouth).
+3. Ensure a chunky, squat body proportion for a cute appearance.
+4. Incorporate distinctive features of the mascot animal/character/hero in a simplified form.
+5. Maintain a friendly, approachable expression.
+6. Fill the square app-icon canvas with the mascot, centered and occupying most of the space.
+7. The mascot's shape itself should form the icon boundary—no additional borders or background elements.
+8. The design should be visually complete and balanced without relying on a background.
+
+When designing the mascot, consider the following to incorporate the project's essence:
+- Reflect on the project name, overview, and slogan to capture the spirit of the project.
+- Choose colors, shapes, or elements that align with the project's purpose and values.
+- Ensure the mascot's expression and overall design convey the project's tone (e.g., friendly, professional, playful).
+
+To present your final design, follow these steps:
+1. Describe the mascot's overall appearance and how it relates to the project.
+2. Detail the specific geometric shapes used for the body and facial features.
+3. Explain the color choices and how they connect to the project's theme.
+4. Describe how the mascot's shape forms the icon boundary without additional elements.
+5. Justify how the design embodies the project's essence and purpose.
+
+Present your final design description inside <mascot_design> tags. Remember to focus on creating a standalone icon where the mascot's shape defines the boundaries and serves as the singular main centerpiece.
 """
 
-overview = """Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software \
-project. Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value \
-proposition. While generating the project overview, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-File Summaries: {1}
---------------------------------------------------------------------------------
-Additional Requirements: \n
-- Avoid deep technical details and focus on the project's high-level use cases and features.
-- Do not include quotes, code snippets, or bullet points in your response.
-- The project name should be mentioned at least once in the overview.
-- Your response should be a maximum of 100 words.
+overview = """
+Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software project.
+Craft a paragraph that encapsulate the project's core use-case, value proposition, and target audience.
+Ensure the overview is engaging, informative, and free of technical jargon.
+
+While generating the project overview, please reference the following codebase details:
+
+<CONTEXT>
+FILE SUMMARIES: {1}
+</CONTEXT>
+
+<ADDITIONAL INSTRUCTIONS>
+1. FOCUS: Elegantly present the project's core use-case and value proposition without technical details.
+2. EXCLUDE: technical jargon, code snippets, and implementation specifics, quotes, links.
+3. RESPONSE LENGTH: 50 maximum words.
+</ADDITIONAL INSTRUCTIONS>
+
+Thank you, have fun, and learn something new!
 """
 
-slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}). \
-Your response should encapsulate the project's purpose, value proposition, and engage the audience. \
-While generating the slogan, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-File contents: {2}
--------------------------------------------------------------------------------- \n
-Other Requirements: \n
-- DO NOT include the project name in the slogan.
-- Your response should be a maximum of 8 words.
-- The slogan should be concise and memorable.
+slogan = """
+Conceptualize a catchy and memorable slogan for the project: {0} ({1}).
+Your response should synthesize the project's essence, values, or unique selling points into a concise and engaging phrase.
+While generating the slogan, please reference the following codebase details:
+
+<CONTEXT>
+FILE CONTENTS: {2}
+</CONTEXT>
+
+<REQUIRED INSTRUCTIONS>
+1. GOAL: Slogan should be clear, concise and memorable.
+2. DO NOT: Do not include the project's name your response!
+3. RESPONSE LENGTH: Maximum of 8 words.
+</REQUIRED INSTRUCTIONS>
+
+Be creative, think outside the box, and thank you for your hard work. Cheers!
 """

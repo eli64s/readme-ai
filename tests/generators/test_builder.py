@@ -1,67 +1,78 @@
-"""
-Tests for the README.md builder module in the generators package.
-"""
-
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.generators.builder import MarkdownBuilder
+from readmeai.ingestion.models import RepositoryContext
 
 
 @pytest.fixture
-def readme_builder(
-    mock_configs: ConfigLoader,
-    mock_dependencies: list[str],
-    mock_summaries: list[tuple[str, str]],
+def markdown_builder(
+    config_loader_fixture: ConfigLoader,
+    repository_context_fixture: RepositoryContext,
+    file_summaries_fixture: list[tuple[str, str]],
     tmp_path: Path,
 ):
     return MarkdownBuilder(
-        mock_configs,
-        mock_dependencies,
-        mock_summaries,
-        tmp_path,
+        config_loader=config_loader_fixture,
+        repo_context=repository_context_fixture,
+        file_summaries=file_summaries_fixture,
+        temp_dir=str(tmp_path),
     )
 
 
-def test_md_header(readme_builder: MarkdownBuilder):
-    """Tests if md_header property returns a string."""
-    header = readme_builder.md_header
-    assert isinstance(header, str)
-
-
-def test_md_summaries(readme_builder: MarkdownBuilder):
-    """Tests if md_summaries property returns a string."""
-    summaries = readme_builder.md_summaries
-    assert isinstance(summaries, str)
-
-
-def test_md_tree(readme_builder: MarkdownBuilder):
-    """Tests if md_tree property returns a string."""
-    tree = readme_builder.md_tree
-    assert isinstance(tree, str)
-
-
-def test_md_quickstart(readme_builder: MarkdownBuilder):
-    """Tests if md_quick_start property returns a string."""
-    quickstart = readme_builder.md_quickstart
-    assert isinstance(quickstart, str)
-
-
-def test_build(
-    mock_configs: ConfigLoader,
-    mock_dependencies: list[str],
-    mock_summaries: tuple,
-    tmp_path: str,
-):
-    """Tests the build_markdown function."""
-    md_contents = MarkdownBuilder(
-        mock_configs,
-        mock_dependencies,
-        mock_summaries,
-        tmp_path,
-    ).build()
-    assert isinstance(md_contents, str)
-    assert "Overview" in md_contents
-    assert "Getting Started" in md_contents
+def test_build(markdown_builder: MarkdownBuilder):
+    with (
+        patch.object(
+            MarkdownBuilder,
+            "header_and_badges",
+            new="Header and Badges",
+        ),
+        patch.object(
+            MarkdownBuilder,
+            "table_of_contents",
+            new="Table of Contents",
+        ),
+        patch.object(
+            MarkdownBuilder,
+            "file_summaries",
+            new="File Summaries",
+        ),
+        patch.object(MarkdownBuilder, "tree", new="Tree"),
+        patch.object(
+            MarkdownBuilder,
+            "quickstart_guide",
+            new="Quickstart Guide",
+        ),
+        patch.object(
+            MarkdownBuilder,
+            "contributing_guide",
+            new="Contributing Guide",
+        ),
+        patch.object(markdown_builder.config.md, "overview", new="Overview"),
+        patch.object(markdown_builder.config.md, "features", new="Features"),
+        patch.object(
+            markdown_builder.config.md, "project_index", new="Project Index"
+        ),
+        patch.object(markdown_builder.config.md, "emojis", new=False),
+        patch(
+            "readmeai.generators.emojis.remove_emojis", side_effect=lambda x: x
+        ),
+    ):
+        result = markdown_builder.build()
+        expected_output = "\n".join(
+            [
+                "Header and Badges",
+                "Table of Contents",
+                "Overview",
+                "Features",
+                "Tree",
+                "Project Index",
+                "File Summaries",
+                "Quickstart Guide",
+                "Contributing Guide",
+            ]
+        )
+        assert result == expected_output

@@ -1,34 +1,32 @@
-"""
-Builds each section of the README Markdown file.
-"""
-
-__package__ = "readmeai"
-
 from pathlib import Path
 
-from readmeai.config.settings import BadgeOptions, ConfigLoader
-from readmeai.generators import badges, tables, tree, utils
-from readmeai.generators.quickstart import get_setup_data
+from readmeai.config.settings import BadgeStyleOptions, ConfigLoader
+from readmeai.generators import badges, emojis, tables, tree
+from readmeai.ingestion.models import RepositoryContext
+from readmeai.readers.git.providers import GitHost
 from readmeai.templates.header import HeaderTemplate
-from readmeai.templates.toc import ToCTemplate
-from readmeai.vcs.providers import GitHost
+from readmeai.templates.quickstart import QuickStartBuilder
+from readmeai.templates.table_of_contents import TocTemplate
 
 
 class MarkdownBuilder:
-    """Builds each section of the README Markdown file."""
+    """
+    Builds each section of the README Markdown file.
+    """
 
     def __init__(
         self,
         config_loader: ConfigLoader,
-        dependencies: list[str],
-        summaries: list[tuple[str, str]],
+        repo_context: RepositoryContext,
+        file_summaries: list[tuple[str, str]],
         temp_dir: str,
     ):
-        self.deps = dependencies
-        self.summaries = summaries
-        self.temp_dir = Path(temp_dir)
-        self.config = config_loader.config
         self.config_loader = config_loader
+        self.config = config_loader.config
+        self.deps = repo_context.dependencies
+        self.repo_context = repo_context
+        self.summaries = file_summaries
+        self.temp_dir = Path(temp_dir)
         self.md = self.config.md
         self.git = self.config.git
         self.repo_url = (
@@ -37,14 +35,12 @@ class MarkdownBuilder:
             else f"../{self.git.name}"
         )
         self.header_template = HeaderTemplate(self.md.header_style)
-        self.toc_template = ToCTemplate(self.md.toc_style)
+        self.toc_template = TocTemplate(self.md.toc_style)
 
     @property
-    def md_header(self) -> str:
-        """
-        Generates the README header section.
-        """
-        if BadgeOptions.SKILLS.value not in self.md.badge_style:
+    def header_and_badges(self) -> str:
+        """Generates the README header section."""
+        if BadgeStyleOptions.SKILLS.value not in self.md.badge_style:
             md_shields, md_badges = badges.shieldsio_icons(
                 self.config,
                 self.deps,
@@ -66,79 +62,71 @@ class MarkdownBuilder:
             else self.md.placeholder,
             "slogan": self.md.slogan,
             "shields_icons": md_shields,
-            "badge_icons": md_badges,
+            "badges_tech_stack": md_badges,
         }
         return self.header_template.render(header_data)
 
     @property
-    def md_toc(self) -> str:
-        """
-        Generates the README Table of Contents section.
-        """
-        toc_data = {
+    def table_of_contents(self) -> str:
+        """Generates the README Table of Contents section."""
+        headings = {
             "sections": [
                 {"title": "📍 Overview"},
                 {"title": "👾 Features"},
-                {"title": "📂 Repository Structure"},
-                {"title": "🧩 Modules"},
+                {
+                    "title": "📁 Project Structure",
+                    "subsections": [
+                        {"title": "📂 Project Index"},
+                    ],
+                },
                 {
                     "title": "🚀 Getting Started",
                     "subsections": [
-                        {"title": "🔖 Prerequisites"},
-                        {"title": "📦 Installation"},
+                        {"title": "☑️ Prerequisites"},
+                        {"title": "⚙️ Installation"},
                         {"title": "🤖 Usage"},
-                        {"title": "🧪 Tests"},
+                        {"title": "🧪 Testing"},
                     ],
                 },
                 {"title": "📌 Project Roadmap"},
-                {"title": "🤝 Contributing"},
+                {"title": "🔰 Contributing"},
                 {"title": "🎗 License"},
                 {"title": "🙌 Acknowledgments"},
             ],
         }
-        return self.toc_template.render(toc_data)
+        return self.toc_template.render(headings)
 
     @property
-    def md_summaries(self) -> str:
-        """Generates the README code summaries section."""
-        summaries = tables.format_code_summaries(
+    def file_summaries(self) -> str:
+        """Generates markdown tables that store repository module summaries."""
+        formatted_summaries = tables.format_code_summaries(
             self.md.placeholder,
             self.summaries,
         )
-        md_summaries = tables.generate_markdown_tables(
-            self.md.modules_widget,
-            summaries,
+        return tables.generate_nested_module_tables(
+            formatted_summaries,
             self.git.full_name,
             self.repo_url,
         )
-        return md_summaries
 
     @property
-    def md_tree(self) -> str:
+    def tree(self) -> str:
         """Generates the README directory tree structure."""
-        md_tree = tree.TreeGenerator(
+        project_tree = tree.TreeGenerator(
             repo_name=self.git.name,
             root_dir=self.temp_dir,
             repo_url=self.repo_url,
             max_depth=self.md.tree_depth,
-        ).tree()
-        return self.md.tree.format(md_tree)
+        ).generate(self.temp_dir)
+        return self.md.tree.format(project_tree)
 
     @property
-    def md_quickstart(self) -> str:
+    def quickstart_guide(self) -> str:
         """Generates the README Getting Started section."""
-        setup_data = get_setup_data(self.config_loader, self.summaries)
-        return self.md.quickstart.format(
-            repo_name=self.git.name,
-            repo_url=self.repo_url,
-            prerequisites=setup_data.prerequisites,
-            install_command=setup_data.install_command,
-            run_command=setup_data.run_command,
-            test_command=setup_data.test_command,
-        )
+        return QuickStartBuilder(self.config_loader, self.repo_context).build()
 
     @property
-    def md_contributing(self) -> str:
+    def contributing_guide(self) -> str:
         """Generates the README Contributing section."""
         return self.md.contribute.format(
             host=self.git.host,
@@ -149,22 +137,20 @@ class MarkdownBuilder:
         )
 
     def build(self) -> str:
-        """
-        Builds each section of the README.md file.
-        """
-        md_contents = [
-            self.md_header,
-            self.md_toc,
+        """Builds each section of the README.md file."""
+        readme_md_contents = [
+            self.header_and_badges,
+            self.table_of_contents,
             self.md.overview,
             self.md.features,
-            self.md_tree,
-            self.md.modules,
-            self.md_summaries,
-            self.md_quickstart,
-            self.md_contributing,
+            self.tree,
+            self.md.project_index,
+            self.file_summaries,
+            self.quickstart_guide,
+            self.contributing_guide,
         ]
 
         if self.config.md.emojis is False:
-            md_contents = utils.remove_emojis(md_contents)
+            readme_md_contents = emojis.remove_emojis(readme_md_contents)
 
-        return "\n".join(md_contents)
+        return "\n".join(readme_md_contents)

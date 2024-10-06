@@ -1,17 +1,20 @@
-"""
-Command-line interface options for the readme-ai package.
-"""
+"""Command-line interface options for the readme-ai package."""
 
 from __future__ import annotations
 
 import click
 
-from readmeai.config.settings import BadgeOptions, ImageOptions, ModelOptions
+from readmeai import __version__
+from readmeai.config.constants import (
+    BadgeStyleOptions,
+    ImageOptions,
+    LLMService,
+)
 
 
 def prompt_for_image(
-    context: click.Context | None = None,
-    parameter: click.Parameter | None = None,
+    ctx: click.Context | None = None,
+    param: click.Parameter | None = None,
     value: str | None = None,
 ) -> str:
     """Prompt the user for a custom image URL."""
@@ -27,6 +30,19 @@ def prompt_for_image(
         raise click.BadParameter(f"Invalid image provided: {value}")
 
 
+def version_callback(
+    ctx: click.Context | None = None,
+    param: click.Parameter | None = None,
+    value: str | None = None,
+) -> None:
+    """Prints the version of readme-ai."""
+    if not value or (ctx and ctx.resilient_parsing):
+        return
+    click.echo(f"readme-ai version {__version__}")
+    if ctx is not None:
+        ctx.exit()
+
+
 align = click.option(
     "-a",
     "--align",
@@ -38,10 +54,10 @@ align = click.option(
 api = click.option(
     "--api",
     type=click.Choice(
-        [opt.value for opt in ModelOptions],
+        [opt.value for opt in LLMService],
         case_sensitive=False,
     ),
-    default=None,
+    default=LLMService.OFFLINE,
     help="""LLM API service to use for README.md file generation. Current support for:\n
     - ANTHROPIC    # Anthropic: claude-3-5-sonnet \n
     - GEMINI       # Google Gemini: gemini-pro \n
@@ -63,12 +79,12 @@ badge_style = click.option(
     "-bs",
     "--badge-style",
     type=click.Choice(
-        [opt.value for opt in BadgeOptions],
+        [opt.value for opt in BadgeStyleOptions],
         case_sensitive=False,
     ),
-    default=BadgeOptions.DEFAULT.value,
+    default=BadgeStyleOptions.DEFAULT.value,
     help="""\
-        Style for shields.io badges. The following options are currently supported:\n
+        Style for shields.io badges. Current support for:\n
         - default \n
         - flat \n
         - flat-square \n
@@ -90,7 +106,7 @@ base_url = click.option(
 context_window = click.option(
     "-cw",
     "--context-window",
-    default=3999,
+    default=3900,
     type=int,
     help="Maximum number of tokens to use for the model's context window.",
 )
@@ -115,7 +131,7 @@ toc_style = click.option(
     "-ts",
     "--toc-style",
     type=click.Choice(
-        ["bullet", "fold", "links", "number"],
+        ["bullet", "fold", "links", "number", "roman"],
         case_sensitive=False,
     ),
     default="bullet",
@@ -136,6 +152,7 @@ image = click.option(
         Project logo image displayed in the README file header. The following options are currently supported:\n
         - CUSTOM (provide local image path or URL) \n
         - LLM (generate project logo using LLM API) \n
+        - BANNER \n
         - BLACK \n
         - BLUE \n
         - CLOUD \n
@@ -149,7 +166,7 @@ model = click.option(
     "-m",
     "--model",
     default="gpt-3.5-turbo",
-    help="Large language model (LLM) API backend to power the README.md file generation.",
+    help="LLM API service to use for README file text generation.",
 )
 
 output = click.option(
@@ -164,7 +181,7 @@ rate_limit = click.option(
     "--rate-limit",
     default=10,
     type=click.IntRange(1, 25, clamp=True),
-    help="Rate limit for the number of API requests per minute.",
+    help="Number of requests per minute for the LLM API service.",
 )
 
 repository = click.option(
@@ -177,7 +194,7 @@ repository = click.option(
 temperature = click.option(
     "-t",
     "--temperature",
-    default=0.9,
+    default=0.1,
     type=click.FloatRange(min_open=0.0, max=2.0, clamp=True),
     help="Increasing temperature yields more randomness in text generation.",
 )
@@ -190,6 +207,7 @@ top_p = click.option(
 )
 
 tree_depth = click.option(
+    "-td",
     "--tree-depth",
     default=2,
     type=int,

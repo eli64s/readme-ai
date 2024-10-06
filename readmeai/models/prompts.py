@@ -1,18 +1,16 @@
-"""
-Methods for processing prompts used in LLM API requests.
-"""
+"""Utility methods to build prompts for LLM text generation."""
 
 from readmeai.config.settings import Settings
-from readmeai.core.logger import Logger
+from readmeai.ingestion.models import RepositoryContext
+from readmeai.logger import get_logger
 
-_logger = Logger(__name__)
+_logger = get_logger(__name__)
 
 
 def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
-    """
-    Generates a prompt for the LLM API.
-    """
+    """Generates a prompt for the LLM API."""
     prompt_template = get_prompt_template(prompts, prompt_type)
+
     if not prompt_template:
         _logger.error(f"Prompt type '{prompt_type}' not found.")
         return ""
@@ -21,11 +19,9 @@ def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
 
 
 def get_prompt_template(prompts: dict, prompt_type: str) -> str:
-    """
-    Retrieves the template for the given prompt type.
-    """
+    """Retrieves the template for the given prompt type."""
     prompt_templates = {
-        "features": prompts["prompts"]["features"],
+        "features_table": prompts["prompts"]["features_table"],
         "overview": prompts["prompts"]["overview"],
         "slogan": prompts["prompts"]["slogan"],
     }
@@ -33,9 +29,7 @@ def get_prompt_template(prompts: dict, prompt_type: str) -> str:
 
 
 def inject_prompt_context(template: str, context: dict) -> str:
-    """
-    Formats the template with the provided context.
-    """
+    """Formats the template with the provided context."""
     try:
         return template.format(*[context[key] for key in context])
     except KeyError as exc:
@@ -45,20 +39,19 @@ def inject_prompt_context(template: str, context: dict) -> str:
 
 async def set_additional_contexts(
     config: Settings,
-    dependencies: list[str],
+    repo_context: RepositoryContext,
     file_summaries: list[tuple[str, str]],
 ) -> list[dict]:
-    """
-    Generates additional prompts (features, overview, slogan) for LLM.
-    """
+    """Generates additional prompts (features, overview, slogan) for LLM."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
             (
-                "features",
+                "features_table",
                 {
-                    "repo": config.git.repository,
-                    "dependencies": dependencies,
+                    "name": config.git.name,
+                    "dependencies": repo_context.dependencies,
+                    "quickstart": repo_context.quickstart,
                     "file_summary": file_summaries,
                 },
             ),
@@ -83,12 +76,9 @@ async def set_additional_contexts(
 
 async def set_summary_context(
     config: Settings,
-    dependencies: list[str],
-    file_summaries: list[str],
+    repo_files: list[tuple[str, str]],
 ) -> list[dict]:
-    """
-    Generates the summary prompts to be used by the LLM API.
-    """
+    """Generates the summary prompts to be used by the LLM API."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
@@ -96,8 +86,7 @@ async def set_summary_context(
                 "file_summary",
                 {
                     "tree": config.md.tree,
-                    "dependencies": dependencies,
-                    "file_summary": file_summaries,
+                    "repo_files": repo_files,
                 },
             ),
         ]

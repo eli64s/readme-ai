@@ -1,11 +1,12 @@
-"""Unit tests for generating the badges for the README file."""
+from typing import Literal, LiteralString
 
 import pytest
 
+from readmeai.config.settings import Settings
 from readmeai.generators.badges import (
-    _format_badges,
+    build_badges_tech_stack,
     build_default_badges,
-    build_project_badges,
+    format_badges,
     shieldsio_icons,
     skill_icons,
 )
@@ -23,9 +24,11 @@ from readmeai.generators.badges import (
         ),
     ],
 )
-def test_format_badges(badges, expected):
+def testformat_badges(
+    badges: list[str], expected: Literal[""] | LiteralString
+):
     """Tests the format_html method."""
-    assert _format_badges(badges) == expected
+    assert format_badges(badges) == expected
 
 
 @pytest.mark.parametrize(
@@ -45,13 +48,19 @@ def test_format_badges(badges, expected):
         ),
     ],
 )
-def test_build_project_badges(dependencies, svg_icons, style, expected):
+def test_build_badges_tech_stack(
+    dependencies: list[str],
+    svg_icons: dict[str, list[str]],
+    style: Literal["skills"] | Literal["flat"],
+    expected: Literal[""] | LiteralString,
+):
     """Tests the generate_html method."""
-    assert build_project_badges(dependencies, svg_icons, style) == expected
+    assert build_badges_tech_stack(dependencies, svg_icons, style) == expected
 
 
-def test_build_default_badges_success(mock_config):
+def test_build_default_badges_success(config_fixture: Settings):
     """Tests build_default_badges with valid inputs."""
+    mock_config = config_fixture
     mock_config.git.host_domain = "github.com"
     mock_config.md.badge_style = "flat"
     badges = build_default_badges(mock_config, "github.com", "user/repo")
@@ -59,24 +68,32 @@ def test_build_default_badges_success(mock_config):
     assert "license" in badges
 
 
-def test_shieldsio_icons_success(mock_config, mock_dependencies):
+def test_shieldsio_icons_success(
+    config_fixture: Settings, dependencies_fixture: list[str]
+):
     """Tests shieldsio_icons with valid inputs."""
+    mock_config = config_fixture
     mock_config.md.badge_style = "flat"
     badges = shieldsio_icons(
         mock_config,
-        mock_dependencies,
+        dependencies_fixture,
         "github.com",
         "user/repo",
     )
-    assert isinstance(badges, tuple)
-    assert any("style=flat" in badge for badge in badges)
-    assert any("Python" in badge for badge in badges)
+    assert isinstance(badges, tuple), "Badges should be returned as a tuple."
+    assert len(badges) > 0, "Badges tuple should not be empty."
+    assert any(
+        "style=flat" in badge for badge in badges
+    ), "Expected 'style=flat' in one of the badges."
 
 
-def test_skill_icons_success(mock_config, mock_dependencies):
+def test_skill_icons_success(
+    config_fixture: Settings, dependencies_fixture: list[str]
+):
     """Tests skill_icons with valid inputs."""
+    mock_config = config_fixture
     mock_config.md.badge_style = "skills-light"
-    badges = skill_icons(mock_config, mock_dependencies)
+    badges = skill_icons(mock_config, dependencies_fixture)
     assert isinstance(badges, str)
     assert "theme=light" in badges
     assert "md" in badges

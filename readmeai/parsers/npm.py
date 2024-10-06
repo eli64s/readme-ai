@@ -1,11 +1,8 @@
-"""
-Parsers for npm related dependency files.
-"""
+"""Parsers for npm related dependency files i.e. package.json"""
 
 import json
-import re
 
-from readmeai.core.parsers import BaseFileParser
+from readmeai.parsers.base import BaseFileParser
 
 
 class PackageJsonParser(BaseFileParser):
@@ -32,17 +29,4 @@ class PackageJsonParser(BaseFileParser):
             return package_names
 
         except json.JSONDecodeError as exc:
-            return self.handle_parsing_error(f"package.json: {exc!s}")
-
-
-class YarnLockParser(BaseFileParser):
-    """
-    Parser for yarn.lock dependency files.
-    """
-
-    def parse(self, content: str) -> list[str]:
-        """Extracts package names from a yarn.lock file."""
-        try:
-            return re.findall(r"(\S+)(?=@)", content)
-        except re.error as exc:
-            return self.handle_parsing_error(f"yarn.lock: {exc!s}")
+            return self.handle_parsing_error(exc)

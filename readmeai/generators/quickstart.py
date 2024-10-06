@@ -1,115 +1,117 @@
-"""
-Dynamically generate 'Quickstart' guides for the README file.
-"""
-
-import traceback
-from dataclasses import dataclass
-from pathlib import Path
+from dataclasses import dataclass, field
 
 from readmeai.config.settings import ConfigLoader
-from readmeai.core.logger import Logger
+from readmeai.ingestion.models import QuickStart
+from readmeai.logger import get_logger
 
-_logger = Logger(__name__)
+_logger = get_logger(__name__)
 
 
 @dataclass
-class QuickStart:
+class QuickStartGenerator:
     """
-    Information about using, running, and testing a repository.
+    Build the data model for generating the 'Quickstart' instructions.
     """
 
-    install_command: str
-    run_command: str
-    test_command: str
-    prerequisites: str
-    language_counts: dict[str, int]
-    language_key: str | None
-    language_name: str | None = None
+    config: ConfigLoader
+    tools: dict = field(init=False)
+    language_names: dict = field(init=False)
+    default_commands: dict = field(init=False)
 
+    def __post_init__(self):
+        self.tools = self.config.tool_config
+        self.language_names = self.config.languages.get("language_names", {})
+        self.default_commands = self.tools.get("default", {})
 
-def count_languages(
-    summaries: tuple,
-    config_loader: ConfigLoader,
-) -> dict[str, int]:
-    """
-    Counts the occurrences of each language in the summaries.
-    """
-    parser_files = config_loader.parsers.get("parsers")
+    def generate(
+        self,
+        language_counts: dict[str, int],
+        metadata: dict[str, dict[str, str]],
+    ) -> QuickStart:
+        """Get any relevant commands for the Quickstart instructions."""
+        try:
+            primary_language = self._get_primary_language(language_counts)
+            quickstart = QuickStart(
+                primary_language=primary_language,
+                language_counts=language_counts,
+                package_managers=metadata.get("package_managers", {}),
+                containers=metadata.get("containers", {}),
+            )
+            self._generate_commands(quickstart, primary_language)
+            return quickstart
 
-    language_counts: dict[str, int] = {}
+        except Exception as e:
+            _logger.error(
+                f"Error generating QuickStart setup: {e}", exc_info=True
+            )
+            return QuickStart()
 
-    for file_path, _ in summaries:
-        language = Path(file_path).suffix[1:] or None
-
-        if str(file_path) in [
-            dependency_file for dependency_file in parser_files
-        ]:
-            continue
-
-        if (
-            language
-            and language.strip()
-            and language not in config_loader.ignore_list
-        ):
-            language_counts[language] = language_counts.get(language, 0) + 1
-
-    return language_counts
-
-
-def get_top_language(language_counts: dict[str, int]) -> str | None:
-    """
-    Determines the top language.
-    """
-    if not language_counts:
-        return None
-    else:
-        return max(sorted(language_counts), key=language_counts.get)
-
-
-def get_top_language_setup(
-    language_counts: dict,
-    config_loader: ConfigLoader,
-) -> QuickStart:
-    """
-    Determines the top language and retrieves its setup commands.
-    """
-    languages = config_loader.languages.get("language_names")
-    commands = config_loader.commands.get("quickstart_guide")
-
-    language_key = get_top_language(language_counts)
-    language_name = languages.get(language_key, languages.get("default"))
-    quickstart_commands = commands.get(language_name, commands.get("default"))
-    prerequisites = f"**{language_name}**: `version x.y.z`"
-
-    return QuickStart(
-        *quickstart_commands,
-        prerequisites=prerequisites,
-        language_counts=language_counts,
-        language_key=language_key,
-        language_name=language_name,
-    )
-
-
-def get_setup_data(
-    config_loader: ConfigLoader,
-    summaries: tuple,
-) -> QuickStart:
-    """
-    Generates the 'Quick Start' section of the README file.
-    """
-    default_setup = QuickStart("", "", "", {}, "", "")
-
-    try:
-        language_counts = count_languages(summaries, config_loader)
-        setup = (
-            get_top_language_setup(language_counts, config_loader)
-            or default_setup
+    def _get_primary_language(self, counts: dict[str, int]) -> str | None:
+        """Determine the primary language of the repository."""
+        if not counts:
+            return None
+        counts = {k: v for k, v in counts.items() if k not in ("yaml", "yml")}
+        primary_lang = max(counts, key=counts.get)
+        return self.language_names.get(
+            primary_lang, self.language_names.get("default")
         )
 
-    except Exception as exc:
-        _logger.debug(f"Exception: {exc}\n{traceback.format_exc()}")
-        setup = default_setup
+    def _generate_commands(
+        self, quickstart: QuickStart, primary_language: str
+    ) -> None:
+        """Generate install, usage, and test commands."""
+        command_types = ["install", "usage", "test"]
+        tool_types = ["package_managers", "containers"]
+        for cmd_type in command_types:
+            commands: list[str] = []
+            for tool_type in tool_types:
+                tools = getattr(quickstart, tool_type)
+                commands.extend(
+                    filter(
+                        None,
+                        [
+                            self._format_command(
+                                tool_name,
+                                primary_language,
+                                file_path,
+                                cmd_type,
+                                tool_type,
+                            )
+                            for tool_name, file_path in tools.items()
+                        ],
+                    )
+                )
+            setattr(quickstart, f"{cmd_type}_commands", "\n".join(commands))
 
-    _logger.info(f"Quickstart information: {setup}")
+    def _format_command(
+        self,
+        tool_name: str,
+        primary_language: str,
+        file_path: str,
+        cmd_type: str,
+        tool_type: str,
+    ) -> str | None:
+        """Format a command for the Quickstart instructions."""
+        config = (
+            self.tools.get(primary_language.lower(), {})
+            .get(tool_type, {})
+            .get(tool_name, {})
+        ) or self.tools.get(tool_type, {}).get(tool_name, {})
 
-    return setup
+        cmd = config.get(cmd_type, self.default_commands.get(cmd_type))
+        if not cmd:
+            return None
+
+        if cmd_type == "install" and tool_type == "containers":
+            cmd = cmd.replace("{image_name}", self.config.config.git.full_name)
+        elif cmd_type in {"install", "test"}:
+            cmd = cmd.replace("{file}", file_path)
+        elif cmd_type == "usage":
+            cmd = cmd.replace("{executable}", self.config.config.git.name)
+        return f"""
+**Using `{tool_name}`** &nbsp; [<img align="center" src="{config.get('shield', '')}" />]({config.get('website', '')})
+
+```sh
+❯ {cmd}
+```
+"""

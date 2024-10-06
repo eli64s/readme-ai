@@ -1,8 +1,6 @@
-"""Unit tests for JSON-based dependency parsers."""
-
 import json
 
-from readmeai.parsers.npm import PackageJsonParser, YarnLockParser
+from readmeai.parsers.npm import PackageJsonParser
 
 package_json_file = """
 {
@@ -82,21 +80,6 @@ def test_package_json_parser_no_dependencies():
     content = json.dumps({})
     result = parser.parse(content)
     assert result == []
-
-
-def test_yarn_lock_parser_success():
-    parser = YarnLockParser()
-    content = "packageA@1.0.0:\npackageB@2.0.0:"
-    result = parser.parse(content)
-    assert set(result) == {"packageA", "packageB"}
-
-
-def test_yarn_lock_parser_error():
-    parser = YarnLockParser()
-    content = "(invalid regex["
-    data = parser.parse(content)
-    assert isinstance(data, list)
-    assert data == []
 
 
 def test_package_json_parser_invalid_json():

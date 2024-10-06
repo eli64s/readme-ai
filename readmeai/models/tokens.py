@@ -1,14 +1,14 @@
-"""
-Tokenizer utilities for tokenizing and truncating text.
-"""
+"""Utilities for handling tokens in the LLM model."""
 
+import structlog
 from tiktoken import Encoding, get_encoding
 
 from readmeai.config.settings import Settings
-from readmeai.core.logger import Logger
+from readmeai.logger import get_logger
 
 _encoding_cache = {}
-_logger = Logger(__name__)
+
+_logger = get_logger(__name__)
 
 
 def _set_encoding_cache(encoding_name: str) -> Encoding:
@@ -28,6 +28,12 @@ async def token_handler(
     encoder = config.llm.encoder
     max_count = config.llm.context_window
     token_count = count_tokens(prompt, encoder)
+
+    structlog.contextvars.bind_contextvars(
+        token_count=token_count,
+        max_count=max_count,
+        index=index,
+    )
 
     if token_count > max_count:
         _logger.debug(

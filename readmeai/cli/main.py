@@ -1,14 +1,26 @@
-"""
-CLI entrypoint for the readme-ai package.
-"""
+"""Command-line interface entrypoint for the readme-ai package."""
 
 import click
 
 from readmeai.__main__ import readme_agent
 from readmeai.cli import options
+from readmeai.config.settings import ConfigLoader, GitSettings
+from readmeai.logger import get_logger
+
+config = ConfigLoader()
+logger = get_logger(__name__)
 
 
 @click.command()
+@click.option(
+    "-V",
+    "--version",
+    is_flag=True,
+    callback=options.version_callback,
+    expose_value=False,
+    is_eager=True,
+    help="Show the version and exit.",
+)
 @options.align
 @options.api
 @options.badge_color
@@ -46,25 +58,36 @@ def main(
     tree_depth: int,
 ) -> None:
     """Entry point for the readme-ai CLI application."""
-    readme_agent(
-        align=align,
-        api=api,
-        badge_color=badge_color,
-        badge_style=badge_style,
-        base_url=base_url,
-        context_window=context_window,
-        emojis=emojis,
-        header_style=header_style,
-        image=image,
-        model=model,
-        output=output,
-        rate_limit=rate_limit,
-        repository=repository,
-        temperature=temperature,
-        toc_style=toc_style,
-        top_p=top_p,
-        tree_depth=tree_depth,
+    config.config.git = GitSettings(repository=repository)
+    config.config.llm = config.config.llm.model_copy(
+        update={
+            "api": api,
+            "base_url": base_url,
+            "context_window": context_window,
+            "model": model,
+            "temperature": temperature,
+            "top_p": top_p,
+        },
     )
+    config.config.md = config.config.md.model_copy(
+        update={
+            "align": align,
+            "badge_color": badge_color,
+            "badge_style": badge_style,
+            "emojis": emojis,
+            "header_style": header_style,
+            "image": image,
+            "toc_style": toc_style,
+            "tree_depth": tree_depth,
+        },
+    )
+    config.config.api.rate_limit = rate_limit
+
+    logger.info(f"Pydantic settings: {config.__dict__.keys()}")
+    logger.info(f"Repository settings: {config.config.git}")
+    logger.info(f"LLM API settings: {config.config.llm}")
+
+    readme_agent(config=config, output_file=output)
 
 
 if __name__ == "__main__":

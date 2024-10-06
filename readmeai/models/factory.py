@@ -1,38 +1,41 @@
-"""
-Factory class that selects appropriate LLM API service based on CLI input.
-"""
-
 from typing import ClassVar
 
-from readmeai._exceptions import UnsupportedServiceError
-from readmeai.config.settings import ConfigLoader, ModelOptions
-from readmeai.core.models import BaseModelHandler
+from readmeai.config.constants import LLMService
+from readmeai.config.settings import ConfigLoader
+from readmeai.errors import UnsupportedServiceError
+from readmeai.ingestion.models import RepositoryContext
+from readmeai.models.anthropic import AnthropicHandler
+from readmeai.models.base import BaseModelHandler
 from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
 
 
-class ModelRegistry:
+class ModelFactory:
     """
-    Returns the appropriate LLM API handler based on CLI input.
+    Factory class for creating LLM API handler instances.
     """
 
     _model_map: ClassVar[dict] = {
-        # ModelOptions.ANTHROPIC.value: AnthropicHandler,
-        ModelOptions.GEMINI.value: GeminiHandler,
-        ModelOptions.OFFLINE.value: OfflineHandler,
-        ModelOptions.OLLAMA.value: OpenAIHandler,
-        ModelOptions.OPENAI.value: OpenAIHandler,
+        LLMService.ANTHROPIC: AnthropicHandler,
+        LLMService.GEMINI.value: GeminiHandler,
+        LLMService.OLLAMA.value: OpenAIHandler,
+        LLMService.OPENAI.value: OpenAIHandler,
+        LLMService.OFFLINE.value: OfflineHandler,
     }
 
     @staticmethod
-    def get_backend(conf: ConfigLoader) -> BaseModelHandler:
+    def get_backend(
+        config: ConfigLoader, context: RepositoryContext
+    ) -> BaseModelHandler:
         """
         Returns the appropriate LLM API handler based on CLI input.
         """
-        backend_service = ModelRegistry._model_map.get(conf.config.llm.api)
-        if backend_service is None:
+        llm_service = ModelFactory._model_map.get(config.config.llm.api)
+
+        if llm_service is None:
             raise UnsupportedServiceError(
-                f"Unsupported LLM service provided: {conf.config.llm.api}",
+                f"Unsupported LLM service provided: {config.config.llm.api}",
             )
-        return backend_service(conf)
+
+        return llm_service(config, context)

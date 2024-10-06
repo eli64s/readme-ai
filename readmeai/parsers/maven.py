@@ -4,7 +4,7 @@ Parser utilities for Java-based dependency files.
 
 import re
 
-from readmeai.core.parsers import BaseFileParser
+from readmeai.parsers.base import BaseFileParser
 
 
 class MavenParser(BaseFileParser):
