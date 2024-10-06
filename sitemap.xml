@@ -2,86 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.readme-ai.com/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/cli/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
          <loc>https://docs.readme-ai.com/contributing/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/faq/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/advanced-examples/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/help/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/basic-examples/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/philosophy/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/gallery/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/why/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/content/project-badges/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/blog/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/content/project-logo/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/customization/badges/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/templates/headers/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/customization/emojis/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/configuration/templates/table-of-contents/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/customization/header/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/customization/project_logo/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/integrations/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/customization/table_of_contents/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/integrations/google-gemini/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/examples/gallery/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/integrations/offline-mode/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/examples/use_cases/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/integrations/ollama/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/guides/best_practices/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/features/integrations/openai/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/guides/custom_templates/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/guides/markdown_best_practices/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/anthropic/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/google_gemini/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/offline_mode/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/ollama/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/llms/openai/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
          <loc>https://docs.readme-ai.com/quickstart/installation/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/quickstart/requirements/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/quickstart/prerequisites/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/quickstart/usage/cli/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/usage/cli/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/quickstart/usage/docker/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/usage/docker/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
     <url>
-         <loc>https://docs.readme-ai.com/quickstart/usage/streamlit/</loc>
-         <lastmod>2024-08-31</lastmod>
+         <loc>https://docs.readme-ai.com/usage/pip/</loc>
+         <lastmod>2024-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.readme-ai.com/usage/streamlit/</loc>
+         <lastmod>2024-10-06</lastmod>
     </url>
 </urlset>
