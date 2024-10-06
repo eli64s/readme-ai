@@ -110,11 +110,11 @@ A few combinations of README styles and configurations:
   <!-- row 2 -->
   <tr>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/assets/images/headers/header-cloud.png" alt="cloud-db-logo" width="450" /><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/refs/heads/main/docs/assets/images/headers/header-cloud.png" alt="cloud-db-logo" width="450" /><br>
       <code>--align left --badge-style flat-square --image cloud</code>
     </td>
     <td align="center">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/assets/images/headers/header-gradient.png" alt="gradient-markdown-logo" width="450" /><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/refs/heads/main/docs/assets/images/headers/header-gradient.png" alt="gradient-markdown-logo" width="450" /><br>
       <code>--align left --badge-style flat --image gradient</code>
     </td>
   </tr>
@@ -150,20 +150,20 @@ A few combinations of README styles and configurations:
   <!-- row 6 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/assets/images/headers/project-logo-dalle.png" alt="default-header" width="900" /><br>
+      <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/project-logo-dalle.png" alt="default-header" width="900" /><br>
       <code>--image llm --badge-style plastic --header-style classic</code>
     </td>
   </tr>
   <!-- row 7 -->
   <tr>
     <td colspan="2" align="center">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/assets/images/headers/modern-pyflink.png" alt="default-header" width="900" /><br>
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/refs/heads/main/docs/assets/images/headers/modern-pyflink.png" alt="default-header" width="900" /><br>
       <code>--image custom --badge-color BA0098 --badge-style flat-square --header-style modern --toc-style fold</code>
     </td>
   </tr>
 </table>
 
-See the <a href="https://github.com/eli64s/readme-ai?tab=readme-ov-file#-configuration">Configuration</a> section for a complete list of CLI options.
+See the <a href="https://github.com/eli64s/readme-ai/tree/main?tab=readme-ov-file#-configuration">Configuration</a> section for a complete list of CLI options.
 
 <details closed>
   <summary><strong>📍 Overview</strong></summary><br>
@@ -565,8 +565,7 @@ The pytest framework and nox automation tool are used for testing the applicatio
 ❯ make test-nox
 ```
 
-> [! TIP]
->
+> [!TIP]
 > <sub>Use [nox](https://nox.thea.codes/en/stable/) to test application against multiple Python environments and dependencies!</sub>
 
 ---
@@ -595,7 +594,7 @@ Customize your README generation using these CLI options:
 | `--top-p` | Probability of the top-p sampling method | `0.9` |
 | `--tree-depth` | Maximum depth of the directory tree structure | `2` |
 
-> [! TIP]
+> [!TIP]
 > For a full list of options, run `readmeai --help` in your terminal.
 >
 

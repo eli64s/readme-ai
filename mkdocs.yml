@@ -8,7 +8,7 @@ repo_url: https://github.com/eli64s/readme-ai
 repo_name: eli64s/readme-ai
 edit_uri: edit/main/docs/
 copyright: "© 2023 README-AI - Empowering developers with intelligent documentation"
-site_dir: docs/
+site_dir: site/
 
 theme:
   name: material
