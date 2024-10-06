@@ -1,4 +1,5 @@
 exclude = [
+    ".env,",
     ".git",
     ".ipynb_checkpoints",
     ".mypy_cache",
@@ -6,14 +7,13 @@ exclude = [
     ".pyenv",
     ".pytest_cache",
     ".ruff_cache",
-    ".env,",
+    "venv",
     ".venv",
     ".vscode",
-    "venv",
 ]
 line-length = 79
 indent-width = 4
-target-version = "py311"
+target-version = "py310"
 
 [lint]
 # Allow unused variables when underscore-prefixed.
@@ -33,7 +33,11 @@ select = [
     "UP",       # pyupgrade
 ]
 fixable = ["ALL"]
-ignore = []
+ignore = [
+    "UP006",
+    "UP007",
+    "UP035",
+]
 unfixable = []
 
 [format]

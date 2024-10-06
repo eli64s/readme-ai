@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.087"
-description = "README file generator, powered by large language model APIs 👾"
+version = "0.5.088"
+description = "Automated README file generator, powered by AI."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -34,22 +34,24 @@ python = "^3.9,<4.0.0"
 aiohttp = "^3.9.5"
 click = "^8.1.7"
 gitpython = "^3.1.31"
-google-generativeai = "^0.7.1"
 openai = "^1.16.2"
 pydantic = "^2.8.0"
 pydantic-extra-types = "^2.9.0"
+pydantic-settings = "^2.4.0"
 pyyaml = "^6.0.1"
-requests = "^2.32.3"
+structlog = "^24.4.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
+tomli = {version = "*", python = "<3.11"}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "*"
+nox = "*"
 pre-commit = "*"
 ruff = "*"
 
 [tool.poetry.group.test.dependencies]
-pytest = "=7.4.4"
+pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 pytest-randomly = "*"
@@ -58,7 +60,8 @@ pytest-xdist = "*"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
-mkdocs-material = "*"
+mkdocs-git-revision-date-localized-plugin = "*"
+mkdocs-material = {version = "^9.5.39", extras = ["imaging"]}
 mkdocs-minify-plugin = "*"
 
 [tool.poetry.group.anthropic]
@@ -67,21 +70,25 @@ optional = true
 [tool.poetry.group.anthropic.dependencies]
 anthropic = "*"
 
+[tool.poetry.group.google-generativeai]
+optional = true
+
+[tool.poetry.group.google-generativeai.dependencies]
+google-generativeai = "*"
+
 [tool.pytest.ini_options]
 addopts = [
     "-vvv",
     "-rfEsxX",
     "--durations=10",
-    "--asyncio-mode=auto",
     "--numprocesses=auto",
     "--cov=readmeai",
     "--cov-branch",
     "--cov-report=xml",
     "--cov-report=term-missing",
 ]
-env = [
-    "OLLAMA_HOST=127.0.0.1",
-]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
 pythonpath = ["readmeai"]
 testpaths = ["tests"]
 
@@ -98,14 +105,11 @@ skip_covered = true
 skip_empty = true
 sort = "cover"
 omit = [
-    "tests/*",
-    "*__init__.py",
-    "*/__init__.py",
+    "**/__init__.py",
     "noxfile.py",
-    "readmeai/models/gemini.py",
-    "readmeai/utils/file_cleaner.py",
-    "readmeai/vcs/metadata.py",
-    "readmeai/vcs/providers.py",
+    "readmeai/cli/arguments.py",
+    "readmeai/cli/commands.py",
+    "readmeai/readers/git/metadata.py",
 ]
 
 [build-system]
