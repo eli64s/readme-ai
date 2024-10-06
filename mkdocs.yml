@@ -1,95 +1,195 @@
-# README-AI MkDocs Site Configuration
+# -- README-AI Mkdocs Configuration File ----------------------------------------
 
-site_name: README-AI Docs
-site_description: Explore readme-ai, a README file generator powered by large language model APIs.
+site_name: README-AI
+site_description: "README-AI: Your AI-powered documentation assistant. Revolutionize your project documentation with automated, intelligent README generation."
+site_author: Eli Salamie
 site_url: https://docs.readme-ai.com/
-site_author: readme-ai
 repo_url: https://github.com/eli64s/readme-ai
 repo_name: eli64s/readme-ai
-remote_name: https://github.com/readme-ai/docs
-docs_dir: "docs/docs/"
+edit_uri: edit/main/docs/
+copyright: "© 2023 README-AI - Empowering developers with intelligent documentation"
+site_dir: docs/
 
 theme:
   name: material
-  palette:
-    primary: white
-    accent: blueviolet
-  language: en
-  font:
-    text: "Roboto"
-    code: "Roboto Mono"
+  custom_dir: docs/.overrides
+  logo: assets/icons/readme.svg
+  icon:
+    repo: fontawesome/brands/github-alt
+    edit: material/pencil
+    view: material/eye
+    theme:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
   features:
+    - announce.dismiss
     - content.action.edit
+    - content.action.view
     - content.code.annotate
     - content.code.copy
+    - content.code.select
+    - content.tabs.link
     - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
     - toc.follow
-    - navigation.top
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.prune
-    - navigation.footer
-    - navigation.tracking
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.indexes
-    - navigation.sections
-    - navigation.expand
-    - header.autohide
+    # - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: deep-purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep-purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
 
-nav:
-  - Home: index.md
-  - Quickstart:
-      - "Requirements": quickstart/requirements.md
-      - "Installation": quickstart/installation.md
-      - Usage:
-          - CLI: quickstart/usage/cli.md
-          - Docker: quickstart/usage/docker.md
-          - Streamlit: quickstart/usage/streamlit.md
-  - Features:
-      - "features/index.md"
-      - Integrations:
-          - "features/integrations/index.md"
-          - OpenAI: features/integrations/openai.md
-          - Ollama: features/integrations/ollama.md
-          - Google Gemini: features/integrations/google-gemini.md
-          - Offline Mode: features/integrations/offline-mode.md
-  - Configuration:
-      - configuration/index.md
-      - "Basic": configuration/basic-examples.md
-      - "Advanced": configuration/advanced-examples.md
-      - Markdown Contents:
-          - "Project Badges": configuration/content/project-badges.md
-          - "Project Logo": configuration/content/project-logo.md
-      - Markdown Templates:
-          - "Header": configuration/templates/headers.md
-          - "Table of Content": configuration/templates/table-of-contents.md
-      - Examples:
-          - "README Gallery": configuration/gallery.md
-  - Contributing: contributing.md
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eli64s/readme-ai
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/readmeai/
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/zeroxeli/readme-ai
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    category_to_de: docs/.overrides
 
 markdown_extensions:
   - admonition
   - attr_list
+  - def_list
   - md_in_html
-  - pymdownx.arithmatex
-  - pymdownx.betterem
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.caret
   - pymdownx.details
-  - pymdownx.emoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
   - pymdownx.keys
-  - pymdownx.magiclink
-
-extra_css:
-  - css/custom.css
-  - css/termynal.css
-
-extra_javascript:
-  - js/custom.js
-  - js/termynal.js
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: eli64s
+      repo: readme-ai
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 plugins:
   - search
+  - social
+  - git-revision-date-localized:
+      type: date
+  - minify:
+      minify_html: true
+
+extra_css:
+  - css/extra.css
+
+extra_javascript:
+  - js/extra.js
+
+nav:
+  - Home:
+      - index.md
+      - Why readme-ai?: why.md
+      # - Philosophy: philosophy.md
+      - Quickstart: quickstart/prerequisites.md
+      - Getting Help: help.md
+      - Contributing: contributing.md
+
+  - Getting Started:
+      - Prerequisites: quickstart/prerequisites.md
+      - Installation: quickstart/installation.md
+      - Configuration:
+          cli.md
+          # - Overview: getting-started/configuration.md
+          # - Settings: configuration/settings.md
+          # - Templates: configuration/templates.md
+          # - Variables: configuration/variables.md
+          # - Plugins: configuration/plugins.md
+  - User Guide:
+      - CLI Usage: usage/cli.md
+      - Docker: usage/docker.md
+      - Streamlit App: usage/streamlit.md
+  - Customizations:
+      - Badges: customization/badges.md
+      - Headers: customization/header.md
+      - Table of Contents: customization/table_of_contents.md
+      - Project Logo: customization/project_logo.md
+      - Emojis: customization/emojis.md
+  - Integrations:
+      - Models:
+          - llms/index.md
+          - OpenAI: llms/openai.md
+          - Ollama: llms/ollama.md
+          - Anthropic: llms/anthropic.md
+          - Google Gemini: llms/google_gemini.md
+      - Offline Mode: llms/offline_mode.md
+  # - Advanced Topics:
+  #     - Best Practices: advanced/best-practices.md
+  #     - Custom Templates: advanced/custom-templates.md
+  #     - Markdown Guide: advanced/markdown-guide.md
+  - Examples:
+      - Gallery: examples/gallery.md
+      - Use Cases: examples/use-cases.md
+  - CLI Reference: cli.md

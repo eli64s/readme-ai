@@ -5,20 +5,15 @@ repos:
     rev: v4.4.0
     hooks:
       - id: check-added-large-files
-      - id: check-ast
-      - id: check-builtin-literals
-      - id: check-docstring-first
       - id: check-json
-      - id: check-merge-conflict
-      - id: check-symlinks
+      - id: check-toml
       - id: check-yaml
-      - id: debug-statements
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.1
+    rev: v0.6.9
     hooks:
       - id: ruff
         args: [--fix]

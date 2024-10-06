@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}
+{% if page.meta and page.meta.title %}
+<title>{{ page.meta.title }} | {{ config.site_name }}</title>
+{% elif page.title and not page.is_homepage %}
+<title>{{ page.title | striptags }} | {{ config.site_name }}</title>
+{% else %}
+<title>{{ config.site_name }}</title>
+{% endif %}
+{% endblock %}
+
+{% block extrahead %}
+<meta name="msapplication-TileColor" content="9400D3"/>
+<meta name="theme-color" content="#ffffff"/>
+<meta name="robots" content="index,follow"/>
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "README-AI",
+        "url": "https://docs.readme-ai.com/"
+    }
+</script>
+{% endblock %}
