@@ -1,6 +1,4 @@
-"""
-Nox configuration for running tests against multiple Python versions.
-"""
+"""Nox file for running tests against multiple Python versions."""
 
 import nox
 

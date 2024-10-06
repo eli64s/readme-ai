@@ -1,8 +1,6 @@
-COMMITS := 10
 SHELL := /bin/bash
 SRC_PATH := readmeai
 TEST_PATH := tests
-VENV := readmeai
 
 .PHONY: clean
 clean: ## Remove project build artifacts
@@ -17,28 +15,20 @@ conda-recipe: ## Create conda recipe for conda-forge
 docker-build: ## Build Docker image for application
 	docker build -t zeroxeli/readme-ai:latest .
 
-.PHONY: git-log
-git-log: ## Display git log for last 'N' commits
-	git log -n ${COMMITS} --pretty=tformat: --shortstat
-
-.PHONY: git-rm-cache
-git-rm-cache: ## Remove all files from git cache
-	git rm -r --cached .
-
-.PHONY: poetry-clean
-poetry-clean: ## Removes Poetry virtual environment and lock file.
-	poetry env remove --all && rm poetry.lock
-
 .PHONY: poetry-install
 poetry-install: ## Install dependencies using Poetry.
 	poetry install
+
+.PHONY: poetry-remove-environment
+poetry-remove-environment: ## Removes Poetry virtual environment and lock file.
+	poetry env remove --all && rm poetry.lock
 
 .PHONY: poetry-shell
 poetry-shell: ## Launch a shell within Poetry virtual environment.
 	poetry shell
 
 .PHONY: poetry-to-requirements
-poetry-to-reqs: ## Export poetry requirements to requirements.txt
+poetry-to-requirements: ## Export poetry requirements to requirements.txt
 	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
 
 .PHONY: ruff-format
@@ -50,8 +40,8 @@ ruff-format: ## Format codebase using Ruff
 ruff-lint: ## Lint codebase using Ruff
 	ruff check . --fix
 
-.PHONY: run-docs
-run-docs: ## Run the MkDocs server
+.PHONY: run-mkdocs
+run-mkdocs: ## Run the MkDocs server
 	mkdocs serve
 
 .PHONY: search
