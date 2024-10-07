@@ -1,10 +1,9 @@
 """Google Gemini LLM API service implementation."""
 
 import os
-from typing import Any
+from typing import Any, Optional
 
 import aiohttp
-import google.generativeai as genai
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -17,6 +16,14 @@ from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
 
+try:
+    import google.generativeai as genai
+
+    GENAI_AVAILABLE = True
+except ImportError:
+    genai = None
+    GENAI_AVAILABLE = False
+
 
 class GeminiHandler(BaseModelHandler):
     """
@@ -27,19 +34,47 @@ class GeminiHandler(BaseModelHandler):
         self, config_loader: ConfigLoader, context: RepositoryContext
     ) -> None:
         super().__init__(config_loader, context)
-        self._model_settings()
+        self.model: Optional[Any] = None
+        self.model_name: str = "gemini-1.5-flash"
+        self.top_p: float = (
+            0.8  # Default value, override from config if available
+        )
+        if GENAI_AVAILABLE:
+            self._model_settings()
+        else:
+            self._logger.warning(
+                "Google Generative AI library is not available. Some features will be disabled."
+            )
 
     def _model_settings(self):
+        if not GENAI_AVAILABLE:
+            self._logger.error(
+                "Attempted to configure Gemini model without the required library."
+            )
+            return
+
         api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            self._logger.error(
+                "GOOGLE_API_KEY environment variable is not set."
+            )
+            return
+
         genai.configure(api_key=api_key)
-        self.model_name = "gemini-1.5-flash"
         self.model = genai.GenerativeModel(self.model_name)
-        self.top_p = self.config.llm.top_p
+
+        # Safely get top_p from config, use default if not available
+        self.top_p = getattr(self.config.llm, "top_p", self.top_p)
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
         """Build payload for POST request to the Gemini API."""
+        if not GENAI_AVAILABLE:
+            raise RuntimeError(
+                "Google Generative AI library is not available."
+            )
+
         return genai.types.GenerationConfig(
-            max_output_tokens=self.max_tokens,
+            max_output_tokens=tokens,
             temperature=self.temperature,
             top_p=self.top_p,
         )
@@ -63,9 +98,18 @@ class GeminiHandler(BaseModelHandler):
         repo_files: Any,
     ) -> Any:
         """Processes Gemini API responses and returns generated text."""
+        if not GENAI_AVAILABLE:
+            self._logger.error(
+                "Cannot make request: Google Generative AI library is not available."
+            )
+            return index, self.placeholder
+
+        if self.model is None:
+            self._logger.error("Gemini model is not properly initialized.")
+            return index, self.placeholder
+
         try:
             prompt = await token_handler(self.config, index, prompt, tokens)
-
             parameters = await self._build_payload(prompt, tokens)
 
             async with self.rate_limit_semaphore:
@@ -73,7 +117,11 @@ class GeminiHandler(BaseModelHandler):
                     prompt,
                     generation_config=parameters,
                 )
-                data = response.text
+                data = (
+                    response.text
+                    if hasattr(response, "text")
+                    else str(response)
+                )
                 self._logger.info(
                     f"Response from Gemini for '{index}': {data}"
                 )
