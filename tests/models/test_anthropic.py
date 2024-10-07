@@ -8,9 +8,18 @@ from readmeai.config.settings import ConfigLoader
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.anthropic import AnthropicHandler
 
+try:
+    import anthropic
+
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
+
 
 @pytest.fixture
 def anthropic_handler(repository_context_fixture: RepositoryContext):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     config_loader = ConfigLoader()
     context = repository_context_fixture
     return AnthropicHandler(config_loader, context)
@@ -18,6 +27,8 @@ def anthropic_handler(repository_context_fixture: RepositoryContext):
 
 @pytest.mark.asyncio
 async def test_model_settings(anthropic_handler: AnthropicHandler):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     anthropic_handler._model_settings()
     assert isinstance(anthropic_handler.client, anthropic.AsyncAnthropic)
     assert anthropic_handler.model == "claude-3-opus-20240229"
@@ -25,6 +36,8 @@ async def test_model_settings(anthropic_handler: AnthropicHandler):
 
 @pytest.mark.asyncio
 async def test_build_payload(anthropic_handler: AnthropicHandler):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     prompt = "Test prompt"
     tokens = 100
     payload = await anthropic_handler._build_payload(prompt, tokens)
@@ -39,6 +52,8 @@ async def test_build_payload(anthropic_handler: AnthropicHandler):
 async def test_make_request_success(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
 ):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     mock_token_handler.return_value = "Processed prompt"
     mock_token_handler.side_effect = lambda *args: args[2]
     mock_create.return_value = MagicMock(
@@ -62,6 +77,8 @@ async def test_make_request_success(
 async def test_make_request_api_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
 ):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     mock_token_handler.return_value = "Processed prompt"
     mock_create.side_effect = anthropic.APIError(
         message="API error",
@@ -83,6 +100,8 @@ async def test_make_request_api_error(
 async def test_make_request_unexpected_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
 ):
+    if not ANTHROPIC_AVAILABLE:
+        pytest.skip("Anthropic library is not available")
     mock_token_handler.return_value = "Processed prompt"
     mock_create.side_effect = Exception("Unexpected error")
     anthropic_handler.client = MagicMock()

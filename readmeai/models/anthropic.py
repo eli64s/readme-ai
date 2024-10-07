@@ -19,9 +19,15 @@ try:
     import anthropic
 
     ANTHROPIC_AVAILABLE = True
+    ANTHROPIC_EXCEPTIONS = (
+        anthropic.APIError,
+        anthropic.APIConnectionError,
+        anthropic.RateLimitError,
+    )
 except ImportError:
     anthropic = None
     ANTHROPIC_AVAILABLE = False
+    ANTHROPIC_EXCEPTIONS = tuple()
 
 
 class AnthropicHandler(BaseModelHandler):
@@ -74,15 +80,7 @@ class AnthropicHandler(BaseModelHandler):
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        retry=retry_if_exception_type(
-            (
-                anthropic.APIError,
-                anthropic.APIConnectionError,
-                anthropic.RateLimitError,
-            )
-            if ANTHROPIC_AVAILABLE
-            else tuple()
-        ),
+        retry=retry_if_exception_type(ANTHROPIC_EXCEPTIONS),
     )
     async def _make_request(
         self,
@@ -107,6 +105,7 @@ class AnthropicHandler(BaseModelHandler):
             parameters = await self._build_payload(prompt, tokens)
 
             async with self.rate_limit_semaphore:
+                self._logger.info(f"Making request to Anthropic for '{index}'")
                 response = await self.client.messages.create(**parameters)
                 data = (
                     response.content[0].text
@@ -118,9 +117,9 @@ class AnthropicHandler(BaseModelHandler):
                 )
                 return index, data
 
-        except () as e:
+        except ANTHROPIC_EXCEPTIONS as e:
             self._logger.error(
-                f"Error processing request for '{index}': {e!r}"
+                f"API Error processing request for '{index}': {e!r}"
             )
             raise  # Re-raise for retry decorator
 

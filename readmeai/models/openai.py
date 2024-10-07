@@ -1,5 +1,6 @@
 """OpenAI API model handler implementation, with Ollama support."""
 
+import os
 from typing import Any
 
 import aiohttp
@@ -39,7 +40,7 @@ class OpenAIHandler(BaseModelHandler):
 
         if self.config.llm.api == LLMService.OPENAI.name:
             self.url = f"{self.host_name}{self.path}"
-            self.client = openai.OpenAI()
+            self.client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
         elif self.config.llm.api == LLMService.OLLAMA.name:
             self.url = f"{self.localhost}{self.path}"

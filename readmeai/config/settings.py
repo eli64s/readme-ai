@@ -18,11 +18,7 @@ from pydantic import (
 )
 from pydantic_extra_types.color import Color
 
-from readmeai.config.constants import (
-    BadgeStyleOptions,
-    ImageOptions,
-    LLMService,
-)
+from readmeai.config.constants import BadgeStyleOptions, ImageOptions
 from readmeai.errors import GitValidationError
 from readmeai.logger import get_logger
 from readmeai.readers.git.providers import GitURL, parse_git_url
@@ -162,7 +158,7 @@ class ModelSettings(BaseModel):
     LLM API model settings and parameters.
     """
 
-    api: str = Field(default=LLMService.OFFLINE)
+    api: str
     base_url: str
     context_window: PositiveInt
     encoder: str

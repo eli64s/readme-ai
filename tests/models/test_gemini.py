@@ -35,7 +35,7 @@ async def test_model_settings(gemini_handler: GeminiHandler):
 async def test_build_payload(gemini_handler: GeminiHandler):
     payload = await gemini_handler._build_payload("test prompt", 100)
     assert isinstance(payload, genai.types.GenerationConfig)
-    assert payload.max_output_tokens == 699
+    assert payload.max_output_tokens == 100
     assert payload.temperature == 0.1
     assert payload.top_p == 0.9
 

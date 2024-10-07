@@ -5,9 +5,7 @@ WORKDIR /app
 ENV GIT_PYTHON_REFRESH=quiet
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
-    && apt-get clean \
-    && apt-get purge -y --auto-remove git \
+    && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir --upgrade readmeai

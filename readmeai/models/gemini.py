@@ -66,7 +66,7 @@ class GeminiHandler(BaseModelHandler):
         # Safely get top_p from config, use default if not available
         self.top_p = getattr(self.config.llm, "top_p", self.top_p)
 
-    async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
+    async def _build_payload(self, prompt: str, tokens: int) -> Any:
         """Build payload for POST request to the Gemini API."""
         if not GENAI_AVAILABLE:
             raise RuntimeError(
@@ -87,7 +87,9 @@ class GeminiHandler(BaseModelHandler):
                 aiohttp.ClientError,
                 aiohttp.ClientResponseError,
                 aiohttp.ClientConnectorError,
-            ),
+            )
+            if GENAI_AVAILABLE
+            else tuple()
         ),
     )
     async def _make_request(
