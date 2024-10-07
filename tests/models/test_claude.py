@@ -6,7 +6,7 @@ import tenacity
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.ingestion.models import RepositoryContext
-from readmeai.models.anthropic import AnthropicHandler
+from readmeai.models.claude import AnthropicHandler
 
 
 @pytest.fixture
@@ -34,7 +34,7 @@ async def test_build_payload(anthropic_handler):
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_success(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
@@ -57,7 +57,7 @@ async def test_make_request_success(
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_api_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
@@ -78,7 +78,7 @@ async def test_make_request_api_error(
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_unexpected_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
