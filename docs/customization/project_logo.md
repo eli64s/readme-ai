@@ -6,32 +6,29 @@ A project logo is a visual representation of your project that appears at the to
 
 Use the `--image` option to select from the following logo styles:
 
+=== "Blue"
 
-<div class="grid" markdown>
+    ![Blue Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg){: style="width:100px"}
 
+=== "Gradient"
 
-=== "blue"
-        ![Blue Logo](https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg){: style="width:100px"}
+    ![Gradient Logo](https://img.icons8.com/?size=512&id=55494&format=png){: style="width:100px"}
 
-=== "gradient"
-        ![Gradient Logo](https://img.icons8.com/?size=512&id=55494&format=png){: style="width:100px"}
+=== "Black"
 
-=== "black"
-        ![Black Logo](https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png){: style="width:100px"}
+    ![Black Logo](https://img.icons8.com/external-tal-revivo-regular-tal-revivo/96/external-readme-is-a-easy-to-build-a-developer-hub-that-adapts-to-the-user-logo-regular-tal-revivo.png){: style="width:100px"}
 
-=== "cloud"
-        ![Cloud Logo](https://cdn-icons-png.flaticon.com/512/6295/6295417.png){: style="width:100px"}
+=== "Cloud"
 
-=== "purple"
-        ![Purple Logo](https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png){: style="width:100px"}
+    ![Cloud Logo](https://cdn-icons-png.flaticon.com/512/6295/6295417.png){: style="width:100px"}
 
-=== "grey"
-        ![Grey Logo](https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png){: style="width:100px"}
+=== "Purple"
 
-=== "green"
-        ![Green Logo](https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png){: style="width:100px"}
+    ![Purple Logo](https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png){: style="width:100px"}
 
-</div>
+=== "Grey"
+
+    ![Grey Logo](https://img.icons8.com/external-tal-revivo-filled-tal-revivo/96/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-filled-tal-revivo.png){: style="width:100px"}
 
 ## How It Works
 
@@ -67,7 +64,7 @@ You will be prompted to provide an image file path or URL:
 Provide an image file path or URL:
 ```
 
-### Generating a Logo with LLM
+### LLM Generated Logo
 
 To generate a logo using an LLM API (e.g., OpenAI), use the `--image llm` option:
 
@@ -81,28 +78,26 @@ This will generate a unique project logo using the specified LLM API.
 
 Here's an example of how a generated README header might look with a logo:
 
-!!! example "Generated README Header with Logo"
+!!! example
 
-    ```markdown
-    <p align="center">
-      <img src="path/to/generated/logo.png" width="200" alt="Project Logo">
-    </p>
+    === "Generated README Header with Logo"
 
-    <h1 align="center">Your Project Name</h1>
-
-    <p align="center">
-      Your project's tagline or brief description
-    </p>
-
-    <!-- Badges and other header content -->
-    ```
+        <p align="center">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai.png?raw=true" width="200" alt="Project Logo">
+        </p>
+        <h1 align="center">Your Project Name</h1>
+        <p align="center">
+        Your project's tagline or brief description
+        </p>
+        <!-- Badges and other header content -->
 
 ## LLM-Generated Logo Example
 
 Here's an example of a logo generated using the OpenAI DALL-E model:
 
+
 <figure markdown>
-  ![LLM Generated Logo](https://github.com/eli64s/readme-ai/blob/main/examples/assets/project-logo-dalle.png?raw=true){ width="300" }
+  ![LLM Generated Logo](https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai.png?raw=true){ width="300" }
   <figcaption>Logo generated using OpenAI's DALL-E model</figcaption>
 </figure>
 

@@ -60,19 +60,17 @@ theme:
     - toc.follow
     # - toc.integrate
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
       primary: black
       accent: deep-purple
       toggle:
-        icon: material/brightness-7
+        icon: material/brightness-4
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    - scheme: slate
       primary: indigo
       accent: deep-purple
       toggle:
-        icon: material/brightness-4
+        icon: material/brightness-7
         name: Switch to light mode
   font:
     text: Roboto
@@ -103,6 +101,7 @@ markdown_extensions:
   - attr_list
   - def_list
   - md_in_html
+  - codehilite
   - toc:
       permalink: true
   - pymdownx.arithmatex:

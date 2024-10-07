@@ -58,6 +58,7 @@ The `--header-style` option supports the following values:
 - **compact**: Left-aligned logo and a compact project title.
 - **modern**: Right-aligned logo with a modern aesthetic for the header.
 
+<!--
 ## Customizing Header Alignment
 
 Additionally, you can customize the alignment of the header sections using the `--align` option. Supported alignments are `center`, `left`, or `right`.
@@ -141,3 +142,4 @@ HeaderTemplate.HEADER_TEMPLATES[HeaderStyleOptions.CUSTOM] = """\
 By customizing and extending the header templates, you can fully control the look and feel of your README header to match your project’s branding and style.
 
 ---
+-->
