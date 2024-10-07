@@ -1,5 +1,6 @@
 """Anthropic API service implementation."""
 
+import logging
 from typing import Any
 
 import anthropic
@@ -14,6 +15,14 @@ from readmeai.config.settings import ConfigLoader
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
+
+_logger = logging.getLogger(__name__)
+
+try:
+    import anthropic
+except ImportError:
+    _logger.warning("Anthropic API not found, please install 'anthropic'.")
+    anthropic = None
 
 
 class AnthropicHandler(BaseModelHandler):
