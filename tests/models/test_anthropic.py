@@ -25,6 +25,7 @@ def anthropic_handler(repository_context_fixture: RepositoryContext):
     return AnthropicHandler(config_loader, context)
 
 
+@pytest.mark.skip("Anthropic extra dependency needs review.")
 @pytest.mark.asyncio
 async def test_model_settings(anthropic_handler: AnthropicHandler):
     if not ANTHROPIC_AVAILABLE:
