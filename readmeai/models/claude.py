@@ -3,7 +3,6 @@
 import logging
 from typing import Any
 
-import anthropic
 from tenacity import (
     retry,
     retry_if_exception_type,

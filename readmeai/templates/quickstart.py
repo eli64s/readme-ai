@@ -1,6 +1,7 @@
-import tomllib
 from pathlib import Path
 from string import Template
+
+import tomllib
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.generators.quickstart import QuickStartGenerator
