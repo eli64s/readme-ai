@@ -46,3 +46,7 @@ notebooks/
 readmeai/cli/commands_line.py
 readmeai/cli/interactive.py
 readmeai/config/settings/templates
+
+# Mkdocs
+.cache
+site
