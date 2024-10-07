@@ -1,7 +1,7 @@
 """Anthropic API service implementation."""
 
-import logging
-from typing import Any
+import os
+from typing import Any, Optional
 
 from tenacity import (
     retry,
@@ -15,13 +15,13 @@ from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
 
-_logger = logging.getLogger(__name__)
-
 try:
     import anthropic
+
+    ANTHROPIC_AVAILABLE = True
 except ImportError:
-    _logger.warning("Anthropic API not found, please install 'anthropic'.")
     anthropic = None
+    ANTHROPIC_AVAILABLE = False
 
 
 class AnthropicHandler(BaseModelHandler):
@@ -33,14 +33,36 @@ class AnthropicHandler(BaseModelHandler):
         self, config_loader: ConfigLoader, context: RepositoryContext
     ) -> None:
         super().__init__(config_loader, context)
-        self._model_settings()
+        self.client: Optional[Any] = None
+        self.model: str = "claude-3-opus-20240229"
+        if ANTHROPIC_AVAILABLE:
+            self._model_settings()
+        else:
+            self._logger.warning(
+                "Anthropic library is not available. Some features will be disabled."
+            )
 
     def _model_settings(self):
-        self.client = anthropic.AsyncAnthropic()
-        self.model = "claude-3-opus-20240229"
+        if not ANTHROPIC_AVAILABLE:
+            self._logger.error(
+                "Attempted to configure Anthropic model without the required library."
+            )
+            return
+
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
+            self._logger.error(
+                "ANTHROPIC_API_KEY environment variable is not set."
+            )
+            return
+
+        self.client = anthropic.AsyncAnthropic(api_key=api_key)
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
         """Build payload for POST request to the Anthropic API."""
+        if not ANTHROPIC_AVAILABLE:
+            raise RuntimeError("Anthropic library is not available.")
+
         return {
             "model": self.model,
             "max_tokens": tokens,
@@ -58,6 +80,8 @@ class AnthropicHandler(BaseModelHandler):
                 anthropic.APIConnectionError,
                 anthropic.RateLimitError,
             )
+            if ANTHROPIC_AVAILABLE
+            else tuple()
         ),
     )
     async def _make_request(
@@ -68,24 +92,33 @@ class AnthropicHandler(BaseModelHandler):
         repo_files: list[tuple[str, str]] | None,
     ) -> Any:
         """Processes Anthropic API responses and returns generated text."""
+        if not ANTHROPIC_AVAILABLE:
+            self._logger.error(
+                "Cannot make request: Anthropic library is not available."
+            )
+            return index, self.placeholder
+
+        if self.client is None:
+            self._logger.error("Anthropic client is not properly initialized.")
+            return index, self.placeholder
+
         try:
             prompt = await token_handler(self.config, index, prompt, tokens)
-
             parameters = await self._build_payload(prompt, tokens)
 
             async with self.rate_limit_semaphore:
                 response = await self.client.messages.create(**parameters)
-                data = response.content[0].text
+                data = (
+                    response.content[0].text
+                    if hasattr(response, "content")
+                    else str(response)
+                )
                 self._logger.info(
                     f"Response from Anthropic for '{index}': {data}"
                 )
                 return index, data
 
-        except (
-            anthropic.APIError,
-            anthropic.APIConnectionError,
-            anthropic.RateLimitError,
-        ) as e:
+        except () as e:
             self._logger.error(
                 f"Error processing request for '{index}': {e!r}"
             )

@@ -4,8 +4,8 @@ from readmeai.config.constants import LLMService
 from readmeai.config.settings import ConfigLoader
 from readmeai.errors import UnsupportedServiceError
 from readmeai.ingestion.models import RepositoryContext
+from readmeai.models.anthropic import AnthropicHandler
 from readmeai.models.base import BaseModelHandler
-from readmeai.models.claude import AnthropicHandler
 from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler

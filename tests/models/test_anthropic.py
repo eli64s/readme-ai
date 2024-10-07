@@ -6,7 +6,7 @@ import tenacity
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.ingestion.models import RepositoryContext
-from readmeai.models.claude import AnthropicHandler
+from readmeai.models.anthropic import AnthropicHandler
 
 
 @pytest.fixture
@@ -17,14 +17,14 @@ def anthropic_handler(repository_context_fixture: RepositoryContext):
 
 
 @pytest.mark.asyncio
-async def test_model_settings(anthropic_handler):
+async def test_model_settings(anthropic_handler: AnthropicHandler):
     anthropic_handler._model_settings()
     assert isinstance(anthropic_handler.client, anthropic.AsyncAnthropic)
     assert anthropic_handler.model == "claude-3-opus-20240229"
 
 
 @pytest.mark.asyncio
-async def test_build_payload(anthropic_handler):
+async def test_build_payload(anthropic_handler: AnthropicHandler):
     prompt = "Test prompt"
     tokens = 100
     payload = await anthropic_handler._build_payload(prompt, tokens)
@@ -34,7 +34,7 @@ async def test_build_payload(anthropic_handler):
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_success(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
@@ -57,7 +57,7 @@ async def test_make_request_success(
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_api_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
@@ -78,7 +78,7 @@ async def test_make_request_api_error(
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.claude.token_handler", new_callable=AsyncMock)
+@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
 @patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
 async def test_make_request_unexpected_error(
     mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
