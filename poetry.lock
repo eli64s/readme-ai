@@ -3247,7 +3247,11 @@ enabler = ["pytest-enabler (>=2.2)"]
 test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-itertools", "pytest (>=6,!=8.1.*)", "pytest-ignore-flaky"]
 type = ["pytest-mypy"]
 
+[extras]
+anthropic = ["anthropic"]
+google-generativeai = ["google-generativeai"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9,<4.0.0"
-content-hash = "57afcc359edf04392d17a182c692e07bdae224e32186149f7b449a9c10e8fd7b"
+content-hash = "033bd7b6db8fe318cbfc3ac042f0bd149b5b7eaa83ad6aabc775b7faceaef902"

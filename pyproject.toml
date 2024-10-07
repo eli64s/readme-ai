@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.089"
+version = "0.5.90"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -44,6 +44,13 @@ tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 tomli = {version = "*", python = "<3.11"}
 
+anthropic = {version = "*", optional = true}
+google-generativeai = {version = "*", optional = true}
+
+[tool.poetry.extras]
+anthropic = ["anthropic"]
+google-generativeai = ["google-generativeai"]
+
 [tool.poetry.group.dev.dependencies]
 mypy = "*"
 nox = "*"
@@ -64,14 +71,8 @@ mkdocs-git-revision-date-localized-plugin = "*"
 mkdocs-material = {version = "^9.5.39", extras = ["imaging"]}
 mkdocs-minify-plugin = "*"
 
-[tool.poetry.group.anthropic]
-optional = true
-
 [tool.poetry.group.anthropic.dependencies]
 anthropic = "*"
-
-[tool.poetry.group.google-generativeai]
-optional = true
 
 [tool.poetry.group.google-generativeai.dependencies]
 google-generativeai = "*"
