@@ -1,46 +1,94 @@
-# Installation
+---
+title: Installation
+---
 
 Install `readmeai` using one of the following methods:
 
-### Pip
+## <img width="3%" src="https://simpleicons.org/icons/python.svg">&emsp13;Pip
+
+Pip is the default Python package manager and recommended for installing `readmeai`:
 
 ```sh
 pip install readmeai
 ```
 
-### Pipx
+## <img width="3%" src="https://simpleicons.org/icons/pipx.svg">&emsp13;Pipx
 
-[pipx](https://pipxproject.github.io/pipx/installation/) is recommended for installing Python CLI applications:
+Alternatively, use `pipx` to install `readmeai` in an isolated environment:
 
 ```sh
 pipx install readmeai
 ```
 
-???+ tip
-      Use [pipx](https://pipx.pypa.io/stable/installation/) to install and run Python command-line applications without causing dependency conflicts with other packages!
+??? tip "Why use pipx?"
+	Using `pipx` allows you to install and run Python command-line applications in isolated environments, which helps prevent dependency conflicts with other Python projects.
 
-### From Source
+## Optional Dependencies
 
-Clone the repository and navigate to the project directory:
+To use additional LLM providers like **Anthropic** or **Google Gemini**, install the optional dependencies:
+
+**Anthropic**:
+
 ```sh
-git clone https://github.com/eli64s/readme-ai
-cd readme-ai
+pip install "readmeai[anthropic]"
 ```
 
-Install using one of the following methods:
-Using bash:
+**Google Gemini**:
+
 ```sh
-bash setup/setup.sh
+pip install pip install "readmeai[google-generativeai]"
 ```
 
-Using poetry:
-```sh
-poetry install
-```
+<!-- ## <img width="3%" src="https://simpleicons.org/icons/git.svg">&emsp13;From source
+
+You can build `readmeai` from the source code by following these steps:
+
+<details>
+  <summary>Click to expand instructions</summary>
+
+1. **Clone the repository:**
+
+   ```sh
+   ❯ git clone https://github.com/eli64s/readme-ai
+   ```
+
+2. **Navigate to the `readme-ai` directory:**
+
+   ```sh
+   ❯ cd readme-ai
+   ```
+
+3. **Install dependencies:**
+
+   ```sh
+   ❯ pip install -r setup/requirements.txt
+   ```
+
+Alternatively, the project can be setup using the bash script below:
+
+## <img width="3%" src="/docs/assets/icons/gnubash.svg">&emsp13;Bash
+
+1. **Run the setup script:**
+
+	```sh
+	❯ bash setup/setup.sh
+	```
+
+Or, use `poetry` to build the project:
+
+## <img width="3%" src="/docs/assets/icons/poetry.svg">&emsp13;Poetry
+
+1. **Install dependencies using Poetry:**
+
+	```sh
+	❯ poetry install
+	```
+
+</details>
 
 After installation, verify that readme-ai is correctly installed by running:
 ```sh
 readmeai --version
-```
+``` -->
 
-For usage instructions, see the [Usage](../usage/cli.md) documentation.
+For usage instructions, see the [Usage](../usage/cli.md) section.

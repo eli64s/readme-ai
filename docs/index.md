@@ -2,11 +2,10 @@
 title: README-AI
 ---
 
-<!-- Styled Heading Section -->
 <div style="text-align: left; padding: 1px; border-radius: 5px;">
-  <h1 style="font-size: 5em; margin-bottom: 10px;"><strong>README-AI</strong></h1>
-  <h3 style="font-style: italic; color: #555; margin-top: -20px;">Your AI-Powered README Generator</h3>
-  <h4 style="color: #777;">Designed for simplicity, customization, and developer productivity.</h4>
+  <h1 style="font-size: 3em; margin-bottom: 10px;"><strong>README-AI</strong></h1>
+  <h3 style="font-style: italic; color: #555; margin-top: -7px;">Your AI-Powered README Generator</h3>
+  <h4 style="color: #777; margin-top: -7px;">Designed for simplicity, customization, and developer productivity.</h4>
   <div style="margin-top: 5px;">
     <a href="https://github.com/eli64s/readme-ai/actions">
       <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=CICD&logoColor=white&color=4169E1" alt="github-actions">
@@ -26,34 +25,41 @@ title: README-AI
   </div>
 </div>
 
-<!--
----
-
-1. [Introduction](#introduction)
-2. [Key Features](#key-features)
-3. [Quick Start](#quick-start)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Contributing](#contributing)
-7. [License](#license)
-
--->
-
-## Introduction
-
-**README-AI** is a developer tool and framework that combines the best of both worlds: robust data processing modules and generative AI models. It is designed to streamline the documentation process and enhance developer productivity by auto-generating comprehensive `README.md` files.
+**README-AI** is a developer tool and framework that combines robust data processing modules with generative AI models. It streamlines documentation and enhances developer productivity by auto-generating comprehensive `README.md` files.
 
 With **README-AI**, you can:
 
-- **Automated Documentation**: Synchronize data from third-party sources and generates documentation automatically.
+- **Automate Documentation**: Synchronize data from third-party sources and generate documentation automatically.
+- **Customize & Flexibly Style**: Choose from dozens of options for styling, formatting, badges, header designs, and more.
+- **Support Multiple Languages & Projects**: Work across a wide range of programming languages and project types.
+- **Leverage Multiple LLMs**: Compatible with `OpenAI`, `Ollama`, `Anthropic`, `Google Gemini` and `Offline Mode`.
+- **Follow Markdown Best Practices**: Create clean, professional-looking documentation using Markdown formatting best practices.
 
-- **Customization & Flexibility**: Dozens of options for styling/formatting, badges, header designs, and more.
+## Key Features
 
-- **Language & Project Agnostic**: Works across a wide range of programming languages and project types.
+- :rocket: Automated README generation
+- :art: Customizable output and styling
+- :globe_with_meridians: Language and project agnostic
+- :brain: Multi-LLM support
+- :memo: Markdown best practices
 
-- **Multi-LLM Support**: Compatible with `OpenAI`,  `Ollama`,  `Anthropic`,  `Google Gemini` and `Offline Mode`.
+## Quick Start
 
-* **Markdown Best Practices**: Leverage best practices in Markdown formatting for clean, professional-looking documentation.
+If you're ready to jump right in, here's how to get started:
+
+### Installation
+
+```bash
+pip install readmeai
+```
+
+### Usage
+
+```bash
+readmeai -r <repository_url> -o <output_file>
+```
+
+Otherwise you can explore the [documentation](quickstart/prerequisites.md) for more detailed information. Cheers!
 
 <!--
 ## Why Use README-AI?

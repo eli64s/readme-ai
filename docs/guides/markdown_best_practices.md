@@ -225,6 +225,12 @@ $$
 
 ## Images
 
+### [Simple Icons](https://simpleicons.org/)
+
+# <img width="25" height="25" src="/docs/assets/icons/docker.svg"> Docker
+
+# Docker <img width="25" height="25" src="/docs/assets/icons/docker.svg">
+
 ### Centered Images
 
 <p align="center">

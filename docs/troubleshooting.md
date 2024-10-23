@@ -1,4 +1,6 @@
-# Getting Help
+---
+title: Troubleshooting
+---
 
 ## Help Menus
 

@@ -51,14 +51,12 @@ theme:
     - navigation.prune
     - navigation.sections
     - navigation.tabs
-    # - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
     - toc.follow
-    # - toc.integrate
   palette:
     - scheme: default
       primary: black
@@ -76,26 +74,6 @@ theme:
     text: Roboto
     code: Roboto Mono
 
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/eli64s/readme-ai
-    - icon: fontawesome/brands/python
-      link: https://pypi.org/project/readmeai/
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/zeroxeli/readme-ai
-  analytics:
-    provider: google
-    property: G-XXXXXXXXXX
-  consent:
-    title: Cookie consent
-    description: >-
-      We use cookies to recognize your repeated visits and preferences, as well
-      as to measure the effectiveness of our documentation and whether users
-      find what they're searching for. With your consent, you're helping us to
-      make our documentation better.
-    category_to_de: docs/.overrides
-
 markdown_extensions:
   - admonition
   - attr_list
@@ -110,6 +88,9 @@ markdown_extensions:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -141,6 +122,15 @@ plugins:
   - minify:
       minify_html: true
 
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eli64s/readme-ai
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/readmeai/
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/zeroxeli/readme-ai
+
 extra_css:
   - css/extra.css
 
@@ -148,35 +138,28 @@ extra_javascript:
   - js/extra.js
 
 nav:
-  - Home:
+  - HOME:
       - index.md
-      - Why readme-ai?: why.md
+      - Why README-AI?: why.md
       # - Philosophy: philosophy.md
-      - Quickstart: quickstart/prerequisites.md
-      - Getting Help: help.md
+      - Quick Start: quickstart/prerequisites.md
+      - Troubleshooting: troubleshooting.md
       - Contributing: contributing.md
-
-  - Getting Started:
+  - SETUP:
       - Prerequisites: quickstart/prerequisites.md
       - Installation: quickstart/installation.md
-      - Configuration:
-          cli.md
-          # - Overview: getting-started/configuration.md
-          # - Settings: configuration/settings.md
-          # - Templates: configuration/templates.md
-          # - Variables: configuration/variables.md
-          # - Plugins: configuration/plugins.md
-  - User Guide:
-      - CLI Usage: usage/cli.md
+  - USAGE:
+      - CLI: usage/cli.md
       - Docker: usage/docker.md
-      - Streamlit App: usage/streamlit.md
-  - Customizations:
-      - Badges: customization/badges.md
-      - Headers: customization/header.md
-      - Table of Contents: customization/table_of_contents.md
-      - Project Logo: customization/project_logo.md
-      - Emojis: customization/emojis.md
-  - Integrations:
+      - Streamlit: usage/streamlit.md
+  - CONFIGURATION:
+      - configuration/cli_reference.md
+      - Badges: configuration/badges.md
+      - Headers: configuration/header.md
+      - Table of Contents: configuration/table_of_contents.md
+      - Project Logo: configuration/project_logo.md
+      - Emojis: configuration/emojis.md
+  - INTEGRATIONS:
       - Models:
           - llms/index.md
           - OpenAI: llms/openai.md
@@ -184,11 +167,10 @@ nav:
           - Anthropic: llms/anthropic.md
           - Google Gemini: llms/google_gemini.md
       - Offline Mode: llms/offline_mode.md
+  - EXAMPLES:
+      - Gallery: examples/gallery.md
+      # - Use Cases: examples/use-cases.md
   # - Advanced Topics:
   #     - Best Practices: advanced/best-practices.md
   #     - Custom Templates: advanced/custom-templates.md
   #     - Markdown Guide: advanced/markdown-guide.md
-  - Examples:
-      - Gallery: examples/gallery.md
-      - Use Cases: examples/use-cases.md
-  - CLI Reference: cli.md

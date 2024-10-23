@@ -80,10 +80,10 @@ Here's an example of how a generated README header might look with a logo:
 
 !!! example
 
-    === "Generated README Header with Logo"
+    === "Example 1"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai-streamlit.png?raw=true" width="200" alt="Project Logo">
         </p>
         <h1 align="center">Your Project Name</h1>
         <p align="center">
@@ -91,15 +91,30 @@ Here's an example of how a generated README header might look with a logo:
         </p>
         <!-- Badges and other header content -->
 
-## LLM-Generated Logo Example
+    === "Example 2"
 
-Here's an example of a logo generated using the OpenAI DALL-E model:
+        <p align="center">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/github-readme-quotes.png?raw=true" width="200" alt="Project Logo">
+        </p>
+        <h1 align="center">Your Project Name</h1>
+        <p align="center">
+        Your project's tagline or brief description
+        </p>
+        <!-- Badges and other header content -->
+
+    === "Example 3"
+
+        <p align="center">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-streamlit-v0.5.88.png?raw=true" width="200" alt="Project Logo">
+        </p>
+        <h1 align="center">Your Project Name</h1>
+        <p align="center">
+        Your project's tagline or brief description
+        </p>
+        <!-- Badges and other header content -->
 
 
-<figure markdown>
-  ![LLM Generated Logo](https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai.png?raw=true){ width="300" }
-  <figcaption>Logo generated using OpenAI's DALL-E model</figcaption>
-</figure>
+:warning: The quality and relevance of LLM-generated logos can vary. It's a good idea to review and potentially edit the generated logo to ensure it meets your project's needs.
 
 ## Tips for Using Project Logos
 
@@ -109,6 +124,3 @@ Here's an example of a logo generated using the OpenAI DALL-E model:
 - When using LLM-generated logos, you may want to generate several options to choose from.
 - Consider how the logo will look alongside your project's badges and other README content.
 - If your project is part of a larger organization or ecosystem, consider using a logo that aligns with that branding.
-
-!!! info "Note on LLM-Generated Logos"
-The quality and relevance of LLM-generated logos can vary. It's a good idea to review and potentially edit the generated logo to ensure it meets your project's needs.

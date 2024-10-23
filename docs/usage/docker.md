@@ -3,7 +3,16 @@ hide:
   - title
 ---
 
-# Docker &nbsp;<img src="https://img.shields.io/docker/pulls/zeroxeli/readme-ai?color=2496ED&logo=docker&label=Docker%20Pulls&labelColor=2496ED&logoColor=white" alt="docker-pulls"></a>&nbsp;<a href="https://hub.docker.com/r/zeroxeli/readme-ai"><img src="https://img.shields.io/docker/image-size/zeroxeli/readme-ai?color=2496ED&logo=docker&label=Image%20Size&labelColor=2496ED&logoColor=white" alt="docker-size"></a></p>
+# <img width="25" height="25" src="/docs/assets/icons/docker.svg"> Docker
+
+<!--
+<a href="https://hub.docker.com/r/zeroxeli/readme-ai">
+  <img src="https://img.shields.io/docker/pulls/zeroxeli/readme-ai?color=2496ED&logo=docker&label=Docker%20Pulls&labelColor=2496ED&logoColor=white" alt="docker-pulls">
+</a>
+<a href="https://hub.docker.com/r/zeroxeli/readme-ai">
+  <img src="https://img.shields.io/docker/image-size/zeroxeli/readme-ai?color=2496ED&logo=docker&label=Image%20Size&labelColor=2496ED&logoColor=white" alt="docker-size">
+</a>
+-->
 
 Running readme-ai in a containerized environment using Docker offers isolation of the application and its dependencies from the host system. This section details how to pull the Docker image from Docker Hub, build the Docker image from the source code, and run the Docker container.
 
@@ -35,10 +44,10 @@ Run the readme-ai Docker container with the following command:
 
 ```sh
 docker run -it --rm \
-  -e OPENAI_API_KEY=$OPENAI_API_KEY \
-  -v "$(pwd)":/app \
-  zeroxeli/readme-ai:latest \
-  -r https://github.com/eli64s/readme-ai
+-e OPENAI_API_KEY=$OPENAI_API_KEY \
+-v "$(pwd)":/app zeroxeli/readme-ai:latest \
+-r https://github.com/eli64s/readme-ai \
+--api openai
 ```
 
 Explanation of the command arguments:

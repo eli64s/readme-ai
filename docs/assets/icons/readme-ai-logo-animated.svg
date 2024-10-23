@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="coolGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1">
+        <animate attributeName="stop-color" values="#4169E1; #8A2BE2; #4169E1" dur="10s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1">
+        <animate attributeName="stop-color" values="#8A2BE2; #4169E1; #8A2BE2" dur="10s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Semi-transparent background for visibility on both light and dark themes -->
+  <rect x="0" y="0" width="800" height="400" fill="#ffffff" opacity="0.1" rx="20" ry="20"/>
+
+  <!-- Subtle grid pattern -->
+  <g stroke="#6c7a89" stroke-width="0.5" opacity="0.3">
+    <line x1="0" y1="0" x2="800" y2="400" />
+    <line x1="800" y1="0" x2="0" y2="400" />
+    <line x1="400" y1="0" x2="400" y2="400" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+  </g>
+
+  <!-- Animated Markdown logo -->
+  <g transform="translate(300, 50) scale(1.2)">
+    <rect x="0" y="0" width="200" height="100" rx="15" stroke="url(#coolGradient)" stroke-width="8" fill="none" filter="url(#glow)">
+      <animate attributeName="stroke-dasharray" from="0 1000" to="1000 0" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <text x="35" y="75" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="url(#coolGradient)" filter="url(#glow)">M</text>
+    <path d="M125 20 L125 65 L105 65 L135 90 L165 65 L145 65 L145 20 Z" fill="url(#coolGradient)" filter="url(#glow)">
+      <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+
+  <!-- README-AI text with animation -->
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="100" font-weight="bold" text-anchor="middle" fill="url(#coolGradient)" filter="url(#glow)">
+    README-AI
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite" />
+  </text>
+
+  <!-- Decorative elements -->
+  <g stroke="url(#coolGradient)" stroke-width="2" opacity="0.3">
+    <circle cx="100" cy="100" r="50" fill="none">
+      <animate attributeName="r" values="50;55;50" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="700" cy="300" r="70" fill="none">
+      <animate attributeName="r" values="70;75;70" dur="4s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>
