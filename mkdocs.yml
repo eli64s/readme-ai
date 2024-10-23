@@ -13,7 +13,7 @@ site_dir: site/
 theme:
   name: material
   custom_dir: docs/.overrides
-  logo: assets/icons/readme.svg
+  logo: assets/icons/readme-logo-purple.svg
   icon:
     repo: fontawesome/brands/github-alt
     edit: material/pencil

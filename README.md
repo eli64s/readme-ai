@@ -28,7 +28,7 @@
 
 1. [Overview](#-overview)
 2. [Demo](#-demo)
-3. [Features](#-features)
+3. [Features](#️-features)
 4. [Getting Started](#-getting-started)
 5. [Configuration](#-configuration)
 6. [Examples](#-examples)
@@ -462,16 +462,17 @@ Refer to the [Ollama documentation](https://github.com/ollama/ollama) for more i
 
 <details closed><summary>Anthropic</summary>
 
-With Anthropic:
+1. Export your Anthropic API key:
 
 	```sh
 	❯ export ANTHROPIC_API_KEY=<your_api_key>
 	```
 
 </details>
+
 <details closed><summary>Google Gemini</summary>
 
-With Google Gemini:
+1. Export your Google Gemini API key:
 
 	```sh
 	❯ export GOOGLE_API_KEY=<your_api_key
