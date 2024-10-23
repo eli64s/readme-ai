@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.96"
+version = "0.5.97"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -108,8 +108,8 @@ sort = "cover"
 omit = [
     "**/__init__.py",
     "noxfile.py",
-    "readmeai/cli/arguments.py",
-    "readmeai/cli/commands.py",
+    "readmeai/cli/commands_line.py",
+    "readmeai/cli/interactive.py",
     "readmeai/readers/git/metadata.py",
 ]
 
