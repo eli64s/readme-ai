@@ -1,17 +1,7 @@
-import enum
 from typing import Any, ClassVar
 
+from readmeai.config.constants import HeaderStyleOptions
 from readmeai.templates.base import BaseTemplate
-
-
-class HeaderStyleOptions(str, enum.Enum):
-    """
-    Enum of supported 'Header' template styles for the README file.
-    """
-
-    CLASSIC = "classic"
-    COMPACT = "compact"
-    MODERN = "modern"
 
 
 class HeaderTemplate(BaseTemplate):
@@ -20,38 +10,52 @@ class HeaderTemplate(BaseTemplate):
     """
 
     HEADER_TEMPLATES: ClassVar[dict] = {
+        HeaderStyleOptions.ASCII: """\
+<div align="{align}">\n{image}\n</div>
+<p align="{align}">\n\t<em>{slogan}</em>\n</p>
+<p align="{align}">\n\t{shields_icons}</p>
+<p align="{align}">{badges_tech_stack_text}</p>
+<p align="{align}">\n\t{badges_tech_stack}</p>
+<br>
+""",
         HeaderStyleOptions.CLASSIC: """\
 <p align="{align}">
-  <img src="{image}" width="{image_width}" alt="{repo_name}-logo">
+    <img src="{image}" align="{align}" width="{image_width}">
 </p>
-<p align="{align}">
-    <h1 align="{align}">{repo_name}</h1>
-</p>
-<p align="{align}">
-    <em>{slogan}</em>
-</p>
+<p align="{align}"><h1 align="{align}">{repo_name}</h1></p>
+<p align="{align}">\n\t<em>{slogan}</em>\n</p>
 <p align="{align}">\n\t{shields_icons}</p>
+<p align="{align}">{badges_tech_stack_text}</p>
 <p align="{align}">\n\t{badges_tech_stack}</p>
 <br>
 """,
         HeaderStyleOptions.COMPACT: """\
-[<img src="{image}" align="left" width="{image_width}" padding="20">]()
-
-## &nbsp;&nbsp; {repo_name}
-
-&nbsp;&nbsp;&nbsp;&nbsp; *{slogan}*
-
-<p align="left">&nbsp;&nbsp;\n\t{shields_icons}</p>
-<br>
+<div align="left">
+<img src="{image}" width="{image_width}" align="left" style="margin-right: 15px"/>
+<h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">{repo_name}</h2>
+<p align="left">\n\t<em>{slogan}</em>\n</p>
+<p align="left">\n\t{shields_icons}</p>
+<p align="left">{badges_tech_stack_text}</p>
+<p align="left">\n\t{badges_tech_stack}</p>
+</div>
+<br clear="left"/>
 """,
-        HeaderStyleOptions.MODERN.value: """\
-[<img src="{image}" align="right" width="25%" padding-right="350">]()
-
-# `{repo_name}`
-
-#### {slogan}
-
+        HeaderStyleOptions.MODERN: """\
+<div align="left" style="position: relative;">
+<img src="{image}" align="right" width="{image_width}" style="margin: -20px 0 0 20px;">
+<h1>{repo_name}</h1>
+<p align="left">\n\t<em>{slogan}</em>\n</p>
+<p align="left">\n\t{shields_icons}</p>
+<p align="left">{badges_tech_stack_text}</p>
+<p align="left">\n\t{badges_tech_stack}</p>
+</div>
+<br clear="right">
+""",
+        HeaderStyleOptions.SVG: """\
+<div align="{align}">\n\t<img src="{image}">\n</div>
+<p align="{align}">\n\t<em>{slogan}</em>\n</p>
 <p align="{align}">\n\t{shields_icons}</p>
+<p align="{align}">{badges_tech_stack_text}</p>
 <p align="{align}">\n\t{badges_tech_stack}</p>
 <br>
 """,

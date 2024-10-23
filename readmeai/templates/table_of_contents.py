@@ -1,20 +1,8 @@
-import enum
 import re
 from typing import Any, ClassVar
 
+from readmeai.config.constants import TocStyleOptions
 from readmeai.templates.base import BaseTemplate
-
-
-class TocStyleOptions(str, enum.Enum):
-    """
-    Enum of supported 'Table of Contents' templates for the README file.
-    """
-
-    BULLET = "bullet"
-    FOLD = "fold"
-    LINKS = "links"
-    NUMBER = "number"
-    ROMAN = "roman"
 
 
 class TocTemplate(BaseTemplate):

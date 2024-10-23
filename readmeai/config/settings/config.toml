@@ -69,13 +69,8 @@ use_json = true
 
 # Markdown Configuration
 [md]
-badges_tech_stack = """
-\t<em>Built with the tools and technologies:</em>
-</p>
-<p align="{align}">
-\t{badges_tech_stack}
-"""
-
+badges_tech_stack_text = "Built with the tools and technologies:"
+badges_tech_stack = """{badges_tech_stack}"""
 github_stats = """
 ![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 ![GitHub Stars](https://img.shields.io/github/stars/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})

@@ -7,6 +7,7 @@ import click
 from readmeai import __version__
 from readmeai.config.constants import (
     BadgeStyleOptions,
+    HeaderStyleOptions,
     ImageOptions,
     LLMService,
 )
@@ -122,7 +123,10 @@ emojis = click.option(
 header_style = click.option(
     "-hs",
     "--header-style",
-    type=click.Choice(["classic", "compact", "modern"], case_sensitive=False),
+    type=click.Choice(
+        [opt.name for opt in HeaderStyleOptions],
+        case_sensitive=False,
+    ),
     default="classic",
     help="Header template styles.",
 )
@@ -152,7 +156,6 @@ image = click.option(
         Project logo image displayed in the README file header. The following options are currently supported:\n
         - CUSTOM (provide local image path or URL) \n
         - LLM (generate project logo using LLM API) \n
-        - BANNER \n
         - BLACK \n
         - BLUE \n
         - CLOUD \n

@@ -18,13 +18,20 @@ from pydantic import (
 )
 from pydantic_extra_types.color import Color
 
-from readmeai.config.constants import BadgeStyleOptions, ImageOptions
+from readmeai.config.constants import (
+    BadgeStyleOptions,
+    HeaderStyleOptions,
+    ImageOptions,
+    TocStyleOptions,
+)
 from readmeai.errors import GitValidationError
+from readmeai.generators.banner import (
+    convert_svg_to_html,
+    generate_ascii_banner,
+    generate_ascii_box_banner,
+)
 from readmeai.logger import get_logger
 from readmeai.readers.git.providers import GitURL, parse_git_url
-from readmeai.templates.banner import convert_svg_to_html
-from readmeai.templates.header import HeaderStyleOptions
-from readmeai.templates.table_of_contents import TocStyleOptions
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.file_resource import get_resource_path
 
@@ -64,7 +71,7 @@ class GitSettings(BaseModel):
     full_name: str | None = None
     host_domain: str | None = None
     host: str | None = None
-    name: str | None = None
+    name: str = ""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -109,6 +116,7 @@ class MarkdownSettings(BaseModel):
         default=BadgeStyleOptions.DEFAULT, description="Badge icon style type."
     )
     badges_tech_stack: str
+    badges_tech_stack_text: str
     contribute: str
     emojis: bool = Field(
         default=False, description="Enable emoji prefixes for headers."
@@ -133,7 +141,7 @@ class MarkdownSettings(BaseModel):
     shieldsio_icons: str
     skill_icons: str
     slogan: str = Field(default="❯ INSERT-PROJECT-SLOGAN")
-    tables: str = Field(default="", description="Markdown table options.")
+    tables: str = Field(default="❯ INSERT-PROJECT-TABLES")
     toc_style: str = Field(default=TocStyleOptions.BULLET)
     tree: str
     tree_depth: PositiveInt = Field(default=2, ge=1, le=5)
@@ -187,21 +195,36 @@ class Settings(BaseModel):
     )
 
     @model_validator(mode="after")
-    def validate_markdown(self) -> Self:
-        """Model validator to set conditional settings."""
-        image_path = str(self.md.image)
-        if image_path == ImageOptions.LLM.name:
-            self.md.image_width = "60%"
-
-        if image_path == ImageOptions.BANNER.name:
+    def generate_banner(self) -> Self:
+        """Generates the project banner based on the settings."""
+        header_style = self.md.header_style.lower()
+        if header_style == HeaderStyleOptions.ASCII.value:
+            self.md.image = generate_ascii_banner(self.git.name)
+            self.md.header_style = HeaderStyleOptions.ASCII
+        elif header_style == HeaderStyleOptions.ASCII_BOX.value:
+            self.md.image = generate_ascii_box_banner(self.git.name)
+            self.md.header_style = HeaderStyleOptions.ASCII
+        elif header_style == HeaderStyleOptions.SVG.value:
             self.md.image = convert_svg_to_html(
-                title=str(self.git.name),
-                output_svg_path=f"{self.git.name}-banner.svg",
+                self.git.name, f"{self.git.name}-banner.svg"
             )
-            self.md.image_width = "80%"
-
-        if self.md.header_style == HeaderStyleOptions.MODERN.value:
-            self.md.align = "left"
+            self.md.header_style = HeaderStyleOptions.SVG
+        elif (
+            header_style
+            in [
+                HeaderStyleOptions.CLASSIC.value,
+                HeaderStyleOptions.COMPACT.value,
+                HeaderStyleOptions.MODERN.value,
+            ]
+            or self.md.image == ImageOptions.LLM.value
+        ):
+            self.md.image_width = "30%"
+            if header_style == HeaderStyleOptions.CLASSIC.value:
+                self.md.header_style = HeaderStyleOptions.CLASSIC
+            elif header_style == HeaderStyleOptions.COMPACT.value:
+                self.md.header_style = HeaderStyleOptions.COMPACT
+            elif header_style == HeaderStyleOptions.MODERN.value:
+                self.md.header_style = HeaderStyleOptions.MODERN
 
         return self
 

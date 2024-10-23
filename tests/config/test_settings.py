@@ -1,11 +1,14 @@
 import pytest
 from pydantic import ValidationError
 
-from readmeai.config.constants import BadgeStyleOptions, ImageOptions
+from readmeai.config.constants import (
+    BadgeStyleOptions,
+    HeaderStyleOptions,
+    ImageOptions,
+    TocStyleOptions,
+)
 from readmeai.config.settings import GitSettings, MarkdownSettings, Settings
 from readmeai.errors import GitValidationError
-from readmeai.templates.header import HeaderStyleOptions
-from readmeai.templates.table_of_contents import TocStyleOptions
 
 
 @pytest.fixture
@@ -41,6 +44,7 @@ def valid_settings_dict():
             "badge_color": "blue",
             "badge_style": BadgeStyleOptions.DEFAULT,
             "badges_tech_stack": "",
+            "badges_tech_stack_text": "",
             "contribute": "",
             "emojis": False,
             "features": "Test features",
@@ -86,9 +90,8 @@ def test_git_settings_invalid_repository():
 @pytest.mark.parametrize(
     "image, expected_width",
     [
-        (ImageOptions.LLM, "60%"),
-        (ImageOptions.BANNER, "80%"),
-        (ImageOptions.BLUE, "20%"),
+        (ImageOptions.LLM, "30%"),
+        (ImageOptions.BLUE, "30%"),
     ],
 )
 def test_markdown_settings_image_width(
@@ -103,7 +106,8 @@ def test_markdown_settings_image_width(
     "header_style, expected_align",
     [
         (HeaderStyleOptions.CLASSIC, "center"),
-        (HeaderStyleOptions.MODERN, "left"),
+        (HeaderStyleOptions.COMPACT, "center"),
+        (HeaderStyleOptions.MODERN, "center"),
     ],
 )
 def test_markdown_settings_header_style(

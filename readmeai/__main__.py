@@ -70,6 +70,8 @@ async def readme_generator(config: ConfigLoader, output_file: str) -> None:
 
         if should_generate_image(config):
             await generate_image(config)
+        if config.config.md.image in [None, "", ImageOptions.LLM.value]:
+            config.config.md.image = ImageOptions.BLUE.value
 
         readme_md_content = MarkdownBuilder(
             config, context, file_summaries, temp_dir
@@ -85,8 +87,6 @@ async def generate_image(config: ConfigLoader) -> None:
     async with DalleHandler(config) as dalle:
         image_url = await dalle._make_request()
         config.config.md.image = await dalle.download(image_url)
-        if config.config.md.image == ImageOptions.LLM.value:
-            config.config.md.image = ImageOptions.BLUE.value
 
 
 def should_generate_image(config: ConfigLoader) -> bool:

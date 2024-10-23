@@ -63,6 +63,7 @@ class MarkdownBuilder:
             "slogan": self.md.slogan,
             "shields_icons": md_shields,
             "badges_tech_stack": md_badges,
+            "badges_tech_stack_text": self.md.badges_tech_stack_text,
         }
         return self.header_template.render(header_data)
 

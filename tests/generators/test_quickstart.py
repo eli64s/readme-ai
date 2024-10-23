@@ -13,9 +13,9 @@ def test_quickstart_generator_init(
         for language_name in ["python", "sql", "shell", "cpp", "java"]
     )
     assert quickstart_generator.default_commands == {
-        "install": "echo 'INSERT INSTALL COMMAND HERE'",
-        "usage": "echo 'INSERT RUN COMMAND HERE'",
-        "test": "echo 'INSERT TEST COMMAND HERE'",
+        "install": "```sh\n❯ echo 'INSERT INSTALL COMMAND HERE'\n```",
+        "usage": "```sh\n❯ echo 'INSERT RUN COMMAND HERE'\n```",
+        "test": "```sh\n❯ echo 'INSERT TEST COMMAND HERE'\n```",
     }
 
 

@@ -3,9 +3,9 @@
 # -- Docker --------------------------------------------------------------------
 
 [default]
-install = "echo 'INSERT INSTALL COMMAND HERE'"
-usage = "echo 'INSERT RUN COMMAND HERE'"
-test = "echo 'INSERT TEST COMMAND HERE'"
+install = "```sh\n❯ echo 'INSERT INSTALL COMMAND HERE'\n```"
+usage = "```sh\n❯ echo 'INSERT RUN COMMAND HERE'\n```"
+test = "```sh\n❯ echo 'INSERT TEST COMMAND HERE'\n```"
 
 [containers]
 name = "Docker"
