@@ -31,12 +31,14 @@ class HeaderTemplate(BaseTemplate):
 """,
         HeaderStyleOptions.COMPACT: """\
 <div align="left">
-<img src="{image}" width="{image_width}" align="left" style="margin-right: 15px"/>
-<h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">{repo_name}</h2>
-<p align="left">\n\t<em>{slogan}</em>\n</p>
-<p align="left">\n\t{shields_icons}</p>
-<p align="left">{badges_tech_stack_text}</p>
-<p align="left">\n\t{badges_tech_stack}</p>
+    <img src="{image}" width="{image_width}" align="left" style="margin-right: 15px"/>
+    <div style="display: inline-block;">
+        <h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">{repo_name}</h2>
+        <p>\n\t<em>{slogan}</em>\n</p>
+        <p>\n\t{shields_icons}</p>
+        <p>{badges_tech_stack_text}</p>
+        <p>\n\t{badges_tech_stack}</p>
+    </div>
 </div>
 <br clear="left"/>
 """,

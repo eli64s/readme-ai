@@ -218,13 +218,15 @@ class Settings(BaseModel):
             ]
             or self.md.image == ImageOptions.LLM.value
         ):
-            self.md.image_width = "30%"
             if header_style == HeaderStyleOptions.CLASSIC.value:
                 self.md.header_style = HeaderStyleOptions.CLASSIC
+                self.md.image_width = "30%"
             elif header_style == HeaderStyleOptions.COMPACT.value:
                 self.md.header_style = HeaderStyleOptions.COMPACT
+                self.md.image_width = "40%"
             elif header_style == HeaderStyleOptions.MODERN.value:
                 self.md.header_style = HeaderStyleOptions.MODERN
+                self.md.image_width = "30%"
 
         return self
 
