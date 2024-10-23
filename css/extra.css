@@ -33,7 +33,7 @@ body {
     font-feature-settings: "kern", "liga", "clig", "calt";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 .md-grid {
