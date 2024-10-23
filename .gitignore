@@ -42,11 +42,12 @@ notebooks/
 .pytest_cache/
 .ruff_cache/
 
-# Work In Progress (WIP)
-readmeai/cli/commands_line.py
-readmeai/cli/interactive.py
-readmeai/config/settings/templates
-
 # Mkdocs
 .cache
 site
+
+# Work In Progress (WIP)
+readmeai/cli/commands_line.py
+readmeai/cli/interactive.py
+readmeai/config/settings/prompts
+readmeai/config/settings/templates
