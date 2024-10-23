@@ -54,7 +54,7 @@ class HeaderTemplate(BaseTemplate):
 <br clear="right">
 """,
         HeaderStyleOptions.SVG: """\
-<div align="{align}">\n\t<img src="{image}">\n</div>
+{image}
 <p align="{align}">\n\t<em>{slogan}</em>\n</p>
 <p align="{align}">\n\t{shields_icons}</p>
 <p align="{align}">{badges_tech_stack_text}</p>

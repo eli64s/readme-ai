@@ -2,17 +2,17 @@
 title: "Headers"
 ---
 
-# Header Template Styles
+# Headers
 
 A header template style determines how your project's header section is structured and displayed in the README file. README-AI offers several pre-designed header styles to help brand your project and create a professional appearance.
 
-## Default Options
+## Header Style Options
 
 !!! example
 
-    <p>Use the `--header-style` option to select from the following styles:</p>
+    <p>Use the `--header-style` option to select from the following markdown header templates:</p>
 
-    === "Classic"
+    === "CLASSIC"
 
 		<p align="center">
 		<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="20%" alt="README-AI-logo">
@@ -78,7 +78,7 @@ A header template style determines how your project's header section is structur
 		</ul>
 		</div>
 
-	=== "Compact"
+	=== "COMPACT"
 
 		<div align="left">
 			<img src="https://img.freepik.com/premium-vector/bunch-balloons-icon-vector-illustration_444196-2020.jpg?w=360" width="25%" align="left" style="margin-right: 15px"/>
@@ -138,7 +138,7 @@ A header template style determines how your project's header section is structur
 		</ul>
 		</div>
 
-	=== "Modern"
+	=== "MODERN"
 
 		<div align="left" style="position: relative;">
 		<img src="https://flink.apache.org/img/logo/png/1000/flink_squirrel_1000.png" align="right" width="30%" style="margin: -20px 0 0 20px;">
@@ -197,27 +197,35 @@ A header template style determines how your project's header section is structur
 
 	=== "SVG"
 
-		<div align="center">
-			<img src="/docs/assets/icons/readme-svg-banner.svg" width="100%">
-		</div>
 		<p align="center">
-			<em>README magic, AI-powered documentation made easy!</em>
+			<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KICAgIDxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODAwIDIwMCI+CiAgICAgICAgPGRlZnM+CiAgICAgICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmctZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzQxNThEMDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdHlsZT0ic3RvcC1jb2xvcjojQzg1MEMwO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRkZDQzcwO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgICAgICA8ZmlsdGVyIGlkPSJzaGFkb3ciPgogICAgICAgICAgICAgICAgPGZlRHJvcFNoYWRvdyBkeD0iMCIgZHk9IjQiIHN0ZERldmlhdGlvbj0iNCIgZmxvb2Qtb3BhY2l0eT0iMC4yNSIgLz4KICAgICAgICAgICAgPC9maWx0ZXI+CiAgICAgICAgPC9kZWZzPgogICAgICAgIDxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2JnLWdyYWRpZW50KSIgcng9IjE1IiByeT0iMTUiLz4KICAgICAgICA8dGV4dCB4PSI0MDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQ4IgogICAgICAgIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIgogICAgICAgIGZpbGw9IiNGRkZGRkYiIGZpbHRlcj0idXJsKCNzaGFkb3cpIj5SRUFETUUtQUk8L3RleHQ+CiAgICA8L3N2Zz4=" alt="readme-ai-banner" width="800">
 		</p>
 		<p align="center">
-			<img src="https://img.shields.io/github/license/eli64s/readme-ai-streamlit?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=blueviolet" alt="license">
-			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai-streamlit?style=for-the-badge&logo=git&logoColor=white&color=blueviolet" alt="last-commit">
-			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-top-language">
-			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-language-count">
+			<em><code>❯ REPLACE-ME</code></em>
+		</p>
+		<p align="center">
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&logo=opensourceinitiative&logoColor=white&color=2496ED" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&logo=git&logoColor=white&color=2496ED" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=2496ED" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=2496ED" alt="repo-language-count">
 		</p>
 		<p align="center">Built with the tools and technologies:</p>
 		<p align="center">
-			<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white" alt="Streamlit">
-			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black" alt="precommit">
-			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=for-the-badge&logo=Ruff&logoColor=black" alt="Ruff">
-			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
-			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="Pytest">
-			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python">
-			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=for-the-badge&logo=Poetry&logoColor=white" alt="Poetry">
+			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat-square&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
+			<br>
+			<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry">
+			<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+			<img src="https://img.shields.io/badge/Material%20for%20MkDocs-526CFE.svg?style=flat-square&logo=Material-for-MkDocs&logoColor=white" alt="Material%20for%20MkDocs">
+			<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI">
+			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
+			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
 		</p>
 		<br>
 		<hr>
