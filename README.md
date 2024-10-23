@@ -163,7 +163,7 @@ Let's take a look at some possible customizations created by readme-ai:
     <td colspan="2" align="center">
       <img src="https://raw.githubusercontent.com/eli64s/readme-ai/refs/heads/main/docs/assets/images/headers/modern-flat-square.png" alt="readme-header-style-modern" width="900">
       <br>
-      <code>--image custom --badge-color BA0098 --badge-style flat-square --header-style modern --toc-style fold</code>
+      <code>-i custom -bc BA0098 -bs flat-square -hs modern -ts fold</code>
     </td>
   </tr>
   <!-- ROW -->
@@ -338,7 +338,7 @@ Choose your preferred installation method:
 [![pip](https://img.shields.io/badge/PyPI-3775A9.svg?style=flat&logo=PyPI&logoColor=white)](https://pypi.org/project/readmeai/)
 -->
 
-### <img width="2%" src="/docs/assets/icons/python.svg">&emsp13;Pip
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/python.svg">&emsp13;Pip
 
 ```sh
 ❯ pip install readmeai
@@ -349,7 +349,7 @@ Choose your preferred installation method:
 [![pipx](https://img.shields.io/badge/pipx-2CFFAA.svg?style=flat&logo=pipx&logoColor=black)](https://pipxproject.github.io/pipx/installation/)
 -->
 
-### <img width="2%" src="/docs/assets/icons/pipx.svg">&emsp13;Pipx
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/pipx.svg">&emsp13;Pipx
 
 ```sh
 ❯ pipx install readmeai
@@ -363,7 +363,7 @@ Choose your preferred installation method:
 [![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)](https://hub.docker.com/r/zeroxeli/readme-ai)
  -->
 
-### <img width="2%" src="/docs/assets/icons/docker.svg">&emsp13;Docker
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/docker.svg">&emsp13;Docker
 
 Pull the latest Docker image from the Docker Hub repository.
 
@@ -371,7 +371,7 @@ Pull the latest Docker image from the Docker Hub repository.
 ❯ docker pull zeroxeli/readme-ai:latest
 ```
 
-### <img width="2%" src="/docs/assets/icons/git.svg">&emsp13;From source
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/git.svg">&emsp13;From source
 
 <details><summary>Click to expand instructions</summary>
 
@@ -395,7 +395,7 @@ Pull the latest Docker image from the Docker Hub repository.
 
 Alternatively, the project can be setup using the bash script below:
 
-### <img width="2%" src="/docs/assets/icons/gnubash.svg">&emsp13;Bash
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/gnubash.svg">&emsp13;Bash
 
 1. **Run the setup script:**
 
@@ -405,7 +405,7 @@ Alternatively, the project can be setup using the bash script below:
 
 Or, use `poetry` to build the project:
 
-### <img width="2%" src="/docs/assets/icons/poetry.svg">&emsp13;Poetry
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/poetry.svg">&emsp13;Poetry
 
 1. **Install dependencies using Poetry:**
 
@@ -534,7 +534,7 @@ Add more customization options:
            --emojis
 ```
 
-### <img width="2%" src="/docs/assets/icons/docker.svg">&emsp13;Docker
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/docker.svg">&emsp13;Docker
 
 Run the Docker container with the OpenAI client:
 
@@ -546,11 +546,11 @@ Run the Docker container with the OpenAI client:
 	--api openai
 ```
 
-### <img width="2%" src="/docs/assets/icons/git.svg">&emsp13;From source
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/git.svg">&emsp13;From source
 
 <details closed><summary><i>Click to expand instructions</i></summary>
 
-### <img width="2%" src="/docs/assets/icons/gnubash.svg">&emsp13;Bash
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/gnubash.svg">&emsp13;Bash
 
 If you installed the project from source with the bash script, run the following command:
 
@@ -566,7 +566,7 @@ If you installed the project from source with the bash script, run the following
    ❯ python3 -m readmeai.cli.main -r https://github.com/eli64s/readme-ai
 	```
 
-### <img width="2%" src="/docs/assets/icons/poetry.svg">&emsp13;Poetry
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/poetry.svg">&emsp13;Poetry
 
 1. **Activate the virtual environment:**
 
@@ -582,7 +582,7 @@ If you installed the project from source with the bash script, run the following
 
 </details>
 
-### <img width="2%" src="/docs/assets/icons/streamlit.svg">&emsp13;Streamlit
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/streamlit.svg">&emsp13;Streamlit
 
 Try readme-ai directly in your browser, no installation required. See the <a href="https://github.com/eli64s/readme-ai-streamlit">readme-ai-streamlit</a> repository for more details.
 

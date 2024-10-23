@@ -3,7 +3,7 @@ hide:
   - title
 ---
 
-# <img width="25" height="25" src="/docs/assets/icons/docker.svg"> Docker
+# <img width="25" height="25" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/assets/icons/docker.svg"> Docker
 
 <!--
 <a href="https://hub.docker.com/r/zeroxeli/readme-ai">

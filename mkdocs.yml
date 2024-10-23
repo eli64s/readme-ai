@@ -153,7 +153,7 @@ nav:
       - Docker: usage/docker.md
       - Streamlit: usage/streamlit.md
   - CONFIGURATION:
-      - configuration/cli_reference.md
+      - configuration/index.md
       - Badges: configuration/badges.md
       - Headers: configuration/header.md
       - Table of Contents: configuration/table_of_contents.md

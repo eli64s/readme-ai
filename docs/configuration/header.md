@@ -1,62 +1,455 @@
 ---
-title: "Header Templates"
+title: "Headers"
 ---
 
-# Header Templates
+# Header Template Styles
 
-A *header* is the first section of a README file that typically contains the project's logo, name, slogan, and badges. It serves as an introduction to the project and provides context for its contents.
+A header template style determines how your project's header section is structured and displayed in the README file. README-AI offers several pre-designed header styles to help brand your project and create a professional appearance.
 
-README-AI allows you to customize the style of the header in your generated README files by selecting from a set of predefined header templates. This feature lets you control the layout and appearance of your project's header section, including the alignment of logos, repository names, and additional badges or icons.
+## Default Options
 
-## CLI Usage for Header Styles
+!!! example
 
-When using the `readmeai` CLI, you can define the header style using the `--header-style` option. This enables you to select from a variety of predefined styles.
+    <p>Use the `--header-style` option to select from the following styles:</p>
 
-### Supported Header Styles:
+    === "Classic"
 
-1. **Classic** (`classic`)
-   - A traditional, centered layout with a large project logo, title, and badges. Default style if no header style is specified.
+		<p align="center">
+		<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="20%" alt="README-AI-logo">
+		</p>
+		<p align="center">
+			<h1 align="center">README-AI</h1>
+		</p>
+		<p align="center">
+			<em>Where Documentation Meets Innovation!</em>
+		</p>
+		<p align="center">
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat&logo=opensourceinitiative&logoColor=white&color=60A5FA" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat&logo=git&logoColor=white&color=60A5FA" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat&color=60A5FA" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat&color=60A5FA" alt="repo-language-count">
+		</p>
+		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white" alt="Docker">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
+			<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+			<br>
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&logo=Poetry&logoColor=white" alt="Poetry">
+			<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+			<img src="https://img.shields.io/badge/Material%20for%20MkDocs-526CFE.svg?style=flat&logo=Material-for-MkDocs&logoColor=white" alt="Material%20for%20MkDocs">
+			<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat&logo=OpenAI&logoColor=white" alt="OpenAI">
+			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
+			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat&logo=Pydantic&logoColor=white" alt="Pydantic">
+		</p>
+		<hr>
 
-2. **Compact** (`compact`)
-   - A space-efficient layout with the logo aligned to the left, followed by the project name and badges in a smaller footprint.
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Centered alignment</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Logo above project name</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Traditional README layout</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Ideal for most projects</span>
+			</div>
+			</li>
+		</ul>
+		</div>
 
-3. **Modern** (`modern`)
-   - A sleek and modern look with the logo aligned to the right and a minimalistic header format.
+	=== "Compact"
 
-## Example CLI Command
+		<div align="left">
+			<img src="https://img.freepik.com/premium-vector/bunch-balloons-icon-vector-illustration_444196-2020.jpg?w=360" width="25%" align="left" style="margin-right: 15px"/>
+			<div style="display: inline-block;">
+				<h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">README-AI-STREAMLIT</h2>
+				<p>
+			<em>Streamlining README creation with AI magic!</em>
+		</p>
+				<p>
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai-streamlit?style=flat-square&logo=opensourceinitiative&logoColor=white&color=5D3FD3" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai-streamlit?style=flat-square&logo=git&logoColor=white&color=5D3FD3" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=flat-square&color=5D3FD3" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=flat-square&color=5D3FD3" alt="repo-language-count">
+		</p>
+				<p>Built with the tools and technologies:</p>
+				<p>
+			<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=flat-square&logo=Streamlit&logoColor=white" alt="Streamlit">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat-square&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry">
+		</p>
+			</div>
+		</div>
+		<br clear="left"/>
+		<hr>
 
-To generate a README file with the **Modern** header style, run the following command:
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Left-aligned layout</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Logo and title on same line</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Space-efficient design</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Perfect for smaller README files</span>
+			</div>
+			</li>
+		</ul>
+		</div>
+
+	=== "Modern"
+
+		<div align="left" style="position: relative;">
+		<img src="https://flink.apache.org/img/logo/png/1000/flink_squirrel_1000.png" align="right" width="30%" style="margin: -20px 0 0 20px;">
+		<h1>PYFLINK-POC</h1>
+		<p align="left">
+			<em>Streamlining data flow with PyFlink power!</em>
+		</p>
+		<p align="left">
+			<img src="https://img.shields.io/github/license/eli64s/pyflink-poc?style=flat&logo=opensourceinitiative&logoColor=white&color=E30B5C" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/pyflink-poc?style=flat&logo=git&logoColor=white&color=E30B5C" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-language-count">
+		</p>
+		<p align="left">Built with the tools and technologies:</p>
+		<p align="left">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
+			<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+			<img src="https://img.shields.io/badge/pandas-150458.svg?style=flat&logo=pandas&logoColor=white" alt="pandas">
+			<img src="https://img.shields.io/badge/Apache%20Kafka-231F20.svg?style=flat&logo=Apache-Kafka&logoColor=white" alt="Apache%20Kafka">
+			<img src="https://img.shields.io/badge/Apache%20Flink-E6526F.svg?style=flat&logo=Apache-Flink&logoColor=white" alt="Apache%20Flink">
+		</p>
+		</div>
+		<br clear="right">
+		<hr>
+
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Left-aligned text</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Logo floated to the right</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Contemporary asymmetric design</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Great for documentation sites</span>
+			</div>
+			</li>
+		</ul>
+		</div>
+
+	=== "SVG"
+
+		<div align="center">
+			<img src="/docs/assets/icons/readme-svg-banner.svg" width="100%">
+		</div>
+		<p align="center">
+			<em>README magic, AI-powered documentation made easy!</em>
+		</p>
+		<p align="center">
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai-streamlit?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=blueviolet" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai-streamlit?style=for-the-badge&logo=git&logoColor=white&color=blueviolet" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-language-count">
+		</p>
+		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">
+			<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white" alt="Streamlit">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=for-the-badge&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=for-the-badge&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=for-the-badge&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white" alt="Python">
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=for-the-badge&logo=Poetry&logoColor=white" alt="Poetry">
+		</p>
+		<br>
+		<hr>
+
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Full-width SVG banner support</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Centered alignment</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Scalable vector graphics</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Ideal for custom branding</span>
+			</div>
+			</li>
+		</ul>
+		</div>
+
+	=== "ASCII"
+
+		<div align="center">
+		<pre>
+		██████ ██████   ██   ████   ██   ██ ██████          ██   ██████
+		██  ██ ██      ████  ██  ██ ███ ███ ██             ████    ██
+		██████ ████   ██  ██ ██  ██ ██ █ ██ ████   ██████ ██  ██   ██
+		██ ██  ██     ██████ ██  ██ ██   ██ ██            ██████   ██
+		██  ██ ██████ ██  ██ ████   ██   ██ ██████        ██  ██ ██████
+		</pre>
+		</div>
+		<p align="center">
+			<em><code>❯ REPLACE-ME</code></em>
+		</p>
+		<p align="center">
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0bc5e2" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&logo=git&logoColor=white&color=0bc5e2" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-language-count">
+		</p>
+		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">
+			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat-square&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
+			<br>
+			<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry">
+			<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+			<img src="https://img.shields.io/badge/Material%20for%20MkDocs-526CFE.svg?style=flat-square&logo=Material-for-MkDocs&logoColor=white" alt="Material%20for%20MkDocs">
+			<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI">
+			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
+			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
+		</p>
+		<br>
+		<hr>
+
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Text-based art logo</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Minimal and retro style</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">No image dependencies</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Good for terminal-focused tools</span>
+			</div>
+			</li>
+		</ul>
+		</div>
+
+
+	=== "ASCII_BOX"
+
+		<div align="center">
+		<pre>
+		╔════════════════════════════════════════════════════════════════════╗
+		║                                                                    ║
+		║  ██████ ██████   ██   ████   ██   ██ ██████          ██   ██████   ║
+		║  ██  ██ ██      ████  ██  ██ ███ ███ ██             ████    ██     ║
+		║  ██████ ████   ██  ██ ██  ██ ██ █ ██ ████   ██████ ██  ██   ██     ║
+		║  ██ ██  ██     ██████ ██  ██ ██   ██ ██            ██████   ██     ║
+		║  ██  ██ ██████ ██  ██ ████   ██   ██ ██████        ██  ██ ██████   ║
+		║                                                                    ║
+		║                                                                    ║
+		╚════════════════════════════════════════════════════════════════════╝
+		</pre>
+		</div>
+		<p align="center">
+			<em><code>❯ REPLACE-ME</code></em>
+		</p>
+		<p align="center">
+			<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&logo=opensourceinitiative&logoColor=white&color=0bc5e2" alt="license">
+			<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&logo=git&logoColor=white&color=0bc5e2" alt="last-commit">
+			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-top-language">
+			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-language-count">
+		</p>
+		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">
+			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
+			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
+			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat-square&logo=Ruff&logoColor=black" alt="Ruff">
+			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
+			<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest">
+			<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker">
+			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python">
+			<br>
+			<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions">
+			<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry">
+			<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP">
+			<img src="https://img.shields.io/badge/Material%20for%20MkDocs-526CFE.svg?style=flat-square&logo=Material-for-MkDocs&logoColor=white" alt="Material%20for%20MkDocs">
+			<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI">
+			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
+			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
+		</p>
+		<br>
+		<hr>
+
+		<div class="feature-container">
+		<h3>Features:</h3>
+		<ul class="feature-list">
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Text-based art logo</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Minimal and retro style</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">No image dependencies</span>
+			</div>
+			</li>
+			<li>
+			<div class="feature-item">
+				<span class="feature-icon">◎</span>
+				<span class="feature-text">Good for terminal-focused tools</span>
+			</div>
+			</li>
+		</ul>
+		</div>
+
+## How It Works
+
+README-AI provides several ways to customize your header style:
+
+1. **Default Styles**: Choose from pre-defined header layouts
+2. **Alignment Options**: Set text and image alignment
+3. **Custom Sizing**: Adjust logo and image dimensions
+4. **Badge Integration**: Incorporates shield badges and tech stack icons
+
+The selected style will determine how your project's name, logo, description, and badges are arranged in the header section.
+
+## Examples
+
+### Using Classic Style
 
 ```bash
-readmeai --repository ./my_project --header-style modern --output README.md
+readmeai --header-style classic --repository https://github.com/username/project
 ```
 
-In this example:
-- The `--repository` flag points to your local project directory or a remote repository.
-- The `--header-style modern` flag specifies that the "Modern" header template should be used.
-- The `--output README.md` flag sets the output file name to `README.md`.
-
-### Another Example with Compact Header Style
-
-To generate a README file with the **Compact** header style, run:
+### Using Modern Style with Custom Alignment
 
 ```bash
-readmeai --repository ./my_project --header-style compact --output README.md
+readmeai --header-style modern --align left --repository https://github.com/username/project
 ```
 
-This will generate a more condensed version of the header, suitable for projects where you want to minimize the space taken by the header.
-
-## Available Header Styles
+### Combining with Other Options
 
 ```bash
--hs, --header-style [classic|compact|modern]
+readmeai --header-style compact \
+         --badge-style flat \
+         --image gradient \
+         --repository https://github.com/username/project
 ```
 
-The `--header-style` option supports the following values:
+## Tips for Using Header Styles
 
-- **classic**: Traditional centered header with logo and title.
-- **compact**: Left-aligned logo and a compact project title.
-- **modern**: Right-aligned logo with a modern aesthetic for the header.
+- **Classic**: Best for traditional open-source projects that need a professional look
+- **Modern**: Great for documentation sites and projects with longer READMEs
+- **Compact**: Ideal for smaller projects or when space is at a premium
+- **SVG**: Perfect for projects that need custom branding or full-width banners
+- **ASCII**: Good for terminal applications or when you want a retro feel
+
+Consider these factors when choosing a header style:
+- Your project's target audience
+- The amount of content in your README
+- Whether you have a custom logo or banner
+- The overall aesthetic of your documentation
+- How the style works with your chosen badge style
+
+:warning: Some header styles may look different on different platforms or markdown renderers. It's a good idea to test how your chosen style looks on your target platform.
 
 <!--
 ## Customizing Header Alignment

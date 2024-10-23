@@ -2,7 +2,7 @@
 
 A project logo is a visual representation of your project that appears at the top of your README file. It helps to brand your project and make it more recognizable. README-AI offers various options for adding a logo to your project's README.
 
-## Logo Options
+## Default Options
 
 Use the `--image` option to select from the following logo styles:
 
@@ -36,13 +36,13 @@ README-AI provides several ways to include a logo in your project's README:
 
 1. **Default Images**: Choose from a set of pre-defined logos.
 2. **Custom Images**: Use your own image by providing a URL or file path.
-3. **LLM-Generated Images**: Generate a unique logo using AI (requires an LLM API).
+3. **LLM Images**: Generate a unique logo using AI (requires an LLM API).
 
 The selected or generated logo will be placed at the top of your README file, helping to visually identify your project.
 
-## Usage Examples
+## Examples
 
-### Using a Default Image
+### Selecting a Default Image
 
 To use one of the default images, specify the image name with the `--image` option:
 
@@ -50,69 +50,61 @@ To use one of the default images, specify the image name with the `--image` opti
 readmeai --image gradient --repository https://github.com/username/project
 ```
 
-### Using a Custom Image
+### Providing a Custom Image
 
-To use a custom image, use the `--image custom` option:
+You can provide readme-ai with a custom image by using the `--image custom` option:
 
 ```bash
 readmeai --image custom --repository https://github.com/username/project
 ```
 
-You will be prompted to provide an image file path or URL:
+You will be prompted to provide a path to your image on your local machine or via URL:
 
 ```console
 Provide an image file path or URL:
 ```
 
-### LLM Generated Logo
+### LLM Image Generation
 
-To generate a logo using an LLM API (e.g., OpenAI), use the `--image llm` option:
+To generate a logo using a text-to-image model from a LLM API (i.e. OpenAI), use the `--image llm` option:
 
 ```bash
 readmeai --image llm --api openai --repository https://github.com/username/project
 ```
 
-This will generate a unique project logo using the specified LLM API.
-
-## Example Output
-
-Here's an example of how a generated README header might look with a logo:
+This will generate a unique logo that you can display in your project's documentation. The prompt used for text-to-image generation can be found [here](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/prompts.toml#L61).
 
 !!! example
 
-    === "Example 1"
+    <p>The following examples show generated logos by readme-ai for various open-source projects:</p>
+
+    === "[1. eli64/readme-ai](https://github.com/eli64s/readme-ai)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-ai-streamlit.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-bot.png?raw=true" width="200" alt="Project Logo">
         </p>
-        <h1 align="center">Your Project Name</h1>
-        <p align="center">
-        Your project's tagline or brief description
-        </p>
-        <!-- Badges and other header content -->
+        <h1 align="center">README-AI</h1>
 
-    === "Example 2"
+    === "[2. eli64/sreadme-ai](https://github.com/eli64s/readme-ai)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/github-readme-quotes.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-feather.png?raw=true" width="200" alt="Project Logo">
         </p>
-        <h1 align="center">Your Project Name</h1>
-        <p align="center">
-        Your project's tagline or brief description
-        </p>
-        <!-- Badges and other header content -->
+        <h1 align="center">README-AI</h1>
 
-    === "Example 3"
+    === "[3. eli64/readme-ai-streamlit](https://github.com/eli64s/readme-ai-streamlit)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/dalle/readme-streamlit-v0.5.88.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-streamlit.png?raw=true" width="200" alt="Project Logo">
         </p>
-        <h1 align="center">Your Project Name</h1>
-        <p align="center">
-        Your project's tagline or brief description
-        </p>
-        <!-- Badges and other header content -->
+        <h1 align="center">README-AI-STREAMLIT</h1>
 
+    === "[4. PiyushSuthar/github-readme-quotes](https://github.com/PiyushSuthar/github-readme-quotes)"
+
+        <p align="center">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/github-readme-quotes.png?raw=true" width="200" alt="Project Logo">
+        </p>
+        <h1 align="center">GITHUB-README-QUOTES</h1>
 
 :warning: The quality and relevance of LLM-generated logos can vary. It's a good idea to review and potentially edit the generated logo to ensure it meets your project's needs.
 
