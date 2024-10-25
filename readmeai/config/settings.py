@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from typing import Literal, Self
 
@@ -243,8 +244,9 @@ class ConfigLoader:
 
     def __init__(self) -> None:
         """Initialize ConfigLoader with the base configuration file."""
-        self._load_config()
-        self._load_settings()
+        if "-V" not in sys.argv and "--version" not in sys.argv:
+            self._load_config()
+            self._load_settings()
 
     def _load_config(self) -> Settings:
         """Loads the base configuration file."""

@@ -39,7 +39,7 @@ def version_callback(
     """Prints the version of readme-ai."""
     if not value or (ctx and ctx.resilient_parsing):
         return
-    click.echo(f"readme-ai version {__version__}")
+    click.echo(f"readmeai version {__version__}")
     if ctx is not None:
         ctx.exit()
 

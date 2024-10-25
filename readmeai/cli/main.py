@@ -13,8 +13,8 @@ logger = get_logger(__name__)
 
 @click.command()
 @click.option(
-    "-V",
     "--version",
+    "-V",
     is_flag=True,
     callback=options.version_callback,
     expose_value=False,

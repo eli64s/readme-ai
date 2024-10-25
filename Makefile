@@ -42,7 +42,7 @@ ruff-lint: ## Lint codebase using Ruff
 
 .PHONY: run-mkdocs
 run-mkdocs: ## Run the MkDocs server
-	mkdocs serve
+	cd docs && mkdocs serve
 
 .PHONY: search
 search: ## Search for a word in the codebase
