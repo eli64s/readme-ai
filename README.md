@@ -364,7 +364,7 @@ Choose your preferred installation method:
 [![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)](https://hub.docker.com/r/zeroxeli/readme-ai)
  -->
 
-### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/docs/assets/svg/docker.svg">&emsp13;Docker
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/3052baaca03db99d00808acfec43a44e81ecbf7f/docs/docs/assets/svg/docker.svg">&emsp13;Docker
 
 Pull the latest Docker image from the Docker Hub repository.
 

@@ -23,6 +23,7 @@ jobs:
           poetry install
 
     - name: Build the MkDocs site
+      working-directory: ./docs
       run: poetry run mkdocs build
 
     - name: Deploy to GitHub Pages
