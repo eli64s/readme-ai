@@ -8,6 +8,7 @@ from readmeai.readers.git.providers import GitHost
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.file_resource import get_resource_path
 
+_comment = "<!-- default option, no dependency badges. -->\n"
 _package = "readmeai.generators"
 _submodule = "svg"
 
@@ -73,9 +74,7 @@ def hex_to_hls(hex_color: str) -> tuple[float, float, float]:
 
 
 def sort_badges(badges: list[tuple[str, str]]) -> list[str]:
-    """
-    Sorts badges by color and then by name.
-    """
+    """Sorts badges by color and then by name."""
     badges = [(badge[0], str(badge[1])) for badge in badges]
     badges = list(set(badges))
     return sorted(
@@ -116,9 +115,10 @@ def shieldsio_icons(
         conf.md.badge_style == BadgeStyleOptions.DEFAULT.value
         and git_host != GitHost.LOCAL.name
     ):
+        conf.md.badges_tech_stack_text = _comment
         return (
             default_icons,
-            "<!-- default option, no dependency badges. -->\n",
+            _comment,
         )
 
     if git_host == GitHost.LOCAL.name:
@@ -131,8 +131,8 @@ def shieldsio_icons(
 
 
 def skill_icons(conf: Settings, dependencies: list) -> str:
-    """Generates badges for the README using skill icons:
-    - https://github.com/tandpfun/skill-icons
+    """Generate 'skill-icons' badge set for the README header.
+    Source: https://github.com/tandpfun/skill-icons
     """
     dependencies.extend(["md"])
 
