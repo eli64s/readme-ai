@@ -95,8 +95,8 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 | File                                 | Summary                                                                                                                                                                                                                                                            |
 | ---                                  | ---                                                                                                                                                                                                                                                                |
-| [requirements.txt](requirements.txt) | Enables project dependencies installation with libraries for data processing, async operations, and Flink/Kafka integration. Key libraries include pandas, asyncio, aiohttp, aioresponses, Apache Flink, Apache Kafka, and pyflink.                                |
-| [setup.py](setup.py)                 | Sets up dependencies for the project through package management. Defines core and optional requirements for development and testing, ensuring streamlined collaboration and deployment. Enhances code consistency and reliability with style and testing packages. |
+| [requirements.txt](../requirements.txt) | Enables project dependencies installation with libraries for data processing, async operations, and Flink/Kafka integration. Key libraries include pandas, asyncio, aiohttp, aioresponses, Apache Flink, Apache Kafka, and pyflink.                                |
+| [setup.py](../setup.py)                 | Sets up dependencies for the project through package management. Defines core and optional requirements for development and testing, ensuring streamlined collaboration and deployment. Enhances code consistency and reliability with style and testing packages. |
 
 </details>
 
@@ -104,7 +104,7 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 | File                       | Summary                                                                                                                                                                                                  |
 | ---                        | ---                                                                                                                                                                                                      |
-| [setup.sh](setup/setup.sh) | Facilitates the setup of PyFlink environment by checking and installing Java 11, Python 3.7, Conda, and PyFlink. Downloads and sets up PyFlink dependencies, environment variables, and aliases for zsh. |
+| [setup.sh](../setup/setup.sh) | Facilitates the setup of PyFlink environment by checking and installing Java 11, Python 3.7, Conda, and PyFlink. Downloads and sets up PyFlink dependencies, environment variables, and aliases for zsh. |
 
 </details>
 
@@ -112,8 +112,8 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 | File                         | Summary                                                                                                                                                                                                                         |
 | ---                          | ---                                                                                                                                                                                                                             |
-| [run.sh](scripts/run.sh)     | Initiates Flink cluster, runs PyFlink job, and stops the cluster. Manages cluster operations for executing PyFlink jobs. Essential script in repository architecture for job execution.                                         |
-| [clean.sh](scripts/clean.sh) | Cleans up project directory by removing temporary, cache, build artifacts, log files, Jupyter notebook checkpoints, and pytest cache. Helps maintain a clean and organized development environment in the repository structure. |
+| [run.sh](../scripts/run.sh)     | Initiates Flink cluster, runs PyFlink job, and stops the cluster. Manages cluster operations for executing PyFlink jobs. Essential script in repository architecture for job execution.                                         |
+| [clean.sh](../scripts/clean.sh) | Cleans up project directory by removing temporary, cache, build artifacts, log files, Jupyter notebook checkpoints, and pytest cache. Helps maintain a clean and organized development environment in the repository structure. |
 
 </details>
 
@@ -121,8 +121,8 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 | File                                        | Summary                                                                                                                                                                 |
 | ---                                         | ---                                                                                                                                                                     |
-| [flink-config.yaml](conf/flink-config.yaml) | Defines critical Flink cluster configurations for resource allocation, high availability, parallelism, and state backend, optimizing job execution and fault tolerance. |
-| [conf.toml](conf/conf.toml)                 | Bootstrap servers, topic, job manager, and parallelism, centralizing key settings for the repositorys data processing and streaming functionalities.                    |
+| [flink-config.yaml](../conf/flink-config.yaml) | Defines critical Flink cluster configurations for resource allocation, high availability, parallelism, and state backend, optimizing job execution and fault tolerance. |
+| [conf.toml](../conf/conf.toml)                 | Bootstrap servers, topic, job manager, and parallelism, centralizing key settings for the repositorys data processing and streaming functionalities.                    |
 
 </details>
 
@@ -130,9 +130,9 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 | File                                       | Summary                                                                                                                                                                                                                                                       |
 | ---                                        | ---                                                                                                                                                                                                                                                           |
-| [alerts_handler.py](src/alerts_handler.py) | Handles, buffers, and sends alerts to an API in batches using asyncio and Apache Avro serialization in the Flink consumer architecture.                                                                                                                       |
-| [logger.py](src/logger.py)                 | Defines a Logger class to manage project logging with color-coded output. Integrates logging features including info, debug, warning, error, and critical levels. Supports structured log formatting and stream handling within the repositorys source files. |
-| [consumer.py](src/consumer.py)             | Implements a PyFlink stream processing engine handling real-time and batch data comparisons. Orchestrates alerts for flagged data discrepancies. Manages fault tolerance and parallel processing for data streaming.                                          |
+| [alerts_handler.py](../src/alerts_handler.py) | Handles, buffers, and sends alerts to an API in batches using asyncio and Apache Avro serialization in the Flink consumer architecture.                                                                                                                       |
+| [logger.py](../src/logger.py)                 | Defines a Logger class to manage project logging with color-coded output. Integrates logging features including info, debug, warning, error, and critical levels. Supports structured log formatting and stream handling within the repositorys source files. |
+| [consumer.py](../src/consumer.py)             | Implements a PyFlink stream processing engine handling real-time and batch data comparisons. Orchestrates alerts for flagged data discrepancies. Manages fault tolerance and parallel processing for data streaming.                                          |
 
 </details>
 

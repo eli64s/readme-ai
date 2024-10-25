@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/docs/assets/images/dalle/github-readme-quotes.png" align="center" width="30%">
+    <img src="/examples/logos/dalle.png" alt="github-readme-quotes" width="50%">
 </p>
 <p align="center"><h1 align="center">GITHUB-README-QUOTES</h1></p>
 <p align="center"><em>Code consistency, creativity, and motivation unleashed!</em></p>

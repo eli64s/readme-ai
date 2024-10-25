@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/docs/assets/images/dalle/thepipe_v2.png" align="center" width="30%">
+    <img src="/examples/logos/dalle-rag.png" align="center" width="30%">
 </p>
 <p align="center"><h1 align="center">THEPIPE</h1></p>
 <p align="center"><em>Unleash Efficiency, Embrace Innovation!</em></p>
