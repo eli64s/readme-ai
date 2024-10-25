@@ -53,25 +53,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Centered alignment</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo above project name</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Traditional README layout</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Ideal for most projects</span>
 			</div>
 			</li>
@@ -113,25 +113,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Left-aligned layout</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo and title on same line</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Space-efficient design</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Perfect for smaller README files</span>
 			</div>
 			</li>
@@ -170,25 +170,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Left-aligned text</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo floated to the right</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Contemporary asymmetric design</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Great for documentation sites</span>
 			</div>
 			</li>
@@ -235,25 +235,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Full-width SVG banner support</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Centered alignment</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Scalable vector graphics</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Ideal for custom branding</span>
 			</div>
 			</li>
@@ -306,25 +306,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Text-based art logo</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Minimal and retro style</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">No image dependencies</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Good for terminal-focused tools</span>
 			</div>
 			</li>
@@ -383,25 +383,25 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Text-based art logo</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Minimal and retro style</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">No image dependencies</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">◎</span>
+				<span class="feature-icon">•</span>
 				<span class="feature-text">Good for terminal-focused tools</span>
 			</div>
 			</li>

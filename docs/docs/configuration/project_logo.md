@@ -81,28 +81,28 @@ This will generate a unique logo that you can display in your project's document
     === "[1. eli64/readme-ai](https://github.com/eli64s/readme-ai)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-bot.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/llm-content/dalle/readme-ai-bot.png?raw=true" width="200" alt="Project Logo">
         </p>
         <h1 align="center">README-AI</h1>
 
     === "[2. eli64/sreadme-ai](https://github.com/eli64s/readme-ai)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-feather.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/llm-content/dalle/readme-ai-feather.png?raw=true" width="200" alt="Project Logo">
         </p>
         <h1 align="center">README-AI</h1>
 
     === "[3. eli64/readme-ai-streamlit](https://github.com/eli64s/readme-ai-streamlit)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/readme-ai-streamlit.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/llm-content/dalle/readme-ai-streamlit.png?raw=true" width="200" alt="Project Logo">
         </p>
         <h1 align="center">README-AI-STREAMLIT</h1>
 
     === "[4. PiyushSuthar/github-readme-quotes](https://github.com/PiyushSuthar/github-readme-quotes)"
 
         <p align="center">
-        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/assets/images/llm-content/dalle/github-readme-quotes.png?raw=true" width="200" alt="Project Logo">
+        <img src="https://github.com/eli64s/readme-ai/blob/main/examples/logos/dalle.png?raw=true" width="200" alt="Project Logo">
         </p>
         <h1 align="center">GITHUB-README-QUOTES</h1>
 

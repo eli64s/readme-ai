@@ -2,8 +2,7 @@
 <div class="hero-section">
   <div class="hero-content">
     <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/63173801d4b8115d523eb1ed8e145613545095de/docs/assets/icons/readme-ai-logo-gradient.svg"
-      width="450"
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-animated.svg"
       alt="readme-ai">
     </div>
     <h2 class="tagline">
@@ -13,7 +12,7 @@
       Modern documentation generator combining advanced AI with robust data processing
     </p>
     <div class="cta-buttons">
-      <a href="https://eli64s.github.io/readme-ai/quickstart/prerequisites" class="button primary">
+      <a href="https://eli64s.github.io/readme-ai/usage/prerequisites/" class="button primary">
         Getting Started →
       </a>
       <a href="https://github.com/eli64s/readme-ai" class="button secondary">

@@ -106,12 +106,12 @@ The `--badge-color` option **only** modifies the default badge set, while the `-
 
 ## References
 
-Thank you to the following projects for providing the badges used in this project:
+Thank you to the following resources for providing open-source badges and icons:
 
-- [Shields.io](https://shields.io/)
-- [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
-- [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
-- [tandpfun/skill-icons](https://github.com/tandpfun/skill-icons)
-```
+* [Shields.io](https://shields.io/)
+* [Simple Icons](https://simpleicons.org/)
+* [Aveek-Saha/GitHub-Profile-Badges](https://github.com/Aveek-Saha/GitHub-Profile-Badges)
+* [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
+* [tandpfun/skill-icons](https://github.com/tandpfun/skill-icons)
 
 ---
