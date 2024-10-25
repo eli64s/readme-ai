@@ -535,7 +535,7 @@ Add more customization options:
            --emojis
 ```
 
-### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/ece59f6f523c8c0d831cee76f695632858091ca5/docs/docs/assets/svg/docker.svg">&emsp13;Docker
+### <img width="2%" src="https://raw.githubusercontent.com/eli64s/readme-ai/3052baaca03db99d00808acfec43a44e81ecbf7f/docs/docs/assets/svg/docker.svg">&emsp13;Docker
 
 Run the Docker container with the OpenAI client:
 
