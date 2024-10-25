@@ -4,7 +4,7 @@ site_name: README-AI
 site_description: "README-AI: Your AI-powered documentation assistant. Designed for simplicity, customization, and developer productivity."
 site_author: Eli Salamie
 site_url: https://docs.readme-ai.com/
-site_dir: site/
+site_dir: ../site
 repo_name: eli64s/readme-ai
 repo_url: https://github.com/eli64s/readme-ai
 edit_uri: edit/main/docs/docs/
