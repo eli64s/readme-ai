@@ -3392,4 +3392,4 @@ google-generativeai = ["google-generativeai"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9,<4.0.0"
-content-hash = "9d97aa492876aecbcd6fccc8fe05bdd5049c1307503ebbb891f9719d8b1a980d"
+content-hash = "f28780e756a9eb00e8d1ed3b5f2301dd4d271c5cc25aa439f7163621c67041c0"
