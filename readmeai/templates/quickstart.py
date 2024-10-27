@@ -1,11 +1,15 @@
 from pathlib import Path
 from string import Template
 
-import tomllib
-
 from readmeai.config.settings import ConfigLoader
 from readmeai.generators.quickstart import QuickStartGenerator
 from readmeai.ingestion.models import QuickStart, RepositoryContext
+from readmeai.utils.helpers import is_available
+
+if is_available("tomllib"):  # pragma: no cover
+    import tomllib
+elif is_available("tomli"):  # pragma: no cover
+    import tomli as tomllib
 
 
 class QuickStartBuilder:
