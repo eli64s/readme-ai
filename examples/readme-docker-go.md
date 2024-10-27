@@ -23,14 +23,14 @@
 
 ## 🔗 Table of Contents
 
-I. [📍 Overview](#-overview)
-II. [👾 Features](#-features)
-III. [📁 Project Structure](#-project-structure)
-IV. [🚀 Getting Started](#-getting-started)
-V. [📌 Project Roadmap](#-project-roadmap)
-VI. [🔰 Contributing](#-contributing)
-VII. [🎗 License](#-license)
-VIII. [🙌 Acknowledgments](#-acknowledgments)
+I. [📍 Overview](#-overview)  
+II. [👾 Features](#-features)  
+III. [📁 Project Structure](#-project-structure)  
+IV. [🚀 Getting Started](#-getting-started)  
+V. [📌 Project Roadmap](#-project-roadmap)  
+VI. [🔰 Contributing](#-contributing)  
+VII. [🎗 License](#-license)  
+VIII. [🙌 Acknowledgments](#-acknowledgments)  
 
 ---
 
