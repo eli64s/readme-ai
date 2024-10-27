@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.99.post3"
+version = "0.5.99.post4"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli <egsalamie@gmail.com>"]
 license = "MIT"
@@ -46,6 +46,7 @@ structlog = "^24.4.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 tomli = { version = "*", python = "<3.11" }
+typing-extensions = { version = "*", python = "<3.11" }
 
 anthropic = { version = "*", optional = true }
 google-generativeai = { version = "*", optional = true }

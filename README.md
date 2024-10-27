@@ -100,7 +100,7 @@ Let's take a look at some possible customizations created by readme-ai:
   <!-- ROW -->
   <tr>
     <td colspan="2" align="center"><br>
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/img/headers/ascii.png" alt="ascii-readme-header-style" width="700">
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/img/headers/ascii-art.png" alt="ascii-readme-header-style" width="700">
       <br>
       <code>--header-style ascii</code>
     </td>

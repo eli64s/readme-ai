@@ -132,19 +132,19 @@ Aim for a clear, engaging description that captures the essence of the project w
 """
 
 slogan = """
-Conceptualize a catchy and memorable slogan for the project: {0} ({1}).
-Your response should synthesize the project's essence, values, or unique selling points into a concise and engaging phrase.
-While generating the slogan, please reference the following codebase details:
+Create a catchy and memorable slogan for the project: {0} ({1}).
+Synthesize the project's essence, values, or unique selling points into a concise and engaging phrase.
 
 <CONTEXT>
 FILE CONTENTS: {2}
 </CONTEXT>
 
 <INSTRUCTIONS>
-- Your response slogan should be 5-8 words long at most.
-- Slogan should be clear, concise and memorable.
-- DO NOT INCLUDE THE PROJECT NAME in the slogan.
+- The slogan must be a single string with no more than 8 words.
+- It should be clear, concise, and memorable.
+- DO NOT INCLUDE the project name in the slogan.
+- RETURN ONLY the slogan without any additional text or explanations.
 </INSTRUCTIONS>
 
-Be creative, think outside the box, and have fun. Cheers!
+Be creative and have fun!
 """

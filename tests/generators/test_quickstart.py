@@ -13,9 +13,9 @@ def test_quickstart_generator_init(
         for language_name in ["python", "sql", "shell", "cpp", "java"]
     )
     assert quickstart_generator.default_commands == {
-        "install": "❯ echo 'INSERT-INSTALL-COMMAND-HERE'",
-        "usage": "❯ echo 'INSERT-RUN-COMMAND-HERE'",
-        "test": "❯ echo 'INSERT-TEST-COMMAND-HERE'",
+        "install": "echo 'INSERT-INSTALL-COMMAND-HERE'",
+        "usage": "echo 'INSERT-RUN-COMMAND-HERE'",
+        "test": "echo 'INSERT-TEST-COMMAND-HERE'",
     }
 
 
@@ -76,7 +76,7 @@ def test_generate_quickstart_empty_args(
     quickstart_generator: QuickStartGenerator,
 ):
     quickstart = quickstart_generator.generate({}, {})
-    assert quickstart.primary_language is None
+    assert "Error detecting primary_language" in quickstart.primary_language
     assert quickstart.install_commands == ""
     assert quickstart.usage_commands == ""
     assert quickstart.test_commands == ""

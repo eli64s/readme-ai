@@ -3,6 +3,7 @@ title: Gallery
 ---
 
 Explore various README examples from different programming languages and technologies. Each example showcases a README file from a different repository and project type.
+
 | Technology | Example Output | Repository | Description |
 |------------|---------------|------------|-------------|
 | Readme-ai | [readme-ai.md][default] | [readme-ai][readme-ai] | Readme-ai project |

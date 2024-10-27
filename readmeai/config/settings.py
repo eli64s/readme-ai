@@ -36,6 +36,11 @@ from readmeai.readers.git.providers import GitURL, parse_git_url
 from readmeai.utils.file_handler import FileHandler
 from readmeai.utils.file_resource import get_resource_path
 
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self
+
 _logger = get_logger(__name__)
 
 
