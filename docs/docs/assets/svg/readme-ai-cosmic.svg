@@ -52,25 +52,25 @@
     <g transform="translate(100, 100) scale(0.2)" filter="url(#powerGlow)">
         <!-- Energy field -->
         <circle cx="256" cy="256" r="252" fill="url(#energyField)" opacity="0.3"/>
-        
+
         <!-- Outer quantum ring -->
         <circle cx="256" cy="256" r="220" fill="none" stroke="url(#cosmicGradient)" stroke-width="4" stroke-dasharray="30 15">
             <animate attributeName="stroke-dashoffset" values="0;100" dur="3s" repeatCount="indefinite"/>
         </circle>
-        
+
         <!-- Crystalline structure -->
         <path d="M256 76 L436 256 L256 436 L76 256 Z" fill="none" stroke="url(#cosmicGradient)" stroke-width="4">
             <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="4s" repeatCount="indefinite"/>
         </path>
-        
+
         <!-- Geometric core -->
         <path d="M256 136 L376 256 L256 376 L136 256 Z" fill="none" stroke="url(#cosmicGradient)" stroke-width="6" opacity="0.8">
             <animateTransform attributeName="transform" type="rotate" from="0 256 256" to="360 256 256" dur="10s" repeatCount="indefinite"/>
         </path>
-        
+
         <!-- Energy conduits -->
         <path d="M256 76 V436 M76 256 H436" stroke="url(#cosmicGradient)" stroke-width="4" opacity="0.6"/>
-        
+
         <!-- Power core -->
         <circle cx="256" cy="256" r="40" fill="none" stroke="url(#cosmicGradient)" stroke-width="8">
             <animate attributeName="r" values="40;45;40" dur="2s" repeatCount="indefinite"/>
@@ -84,25 +84,25 @@
     <g transform="translate(700, 300) scale(0.28)" filter="url(#powerGlow)">
         <!-- Energy field -->
         <circle cx="256" cy="256" r="252" fill="url(#energyField)" opacity="0.3"/>
-        
+
         <!-- Outer quantum ring -->
         <circle cx="256" cy="256" r="220" fill="none" stroke="url(#cosmicGradient)" stroke-width="4" stroke-dasharray="30 15">
             <animate attributeName="stroke-dashoffset" values="0;100" dur="4s" repeatCount="indefinite"/>
         </circle>
-        
+
         <!-- Crystalline structure -->
         <path d="M256 76 L436 256 L256 436 L76 256 Z" fill="none" stroke="url(#cosmicGradient)" stroke-width="4">
             <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="5s" repeatCount="indefinite"/>
         </path>
-        
+
         <!-- Geometric core -->
         <path d="M256 136 L376 256 L256 376 L136 256 Z" fill="none" stroke="url(#cosmicGradient)" stroke-width="6" opacity="0.8">
             <animateTransform attributeName="transform" type="rotate" from="360 256 256" to="0 256 256" dur="10s" repeatCount="indefinite"/>
         </path>
-        
+
         <!-- Energy conduits -->
         <path d="M256 76 V436 M76 256 H436" stroke="url(#cosmicGradient)" stroke-width="4" opacity="0.6"/>
-        
+
         <!-- Power core -->
         <circle cx="256" cy="256" r="40" fill="none" stroke="url(#cosmicGradient)" stroke-width="8">
             <animate attributeName="r" values="40;45;40" dur="3s" repeatCount="indefinite"/>

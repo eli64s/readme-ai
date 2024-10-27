@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Literal, Self
+from typing import Literal
 
 from pydantic import (
     AnyHttpUrl,
@@ -93,7 +93,7 @@ class GitSettings(BaseModel):
             ) from exc
 
     @model_validator(mode="after")
-    def set_git_attributes(self) -> Self:
+    def set_git_attributes(self):
         """Parse and set Git repository attributes."""
         self.host_domain, self.host, self.name, self.full_name = parse_git_url(
             str(self.repository)
