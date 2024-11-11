@@ -25,7 +25,7 @@ Readme-ai harnesses the power of artificial intelligence to automatically genera
 ## Integration and Flexibility
 
 - **Extensible**: Customize and extend readme-ai to fit your specific documentation needs.
-- **Multiple AI Backends**: Choose from various AI providers (OpenAI, Ollama, Google Gemini) or use the offline mode for sensitive projects.
+- **Flexible Backends**: Choose from various AI providers (OpenAI, Ollama, Google Gemini) or use the offline mode for sensitive projects.
 - **Language Agnostic**: Works with a wide range of programming languages and project types, ensuring compatibility with your existing codebase.
 
 ## Community-Driven Development
@@ -41,12 +41,10 @@ Readme-ai harnesses the power of artificial intelligence to automatically genera
 2. **Customizable Output**: Offers numerous CLI options for tailoring the README to your project's needs:
 
     - Badge styles and colors
-
-    - Header designs
-
-    - Table of contents styles
-
-    - Project logos
+    - README header templates
+    - Apply an emoji themes
+    - Add a table of contents
+    - Generate a project logo
 
 3. **Language Agnostic**: Works with a wide range of programming languages and project types, automatically detecting and summarizing key aspects of your codebase.
 
@@ -57,7 +55,7 @@ Readme-ai harnesses the power of artificial intelligence to automatically genera
     - Dependencies
     - Setup instructions
 
-5. **Multi-LLM Support**: Compatible with various language model APIs, including:
+5. **Flexible Backends**: Compatible with various language model APIs, including:
 
     - OpenAI
     - Ollama
@@ -68,3 +66,5 @@ Readme-ai harnesses the power of artificial intelligence to automatically genera
 6. **Offline Mode**: Generate a basic README structure without requiring an internet connection or API calls.
 
 7. **Markdown Expertise**: Leverages best practices in Markdown formatting for clean, professional-looking documentation.
+
+---

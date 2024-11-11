@@ -2,7 +2,7 @@
 <div class="hero-section">
   <div class="hero-content">
     <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-animated.svg"
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-gradient.svg"
       alt="readme-ai">
     </div>
     <h2 class="tagline">
@@ -47,14 +47,14 @@
     <p>Choose from dozens of styling options, badges, and templates</p>
   </div>
   <div class="feature-card">
+    <div class="feature-icon">🤖</div>
+    <h3>Flexible Backends</h3>
+    <p>Seamlessly integrate with <code>OpenAI</code>, <code>Anthropic</code>, <code>Google Gemini</code>, and <code>Ollama</code></p>
+  </div>
+  <div class="feature-card">
     <div class="feature-icon">🌐</div>
     <h3>Language Agnostic</h3>
     <p>Works with any programming language or framework</p>
-  </div>
-  <div class="feature-card">
-    <div class="feature-icon">🤖</div>
-    <h3>Multi-LLM Support</h3>
-    <p>Compatible with OpenAI, Ollama, Anthropic, and Google Gemini</p>
   </div>
 </div>
 <div class="quick-start">
@@ -66,7 +66,7 @@
     </div>
     <div class="step">
       <h3>2. Generate Documentation</h3>
-      <code>readmeai --repository <your-repo-url> --output README-AI.md</code>
+      <code>readmeai --repository https://github.com/user/project-name --output README-AI.md</code>
     </div>
   </div>
 </div>
