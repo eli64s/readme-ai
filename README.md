@@ -355,7 +355,7 @@ Use [pipx](https://pipx.pypa.io/stable/installation/) to use `readmeai` in an is
 ❯ pipx install readmeai
 ```
 
-<!-- 
+<!--
 > [!TIP]
 > <sub>Using [pipx](https://pipx.pypa.io/stable/installation/) allows you to install and run Python command-line applications in isolated environments, which helps prevent dependency conflicts with other Python projects.</sub>
 -->
@@ -436,7 +436,7 @@ Or, use `poetry` to build the project:
 >   ```sh
 >   ❯ pip install "readmeai[google-generativeai]"
 >   ```
-> 
+>
 > - **Install Multiple Clients:**
 >   ```sh
 >   ❯ pip install "readmeai[anthropic,google-generativeai]"
@@ -760,7 +760,7 @@ README-AI is released under the terms of the [MIT License][license].
 [issues]: https://github.com/eli64s/readme-ai/issues
 [discussions]: https://github.com/eli64s/readme-ai/discussions
 [license]: https://github.com/eli64s/readme-ai/blob/main/LICENSE
-[pulls]: https://github.com/eli64s/readme-ai/pulls) "submit a pull request"
+[pulls]: https://github.com/eli64s/readme-ai/pulls "submit a pull request"
 
 <!-- Example READMEs -->
 [default]: https://github.com/eli64s/readme-ai/blob/main/examples/readme-ai.md "readme-python.md"
