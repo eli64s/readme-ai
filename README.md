@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-logo-gradient.svg" alt="readme-ai-banner-logo" width="60%">
+  <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-gradient.svg" alt="readme-ai-bannerlogo" width="80%">
 </p>
 
 <p align="center">
