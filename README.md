@@ -716,12 +716,6 @@ Contributions are welcome! Please read the [Contributing Guide][contributing] to
 
 ---
 
-## 🎗 License
-
-README-AI is released under the terms of the [MIT License][license].
-
----
-
 ## 🙌 Acknowledgments
 
 * [Shields.io](https://shields.io/)
@@ -730,39 +724,50 @@ README-AI is released under the terms of the [MIT License][license].
 * [Ileriayo/Markdown-Badges](https://github.com/Ileriayo/markdown-badges)
 * [tandpfun/skill-icons](https://github.com/tandpfun/skill-icons)
 
-<p align="right"><a href="#-overview">⬆️ Top</a></p>
+<div align="right">
+
+[![][return]](#-quick-links)
+
+</div>
 
 ---
 
-<!-- Documentation -->
+#### 🎗 License
+
+Copyright © 2023 [readme-ai][readme-ai]. <br />
+Released under the [MIT License][license].
+
+<!-- REFERENCE LINKS -->
+
+<!-- README-AI PROJECT -->
+[readme-ai]: https://github.com/eli64s/readme-ai
+[return]: https://img.shields.io/badge/Back_to_top-5D4ED3?style=flat&logo=ReadMe&logoColor=white
+[contributing]: https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md
+[discussions]: https://github.com/eli64s/readme-ai/discussions
+[issues]: https://github.com/eli64s/readme-ai/issues
+[license]: https://github.com/eli64s/readme-ai/blob/main/LICENSE
+[pulls]: https://github.com/eli64s/readme-ai/pulls "submit a pull request"
 [mkdocs]: https://eli64s.github.io/readme-ai "Official Documentation"
 
-<!-- Package managemers/container runtimes -->
+<!-- INSTALLATION METHODS -->
+[docker]: https://docs.docker.com/ "docker"
 [pip]: https://pip.pypa.io/en/stable/ "pip"
 [pipx]: https://pipx.pypa.io/stable/ "pipx"
 [uv]: https://docs.astral.sh/uv/ "uv"
-[docker]: https://docs.docker.com/ "docker"
 
-<!-- Git hosting services -->
+<!-- GIT HOSTS -->
 [file-system]: https://en.wikipedia.org/wiki/File_system "Learn more"
 [github]: https://github.com/ "GitHub.com"
 [gitlab]: https://gitlab.com/ "GitLab.com"
 [bitbucket]: https://bitbucket.org/ "Bitbucket.org"
 
-<!-- LLM API developer docs -->
+<!-- LLM API PROVIDERS -->
 [openai]: https://platform.openai.com/docs/quickstart/account-setup: "OpenAI Developer quickstart"
 [anthropic]: https://docs.anthropic.com/en/home "Anthropic Developer docs"
 [gemini]: https://ai.google.dev/tutorials/python_quickstart "Gemini API quickstart"
 [ollama]: https://github.com/ollama/ollama "Ollama GitHub repository"
 
-<!-- GitHub Links -->
-[contributing]: https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md
-[issues]: https://github.com/eli64s/readme-ai/issues
-[discussions]: https://github.com/eli64s/readme-ai/discussions
-[license]: https://github.com/eli64s/readme-ai/blob/main/LICENSE
-[pulls]: https://github.com/eli64s/readme-ai/pulls "submit a pull request"
-
-<!-- Example READMEs -->
+<!-- EXAMPLE READMEs -->
 [default]: https://github.com/eli64s/readme-ai/blob/main/examples/readme-ai.md "readme-python.md"
 [ascii-header]: https://github.com/eli64s/readme-ai/blob/main/examples/headers/ascii.md "ascii.md"
 [classic-header]: https://github.com/eli64s/readme-ai/blob/main/examples/headers/classic.md "readme-postgres.md"
@@ -775,7 +780,7 @@ README-AI is released under the terms of the [MIT License][license].
 [fastapi-redis]: https://github.com/eli64s/readme-ai/blob/main/examples/readme-fastapi-redis.md "readme-fastapi-redis.md"
 [offline-mode]: https://github.com/eli64s/readme-ai/blob/main/examples/offline-mode/readme-litellm.md "readme-litellm.md"
 
-<!-- Example Repositories -->
+<!-- EXAMPLE REPOSITORIES -->
 [readme-ai]: https://github.com/eli64s/readme-ai "readme-ai"
 [pyflink]: https://github.com/eli64s/pyflink-poc "pyflink-poc"
 [postgres]: https://github.com/jwills/buenavista "Buenavista"
