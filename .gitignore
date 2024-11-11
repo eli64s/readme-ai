@@ -51,3 +51,8 @@ readmeai/cli/commands_line.py
 readmeai/cli/interactive.py
 readmeai/config/settings/prompts
 readmeai/config/settings/templates
+
+# Project Assets
+docs/docs/assets/svg/readme-ai-animated.svg
+docs/docs/assets/svg/readme-ai-banner.svg
+docs/docs/assets/svg/readme-ai-cosmic.svg
