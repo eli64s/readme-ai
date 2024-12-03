@@ -6,9 +6,9 @@
     </linearGradient>
   </defs>
   <!-- Markdown logo with correct spacing -->
-  <rect x="50" y="20" width="200" height="100" rx="10" stroke="url(#blueviolet)" stroke-width="10" fill="none"/>
+  <rect x="50" y="20" width="200" height="100" rx="10" stroke="url(#blueviolet)" stroke-width="10" fill="none" />
   <text x="85" y="95" font-family="Roboto, sans-serif" font-size="80" font-weight="bold" fill="url(#blueviolet)">M</text>
-  <path d="M175 40 L175 85 L155 85 L185 110 L215 85 L195 85 L195 40 Z" fill="url(#blueviolet)"/>
+  <path d="M175 40 L175 85 L155 85 L185 110 L215 85 L195 85 L195 40 Z" fill="url(#blueviolet)" />
   <!-- README-AI text -->
   <text x="150" y="180" font-family="Roboto, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="url(#blueviolet)">README-AI</text>
 </svg>

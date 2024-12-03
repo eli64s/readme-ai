@@ -76,3 +76,5 @@ You should see the installed version of `readmeai` displayed in the output:
 ```sh
 readmeai version 0.5.99
 ```
+
+---

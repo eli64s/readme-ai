@@ -46,3 +46,5 @@ export GOOGLE_API_KEY=<your_api_key>
 
 !!! note "Unsupported Language Models"
     If your preferred LLM API is not supported, open an [issue](https://github.com/eli64s/readme-ai/issues) or submit a [pull request](https://github.com/eli64s/readme-ai/pulls) and we'll review the request!
+
+---

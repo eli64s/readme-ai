@@ -84,3 +84,5 @@ readmeai --toc-style number \
          --badge-style flat \
          --repository https://github.com/username/project
 ```
+
+---

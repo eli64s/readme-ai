@@ -1,8 +1,10 @@
-# Project Logo
+---
+title: Project Logo
+---
 
 A project logo is a visual representation of your project that appears at the top of your README file. It helps to brand your project and make it more recognizable. README-AI offers various options for adding a logo to your project's README.
 
-## Default Options
+## Default Logo Options
 
 Use the `--image` option to select from the following logo styles:
 
@@ -116,3 +118,5 @@ This will generate a unique logo that you can display in your project's document
 - When using LLM-generated logos, you may want to generate several options to choose from.
 - Consider how the logo will look alongside your project's badges and other README content.
 - If your project is part of a larger organization or ecosystem, consider using a logo that aligns with that branding.
+
+---

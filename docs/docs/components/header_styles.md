@@ -2,17 +2,31 @@
 title: "Headers"
 ---
 
-# Headers
+# Header Styles
 
 A header template style determines how your project's header section is structured and displayed in the README file. README-AI offers several pre-designed header styles to help brand your project and create a professional appearance.
 
-## Header Style Options
+## Available Styles
 
 !!! example
 
     <p>Use the `--header-style` option to select from the following markdown header templates:</p>
 
     === "CLASSIC"
+
+		By default, the `classic` header style is used, so no additional option is needed.
+
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 
 		<p align="center">
 		<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="20%" alt="README-AI-logo">
@@ -29,7 +43,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat&color=60A5FA" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat&color=60A5FA" alt="repo-language-count">
 		</p>
-		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">Tech Stack</p>
 		<p align="center">
 			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat&logo=pre-commit&logoColor=black" alt="precommit">
 			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat&logo=Ruff&logoColor=black" alt="Ruff">
@@ -46,6 +60,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
 			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat&logo=Pydantic&logoColor=white" alt="Pydantic">
 		</p>
+		</div>
 		<hr>
 
 		<div class="feature-container">
@@ -53,25 +68,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Centered alignment</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo above project name</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Traditional README layout</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Ideal for most projects</span>
 			</div>
 			</li>
@@ -79,6 +90,18 @@ A header template style determines how your project's header section is structur
 		</div>
 
 	=== "COMPACT"
+
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --header-style compact --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 
 		<div align="left">
 			<img src="https://img.freepik.com/premium-vector/bunch-balloons-icon-vector-illustration_444196-2020.jpg?w=360" width="15%" align="left" style="margin-right: 15px"/>
@@ -93,8 +116,8 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=flat-square&color=5D3FD3" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=flat-square&color=5D3FD3" alt="repo-language-count">
 		</p>
-				<p>Built with the tools and technologies:</p>
-				<p>
+			<p>Tech Stack</p>
+			<p>
 			<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=flat-square&logo=Streamlit&logoColor=white" alt="Streamlit">
 			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
 			<img src="https://img.shields.io/badge/Ruff-FCC21B.svg?style=flat-square&logo=Ruff&logoColor=black" alt="Ruff">
@@ -105,6 +128,7 @@ A header template style determines how your project's header section is structur
 		</p>
 			</div>
 		</div>
+		</div>
 		<br clear="left"/>
 		<hr>
 
@@ -113,25 +137,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Left-aligned layout</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo and title on same line</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Space-efficient design</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Perfect for smaller README files</span>
 			</div>
 			</li>
@@ -140,6 +160,17 @@ A header template style determines how your project's header section is structur
 
 	=== "MODERN"
 
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --header-style modern --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 		<div align="left" style="position: relative;">
 		<img src="https://flink.apache.org/img/logo/png/1000/flink_squirrel_1000.png" align="right" width="30%" style="margin: -20px 0 0 20px;">
 		<h1>PYFLINK-POC</h1>
@@ -152,7 +183,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-language-count">
 		</p>
-		<p align="left">Built with the tools and technologies:</p>
+		<p align="left">Tech Stack</p>
 		<p align="left">
 			<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
 			<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
@@ -162,6 +193,8 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/badge/Apache%20Flink-E6526F.svg?style=flat&logo=Apache-Flink&logoColor=white" alt="Apache%20Flink">
 		</p>
 		</div>
+		</div>
+
 		<br clear="right">
 		<hr>
 
@@ -170,25 +203,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Left-aligned text</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Logo floated to the right</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Contemporary asymmetric design</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Great for documentation sites</span>
 			</div>
 			</li>
@@ -196,6 +225,18 @@ A header template style determines how your project's header section is structur
 		</div>
 
 	=== "SVG"
+
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --header-style svg --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 
 		<p align="center">
 			<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KICAgIDxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODAwIDIwMCI+CiAgICAgICAgPGRlZnM+CiAgICAgICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmctZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzQxNThEMDtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdHlsZT0ic3RvcC1jb2xvcjojQzg1MEMwO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRkZDQzcwO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgICAgICA8ZmlsdGVyIGlkPSJzaGFkb3ciPgogICAgICAgICAgICAgICAgPGZlRHJvcFNoYWRvdyBkeD0iMCIgZHk9IjQiIHN0ZERldmlhdGlvbj0iNCIgZmxvb2Qtb3BhY2l0eT0iMC4yNSIgLz4KICAgICAgICAgICAgPC9maWx0ZXI+CiAgICAgICAgPC9kZWZzPgogICAgICAgIDxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2JnLWdyYWRpZW50KSIgcng9IjE1IiByeT0iMTUiLz4KICAgICAgICA8dGV4dCB4PSI0MDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQ4IgogICAgICAgIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIgogICAgICAgIGZpbGw9IiNGRkZGRkYiIGZpbHRlcj0idXJsKCNzaGFkb3cpIj5SRUFETUUtQUk8L3RleHQ+CiAgICA8L3N2Zz4=" alt="readme-ai-banner" width="800">
@@ -209,7 +250,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=2496ED" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=2496ED" alt="repo-language-count">
 		</p>
-		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">Tech Stack</p>
 		<p align="center">
 			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
 			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
@@ -227,6 +268,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
 			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
 		</p>
+		</div>
 		<br>
 		<hr>
 
@@ -235,25 +277,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Full-width SVG banner support</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Centered alignment</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Scalable vector graphics</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Ideal for custom branding</span>
 			</div>
 			</li>
@@ -261,6 +299,18 @@ A header template style determines how your project's header section is structur
 		</div>
 
 	=== "ASCII"
+
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --header-style ascii --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 
 		<div align="center">
 		<pre>
@@ -280,7 +330,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-language-count">
 		</p>
-		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">Tech Stack</p>
 		<p align="center">
 			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
 			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
@@ -298,6 +348,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
 			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
 		</p>
+		</div>
 		<br>
 		<hr>
 
@@ -306,25 +357,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Text-based art logo</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Minimal and retro style</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">No image dependencies</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Good for terminal-focused tools</span>
 			</div>
 			</li>
@@ -333,6 +380,18 @@ A header template style determines how your project's header section is structur
 
 
 	=== "ASCII_BOX"
+
+		<div class="usage-container">
+		<h3>Usage:</h3>
+
+		```sh
+		readmeai --header-style ascii_box --repository https://github.com/username/project
+		```
+
+		</div>
+
+		<div class="output-container">
+		<h3>Output:</h3>
 
 		<div align="center">
 		<pre>
@@ -357,7 +416,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-top-language">
 			<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat-square&color=0bc5e2" alt="repo-language-count">
 		</p>
-		<p align="center">Built with the tools and technologies:</p>
+		<p align="center">Tech Stack</p>
 		<p align="center">
 			<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
 			<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit">
@@ -375,6 +434,7 @@ A header template style determines how your project's header section is structur
 			<img src="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?style=flat-square&logo=Google-Gemini&logoColor=white" alt="Google%20Gemini">
 			<img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=flat-square&logo=Pydantic&logoColor=white" alt="Pydantic">
 		</p>
+		</div>
 		<br>
 		<hr>
 
@@ -383,25 +443,21 @@ A header template style determines how your project's header section is structur
 		<ul class="feature-list">
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Text-based art logo</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Minimal and retro style</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">No image dependencies</span>
 			</div>
 			</li>
 			<li>
 			<div class="feature-item">
-				<span class="feature-icon">•</span>
 				<span class="feature-text">Good for terminal-focused tools</span>
 			</div>
 			</li>
@@ -415,7 +471,7 @@ README-AI provides several ways to customize your header style:
 1. **Default Styles**: Choose from pre-defined header layouts
 2. **Alignment Options**: Set text and image alignment
 3. **Custom Sizing**: Adjust logo and image dimensions
-4. **Badge Integration**: Incorporates shield badges and tech stack icons
+4. **Badge Integration**: Incorporates shield badges and Tech Stack icons
 
 The selected style will determine how your project's name, logo, description, and badges are arranged in the header section.
 
@@ -501,7 +557,7 @@ This will prepend relevant emojis to each section header, enhancing the visual a
 To customize the header template, you can initialize the `HeaderTemplate` class and pass your preferred style (`classic`, `compact`, or `modern`). Here's an example:
 
 ```python
-from readmeai.templates.header import HeaderTemplate, HeaderStyleOptions
+from readmeai.generators.headers import HeaderTemplate, HeaderStyleOptions
 
 # Initialize the template with the desired style
 header_template = HeaderTemplate(style=HeaderStyleOptions.MODERN)
@@ -512,7 +568,7 @@ data = {
     "image": "https://example.com/logo.png",
     "image_width": "100px",
     "repo_name": "My Awesome Project",
-    "slogan": "Building the future, one commit at a time.",
+    "tagline": "Building the future, one commit at a time.",
     "shields_icons": "<shields.io badge here>",
     "badges_tech_stack": "<badge icons here>",
 }

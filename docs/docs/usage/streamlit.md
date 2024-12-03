@@ -12,3 +12,5 @@ For more information about the Streamlit app, see the [readme-ai-streamlit](http
 
 !!! warning "Streamlit App Status"
     The Streamlit web app for readme-ai is not actively developed and may not be up-to-date with the latest features. For the most recent version of readme-ai, please use the command-line interface.
+
+---

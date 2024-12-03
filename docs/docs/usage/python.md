@@ -103,3 +103,5 @@ For additional help:
 - Check the [GitHub Issues](https://github.com/eli64s/readme-ai/issues)
 - Visit the [Official Documentation](https://eli64s.github.io/readme-ai/)
 - Start a [Discussion](https://github.com/eli64s/readme-ai/discussions)
+
+---

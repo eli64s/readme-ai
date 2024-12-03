@@ -1,94 +1,80 @@
+# 🚧 Language Model Integrations
+
+*🚧 WIP*
+
+Readme-ai integrates seamlessly with various Large Language Model (LLM) services to generate high-quality README content. This page provides an overview of the supported LLM services and links to detailed information about each.
+
+## Supported LLM Services
+
+1. [OpenAI](openai.md)
+2. [Ollama](ollama.md)
+3. [Anthropic](anthropic.md)
+4. [Google Gemini](google_gemini.md)
+5. [Offline Mode](offline_mode.md)
+
+## Comparing LLM Services
+
+| Service | Pros | Cons |
+|---------|------|------|
+| OpenAI  | High-quality output, Versatile | Requires API key, Costs associated |
+| Ollama  | Free, Privacy-focused, Offline | May be slower, Requires local setup |
+| Anthropic | Privacy-focused, Offline | May be slower, Requires local setup |
+| Gemini  | Strong performance, Google integration | Requires API key |
+| Offline | No internet required, Fast | Basic output, Limited customization |
+
 ---
-title: "Running the CLI"
+
+<!-- ## Tips for Optimal Results
+
+1. **Experiment with different models**: Try various LLM services and models to find the best fit for your project.
+2. **Provide clear context**: Ensure your repository has well-organized code and documentation to help the LLM generate more accurate content.
+3. **Fine-tune with CLI options**: Use readme-ai's CLI options to customize the output further after choosing your LLM service.
+4. **Review and edit**: Always review the generated README and make necessary edits to ensure accuracy and relevance to your project.
+
+By leveraging these LLM integrations effectively, you can generate comprehensive and accurate README files for your projects with minimal effort.
+Here is a structured content tab implementation for integrating multiple APIs in README-AI, based on the detailed API integration information you provided:
+
 ---
 
-Let's explore how to run `readmeai` with various configurations and custom options. We'll start with the basic usage and then move on to more advanced options.
+## 🚀 API Integrations
 
-## Basic Usage
+README-AI supports multiple large language model (LLM) APIs for generating README files. The following tabs explain how to configure and use each supported API.
 
-The general syntax for using readme-ai is:
+### API Configuration Tabs
 
-```sh
-readmeai --repository <REPO_URL_OR_PATH> --api <LLM_SERVICE> [OPTIONS]
+<div class="grid" markdown>
+
+=== "Anthropic"
+
+        ```sh
+        readmeai --api anthropic --model claude-3-opus-20240229 --repository <REPO_URL_OR_PATH>
+        ```
+
+
+=== "Gemini"
+
+        ```sh
+        readmeai --api gemini --model gemini-1.5-flash --repository <REPO_URL_OR_PATH>
+        ```
+
+=== "Ollama"
+
+        ```sh
+        readmeai --api ollama --model llama3 --repository <REPO_URL_OR_PATH>
+        ```
+
+=== "OpenAI"
+
+        ```sh
+        readmeai --api openai --model gpt-3.5-turbo --repository <REPO_URL_OR_PATH>
+        ```
+
+=== "OfflineMode"
+
+        ```sh
+        readmeai --api offline --repository <REPO_URL_OR_PATH>
+        ```
+
 ```
 
-Replace `<REPO_URL_OR_PATH>` with your repository URL or local path, and `<LLM_SERVICE>` with your chosen LLM service (openai, ollama, gemini, or offline).
-
-## Examples with Different LLM Providers
-
-### Using OpenAI
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai \
-         --api openai \
-         --model gpt-3.5-turbo # (1)
-```
-
-1.  :man_raising_hand: Model currently defaults to `gpt-3.5-turbo`
-
-
-### Using Ollama
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai \
-         --api ollama \
-         --model llama3
-```
-
-### Using Google Gemini
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai \
-         --api gemini \
-         --model gemini-1.5-flash
-```
-
-## Offline Mode
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai \
-         --api offline
-```
-
-## Advanced Usage
-
-You can customize the output using various options:
-
-```sh
-readmeai --repository https://github.com/eli64s/readme-ai \
-         --output readmeai.md \
-         --api openai \
-         --model gpt-4-turbo \
-         --badge-color A931EC \
-         --badge-style flat-square \
-         --header-style compact \
-         --toc-style fold \
-         --temperature 0.1 \
-         --tree-depth 2 \
-         --image LLM \
-         --emojis
-```
-
-For a full list of options, run:
-
-```sh
-readmeai --help
-```
-
-See the [Configuration](https://eli64s.github.io/readme-ai/configuration/) documentation guide for detailed examples and explanations of each option.
-
-## Tips for Effective Usage
-
-1. **Choose the right LLM**: Different LLMs may produce varying results. Experiment to find the best fit for your project.
-2. **Adjust temperature**: Lower values (e.g., 0.1) produce more focused output, while higher values (e.g., 0.8) increase creativity.
-3. **Use custom prompts**: For specialized projects, consider using custom prompts to guide the AI's output.
-4. **Review and edit**: Always review the generated README and make necessary adjustments to ensure accuracy and relevance.
-
-## Troubleshooting
-
-If you encounter any issues:
-
-1. Ensure you have the latest version of readme-ai installed.
-2. Check your API credentials if using OpenAI or Google Gemini.
-3. For Ollama, make sure the Ollama service is running locally.
-4. Consult the [FAQ](https://github.com/eli64s/readme-ai/issues) or [open an issue](https://github.com/eli64s/readme-ai/issues) for additional support.
+</div> -->

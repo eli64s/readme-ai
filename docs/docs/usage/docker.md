@@ -113,3 +113,5 @@ docker rmi zeroxeli/readme-ai:latest
 3. For network-related issues, verify your internet connection and firewall settings.
 
 For more detailed troubleshooting, refer to the official [Docker documentation](https://docs.docker.com/config/daemon/#troubleshoot-the-daemon) or [open an issue](https://github.com/eli64s/readme-ai/issues) on GitHub.
+
+---
