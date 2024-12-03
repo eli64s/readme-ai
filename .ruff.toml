@@ -13,12 +13,15 @@ exclude = [
 ]
 line-length = 79
 indent-width = 4
-target-version = "py310"
+target-version = "py311"
 
 [lint]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-extend-select = ["E501"]
+extend-select = [
+    "E305",     # 2 blank lines before class or function
+    "E501",
+]
 select = [
     "ARG",      # unused arguments
     "B",        # flake8-bugbear

@@ -33,8 +33,6 @@ function clean_test() {
     rm -fr .nox/
     rm -fr .tox/
     rm -fr htmlcov/
-    rm .coverage
-    rm coverage.xml
 }
 
 function clean_backup_and_cache() {
