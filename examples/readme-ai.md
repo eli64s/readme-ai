@@ -23,7 +23,7 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -375,7 +375,7 @@ Illustrate the key generative prompt templates for large language models in the 
 					</tr>
 					<tr>
 						<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/models/prompts.py'>prompts.py</a></b></td>
-						<td>- Generates and formats prompts for the LLM API based on provided context such as features, overview, and slogan<br>- Additionally, creates additional prompts like features, overview, and slogan for LLM using specific configurations and dependencies.</td>
+						<td>- Generates and formats prompts for the LLM API based on provided context such as features, overview, and tagline<br>- Additionally, creates additional prompts like features, overview, and tagline for LLM using specific configurations and dependencies.</td>
 					</tr>
 					<tr>
 						<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/models/openai.py'>openai.py</a></b></td>
@@ -611,7 +611,7 @@ Run the test suite using the following command:
 ```
 
 
-## 📌 Project Roadmap
+## 📌 Roadmap
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.

@@ -7,6 +7,7 @@ import click
 from readmeai import __version__
 from readmeai.config.constants import (
     BadgeStyleOptions,
+    EmojiThemeOptions,
     HeaderStyleOptions,
     ImageOptions,
     LLMService,
@@ -115,9 +116,12 @@ context_window = click.option(
 emojis = click.option(
     "-e",
     "--emojis",
-    is_flag=True,
-    default=False,
-    help="Adds an emoji prefix to each header of the README.md file. For example, the header ## 'Overview' would change to '## 📍 Overview'.",
+    type=click.Choice(
+        [opt.value for opt in EmojiThemeOptions],
+        case_sensitive=False,
+    ),
+    default=EmojiThemeOptions.DEFAULT.value,
+    help="Emoji theme pack for the README.md file.",
 )
 
 header_style = click.option(
@@ -165,6 +169,14 @@ image = click.option(
         """,
 )
 
+image_width = click.option(
+    "-iw",
+    "--image-width",
+    type=str,
+    default="20%",
+    help="Width of the project logo image in the README file header.",
+)
+
 model = click.option(
     "-m",
     "--model",
@@ -203,6 +215,7 @@ temperature = click.option(
 )
 
 top_p = click.option(
+    "-tp",
     "--top-p",
     default=0.9,
     type=click.FloatRange(0.0, 1.0, clamp=True),

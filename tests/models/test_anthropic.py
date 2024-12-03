@@ -4,7 +4,7 @@ import anthropic
 import pytest
 import tenacity
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.anthropic import AnthropicHandler
 
@@ -20,9 +20,9 @@ except ImportError:
 def anthropic_handler(repository_context_fixture: RepositoryContext):
     if not ANTHROPIC_AVAILABLE:
         pytest.skip("Anthropic library is not available")
-    config_loader = ConfigLoader()
+    config = Settings()
     context = repository_context_fixture
-    return AnthropicHandler(config_loader, context)
+    return AnthropicHandler(config, context)
 
 
 @pytest.mark.skip("Anthropic extra dependency needs review.")

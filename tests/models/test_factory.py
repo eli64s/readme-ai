@@ -1,6 +1,6 @@
 import pytest
 
-from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.config.settings import Settings
 from readmeai.errors import UnsupportedServiceError
 from readmeai.models.factory import ModelFactory
 from readmeai.models.gemini import GeminiHandler
@@ -24,12 +24,12 @@ def test_model_handler_offline(offline_handler: OfflineHandler):
 
 
 def test_model_handler_unsupported_service(
-    config_fixture: Settings, config_loader_fixture: ConfigLoader
+    config_fixture: Settings, config_fixture: Settings
 ):
     """Test that model handler raises an error for an unsupported service."""
     config_fixture.llm.api = "OpenAGI"
     config_fixture.llm.model = "agi-turbo-3000"
     with pytest.raises(Exception) as exc:
-        ModelFactory.get_backend(config_loader_fixture, [])
+        ModelFactory.get_backend(config_fixture, [])
         assert isinstance(exc.value, UnsupportedServiceError)
         assert str(exc.value) == "Unsupported service: OpenAGI"

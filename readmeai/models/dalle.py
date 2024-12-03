@@ -11,7 +11,7 @@ import aiohttp
 import openai
 
 from readmeai.config.constants import ImageOptions
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.logger import get_logger
 
 
@@ -20,10 +20,10 @@ class DalleHandler:
     Generate and download an image using OpenAI's DALL-E model.
     """
 
-    def __init__(self, config: ConfigLoader) -> None:
+    def __init__(self, config: Settings) -> None:
         self.config = config
         self.default_image = ImageOptions.BLUE.value
-        self.filename = f"{config.config.git.name}.png"
+        self.filename = f"{config.git.name}.png"
         self._logger = get_logger(__name__)
         self._model_settings()
 
@@ -46,9 +46,9 @@ class DalleHandler:
         """Formats the prompt string using configuration data."""
         return {
             "prompt": self.config.prompts["prompts"]["logo"].format(
-                project_name=self.config.config.git.name,
-                project_slogan=self.config.config.md.slogan,
-                project_overview=self.config.config.md.overview,
+                project_name=self.config.git.name,
+                project_tagline=self.config.md.tagline,
+                project_overview=self.config.md.overview,
             ),
             "model": self.model,
             "size": self.size,

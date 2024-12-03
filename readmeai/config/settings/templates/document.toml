@@ -1,0 +1,80 @@
+# Markdown templates for the README.md file
+
+[document_templates]
+standard = """\
+<div align="center" id="top">
+
+{HEADER}
+
+</div>
+
+### Table of Contents
+
+{TOC_CONTENT}
+---
+
+## Overview
+
+{OVERVIEW_CONTENT}
+
+---
+
+## Features
+
+{FEATURES_CONTENT}
+
+---
+
+## Project Structure
+
+{PROJECT_STRUCTURE_CONTENT}
+
+### Project Index
+
+{PROJECT_INDEX_CONTENT}
+---
+
+## Getting Started
+
+### Prerequisites
+
+{PREREQUISITES_CONTENT}
+
+### Installation
+
+{INSTALLATION_CONTENT}
+
+### Usage
+
+{USAGE_CONTENT}
+
+### Testing
+
+{TESTING_CONTENT}
+
+---
+
+## Roadmap
+
+{ROADMAP_CONTENT}
+---
+
+## Contributing
+
+{CONTRIBUTING_CONTENT}
+---
+
+## License
+
+{LICENSE_CONTENT}
+
+---
+
+## Acknowledgements
+
+{ACKNOWLEDGEMENTS_CONTENT}
+
+<div align="left"><a href="#top">Back to top</a></div>
+
+---
+"""

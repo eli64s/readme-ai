@@ -1,4 +1,4 @@
-"""File handler module to read and write various file formats."""
+"""File handler for reading and writing files in various formats."""
 
 import functools
 import json
@@ -9,7 +9,7 @@ from typing import Any
 import yaml
 
 from readmeai.errors import FileReadError, FileWriteError
-from readmeai.utils.helpers import is_available
+from readmeai.utils.module_importer import is_available
 
 
 class FileHandler:

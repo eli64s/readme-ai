@@ -5,7 +5,7 @@ from _pytest._py.path import LocalPath
 from click.testing import CliRunner
 
 from readmeai.cli.main import main
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def cli_runner():
 
 @pytest.fixture
 def mock_config():
-    return MagicMock(spec=ConfigLoader)
+    return MagicMock(spec=Settings)
 
 
 @pytest.fixture
@@ -26,12 +26,12 @@ def mock_readme_agent():
 
 def test_main_command_basic(
     cli_runner: CliRunner,
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     output_file_path: str,
 ):
     with patch(
-        "readmeai.config.settings.ConfigLoader",
-        return_value=config_loader_fixture,
+        "readmeai.config.settings.Settings",
+        return_value=config_fixture,
     ):
         result = cli_runner.invoke(
             main,
@@ -48,17 +48,15 @@ def test_main_command_basic(
 
 def test_main_command_all_options(
     cli_runner: CliRunner,
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     output_file_path: str,
 ):
-    mock_config = config_loader_fixture
-    mock_config.config.git.repository = (
+    mock_config = config_fixture
+    mock_config.git.repository = (
         "https://github.com/eli64s/readme-ai-streamlit"
     )
 
-    with patch(
-        "readmeai.config.settings.ConfigLoader", return_value=mock_config
-    ):
+    with patch("readmeai.config.settings.Settings", return_value=mock_config):
         result = cli_runner.invoke(
             main,
             [
@@ -177,9 +175,7 @@ def test_main_command_exception_handling(
     cli_runner: CliRunner, mock_config: MagicMock
 ):
     with (
-        patch(
-            "readmeai.config.settings.ConfigLoader", return_value=mock_config
-        ),
+        patch("readmeai.config.settings.Settings", return_value=mock_config),
         patch(
             "readmeai.__main__.readme_agent",
             side_effect=Exception("Test error"),

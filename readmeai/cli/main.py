@@ -1,4 +1,4 @@
-"""Command-line interface entrypoint for the readme-ai package."""
+"""Entrypoint for the command-line interface for readme-ai."""
 
 import click
 
@@ -30,6 +30,7 @@ logger = get_logger(__name__)
 @options.emojis
 @options.header_style
 @options.image
+@options.image_width
 @options.model
 @options.output
 @options.rate_limit
@@ -48,6 +49,7 @@ def main(
     emojis: bool,
     header_style: str,
     image: str,
+    image_width: str,
     model: str,
     output: str,
     rate_limit: int,
@@ -58,6 +60,7 @@ def main(
     tree_depth: int,
 ) -> None:
     """Entry point for the readme-ai CLI application."""
+
     config.config.git = GitSettings(repository=repository)
     config.config.llm = config.config.llm.model_copy(
         update={
@@ -67,6 +70,7 @@ def main(
             "model": model,
             "temperature": temperature,
             "top_p": top_p,
+            "rate_limit": rate_limit,
         },
     )
     config.config.md = config.config.md.model_copy(
@@ -77,13 +81,14 @@ def main(
             "emojis": emojis,
             "header_style": header_style,
             "image": image,
+            "image_width": image_width,
             "toc_style": toc_style,
             "tree_depth": tree_depth,
         },
     )
-    config.config.api.rate_limit = rate_limit
 
-    logger.info(f"Pydantic settings: {config.__dict__.keys()}")
+    logger.info(f"Pydantic settings: {config.config.model_dump().keys()}")
+    logger.info(f"Resource Path: {config.config.document_templates}")
     logger.info(f"Repository settings: {config.config.git}")
     logger.info(f"LLM API settings: {config.config.llm}")
 

@@ -21,9 +21,9 @@ def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
 def get_prompt_template(prompts: dict, prompt_type: str) -> str:
     """Retrieves the template for the given prompt type."""
     prompt_templates = {
-        "features_table": prompts["prompts"]["features_table"],
-        "overview": prompts["prompts"]["overview"],
-        "slogan": prompts["prompts"]["slogan"],
+        "features_table": prompts["features_table"],
+        "overview": prompts["overview"],
+        "tagline": prompts["tagline"],
     }
     return prompt_templates.get(prompt_type, "")
 
@@ -42,7 +42,7 @@ async def set_additional_contexts(
     repo_context: RepositoryContext,
     file_summaries: list[tuple[str, str]],
 ) -> list[dict]:
-    """Generates additional prompts (features, overview, slogan) for LLM."""
+    """Generates additional prompts (features, overview, tagline) for LLM."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
@@ -63,7 +63,7 @@ async def set_additional_contexts(
                 },
             ),
             (
-                "slogan",
+                "tagline",
                 {
                     "name": config.git.name,
                     "repo": config.git.repository,

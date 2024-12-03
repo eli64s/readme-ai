@@ -33,7 +33,7 @@
   - [ Install](#-install)
   - [ Using CallMon](#-using-CallMon)
   - [ Tests](#-tests)
-- [ Project Roadmap](#-project-roadmap)
+- [ Roadmap](#-project-roadmap)
 - [ Contributing](#-contributing)
 - [ License](#-license)
 - [ Acknowledgments](#-acknowledgments)
@@ -188,7 +188,7 @@ cargo test
 
 ---
 
-##  Project Roadmap
+##  Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

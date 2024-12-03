@@ -1,0 +1,82 @@
+# Prompts for generating the README project logo
+
+[logo]
+logo = """
+You are tasked with creating a simple, cute mascot icon in a minimalist style specifically designed as a standalone iPhone app icon. Your goal is to design an icon with a singular main centerpiece that defines the entire shape of the icon, without any external borders or background.
+
+First, review the project details:
+
+<project_name>
+{project_name}
+</project_name>
+
+<project_overview>
+{project_overview}
+</project_overview>
+
+<tagline>
+{tagline}
+</tagline>
+
+Now, follow these detailed instructions to create the mascot icon:
+
+1. Use thick, rounded outlines to define the mascot's shape.
+2. Employ basic geometric shapes for facial features (e.g., dots for eyes, simple shapes for nose/mouth).
+3. Ensure a chunky, squat body proportion for a cute appearance.
+4. Incorporate distinctive features of the mascot animal/character/hero in a simplified form.
+5. Maintain a friendly, approachable expression.
+6. Fill the square app-icon canvas with the mascot, centered and occupying most of the space.
+7. The mascot's shape itself should form the icon boundary—no additional borders or background elements.
+8. The design should be visually complete and balanced without relying on a background.
+
+When designing the mascot, consider the following to incorporate the project's essence:
+- Reflect on the project name, overview, and tagline to capture the spirit of the project.
+- Choose colors, shapes, or elements that align with the project's purpose and values.
+- Ensure the mascot's expression and overall design convey the project's tone (e.g., friendly, professional, playful).
+
+To present your final design, follow these steps:
+1. Describe the mascot's overall appearance and how it relates to the project.
+2. Detail the specific geometric shapes used for the body and facial features.
+3. Explain the color choices and how they connect to the project's theme.
+4. Describe how the mascot's shape forms the icon boundary without additional elements.
+5. Justify how the design embodies the project's essence and purpose.
+
+Present your final design description inside <mascot_design> tags. Remember to focus on creating a standalone icon where the mascot's shape defines the boundaries and serves as the singular main centerpiece.
+"""
+
+logo_ascii = """
+Generate a markdown code block for a README banner with the following specifications:
+
+1. Use a console code block.
+2. Create an ASCII art representation of the project name "{project_name}".
+3. The ASCII art should be in a bold, block-letter style.
+4. Each letter should be approximately 6 characters wide and 5 lines tall.
+5. Place the ASCII art at the top of the code block.
+6. Add two newline characters after the ASCII art.
+7. Include the following line below the ASCII art:
+   {tagline}
+8. The {tagline} should be a placeholder that can be replaced with an actual tagline.
+
+Example output format:
+
+```console
+[ASCII art representation of project name]
+
+{tagline}
+```
+
+EXAMPLE OUTPUT:
+INPUT PROJECT NAME: README-AI
+
+```console
+██████  ███████  █████  ██████  ███    ███ ███████       █████  ██
+██   ██ ██      ██   ██ ██   ██ ████  ████ ██           ██   ██ ██
+██████  █████   ███████ ██   ██ ██ ████ ██ █████        ███████ ██
+██   ██ ██      ██   ██ ██   ██ ██  ██  ██ ██           ██   ██ ██
+██   ██ ███████ ██   ██ ██████  ██      ██ ███████      ██   ██ ██
+
+{tagline}
+```
+
+Thank you for the creative work. Cheers!
+"""

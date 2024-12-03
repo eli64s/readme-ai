@@ -16,11 +16,12 @@ class FileProcessor:
     File processor class to process files in a repository.
     """
 
-    def __init__(self, config: ConfigLoader):
-        self.config = config
+    def __init__(self, settings: ConfigLoader) -> None:
+        self.settings = settings
+        self.config = settings.config
         self.document_cleaner = DocumentCleaner()
-        self.ignore_list = config.ignore_list.get("ignore_list", [])
-        self.language_names = config.languages.get("language_names", {})
+        self.ignore_list = self.config.ignore_list
+        self.language_map = self.config.language_map.get("language_map", {})
 
     def process_files(self, repo_path: Path) -> list[FileContext]:
         """Generate file info for the given repository path."""
@@ -63,7 +64,7 @@ class FileProcessor:
 
     def _map_language(self, file_ext: str, file_name: str) -> str:
         """Map the file extension to the programming language name."""
-        return self.language_names.get(file_ext, file_name)
+        return self.language_map.get(file_ext, file_name)
 
     def _parse_dependencies(self, file_path: str, content: str) -> list[str]:
         """Parse dependencies from the file content."""

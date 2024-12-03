@@ -13,7 +13,7 @@ from tenacity import (
 )
 
 from readmeai.config.constants import LLMService
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
@@ -24,26 +24,26 @@ class OpenAIHandler(BaseModelHandler):
     OpenAI API LLM implementation, with Ollama support.
     """
 
-    def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
-    ) -> None:
-        super().__init__(config_loader, context)
+    def __init__(self, config: Settings, context: RepositoryContext) -> None:
+        super().__init__(config, context)
         self._model_settings()
 
     def _model_settings(self):
-        self.host_name = self.config.llm.host_name
-        self.localhost = self.config.llm.localhost
         self.model = self.config.llm.model
-        self.path = self.config.llm.path
+        self.base_url = self.config.llm.base_url
+        self.localhost = self.config.llm.localhost
+        self.resource = self.config.llm.resource
         self.tokens = self.config.llm.tokens
         self.top_p = self.config.llm.top_p
+        self.rate_limit = self.config.llm.rate_limit
+        self.system_message = self.config.llm.system_message
 
         if self.config.llm.api == LLMService.OPENAI.name:
-            self.url = f"{self.host_name}{self.path}"
+            self.url = f"{self.base_url}{self.resource}"
             self.client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
         elif self.config.llm.api == LLMService.OLLAMA.name:
-            self.url = f"{self.localhost}{self.path}"
+            self.url = f"{self.localhost}{self.resource}"
             self.client = openai.OpenAI(
                 base_url=f"{self.localhost}v1",
                 api_key=LLMService.OLLAMA.name,

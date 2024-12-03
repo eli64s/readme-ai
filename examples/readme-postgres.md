@@ -42,7 +42,7 @@
   - [ Install](#-install)
   - [ Using buenavista](#-using-buenavista)
   - [ Tests](#-tests)
-- [ Project Roadmap](#-project-roadmap)
+- [ Roadmap](#-project-roadmap)
 - [ Contributing](#-contributing)
 - [ License](#-license)
 - [ Acknowledgments](#-acknowledgments)
@@ -224,7 +224,7 @@ pytest
 
 ---
 
-##  Project Roadmap
+##  Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

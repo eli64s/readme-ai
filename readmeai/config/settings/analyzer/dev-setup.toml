@@ -1,0 +1,266 @@
+# Unified Development Configuration
+
+# Global defaults and settings
+
+[defaults]
+badge_style = "flat-square"
+install_command = "echo 'INSERT-INSTALL-COMMAND-HERE'"
+usage_command = "echo 'INSERT-RUN-COMMAND-HERE'"
+test_command = "echo 'INSERT-TEST-COMMAND-HERE'"
+
+# Tool Type Definitions
+
+[tool_types]
+package_manager = "Tools for managing project dependencies"
+container = "Container and virtualization tools"
+build_system = "Project build and compilation tools"
+test_framework = "Testing and validation frameworks"
+documentation = "Documentation generation tools"
+ci_cd = "Continuous Integration and Deployment"
+code_quality = "Code quality and linting tools"
+api_documentation = "API documentation tools"
+database = "Database management tools"
+monitoring = "System and application monitoring"
+serverless = "Serverless deployment tools"
+
+# Language Configurations
+
+[languages.python]
+name = "Python"
+extensions = [ ".py", ".pyw", ".pyx" ]
+test_frameworks = [
+  "pytest",
+  "unittest",
+  "nose",
+  "doctest",
+  "tox",
+  "mamba",
+  "behave",
+  "robotframework",
+]
+
+[languages.python.package_managers.pip]
+files = [
+  "requirements.txt",
+  "requirements-dev.txt",
+  "requirements-prod.txt",
+  "requirements.in",
+  "requirements.test.txt",
+  "dev-requirements.txt",
+]
+install_command = "pip install -r {file}"
+usage_command = "python {entrypoint}"
+test_command = "pytest"
+shield_url = "https://img.shields.io/badge/Pip-3776AB.svg?style={badge_style}&logo=pypi&logoColor=white"
+website_url = "https://pypi.org/project/pip/"
+category = "package_manager"
+
+[languages.python.package_managers.poetry]
+files = [ "pyproject.toml", "poetry.lock" ]
+install_command = "poetry install"
+usage_command = "poetry run python {entrypoint}"
+test_command = "poetry run pytest"
+shield_url = "https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json"
+website_url = "https://python-poetry.org/"
+category = "package_manager"
+
+[languages.python.package_managers.conda]
+files = [ "conda.yml", "conda.yaml", "environment.yml", "environment.yaml" ]
+install_command = "conda env create -f {file}"
+usage_command = "conda activate {venv} && python {entrypoint}"
+test_command = "conda activate {venv} && pytest"
+shield_url = "https://img.shields.io/badge/conda-342B029.svg?style={badge_style}&logo=anaconda&logoColor=white"
+website_url = "https://docs.conda.io/"
+category = "package_manager"
+
+[languages.javascript]
+name = "JavaScript"
+extensions = [ ".js", ".jsx", ".mjs" ]
+test_frameworks = [ "Jest", "Mocha", "Jasmine", "AVA" ]
+
+[languages.javascript.package_managers.npm]
+files = [ "package.json", "package-lock.json", ".npmrc", ".nvmrc" ]
+install_command = "npm install"
+usage_command = "npm start"
+test_command = "npm test"
+shield_url = "https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white"
+website_url = "https://www.npmjs.com/"
+category = "package_manager"
+
+[languages.javascript.package_managers.yarn]
+files = [ "yarn.lock" ]
+install_command = "yarn install"
+usage_command = "yarn start"
+test_command = "yarn test"
+shield_url = "https://img.shields.io/badge/Yarn-2C8EBB.svg?style={badge_style}&logo=yarn&logoColor=white"
+website_url = "https://yarnpkg.com/"
+category = "package_manager"
+
+[languages.typescript]
+name = "TypeScript"
+extensions = [ ".ts", ".tsx" ]
+test_frameworks = [ "Jest", "Mocha", "Jasmine", "AVA" ]
+
+[languages.java]
+name = "Java"
+extensions = [ ".java", ".class", ".jar" ]
+test_frameworks = [ "JUnit", "TestNG", "Mockito" ]
+
+[languages.java.build_systems.maven]
+files = [ "pom.xml" ]
+install_command = "mvn install"
+usage_command = "mvn exec:java"
+test_command = "mvn test"
+shield_url = "https://img.shields.io/badge/Maven-C71A36.svg?style={badge_style}&logo=apache-maven&logoColor=white"
+website_url = "https://maven.apache.org/"
+category = "build_system"
+
+[languages.java.build_systems.gradle]
+files = [ "build.gradle", "build.gradle.kts" ]
+install_command = "gradle build"
+usage_command = "gradle run"
+test_command = "gradle test"
+shield_url = "https://img.shields.io/badge/Gradle-02303A.svg?style={badge_style}&logo=gradle&logoColor=white"
+website_url = "https://gradle.org/"
+category = "build_system"
+
+# Container Tools
+
+[tools.containers.docker]
+files = [ "Dockerfile", "Dockerfile.dev", "Dockerfile.prod" ]
+install_command = "docker build -t {image_name} ."
+usage_command = "docker run -it {image_name}"
+test_command = "docker run --rm {image_name} test"
+shield_url = "https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white"
+website_url = "https://www.docker.com/"
+category = "container"
+
+[tools.containers.docker_compose]
+files = [
+  "docker-compose.yml",
+  "docker-compose.yaml",
+  "docker-compose.dev.yml",
+  "docker-compose.prod.yml",
+]
+install_command = "docker-compose build"
+usage_command = "docker-compose up -d"
+test_command = "docker-compose run --rm {service} test"
+shield_url = "https://img.shields.io/badge/Docker_Compose-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white"
+website_url = "https://docs.docker.com/compose/"
+category = "container"
+
+# CI/CD Tools
+[tools.ci_cd.github_actions]
+files = [ ".github/workflows/*.yml", ".github/workflows/*.yaml" ]
+category = "ci_cd"
+shield_url = "https://img.shields.io/badge/GitHub_Actions-2088FF.svg?style={badge_style}&logo=github-actions&logoColor=white"
+website_url = "https://github.com/features/actions"
+
+[tools.ci_cd.gitlab_ci]
+files = [ ".gitlab-ci.yml", ".gitlab-ci.yaml" ]
+category = "ci_cd"
+shield_url = "https://img.shields.io/badge/GitLab_CI-FCA121.svg?style={badge_style}&logo=gitlab&logoColor=white"
+website_url = "https://docs.gitlab.com/ee/ci/"
+
+# Code Quality Tools
+[tools.code_quality.eslint]
+files = [ ".eslintrc.json", ".eslintrc.js", ".eslintignore" ]
+install_command = "npm install eslint --save-dev"
+usage_command = "npx eslint ."
+test_command = "npx eslint . --max-warnings 0"
+category = "code_quality"
+shield_url = "https://img.shields.io/badge/ESLint-4B32C3.svg?style={badge_style}&logo=eslint&logoColor=white"
+website_url = "https://eslint.org/"
+
+[tools.code_quality.prettier]
+files = [ ".prettierrc", ".prettierrc.json", ".prettierrc.js", ".prettierignore" ]
+install_command = "npm install prettier --save-dev"
+usage_command = "npx prettier --write ."
+test_command = "npx prettier --check ."
+category = "code_quality"
+shield_url = "https://img.shields.io/badge/Prettier-F7B93E.svg?style={badge_style}&logo=prettier&logoColor=white"
+website_url = "https://prettier.io/"
+
+# API Documentation Tools
+[tools.api_documentation.swagger]
+files = [ "swagger.yml", "swagger.yaml", "swagger.json" ]
+category = "api_documentation"
+shield_url = "https://img.shields.io/badge/Swagger-85EA2D.svg?style={badge_style}&logo=swagger&logoColor=black"
+website_url = "https://swagger.io/"
+
+[tools.api_documentation.openapi]
+files = [ "openapi.yml", "openapi.yaml", "openapi.json" ]
+category = "api_documentation"
+shield_url = "https://img.shields.io/badge/OpenAPI-6BA539.svg?style={badge_style}&logo=openapi-initiative&logoColor=white"
+website_url = "https://www.openapis.org/"
+
+# Database Tools
+[tools.database.mongodb]
+files = [ "mongod.conf", "mongo.conf" ]
+category = "database"
+shield_url = "https://img.shields.io/badge/MongoDB-47A248.svg?style={badge_style}&logo=mongodb&logoColor=white"
+website_url = "https://www.mongodb.com/"
+
+# Monitoring Tools
+[tools.monitoring.prometheus]
+files = [ "prometheus.yml", "prometheus.yaml" ]
+category = "monitoring"
+shield_url = "https://img.shields.io/badge/Prometheus-E6522C.svg?style={badge_style}&logo=prometheus&logoColor=white"
+website_url = "https://prometheus.io/"
+
+# Serverless Tools
+[tools.serverless.aws_sam]
+files = [ "template.yaml", "template.yml" ]
+category = "serverless"
+shield_url = "https://img.shields.io/badge/AWS_SAM-FF9900.svg?style={badge_style}&logo=amazon-aws&logoColor=white"
+website_url = "https://aws.amazon.com/serverless/sam/"
+
+# File Extensions
+
+[file_extensions]
+programming = [
+  ".py",
+  ".js",
+  ".java",
+  ".cpp",
+  ".go",
+  ".rs",
+  ".rb",
+  ".php",
+  ".cs",
+  ".ts",
+  ".scala",
+  ".kt",
+  ".swift",
+  ".r",
+  ".dart",
+  ".lua",
+  ".hs",
+  ".ex",
+  ".erl",
+  ".fs",
+  ".clj",
+  ".nim",
+  ".pl",
+  ".ml",
+  ".v",
+  ".zig",
+]
+non_programming = [
+  ".md",
+  ".txt",
+  ".json",
+  ".yaml",
+  ".yml",
+  ".toml",
+  ".ini",
+  ".cfg",
+  ".conf",
+  ".csv",
+  ".xml",
+  ".env",
+  ".properties",
+  ".sh",
+  ".bat",
+  ".ps1",
+]

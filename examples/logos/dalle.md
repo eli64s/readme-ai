@@ -9,7 +9,7 @@
 	<img src="https://img.shields.io/github/languages/top/PiyushSuthar/github-readme-quotes?style=flat-square&color=skyblue" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/PiyushSuthar/github-readme-quotes?style=flat-square&color=skyblue" alt="repo-language-count">
 </p>
-<p align="center">Built with the tools and technologies:</p>
+<p align="center">Tech Stack</p>
 <p align="center">
 	<img src="https://img.shields.io/badge/Vercel-000000.svg?style=flat-square&logo=Vercel&logoColor=white" alt="Vercel">
 	<img src="https://img.shields.io/badge/npm-CB3837.svg?style=flat-square&logo=npm&logoColor=white" alt="npm">
@@ -25,7 +25,7 @@ I. [📍 Overview](#-overview)
 II. [👾 Features](#-features)
 III. [📁 Project Structure](#-project-structure)
 IV. [🚀 Getting Started](#-getting-started)
-V. [📌 Project Roadmap](#-project-roadmap)
+V. [📌 Roadmap](#-project-roadmap)
 VI. [🔰 Contributing](#-contributing)
 VII. [🎗 License](#-license)
 VIII. [🙌 Acknowledgments](#-acknowledgments)
@@ -253,7 +253,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

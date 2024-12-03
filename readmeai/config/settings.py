@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Literal
+from typing import ClassVar, Literal, Tuple, Type
 
 from pydantic import (
     AnyHttpUrl,
@@ -18,15 +18,24 @@ from pydantic import (
     model_validator,
 )
 from pydantic_extra_types.color import Color
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+    TomlConfigSettingsSource,
+)
 
 from readmeai.config.constants import (
     BadgeStyleOptions,
+    EmojiThemeOptions,
     HeaderStyleOptions,
     ImageOptions,
+    LLMService,
     TocStyleOptions,
 )
+from readmeai.config.resource_files import PackageResourceSettings
 from readmeai.errors import GitValidationError
-from readmeai.generators.banner import (
+from readmeai.generators.banners import (
     convert_svg_to_html,
     generate_ascii_banner,
     generate_ascii_box_banner,
@@ -34,52 +43,27 @@ from readmeai.generators.banner import (
 from readmeai.logger import get_logger
 from readmeai.readers.git.providers import GitURL, parse_git_url
 from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.file_resource import get_resource_path
+from readmeai.utils.module_importer import is_available
+from readmeai.utils.resource_loader import build_resource_path
 
-try:
-    from typing import Self
-except ImportError:
+if is_available("typing_extensions"):
     from typing_extensions import Self
+else:
+    from typing import Self
 
 _logger = get_logger(__name__)
 
 
-class APISettings(BaseModel):
-    """
-    LLM API settings and parameters.
-    """
-
-    rate_limit: PositiveInt = Field(gt=0, le=25, description="API rate limit.")
-    system_message: str = Field(description="LLM system prompt content field.")
-
-
-class FileSettings(BaseModel):
-    """
-    File path resources for the readme-ai package.
-    """
-
-    ignore_list: str = Field(description="List of files to ignore.")
-    languages: str = Field(description="Extension to language mappings.")
-    parsers: str = Field(description="Common dependency file names.")
-    prompts: str = Field(description="LLM API prompt templates.")
-    tool_config: str = Field(description="Development tool configurations.")
-    tooling: str = Field(description="Development tools and utilities.")
-    shieldsio_icons: str = Field(description="Shields.io svg icon badges.")
-    skill_icons: str = Field(description="Skill icon badges.")
-
-
 class GitSettings(BaseModel):
     """
-    User repository settings for a remote or local codebase.
+    Metadata and settings for the user's repository.
     """
 
-    repository: Path | str
+    repository: Path | str = ""
     full_name: str | None = None
     host_domain: str | None = None
     host: str | None = None
-    name: str = ""
-
-    model_config = ConfigDict(extra="forbid")
+    name: str | None = None
 
     @field_validator("repository")
     def validate_repository(cls, value: Path | str) -> Path | str:
@@ -108,7 +92,7 @@ class GitSettings(BaseModel):
 
 class MarkdownSettings(BaseModel):
     """
-    Markdown code template blocks for building the README.md file.
+    Markdown content settings for the generated README.
     """
 
     align: Literal["left", "center", "right"] = Field(
@@ -118,43 +102,33 @@ class MarkdownSettings(BaseModel):
         default_factory=lambda: Color("blue"),
         description="Badge color (https://www.w3.org/TR/SVG11/types.html#ColorKeywords)",
     )
-    badge_style: BadgeStyleOptions = Field(
-        default=BadgeStyleOptions.DEFAULT, description="Badge icon style type."
-    )
-    badges_tech_stack: str
-    badges_tech_stack_text: str
-    contribute: str
-    emojis: bool = Field(
-        default=False, description="Enable emoji prefixes for headers."
-    )
-    features: str = Field(
-        default="❯ INSERT-PROJECT-FEATURES",
-        description="Project feature markdown table content.",
-    )
-    header_style: str = Field(
-        default=HeaderStyleOptions.CLASSIC,
-        description="Header style for the project README.",
-    )
-    image: AnyHttpUrl | FilePath | str = Field(
-        default=ImageOptions.BLUE,
-        description="Project image URL or file path.",
-    )
-    image_width: str = Field(default="20%")
-    overview: str = Field(default="❯ INSERT-PROJECT-OVERVIEW")
-    placeholder: str = Field(default="<code>❯ REPLACE-ME</code>")
-    project_index: str
-    quickstart: str
-    shieldsio_icons: str
-    skill_icons: str
-    slogan: str = Field(default="❯ INSERT-PROJECT-SLOGAN")
-    tables: str = Field(default="❯ INSERT-PROJECT-TABLES")
+    badge_style: BadgeStyleOptions = Field(default=BadgeStyleOptions.DEFAULT)
+    badges_tech_stack_icons: str = ""
+    badges_tech_stack_text: str = ""
+    contribute: str = ""
+    emojis: EmojiThemeOptions = Field(default=EmojiThemeOptions.DEFAULT)
+    features: str = "❯ INSERT-PROJECT-FEATURES"
+    header_style: str = Field(default=HeaderStyleOptions.CLASSIC)
+    image: AnyHttpUrl | FilePath | str = Field(default=ImageOptions.BLUE)
+    image_width: str = "20%"
+    overview: str = "❯ INSERT-PROJECT-OVERVIEW"
+    placeholder: str = "<code>❯ REPLACE-ME</code>"
+    project_index: str = ""
+    quickstart: str = ""
+    shieldsio_icons: str = ""
+    skill_icons: str = ""
+    tagline: str = "❯ INSERT-PROJECT-tagline"
+    tables: str = "❯ INSERT-PROJECT-TABLES"
     toc_style: str = Field(default=TocStyleOptions.BULLET)
-    tree: str
+    tree: str = Field(default="❯ INSERT-PROJECT-TREE")
     tree_depth: PositiveInt = Field(default=2, ge=1, le=5)
+    license: str = "- Credit `contributors`, `inspiration`, `references`, etc."
+    roadmap: str = ""
+    acknowledgements: str = ""
 
     model_config = ConfigDict(
-        use_enum_values=True,
         arbitrary_types_allowed=True,
+        use_enum_values=True,
     )
 
     @field_validator("badge_color")
@@ -169,36 +143,69 @@ class MarkdownSettings(BaseModel):
 
 class ModelSettings(BaseModel):
     """
-    LLM API model settings and parameters.
+    LLM API settings and parameters.
     """
 
-    api: str
-    base_url: str
-    context_window: PositiveInt
-    encoder: str
-    host_name: AnyHttpUrl
-    localhost: AnyHttpUrl
-    model: str
-    path: str
-    temperature: NonNegativeFloat
-    tokens: PositiveInt
-    top_p: NonNegativeFloat
-
-
-class Settings(BaseModel):
-    """
-    Pydantic settings model for the readme-ai package.
-    """
-
-    api: APISettings
-    files: FileSettings
-    git: GitSettings
-    llm: ModelSettings
-    md: MarkdownSettings
+    api: LLMService = LLMService.OFFLINE
+    encoder: str = "cl100k_base"
+    model: str = "gpt-3.5-turbo"
+    base_url: str = "https://api.openai.com/"
+    localhost: str = "http://localhost:11434/"
+    resource: str = "v1/chat/completions"
+    context_window: PositiveInt = Field(default=3900, le=4096)
+    temperature: NonNegativeFloat = Field(default=0.1, le=2.0)
+    tokens: PositiveInt = Field(default=699, le=2048)
+    top_p: NonNegativeFloat = Field(default=0.9, le=1.0)
+    rate_limit: PositiveInt = Field(default=10, le=30)
+    system_message: str = (
+        "You're a 10x Staff Software Engineering leader, with deep knowledge "
+        "across most tech stacks. You'll use your expertise to write robust "
+        "README markdown files for open-source projects. You're a master of "
+        "the craft, and you're here to help others succeed."
+    )
 
     model_config = ConfigDict(
-        validate_assignment=True,
+        arbitrary_types_allowed=True,
+        use_enum_values=True,
     )
+
+
+class Settings(BaseSettings):
+    """
+    Nested Pydantic model storing all configuration settings.
+    """
+
+    _resource_files: ClassVar[PackageResourceSettings] = (
+        PackageResourceSettings()
+    )
+    _toml_paths: ClassVar[list[str]] = [
+        str(path)
+        for key, paths in _resource_files.all_paths.items()
+        for path in paths
+        if key == "config_paths"
+    ]
+
+    model_config = SettingsConfigDict(
+        extra="allow",
+        toml_file=_toml_paths,
+        validate_default=True,
+    )
+
+    git: GitSettings = Field(default_factory=GitSettings)
+    llm: ModelSettings = Field(default_factory=ModelSettings)
+    md: MarkdownSettings = Field(default_factory=MarkdownSettings)
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: Type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> Tuple[PydanticBaseSettingsSource, ...]:
+        """Custom settings source for TOML configuration files."""
+        return (TomlConfigSettingsSource(settings_cls),)
 
     @model_validator(mode="after")
     def generate_banner(self) -> Self:
@@ -239,7 +246,7 @@ class Settings(BaseModel):
 
 class ConfigLoader:
     """
-    Loads the configuration settings for the readme-ai package.
+    Loads the base configuration file for the application.
     """
 
     file_handler: FileHandler = FileHandler()
@@ -251,28 +258,14 @@ class ConfigLoader:
         """Initialize ConfigLoader with the base configuration file."""
         if "-V" not in sys.argv and "--version" not in sys.argv:
             self._load_config()
-            self._load_settings()
 
     def _load_config(self) -> Settings:
         """Loads the base configuration file."""
-        file_path = get_resource_path(
+        file_path = build_resource_path(
             file_path=self.config_file,
             submodule=self.submodule,
         )
         config_dict = self.file_handler.read(file_path)
-        self.config = Settings.model_validate(config_dict)
+        self.config = Settings(**config_dict)
+        _logger.info(f"Configuration file loaded: {file_path}")
         return self.config
-
-    def _load_settings(self) -> dict[str, dict]:
-        """Loads all TOML config files from ./config/settings/*.toml."""
-        settings = self.config.model_dump()
-
-        for key, file_path in settings["files"].items():
-            if file_path.endswith(".toml"):
-                file_path = get_resource_path(file_path=file_path)
-                config_dict = self.file_handler.read(file_path)
-                settings[key] = config_dict
-                setattr(self, key, config_dict)
-                _logger.info(f"Configuration file loaded: {file_path}")
-
-        return settings

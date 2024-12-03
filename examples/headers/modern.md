@@ -10,7 +10,7 @@
 	<img src="https://img.shields.io/github/languages/top/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/eli64s/pyflink-poc?style=flat&color=E30B5C" alt="repo-language-count">
 </p>
-<p align="left">Built with the tools and technologies:</p>
+<p align="left">Tech Stack</p>
 <p align="left">
 	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
 	<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&logo=Python&logoColor=white" alt="Python">
@@ -33,7 +33,7 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -225,7 +225,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

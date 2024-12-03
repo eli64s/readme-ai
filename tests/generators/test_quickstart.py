@@ -1,13 +1,13 @@
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.generators.quickstart import QuickStartGenerator
 from readmeai.ingestion.models import QuickStart
 
 
 def test_quickstart_generator_init(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     quickstart_generator: QuickStartGenerator,
 ):
-    assert quickstart_generator.config == config_loader_fixture
+    assert quickstart_generator.config == config_fixture
     assert any(
         language_name in quickstart_generator.language_names
         for language_name in ["python", "sql", "shell", "cpp", "java"]

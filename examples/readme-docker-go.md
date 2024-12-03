@@ -1,6 +1,6 @@
 [<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" align="right" width="25%" padding-right="350">]()
 
-# `DOCKER-GS-PING`
+# `Docker Go App`
 
 #### Containerize, Scale, and Thrive with Ease!
 
@@ -11,7 +11,7 @@
 	<img src="https://img.shields.io/github/languages/count/olliefr/docker-gs-ping?style=for-the-badge&color=00ADD8" alt="repo-language-count">
 </p>
 <p align="left">
-		<em>Built with the tools and technologies:</em>
+		<em>Tech Stack</em>
 </p>
 <p align="left">
 	<img src="https://img.shields.io/badge/Go-00ADD8.svg?style=for-the-badge&logo=Go&logoColor=white" alt="Go">
@@ -27,7 +27,7 @@ I. [📍 Overview](#-overview)
 II. [👾 Features](#-features)  
 III. [📁 Project Structure](#-project-structure)  
 IV. [🚀 Getting Started](#-getting-started)  
-V. [📌 Project Roadmap](#-project-roadmap)  
+V. [📌 Roadmap](#-project-roadmap)  
 VI. [🔰 Contributing](#-contributing)  
 VII. [🎗 License](#-license)  
 VIII. [🙌 Acknowledgments](#-acknowledgments)  
@@ -202,7 +202,7 @@ Run the test suite using the following command:
 ```
 
 
-## 📌 Project Roadmap
+## 📌 Roadmap
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.

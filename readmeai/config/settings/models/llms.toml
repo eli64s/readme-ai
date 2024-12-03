@@ -1,0 +1,20 @@
+# LLM API provider settings and configurations
+
+[text_gen]
+[text_gen.anthropic]
+model = "claude-3-opus-20240229"
+
+[text_gen.gemini]
+model = "gemini-1.5-flash"
+
+[text_gen.openai]
+model ="gpt-3.5-turbo"
+
+[text_gen.ollama]
+model = "llama3"
+
+[image_gen]
+[image_gen.dalle]
+model = "dall-e-3"
+size = "1792x1024"
+quality = "standard"

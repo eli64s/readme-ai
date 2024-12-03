@@ -10,7 +10,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
@@ -35,10 +35,8 @@ class AnthropicHandler(BaseModelHandler):
     Anthropic Claude LLM API service implementation.
     """
 
-    def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
-    ) -> None:
-        super().__init__(config_loader, context)
+    def __init__(self, config: Settings, context: RepositoryContext) -> None:
+        super().__init__(config, context)
         self.client: Optional[Any] = None
         self.model: str = "claude-3-opus-20240229"
         if ANTHROPIC_AVAILABLE:
@@ -92,15 +90,24 @@ class AnthropicHandler(BaseModelHandler):
         """Processes Anthropic API responses and returns generated text."""
         if not ANTHROPIC_AVAILABLE:
             self._logger.error(
-                "Cannot make request: Anthropic library is not available."
+                "Anthropic SDK is not installed. Install with: "
+                "pip install 'readmeai[anthropic]'"
             )
             return index, self.placeholder
 
         if self.client is None:
-            self._logger.error("Anthropic client is not properly initialized.")
+            self._logger.error("Anthropic client is not initialized.")
             return index, self.placeholder
 
         try:
+            token_count = self.client.beta.messages.count_tokens(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            self._logger.info(
+                f"Pre request token count: {token_count}/{tokens}"
+            )
+
             prompt = await token_handler(self.config, index, prompt, tokens)
             parameters = await self._build_payload(prompt, tokens)
 
@@ -121,7 +128,8 @@ class AnthropicHandler(BaseModelHandler):
             self._logger.error(
                 f"API Error processing request for '{index}': {e!r}"
             )
-            raise  # Re-raise for retry decorator
+            # Re-raise for retry decorator
+            raise
 
         except Exception as e:
             self._logger.error(f"Unexpected error for '{index}': {e!r}")

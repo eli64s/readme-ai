@@ -57,7 +57,7 @@ def valid_settings_dict():
             "quickstart": "",
             "shieldsio_icons": "",
             "skill_icons": "",
-            "slogan": "Test slogan",
+            "tagline": "Test tagline",
             "tables": "",
             "toc_style": TocStyleOptions.BULLET,
             "tree": "",

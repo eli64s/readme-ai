@@ -14,7 +14,7 @@
 	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai?style=flat&color=60A5FA" alt="repo-language-count">
 </p>
 <p align="left">
-		<em>Built with the tools and technologies:</em>
+		<em>Tech Stack</em>
 </p>
 <p align="left">
 	<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat&logo=pre-commit&logoColor=black" alt="precommit">
@@ -380,7 +380,7 @@ README-AI caters to a broad audience of developers, from beginners looking to en
 							</tr>
 							<tr>
 								<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/markdown.toml'>markdown.toml</a></b></td>
-								<td>Generates Markdown templates for constructing a README.md file by defining header, badges, skills, overview, features, directory structure, codebase summaries, quickstart, usage, project roadmap, contributing guidelines, license, acknowledgments, and contact sections.</td>
+								<td>Generates Markdown templates for constructing a README.md file by defining header, badges, skills, overview, features, directory structure, codebase summaries, quickstart, usage, Roadmap, contributing guidelines, license, acknowledgments, and contact sections.</td>
 							</tr>
 							<tr>
 								<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/ignore_list.toml'>ignore_list.toml</a></b></td>
@@ -440,7 +440,7 @@ README-AI caters to a broad audience of developers, from beginners looking to en
 					</tr>
 					<tr>
 						<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/models/prompts.py'>prompts.py</a></b></td>
-						<td>- Generates and formats prompts for the LLM API by retrieving templates and injecting context<br>- Handles additional prompt generation for features, overview, and slogan based on project settings and dependencies.</td>
+						<td>- Generates and formats prompts for the LLM API by retrieving templates and injecting context<br>- Handles additional prompt generation for features, overview, and tagline based on project settings and dependencies.</td>
 					</tr>
 					<tr>
 						<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/models/openai.py'>openai.py</a></b></td>

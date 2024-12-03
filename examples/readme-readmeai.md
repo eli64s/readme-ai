@@ -24,7 +24,7 @@
     - [📦 Installation](#-installation)
     - [🤖 Usage](#-usage)
     - [🧪 Tests](#-tests)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -398,7 +398,7 @@ Execute the test suite using the following command:
 
 ---
 
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

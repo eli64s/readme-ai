@@ -10,7 +10,7 @@
 	<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=for-the-badge&color=blueviolet" alt="repo-language-count">
 </p>
-<p align="center">Built with the tools and technologies:</p>
+<p align="center">Tech Stack</p>
 <p align="center">
 	<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white" alt="Streamlit">
 	<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=for-the-badge&logo=pre-commit&logoColor=black" alt="precommit">
@@ -28,7 +28,7 @@ I. [📍 Overview](#-overview)
 II. [👾 Features](#-features)
 III. [📁 Project Structure](#-project-structure)
 IV. [🚀 Getting Started](#-getting-started)
-V. [📌 Project Roadmap](#-project-roadmap)
+V. [📌 Roadmap](#-project-roadmap)
 VI. [🔰 Contributing](#-contributing)
 VII. [🎗 License](#-license)
 VIII. [🙌 Acknowledgments](#-acknowledgments)
@@ -187,7 +187,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

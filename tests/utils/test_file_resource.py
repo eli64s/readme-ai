@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from readmeai.errors import FileReadError
-from readmeai.utils.file_resource import get_resource_path
+from readmeai.utils.resource_loader import build_resource_path
 
 
 @patch("importlib.resources.files")
@@ -16,7 +16,7 @@ def test_resource_path_found_using_importlib_resources(mock_files):
     def test_resource_path_found_using_importlib_resources(mock_files):
         """Test that a resource path is found using importlib.resources."""
         mock_files.return_value.joinpath.return_value = Path("file.txt")
-        assert get_resource_path(
+        assert build_resource_path(
             "file.txt",
             "readmeai.config",
             "settings",
@@ -38,7 +38,7 @@ def test_resource_path_not_found_using_importlib_resources(mock_files):
         """Test FileReadError is raised when a resource path is not found using importlib.resources."""
         mock_files.return_value.joinpath.side_effect = FileNotFoundError
         with pytest.raises(FileReadError):
-            get_resource_path(
+            build_resource_path(
                 "file.txt",
                 "readmeai.config",
                 "settings",
@@ -63,7 +63,7 @@ def test_resource_path_found_using_pkg_resources(mock_files):
             "pkg_resources.resource_filename",
         ) as mock_resource_filename:
             mock_resource_filename.return_value = "file.txt"
-            assert get_resource_path(
+            assert build_resource_path(
                 "file.txt",
                 "readmeai.config",
                 "settings",

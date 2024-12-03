@@ -1,0 +1,62 @@
+# Features prompts
+
+features_list = """Create a list of key features for a software framework. \
+Each feature should start with a relevant emoji that aligns with the feature’s theme. \
+The features should focus on various aspects of the framework, such as performance, scalability, flexibility, integration with other tools, automation, or any other significant benefit.
+
+Here’s an example structure:
+
+- 🚀 **Feature 1**: Describe a feature that highlights performance or efficiency.
+- 🔧 **Feature 2**: Emphasize flexibility or customization options available to users.
+- 🌐 **Feature 3**: Explain how the framework integrates with other tools or platforms to enhance the development experience.
+- 🔒 **Feature 4**: Highlight security measures that protect user data or the system.
+- ⚡ **Feature 5**: Focus on automation or any process that simplifies complex tasks.
+
+Each feature should be clear, concise, and no longer than two sentences, while maintaining a professional and engaging tone. \
+Feel free to vary the themes to cover a broad range of potential benefits.
+
+While generating the response, please reference the following codebase context information:
+
+CONTEXT:
+------------------------
+DEPENDENCIES: {1}
+DOCUMENTATION: {2}
+FILE CONTENTS: {3}
+------------------------
+
+Output must be in Markdown format. Cheers!
+"""
+
+features_table = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+
+|      | Feature         | Summary       |
+| :--- | :---:           | :---          |
+| ⚙️  | **Architecture**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔩 | **Code Quality**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📄 | **Documentation** | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔌 | **Integrations**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧩 | **Modularity**    | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧪 | **Testing**       | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| ⚡️  | **Performance**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🛡️ | **Security**      | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📦 | **Dependencies**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🚀 | **Scalability**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+
+While generating the markdown table, please reference the following codebase details: \n
+
+CONTEXT DETAILS:
+------------------------
+DEPENDENCIES: {1}
+DOCUMENTATION: {2}
+FILE CONTENTS: {3}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Highlight the key tools and technologies using the " `<tool>` " where necessary.
+2. Include 2-4 bullet points per feature.
+3. Include links or references to the codebase where applicable.
+------------------------
+
+Cheers!
+"""

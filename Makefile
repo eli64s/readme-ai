@@ -1,60 +1,111 @@
 SHELL := /bin/bash
-SRC_PATH := readmeai
-TEST_PATH := tests
+.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+
+# Directories
+target := hyperweave
+DOCS_PATH := docs
+SCRIPTS_PATH := scripts
+
+# GitHub Actions
+ACT := act
+ACT_ENV_FILE := .env
+ACT_WORKFLOW_DIR := .github/workflows/ci.yml
+
+# Commands
+UV := uv
+UV_TOOL := $(UV) tool
+MYPY_CMD := $(UV) mypy
+NOX_CMD := $(UV) run nox
+PYTEST_CMD := $(UV) run pytest
+RUFF_CMD := $(UV) run ruff
+
+
+# -- Cleanup -----------------------------------------------------------------------------------------
+
+
+.PHONY: all
+all: clean install format lint test  ## Clean, install, format, lint, and run tests
+
 
 .PHONY: clean
 clean: ## Remove project build artifacts
-	./scripts/clean.sh clean
+	@$(SCRIPTS_PATH)/clean.sh clean-pyc
 
-.PHONY: conda-recipe
-conda-recipe: ## Create conda recipe for conda-forge
-	grayskull pypi readmeai
-	conda build .
 
-.PHONY: docker-build
-docker-build: ## Build Docker image for application
-	docker build -t zeroxeli/readme-ai:latest .
+# -- Documentation ---------------------------------------------------------------------------------
 
-.PHONY: poetry-install
-poetry-install: ## Install dependencies using Poetry.
-	poetry install
 
-.PHONY: poetry-remove-environment
-poetry-remove-environment: ## Removes Poetry virtual environment and lock file.
-	poetry env remove --all && rm poetry.lock
+.PHONY: docs
+docs: ## Serve Mkdocs site locally
+	cd $(DOCS_PATH) && $(UV) run mkdocs serve
 
-.PHONY: poetry-shell
-poetry-shell: ## Launch a shell within Poetry virtual environment.
-	poetry shell
 
-.PHONY: poetry-to-requirements
-poetry-to-requirements: ## Export poetry requirements to requirements.txt
-	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
+# -- Code Quality ----------------------------------------------------------------------------------
 
-.PHONY: ruff-format
-ruff-format: ## Format codebase using Ruff
-	ruff check --select I --fix .
-	ruff format .
+.PHONY: format-toml
+format-toml: ## Format TOML files using tomlfmt
+	$(UV) run pyproject-fmt pyproject.toml --indent 4
 
-.PHONY: ruff-lint
-ruff-lint: ## Lint codebase using Ruff
-	ruff check . --fix
+.PHONY: format
+format: ## Format codebase using Ruff
+	$(RUFF_CMD) format $(target)
 
-.PHONY: run-mkdocs
-run-mkdocs: ## Run the MkDocs server
-	cd docs && mkdocs serve
+.PHONY: lint
+lint: ## Lint codebase using Ruff
+	$(RUFF_CMD) check $(target) --fix
 
-.PHONY: search
-search: ## Search for a word in the codebase
-	grep -Ril ${WORD} readmeai tests scripts setup
+.PHONY: type-check
+type-check: ## Type-check codebase using mypy
+	$(UV) run mypy $(target)
+
+
+# -- Testing ---------------------------------------------------------------------------------------
+
+
+.PHONY: test-ci
+test-ci: ## Test GitHub Actions workflows locally
+	$(ACT) -W $(ACT_WORKFLOW_DIR) --container-architecture linux/amd64
 
 .PHONY: test
-test: ## Run unit tests using pytest
-	poetry run pytest
+test: ## Run unit tests using Pytest
+	$(PYTEST_CMD)
 
 .PHONY: test-nox
-test-nox: ## Run test suite against multiple Python versions
-	nox -f noxfile.py
+test-nox: ## Run tests across all environments
+	$(NOX_CMD) -f noxfile.py
+
+
+# -- uv --------------------------------------------------------------------------------------------
+
+
+.PHONY: uv-install
+uv-install: ## Install all project dependencies
+	$(UV) pip install -r pyproject.toml --all-extras
+
+.PHONY: uv-lock
+uv-lock: ## Lock dependencies declared in pyproject.toml
+	$(UV) pip compile pyproject.toml --all-extras
+
+.PHONY: uv-sync
+uv-sync: ## Sync environment with pyproject.toml
+	$(UV) pip sync pyproject.toml
+
+.PHONY: uv-venv
+uv-venv: ## Create a virtual environment using uv
+	$(UV) venv --python 3.11
+
+
+# -- Utilities -------------------------------------------------------------------------------------
+
+
+.PHONY: search
+search: ## Search for items in the codebase
+	grep -Ril ${WORD} .
+
 
 .PHONY: help
 help: Makefile ## Display the help menu

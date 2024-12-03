@@ -5,7 +5,7 @@ import pytest
 import tenacity
 
 from readmeai.cli.options import LLMService
-from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.config.settings import Settings
 from readmeai.models.openai import OpenAIHandler
 
 
@@ -20,28 +20,28 @@ async def test_openai_handler_sets_attributes(openai_handler: OpenAIHandler):
 
 @pytest.mark.asyncio
 async def test_openai_endpoint_configuration_for_openai(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     openai_handler: OpenAIHandler,
 ):
     """Test that the correct endpoint is set for OpenAI API."""
-    config_loader_fixture.config.llm.api = LLMService.OPENAI.name
+    config_fixture.config.llm.api = LLMService.OPENAI.name
     assert (
         openai_handler.url
-        == f"{config_loader_fixture.config.llm.host_name}{config_loader_fixture.config.llm.path}"
+        == f"{config_fixture.config.llm.host_name}{config_fixture.config.llm.path}"
     )
 
 
 @pytest.mark.asyncio
 async def test_openai_endpoint_configuration_for_ollama(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     ollama_localhost: str,
 ):
     """Test that the correct endpoint is set for OLLAMA."""
-    config_loader_fixture.config.llm.api = LLMService.OLLAMA.name
-    config_loader_fixture.config.llm.localhost = ollama_localhost
+    config_fixture.config.llm.api = LLMService.OLLAMA.name
+    config_fixture.config.llm.localhost = ollama_localhost
     assert (
         "v1/chat/completions"
-        in f"{config_loader_fixture.config.llm.localhost}{config_loader_fixture.config.llm.path}"
+        in f"{config_fixture.config.llm.localhost}{config_fixture.config.llm.path}"
     )
 
 

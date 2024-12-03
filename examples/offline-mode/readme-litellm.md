@@ -11,7 +11,7 @@
 	<img src="https://img.shields.io/github/languages/top/BerriAI/litellm?style=flat-square&color=gold" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/BerriAI/litellm?style=flat-square&color=gold" alt="repo-language-count">
 </p>
-<p align="left">Built with the tools and technologies:</p>
+<p align="left">Tech Stack</p>
 <p align="left">
 	<img src="https://img.shields.io/badge/Resend-000000.svg?style=flat-square&logo=Resend&logoColor=white" alt="Resend">
 	<img src="https://img.shields.io/badge/Anthropic-191919.svg?style=flat-square&logo=Anthropic&logoColor=white" alt="Anthropic">
@@ -47,7 +47,7 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -4285,7 +4285,7 @@ Run the test suite using the following command:
 ```
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

@@ -1,0 +1,306 @@
+# LLM prompts for various text generation tasks.
+
+[prompts]
+
+features_table = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+
+|      | Feature         | Summary       |
+| :--- | :---:           | :---          |
+| ⚙️  | **Architecture**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔩 | **Code Quality**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📄 | **Documentation** | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🔌 | **Integrations**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧩 | **Modularity**    | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🧪 | **Testing**       | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| ⚡️  | **Performance**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🛡️ | **Security**      | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 📦 | **Dependencies**  | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+| 🚀 | **Scalability**   | <ul><li>Fact 1</li><li>Fact 2</li><li>Fact 3</li></ul> |
+
+While generating the markdown table, please reference the following codebase details: \n
+
+CONTEXT DETAILS:
+------------------------
+DEPENDENCIES: {1}
+DOCUMENTATION: {2}
+FILE CONTENTS: {3}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Highlight the key tools and technologies using the " `<tool>` " where necessary.
+2. Include 2-4 bullet points per feature.
+3. Include links or references to the codebase where applicable.
+------------------------
+
+Cheers!
+"""
+
+file_summary = """Deliver a succinct summary that highlights the main purpose and \
+use of the code file provided in regards to the entire codebase architecture. Focus \
+on what the code achieves, steering clear of technical implementation details. \
+While generating the summary, reference additional data about the project below: \n
+
+CONTEXT DETAILS:
+------------------------
+PROJECT STRUCTURE: {0}
+FILE PATH: {1}
+FILE CONTENT: {2}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Avoid using words like 'This file', 'The file', 'This code', etc.
+  1a. Summary should start with a verb or noun to make it more clear and concise.
+2. Do not include quotes, code snippets, bullets, or lists in your response.
+3. RESPONSE LENGTH: 50-70 words.
+------------------------
+
+Thank you for your hard work!
+"""
+
+logo = """
+# Repository Context-Aware SVG Avatar Generator
+
+Generate a 32x32 SVG avatar that represents the following repository context:
+[INSERT_REPO_CONTEXT]
+
+Requirements:
+1. Use the base template structure below but modify the visual elements to match the repository theme
+2. Maintain the 32x32 viewBox dimensions
+3. Generate pixel-art style elements
+4. Use colors that reflect the repository's primary programming language or technology
+5. Include at least one theme-specific iconic element in the design
+6. Ensure the output is valid SVG markup
+
+Base template to modify:
+```svg
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base shape - Modify fill color based on repo theme -->
+  <path d="M4 2h16l8 8v20H4V2z" fill="[THEME_COLOR_1]"/>
+  
+  <!-- Folded corner - Adjust opacity/color for theme -->
+  <path d="M20 2l8 8h-8V2z" fill="[THEME_COLOR_2]"/>
+  
+  <!-- Theme-specific pattern - Replace with relevant icons -->
+  <g fill="[THEME_COLOR_3]">
+    [THEME_PATTERN]
+  </g>
+  
+  <!-- Theme-specific icon - Replace with relevant symbol -->
+  <g fill="[THEME_COLOR_4]">
+    [THEME_ICON]
+  </g>
+  
+  <!-- Pixel decoration - Modify pattern based on theme -->
+  <g fill="[THEME_COLOR_5]">
+    [PIXEL_PATTERN]
+  </g>
+  
+  <!-- Theme-specific decorator - Optional -->
+  [THEME_DECORATOR]
+  
+  <!-- Border - Adjust style based on theme -->
+  <path d="M4 2h16l8 8v20H4V2z" fill="none" stroke="[BORDER_COLOR]" stroke-width="1"/>
+</svg>
+```
+
+Color Mapping Rules:
+- For programming languages:
+  - Python: '#3776AB'
+  - JavaScript: '#F7DF1E'
+  - Ruby: '#CC342D'
+  - Go: '#00ADD8'
+  - Rust: '#DEA584'
+  [Add more as needed]
+
+Pattern Suggestions:
+1. For AI/ML repositories:
+  - Neural network patterns
+  - Circuit board designs
+  - Binary/hex patterns
+  
+2. For Web frameworks:
+  - Component grid layouts
+  - Browser window shapes
+  - Network node patterns
+  
+3. For System tools:
+  - Gear patterns
+  - Terminal symbols
+  - CPU/Memory patterns
+  
+4. For Data Science:
+  - Graph patterns
+  - Chart elements
+  - Data flow symbols
+
+Icon Guidelines:
+1. Keep icons pixel-perfect (use whole numbers)
+2. Maintain 1px minimum feature size
+3. Use theme-appropriate symbolic representations
+4. Ensure good contrast with background
+
+Example theme mappings:
+
+For an AI/ML Repository:
+```javascript
+THEME_COLOR_1: '#ffffff'  // Base white
+THEME_COLOR_2: '#cccccc'  // Shadow grey
+THEME_COLOR_3: '#40E0D0'  // Circuit turquoise
+THEME_COLOR_4: '#000000'  // Icon black
+THEME_COLOR_5: '#FF6B6B'  // Accent red
+```
+
+For a Web Framework:
+```javascript
+THEME_COLOR_1: '#2D2D2D'  // Dark base
+THEME_COLOR_2: '#1A1A1A'  // Darker shadow
+THEME_COLOR_3: '#61DAFB'  // Framework blue
+THEME_COLOR_4: '#FFFFFF'  // Icon white
+THEME_COLOR_5: '#FFC107'  // Accent yellow
+```
+
+Instructions for generation:
+1. Analyze the repository context
+2. Select appropriate color scheme
+3. Choose relevant patterns and icons
+4. Generate SVG maintaining pixel-perfect alignment
+5. Ensure all paths are properly closed
+6. Include appropriate metadata in the SVG
+
+Output format:
+1. Valid SVG markup
+2. Commented sections for maintainability
+3. Optimized paths and shapes
+4. Proper viewBox configuration
+5. Minimal use of transforms
+"""
+
+_logo = """
+Create a fun and vibrant app icon logo for a GitHub repository. The logo should be in the style of an Apple app icon - square with rounded corners. The icon should feature a singular, memorable character or object that represents the essence of the project, without any external background.
+
+<PROJECT DETAILS>
+PROJECT NAME: {project_name}
+PROJECT OVERVIEW: {project_overview}
+PROJECT tagline: {tagline}
+</PROJECT DETAILS>
+
+Design Guidelines:
+1. Central Character: [Describe a relevant animal, mythical creature, tool, or object that relates to the project theme]. This character should be stylized and appealing, with a playful yet professional look.
+
+2. Color Scheme: Use colors that reflect the project's theme and complement the central character. The colors should be vibrant and eye-catching.
+
+3. Style: Modern, slightly cartoonish, and memorable. The design should be simple enough to be recognizable at small sizes, but with enough detail to be interesting when viewed larger.
+
+4. Layout: The central character or object should fill most of the square space, leaving some room for subtle elements or patterns that hint at the project's purpose or field.
+
+5. Text (Optional): If including text, limit it to a short acronym or simple logo type that integrates well with the visual elements.
+
+6. Background: NO background outside the icon bounds
+
+7. Originality: Ensure the design is original and doesn't infringe on any existing copyrights or trademarks.
+
+Please describe the icon design in detail, focusing on the central character, color scheme, and any additional elements within the icon itself. Do not describe any elements outside of the rounded square app icon shape.
+"""
+
+_overview = """
+Create a concise and compelling overview of the {0} project, followed by a list of key features.
+
+=== INSTRUCTION ===
+Please follow these steps:
+1. Short Introduction (50-60 words):
+   Provide a brief overview of {0}, focusing on:
+   - The core problem it solves
+   - Its primary purpose and benefits
+   - The target audience or use cases
+
+   Use the following context for reference:
+   {1}
+
+2. Quick Feature List (5-6 bullet points):
+   List the main features or capabilities of {0}, each starting with a relevant emoji. For example:
+
+   - 🚀 **Feature 1**: Brief description (1 sentence max)
+   - 🔧 **Feature 2**: Brief description (1 sentence max)
+   - 🌐 **Feature 3**: Brief description (1 sentence max)
+   - 🔒 **Feature 4**: Brief description (1 sentence max)
+   - ⚡ **Feature 5**: Brief description (1 sentence max)
+
+   Ensure that the features highlight different aspects such as performance, scalability, flexibility, integration, automation, or any other significant benefits.
+
+=== RESPONSE FORMAT ===
+Format the output in Markdown, structuring it as follows:
+**{0}** is ... [short introduction]
+
+With **{0}**, you can:
+
+- 🚀 **Feature 1**: Brief description
+- 🔧 **Feature 2**: Brief description
+- 🌐 **Feature 3**: Brief description
+- ...
+"""
+
+overview = """
+=== SYSTEM PROMPT ===
+Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software project.
+Craft a paragraph that encapsulate the project's core use-case, value proposition, and target audience.
+While generating the project overview, please reference the following codebase details:
+
+=== CONTEXT ===
+Code Context:
+FILE SUMMARIES: {1}
+
+=== INSTRUCTION ===
+Please follow these steps:
+1. FOCUS: Elegantly present the project's core use-case and value proposition without technical details.
+2. EXCLUDE: technical jargon, code snippets, and implementation specifics, quotes, links.
+3. RESPONSE LENGTH: 50 maximum words.
+"""
+
+tagline = """
+=== SYSTEM PROMPT ===
+Your task is to create a catchy and memorable tagline for an open-source project.
+The goal is to synthesize the project's essence, values, or unique selling points 
+into a concise and engaging phrase that will serve as the project's tagline.
+To help you understand the project better, refer to the provided context below:
+
+=== CONTEXT ===
+Code Context:
+Codebase Files: {files}
+Project Name: {name}
+Repository: {url}
+
+
+=== INSTRUCTION ===
+Please follow these steps:
+1. Analyze the provided information about the project.
+2. Create a tagline that meets the following criteria:
+   - Contains no more than 8 words
+   - Is clear, concise, and memorable
+   - Does NOT include the project name
+   - Captures the project's core purpose or unique features
+3. Wrap your thought process and refinement of the tagline in <ideation> tags.
+4. Present your final tagline within <tagline> tags.
+
+Remember to be creative and have fun with this task!
+"""
+
+_tagline = """
+Create a catchy and memorable tagline for the project: {0} ({1}).
+Synthesize the project's essence, values, or unique selling points into a concise and engaging phrase.
+
+=== CONTEXT ===
+Code Context:
+FILE CONTENTS: {2}
+
+
+=== INSTRUCTION ===
+Please follow these steps:
+- The tagline must be a single string with no more than 8 words.
+- It should be clear, concise, and memorable.
+- DO NOT INCLUDE the project name in the tagline.
+- RETURN ONLY the tagline without any additional text or explanations.
+
+Remember to be creative and have fun with this task!
+"""

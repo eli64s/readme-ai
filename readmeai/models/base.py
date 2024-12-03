@@ -24,18 +24,19 @@ class BaseModelHandler(ABC):
     """
 
     def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
+        self, settings: ConfigLoader, context: RepositoryContext
     ) -> None:
         self._logger = get_logger(__name__)
         self._session: aiohttp.ClientSession | None = None
-        self.config = config_loader.config
+        self.settings = settings
+        self.config = self.settings.config
         self.placeholder = self.config.md.placeholder
-        self.prompts = config_loader.prompts
+        self.prompts = self.config.prompts
         self.max_tokens = self.config.llm.tokens
-        self.rate_limit = self.config.api.rate_limit
+        self.rate_limit = self.config.llm.rate_limit
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
         self.temperature = self.config.llm.temperature
-        self.system_message = self.config.api.system_message
+        self.system_message = self.config.llm.system_message
         self.repo_context = context
         self.dependencies = context.dependencies
         self.documents = [
@@ -80,10 +81,17 @@ class BaseModelHandler(ABC):
         index: str | None,
         prompt: str | None,
         tokens: int | None,
-        repo_files: list[tuple[str, str]] | None,
+        repo_files: Any,
     ) -> Any:
-        """Handles LLM API response and returns the generated text."""
-        ...
+        """Inserts placeholder text where LLM generated content would be."""
+        success = True
+        if repo_files:
+            files = [
+                (file_path, self.placeholder) for file_path, _ in repo_files
+            ]
+            return success, files
+        else:
+            return success, self.placeholder
 
     async def batch_request(self) -> list[tuple[str, str]]:
         """Generates a batch of prompts and processes the responses."""
@@ -162,24 +170,33 @@ class BaseModelHandler(ABC):
 
     async def _make_request_code_summary(
         self,
-        file_context: list[tuple[str, str]],
-    ) -> tuple:
+        file_context: dict[str, Any],
+    ) -> list[tuple[str, str]]:
         """Generates code summaries for each file in the project."""
         file_summaries = []
 
-        for file_path, file_content in file_context["repo_files"]:
-            prompt = self.prompts["prompts"]["file_summary"].format(
-                self.config.md.tree,
-                file_path,
-                file_content,
+        if self.config.llm.api == LLMService.OFFLINE.name:
+            _, files = await self._make_request(
+                index=None,
+                prompt=None,
+                tokens=None,
+                repo_files=file_context["repo_files"],
             )
-            tokens = update_max_tokens(self.config.llm.tokens, prompt)
-            _, summary_or_error = await self._make_request(
-                file_path,
-                prompt,
-                tokens,
-                None,
-            )
-            file_summaries.append((file_path, summary_or_error))
+            file_summaries.extend(files)
+        else:
+            for file_path, file_content in file_context["repo_files"]:
+                prompt = self.prompts["file_summary"].format(
+                    self.config.md.tree,
+                    file_path,
+                    file_content,
+                )
+                tokens = update_max_tokens(self.config.llm.tokens, prompt)
+                _, summary_or_error = await self._make_request(
+                    file_path,
+                    prompt,
+                    tokens,
+                    None,
+                )
+                file_summaries.append((file_path, summary_or_error))
 
         return file_summaries

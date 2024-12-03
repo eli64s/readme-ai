@@ -10,7 +10,7 @@
 	<img src="https://img.shields.io/github/languages/top/rumaan/file.io-Android-Client?style=flat&color=orange" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/rumaan/file.io-Android-Client?style=flat&color=orange" alt="repo-language-count">
 </p>
-<p align="left">Built with the tools and technologies:</p>
+<p align="left">Tech Stack</p>
 <p align="left">
 	<img src="https://img.shields.io/badge/JetBrains-000000.svg?style=flat&logo=JetBrains&logoColor=white" alt="JetBrains">
 	<img src="https://img.shields.io/badge/Android-34A853.svg?style=flat&logo=Android&logoColor=white" alt="Android">
@@ -29,7 +29,7 @@ I. [📍 Overview](#-overview)
 II. [👾 Features](#-features)  
 III. [📁 Project Structure](#-project-structure)  
 IV. [🚀 Getting Started](#-getting-started)  
-V. [📌 Project Roadmap](#-project-roadmap)  
+V. [📌 Roadmap](#-project-roadmap)  
 VI. [🔰 Contributing](#-contributing)  
 VII. [🎗 License](#-license)  
 VIII. [🙌 Acknowledgments](#-acknowledgments)  
@@ -500,7 +500,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

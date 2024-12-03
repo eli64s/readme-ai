@@ -26,16 +26,16 @@ class ModelFactory:
 
     @staticmethod
     def get_backend(
-        config: ConfigLoader, context: RepositoryContext
+        settings: ConfigLoader, context: RepositoryContext
     ) -> BaseModelHandler:
         """
         Returns the appropriate LLM API handler based on CLI input.
         """
-        llm_service = ModelFactory._model_map.get(config.config.llm.api)
+        llm_service = ModelFactory._model_map.get(settings.config.llm.api)
 
         if llm_service is None:
             raise UnsupportedServiceError(
-                f"Unsupported LLM service provided: {config.config.llm.api}",
+                f"Unsupported LLM service provided: {settings.config.llm.api}",
             )
 
-        return llm_service(config, context)
+        return llm_service(settings, context)

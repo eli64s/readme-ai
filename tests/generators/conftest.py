@@ -4,7 +4,7 @@ Pytest fixtures to reuse across readmeai.generators submodule.
 
 import pytest
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.generators.quickstart import QuickStartGenerator
 from readmeai.ingestion.models import QuickStart
 
@@ -25,5 +25,5 @@ def quickstart_fixture():
 
 
 @pytest.fixture
-def quickstart_generator(config_loader_fixture: ConfigLoader):
-    return QuickStartGenerator(config_loader_fixture)
+def quickstart_generator(config_fixture: Settings):
+    return QuickStartGenerator(config_fixture)

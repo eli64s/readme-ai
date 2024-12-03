@@ -2,18 +2,15 @@ from unittest.mock import patch
 
 import pytest
 
-from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
-from readmeai.models.prompts import (
-    get_prompt_context,
-    get_prompt_template,
-    inject_prompt_context,
-    set_additional_contexts,
-    set_summary_context,
-)
+from readmeai.models.prompts import (get_prompt_context, get_prompt_template,
+                                     inject_prompt_context,
+                                     set_additional_contexts,
+                                     set_summary_context)
 
 
-def test_get_prompt_context_found(config_loader_fixture: ConfigLoader):
+def test_get_prompt_context_found(config_fixture: Settings):
     """Test the retrieval of a prompt context."""
     with (
         patch(
@@ -26,39 +23,39 @@ def test_get_prompt_context_found(config_loader_fixture: ConfigLoader):
         ),
     ):
         result = get_prompt_context(
-            config_loader_fixture.prompts,
+            config_fixture.prompts,
             "greeting",
             {"name": "World"},
         )
         assert result == "Hello, World!"
 
 
-def test_get_prompt_context_not_found(config_loader_fixture: ConfigLoader):
+def test_get_prompt_context_not_found(config_fixture: Settings):
     """Test the retrieval of a prompt context."""
     with patch("readmeai.models.prompts.get_prompt_template", return_value=""):
         result = get_prompt_context(
-            config_loader_fixture.prompts, "unknown", {}
+            config_fixture.prompts, "unknown", {}
         )
         assert result == ""
 
 
-def test_get_prompt_template(config_loader_fixture: ConfigLoader):
+def test_get_prompt_template(config_fixture: Settings):
     """Test the retrieval of a prompt template."""
     assert "Hello!" in get_prompt_template(
-        config_loader_fixture.prompts, "features_table"
+        config_fixture.prompts, "features_table"
     )
 
 
 def test_inject_prompt_context_success(
     config_fixture: Settings,
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     dependencies_fixture: list[str],
     repository_context_fixture: RepositoryContext,
     file_summaries_fixture: list[tuple[str, str]],
 ):
     """Test the injection of a prompt context."""
     context = get_prompt_context(
-        config_loader_fixture.prompts,
+        config_fixture.prompts,
         "features_table",
         {
             "name": config_fixture.git.name,
@@ -116,5 +113,5 @@ async def test_set_additional_contexts(
     assert len(result) == 3
     assert result[0]["type"] == "features_table"
     assert result[1]["type"] == "overview"
-    assert result[2]["type"] == "slogan"
+    assert result[2]["type"] == "tagline"
     assert result[0]["context"]["file_summary"] == file_summaries_fixture

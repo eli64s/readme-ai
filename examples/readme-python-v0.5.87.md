@@ -44,7 +44,7 @@
   - [⚙️ Installation](#️-installation)
   - [🤖 Usage](#-usage)
   - [🧪 Tests](#-tests)
-- [🛠 Project Roadmap](#-project-roadmap)
+- [🛠 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -373,7 +373,7 @@ The `readme-ai` project is an automated README generator leveraging AI to synthe
 
 ---
 
-## 🛠 Project Roadmap
+## 🛠 Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

@@ -11,7 +11,7 @@ from readmeai.__main__ import (
     should_generate_image,
 )
 from readmeai.config.constants import ImageOptions, LLMService
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.errors import ReadmeGeneratorError
 from readmeai.ingestion.models import RepositoryContext
 
@@ -23,16 +23,16 @@ def test_error_handler_with_exception():
 
 
 @patch("readmeai.__main__.asyncio.run")
-def test_readme_agent(mock_asyncio_run, config_loader_fixture: ConfigLoader):
+def test_readme_agent(mock_asyncio_run, config_fixture: Settings):
     """Test readme_agent calls asyncio.run."""
-    readme_agent(config_loader_fixture, "readme-ai.md")
+    readme_agent(config_fixture, "readme-ai.md")
     mock_asyncio_run.assert_called_once()
 
 
 @pytest.mark.asyncio
-async def test_generate_image(config_loader_fixture: ConfigLoader):
+async def test_generate_image(config_fixture: Settings):
     """Test generate_image generates an image using DalleHandler."""
-    config_loader_fixture.config.md.image = ImageOptions.LLM.value
+    config_fixture.config.md.image = ImageOptions.LLM.value
     with patch("readmeai.__main__.DalleHandler") as mock_dalle_handler_class:
         mock_dalle_handler = AsyncMock()
         mock_dalle_handler_class.return_value.__aenter__.return_value = (
@@ -40,37 +40,37 @@ async def test_generate_image(config_loader_fixture: ConfigLoader):
         )
         mock_dalle_handler._make_request.return_value = "image_url"
         mock_dalle_handler.download.return_value = "image_path"
-        mock_config = config_loader_fixture
+        mock_config = config_fixture
         await generate_image(mock_config)
-        assert mock_config.config.md.image == "image_path"
+        assert mock_config.md.image == "image_path"
 
 
-def test_should_generate_image_true(config_loader_fixture: ConfigLoader):
+def test_should_generate_image_true(config_fixture: Settings):
     """Test should_generate_image returns True when conditions are met."""
     # Ensure the API is not set to offline
-    mock_config = config_loader_fixture
-    mock_config.config.llm.api = "valid_api"
-    mock_config.config.md.image = ImageOptions.LLM.value
+    mock_config = config_fixture
+    mock_config.llm.api = "valid_api"
+    mock_config.md.image = ImageOptions.LLM.value
     result = should_generate_image(mock_config)
     assert result is True
 
 
 def test_should_generate_image_false_due_to_image_option(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
 ):
     """Test should_generate_image returns False when image option is not LLM."""
-    mock_config = config_loader_fixture
-    mock_config.config.md.image = "not-llm"
+    mock_config = config_fixture
+    mock_config.md.image = "not-llm"
     result = should_generate_image(mock_config)
     assert result is False
 
 
 def test_should_generate_image_false_due_to_offline_mode(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
 ):
     """Test should_generate_image returns False when API is offline."""
-    mock_config = config_loader_fixture
-    mock_config.config.llm.api = LLMService.OFFLINE.value
+    mock_config = config_fixture
+    mock_config.llm.api = LLMService.OFFLINE.value
     result = should_generate_image(mock_config)
     assert result is False
 

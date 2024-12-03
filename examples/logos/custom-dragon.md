@@ -14,7 +14,7 @@
 	<img src="https://img.shields.io/github/languages/count/eli64s/readme-ai-streamlit?style=flat-square&color=FF4B4B" alt="repo-language-count">
 </p>
 <p align="center">
-		<em>Built with the tools and technologies:</em>
+		<em>Tech Stack</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=flat-square&logo=Streamlit&logoColor=white" alt="Streamlit">
@@ -39,7 +39,7 @@
   - [ Installation](#-installation)
   - [ Usage](#-usage)
   - [ Testing](#-testing)
-- [ Project Roadmap](#-project-roadmap)
+- [ Roadmap](#-project-roadmap)
 - [ Contributing](#-contributing)
 - [ License](#-license)
 - [ Acknowledgments](#-acknowledgments)
@@ -201,7 +201,7 @@ Run the test suite using the following command:
 <em><em><em>
 
 
-##  Project Roadmap
+##  Roadmap
 - [X] **<em>Task 1<em>**: <strike>Implement feature one.</strike>
 - [ ] **<em>Task 2<em>**: Implement feature two.
 - [ ] **<em>Task 3<em>**: Implement feature three.

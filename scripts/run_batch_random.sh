@@ -5,8 +5,8 @@
 filenames=(
     #"readme-litellm"
     #"readme-fal-js"
-    #gitlab
-    #bitbucket
+    gitlab
+    bitbucket
     "readme-local"
     "readme-python"
     "readme-streamlit"
@@ -24,8 +24,8 @@ filenames=(
 repositories=(
     #"https://github.com/BerriAI/litellm"
     #"https://github.com/fal-ai/fal-js"
-    #https://gitlab.com/rohanrk/gitmate-2
-    #https://bitbucket.org/jwalton/opup
+    https://gitlab.com/rohanrk/gitmate-2
+    https://bitbucket.org/jwalton/opup
     "/Users/k01101011/Documents/GitHub/pyflink-poc"
     "https://github.com/eli64s/readme-ai"
     "https://github.com/eli64s/readme-ai-streamlit"
@@ -40,12 +40,12 @@ repositories=(
     "https://github.com/eli64s/readme-ai"
     "https://github.com/eli64s/readme-ai-streamlit"
 )
-align=("left" "center")
-badge_styles=("default" "flat" "flat-square" "plastic" "for-the-badge") # "skills" "skills-light")
-image=("blue" "black" "cloud" "gradient" "grey" "purple")
-badge_color=("blue" "green" "cyan" "yellow" "orange" "purple" "blueviolet" "white" "black" "brightgreen" "ff69b4" "999999")
+badge_styles=("flat" "flat-square" "plastic" "for-the-badge" "skills-light") # "skills" "skills-light")
+image=("llm")
+badge_color=("blue" "green" "cyan" "yellow" "orange" "violet" "purple" "blueviolet" "white" "black" "brightgreen" "ff69b4" "999999")
 hs=("modern" "classic" "compact")
 ts=("bullet" "number" "roman" "links" "fold")
+e=("default" "oss" ""minimal" "nature" "fun" "space)
 
 for index in "${!repositories[@]}"; do
     repo="${repositories[$index]}"
@@ -53,15 +53,13 @@ for index in "${!repositories[@]}"; do
     random_badge=${badge_styles[$RANDOM % ${#badge_styles[@]}]}
     random_badge_color=${badge_color[$RANDOM % ${#badge_color[@]}]}
     image_style=${image[$RANDOM % ${#image[@]}]}
-    align=${align[$RANDOM % ${#align[@]}]}
     header=${hs[$RANDOM % ${#hs[@]}]}
     toc=${ts[$RANDOM % ${#ts[@]}]}
-    rand_choice=$((RANDOM % 2))
+    emoji=${e[$RANDOM % ${#e[@]}]}
 
     # cmd="python3 -m readmeai.cli.main --tree-depth 2 -o \"$filename\" -r \"$repo\""
     # cmd="pipx run readmeai -o \"$filename\" -r \"$repo\""
-
-    cmd="python3 -m readmeai.cli.main --api openai --tree-depth 2 -o "$filename" -r "$repo""
+    cmd="poetry run readmeai --api openai --tree-depth 1 -o "$filename" -r "$repo""
 
     if [ "$random_badge" != "default" ]; then
         cmd+=" --badge-style \"$random_badge\""
@@ -69,8 +67,8 @@ for index in "${!repositories[@]}"; do
     if [ "$image_style" != "blue" ]; then
         cmd+=" -i \"$image_style\""
     fi
-    if [ "$align" != "center" ]; then
-        cmd+=" -a \"$align\""
+    if [ "$emoji" != "default" ]; then
+        cmd+=" --emojis \"$emoji\""
     fi
     if [ "hs" != "classic" ]; then
         cmd+=" --header-style \"$header\""
@@ -78,9 +76,7 @@ for index in "${!repositories[@]}"; do
     if [ "ts" != "bullet" ]; then
         cmd+=" --toc-style \"$toc\""
     fi
-    if [ $rand_choice -eq 1 ]; then
-        cmd+=" -e"
-    fi
+
     if [ "$random_badge_color" != "blue" ]; then
         cmd+=" --badge-color \"$random_badge_color\""
     fi

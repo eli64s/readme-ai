@@ -1,0 +1,292 @@
+# README template for a repository tests/ directory
+
+[templates]
+# Universal template suitable for any project's test directory
+universal = """# Tests Directory
+
+## Overview
+
+This directory contains all test suites for {PROJECT_NAME}. Our testing approach follows industry best practices and is designed to ensure code reliability, maintainability, and quality.
+
+## Table of Contents
+
+- [Structure](#structure)
+- [Test Categories](#test-categories)
+- [Setup](#setup)
+- [Running Tests](#running-tests)
+- [Writing Tests](#writing-tests)
+- [Conventions](#conventions)
+- [Resources](#resources)
+
+## Structure
+
+```
+tests/
+├── unit/                  # Unit tests
+│   └── README.md         # Unit tests documentation
+├── integration/          # Integration tests
+│   └── README.md        # Integration tests documentation
+├── e2e/                 # End-to-end tests (if applicable)
+│   └── README.md        # E2E tests documentation
+├── performance/         # Performance tests (if applicable)
+│   └── README.md        # Performance tests documentation
+├── fixtures/            # Test data and fixtures
+│   ├── data/           # Test datasets
+│   └── mocks/          # Mock objects/responses
+├── helpers/            # Test helper functions
+├── config/             # Test configuration files
+└── docs/              # Additional test documentation
+```
+
+## Test Categories
+
+### Unit Tests
+- Purpose: Verify individual components in isolation
+- Location: `tests/unit/`
+- Naming Convention: `test_*` or `*_test` or `*_spec` (language dependent)
+
+### Integration Tests
+- Purpose: Verify component interactions
+- Location: `tests/integration/`
+- Focus: API endpoints, database operations, service interactions
+
+### End-to-End Tests (if applicable)
+- Purpose: Validate complete user flows
+- Location: `tests/e2e/`
+- Scope: Full system testing from user perspective
+
+### Performance Tests (if applicable)
+- Purpose: Verify system performance metrics
+- Location: `tests/performance/`
+- Types: Load, stress, endurance testing
+
+## Setup
+
+### Prerequisites
+
+```bash
+# List project-specific prerequisites here
+# Example:
+- {RUNTIME_VERSION}
+- {PACKAGE_MANAGER}
+- {TEST_FRAMEWORK}
+```
+
+### Installation
+
+```bash
+# Add environment setup steps
+# Example:
+{INSTALL_COMMAND}
+{TEST_DEPS_COMMAND}
+```
+
+### Configuration
+
+1. Environment Setup
+```bash
+# Copy example environment file
+cp .env.test.example .env.test
+
+# Configure test environment variables
+${EDITOR} .env.test
+```
+
+2. Test Framework Configuration
+- Location: `tests/config/`
+- Files: 
+  - `test.config.{ext}`
+  - `{framework}.config.{ext}`
+
+## Running Tests
+
+### Basic Commands
+
+```bash
+# Run all tests
+{TEST_COMMAND}
+
+# Run specific test file
+{SPECIFIC_TEST_COMMAND}
+
+# Run tests with coverage
+{COVERAGE_COMMAND}
+
+# Run specific test category
+{CATEGORY_TEST_COMMAND}
+```
+
+### Common Flags
+
+- `--verbose`, `-v`: Detailed output
+- `--watch`: Watch mode
+- `--coverage`: Generate coverage report
+- `--filter`: Run specific tests
+- `--parallel`: Parallel execution
+
+## Writing Tests
+
+### Test File Template
+
+```
+{LANGUAGE_SPECIFIC_TEST_TEMPLATE}
+```
+
+### Best Practices
+
+1. Test Organization
+   - One test file per module/component
+   - Clear test descriptions
+   - Proper test isolation
+
+2. Naming Conventions
+   - Test files: `test_*.{ext}` or `*_test.{ext}`
+   - Test functions: `test_should_*`
+   - Test classes: `Test*`
+
+3. Test Structure
+   - Arrange (Setup)
+   - Act (Execute)
+   - Assert (Verify)
+
+4. Documentation
+   - Clear test descriptions
+   - Purpose of test suite
+   - Any special setup required
+
+## Conventions
+
+### Code Style
+
+- Follow project's style guide
+- Consistent naming patterns
+- Clear test descriptions
+- Proper error messages
+
+### Documentation
+
+- Update test documentation
+- Document test data sources
+- Explain complex test setups
+- Document known limitations
+
+### Fixtures
+
+- Location: `tests/fixtures/`
+- Naming: `{purpose}_fixture.{ext}`
+- Documentation: Include sample usage
+
+## Resources
+
+- [Test Framework Documentation]({FRAMEWORK_DOCS_URL})
+- [Testing Best Practices]({BEST_PRACTICES_URL})
+- [Project Style Guide]({STYLE_GUIDE_URL})
+"""
+
+# Minimalist version for smaller projects
+minimalist = """# Tests Directory
+
+## Overview
+
+Test suite for {PROJECT_NAME}. Ensures code quality and reliability through automated testing.
+
+## Structure
+
+```
+tests/
+├── unit/                # Unit tests
+├── integration/        # Integration tests
+├── fixtures/          # Test data
+└── config/           # Test configuration
+```
+
+## Setup
+
+### Prerequisites
+- {RUNTIME_VERSION}
+- {TEST_FRAMEWORK}
+
+### Install
+```bash
+{INSTALL_COMMAND}
+```
+
+## Running Tests
+
+```bash
+# All tests
+{TEST_COMMAND}
+
+# Coverage
+{COVERAGE_COMMAND}
+```
+
+## Writing Tests
+
+### Template
+```
+{BASIC_TEST_TEMPLATE}
+```
+
+### Conventions
+- Test files: `test_*.{ext}`
+- Clear descriptions
+- Use fixtures for data
+
+## Resources
+- [Framework Docs]({DOCS_URL})
+"""
+
+# Micro version for tiny projects
+micro = """# Tests
+
+## Run Tests
+```bash
+{TEST_COMMAND}
+```
+
+## Structure
+```
+tests/
+├── test_*.{ext}  # Test files
+└── fixtures/    # Test data
+```
+
+## Conventions
+- Name tests clearly
+- One assert per test
+- Use fixtures
+"""
+
+[placeholders]
+# List of variables that need to be replaced in the templates
+variables = [
+    "PROJECT_NAME",
+    "RUNTIME_VERSION",
+    "PACKAGE_MANAGER",
+    "TEST_FRAMEWORK",
+    "INSTALL_COMMAND",
+    "TEST_DEPS_COMMAND",
+    "TEST_COMMAND",
+    "SPECIFIC_TEST_COMMAND",
+    "COVERAGE_COMMAND",
+    "CATEGORY_TEST_COMMAND",
+    "LANGUAGE_SPECIFIC_TEST_TEMPLATE",
+    "BASIC_TEST_TEMPLATE",
+    "FRAMEWORK_DOCS_URL",
+    "BEST_PRACTICES_URL",
+    "STYLE_GUIDE_URL",
+    "DOCS_URL"
+]
+
+[recommendations]
+# Template selection guide
+use_universal = "For medium to large projects with comprehensive test suites"
+use_minimalist = "For small to medium projects with basic testing needs"
+use_micro = "For tiny projects or quick prototypes"
+
+[metadata]
+version = "1.0.0"
+author = "Assistant"
+description = "Universal test directory README templates"
+last_updated = "2024-11-24"

@@ -11,7 +11,7 @@ from tenacity import (
     wait_exponential,
 )
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.tokens import token_handler
@@ -30,10 +30,8 @@ class GeminiHandler(BaseModelHandler):
     Google Gemini LLM API service implementation.
     """
 
-    def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
-    ) -> None:
-        super().__init__(config_loader, context)
+    def __init__(self, config: Settings, context: RepositoryContext) -> None:
+        super().__init__(config, context)
         self.model: Optional[Any] = None
         self.model_name: str = "gemini-1.5-flash"
         self.top_p: float = (

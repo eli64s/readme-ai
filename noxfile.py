@@ -9,7 +9,7 @@ def install(session, groups, root=True):
         groups = ["main", *groups]
 
     session.run_always(
-        "poetry",
+        "uv",
         "install",
         "--no-root",
         "--sync",
@@ -28,21 +28,24 @@ def tests(session):
         "pytest",
         "pytest-asyncio",
         "pytest-cov",
+        "pytest-pretty",
         "pytest-randomly",
         "pytest-sugar",
         "pytest-xdist",
     )
     session.run(
-        "poetry",
+        "uv",
         "run",
         "pytest",
+        "-vv",
+        "--tb=short",
         "--cov=readmeai",
         "--cov-branch",
-        "--cov-report=xml",
-        "--cov-report=term-missing",
+        "--cov-report=json:tests/.reports/coverage.json",
+        "--cov-report=term-missing:skip-covered",
         "--cov-fail-under=80",
         "--asyncio-mode=auto",
         "--numprocesses=auto",
-        "--durations=10",
+        "--durations=5",
         external=True,
     )

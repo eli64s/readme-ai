@@ -1,0 +1,913 @@
+# Emoji theme 'packs' for the README. Emojis are prefixed to each README section header.
+
+# -- Core Themes ------------------------------------
+# Basic themes suitable for general purposes
+
+[themes.default]
+name = "Default Theme"
+description = "Basic documentation theme without emojis"
+
+[[themes.default.sections]]
+title = "Table of Contents"
+
+[[themes.default.sections]]
+title = "Overview"
+
+[[themes.default.sections]]
+title = "Features"
+
+[[themes.default.sections]]
+title = "Project Structure"
+subsections = [{ title = "Project Index" }]
+
+[[themes.default.sections]]
+title = "Getting Started"
+subsections = [
+    { title = "Prerequisites" },
+    { title = "Installation" },
+    { title = "Usage" },
+    { title = "Testing" },
+]
+
+[[themes.default.sections]]
+title = "Roadmap"
+
+[[themes.default.sections]]
+title = "Contributing"
+
+[[themes.default.sections]]
+title = "License"
+
+[[themes.default.sections]]
+title = "Acknowledgments"
+
+[themes.minimal]
+name = "Minimal Theme"
+description = "Clean and simple documentation theme"
+
+[[themes.minimal.sections]]
+title = "📄 Table of Contents"
+
+[[themes.minimal.sections]]
+title = "✨ Overview"
+
+[[themes.minimal.sections]]
+title = "📌 Features"
+
+[[themes.minimal.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.minimal.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.minimal.sections]]
+title = "📈 Roadmap"
+
+[[themes.minimal.sections]]
+title = "🤝 Contributing"
+
+[[themes.minimal.sections]]
+title = "📜 License"
+
+[[themes.minimal.sections]]
+title = "✨ Acknowledgments"
+
+[themes.oss]
+name = "Open Source Theme"
+description = "Community-driven project theme"
+
+[[themes.oss.sections]]
+title = "🌟 Table of Contents"
+
+[[themes.oss.sections]]
+title = "💫 Overview"
+
+[[themes.oss.sections]]
+title = "✨ Features"
+
+[[themes.oss.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.oss.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Usage" },
+    { title = "🧪 Testing" }
+]
+
+[[themes.oss.sections]]
+title = "👥 Community"
+subsections = [
+    { title = "🤝 Contributing" },
+    { title = "💭 Code of Conduct" },
+    { title = "🗣️ Discussions" },
+    { title = "🎯 Issues" }
+]
+
+[[themes.oss.sections]]
+title = "📚 Documentation"
+subsections = [
+    { title = "📖 API Reference" },
+    { title = "📝 Tutorials" },
+    { title = "💡 Examples" }
+]
+
+[[themes.oss.sections]]
+title = "📈 Roadmap"
+
+[[themes.oss.sections]]
+title = "❤️ Contributors"
+
+[[themes.oss.sections]]
+title = "📜 License"
+
+[[themes.oss.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Development Themes ------------------------------------
+# Themes for different development domains
+
+[themes.api]
+name = "API Theme"
+description = "API and microservices focused theme"
+
+[[themes.llm.sections]]
+title = "🔌 Table of Contents"
+
+[[themes.llm.sections]]
+title = "🌐 Overview"
+
+[[themes.llm.sections]]
+title = "⚡ Features"
+
+[[themes.llm.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.llm.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "🔑 Authentication" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.llm.sections]]
+title = "📡 Endpoints"
+subsections = [
+    { title = "🔍 Queries" },
+    { title = "📝 Mutations" },
+    { title = "🔄 Subscriptions" },
+    { title = "🔒 Authorization" },
+]
+
+[[themes.llm.sections]]
+title = "⚡ Performance"
+subsections = [
+    { title = "📊 Monitoring" },
+    { title = "🔍 Tracing" },
+    { title = "📈 Metrics" },
+]
+
+[[themes.llm.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.llm.sections]]
+title = "🤝 Contributing"
+
+[[themes.llm.sections]]
+title = "📜 License"
+
+[[themes.llm.sections]]
+title = "⭐ Acknowledgments"
+
+[themes.web]
+name = "Web Development Theme"
+description = "Modern web development theme"
+
+[[themes.web.sections]]
+title = "🌐 Table of Contents"
+
+[[themes.web.sections]]
+title = "💻 Overview"
+
+[[themes.web.sections]]
+title = "✨ Features"
+
+[[themes.web.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.web.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "🖥️ Development" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.web.sections]]
+title = "🎨 Frontend"
+subsections = [
+    { title = "🧩 Components" },
+    { title = "🔄 State Management" },
+    { title = "🎯 Routing" },
+    { title = "📱 Responsive Design" },
+]
+
+[[themes.web.sections]]
+title = "⚡ Backend"
+subsections = [
+    { title = "🛢️ Database" },
+    { title = "🔌 API" },
+    { title = "🔐 Authentication" },
+    { title = "📡 WebSockets" },
+]
+
+[[themes.web.sections]]
+title = "📱 Mobile Support"
+
+[[themes.web.sections]]
+title = "🚀 Deployment"
+subsections = [
+    { title = "🔄 CI/CD" },
+    { title = "📊 Monitoring" },
+    { title = "🔒 Security" },
+]
+
+[[themes.web.sections]]
+title = "📈 Roadmap"
+
+[[themes.web.sections]]
+title = "🤝 Contributing"
+
+[[themes.web.sections]]
+title = "📜 License"
+
+[[themes.web.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Infrastructure Themes ------------------------------------
+# Themes for infrastructure and operations
+
+[themes.cloud]
+name = "Cloud Theme"
+description = "Cloud native and infrastructure theme"
+
+[[themes.cloud.sections]]
+title = "☁️ Table of Contents"
+
+[[themes.cloud.sections]]
+title = "🌩️ Overview"
+
+[[themes.cloud.sections]]
+title = "⚡ Features"
+
+[[themes.cloud.sections]]
+title = "📂 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.cloud.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "🔑 Prerequisites" },
+    { title = "🏗️ Setup" },
+    { title = "💫 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.cloud.sections]]
+title = "☁️ Infrastructure"
+subsections = [
+    { title = "🔄 Load Balancing" },
+    { title = "📦 Container Orchestration" },
+    { title = "🗄️ Storage" },
+    { title = "🔒 Security" },
+]
+
+[[themes.cloud.sections]]
+title = "⚡ Services"
+subsections = [
+    { title = "🔌 APIs" },
+    { title = "🗃️ Databases" },
+    { title = "📨 Message Queues" },
+    { title = "🔍 Service Discovery" },
+]
+
+[[themes.cloud.sections]]
+title = "📈 Operations"
+subsections = [
+    { title = "📊 Monitoring" },
+    { title = "📝 Logging" },
+    { title = "🔄 CI/CD" },
+    { title = "⚠️ Alerts" },
+]
+
+[[themes.cloud.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.cloud.sections]]
+title = "🤝 Contributing"
+
+[[themes.cloud.sections]]
+title = "📜 License"
+
+[[themes.cloud.sections]]
+title = "⭐ Acknowledgments"
+
+[themes.devops]
+name = "DevOps Theme"
+description = "DevOps and operations focused theme"
+
+[[themes.devops.sections]]
+title = "🔄 Table of Contents"
+
+[[themes.devops.sections]]
+title = "🎯 Overview"
+
+[[themes.devops.sections]]
+title = "⚙️ Features"
+
+[[themes.devops.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.devops.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "🛠️ Installation" },
+    { title = "💻 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.devops.sections]]
+title = "🔄 Pipeline"
+subsections = [
+    { title = "📦 Build" },
+    { title = "🧪 Test" },
+    { title = "🚀 Deploy" },
+    { title = "📊 Monitor" },
+]
+
+[[themes.devops.sections]]
+title = "🏗️ Infrastructure"
+subsections = [
+    { title = "📦 Containers" },
+    { title = "☁️ Cloud" },
+    { title = "🔒 Security" },
+    { title = "📊 Monitoring" },
+]
+
+[[themes.devops.sections]]
+title = "📈 Roadmap"
+
+[[themes.devops.sections]]
+title = "🤝 Contributing"
+
+[[themes.devops.sections]]
+title = "📜 License"
+
+[[themes.devops.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Data Themes ------------------------------------
+# Themes for data-focused projects
+
+[themes.data]
+name = "Data Theme"
+description = "Data engineering and analytics theme"
+
+[[themes.data.sections]]
+title = "📊 Table of Contents"
+
+[[themes.data.sections]]
+title = "📈 Overview"
+
+[[themes.data.sections]]
+title = "✨ Features"
+
+[[themes.data.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.data.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.data.sections]]
+title = "🔄 Data Pipeline"
+subsections = [
+    { title = "📥 Ingestion" },
+    { title = "🔄 Processing" },
+    { title = "📊 Analysis" },
+    { title = "📈 Visualization" },
+]
+
+[[themes.data.sections]]
+title = "📊 Results"
+
+[[themes.data.sections]]
+title = "📈 Roadmap"
+
+[[themes.data.sections]]
+title = "🤝 Contributing"
+
+[[themes.data.sections]]
+title = "📜 License"
+
+[[themes.data.sections]]
+title = "⭐ Acknowledgments"
+
+[themes.db]
+name = "Database Theme"
+description = "Database and data storage theme"
+
+[[themes.db.sections]]
+title = "🗄️ Table of Contents"
+
+[[themes.db.sections]]
+title = "💾 Overview"
+
+[[themes.db.sections]]
+title = "⚡ Features"
+
+[[themes.db.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.db.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "🔌 Connection" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.db.sections]]
+title = "🗃️ Schema"
+subsections = [
+    { title = "📑 Tables" },
+    { title = "🔗 Relations" },
+    { title = "🔑 Indexes" },
+    { title = "📊 Models" },
+]
+
+[[themes.db.sections]]
+title = "🔄 Data Management"
+subsections = [
+    { title = "📥 Migration" },
+    { title = "🔄 Replication" },
+    { title = "💾 Backup" },
+    { title = "🔍 Query Optimization" },
+]
+
+[[themes.db.sections]]
+title = "📈 Performance"
+subsections = [
+    { title = "📊 Monitoring" },
+    { title = "🔍 Profiling" },
+    { title = "⚡ Optimization" },
+]
+
+[[themes.db.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.db.sections]]
+title = "🤝 Contributing"
+
+[[themes.db.sections]]
+title = "📜 License"
+
+[[themes.db.sections]]
+title = "⭐ Acknowledgments"
+
+[themes.ml]
+name = "Machine Learning Theme"
+description = "AI/ML project focused theme"
+
+[[themes.ml.sections]]
+title = "🤖 Table of Contents"
+
+[[themes.ml.sections]]
+title = "🧠 Overview"
+
+[[themes.ml.sections]]
+title = "✨ Features"
+
+[[themes.ml.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.ml.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Development" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.ml.sections]]
+title = "📊 Data"
+subsections = [
+    { title = "📥 Data Collection" },
+    { title = "🔍 Preprocessing" },
+    { title = "📈 Analysis" },
+    { title = "✨ Feature Engineering" },
+]
+
+[[themes.ml.sections]]
+title = "🧠 Models"
+subsections = [
+    { title = "🏗️ Architecture" },
+    { title = "📊 Training" },
+    { title = "📈 Evaluation" },
+    { title = "🔄 Fine-tuning" },
+]
+
+[[themes.ml.sections]]
+title = "🚀 Production"
+subsections = [
+    { title = "📦 Model Serving" },
+    { title = "📊 Monitoring" },
+    { title = "🔄 Retraining" },
+]
+
+[[themes.ml.sections]]
+title = "📊 Results"
+
+[[themes.ml.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.ml.sections]]
+title = "🤝 Contributing"
+
+[[themes.ml.sections]]
+title = "📜 License"
+
+[[themes.ml.sections]]
+title = "⭐ Acknowledgments"
+
+
+# -- Security Themes ------------------------------------
+# Themes for security-focused projects
+
+[themes.cyber]
+name = "Cyber Theme"
+description = "Cybersecurity focused theme"
+
+[[themes.cyber.sections]]
+title = "🔒 Table of Contents"
+
+[[themes.cyber.sections]]
+title = "🛡️ Overview"
+
+[[themes.cyber.sections]]
+title = "⚡ Features"
+
+[[themes.cyber.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.cyber.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.cyber.sections]]
+title = "🔐 Security"
+subsections = [
+    { title = "🔑 Authentication" },
+    { title = "🛡️ Authorization" },
+    { title = "🔒 Encryption" },
+    { title = "🕵️ Audit Logging" },
+]
+
+[[themes.cyber.sections]]
+title = "🛡️ Protection"
+subsections = [
+    { title = "🔍 Threat Detection" },
+    { title = "🚫 Prevention" },
+    { title = "🎯 Incident Response" },
+    { title = "🔄 Recovery" }
+]
+
+[[themes.cyber.sections]]
+title = "📊 Monitoring"
+subsections = [
+    { title = "📈 Analytics" },
+    { title = "🚨 Alerts" },
+    { title = "📝 Logging" }
+]
+
+[[themes.cyber.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.cyber.sections]]
+title = "🤝 Contributing"
+
+[[themes.cyber.sections]]
+title = "📜 License"
+
+[[themes.cyber.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Game Development Theme ------------------------------------
+
+[themes.game]
+name = "Game Development Theme"
+description = "Game development focused theme"
+
+[[themes.game.sections]]
+title = "🎮 Table of Contents"
+
+[[themes.game.sections]]
+title = "🌟 Overview"
+
+[[themes.game.sections]]
+title = "✨ Features"
+
+[[themes.game.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.game.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "🎮 Development" },
+    { title = "🧪 Testing" }
+]
+
+[[themes.game.sections]]
+title = "🎨 Game Design"
+subsections = [
+    { title = "🌍 World" },
+    { title = "👾 Characters" },
+    { title = "🎯 Mechanics" },
+    { title = "🎵 Audio" }
+]
+
+[[themes.game.sections]]
+title = "🛠️ Engine"
+subsections = [
+    { title = "🎨 Graphics" },
+    { title = "🎵 Sound" },
+    { title = "⚡ Physics" },
+    { title = "🤖 AI" }
+]
+
+[[themes.game.sections]]
+title = "🌐 Networking"
+subsections = [
+    { title = "🔄 Multiplayer" },
+    { title = "💾 Save System" },
+    { title = "🔌 Backend Services" }
+]
+
+[[themes.game.sections]]
+title = "📦 Distribution"
+subsections = [
+    { title = "🏗️ Build" },
+    { title = "📲 Deploy" },
+    { title = "🔄 Updates" }
+]
+
+[[themes.game.sections]]
+title = "📈 Analytics"
+
+[[themes.game.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.game.sections]]
+title = "🤝 Contributing"
+
+[[themes.game.sections]]
+title = "📜 License"
+
+[[themes.game.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Mobile Development Theme ------------------------------------
+
+[themes.mobile]
+name = "Mobile Development Theme"
+description = "Mobile app development focused theme"
+
+[[themes.mobile.sections]]
+title = "📱 Table of Contents"
+
+[[themes.mobile.sections]]
+title = "🌟 Overview"
+
+[[themes.mobile.sections]]
+title = "✨ Features"
+
+[[themes.mobile.sections]]
+title = "📁 Project Structure"
+subsections = [{ title = "📑 Project Index" }]
+
+[[themes.mobile.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📋 Prerequisites" },
+    { title = "⚙️ Installation" },
+    { title = "💻 Development" },
+    { title = "🧪 Testing" }
+]
+
+[[themes.mobile.sections]]
+title = "📱 Platforms"
+subsections = [
+    { title = "🤖 Android" },
+    { title = "🍎 iOS" },
+    { title = "🌐 Cross-Platform" }
+]
+
+[[themes.mobile.sections]]
+title = "🎨 UI/UX"
+subsections = [
+    { title = "🧩 Components" },
+    { title = "🎯 Navigation" },
+    { title = "🎨 Themes" },
+    { title = "📱 Responsive Design" }
+]
+
+[[themes.mobile.sections]]
+title = "📡 Backend"
+subsections = [
+    { title = "🔌 API Integration" },
+    { title = "💾 Data Storage" },
+    { title = "🔄 Sync" },
+    { title = "📶 Offline Support" }
+]
+
+[[themes.mobile.sections]]
+title = "📦 Distribution"
+subsections = [
+    { title = "🏗️ Build" },
+    { title = "📲 Deploy" },
+    { title = "🔄 Updates" }
+]
+
+[[themes.mobile.sections]]
+title = "📈 Analytics"
+
+[[themes.mobile.sections]]
+title = "🛣️ Roadmap"
+
+[[themes.mobile.sections]]
+title = "🤝 Contributing"
+
+[[themes.mobile.sections]]
+title = "📜 License"
+
+[[themes.mobile.sections]]
+title = "⭐ Acknowledgments"
+
+# -- Miscellaneous Themes ------------------------------------
+
+# -- Fun Theme ------------------------------------ 
+
+[themes.fun]
+name = "Fun Theme"
+description = "Playful and engaging documentation theme"
+
+[[themes.fun.sections]]
+title = "📖 Table of Contents"
+
+
+[[themes.fun.sections]]
+title = "🎉 Overview"
+
+[[themes.fun.sections]]
+title = "🦄 Features"
+
+[[themes.fun.sections]]
+title = "🎨 Project Structure"
+subsections = [{ title = "📚 Project Index" }]
+
+[[themes.fun.sections]]
+title = "🚀 Getting Started"
+subsections = [
+    { title = "📝 Prerequisites" },
+    { title = "🛠️ Installation" },
+    { title = "🤖 Usage" },
+    { title = "🧪 Testing" },
+]
+
+[[themes.fun.sections]]
+title = "✨ Roadmap"
+
+[[themes.fun.sections]]
+title = "🤗 Contributing"
+
+[[themes.fun.sections]]
+title = "📃 License"
+
+[[themes.fun.sections]]
+title = "👏 Acknowledgments"
+
+# -- Nature Theme ------------------------------------ 
+
+[themes.nature]
+name = "Nature Theme"
+description = "Environmental and nature-focused theme"
+
+[[themes.nature.sections]]
+title = "🍁 Table of Contents"
+
+[[themes.nature.sections]]
+title = "🌿 Overview"
+
+[[themes.nature.sections]]
+title = "🌸 Features"
+
+[[themes.nature.sections]]
+title = "🌳 Project Structure"
+subsections = [{ title = "🍂 Project Index" }]
+
+[[themes.nature.sections]]
+title = "🌱 Getting Started"
+subsections = [
+    { title = "🌞 Prerequisites" },
+    { title = "🌾 Installation" },
+    { title = "🌊 Usage" },
+    { title = "🌻 Testing" },
+]
+
+[[themes.nature.sections]]
+title = "🌵 Roadmap"
+
+[[themes.nature.sections]]
+title = "🌍 Contributing"
+
+[[themes.nature.sections]]
+title = "🍃 License"
+
+[[themes.nature.sections]]
+title = "🌟 Acknowledgments"
+
+# -- Space Theme ------------------------------------ 
+
+[themes.space]
+name = "Space Theme"
+description = "Outer space and sci-fi themed documentation"
+
+[[themes.space.sections]]
+title = "🌟 Table of Contents"
+
+[[themes.space.sections]]
+title = "🌌 Overview"
+
+[[themes.space.sections]]
+title = "🚀 Features"
+
+[[themes.space.sections]]
+title = "🪐 Project Structure"
+subsections = [{ title = "🌑 Project Index" }]
+
+[[themes.space.sections]]
+title = "🚨 Getting Started"
+subsections = [
+    { title = "🛸 Prerequisites" },
+    { title = "👽 Installation" },
+    { title = "🌠 Usage" },
+    { title = "🔬 Testing" },
+]
+
+[[themes.space.sections]]
+title = "🔭 Roadmap"
+
+[[themes.space.sections]]
+title = "👾 Contributing"
+
+[[themes.space.sections]]
+title = "📜 License"
+
+[[themes.space.sections]]
+title = "👨‍🚀 Acknowledgments"

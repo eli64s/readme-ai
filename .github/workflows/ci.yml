@@ -1,0 +1,119 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  release:
+    types: [created]
+
+jobs:
+  deploy_mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "latest"
+
+    - name: Install Python using uv
+      run: uv python install 3.11
+    - name: Create virtual environment
+      run: uv venv install 3.11
+    - name: Activate virtual environment
+      run: source .venv/bin/activate
+
+    - name: Install dependencies
+      run: uv pip install -r pyproject.toml --all-extras
+
+    - name: Build the MkDocs site
+      working-directory: ./docs
+      run: uv run mkdocs build --site-dir ../site
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+
+  test_and_coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "latest"
+
+    - name: Install Python using uv
+      run: uv python install 3.11
+    - name: Create virtual environment
+      run: uv venv install 3.11
+    - name: Activate virtual environment
+      run: source .venv/bin/activate
+
+    - name: Install dependencies
+      run: uv pip install -r pyproject.toml --all-extras
+    - name: Run tests with coverage
+      run: |
+        uv run pytest -n auto --asyncio-mode=auto --cov=readmeai --cov-report=xml --cov-report=term-missing
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        fail_ci_if_error: true
+
+  publish_to_pypi:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "latest"
+    - name: Install Python using uv
+      run: uv python install 3.11
+    - name: Install PyPI dependencies
+      run: uv pip install build twine
+    - name: Build and publish to PyPI
+      run: |
+        uv run python -m build
+        uv run python -m twine upload --skip-existing dist/*
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+  build_and_push_docker:
+    name: Docker Hub build and push image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Sleep for Docker Hub processing
+      run: |
+        echo "Sleeping for 30 seconds to ensure the PyPI package is available for installation"
+        sleep 30
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+        push: true
+        tags: zeroxeli/readme-ai:latest

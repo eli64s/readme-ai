@@ -71,6 +71,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to dark mode
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -120,51 +121,96 @@ plugins:
       minify_html: true
 
 nav:
-  - Introduction:
+  - Welcome:
       - index.md
-      - Why README-AI?: why.md
-      - Getting Started: usage/prerequisites.md
-      - Getting Help: troubleshooting.md
-      - Contributing: contributing.md
-      # - Philosophy: philosophy.md
+      - Why Choose README-AI?: why.md
+      - Contributing to README-AI: contributing.md
+      - Troubleshooting & Support: troubleshooting.md
   - Getting Started:
-      - Prerequisites: usage/prerequisites.md
-      - Installation: usage/installation.md
-      - Environment: usage/environment.md
-      - Usage:
-          - CLI: usage/cli.md
-          # - Python: usage/python.md
-          - Docker: usage/docker.md
-          - Streamlit: usage/streamlit.md
-  - Customize:
-      - Components:
-          - Badges: configuration/badges.md
-          - Headers: configuration/header.md
-          - Project Logo: configuration/project_logo.md
-          - Table of Contents: configuration/table_of_contents.md
-          - Emojis: configuration/emojis.md
-        # - Themes: guides/themes.md
-        # - Palettes: guides/palettes.md
-        # - Fonts: guides/fonts.md
-        # - Icons: guides/icons.md
-  - AI Integration:
-      - llms/index.md
-      - Cloud Hosted:
-          - OpenAI: llms/openai.md
-          - Anthropic: llms/anthropic.md
-          - Google Gemini: llms/google_gemini.md
-      - Local Hosted:
-          - Ollama: llms/ollama.md
-          - Offline Mode: llms/offline_mode.md
-  - CLI Reference:
-      - cli.md
-  - Guides:
-      - Best Practices: guides/best_practices.md
-      - Custom Templates: guides/custom_templates.md
-      - Markdown: guides/markdown.md
+      - System Requirements: usage/system-requirements.md
+      - Installation Guide: usage/installation.md
+      - Environment Setup: usage/environment.md
+      - Using README-AI:
+          - Command-Line Interface: usage/cli.md
+          - Docker Container: usage/docker.md
+          - Streamlit Web App: usage/streamlit.md
+  - Components:
+      - Badges: components/project_badges.md
+      - Headers: components/header_styles.md
+      - Emoji Themes: components/emoji_themes.md
+      - Project Logo: components/project_logo.md
+      - Table of Content: components/table_of_contents.md
+      - Models:
+          - llms/index.md
+          - Paid LLM APIs:
+              - OpenAI: llms/openai.md
+              - Anthropic: llms/anthropic.md
+              - Google Gemini: llms/google_gemini.md
+          - Open Source LLMs:
+              - Ollama: llms/ollama.md
+          - Offline Mode:
+              - Offline Mode: llms/offline_mode.md
+  - CLI Reference: cli_reference.md
   - Examples:
-      - Gallery: examples/gallery.md
-      # - Use Cases: examples/use-cases.md
+      - README Gallery: examples/gallery.md
+      # - Sample README Templates: examples/readme-templates.md
+      # - Documentation Examples: examples/documentation-examples.md
+      # - GitHub Profile READMEs: examples/profile-readmes.md
+  - Markdown Cookbook:
+      - Introduction: guides/markdown/index.md
+      - Syntax:
+          - Headings & Paragraphs: guides/markdown/headings-paragraphs.md
+          - Text Formatting: guides/markdown/text-formatting.md
+          - Lists: guides/markdown/lists.md
+          - Links:
+              - Inline Links: guides/markdown/links/inline-links.md
+              - Reference Links: guides/markdown/links/reference-links.md
+          - Images & Media:
+              - Center Images: guides/markdown/images/centered-images.md
+              - Align Images: guides/markdown/images/aligned-images.md
+              - Small Images & Icons: guides/markdown/images/small-images.md
+              - Text Boxes: guides/markdown/images/text-boxes.md
+              - Text Wrapping: guides/markdown/images/text-wrapping.md
+      - Advanced:
+          - Tables:
+              - Alignment: guides/markdown/tables/alignment.md
+              - Multi-Line Cells: guides/markdown/tables/multi-line-cells.md
+              - Task Lists in Tables: guides/markdown/tables/task-lists.md
+              - Merge Cells: guides/markdown/tables/merged-cells.md
+          - Text Styling:
+              - Formatting: guides/markdown/text-styling/basic-formatting.md
+              - Progress Bars: guides/markdown/text-styling/progress-bars.md
+              - Highlight Text: guides/markdown/text-styling/highlighting.md
+              - Underline Text: guides/markdown/text-styling/underlining.md
+          - Code Blocks: guides/markdown/code-blocks.md
+          - Blockquotes & Callouts: guides/markdown/blockquotes.md
+          - Task Lists: guides/markdown/task-lists.md
+          - Footnotes & Citations: guides/markdown/footnotes.md
+          - Buttons & Shortcuts: guides/markdown/buttons-and-shortcuts.md
+          - Contact Info: guides/markdown/contact-info.md
+          - Contributing Guidelines: guides/markdown/contributing.md
+          - HTML Elements:
+              - Spacing Entities: guides/markdown/html-elements/spacing-entities.md
+      - GitHub Markdown:
+          - GitHub Features: guides/markdown/github-flavored.md
+          - Emojis & Icons: guides/markdown/emoji-icons.md
+          - Issues & PRs: guides/markdown/issue-references.md
+      - Documentation:
+          - Table of Contents: guides/markdown/table-of-contents.md
+          - Diagrams & Flowcharts: guides/markdown/mermaid-diagrams.md
+          - Math Equations: guides/markdown/math-equations.md
+      - Styling:
+          - Custom Styling: guides/markdown/styling-and-layout/custom-styling.md
+          - Buttons & Badges: guides/markdown/styling-and-layout/buttons-badges.md
+          - Layout Techniques: guides/markdown/styling-and-layout/layout-techniques.md
+      - Best Practices:
+          - Effective READMEs: guides/markdown/best-practices/effective-readmes.md
+          - Organizing Docs: guides/markdown/best-practices/doc-structure.md
+          - Accessibility: guides/markdown/best-practices/accessibility.md
+      - Tools & Resources:
+          - Markdown Editors: guides/markdown/resources/editors-ides.md
+          - Extensions: guides/markdown/resources/extensions.md
+          - Linting Tools: guides/markdown/resources/linting-formatting.md
 
 extra_css:
   - css/extra.css

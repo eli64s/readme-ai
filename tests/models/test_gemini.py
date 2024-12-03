@@ -5,23 +5,23 @@ import google.generativeai as genai
 import pytest
 import tenacity
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import RepositoryContext
 from readmeai.models.gemini import GeminiHandler
 
 
 @pytest.fixture
 async def gemini_handler(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     repository_context_fixture: RepositoryContext,
 ):
-    mock_config_loader = config_loader_fixture
-    mock_config_loader.config.llm.model = "gemini-1.5-flash"
+    mock_config = config_fixture
+    mock_config.config.llm.model = "gemini-1.5-flash"
     with (
         patch.dict("os.environ", {"GOOGLE_API_KEY": "test_key"}),
         patch("google.generativeai.configure"),
     ):
-        yield GeminiHandler(mock_config_loader, repository_context_fixture)
+        yield GeminiHandler(mock_config, repository_context_fixture)
 
 
 @pytest.mark.asyncio

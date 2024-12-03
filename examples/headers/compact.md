@@ -11,7 +11,7 @@
 	<img src="https://img.shields.io/github/languages/top/avjinder/Minimal-Todo?style=plastic&color=5D3FD3" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/avjinder/Minimal-Todo?style=plastic&color=5D3FD3" alt="repo-language-count">
 </p>
-        <p>Built with the tools and technologies:</p>
+        <p>Tech Stack</p>
         <p>
 	<img src="https://img.shields.io/badge/Android-34A853.svg?style=plastic&logo=Android&logoColor=white" alt="Android">
 	<img src="https://img.shields.io/badge/Gradle-02303A.svg?style=plastic&logo=Gradle&logoColor=white" alt="Gradle">
@@ -33,7 +33,7 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -415,7 +415,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

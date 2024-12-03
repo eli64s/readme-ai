@@ -14,7 +14,7 @@
 	<img src="https://img.shields.io/github/languages/count/FerrariDG/async-ml-inference?style=flat-square&color=009688" alt="repo-language-count">
 </p>
 <p align="center">
-		<em>Built with the tools and technologies:</em>
+		<em>Tech Stack</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/badge/Redis-DC382D.svg?style=flat-square&logo=Redis&logoColor=white" alt="Redis">

@@ -44,7 +44,7 @@
   - [⚙️ Installation](#️-installation)
   - [🤖 Usage](#-usage)
   - [🧪 Tests](#-tests)
-- [🛠 Project Roadmap](#-project-roadmap)
+- [🛠 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -402,7 +402,7 @@
 
 ---
 
-## 🛠 Project Roadmap
+## 🛠 Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

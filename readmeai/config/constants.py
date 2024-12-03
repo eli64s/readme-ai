@@ -1,12 +1,11 @@
+"""Enum classes that store information settings for the readme-ai application,
+such as LLM API providers, badge styles, emoji themes, header styles, and more.
 """
-Enum classes that store information settings for the LLM
-API service providers, badge styles, and image options.
-"""
 
-import enum
+from enum import Enum
 
 
-class BadgeStyleOptions(str, enum.Enum):
+class BadgeStyleOptions(str, Enum):
     """
     Badge icon styles for the project README.
     """
@@ -21,7 +20,30 @@ class BadgeStyleOptions(str, enum.Enum):
     SOCIAL = "social"
 
 
-class HeaderStyleOptions(str, enum.Enum):
+class EmojiThemeOptions(str, Enum):
+    """
+    Emoji theme packs for the project README.
+    """
+
+    DEFAULT = "default"
+    MINIMAL = "minimal"
+    OSS = "oss"
+    # API = "api"
+    # CLOUD = "cloud"
+    # CYBER = "cyber"
+    # DATA = "data"
+    # DB = "db"
+    # DEVOPS = "devops"
+    # GAME = "game"
+    # ML = "ml"
+    # MOBILE = "mobile"
+    # WEB = "web"
+    FUN = "fun"
+    NATURE = "nature"
+    SPACE = "space"
+
+
+class HeaderStyleOptions(str, Enum):
     """
     Enum of supported 'Header' template styles for the README file.
     """
@@ -34,7 +56,7 @@ class HeaderStyleOptions(str, enum.Enum):
     SVG = "svg"
 
 
-class ImageOptions(str, enum.Enum):
+class ImageOptions(str, Enum):
     """
     Default image options for the project logo.
     """
@@ -49,7 +71,7 @@ class ImageOptions(str, enum.Enum):
     PURPLE = "https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png"
 
 
-class TocStyleOptions(str, enum.Enum):
+class TocStyleOptions(str, Enum):
     """
     Enum of supported 'Table of Contents' templates for the README file.
     """
@@ -61,19 +83,19 @@ class TocStyleOptions(str, enum.Enum):
     ROMAN = "roman"
 
 
-class LLMService(str, enum.Enum):
+class LLMService(str, Enum):
     """
     LLM API service providers.
     """
 
-    ANTHROPIC = "ANTHROPIC"
-    GEMINI = "GEMINI"
-    OLLAMA = "OLLAMA"
-    OPENAI = "OPENAI"
-    OFFLINE = "OFFLINE"
+    ANTHROPIC = "anthropic"
+    GEMINI = "gemini"
+    OLLAMA = "ollama"
+    OPENAI = "openai"
+    OFFLINE = "offline"
 
 
-class ServiceAuthKeys(str, enum.Enum):
+class ServiceAuthKeys(str, Enum):
     """
     Environment variable names associated with a LLM API key.
     """

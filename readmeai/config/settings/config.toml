@@ -1,132 +1,53 @@
-# Default API Settings
-[api]
-rate_limit = 10
-system_message = "You're a brilliant Tech Lead and Staff Software Engineer with a passion for open-source projects."
+# Base configuration settings for the readme-ai package
 
-# File Resources
-[files]
-ignore_list = "ignore_list.toml"
-languages = "languages.toml"
-parsers = "parsers.toml"
-prompts = "prompts.toml"
-tool_config = "tool_config.toml"
-tooling = "tooling.toml"
-shieldsio_icons = "shieldsio_icons.json"
-skill_icons = "skill_icons.json"
-
-# Git Repository Settings
-[git]
-repository = "https://github.com/eli64s/readme-ai"
-
-# Language Model API Settings
-[llm]
-api = "openai"
-base_url = "https://api.openai.com/v1/engines/"
-context_window = 3900
-encoder = "cl100k_base"
-host_name = "https://api.openai.com/"
-localhost = "http://localhost:11434/"
-model = "gpt-3.5-turbo"
-path = "v1/chat/completions"
-temperature = 0.1
-tokens = 699
-top_p = 0.9
-
-# Logging Configuration
-[log]
-log_level = "info"
-indent = 2
-pad_event = 20
-use_json = true
-
-# [badges]
-
-# badges_tech_stack = """
-# \t<em>Built with the tools and technologies:</em>
-# </p>
-# <p align="{align}">
-# \t{badges_tech_stack}
-# """
-
-# github_stats = """
-# ![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# ![GitHub Stars](https://img.shields.io/github/stars/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# ![GitHub Watchers](https://img.shields.io/github/watchers/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# ![GitHub Issues](https://img.shields.io/github/issues/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# ![GitHub Release](https://img.shields.io/github/v/release/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-# """
-
-# shieldsio_icons = """
-# <img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="license">
-# \t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
-# \t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
-# \t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
-# """
-
-# skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
-
-
-# Markdown Configuration
 [md]
-badges_tech_stack_text = "Built with the tools and technologies:"
-badges_tech_stack = """{badges_tech_stack}"""
-github_stats = """
-![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+badges_tech_stack_icons = "{badges_tech_stack}"
+badges_tech_stack_text = "<em>Tech Stack</em>"
+github_metrics = """
+![GitHub CI/CD](https://img.shields.io/github/workflow/status/{full_name}/CI?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Release](https://img.shields.io/github/v/release/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 ![GitHub Stars](https://img.shields.io/github/stars/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+![GitHub Forks](https://img.shields.io/github/forks/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 ![GitHub Watchers](https://img.shields.io/github/watchers/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 ![GitHub Issues](https://img.shields.io/github/issues/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
-![GitHub Release](https://img.shields.io/github/v/release/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+"""
+gitlab_metrics = """
+![Gitlab Pipeline Status](https://gitlab.example.com/uildgarden/tools/badgie/badges/main/pipeline.svg)
+![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+(https://img.shields.io/gitlab/pipeline-status/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
+"""
+
+bitbucket_metrics = """
+![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/{full_name}?style={badge_style}&logo=github&logoColor=white&color={badge_color})
 """
 
 shieldsio_icons = """
-<img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="license">
-\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="last-commit">
-\t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="repo-top-language">
-\t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="repo-language-count">
+<img src="https://img.shields.io/{host}/license/{full_name}?style={badge_style}&logo=opensourceinitiative&logoColor=white&color={badge_color}" alt="{host}-license">
+\t<img src="https://img.shields.io/{host}/last-commit/{full_name}?style={badge_style}&logo=git&logoColor=white&color={badge_color}" alt="{host}-last-commit">
+\t<img src="https://img.shields.io/{host}/languages/top/{full_name}?style={badge_style}&color={badge_color}" alt="{host}-top-language">
+\t<img src="https://img.shields.io/{host}/languages/count/{full_name}?style={badge_style}&color={badge_color}" alt="{host}-language-count">
 """
 
 skill_icons = """<a href="https://skillicons.dev">\n\t\t<img src="{}">\n\t</a>"""
 
-overview = """
-## 📍 Overview
 
-{0}
+# -- Quickstart Section -----------------------------------------------------------
 
----
-"""
-
-features = """
-## 👾 Features
-
-{0}
-
----
-"""
-
-tree = """
-## 📁 Project Structure
-
-```sh
-{0}
-```
-"""
-
-project_index = "\n### 📂 Project Index"
+tagline = "{0}"
 
 quickstart = """
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### ☑️ Prerequisites
+### Prerequisites
 
 Prerequisites to run the project:
 
 - **Programming Language:** {programming_language} `{programming_language_version}`\n{system_requirements}
 
-### ⚙️ Installation
+### Installation
 
 ##### Build from Source
 
@@ -144,13 +65,13 @@ Prerequisites to run the project:
 
 {install_commands}
 
-### 🤖 Usage
+### Usage
 
 Run {repo_name} using the following command:
 
 {usage_commands}
 
-### 🧪 Testing
+### Testing
 
 Execute the test suite using the following command:
 
@@ -159,19 +80,17 @@ Execute the test suite using the following command:
 ---
 """
 
+# -- Roadmap Section -----------------------------------------------------------
 
-# -- Contributing Section -----------------------------------------------------------
-
-
-contribute = """---\n## 📌 Project Roadmap\n
+roadmap = """
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.
+"""
 
----
+# -- Contributing Section -----------------------------------------------------------
 
-## 🔰 Contributing
-
+contribute = """
 - **💬 [Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
 - **🐛 [Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
 - **💡 [Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
@@ -210,30 +129,12 @@ contribute = """---\n## 📌 Project Roadmap\n
    </a>
 </p>
 </details>
-
----
-
-## 🎗 License
-
-This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
-
----
-
-## 🙌 Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
-
----
 """
 
-contributing = """
-## 🔰 Contributing
-
+contributig = """
 - **💬 [Join the Discussions](https://{host_domain}/{full_name}/discussions)**: Share your insights, provide feedback, or ask questions.
 - **🐛 [Report Issues](https://{host_domain}/{full_name}/issues)**: Submit bugs found or log feature requests for the `{repo_name}` project.
 - **💡 [Submit Pull Requests](https://{host_domain}/{full_name}/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-
----
 """
 
 contributing_guidelines = """
@@ -272,6 +173,18 @@ contributor_graph = """
 """
 
 
+# -- License Section -----------------------------------------------------------
+
+
+license = "{0} is protected under the [LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file."
+
+
+# -- Acknowledgements Section -----------------------------------------------------------
+
+
+acknowledgements = "- Credit `contributors`, `inspiration`, `references`, etc."
+
+
 # -- Contact Section -----------------------------------------------------------
 
 
@@ -291,6 +204,7 @@ contact = """
 </div>
 """
 
+
 # -- API Documentation Section -----------------------------------------------------------
 
 
@@ -302,6 +216,10 @@ The project API documentation is available at: [API Documentation]({api_url}).
 ---
 """
 
+
+# -- Environment Variables Section -----------------------------------------------------------
+
+
 env_variables = """
 ### Environment Variables
 
@@ -311,6 +229,10 @@ To run this project, you will need to add the following environment variables to
 
 ---
 """
+
+
+# -- Command-Line Interface Section -----------------------------------------------------------
+
 
 cli_docs = """
 ### Command-Line Interface
@@ -324,17 +246,19 @@ The project supports the following command-line interface options:
 ---
 """
 
-test_framework = """
-### 🧪 Testing
+# -- Test Framework Section -----------------------------------------------------------
 
+test_framework = """
 This project uses [{test_framework}]() for testing. Execute the test suite using the following command:
 
 ```sh
 ❯ {test_command}
 ```
-
----
 """
+
+
+# -- Miscellaneous Section -----------------------------------------------------------
+
 
 signature = """
 <p align="center">

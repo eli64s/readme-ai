@@ -1,0 +1,532 @@
+# Emoji theme 'packs' for the README. Emojis are prefixed to each README section header.
+
+# -- Core Themes ------------------------------------
+themes:
+  default:
+    name: "Default Theme"
+    description: "Basic documentation theme without emojis"
+    sections:
+    - title: "Table of Contents"
+    - title: "Overview"
+    - title: "Features"
+    - title: "Project Structure"
+      subsections:
+      - title: "Project Index"
+    - title: "Getting Started"
+      subsections:
+      - title: "Prerequisites"
+      - title: "Installation"
+      - title: "Usage"
+      - title: "Testing"
+    - title: "Roadmap"
+    - title: "Contributing"
+    - title: "License"
+    - title: "Acknowledgments"
+
+  minimal:
+    name: "Minimal Theme"
+    description: "Clean and simple documentation theme"
+    sections:
+    - title: "📄 Table of Contents"
+    - title: "✨ Overview"
+    - title: "📌 Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Usage"
+      - title: "🧪 Testing"
+    - title: "📈 Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "✨ Acknowledgments"
+
+  oss:
+    name: "Open Source Theme"
+    description: "Community-driven project theme"
+    sections:
+    - title: "🌟 Table of Contents"
+    - title: "💫 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Usage"
+      - title: "🧪 Testing"
+    - title: "👥 Community"
+      subsections:
+      - title: "🤝 Contributing"
+      - title: "💭 Code of Conduct"
+      - title: "🗣️ Discussions"
+      - title: "🎯 Issues"
+    - title: "📚 Documentation"
+      subsections:
+      - title: "📖 API Reference"
+      - title: "📝 Tutorials"
+      - title: "💡 Examples"
+    - title: "📈 Roadmap"
+    - title: "❤️ Contributors"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # Development Themes
+  api:
+    name: "API Theme"
+    description: "API and microservices focused theme"
+    sections:
+    - title: "🔌 Table of Contents"
+    - title: "🌐 Overview"
+    - title: "⚡ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "🔑 Authentication"
+      - title: "🧪 Testing"
+    - title: "📡 Endpoints"
+      subsections:
+      - title: "🔍 Queries"
+      - title: "📝 Mutations"
+      - title: "🔄 Subscriptions"
+      - title: "🔒 Authorization"
+    - title: "⚡ Performance"
+      subsections:
+      - title: "📊 Monitoring"
+      - title: "🔍 Tracing"
+      - title: "📈 Metrics"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  web:
+    name: "Web Development Theme"
+    description: "Modern web development theme"
+    sections:
+    - title: "🌐 Table of Contents"
+    - title: "💻 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "🖥️ Development"
+      - title: "🧪 Testing"
+    - title: "🎨 Frontend"
+      subsections:
+      - title: "🧩 Components"
+      - title: "🔄 State Management"
+      - title: "🎯 Routing"
+      - title: "📱 Responsive Design"
+    - title: "⚡ Backend"
+      subsections:
+      - title: "🛢️ Database"
+      - title: "🔌 API"
+      - title: "🔐 Authentication"
+      - title: "📡 WebSockets"
+    - title: "📱 Mobile Support"
+    - title: "🚀 Deployment"
+      subsections:
+      - title: "🔄 CI/CD"
+      - title: "📊 Monitoring"
+      - title: "🔒 Security"
+    - title: "📈 Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # Infrastructure Themes
+  cloud:
+    name: "Cloud Theme"
+    description: "Cloud native and infrastructure theme"
+    sections:
+    - title: "☁️ Table of Contents"
+    - title: "🌩️ Overview"
+    - title: "⚡ Features"
+    - title: "📂 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "🔑 Prerequisites"
+      - title: "🏗️ Setup"
+      - title: "💫 Usage"
+      - title: "🧪 Testing"
+    - title: "☁️ Infrastructure"
+      subsections:
+      - title: "🔄 Load Balancing"
+      - title: "📦 Container Orchestration"
+      - title: "🗄️ Storage"
+      - title: "🔒 Security"
+    - title: "⚡ Services"
+      subsections:
+      - title: "🔌 APIs"
+      - title: "🗃️ Databases"
+      - title: "📨 Message Queues"
+      - title: "🔍 Service Discovery"
+    - title: "📈 Operations"
+      subsections:
+      - title: "📊 Monitoring"
+      - title: "📝 Logging"
+      - title: "🔄 CI/CD"
+      - title: "⚠️ Alerts"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # Data Themes
+  data:
+    name: "Data Theme"
+    description: "Data engineering and analytics theme"
+    sections:
+    - title: "📊 Table of Contents"
+    - title: "📈 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Usage"
+      - title: "🧪 Testing"
+    - title: "🔄 Data Pipeline"
+      subsections:
+      - title: "📥 Ingestion"
+      - title: "🔄 Processing"
+      - title: "📊 Analysis"
+      - title: "📈 Visualization"
+    - title: "📊 Results"
+    - title: "📈 Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- Machine Learning Theme ------------------------------------
+  ml:
+    name: "Machine Learning Theme"
+    description: "AI/ML project focused theme"
+    sections:
+    - title: "🤖 Table of Contents"
+    - title: "🧠 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Development"
+      - title: "🧪 Testing"
+    - title: "📊 Data"
+      subsections:
+      - title: "📥 Data Collection"
+      - title: "🔍 Preprocessing"
+      - title: "📈 Analysis"
+      - title: "✨ Feature Engineering"
+    - title: "🧠 Models"
+      subsections:
+      - title: "🏗️ Architecture"
+      - title: "📊 Training"
+      - title: "📈 Evaluation"
+      - title: "🔄 Fine-tuning"
+    - title: "🚀 Production"
+      subsections:
+      - title: "📦 Model Serving"
+      - title: "📊 Monitoring"
+      - title: "🔄 Retraining"
+    - title: "📊 Results"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- Cybersecurity Theme ------------------------------------
+  cyber:
+    name: "Cyber Theme"
+    description: "Cybersecurity focused theme"
+    sections:
+    - title: "🔒 Table of Contents"
+    - title: "🛡️ Overview"
+    - title: "⚡ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Usage"
+      - title: "🧪 Testing"
+    - title: "🔐 Security"
+      subsections:
+      - title: "🔑 Authentication"
+      - title: "🛡️ Authorization"
+      - title: "🔒 Encryption"
+      - title: "🕵️ Audit Logging"
+    - title: "🛡️ Protection"
+      subsections:
+      - title: "🔍 Threat Detection"
+      - title: "🚫 Prevention"
+      - title: "🎯 Incident Response"
+      - title: "🔄 Recovery"
+    - title: "📊 Monitoring"
+      subsections:
+      - title: "📈 Analytics"
+      - title: "🚨 Alerts"
+      - title: "📝 Logging"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- Game Development Theme ------------------------------------
+  game:
+    name: "Game Development Theme"
+    description: "Game development focused theme"
+    sections:
+    - title: "🎮 Table of Contents"
+    - title: "🌟 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "🎮 Development"
+      - title: "🧪 Testing"
+    - title: "🎨 Game Design"
+      subsections:
+      - title: "🌍 World"
+      - title: "👾 Characters"
+      - title: "🎯 Mechanics"
+      - title: "🎵 Audio"
+    - title: "🛠️ Engine"
+      subsections:
+      - title: "🎨 Graphics"
+      - title: "🎵 Sound"
+      - title: "⚡ Physics"
+      - title: "🤖 AI"
+    - title: "🌐 Networking"
+      subsections:
+      - title: "🔄 Multiplayer"
+      - title: "💾 Save System"
+      - title: "🔌 Backend Services"
+    - title: "📦 Distribution"
+      subsections:
+      - title: "🏗️ Build"
+      - title: "📲 Deploy"
+      - title: "🔄 Updates"
+    - title: "📈 Analytics"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- Mobile Development Theme ------------------------------------
+  mobile:
+    name: "Mobile Development Theme"
+    description: "Mobile app development focused theme"
+    sections:
+    - title: "📱 Table of Contents"
+    - title: "🌟 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📋 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "💻 Development"
+      - title: "🧪 Testing"
+    - title: "📱 Platforms"
+      subsections:
+      - title: "🤖 Android"
+      - title: "🍎 iOS"
+      - title: "🌐 Cross-Platform"
+    - title: "🎨 UI/UX"
+      subsections:
+      - title: "🧩 Components"
+      - title: "🎯 Navigation"
+      - title: "🎨 Themes"
+      - title: "📱 Responsive Design"
+    - title: "📡 Backend"
+      subsections:
+      - title: "🔌 API Integration"
+      - title: "💾 Data Storage"
+      - title: "🔄 Sync"
+      - title: "📶 Offline Support"
+    - title: "📦 Distribution"
+      subsections:
+      - title: "🏗️ Build"
+      - title: "📲 Deploy"
+      - title: "🔄 Updates"
+    - title: "📈 Analytics"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- Fun Theme ------------------------------------
+  fun:
+    name: "Fun Theme"
+    description: "Playful and engaging documentation theme"
+    sections:
+    - title: "📖 Table of Contents"
+    - title: "🎉 Overview"
+    - title: "🦄 Features"
+    - title: "🎨 Project Structure"
+      subsections:
+      - title: "📚 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "📝 Prerequisites"
+      - title: "🛠️ Installation"
+      - title: "🤖 Usage"
+      - title: "🧪 Testing"
+    - title: "✨ Roadmap"
+    - title: "🤗 Contributing"
+    - title: "📃 License"
+    - title: "👏 Acknowledgments"
+
+  # -- Nature Theme ------------------------------------
+  nature:
+    name: "Nature Theme"
+    description: "Environmental and nature-focused theme"
+    sections:
+    - title: "🍁 Table of Contents"
+    - title: "🌿 Overview"
+    - title: "🌸 Features"
+    - title: "🌳 Project Structure"
+      subsections:
+      - title: "🍂 Project Index"
+    - title: "🌱 Getting Started"
+      subsections:
+      - title: "🌞 Prerequisites"
+      - title: "🌾 Installation"
+      - title: "🌊 Usage"
+      - title: "🌻 Testing"
+    - title: "🌵 Roadmap"
+    - title: "🌍 Contributing"
+    - title: "🍃 License"
+    - title: "🌟 Acknowledgments"
+
+  # -- Space Theme ------------------------------------
+  space:
+    name: "Space Theme"
+    description: "Outer space and sci-fi themed documentation"
+    sections:
+    - title: "🌟 Table of Contents"
+    - title: "🌌 Overview"
+    - title: "🚀 Features"
+    - title: "🪐 Project Structure"
+      subsections:
+      - title: "🌑 Project Index"
+    - title: "🚨 Getting Started"
+      subsections:
+      - title: "🛸 Prerequisites"
+      - title: "👽 Installation"
+      - title: "🌠 Usage"
+      - title: "🔬 Testing"
+    - title: "🔭 Roadmap"
+    - title: "👾 Contributing"
+    - title: "📜 License"
+    - title: "👨‍🚀 Acknowledgments"
+
+  # -- New Theme Ideas ------------------------------------
+
+  # -- IoT Theme ------------------------------------
+  iot:
+    name: "IoT Theme"
+    description: "Internet of Things development theme"
+    sections:
+    - title: "🔌 Table of Contents"
+    - title: "📡 Overview"
+    - title: "⚡ Features"
+    - title: "🔧 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "🛠️ Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "📟 Development"
+      - title: "🧪 Testing"
+    - title: "🎛️ Hardware"
+      subsections:
+      - title: "🔌 Sensors"
+      - title: "🎮 Controllers"
+      - title: "📶 Connectivity"
+    - title: "📡 Communication"
+      subsections:
+      - title: "🔄 Protocols"
+      - title: "📶 Networking"
+      - title: "🔐 Security"
+    - title: "📊 Data Management"
+      subsections:
+      - title: "📥 Collection"
+      - title: "💾 Storage"
+      - title: "📈 Analysis"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"
+
+  # -- AR/VR Theme ------------------------------------
+  xr:
+    name: "Extended Reality Theme"
+    description: "AR/VR/MR development theme"
+    sections:
+    - title: "🥽 Table of Contents"
+    - title: "🌐 Overview"
+    - title: "✨ Features"
+    - title: "📁 Project Structure"
+      subsections:
+      - title: "📑 Project Index"
+    - title: "🚀 Getting Started"
+      subsections:
+      - title: "🎮 Prerequisites"
+      - title: "⚙️ Installation"
+      - title: "🕹️ Development"
+      - title: "🧪 Testing"
+    - title: "🎨 Experience Design"
+      subsections:
+      - title: "🌍 Environments"
+      - title: "🤹 Interactions"
+      - title: "👁️ Visual Effects"
+      - title: "🎵 Audio"
+    - title: "🔧 Technical"
+      subsections:
+      - title: "📱 Device Support"
+      - title: "🎯 Tracking"
+      - title: "🤲 Input Systems"
+      - title: "🧮 Performance"
+    - title: "📦 Distribution"
+      subsections:
+      - title: "🏗️ Build"
+      - title: "📲 Deploy"
+      - title: "🔄 Updates"
+    - title: "📈 Analytics"
+    - title: "🛣️ Roadmap"
+    - title: "🤝 Contributing"
+    - title: "📜 License"
+    - title: "⭐ Acknowledgments"

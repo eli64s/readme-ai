@@ -35,7 +35,7 @@
   - [🔧 Installation](#-installation)
   - [🤖 Running assistant-chat-gpt](#-running-assistant-chat-gpt)
   - [🧪 Tests](#-tests)
-- [🛣 Project Roadmap](#-project-roadmap)
+- [🛣 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -224,7 +224,7 @@ npm test
 ---
 
 
-## 🛣 Project Roadmap
+## 🛣 Roadmap
 
 > - [X] `ℹ️  Task 1: Implement X`
 > - [ ] `ℹ️  Task 2: Implement Y`

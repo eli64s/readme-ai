@@ -11,7 +11,7 @@
 	<img src="https://img.shields.io/github/languages/top/jwills/buenavista?style=flat-square&color=skyblue" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/jwills/buenavista?style=flat-square&color=skyblue" alt="repo-language-count">
 </p>
-<p align="center">Built with the tools and technologies:</p>
+<p align="center">Tech Stack</p>
 <p align="center">
 	<img src="https://img.shields.io/badge/DuckDB-FFF000.svg?style=flat-square&logo=DuckDB&logoColor=black" alt="DuckDB">
 	<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash">
@@ -37,7 +37,7 @@
   - [ Installation](#-installation)
   - [ Usage](#-usage)
   - [ Testing](#-testing)
-- [ Project Roadmap](#-project-roadmap)
+- [ Roadmap](#-project-roadmap)
 - [ Contributing](#-contributing)
 - [ License](#-license)
 - [ Acknowledgments](#-acknowledgments)
@@ -313,7 +313,7 @@ Run the test suite using the following command:
 
 
 ---
-##  Project Roadmap
+##  Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

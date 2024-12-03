@@ -14,7 +14,7 @@
 	<img src="https://img.shields.io/github/languages/count/eli64s/sqlmesh-test-tools?style=flat-square&color=00ffe9" alt="repo-language-count">
 </p>
 <p align="center">
-		<em>Built with the tools and technologies:</em>
+		<em>Tech Stack</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/badge/DuckDB-FFF000.svg?style=flat-square&logo=DuckDB&logoColor=black" alt="DuckDB">
@@ -37,7 +37,7 @@
     - [📦 Installation](#-installation)
     - [🤖 Usage](#-usage)
     - [🧪 Tests](#-tests)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -176,7 +176,7 @@ Execute the test suite using the following command:
 
 ---
 
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

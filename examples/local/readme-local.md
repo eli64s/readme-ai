@@ -35,7 +35,7 @@
   - [⚙️ Installation](#️-installation)
   - [🤖 Usage](#-usage)
   - [🧪 Tests](#-tests)
-- [🛠 Project Roadmap](#-project-roadmap)
+- [🛠 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -182,7 +182,7 @@ The pyflink-poc project is a robust software showcasing the integration of PyFli
 
 ---
 
-## 🛠 Project Roadmap
+## 🛠 Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

@@ -39,7 +39,7 @@
   - [⚙️ Install](#️-install)
   - [► Using ChatGPT-App-React-Native-TypeScript](#-using-ChatGPT-App-React-Native-TypeScript)
   - [🧪 Tests](#-tests)
-- [🛠 Project Roadmap](#-project-roadmap)
+- [🛠 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [📄 License](#-license)
 - [👏 Acknowledgments](#-acknowledgments)
@@ -249,7 +249,7 @@ npm test
 
 ---
 
-## 🛠 Project Roadmap
+## 🛠 Roadmap
 
 - [X] `► INSERT-TASK-1`
 - [ ] `► INSERT-TASK-2`

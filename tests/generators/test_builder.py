@@ -3,20 +3,20 @@ from unittest.mock import patch
 
 import pytest
 
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import Settings
 from readmeai.generators.builder import MarkdownBuilder
 from readmeai.ingestion.models import RepositoryContext
 
 
 @pytest.fixture
 def markdown_builder(
-    config_loader_fixture: ConfigLoader,
+    config_fixture: Settings,
     repository_context_fixture: RepositoryContext,
     file_summaries_fixture: list[tuple[str, str]],
     tmp_path: Path,
 ):
     return MarkdownBuilder(
-        config_loader=config_loader_fixture,
+        config=config_fixture,
         repo_context=repository_context_fixture,
         file_summaries=file_summaries_fixture,
         temp_dir=str(tmp_path),

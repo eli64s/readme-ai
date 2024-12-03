@@ -10,7 +10,7 @@ import tempfile
 from collections.abc import Generator
 
 from readmeai.config.constants import ImageOptions, LLMService
-from readmeai.config.settings import ConfigLoader
+from readmeai.config.settings import ConfigLoader, Settings
 from readmeai.errors import ReadmeGeneratorError
 from readmeai.generators.builder import MarkdownBuilder
 from readmeai.ingestion.models import RepositoryContext
@@ -40,60 +40,65 @@ def readme_agent(config: ConfigLoader, output_file: str) -> None:
         asyncio.run(readme_generator(config, output_file))
 
 
-async def readme_generator(config: ConfigLoader, output_file: str) -> None:
+async def readme_generator(settings: ConfigLoader, output_file: str) -> None:
     """Processes the repository and builds the README file."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        repo_path = await load_data(config.config.git.repository, temp_dir)
+    config = settings.config
 
-        processor: RepositoryProcessor = RepositoryProcessor(config=config)
+    with tempfile.TemporaryDirectory() as temp_dir:
+        repo_path = await load_data(config.git.repository, temp_dir)
+
+        processor: RepositoryProcessor = RepositoryProcessor(settings=settings)
+
         context: RepositoryContext = await processor.process_repository(
             repo_path=repo_path
         )
 
         log_repository_context(context)
 
-        async with ModelFactory.get_backend(config, context).use_api() as llm:
+        async with ModelFactory.get_backend(
+            settings, context
+        ).use_api() as llm:
             responses = await llm.batch_request()
             (
                 file_summaries,
                 features,
                 overview,
-                slogan,
+                tagline,
             ) = responses
-            config.config.md.features = config.config.md.features.format(
+            config.md.features = config.md.features.format(
                 response_cleaner.format_markdown_table(features),
             )
-            config.config.md.overview = config.config.md.overview.format(
+            config.md.overview = config.md.overview.format(
                 response_cleaner.process_markdown(overview),
             )
-            config.config.md.slogan = response_cleaner.remove_quotes(slogan)
+            config.md.tagline = response_cleaner.remove_quotes(tagline)
 
         if should_generate_image(config):
             await generate_image(config)
-        if config.config.md.image in [None, "", ImageOptions.LLM.value]:
-            config.config.md.image = ImageOptions.BLUE.value
+        if config.md.image in [None, "", ImageOptions.LLM.value]:
+            config.md.image = ImageOptions.BLUE.value
 
-        readme_md_content = MarkdownBuilder(
-            config, context, file_summaries, temp_dir
+        markdown_content = MarkdownBuilder(
+            settings, context, file_summaries, temp_dir
         ).build()
 
-        FileHandler().write(output_file, readme_md_content)
+        FileHandler().write(output_file, markdown_content)
 
         log_process_completion(output_file)
 
 
-async def generate_image(config: ConfigLoader) -> None:
+async def generate_image(config: Settings) -> None:
     """Generates an image using the DALL-E model."""
     async with DalleHandler(config) as dalle:
         image_url = await dalle._make_request()
-        config.config.md.image = await dalle.download(image_url)
+        config.md.image = await dalle.download(image_url)
 
 
-def should_generate_image(config: ConfigLoader) -> bool:
+def should_generate_image(config: Settings) -> bool:
     """Determines if the user enabled LLM image generation."""
     return (
-        config.config.md.image == ImageOptions.LLM.value
-        and config.config.llm.api != LLMService.OFFLINE.value
+        config.md.image == ImageOptions.LLM.value
+        and config.llm.api != LLMService.OFFLINE.value
     )
 
 

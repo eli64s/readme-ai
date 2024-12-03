@@ -34,7 +34,7 @@
   - [⚙️ Installation](#-installation)
   - [🤖 Usage](#🤖-usage)
   - [🧪 Testing](#🧪-testing)
-- [📌 Project Roadmap](#-project-roadmap)
+- [📌 Roadmap](#-project-roadmap)
 - [🔰 Contributing](#-contributing)
 - [🎗 License](#-license)
 - [🙌 Acknowledgments](#-acknowledgments)
@@ -398,7 +398,7 @@
 								<td><code>❯ REPLACE-ME</code></td>
 							</tr>
 							<tr>
-								<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/quickstart_config.toml'>quickstart_config.toml</a></b></td>
+								<td><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/config/settings/quickstart.toml'>quickstart.toml</a></b></td>
 								<td><code>❯ REPLACE-ME</code></td>
 							</tr>
 							<tr>
@@ -759,7 +759,7 @@ Run the test suite using the following command:
 
 
 ---
-## 📌 Project Roadmap
+## 📌 Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

@@ -10,7 +10,7 @@ import structlog
 from _pytest._py.path import LocalPath
 from structlog.testing import LogCapture
 
-from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.config.settings import Settings
 from readmeai.ingestion.models import (
     FileContext,
     QuickStart,
@@ -20,6 +20,8 @@ from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
 from readmeai.utils.file_handler import FileHandler
+
+pytest_plugins = "pytester"
 
 if sys.version_info < (3, 11):
     import tomli as toml
@@ -58,12 +60,12 @@ def temp_dir(tmpdir: LocalPath) -> LocalPath:
 
 @pytest.fixture(scope="session")
 def config_fixture() -> Settings:
-    return ConfigLoader().config
+    return Settings().config
 
 
 @pytest.fixture(scope="session")
-def config_loader_fixture() -> ConfigLoader:
-    return ConfigLoader()
+def config_fixture() -> Settings:
+    return Settings()
 
 
 # -- readmeai.models -------------------------------------------------------
@@ -76,31 +78,31 @@ def ollama_localhost() -> str:
 
 @pytest.fixture
 @patch.dict("os.environ", {"OPENAI_API_KEY": "sk-test-key"}, clear=True)
-def openai_handler(config_loader_fixture: ConfigLoader):
-    config_loader_fixture.config.llm.api = "OPENAI"
-    config_loader_fixture.config.llm.model = "gpt-3.5-turbo"
-    return OpenAIHandler(config_loader_fixture, MagicMock())
+def openai_handler(config_fixture: Settings):
+    config_fixture.config.llm.api = "OPENAI"
+    config_fixture.config.llm.model = "gpt-3.5-turbo"
+    return OpenAIHandler(config_fixture, MagicMock())
 
 
 @pytest.fixture
-def offline_handler(config_loader_fixture: ConfigLoader):
+def offline_handler(config_fixture: Settings):
     with patch.dict("os.environ", {}, clear=True):
-        config_loader_fixture.config.llm.api = "OFFLINE"
-        config_loader_fixture.config.llm.model = "offline"
-        yield OfflineHandler(config_loader_fixture, MagicMock())
+        config_fixture.config.llm.api = "OFFLINE"
+        config_fixture.config.llm.model = "offline"
+        yield OfflineHandler(config_fixture, MagicMock())
 
 
 @pytest.fixture
-def gemini_handler(config_loader_fixture: ConfigLoader):
+def gemini_handler(config_fixture: Settings):
     with patch.dict(
         "os.environ",
         {
             "GOOGLE_API_KEY": "sk-test-key",
         },
     ):
-        config_loader_fixture.config.llm.api = "GEMINI"
-        config_loader_fixture.config.llm.model = "gemini-pro"
-        yield GeminiHandler(config_loader_fixture, MagicMock())
+        config_fixture.config.llm.api = "GEMINI"
+        config_fixture.config.llm.model = "gemini-pro"
+        yield GeminiHandler(config_fixture, MagicMock())
 
 
 # -- readmeai.utils.file_handler -------------------------------------------------------

@@ -9,7 +9,7 @@
 	<img src="https://img.shields.io/github/languages/top/emcf/thepipe?style=flat-square&color=FFA500" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/emcf/thepipe?style=flat-square&color=FFA500" alt="repo-language-count">
 </p>
-<p align="center">Built with the tools and technologies:</p>
+<p align="center">Tech Stack</p>
 <p align="center">
 	<img src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=flat-square&logo=scikit-learn&logoColor=white" alt="scikitlearn">
 	<img src="https://img.shields.io/badge/Supabase-3FCF8E.svg?style=flat-square&logo=Supabase&logoColor=white" alt="Supabase">
@@ -31,7 +31,7 @@
   - [ Installation](#-installation)
   - [ Usage](#-usage)
   - [ Testing](#-testing)
-- [ Project Roadmap](#-project-roadmap)
+- [ Roadmap](#-project-roadmap)
 - [ Contributing](#-contributing)
 - [ License](#-license)
 - [ Acknowledgments](#-acknowledgments)
@@ -218,7 +218,7 @@ Run the test suite using the following command:
 
 
 ---
-##  Project Roadmap
+##  Roadmap
 
 - [X] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.

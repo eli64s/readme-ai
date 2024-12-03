@@ -9,18 +9,18 @@ from readmeai.models.base import BaseModelHandler
 
 class OfflineHandler(BaseModelHandler):
     """
-    OfflineMode model handler implementation.
+    Offline Mode handler generates a README without LLM API connection.
     """
 
     def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
+        self, settings: ConfigLoader, context: RepositoryContext
     ) -> None:
-        super().__init__(config_loader, context)
+        super().__init__(settings, context)
 
     async def _model_settings(self) -> None: ...
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
-        """Builds the payload for the POST request to the LLM API."""
+        """Builds request body for the LLM API request."""
         return {}
 
     async def _make_request(
@@ -30,6 +30,12 @@ class OfflineHandler(BaseModelHandler):
         tokens: int | None,
         repo_files: Any,
     ) -> Any:
-        """Inserts placeholder text where the LLM API response would be."""
-        files = [(file_path, self.placeholder) for file_path, _ in repo_files]
-        return (files, self.placeholder, self.placeholder, self.placeholder)
+        """Inserts placeholder text where LLM generated content would be."""
+        success = True
+        if repo_files:
+            files = [
+                (file_path, self.placeholder) for file_path, _ in repo_files
+            ]
+            return success, files
+        else:
+            return success, self.placeholder

@@ -1,101 +1,145 @@
-[tool.poetry]
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=68" ]
+
+[project]
 name = "readmeai"
-version = "0.5.99.post5"
+version = "0.6.0"
 description = "Automated README file generator, powered by AI."
-authors = ["Eli <egsalamie@gmail.com>"]
-license = "MIT"
+
 readme = "README.md"
-homepage = "https://github.com/eli64s/readme-ai"
-documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
     "ai-documentation",
-    "anthropic",
-    "badge-generator",
+    "ai-powered",
+    "ai-readme",
+    "automatic-documentation",
+    "chat-gpt",
     "cli",
+    "code-documentation",
     "developer-tools",
-    "documentation",
-    "documentation-generator",
+    "documentation-automation",
     "gemini",
-    "gpt",
+    "github-documentation",
     "gpt-4",
-    "markdown",
+    "llm",
     "markdown-generator",
-    "markdown-md",
-    "readme-md",
-    "readme-md-generator",
+    "openai",
+    "project-documentation",
+    "readme-ai",
+    "readme-automation",
     "readme-generator",
-    "readme-template",
-    "readme-md-generator",
+    "software-documentation",
 ]
-include = ["readmeai", "readmeai.*"]
 
-[tool.poetry.scripts]
-readmeai = "readmeai.cli.main:main"
+license = { text = "MIT" }
+authors = [
+    { name = "Eli Salamie", email = "egsalamie@gmail.com" },
+]
+requires-python = ">=3.9,<4.0"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Framework :: Pydantic",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Documentation",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Typing :: Typed",
+]
+dependencies = [
+    "aiohttp>=3.9.5",
+    "click>=8.1.7",
+    "gitpython>=3.1.31",
+    "openai>=1.16.2",
+    "pydantic>=2.8",
+    "pydantic-extra-types>=2.9",
+    "pydantic-settings>=2.4",
+    "pyyaml>=6.0.1",
+    "structlog>=24.4",
+    "tenacity>=8.2.2",
+    "tiktoken>=0.4",
+    "tomli; python_version<'3.11'",
+    "typing-extensions; python_version<'3.11'",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9,<4.0.0"
-aiohttp = "^3.9.5"
-click = "^8.1.7"
-gitpython = "^3.1.31"
-openai = "^1.16.2"
-pydantic = "^2.8.0"
-pydantic-extra-types = "^2.9.0"
-pydantic-settings = "^2.4.0"
-pyyaml = "^6.0.1"
-structlog = "^24.4.0"
-tenacity = "^8.2.2"
-tiktoken = "^0.4.0"
-tomli = { version = "*", python = "<3.11" }
-typing-extensions = { version = "*", python = "<3.11" }
+optional-dependencies.anthropic = [ "anthropic" ]
+optional-dependencies.dev = [
+    "mypy",
+    "nox",
+    "pre-commit",
+    "ruff",
+    "uv",
+]
+optional-dependencies.docs = [
+    "mkdocs",
+    "mkdocs-git-revision-date-localized-plugin",
+    "mkdocs-material[imaging]",
+    "mkdocs-minify-plugin",
+]
+optional-dependencies.google-generativeai = [ "google-generativeai" ]
+optional-dependencies.test = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-pretty",
+    "pytest-randomly",
+    "pytest-sugar",
+    "pytest-xdist",
+]
+urls.Documentation = "https://eli64s.github.io/readme-ai"
+urls.Homepage = "https://github.com/eli64s/readme-ai"
+scripts.readmeai = "readmeai.cli.main:main"
 
-anthropic = { version = "*", optional = true }
-google-generativeai = { version = "*", optional = true }
+[tool.setuptools]
+package-dir = { "" = "." }
+packages = [ "readmeai" ]
 
-[tool.poetry.extras]
-anthropic = ["anthropic"]
-google-generativeai = ["google-generativeai"]
+[tool.setuptools.package-data]
+"*" = [ "py.typed" ]
 
-[tool.poetry.group.dev.dependencies]
-mypy = "*"
-nox = "*"
-pre-commit = "*"
-ruff = "*"
-
-[tool.poetry.group.test.dependencies]
-pytest = "*"
-pytest-asyncio = "*"
-pytest-cov = "*"
-pytest-randomly = "*"
-pytest-sugar = "*"
-pytest-xdist = "*"
-
-[tool.poetry.group.docs.dependencies]
-mkdocs = "*"
-mkdocs-git-revision-date-localized-plugin = "*"
-mkdocs-material = { version = "*", extras = ["imaging"] }
-mkdocs-minify-plugin = "*"
-
-[tool.poetry.group.anthropic.dependencies]
-anthropic = "*"
-
-[tool.poetry.group.google-generativeai.dependencies]
-google-generativeai = "*"
+[tool.setuptools.exclude-package-data]
+"*" = [
+    "notebooks/*",
+    "tests/*",
+    "site/*",
+    "setup/*",
+]
 
 [tool.pytest.ini_options]
 addopts = [
     "-vv",
-    "-rfEsxX",
-    "--durations=10",
-    "--numprocesses=auto",
+    "--tb=short",
+    "--durations=5",
     "--cov=readmeai",
     "--cov-branch",
-    "--cov-report=xml",
-    "--cov-report=term-missing",
+    "--cov-fail-under=80",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=json:tests/.reports/coverage.json",
+    "--asyncio-mode=auto",
+    "--numprocesses=auto",
 ]
 asyncio_default_fixture_loop_scope = "function"
 asyncio_mode = "auto"
-pythonpath = ["readmeai"]
-testpaths = ["tests"]
+pythonpath = [ "readmeai" ]
+testpaths = [ "tests" ]
 
 [tool.coverage.report]
 exclude_also = [
@@ -103,20 +147,17 @@ exclude_also = [
     "pragma: no cover",
     "raise NotImplementedError",
 ]
-fail_under = 80
-precision = 2
-show_missing = true
-skip_covered = true
-skip_empty = true
-sort = "cover"
 omit = [
+    "tests/*",
     "**/__init__.py",
     "noxfile.py",
-    "readmeai/cli/commands_line.py",
     "readmeai/cli/interactive.py",
     "readmeai/readers/git/metadata.py",
 ]
+precision = 2
+show_missing = true
+skip_empty = true
+sort = "cover"
 
-[build-system]
-requires = ["poetry-core", "setuptools"]
-build-backend = "poetry.core.masonry.api"
+[tool.coverage.run]
+data_file = "tests/.reports/.coverage"
