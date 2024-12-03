@@ -24,6 +24,6 @@ To enable the full functionality of `readmeai`, an account and API key are requi
 - [**Ollama**](https://github.com/ollama/ollama): Free and open-source. No API key required.
 - [**Anthropic**](https://www.anthropic.com/): Requires an Anthropic account and API key.
 - [**Google Gemini**](https://ai.google.dev/tutorials/python_quickstart): Requires a Google Cloud account and API key.
-- [**Offline Mode**](https://github.com/eli64s/readme-ai/blob/main/examples/readme-offline.md): Generates a boilerplate README without making API calls.
+- [**Offline Mode**](https://github.com/eli64s/readme-ai/blob/main/examples/offline-mode/readme-ai.md): Generates a boilerplate README without making API calls.
 
 <sub>For more information on setting up an API key, refer to the provider's documentation.</sub>
