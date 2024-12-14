@@ -40,7 +40,6 @@ class AnthropicHandler(BaseModelHandler):
     ) -> None:
         super().__init__(config_loader, context)
         self.client: Optional[Any] = None
-        self.model: str = "claude-3-opus-20240229"
         if ANTHROPIC_AVAILABLE:
             self._model_settings()
         else:
@@ -63,6 +62,7 @@ class AnthropicHandler(BaseModelHandler):
             return
 
         self.client = anthropic.AsyncAnthropic(api_key=api_key)
+        self.model = self.config.llm.model
 
     async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
         """Build payload for POST request to the Anthropic API."""
