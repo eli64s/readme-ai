@@ -1,3 +1,4 @@
+import os
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import anthropic
@@ -22,6 +23,7 @@ def anthropic_handler(repository_context_fixture: RepositoryContext):
         pytest.skip("Anthropic library is not available")
     config_loader = ConfigLoader()
     context = repository_context_fixture
+    os.environ["ANTHROPIC_API_KEY"] = "test"
     return AnthropicHandler(config_loader, context)
 
 
