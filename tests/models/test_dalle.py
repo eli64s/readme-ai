@@ -3,8 +3,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-
-from readmeai.config.constants import ImageOptions
+from readmeai.generators.enums import DefaultLogos
 from readmeai.models.dalle import DalleHandler
 
 
@@ -52,7 +51,7 @@ async def test_image_download(mock_get):
     config = MagicMock()
     mock_response = AsyncMock()
     mock_response.status = 200
-    mock_response.read.return_value = b"image"
+    mock_response.read.return_value = b"logo"
     mock_get.return_value.__aenter__.return_value = mock_response
 
     async with DalleHandler(config) as image_generator:
@@ -88,7 +87,7 @@ async def test_image_download_failure(mock_get):
         result = await image_generator.download("url")
 
         # Then
-        assert result == ImageOptions.BLUE.value
+        assert result == DefaultLogos.PURPLE.value
         image_generator._logger.error.assert_called_once_with(
             "Failed to download image: 404"
         )
@@ -113,7 +112,7 @@ async def test_generate_and_download(mock_get, mock_openai):
 
     mock_download_response = AsyncMock()
     mock_download_response.status = 200
-    mock_download_response.read.return_value = b"image"
+    mock_download_response.read.return_value = b"logo"
     mock_get.return_value.__aenter__.return_value = mock_download_response
 
     async with DalleHandler(config) as image_generator:

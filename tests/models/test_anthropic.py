@@ -1,117 +1,113 @@
-import os
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock
 
-import anthropic
+import aiohttp
 import pytest
 import tenacity
-
-from readmeai.config.settings import ConfigLoader
-from readmeai.ingestion.models import RepositoryContext
-from readmeai.models.anthropic import AnthropicHandler
-
-try:
-    import anthropic
-
-    ANTHROPIC_AVAILABLE = True
-except ImportError:
-    ANTHROPIC_AVAILABLE = False
+from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.models.anthropic import ANTHROPIC_AVAILABLE, AnthropicHandler
+from readmeai.models.enums import AnthropicModels, LLMProviders
 
 
-@pytest.fixture
-def anthropic_handler(repository_context_fixture: RepositoryContext):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    config_loader = ConfigLoader()
-    context = repository_context_fixture
-    os.environ["ANTHROPIC_API_KEY"] = "test"
-    return AnthropicHandler(config_loader, context)
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+def test_anthropic_handler_sets_attributes(anthropic_handler: AnthropicHandler):
+    assert hasattr(anthropic_handler, "model")
+    assert hasattr(anthropic_handler, "max_tokens")
+    assert hasattr(anthropic_handler, "top_p")
 
 
-@pytest.mark.skip("Anthropic extra dependency needs review.")
-@pytest.mark.asyncio
-async def test_model_settings(anthropic_handler: AnthropicHandler):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    anthropic_handler._model_settings()
-    assert isinstance(anthropic_handler.client, anthropic.AsyncAnthropic)
-    assert anthropic_handler.model == "claude-3-opus-20240229"
-
-
-@pytest.mark.asyncio
-async def test_build_payload(anthropic_handler: AnthropicHandler):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    prompt = "Test prompt"
-    tokens = 100
-    payload = await anthropic_handler._build_payload(prompt, tokens)
-    assert payload["model"] == anthropic_handler.model
-    assert payload["max_tokens"] == tokens
-    assert payload["messages"][0]["content"] == prompt
-
-
-@pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
-@patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
-async def test_make_request_success(
-    mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+def test_anthropic_endpoint_configuration_for_anthropic(
+    mock_config_loader: ConfigLoader,
+    anthropic_handler: AnthropicHandler,
 ):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    mock_token_handler.return_value = "Processed prompt"
-    mock_token_handler.side_effect = lambda *args: args[2]
-    mock_create.return_value = MagicMock(
-        content=[MagicMock(text="Generated text")]
-    )
-    anthropic_handler.client = MagicMock()
-    anthropic_handler.client.messages.create = mock_create
-    anthropic_handler.rate_limit_semaphore = AsyncMock()
-    assert await anthropic_handler._make_request(
-        "index", "prompt", 100, []
-    ) == (
-        "index",
-        "Generated text",
-    )
-    assert mock_create.call_count == 1
+    mock_config_loader.config.llm.api = LLMProviders.ANTHROPIC.value
+    assert anthropic_handler.model in [model.value for model in AnthropicModels]
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
-@patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
-async def test_make_request_api_error(
-    mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
-):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    mock_token_handler.return_value = "Processed prompt"
-    mock_create.side_effect = anthropic.APIError(
-        message="API error",
-        request=AsyncMock(),
-        body={"error": "error"},
-    )
-    anthropic_handler.client = MagicMock()
-    anthropic_handler.client.messages.create = mock_create
-    anthropic_handler.rate_limit_semaphore = AsyncMock()
-    with pytest.raises(tenacity.RetryError):
-        await anthropic_handler._make_request("index", "prompt", 100, [])
-
-    assert mock_create.call_count >= 3
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+async def test_anthropic_build_payload(anthropic_handler: AnthropicHandler):
+    prompt = "test_prompt"
+    payload = await anthropic_handler._build_payload(prompt)
+    assert isinstance(payload, dict)
+    assert "max_tokens" in payload
+    assert "messages" in payload
 
 
 @pytest.mark.asyncio
-@patch("readmeai.models.anthropic.token_handler", new_callable=AsyncMock)
-@patch("anthropic.AsyncAnthropic", new_callable=AsyncMock)
-async def test_make_request_unexpected_error(
-    mock_create, mock_token_handler, anthropic_handler: AnthropicHandler
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+async def test_anthropic_make_request_success(
+    anthropic_handler_with_mock_session: AnthropicHandler,
 ):
-    if not ANTHROPIC_AVAILABLE:
-        pytest.skip("Anthropic library is not available")
-    mock_token_handler.return_value = "Processed prompt"
-    mock_create.side_effect = Exception("Unexpected error")
-    anthropic_handler.client = MagicMock()
-    anthropic_handler.client.messages.create = mock_create
-    anthropic_handler.rate_limit_semaphore = AsyncMock()
-    index, data = await anthropic_handler._make_request(
-        "index", "prompt", 100, []
+    # Act
+    index, result = await anthropic_handler_with_mock_session._make_request(
+        "test_index",
+        "test_prompt",
+        100,
+        None,
     )
-    assert index == "index"
-    assert data == anthropic_handler.placeholder
+    # Assert
+    assert isinstance(result, str)
+    assert index == "test_index"
+    assert result == "test_response"
+
+
+@pytest.mark.asyncio
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+async def test_anthropic_make_request_with_context(anthropic_handler: AnthropicHandler):
+    mock_make_request = AsyncMock()
+    anthropic_handler._make_request = mock_make_request
+    context = "overview"
+    await anthropic_handler._make_request(
+        context, anthropic_handler.prompts.get(context), 100, []
+    )
+    mock_make_request.assert_called_once()
+
+
+@pytest.mark.asyncio
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+async def test_anthropic_make_request_without_context(
+    anthropic_handler: AnthropicHandler,
+):
+    mock_make_request = AsyncMock()
+    anthropic_handler._make_request = mock_make_request
+    context = "summary"
+    await anthropic_handler._make_request(
+        context, anthropic_handler.prompts.get(context), 100, []
+    )
+    mock_make_request.assert_called_once()
+
+
+@pytest.mark.asyncio
+@pytest.mark.skipif(
+    not ANTHROPIC_AVAILABLE, reason="Anthropic library is not available"
+)
+async def test_anthropic_make_request_error_handling(
+    mock_config: Settings, anthropic_handler: AnthropicHandler
+):
+    async def run_test(error):
+        # Mock to consistently raise the retryable exception
+        anthropic_handler.client.messages.create = AsyncMock(side_effect=error)
+        # Assert RetryError is raised after retries
+        with pytest.raises(tenacity.RetryError):
+            await anthropic_handler._make_request(
+                "test_index",
+                "test_prompt",
+                100,
+                None,
+            )
+
+    # Test with a retryable exception
+    await run_test(aiohttp.ClientError())

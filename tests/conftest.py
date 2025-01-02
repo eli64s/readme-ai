@@ -2,32 +2,34 @@
 
 import json
 import sys
+from io import StringIO
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from typing import Generator
 
 import pytest
 import structlog
 from _pytest._py.path import LocalPath
-from structlog.testing import LogCapture
-
 from readmeai.config.settings import ConfigLoader, Settings
-from readmeai.ingestion.models import (
+from readmeai.extractors.models import (
     FileContext,
     QuickStart,
     RepositoryContext,
 )
-from readmeai.models.gemini import GeminiHandler
-from readmeai.models.offline import OfflineHandler
-from readmeai.models.openai import OpenAIHandler
-from readmeai.utils.file_handler import FileHandler
-
-if sys.version_info < (3, 11):
-    import tomli as toml
-else:
-    import tomllib as toml
-
+from readmeai.utilities.file_handler import FileHandler
+from structlog.testing import LogCapture
 
 # -- Logging -------------------------------------------------------
+
+
+@pytest.fixture
+def capture_stderr() -> Generator[StringIO, None, None]:
+    """Fixture to capture stderr."""
+    old_stderr = sys.stderr
+    sys.stderr = captured_output = StringIO()
+    try:
+        yield captured_output
+    finally:
+        sys.stderr = old_stderr
 
 
 @pytest.fixture(name="log_output")
@@ -53,57 +55,20 @@ def temp_dir(tmpdir: LocalPath) -> LocalPath:
     return tmpdir
 
 
-# -- readmeai.config -------------------------------------------------------
+# -- Config -------------------------------------------------------
 
 
 @pytest.fixture(scope="session")
-def config_fixture() -> Settings:
+def mock_config() -> Settings:
     return ConfigLoader().config
 
 
 @pytest.fixture(scope="session")
-def config_loader_fixture() -> ConfigLoader:
+def mock_config_loader() -> ConfigLoader:
     return ConfigLoader()
 
 
-# -- readmeai.models -------------------------------------------------------
-
-
-@pytest.fixture(scope="session")
-def ollama_localhost() -> str:
-    return "http://localhost:11434/"
-
-
-@pytest.fixture
-@patch.dict("os.environ", {"OPENAI_API_KEY": "sk-test-key"}, clear=True)
-def openai_handler(config_loader_fixture: ConfigLoader):
-    config_loader_fixture.config.llm.api = "OPENAI"
-    config_loader_fixture.config.llm.model = "gpt-3.5-turbo"
-    return OpenAIHandler(config_loader_fixture, MagicMock())
-
-
-@pytest.fixture
-def offline_handler(config_loader_fixture: ConfigLoader):
-    with patch.dict("os.environ", {}, clear=True):
-        config_loader_fixture.config.llm.api = "OFFLINE"
-        config_loader_fixture.config.llm.model = "offline"
-        yield OfflineHandler(config_loader_fixture, MagicMock())
-
-
-@pytest.fixture
-def gemini_handler(config_loader_fixture: ConfigLoader):
-    with patch.dict(
-        "os.environ",
-        {
-            "GOOGLE_API_KEY": "sk-test-key",
-        },
-    ):
-        config_loader_fixture.config.llm.api = "GEMINI"
-        config_loader_fixture.config.llm.model = "gemini-pro"
-        yield GeminiHandler(config_loader_fixture, MagicMock())
-
-
-# -- readmeai.utils.file_handler -------------------------------------------------------
+# -- FileHandler -------------------------------------------------------
 
 
 @pytest.fixture
@@ -126,12 +91,7 @@ def toml_file_path_fixture():
     return Path("mock/path/file.toml")
 
 
-@pytest.fixture
-def toml_data_fixture():
-    return toml.dumps({"key": "value"})
-
-
-# -- readmeai.ingestion -------------------------------------------------------
+# -- Extractors -------------------------------------------------------
 
 
 @pytest.fixture(scope="session")
@@ -143,7 +103,7 @@ def dependencies_fixture():
 
 
 @pytest.fixture(scope="session")
-def file_summaries_fixture() -> list[tuple[str, str]]:
+def mock_summaries() -> list[tuple[str, str]]:
     """
     LLM generated file summaries.
     """
@@ -155,7 +115,7 @@ def file_summaries_fixture() -> list[tuple[str, str]]:
 
 
 @pytest.fixture(scope="session")
-def repository_context_fixture() -> RepositoryContext:
+def mock_repository_context() -> RepositoryContext:
     """
     Pytest fixture for the RepositoryContext model.
     """
@@ -275,6 +235,3 @@ setup(
             """,
         ),
     )
-
-
-# -- readmeai.templates -------------------------------------------------------

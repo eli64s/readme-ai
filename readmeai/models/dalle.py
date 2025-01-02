@@ -1,18 +1,18 @@
-"""Image generation using OpenAI's DALL-E model.
+"""Text-to-Image generation using OpenAI's DALL-E model.
 
 Notes:
-- Generated image is saved as a PNG file and used as the project logo in the README file.
-- Currently, OpenAI is the only supported provider for generating images with readme-ai.
+------
+    - Generated image is saved locally as a PNG file.
+    - This feature is only available OpenAI API users.
 """
 
 from typing import Any
 
 import aiohttp
 import openai
-
-from readmeai.config.constants import ImageOptions
 from readmeai.config.settings import ConfigLoader
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
+from readmeai.generators.enums import DefaultLogos
 
 
 class DalleHandler:
@@ -22,7 +22,7 @@ class DalleHandler:
 
     def __init__(self, config: ConfigLoader) -> None:
         self.config = config
-        self.default_image = ImageOptions.BLUE.value
+        self.default_image = DefaultLogos.PURPLE.value
         self.filename = f"{config.config.git.name}.png"
         self._logger = get_logger(__name__)
         self._model_settings()
@@ -47,7 +47,7 @@ class DalleHandler:
         return {
             "prompt": self.config.prompts["prompts"]["logo"].format(
                 project_name=self.config.config.git.name,
-                project_slogan=self.config.config.md.slogan,
+                project_tagline=self.config.config.md.tagline,
                 project_overview=self.config.config.md.overview,
             ),
             "model": self.model,
@@ -64,9 +64,7 @@ class DalleHandler:
             if response and response.data and response.data[0].url:
                 return response.data[0].url
             else:
-                self._logger.error(
-                    f"Failed to generate project logo image: {response}"
-                )
+                self._logger.error(f"Failed to generate project logo image: {response}")
                 return self.default_image
 
         except (Exception, openai.OpenAIError) as e:
@@ -87,9 +85,7 @@ class DalleHandler:
                     )
                     return self.filename
                 else:
-                    self._logger.error(
-                        f"Failed to download image: {response.status}"
-                    )
+                    self._logger.error(f"Failed to download image: {response.status}")
 
         except Exception as e:
             self._logger.error(f"Error downloading image: {e!r}")

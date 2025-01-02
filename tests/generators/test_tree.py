@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import Literal
 
 import pytest
-
 from readmeai.generators.tree import TreeGenerator
 
 
@@ -29,9 +28,7 @@ def test_initialization(tmp_path: Path, tree_gen: TreeGenerator):
 
 def test_generate(tmp_path: Path, tree_gen: TreeGenerator):
     tree = tree_gen.generate(tmp_path)
-    expected_tree = (
-        f"└── {tmp_path.name}/\n" "    ├── dir1\n" "    │   └── file1.txt"
-    )
+    expected_tree = f"└── {tmp_path.name}/\n    ├── dir1\n    │   └── file1.txt"
     assert tree == expected_tree
 
 
@@ -76,9 +73,7 @@ def test_format_tree_nested(tmp_path: Path, tree_gen: TreeGenerator):
         "└── dir2",
     ]
     result = tree_gen._format_tree(parts)
-    assert result == (
-        f"{tmp_path.name}/\n" "├── dir1\n" "│   └── file1.txt\n" "└── dir2"
-    )
+    assert result == (f"{tmp_path.name}/\n├── dir1\n│   └── file1.txt\n└── dir2")
 
 
 def test_format_tree_empty():

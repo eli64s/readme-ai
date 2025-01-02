@@ -1,0 +1,56 @@
+# Quick Start guide templates.
+
+[templates]
+main = """$prerequisites_section
+$installation_section
+$usage_section
+$testing_section"""
+
+prerequisites = """
+### Prerequisites
+
+This project requires the following dependencies:
+
+$system_requirements
+"""
+
+installation = """### Installation
+
+Build $repo_name from the source and intsall dependencies:
+
+$install_steps"""
+
+usage = """### Usage
+
+$usage_instructions
+"""
+
+testing = """
+### Testing
+
+$test_instructions
+"""
+
+[install_steps]
+template = """
+1. **Clone the repository:**
+
+    ```sh
+    ❯ git clone $repo_url
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```sh
+    ❯ cd $repo_name
+    ```
+
+3. **Install the dependencies:**
+
+$install_commands
+"""
+
+[formatting]
+system_requirements_prefix = "- **$key:** "
+package_managers_label = "Package Manager"
+containers_label = "Container Runtime"

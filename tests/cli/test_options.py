@@ -1,20 +1,22 @@
-from readmeai.cli.options import BadgeStyleOptions, ImageOptions
+from readmeai.cli.options import BadgeStyles, CustomLogos, DefaultLogos
 
 
 def test_badge_options():
     """Test the CLI options for badge icons."""
-    assert BadgeStyleOptions.FLAT == "flat"
-    assert BadgeStyleOptions.FLAT_SQUARE == "flat-square"
-    assert BadgeStyleOptions.FOR_THE_BADGE == "for-the-badge"
-    assert BadgeStyleOptions.PLASTIC == "plastic"
-    assert BadgeStyleOptions.SKILLS == "skills"
-    assert BadgeStyleOptions.SKILLS_LIGHT == "skills-light"
-    assert BadgeStyleOptions.SOCIAL == "social"
+    assert BadgeStyles.FLAT == "flat"
+    assert BadgeStyles.FLAT_SQUARE == "flat-square"
+    assert BadgeStyles.FOR_THE_BADGE == "for-the-badge"
+    assert BadgeStyles.PLASTIC == "plastic"
+    assert BadgeStyles.SKILLS == "skills"
+    assert BadgeStyles.SKILLS_LIGHT == "skills-light"
+    assert BadgeStyles.SOCIAL == "social"
 
 
 def test_image_options():
     """Test the CLI options for header images."""
-    assert ImageOptions.CUSTOM.value == "CUSTOM"
-    assert ImageOptions.LLM.value == "LLM"
-    assert isinstance(ImageOptions.BLUE, str)
-    assert isinstance(ImageOptions.BLACK, str)
+    assert CustomLogos.CUSTOM.value == "CUSTOM"
+    assert CustomLogos.LLM.value == "LLM"
+    assert isinstance(DefaultLogos.BLUE, str)
+    assert isinstance(DefaultLogos.GREEN, str)
+    assert isinstance(DefaultLogos.ORANGE, str)
+    assert isinstance(DefaultLogos.PURPLE, str)

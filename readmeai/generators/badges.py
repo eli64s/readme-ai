@@ -1,25 +1,26 @@
 """Methods to build SVG badges for the README using shields.io icons."""
 
-import colorsys
+from typing import Sequence
 
-from readmeai.config.constants import BadgeStyleOptions
 from readmeai.config.settings import Settings
-from readmeai.readers.git.providers import GitHost
-from readmeai.utils.file_handler import FileHandler
-from readmeai.utils.file_resource import get_resource_path
+from readmeai.generators.colors.converters import hex_to_hls
+from readmeai.generators.enums import BadgeStyles
+from readmeai.retrievers.git.providers import GitHost
+from readmeai.utilities.file_handler import FileHandler
+from readmeai.utilities.resource_manager import build_resource_path
 
 _comment = "<!-- default option, no dependency badges. -->\n"
-_package = "readmeai.generators"
-_submodule = "svg"
+_package = "readmeai"
+_submodule = "assets/badges"
 
 
-def build_default_badges(
+def build_code_metrics(
     config: Settings,
     full_name: str,
     host: str,
 ) -> str:
     """Build metadata badges using shields.io."""
-    return config.md.shieldsio_icons.format(
+    return config.md.shieldsio.format(
         host=host,
         full_name=full_name,
         badge_color=config.md.badge_color,
@@ -27,7 +28,7 @@ def build_default_badges(
     )
 
 
-def build_badges_tech_stack(
+def build_tech_stack(
     dependencies: list[str],
     icons: dict[str, str],
     style: str,
@@ -53,69 +54,60 @@ def format_badges(badges: list[str]) -> str:
 
     lines = []
     for i in range(0, total, badges_per_line):
-        line = "\n\t".join(
+        line = "\n".join(
             [
                 f'<img src="{badge}" alt="{badge.split("/badge/")[1].split("-")[0]}">'
                 for badge in badges[i : i + badges_per_line]
             ],
         )
         lines.append(
-            f"{line}\n\t<br>" if i + badges_per_line < total else f"{line}\n",
+            f"{line}\n<br>" if i + badges_per_line < total else f"{line}\n",
         )
 
-    return "\n\t".join(lines)
+    return "\n".join(lines)
 
 
-def hex_to_hls(hex_color: str) -> tuple[float, float, float]:
-    """Converts a hex color to HLS."""
-    hex_color = hex_color.lstrip("#")
-    rgb = tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
-    return colorsys.rgb_to_hls(rgb[0] / 255, rgb[1] / 255, rgb[2] / 255)
-
-
-def sort_badges(badges: list[tuple[str, str]]) -> list[str]:
+def sort_badges(badges: list[tuple[str, str]]) -> Sequence[tuple[str, str]]:
     """Sorts badges by color and then by name."""
     badges = [(badge[0], str(badge[1])) for badge in badges]
     badges = list(set(badges))
     return sorted(
         badges,
-        key=lambda b: (*hex_to_hls(b[1]), b[0])
-        if b[1]
-        else (float("inf"), 0, 0, ""),
+        key=lambda b: (*hex_to_hls(b[1]), b[0]) if b[1] else (float("inf"), 0, 0, ""),
     )
 
 
-def shieldsio_icons(
+def shieldsio(
     conf: Settings,
     dependencies: list,
     full_name: str,
     git_host: str,
 ) -> tuple[str, str]:
     """Generates badges for the README using shields.io icons."""
-    icons_path = get_resource_path(
-        conf.files.shieldsio_icons,
+    icons_path = build_resource_path(
+        conf.files.shieldsio,
         _package,
         _submodule,
     )
     icons_dict = FileHandler().read(icons_path)
 
-    default_icons = build_default_badges(conf, full_name, git_host)
+    default_icons = build_code_metrics(conf, full_name, git_host)
 
-    badges_tech_stack = build_badges_tech_stack(
+    tech_stack_icons = build_tech_stack(
         dependencies,
         icons_dict,
         conf.md.badge_style,
     )
-    badges_tech_stack = conf.md.badges_tech_stack.format(
+    tech_stack_icons = conf.md.tech_stack_icons.format(
         align=conf.md.align,
-        badges_tech_stack=badges_tech_stack,
+        tech_stack_icons=tech_stack_icons,
     )
 
     if (
-        conf.md.badge_style == BadgeStyleOptions.DEFAULT.value
+        conf.md.badge_style == BadgeStyles.DEFAULT.value
         and git_host != GitHost.LOCAL.name
     ):
-        conf.md.badges_tech_stack_text = _comment
+        conf.md.tech_stack_description = _comment
         return (
             default_icons,
             _comment,
@@ -124,36 +116,33 @@ def shieldsio_icons(
     if git_host == GitHost.LOCAL.name:
         return (
             "<!-- local repository, no metadata badges. -->",
-            badges_tech_stack,
+            tech_stack_icons,
         )
 
-    return default_icons, badges_tech_stack
+    return default_icons, tech_stack_icons
 
 
-def skill_icons(conf: Settings, dependencies: list) -> str:
-    """Generate 'skill-icons' badge set for the README header.
-    Source: https://github.com/tandpfun/skill-icons
-    """
+def skillicons(conf: Settings, dependencies: list) -> str:
+    """Build tech stack icon set using skillicons."""
     dependencies.extend(["md"])
 
-    icons_path = get_resource_path(
-        conf.files.skill_icons,
+    icons_path = build_resource_path(
+        conf.files.skillicons,
         _package,
         _submodule,
     )
     icons_dict = FileHandler().read(icons_path)
 
-    icons = [
-        icon for icon in icons_dict["icons"]["names"] if icon in dependencies
-    ]
+    icons = [icon for icon in icons_dict["icons"]["names"] if icon in dependencies]
+
     formatted_icons = icons_dict["url"]["base_url"] + ",".join(icons)
 
     if conf.md.badge_style == "skills-light":
         formatted_icons = f"{formatted_icons}&theme=light"
 
-    conf.md.skill_icons = conf.md.skill_icons.format(formatted_icons)
+    conf.md.skillicons = conf.md.skillicons.format(formatted_icons)
 
-    return conf.md.badges_tech_stack.format(
+    return conf.md.tech_stack_icons.format(
         align=conf.md.align,
-        badges_tech_stack=conf.md.skill_icons,
+        tech_stack_icons=conf.md.skillicons,
     )

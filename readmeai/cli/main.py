@@ -1,11 +1,10 @@
-"""Command-line interface entrypoint for the readme-ai package."""
+"""Entrypoint for the command-line interface for readme-ai."""
 
 import click
-
-from readmeai.__main__ import readme_agent
 from readmeai.cli import options
 from readmeai.config.settings import ConfigLoader, GitSettings
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
+from readmeai.core.pipeline import readme_agent
 
 config = ConfigLoader()
 logger = get_logger(__name__)
@@ -29,15 +28,17 @@ logger = get_logger(__name__)
 @options.context_window
 @options.emojis
 @options.header_style
-@options.image
+@options.logo
+@options.logo_size
 @options.model
+@options.navigation_style
 @options.output
 @options.rate_limit
 @options.repository
+@options.system_message
 @options.temperature
-@options.toc_style
 @options.top_p
-@options.tree_depth
+@options.tree_max_depth
 def main(
     align: str,
     api: str,
@@ -47,24 +48,29 @@ def main(
     context_window: int,
     emojis: bool,
     header_style: str,
-    image: str,
+    logo: str,
+    logo_size: str,
     model: str,
+    navigation_style: str,
     output: str,
     rate_limit: int,
     repository: str,
+    system_message: str,
     temperature: float,
-    toc_style: str,
     top_p: float,
-    tree_depth: int,
+    tree_max_depth: int,
 ) -> None:
     """Entry point for the readme-ai CLI application."""
     config.config.git = GitSettings(repository=repository)
+
     config.config.llm = config.config.llm.model_copy(
         update={
             "api": api,
             "base_url": base_url,
             "context_window": context_window,
             "model": model,
+            "rate_limit": rate_limit,
+            "system_message": system_message,
             "temperature": temperature,
             "top_p": top_p,
         },
@@ -76,16 +82,16 @@ def main(
             "badge_style": badge_style,
             "emojis": emojis,
             "header_style": header_style,
-            "image": image,
-            "toc_style": toc_style,
-            "tree_depth": tree_depth,
+            "logo": logo,
+            "logo_size": logo_size,
+            "navigation_style": navigation_style,
+            "tree_max_depth": tree_max_depth,
         },
     )
-    config.config.api.rate_limit = rate_limit
 
-    logger.info(f"Pydantic settings: {config.__dict__.keys()}")
-    logger.info(f"Repository settings: {config.config.git}")
-    logger.info(f"LLM API settings: {config.config.llm}")
+    logger.debug(f"Pydantic settings: {config.__dict__.keys()}")
+    logger.debug(f"Repository settings: {config.config.git.model_dump()}")
+    logger.debug(f"LLM API settings: {config.config.llm.model_dump()}")
 
     readme_agent(config=config, output_file=output)
 

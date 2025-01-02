@@ -3,32 +3,34 @@
 from __future__ import annotations
 
 import click
-
 from readmeai import __version__
-from readmeai.config.constants import (
-    BadgeStyleOptions,
-    HeaderStyleOptions,
-    ImageOptions,
-    LLMService,
+from readmeai.generators.enums import (
+    BadgeStyles,
+    CustomLogos,
+    DefaultLogos,
+    EmojiThemes,
+    HeaderStyles,
+    NavigationStyles,
 )
+from readmeai.models.enums import LLMProviders, OpenAIModels
 
 
-def prompt_for_image(
+def prompt_for_logo(
     ctx: click.Context | None = None,
     param: click.Parameter | None = None,
     value: str | None = None,
 ) -> str:
-    """Prompt the user for a custom image URL."""
+    """Manage user project logo selection."""
     if value is None:
-        return ImageOptions.BLUE.value
-    if value == ImageOptions.CUSTOM.name:
-        return click.prompt("Provide an image file path or URL")
-    elif value == ImageOptions.LLM.name:
-        return ImageOptions.LLM.value
-    elif value in ImageOptions.__members__:
-        return ImageOptions[value].value
+        return DefaultLogos.BLUE.value
+    if value == CustomLogos.CUSTOM.value:
+        return click.prompt("Provide an logo file path or URL")
+    elif value == CustomLogos.LLM.value:
+        return CustomLogos.LLM.value
+    elif value in DefaultLogos.__members__:
+        return DefaultLogos[value].value
     else:
-        raise click.BadParameter(f"Invalid image provided: {value}")
+        raise click.BadParameter(f"Invalid logo provided: {value}")
 
 
 def version_callback(
@@ -55,17 +57,11 @@ align = click.option(
 api = click.option(
     "--api",
     type=click.Choice(
-        [opt.value for opt in LLMService],
+        [opt.value for opt in LLMProviders],
         case_sensitive=False,
     ),
-    default=LLMService.OFFLINE,
-    help="""LLM API service to use for README.md file generation. Current support for:\n
-    - ANTHROPIC    # Anthropic: claude-3-5-sonnet \n
-    - GEMINI       # Google Gemini: gemini-pro \n
-    - OFFLINE      # Offline Mode: run without a LLM API \n
-    - OLLAMA       # Ollama: llama3, mistral, etc. \n
-    - OPENAI       # OpenAI: gpt-3.5-turbo \n
-    """,
+    default=LLMProviders.OFFLINE.value,
+    help="LLM API service provider to power the README file generation.",
 )
 
 badge_color = click.option(
@@ -73,28 +69,18 @@ badge_color = click.option(
     "--badge-color",
     type=str,
     default="0080ff",
-    help="Change color of shields.io badges. Provide color name or hex code.",
+    help="Primary color (hex code or name) to use for the badge icons.",
 )
 
 badge_style = click.option(
     "-bs",
     "--badge-style",
     type=click.Choice(
-        [opt.value for opt in BadgeStyleOptions],
+        [opt.value for opt in BadgeStyles],
         case_sensitive=False,
     ),
-    default=BadgeStyleOptions.DEFAULT.value,
-    help="""\
-        Style for shields.io badges. Current support for:\n
-        - default \n
-        - flat \n
-        - flat-square \n
-        - for-the-badge \n
-        - plastic \n
-        - skills \n
-        - skills-light \n
-        - social \n
-        """,
+    default=BadgeStyles.DEFAULT.value,
+    help="Visual style of the badge icons used in the README file.",
 )
 
 base_url = click.option(
@@ -115,68 +101,69 @@ context_window = click.option(
 emojis = click.option(
     "-e",
     "--emojis",
-    is_flag=True,
-    default=False,
-    help="Adds an emoji prefix to each header of the README.md file. For example, the header ## 'Overview' would change to '## 📍 Overview'.",
+    type=click.Choice(
+        [opt.value for opt in EmojiThemes],
+        case_sensitive=False,
+    ),
+    default=EmojiThemes.DEFAULT.value,
+    help="Emoji theme 'packs' for customizing header section titles.",
 )
 
 header_style = click.option(
     "-hs",
     "--header-style",
     type=click.Choice(
-        [opt.name for opt in HeaderStyleOptions],
+        [opt.name for opt in HeaderStyles],
         case_sensitive=False,
     ),
-    default="classic",
-    help="Header template styles.",
+    default=HeaderStyles.CLASSIC.value,
+    help="README header style template options.",
 )
 
-toc_style = click.option(
-    "-ts",
-    "--toc-style",
+logo = click.option(
+    "-l",
+    "--logo",
     type=click.Choice(
-        ["bullet", "fold", "links", "number", "roman"],
+        [opt.name for opt in DefaultLogos] + [opt.value for opt in CustomLogos],
         case_sensitive=False,
     ),
-    default="bullet",
-    help="Table of Contents template styles.",
-)
-
-image = click.option(
-    "-i",
-    "--image",
-    type=click.Choice(
-        [opt.name for opt in ImageOptions],
-        case_sensitive=False,
-    ),
-    default=ImageOptions.BLUE.name,
-    callback=prompt_for_image,
+    default=DefaultLogos.PURPLE.name,
+    callback=prompt_for_logo,
     show_choices=True,
-    help="""\
-        Project logo image displayed in the README file header. The following options are currently supported:\n
-        - CUSTOM (provide local image path or URL) \n
-        - LLM (generate project logo using LLM API) \n
-        - BLACK \n
-        - BLUE \n
-        - CLOUD \n
-        - GRADIENT \n
-        - GREY \n
-        - PURPLE \n
-        """,
+    help="Project logo for the README file.",
+)
+
+logo_size = click.option(
+    "-ls",
+    "--logo-size",
+    type=str,
+    default="30%",
+    help="Project logo size.",
 )
 
 model = click.option(
     "-m",
     "--model",
-    default="gpt-3.5-turbo",
-    help="LLM API service to use for README file text generation.",
+    default=OpenAIModels.GPT35_TURBO.value,
+    help="LLM API model to power the README file generation.",
+)
+
+navigation_style = click.option(
+    "-ns",
+    "--navigation-style",
+    type=click.Choice(
+        [opt.name for opt in NavigationStyles],
+        case_sensitive=False,
+    ),
+    default=NavigationStyles.BULLET.value,
+    help="Navigation menu styles for the README table of contents.",
 )
 
 output = click.option(
     "-o",
     "--output",
     default="readme-ai.md",
-    help="Output file name for your README file.",
+    help="Output file path for the generated README file.",
 )
 
 rate_limit = click.option(
@@ -191,7 +178,14 @@ repository = click.option(
     "-r",
     "--repository",
     required=True,
-    help="Provide a remote repository URL (GitHub, GitLab, BitBucket), or local path to your project.",
+    help="Provide a repository URL (GitHub, GitLab, BitBucket) or local path.",
+)
+
+system_message = click.option(
+    "-sm",
+    "--system-message",
+    default="You're a 10x Staff Software Engineering leader, with deep knowledge across most tech stacks. You'll use your expertise to write robust README markdown files for open-source projects. You're a master of the craft, and you're here to help others succeed.",
+    help="System message to display in the README file.",
 )
 
 temperature = click.option(
@@ -203,15 +197,16 @@ temperature = click.option(
 )
 
 top_p = click.option(
+    "-tp",
     "--top-p",
     default=0.9,
     type=click.FloatRange(0.0, 1.0, clamp=True),
     help="Top-p sampling probability for the model's generation.",
 )
 
-tree_depth = click.option(
+tree_max_depth = click.option(
     "-td",
-    "--tree-depth",
+    "--tree-max-depth",
     default=2,
     type=int,
     help="Maximum depth of the directory tree generated for the README file.",

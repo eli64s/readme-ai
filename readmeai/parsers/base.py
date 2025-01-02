@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
 
 
 class BaseFileParser(ABC):

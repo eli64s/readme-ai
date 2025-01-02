@@ -9,7 +9,7 @@
       Your AI-Powered Documentation Assistant
     </h2>
     <p class="description">
-      Modern documentation generator combining advanced AI with robust data processing
+      Designed for simplicity, customization, and developer productivity.
     </p>
     <div class="cta-buttons">
       <a href="https://eli64s.github.io/readme-ai/usage/prerequisites/" class="button primary">
@@ -49,7 +49,7 @@
   <div class="feature-card">
     <div class="feature-icon">🤖</div>
     <h3>Flexible Backends</h3>
-    <p>Seamlessly integrate with <code>OpenAI</code>, <code>Anthropic</code>, <code>Google Gemini</code>, and <code>Ollama</code></p>
+    <p>Seamlessly integrate with <code>OpenAI</code>, <code>Anthropic</code>, <code>Gemini</code>, and <code>Ollama</code></p>
   </div>
   <div class="feature-card">
     <div class="feature-icon">🌐</div>
@@ -61,12 +61,16 @@
   <h2>Quick Start</h2>
   <div class="installation-steps">
     <div class="step">
-      <h3>1. Install README-AI</h3>
-      <code>pip install readmeai</code>
+      <p>1. In the terminal, install the <strong>readmeai</strong> package:</p>
+      <pre><code>pip install readmeai</code></pre>
     </div>
     <div class="step">
-      <h3>2. Generate Documentation</h3>
-      <code>readmeai --repository https://github.com/user/project-name --output README-AI.md</code>
+      <p>2. Once installed, try it out:</p>
+      <pre><code>readmeai --help</code></pre>
+    </div>
+    <div class="step">
+      <p>3. Generate a README file for your project:</p>
+      <pre><code>readmeai --repository https://github.com/your-username/your-repo</code></pre>
     </div>
   </div>
 </div>

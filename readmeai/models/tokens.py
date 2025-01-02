@@ -1,10 +1,9 @@
 """Utilities for handling tokens in the LLM model."""
 
 import structlog
-from tiktoken import Encoding, get_encoding
-
 from readmeai.config.settings import Settings
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
+from tiktoken import Encoding, get_encoding
 
 _encoding_cache = {}
 

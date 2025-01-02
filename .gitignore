@@ -1,53 +1,50 @@
-# Build artifacts
+# Build Artifacts
+*.egg-info/
 build/
 dist/
-*.egg-info/
 
-# Compiled Python files
+# Compiled Python Files
 *.pyc
 *.pyo
 __pycache__/
 
-# Virtual environment
-.venv/
-.env
-
-# System-specific files
-.DS_Store
-
-# Temporary files
-*~
-
-# Logging
-logs/
-*.log
-
-# Testing
-.nox/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
+# Documentation and MkDocs
+.cache
+site
 
 # Jupyter Notebook
 .ipynb_checkpoints/
-outputs/
 notebooks/
 
-# VSCode workspace settings
-.vscode/
+# Logging
+*.log
+logs/
 
 # Python Tools
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
 
-# Mkdocs
-.cache
-site
+# System-Specific Files
+.DS_Store
 
-# Work In Progress (WIP)
-readmeai/cli/commands_line.py
-readmeai/cli/interactive.py
-readmeai/config/settings/prompts
-readmeai/config/settings/templates
+# Temporary Files
+*~
+
+# Testing
+.nox/
+.reports/
+*coverage*
+
+# Virtual Environment
+.env
+.venv/
+
+# VSCode Workspace Settings
+.vscode/
+
+# README-AI
+.readmeai/
+.actrc
+.github/workflows/update-badges-local.yml
+.github/workflows/update-badges.yml

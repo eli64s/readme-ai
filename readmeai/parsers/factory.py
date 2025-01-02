@@ -60,9 +60,7 @@ class ParserFactory:
     }
 
     @classmethod
-    def register_parser(
-        cls, file_name: str, parser_class: type[BaseFileParser]
-    ):
+    def register_parser(cls, file_name: str, parser_class: type[BaseFileParser]):
         """Register a parser for the given file name."""
         cls._parsers[file_name] = parser_class
 
