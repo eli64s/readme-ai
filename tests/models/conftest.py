@@ -59,7 +59,10 @@ def anthropic_handler(
 
 
 @pytest.fixture
-def anthropic_handler_with_mock_session(anthropic_handler: AnthropicHandler):
+def anthropic_handler_with_mock_session(
+    anthropic_handler: AnthropicHandler, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test_api_key")
     mock_create = AsyncMock(
         return_value=MagicMock(content=[MagicMock(text="test_response")])
     )
@@ -83,9 +86,12 @@ def gemini_handler(
 
 @pytest.fixture
 def openai_handler(
-    mock_config_loader: ConfigLoader, mock_repository_context: RepositoryContext
+    mock_config_loader: ConfigLoader,
+    mock_repository_context: RepositoryContext,
+    monkeypatch: pytest.MonkeyPatch,
 ):
-    """Fixture to provide an OpenAIHandler instance."""
+    """Fixture to provide an OpenAIHandler instance with a mocked API key."""
+    monkeypatch.setenv("OPENAI_API_KEY", "test_api_key")
     return OpenAIHandler(
         config_loader=mock_config_loader,
         context=mock_repository_context,
