@@ -2,7 +2,7 @@
 <div class="hero-section">
   <div class="hero-content">
     <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-gradient.svg"
+      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/aaeb55cf989d1f43f43e45d5219ae3e8c6be7435/docs/docs/assets/svg/logo-gradient.svg"
       alt="readme-ai">
     </div>
     <h2 class="tagline">

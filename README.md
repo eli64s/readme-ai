@@ -1,7 +1,7 @@
 <div id="top">
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/readme-ai-gradient.svg" alt="ReadmeAI Logo" width="85%">
+  <img src="https://raw.githubusercontent.com/eli64s/readme-ai/aaeb55cf989d1f43f43e45d5219ae3e8c6be7435/docs/docs/assets/svg/logo-gradient.svg" alt="ReadmeAI Logo" width="85%">
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@
 
 </div>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Quick Links
 
@@ -43,7 +43,7 @@
 > [!IMPORTANT]
 > Explore the [Official Documentation][docs] for a complete list of features, customization options, and examples.
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Introduction
 
@@ -72,13 +72,13 @@ This project aims to streamline the process of creating and maintaining document
 [readmeai-streamlit-demo][streamlit-demo]
 -->
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Features
 
-Let's begin by exploring various customization options and styles supported by ReadmeAI:
-
 ### Customize Your README
+
+Let's begin by exploring various customization options and styles supported by ReadmeAI:
 
 <div align="left">
   <h6>Header Styles</h6>
@@ -284,18 +284,18 @@ Let's begin by exploring various customization options and styles supported by R
 
 <details><summary><strong>꩜ Expand to view more!</strong></summary><br>
 
-| <h3>Project Introduction</h3> <ul><li>This section captures your project's essence and value proposition. </li><li>The prompt template used to generate this section can be viewed [here][prompts]. </li></ul> |
+| <h3>Project Introduction</h3> <ul><li>This section captures your project's essence and value proposition. </li><li>The prompt template used to generate this section can be viewed [here][prompts.toml]. </li></ul> |
 | :--- |
 | ![][project-overview] |
 
-| <h3>Features Table</h3> <ul><li>Detailed feature breakdown and technical capabilities. </li><li>The prompt template used to generate this section can be viewed [here][prompts]. </li></ul> |
+| <h3>Features Table</h3> <ul><li>Detailed feature breakdown and technical capabilities. </li><li> The prompt template used to generate this section can be viewed [here][prompts.toml]. </li></ul> |
 | :--- |
 | ![][features-table] |
 
 | <h3>Project Structure</h3> <ul><li>Visual representation of your project's directory structure. </li><li>The tree is generated using [pure Python][tree.py] and embedded in a code block. </li></ul> |
 | :--- |
 | ![][project-structure] |
-| <h3>Project Index</h3> <ul><li>Summarizes key modules of the project, which are also used as context for downstream [prompts][prompts]. </li></ul> |
+| <h3>Project Index</h3> <ul><li>Summarizes key modules of the project, which are also used as context for downstream [prompts.toml][prompts.toml]. </li></ul> |
 | ![][project-index] |
 
 | <h3>Getting Started Guides</h3> <ul><li>Dependencies and system requirements are extracted from the codebase during preprocessing. </li><li>The [parsers][readmeai.parsers] handle most of the heavy lifting here. </li></ul> |
@@ -312,7 +312,7 @@ Let's begin by exploring various customization options and styles supported by R
 
 </details>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Getting Started
 
@@ -602,7 +602,7 @@ Run the `readmeai` CLI in a Docker container:
 
 Try readme-ai directly in your browser on Streamlit Cloud, no installation required.
 
-[<img align="center" src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" width="20%">][streamlit]
+[<img align="center" src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" width="20%">](https://readme-ai.streamlit.app/)
 
 See the [readme-ai-streamlit][readme-ai-streamlit] repository on GitHub for more details about the application.
 
@@ -648,7 +648,7 @@ If you installed the project from source with the bash script, run the following
 
 </details>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ### Testing
 
@@ -677,7 +677,7 @@ Using nox, test the app against Python versions `3.9`, `3.10`, `3.11`, and `3.12
 > [!TIP]
 > <sub>Nox is an automation tool for testing applications in multiple environments. This helps ensure your project is compatible with across Python versions and environments.</sub>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Configuration
 
@@ -712,7 +712,7 @@ Visit the [Official Documentation][docs] for a complete guide on configuring and
 
 </sub>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Example Gallery
 
@@ -743,7 +743,7 @@ We invite developers to share their generated README files in our [Show & Tell][
 
 Find additional README examples in our [examples directory][examples-directory] on GitHub.
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Roadmap
 
@@ -795,8 +795,6 @@ A big shoutout to the projects below for their awesome work and open-source cont
   </a>
 </div>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="2px">
-
 ## 🎗 License
 
 Copyright © 2023-2025 [readme-ai][readme-ai]. <br />
@@ -807,6 +805,8 @@ Released under the [MIT][license] license.
 [![][to-the-top]](#top)
 
 </div>
+
+<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 <!-- REFERENCE LINKS -->
 <!-- README-AI RESOURCES -->
@@ -875,14 +875,14 @@ Released under the [MIT][license] license.
 
 <!-- EXAMPLES -->
 <!-- FEATURES -->
-[project-overview]: docs/docs/assets/img/project-overview/introduction.png
-[features-table]: docs/docs/assets/img/features/features.png
-[project-structure]: docs/docs/assets/img/project-structure/project-structure.png
-[project-index]: docs/docs/assets/img/project-structure/project-index.png
-[installation-steps]: docs/docs/assets/img/getting-started/installation-steps.png
-[usage-guides]: docs/docs/assets/img/getting-started/usage-guides.png
-[community-and-support]: docs/docs/assets/img/community/community-and-support.png
-[contributing-guidelines]: docs/docs/assets/img/community/contributing-guidelines.png
+[project-overview]: https://github.com/eli64s/readme-ai/blob/main/https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-overview/introduction.png?raw=true
+[features-table]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/features/features.png
+[project-structure]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-structure.png
+[project-index]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-index.png
+[installation-steps]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/installation-steps.png
+[usage-guides]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/usage-guides.png
+[community-and-support]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/community-and-support.png
+[contributing-guidelines]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/contributing-guidelines.png
 [readmeai.parsers]: https://github.com/eli64s/readme-ai/tree/main/readmeai/parsers
 [tree.py]: https://github.com/eli64s/readme-ai/blob/main/readmeai/generators/tree.py
 [prompts.toml]: https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/prompts.toml
