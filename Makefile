@@ -1,55 +1,82 @@
 SHELL := /bin/bash
-SRC_PATH := readmeai
-TEST_PATH := tests
+TARGET := readmeai
+TARGET_TEST := tests
+PYPROJECT_TOML := pyproject.toml
+
+# -- Development --------------------------------------------------------------
+
 
 .PHONY: clean
-clean: ## Remove project build artifacts
-	./scripts/clean.sh clean_pyc
+clean: ## Clean project files
+	./scripts/clean.sh clean-pyc
+
+
+# -- Documentation ----------------------------------------------------------------------
+
+
+.PHONY: docs
+docs: ## Build and serve Mkdocs documentation
+	cd docs && mkdocs build && mkdocs serve
+
+
+# -- Docker --------------------------------------------------------------------
+
 
 .PHONY: docker-build
 docker-build: ## Build Docker image for application
 	docker build -t zeroxeli/readme-ai:latest .
 
-.PHONY: poetry-install
-poetry-install: ## Install dependencies using Poetry.
+
+# -- Poetry --------------------------------------------------------------------
+
+
+.PHONY: install
+install: ## Install project dependencies using Poetry
 	poetry install
 
-.PHONY: poetry-rm-env
-poetry-rm-env: ## Removes Poetry virtual environment and lock file.
+.PHONY: rm-environment
+rm-environment: ## Remove Poetry virtual environment.
 	poetry env remove --all && rm poetry.lock
 
-.PHONY: poetry-shell
-poetry-shell: ## Launch a shell within Poetry virtual environment.
+.PHONY: shell
+shell: ## Start a shell within the Poetry virtual environment
 	poetry shell
 
-.PHONY: poetry-to-requirements
-poetry-to-requirements: ## Export poetry requirements to requirements.txt
+.PHONY: to-requirements
+to-requirements: ## Export Poetry dependencies to requirements.txt
 	poetry export -f requirements.txt --output setup/requirements.txt --without-hashes
 
-.PHONY: ruff-format
-ruff-format: ## Format codebase using Ruff
-	ruff check --select I --fix .
-	ruff format .
 
-.PHONY: ruff-lint
-ruff-lint: ## Lint codebase using Ruff
-	ruff check . --fix
+# -- Code Quality --------------------------------------------------------------
 
-.PHONY: run-mkdocs
-run-mkdocs: ## Run the MkDocs server
-	cd docs && mkdocs serve
 
-.PHONY: search
-search: ## Search for a word in the codebase
-	grep -Ril ${WORD} readmeai tests scripts setup
+.PHONY: format
+format: ## Format codebase using Ruff
+	poetry run ruff format $(TARGET)
+
+.PHONY: lint
+lint: ## Lint codebase using Ruff
+	poetry run ruff check $(TARGET) --fix
+
+
+# -- Testing -------------------------------------------------------------------
+
 
 .PHONY: test
-test: ## Run unit tests using pytest
-	poetry run pytest
+test: ## Run test suite using Pytest
+	poetry run pytest $(TARGET_TEST) --config-file $(PYPROJECT_TOML)
 
 .PHONY: test-nox
-test-nox: ## Run test suite against multiple Python versions
+test-nox: ## Run test suite using Nox
 	nox -f noxfile.py
+
+
+# -- Utilities ----------------------------------------------------------------
+
+
+.PHONY: search
+search: ## Search for a word across project files
+	grep -Ril ${WORD} $(TARGET) docs tests
 
 .PHONY: help
 help: ## Display this help

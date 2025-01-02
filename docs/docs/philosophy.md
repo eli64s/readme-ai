@@ -1,8 +1,17 @@
+---
+title: Philosophy
+description: Learn about Readme-ai's core vision, long-term impact, and architecture diagram.
+---
+
 # Philosophy and Vision
 
 ## Empowering Developers, Enlightening Projects
 
-Readme-ai envisions a future where every software project, regardless of size or complexity, is accompanied by clear, comprehensive, and up-to-date documentation. We strive to create an ecosystem where documentation is no longer an afterthought but an integral, effortless part of the development process.
+<!--
+README files are essential for project discoverability, collaboration, and maintenance. However, creating and maintaining them can be time-consuming and tedious.
+-->
+
+ReadmeAI envisions a future where every software project, regardless of size or complexity, is accompanied by clear, comprehensive, and up-to-date documentation. We strive to create an ecosystem where documentation is no longer an afterthought but an integral, effortless part of the development process.
 
 ### Our Core Vision
 

@@ -1,5 +1,3 @@
-# https://pre-commit.com/
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -13,8 +11,8 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
+    rev: v0.8.4
     hooks:
-      - id: ruff
-        args: [--fix]
       - id: ruff-format
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix ]

@@ -1,0 +1,23 @@
+[code_style]
+tools = [
+    ".dvcignore",
+    ".editorconfig",
+    ".pre-commit-config.yaml",
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.js",
+    "pytest.ini",
+    "ruff.toml",
+    ".ruff.toml",
+    "flake8",
+    ".flake8",
+    "black.toml",
+    ".black.toml",
+    "pyproject.toml",
+    "setup.cfg",
+    "tox.ini",
+    "tsconfig.json",
+    "tslint.json",
+    "tslint.yaml",
+    "tslint.yml",
+]

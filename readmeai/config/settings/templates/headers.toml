@@ -1,0 +1,173 @@
+# Header style templates for the README.
+
+[header_styles]
+
+[header_styles.ascii]
+name = "ASCII"
+template = """
+\n<!-- HEADER STYLE: ASCII -->
+<div align="{align}">
+{logo}
+</div>
+<div align="{align}">
+
+<em>{tagline}</em>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+</div>
+<br>
+"""
+
+[header_styles.banner]
+name = "BANNER"
+template = """
+\n<!-- HEADER STYLE: BANNER -->
+<div align="{align}">
+{logo}{tagline}</text></svg>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+</div>
+
+---
+"""
+
+[header_styles.classic]
+name = "CLASSIC"
+template = """
+\n<!-- HEADER STYLE: CLASSIC -->
+<div align="{align}">
+
+<img src="{logo}" width="{logo_size}" style="position: relative; top: 0; right: 0;" alt="Project Logo"/>
+
+# {repo_name}
+
+<em>{tagline}</em>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+</div>
+<br>
+
+---
+"""
+
+[header_styles.clean]
+name = "CLEAN"
+template = """
+![{repo_name}]({logo})
+
+<div align="center">
+  <h1>{repo_name}</h1>
+  {shields_icons}
+  <br />
+  <br />
+  {navigation_links}
+  <br />
+  <hr />
+</div>
+"""
+
+[header_styles.clean.defaults]
+navigation_links = """
+<a href="{docs_quickstart}">Quickstart</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{website}">Website</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{docs}">Docs</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{examples}">Examples</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{blog}">Blog</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{discord}">Discord</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="{twitter}">Twitter</a>
+"""
+
+[header_styles.clean.placeholders]
+shields_icons = [
+  "{npm_version}",
+  "{contributing_badge}",
+  "{license_badge}",
+  "{discord_badge}"
+]
+
+[header_styles.compact]
+name = "COMPACT"
+template = """
+\n<!-- HEADER STYLE: COMPACT -->
+<img src="{logo}" width="{logo_size}" align="left" style="margin-right: 15px">
+
+# {repo_name}
+<em>{tagline}</em>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+<br clear="left"/>
+"""
+
+[header_styles.console]
+name = "CONSOLE"
+template = """
+\n<!-- HEADER STYLE: CONSOLE -->
+<div align="{align}">
+
+{logo}
+
+{tagline}
+```
+
+</div>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+</div>
+<br>
+"""
+
+[header_styles.modern]
+name = "MODERN"
+template = """
+\n<!-- HEADER STYLE: MODERN -->
+<div align="left" style="position: relative; width: 100%; height: 100%; ">
+
+<img src="{logo}" width="{logo_size}" style="position: absolute; top: 0; right: 0;" alt="Project Logo"/>
+
+# {repo_name}
+
+<em>{tagline}<em>
+
+<!-- BADGES -->
+{shields_icons}
+
+{tech_stack_description}
+
+{tech_stack_icons}
+</div>
+</div>
+<br clear="right">
+
+---
+"""

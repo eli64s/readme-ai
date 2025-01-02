@@ -43,6 +43,8 @@ logs/
 # VSCode Workspace Settings
 .vscode/
 
-# Work In Progress (WIP)
-readmeai/cli/interactive.py
-readmeai/config/settings/.conf
+# README-AI
+.readmeai/
+.actrc
+.github/workflows/update-badges-local.yml
+.github/workflows/update-badges.yml

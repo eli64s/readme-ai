@@ -7,9 +7,7 @@ def fix_markdown_table_rows(md_table: str) -> str:
     """Format a Markdown table with feature and description columns."""
     lines = md_table.split("||")
 
-    formatted_md_table = (
-        "| Feature | Description |\n|---------|-------------|\n"
-    )
+    formatted_md_table = "| Feature | Description |\n|---------|-------------|\n"
 
     for line in lines[2:]:
         clean_line = line.strip("|")
@@ -35,9 +33,7 @@ def format_markdown_table(text: str) -> str:
     if "REPLACE-ME</code>" in text:
         return text
 
-    pattern = (
-        r"(?:.*\n)*(\|.*\|.*\n\|[-: ]+\|[-: ]+\|.*\n(?:\|.*\|.*\n)*)(?:.*\n)*"
-    )
+    pattern = r"(?:.*\n)*(\|.*\|.*\n\|[-: ]+\|[-: ]+\|.*\n(?:\|.*\|.*\n)*)(?:.*\n)*"
     match = re.search(pattern, text, re.DOTALL)
     return match[1].strip() if match else ""
 
@@ -54,9 +50,7 @@ def process_markdown(text):
     # This regex handles nested bold and italic formatting
     text = re.sub(
         r"\*{1,2}(?P<content>[^*\n]+(?:\*{1,2}[^*\n]+\*{1,2}[^*\n]+)*)\*{1,2}",
-        lambda m: m.group(0)
-        if m.group(0).count("*") % 2 == 0
-        else m.group(0)[1:-1],
+        lambda m: m.group(0) if m.group(0).count("*") % 2 == 0 else m.group(0)[1:-1],
         text,
     )
 
@@ -118,11 +112,19 @@ def process_text(text: str) -> str:
     return text
 
 
+def extract_text_between_tags(input_string: str, start_tag: str, end_tag: str) -> str:
+    """Extract text between <overview/intro> tags in a string."""
+    match = re.search(
+        rf"{start_tag}(.*){end_tag}",
+        input_string,
+        re.DOTALL | re.IGNORECASE,
+    )
+    return match.group(1).strip() if match else ""
+
+
 def remove_quotes(text: str) -> str:
     """Remove quotes from a string if they exist."""
     if not text or len(text) < 2:
         return text
     quote_chars = ("'", '"', "`")
-    return (
-        text[1:-1] if text[0] == text[-1] and text[0] in quote_chars else text
-    )
+    return text[1:-1] if text[0] == text[-1] and text[0] in quote_chars else text

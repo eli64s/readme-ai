@@ -1,115 +1,13 @@
+# Updated Script with Corrected 'Current Directory' Path Format
 from pathlib import Path
 
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
 
 _logger = get_logger(__name__)
 
 
-def build_submodule_disclosure_widget(
-    data: dict[str, dict | list[tuple[str, str]]],
-    repo_path: str | Path,
-    repo_url: str,
-) -> str:
-    """
-    Builds expandable sections via <details> HTML element,
-    for each module with nested submodules using HTML tables.
-    """
-    if not data:
-        _logger.warning("No file summaries found.")
-        return ""
-
-    is_local_repo = Path(repo_path).exists()
-
-    project_name = (
-        Path(repo_path).name
-        if is_local_repo
-        else repo_url.rstrip("/").split("/")[-1]
-    )
-
-    sections = [
-        "<details open>",
-        f"\t<summary><b><code>{project_name.upper()}/</code></b></summary>",
-    ]
-
-    for module_name, module_data in data.items():
-        # Root module
-        if module_name == {project_name}:
-            section = [
-                f"\t<details> <!-- {module_name} Submodule -->",
-                f"\t\t<summary><b>{module_name}</b></summary>",
-                "\t\t<blockquote>",
-                "\t\t\t<table>",
-            ]
-            # Generate table rows for root files
-            section.extend(
-                _generate_table_rows(
-                    module_data,
-                    repo_path,
-                    is_local_repo,
-                    repo_url,
-                    indent="\t\t\t",
-                )
-            )
-            section.extend(
-                ("\t\t\t</table>", "\t\t</blockquote>", "\t</details>")
-            )
-        else:
-            # Handle other modules
-            section = [
-                f"\t<details> <!-- {module_name} Submodule -->",
-                f"\t\t<summary><b>{module_name}</b></summary>",
-                "\t\t<blockquote>",
-            ]
-            # Generate content for submodules or files
-            section.extend(
-                _generate_nested_module_content(
-                    module_data,
-                    repo_path,
-                    is_local_repo,
-                    repo_url,
-                    indent="\t\t\t",
-                )
-            )
-            section.extend(("\t\t</blockquote>", "\t</details>"))
-
-        sections.extend(section)
-
-    sections.append("</details>\n")
-
-    return "\n".join(sections)
-
-
-def format_code_summaries(
-    placeholder: str,
-    code_summaries: list[tuple[str, str]],
-) -> list:
-    """Converts the given code summaries into a formatted list."""
-    return [
-        (module, summary_text)
-        if isinstance(summary, tuple) and len(summary) == 2
-        else (summary, placeholder)
-        for summary in code_summaries
-        for module, summary_text in (
-            [summary]
-            if isinstance(summary, tuple) and len(summary) == 2
-            else [(summary, placeholder)]
-        )
-    ]
-
-
-def format_summary(summary: str) -> str:
-    """
-    Formats the summary with multi-line support if needed.
-    """
-    lines = summary.strip().split(". ")
-    if len(lines) > 1:
-        return "<br>".join(f"- {line.strip()}" for line in lines)
-    return summary.strip()
-
-
 def _generate_nested_module_content(
-    module_data: dict[str, dict | list[tuple[str, str]]]
-    | list[tuple[str, str]],
+    module_data: dict[str, dict | list[tuple[str, str]]] | list[tuple[str, str]],
     repo_path: str | Path,
     is_local_repo: bool,
     repo_url: str,
@@ -150,13 +48,11 @@ def _generate_nested_module_content(
         for submodule_name, submodule_data in module_data.items():
             if submodule_name == "":
                 continue
-            content.extend(
-                (
-                    f"{indent}<details>",
-                    f"{indent}\t<summary><b>{submodule_name}</b></summary>",
-                    f"{indent}\t<blockquote>",
-                )
-            )
+            content.extend((
+                f"{indent}<details>",
+                f"{indent}\t<summary><b>{submodule_name}</b></summary>",
+                f"{indent}\t<blockquote>",
+            ))
             # Recurse into submodule
             content.extend(
                 _generate_nested_module_content(
@@ -169,9 +65,7 @@ def _generate_nested_module_content(
             )
             content.extend((f"{indent}\t</blockquote>", f"{indent}</details>"))
     else:
-        _logger.warning(
-            f"Unexpected data type in module data: {type(module_data)}"
-        )
+        _logger.warning(f"Unexpected data type in module data: {type(module_data)}")
     return content
 
 
@@ -187,6 +81,121 @@ def generate_nested_module_tables(
     )
 
 
+def build_submodule_disclosure_widget(
+    data: dict[str, dict | list[tuple[str, str]]],
+    repo_path: str | Path,
+    repo_url: str,
+) -> str:
+    """
+    Builds expandable sections via <details> HTML element,
+    for each module with nested submodules using HTML tables.
+    Includes breadcrumb-style path navigation and column headers.
+    """
+    if not data:
+        return ""
+
+    is_local_repo = Path(repo_path).exists()
+    project_name = (
+        Path(repo_path).name if is_local_repo else repo_url.rstrip("/").split("/")[-1]
+    )
+
+    sections = [
+        "<details open>",
+        f"\t<summary><b><code>{project_name.upper()}/</code></b></summary>",
+    ]
+
+    def add_path_header(current_path: list[str], indent: str) -> list[str]:
+        """Creates a header showing the current directory path."""
+        if not current_path:
+            return []
+        path_parts = ".".join(current_path)
+        return [
+            f"{indent}<div class='directory-path' style='padding: 8px 0; color: #666;'>",
+            f"{indent}\t<code><b>⦿ {path_parts}</b></code>",
+        ]
+
+    def create_table_header(indent: str) -> list[str]:
+        """Creates a standardized table header."""
+        return [
+            f"{indent}<table style='width: 100%; border-collapse: collapse;'>",
+            f"{indent}<thead>",
+            f"{indent}\t<tr style='background-color: #f8f9fa;'>",
+            f"{indent}\t\t<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>",
+            f"{indent}\t\t<th style='text-align: left; padding: 8px;'>Summary</th>",
+            f"{indent}\t</tr>",
+            f"{indent}</thead>",
+        ]
+
+    def process_module(
+        module_name: str, module_data: dict | list, current_path: list[str], indent: str
+    ) -> list[str]:
+        """Processes a module and its contents recursively."""
+        section = []
+
+        # Add module header with current path
+        section.extend([
+            f"{indent}<!-- {module_name} Submodule -->",
+            f"{indent}<details>",
+            f"{indent}\t<summary><b>{module_name}</b></summary>",
+            f"{indent}\t<blockquote>",
+        ])
+
+        # Add path navigation
+        section.extend(add_path_header(current_path + [module_name], indent + "\t\t"))
+
+        if isinstance(module_data, list):
+            # Handle files at this level
+            section.extend(create_table_header(indent + "\t\t"))
+            section.extend(
+                _generate_table_rows(
+                    module_data,
+                    repo_path,
+                    is_local_repo,
+                    repo_url,
+                    indent=indent + "\t\t\t",
+                )
+            )
+            section.append(f"{indent}\t\t</table>")
+        elif isinstance(module_data, dict):
+            # Handle nested structure
+            files = module_data.get("", [])
+            if files:
+                section.extend(create_table_header(indent + "\t\t"))
+                section.extend(
+                    _generate_table_rows(
+                        files,
+                        repo_path,
+                        is_local_repo,
+                        repo_url,
+                        indent=indent + "\t\t\t",
+                    )
+                )
+                section.append(f"{indent}\t\t</table>")
+
+            # Process submodules
+            for submodule_name, submodule_data in module_data.items():
+                if submodule_name == "":
+                    continue
+                section.extend(
+                    process_module(
+                        submodule_name,
+                        submodule_data,
+                        current_path + [module_name],
+                        indent + "\t\t",
+                    )
+                )
+
+        section.extend([f"{indent}\t</blockquote>", f"{indent}</details>"])
+        return section
+
+    # Process each top-level module
+    for module_name, module_data in data.items():
+        sections.extend(process_module(module_name, module_data, [], "\t"))
+
+    sections.append("</details>")
+    return "\n".join(sections)
+
+
 def _generate_table_rows(
     files: list[tuple[str, str]],
     repo_path: str | Path,
@@ -194,18 +203,16 @@ def _generate_table_rows(
     repo_url: str,
     indent: str = "",
 ) -> list[str]:
-    """Generates table rows for files."""
+    """Generates table rows for files with improved styling."""
     content = []
     for file, summary in files:
         file_name = Path(file).name
-        file_link = _get_file_hyperlink(
-            file, repo_path, is_local_repo, repo_url
-        )
+        file_link = _get_file_hyperlink(file, repo_path, is_local_repo, repo_url)
         formatted_summary = format_summary(summary)
         content.append(
-            f"{indent}<tr>"
-            f"\n{indent}\t<td><b><a href='{file_link}'>{file_name}</a></b></td>"
-            f"\n{indent}\t<td>{formatted_summary}</td>"
+            f"{indent}<tr style='border-bottom: 1px solid #eee;'>"
+            f"\n{indent}\t<td style='padding: 8px;'><b><a href='{file_link}'>{file_name}</a></b></td>"
+            f"\n{indent}\t<td style='padding: 8px;'>{formatted_summary}</td>"
             f"\n{indent}</tr>"
         )
     return content
@@ -238,7 +245,6 @@ def group_summaries_by_nested_module(
         parts = Path(module).parts
 
         if len(parts) == 1:
-            # File in the root directory
             module_map["__root__"].append((module, summary))
         else:
             current = module_map
@@ -247,3 +253,31 @@ def group_summaries_by_nested_module(
             current.setdefault("", []).append((module, summary))
 
     return module_map
+
+
+def format_code_summaries(
+    placeholder: str,
+    code_summaries: list[tuple[str, str]],
+) -> list:
+    """Converts the given code summaries into a formatted list."""
+    return [
+        (module, summary_text)
+        if isinstance(summary, tuple) and len(summary) == 2
+        else (summary, placeholder)
+        for summary in code_summaries
+        for module, summary_text in (
+            [summary]
+            if isinstance(summary, tuple) and len(summary) == 2
+            else [(summary, placeholder)]
+        )
+    ]
+
+
+def format_summary(summary: str) -> str:
+    """
+    Formats the summary with multi-line support if needed.
+    """
+    lines = summary.strip().split(". ")
+    if len(lines) > 1:
+        return "<br>".join(f"- {line.strip()}" for line in lines)
+    return summary.strip()

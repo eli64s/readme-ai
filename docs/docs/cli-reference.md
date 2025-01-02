@@ -1,32 +1,66 @@
 ---
-title: "CLI Reference"
+title: "CLI Options"
+description: "Complete reference for readme-ai's command line interface options and configurations"
+search:
+    boost: 2
 ---
 
-README-AI offers a wide range of configuration options to customize your README generation. This page provides a comprehensive list of all available options with detailed explanations.
+# Command Line Reference
 
-## Options
+This guide provides a comprehensive reference for the readme-ai CLI, including all available options and their descriptions.
 
-| Option | Description | Default | Impact |
-|--------|-------------|---------|--------|
-| `--align` | Text alignment in header | `center` | Affects the visual layout of the README header |
-| `--api` | LLM API service | `offline` | Determines which AI service is used for content generation |
-| `--badge-color` | Badge color (name or hex) | `0080ff` | Customizes the color of status badges in the README |
-| `--badge-style` | Badge icon style type | `flat` | Changes the visual style of status badges |
-| `--context-window` | Max context window of LLM API | `3999` | Limits the amount of context provided to the LLM |
-| `--emojis` | Select emoji theme style | `default` | Adds visual flair to section headers |
-| `--header-style` | Header template style | `classic` | Changes the overall look of the README header |
-| `--image` | Project logo image | `blue` | Sets the main image displayed in the README |
-| `--image-width` | Width of the project logo | `20%` | Sets the size of the project logo |
-| `--model` | Specific LLM model to use | `gpt-3.5-turbo` | Chooses the AI model for content generation |
-| `--output` | Output filename | `readme-ai.md` | Specifies the name of the generated README file |
-| `--rate-limit` | Max API requests per minute | `5` | Prevents exceeding API rate limits |
-| `--repository` | Repository URL or local path | `None` | Specifies the project to analyze |
-| `--temperature` | Creativity level for generation | `0.9` | Controls the randomness of the AI's output |
-| `--toc-style` | Table of contents style | `bullet` | Changes the format of the table of contents |
-| `--top-p` | Top-p sampling probability | `0.9` | Fine-tunes the AI's output diversity |
-| `--tree-depth` | Max depth of directory tree | `2` | Controls the detail level of the project structure |
+## Core Options
 
-!!! note "Note"
-    Some options have a significant impact on the generated README's appearance and content. Experiment with different settings to find the best configuration for your project!
+| Option | Short | Values | Default | Description |
+|--------|-------|---------|---------|-------------|
+| `--version` | `-V` | - | - | Show the version and exit |
+| `--help` | - | - | - | Show help message and exit |
+| `--repository` | `-r` | `TEXT` | - | Repository URL (GitHub, GitLab, BitBucket) or local path *(required)* |
+| `--output` | `-o` | `TEXT` | `README.md` | Output file path for the generated README |
+
+## LLM Configuration
+
+| Option | Short | Values | Default | Description |
+|--------|-------|---------|---------|-------------|
+| `--api` | - | `anthropic`<br>`gemini`<br>`ollama`<br>`openai`<br>`offline` | `openai` | LLM API service provider |
+| `--base-url` | - | `TEXT` | - | Base URL for the LLM API service |
+| `--model` | `-m` | `TEXT` | *varies by provider* | LLM model to use |
+| `--context-window` | `-cw` | `INTEGER` | - | Maximum tokens for model's context window |
+| `--rate-limit` | `-rl` | `1-25` | - | Requests per minute for the LLM API |
+| `--temperature` | `-t` | `0.0-2.0` | `0.7` | Temperature for text generation |
+| `--top-p` | - | `0.0-1.0` | `1.0` | Top-p sampling probability |
+| `--system-message` | `-sm` | `TEXT` | - | Custom system message for the LLM |
+
+## Styling Options
+
+### Layout and Alignment
+
+| Option | Short | Values | Default | Description |
+|--------|-------|---------|---------|-------------|
+| `--align` | `-a` | `center`<br>`left`<br>`right` | `left` | Alignment for README header sections |
+| `--header-style` | `-hs` | `ASCII`<br>`ASCII_BOX`<br>`BANNER`<br>`CLASSIC`<br>`CLEAN`<br>`COMPACT`<br>`CONSOLE`<br>`MODERN` | `CLEAN` | README header style template |
+| `--navigation-style` | `-ns` | `ACCORDION`<br>`BULLET`<br>`NUMBER`<br>`ROMAN` | `BULLET` | Navigation menu style for table of contents |
+
+### Visual Elements
+
+| Option | Short | Values | Default | Description |
+|--------|-------|---------|---------|-------------|
+| `--badge-color` | `-bc` | `TEXT` | - | Primary color for badge icons (hex code or name) |
+| `--badge-style` | `-bs` | `default`<br>`flat`<br>`flat-square`<br>`for-the-badge`<br>`plastic`<br>`skills`<br>`skills-light`<br>`social` | `flat` | Visual style of badge icons |
+| `--logo` | `-l` | `ANIMATED`<br>`BLACK`<br>`BLUE`<br>`GRADIENT`<br>`ORANGE`<br>`METALLIC`<br>`PURPLE`<br>`RAINBOW`<br>`TERMINAL`<br>`CUSTOM`<br>`LLM` | `GRADIENT` | Project logo style |
+| `--logo-size` | `-ls` | `TEXT` | - | Project logo size |
+
+### Content Enhancement
+
+| Option | Short | Values | Default | Description |
+|--------|-------|---------|---------|-------------|
+| `--emojis` | `-e` | `default`<br>`minimal`<br>`ascension`<br>`fibonacci`<br>`harmony`<br>`prism`<br>`quantum`<br>`monochrome`<br>`unicode`<br>`atomic`<br>`cosmic`<br>`crystal`<br>`earth`<br>`fire`<br>`forest`<br>`nature`<br>`water`<br>`gradient`<br>`rainbow`<br>`solar`<br>`fun`<br>`vintage`<br>`zen`<br>`random` | `default` | Emoji theme for header sections |
+| `--tree-max-depth` | `-td` | `INTEGER` | `3` | Maximum depth of directory tree |
+
+!!! tip "Using Short Options"
+    Many commands have short versions (e.g., `-r` instead of `--repository`). Use these for quicker typing in the terminal.
+
+!!! note "Default Values"
+    When an option is not specified, readme-ai will use sensible defaults optimized for most use cases.
 
 ---

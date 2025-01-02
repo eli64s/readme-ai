@@ -1,31 +1,58 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.5.99.post5"
+version = "0.6.0-rc.1"
 description = "Automated README file generator, powered by AI."
-authors = ["Eli <egsalamie@gmail.com>"]
+authors = ["Eli Salamie <egsalamie@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
     "ai-documentation",
-    "anthropic",
-    "badge-generator",
+    "ai-powered",
+    "ai-readme",
+    "automatic-documentation",
+    "chat-gpt",
     "cli",
+    "code-documentation",
     "developer-tools",
-    "documentation",
-    "documentation-generator",
+    "documentation-automation",
     "gemini",
-    "gpt",
+    "github-documentation",
     "gpt-4",
-    "markdown",
+    "llm",
     "markdown-generator",
-    "markdown-md",
-    "readme-md",
-    "readme-md-generator",
+    "openai",
+    "project-documentation",
+    "readme-ai",
+    "readme-automation",
     "readme-generator",
-    "readme-template",
-    "readme-md-generator",
+    "software-documentation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Framework :: Pydantic",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Documentation",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Text Processing :: Markup :: Markdown",
 ]
 include = ["readmeai", "readmeai.*"]
 
@@ -37,10 +64,10 @@ python = "^3.9,<4.0.0"
 aiohttp = "^3.9.5"
 click = "^8.1.7"
 gitpython = "^3.1.31"
-openai = "^1.16.2"
-pydantic = "^2.8.0"
-pydantic-extra-types = "^2.9.0"
-pydantic-settings = "^2.4.0"
+openai = "*"
+pydantic = "*"
+pydantic-extra-types = "*"
+pydantic-settings = "*"
 pyyaml = "^6.0.1"
 structlog = "^24.4.0"
 tenacity = "^8.2.2"
@@ -60,11 +87,16 @@ mypy = "*"
 nox = "*"
 pre-commit = "*"
 ruff = "*"
+types-pyyaml = "*"
+types-toml = "*"
 
 [tool.poetry.group.test.dependencies]
+coverage = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+pytest-mock = "*"
+pytest-pretty = "*"
 pytest-randomly = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
@@ -74,6 +106,9 @@ mkdocs = "*"
 mkdocs-git-revision-date-localized-plugin = "*"
 mkdocs-material = { version = "*", extras = ["imaging"] }
 mkdocs-minify-plugin = "*"
+mkdocstrings-python = "*"
+mkdocs-redirects = "*"
+pymdown-extensions = "*"
 
 [tool.poetry.group.anthropic.dependencies]
 anthropic = "*"
@@ -84,13 +119,17 @@ google-generativeai = "*"
 [tool.pytest.ini_options]
 addopts = [
     "-vv",
-    "-rfEsxX",
-    "--durations=10",
-    "--numprocesses=auto",
+    "--tb=long",
+    "--capture=sys",
+    "--durations=5",
     "--cov=readmeai",
+    "--cov-append",
     "--cov-branch",
-    "--cov-report=xml",
-    "--cov-report=term-missing",
+    "--cov-fail-under=80",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=json:tests/.reports/coverage.json",
+    "--asyncio-mode=auto",
+    "--numprocesses=auto",
 ]
 asyncio_default_fixture_loop_scope = "function"
 asyncio_mode = "auto"
@@ -103,19 +142,23 @@ exclude_also = [
     "pragma: no cover",
     "raise NotImplementedError",
 ]
-fail_under = 80
-precision = 2
-show_missing = true
-skip_covered = true
-skip_empty = true
-sort = "cover"
 omit = [
+    "tests/*",
     "**/__init__.py",
     "noxfile.py",
-    "readmeai/cli/commands_line.py",
-    "readmeai/cli/interactive.py",
-    "readmeai/readers/git/metadata.py",
+    "../readme-ai/readmeai/retrievers/git/metadata.py",
+    "../readme-ai/readmeai/retrievers/git/providers.py",
+    "../readme-ai/readmeai/utilities/fetch_badges.py",
+    "../readme-ai/readmeai/extractors/tools.py",
 ]
+precision = 2
+show_missing = true
+skip_empty = true
+sort = "cover"
+
+[tool.coverage.run]
+data_file = "tests/.reports/.coverage"
+parallel = true
 
 [build-system]
 requires = ["poetry-core", "setuptools"]

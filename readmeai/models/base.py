@@ -1,15 +1,16 @@
+"""Base class for handling LLM API requests."""
+
 import asyncio
 from abc import ABC, abstractmethod
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager
-from typing import Any
+from typing import Any, List, Tuple
 
 import aiohttp
-
-from readmeai.config.constants import LLMService
 from readmeai.config.settings import ConfigLoader
-from readmeai.ingestion.models import RepositoryContext
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
+from readmeai.extractors.models import RepositoryContext
+from readmeai.models.enums import LLMProviders
 from readmeai.models.prompts import (
     get_prompt_context,
     set_additional_contexts,
@@ -17,25 +18,26 @@ from readmeai.models.prompts import (
 )
 from readmeai.models.tokens import update_max_tokens
 
+_logger = get_logger(__name__)
+
 
 class BaseModelHandler(ABC):
     """
     Interface for LLM API handler implementations.
     """
 
-    def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
-    ) -> None:
+    def __init__(self, config_loader: ConfigLoader, context: RepositoryContext) -> None:
         self._logger = get_logger(__name__)
         self._session: aiohttp.ClientSession | None = None
         self.config = config_loader.config
-        self.placeholder = self.config.md.placeholder
         self.prompts = config_loader.prompts
+        self.placeholder = self.config.md.placeholder
         self.max_tokens = self.config.llm.tokens
-        self.rate_limit = self.config.api.rate_limit
+        self.rate_limit = self.config.llm.rate_limit
         self.rate_limit_semaphore = asyncio.Semaphore(self.rate_limit)
+        self.system_message = self.config.llm.system_message
         self.temperature = self.config.llm.temperature
-        self.system_message = self.config.api.system_message
+        self.top_p = self.config.llm.top_p
         self.repo_context = context
         self.dependencies = context.dependencies
         self.documents = [
@@ -70,8 +72,8 @@ class BaseModelHandler(ABC):
         ...
 
     @abstractmethod
-    async def _build_payload(self, prompt: str, tokens: int) -> dict[str, Any]:
-        """Builds the payload for the POST request to the LLM API."""
+    async def _build_payload(self, prompt: str) -> dict[str, Any]:
+        """Build request body for making text generation requests."""
         ...
 
     @abstractmethod
@@ -82,26 +84,32 @@ class BaseModelHandler(ABC):
         tokens: int | None,
         repo_files: list[tuple[str, str]] | None,
     ) -> Any:
-        """Handles LLM API response and returns the generated text."""
+        """Makes a POST request to the LLM API and returns the response."""
         ...
 
-    async def batch_request(self) -> list[tuple[str, str]]:
+    async def batch_request(
+        self,
+    ) -> Tuple[List[Any], str, str, str]:
         """Generates a batch of prompts and processes the responses."""
-        if self.config.llm.api == LLMService.OFFLINE.name:
-            return await self._make_request(
+        if self.config.llm.api == LLMProviders.OFFLINE.value:
+            file_summaries = await self._make_request(
                 index=None,
                 prompt=None,
                 tokens=None,
                 repo_files=self.documents,
             )
-
-        summaries_prompts = await set_summary_context(
+            return (
+                file_summaries,
+                self.placeholder,
+                self.placeholder,
+                self.placeholder,
+            )
+        summaries_prompts = set_summary_context(
             self.config,
             self.documents,
         )
         summaries_responses = await self._batch_prompts(summaries_prompts)
-
-        additional_prompts = await set_additional_contexts(
+        additional_prompts = set_additional_contexts(
             self.config,
             self.repo_context,
             summaries_responses,
@@ -162,24 +170,31 @@ class BaseModelHandler(ABC):
 
     async def _make_request_code_summary(
         self,
-        file_context: list[tuple[str, str]],
-    ) -> tuple:
+        file_context: dict[str, list[tuple[str, str]]],
+    ) -> Any:
         """Generates code summaries for each file in the project."""
-        file_summaries = []
-
-        for file_path, file_content in file_context["repo_files"]:
-            prompt = self.prompts["prompts"]["file_summary"].format(
-                self.config.md.tree,
-                file_path,
-                file_content,
+        if not file_context or "repo_files" not in file_context:
+            return await self._make_request(
+                index=None,
+                prompt=None,
+                tokens=None,
+                repo_files=file_context["repo_files"],
             )
-            tokens = update_max_tokens(self.config.llm.tokens, prompt)
-            _, summary_or_error = await self._make_request(
-                file_path,
-                prompt,
-                tokens,
-                None,
-            )
-            file_summaries.append((file_path, summary_or_error))
+        else:
+            file_summaries = []
+            for file_path, file_content in file_context["repo_files"]:
+                prompt = self.prompts["prompts"]["file_summary"].format(
+                    self.config.md.directory_structure,
+                    file_path,
+                    file_content,
+                )
+                tokens = update_max_tokens(self.config.llm.tokens, prompt)
+                _, summary_or_error = await self._make_request(
+                    file_path,
+                    prompt,
+                    tokens,
+                    None,
+                )
+                file_summaries.append((file_path, summary_or_error))
 
-        return file_summaries
+            return file_summaries

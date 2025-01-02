@@ -36,23 +36,16 @@ def test_docker_compose_parser_service_details(
     """Test getting detailed service information from docker-compose.yaml."""
     docker_compose_parser.parse(docker_compose_content)
     service_details = docker_compose_parser.get_all_service_details()[0]
-
     # Validate details for broker service
     assert "broker" in service_details
-    assert (
-        service_details["broker"]["image"]
-        == "rabbitmq:3.8.2-management-alpine"
-    )
+    assert service_details["broker"]["image"] == "rabbitmq:3.8.2-management-alpine"
     assert service_details["broker"]["ports"] == ["8080:15672", "5672:5672"]
-
     # Validate details for backend service
     assert "backend" in service_details
     assert service_details["backend"]["image"] == "redis:5.0.7"
     assert (
-        service_details["backend"]["command"]
-        == "redis-server --requirepass password"
+        service_details["backend"]["command"] == "redis-server --requirepass password"
     )
-
     # Validate details for audio service
     assert "audio" in service_details
     assert "REDIS_HOST=backend" in service_details["audio"]["environment"]

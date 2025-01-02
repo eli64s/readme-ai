@@ -3,7 +3,7 @@ from pathlib import Path
 
 class TreeGenerator:
     """
-    Generates a directory tree structure for a code repository.
+    Generates a directory tree structure from a given root directory.
     """
 
     def __init__(
@@ -25,7 +25,7 @@ class TreeGenerator:
         is_last: bool = True,
         depth: int = 0,
     ) -> str:
-        """Builds a string representation of the directory structure."""
+        """Build string representation of a directory tree."""
         if depth > self.max_depth:
             return ""
 
@@ -50,6 +50,6 @@ class TreeGenerator:
         return self._format_tree(parts)
 
     def _format_tree(self, parts: list[str]) -> str:
-        """Format the directory tree structure."""
+        """Format tree structure and replace root directory name."""
         tree = "\n".join(parts)
         return tree.replace(self.root_dir.name, f"{self.repo_name}/")

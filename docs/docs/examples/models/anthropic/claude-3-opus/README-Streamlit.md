@@ -1,0 +1,11 @@
+poetry run readmeai \
+--repository https://github.com/eli64s/readme-ai-streamlit \
+--api openai \
+--logo animated \
+--logo-size 35% \
+--badge-color 6D0CDC \
+--badge-style flat \
+--header-style modern \
+--navigation-style accordion \
+--emojis unicode \
+--output

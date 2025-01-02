@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 import pytest
 from _pytest._py.path import LocalPath
 from click.testing import CliRunner
-
 from readmeai.cli.main import main
 from readmeai.config.settings import ConfigLoader
 
@@ -20,18 +19,18 @@ def mock_config():
 
 @pytest.fixture
 def mock_readme_agent():
-    with patch("readmeai.__main__.readme_agent") as mock:
+    with patch("readmeai.core.pipeline.readme_agent") as mock:
         yield mock
 
 
 def test_main_command_basic(
     cli_runner: CliRunner,
-    config_loader_fixture: ConfigLoader,
+    mock_config_loader: ConfigLoader,
     output_file_path: str,
 ):
     with patch(
         "readmeai.config.settings.ConfigLoader",
-        return_value=config_loader_fixture,
+        return_value=mock_config_loader,
     ):
         result = cli_runner.invoke(
             main,
@@ -48,17 +47,13 @@ def test_main_command_basic(
 
 def test_main_command_all_options(
     cli_runner: CliRunner,
-    config_loader_fixture: ConfigLoader,
+    mock_config_loader: ConfigLoader,
     output_file_path: str,
 ):
-    mock_config = config_loader_fixture
-    mock_config.config.git.repository = (
-        "https://github.com/eli64s/readme-ai-streamlit"
-    )
+    mock_config = mock_config_loader
+    mock_config.config.git.repository = "https://github.com/eli64s/readme-ai-streamlit"
 
-    with patch(
-        "readmeai.config.settings.ConfigLoader", return_value=mock_config
-    ):
+    with patch("readmeai.config.settings.ConfigLoader", return_value=mock_config):
         result = cli_runner.invoke(
             main,
             [
@@ -74,10 +69,9 @@ def test_main_command_all_options(
                 "flat",
                 "--context-window",
                 "4000",
-                "--emojis",
                 "--header-style",
                 "modern",
-                "--image",
+                "--logo",
                 "llm",
                 "--output",
                 output_file_path,
@@ -85,11 +79,11 @@ def test_main_command_all_options(
                 "5",
                 "--temperature",
                 "0.7",
-                "--toc-style",
+                "--navigation-style",
                 "number",
                 "--top-p",
                 "0.9",
-                "--tree-depth",
+                "--tree-max-depth",
                 "3",
             ],
         )
@@ -116,7 +110,7 @@ def test_version_option(cli_runner: CliRunner):
         (
             "--api",
             "invalid",
-            "Usage: main [OPTIONS]\nTry 'main --help' for help.\n\nError: Invalid value for '--api': 'invalid' is not one of 'ANTHROPIC', 'GEMINI', 'OLLAMA', 'OPENAI', 'OFFLINE'.",
+            "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'ollama', 'openai', 'offline'.",
         ),
         # (
         #     "--badge-color",
@@ -138,7 +132,7 @@ def test_version_option(cli_runner: CliRunner):
             "invalid",
             "Invalid value for '-hs' / '--header-style'",
         ),
-        ("--image", "invalid", "Invalid value for '-i' / '--image'"),
+        ("--logo", "invalid", "Invalid value for '-l' / '--logo'"),
         # ("--model", "invalid", "Invalid value for '-m' / '--model'"),
         (
             "--rate-limit",
@@ -150,38 +144,36 @@ def test_version_option(cli_runner: CliRunner):
             "invalid",
             "Invalid value for '-t' / '--temperature'",
         ),
-        ("--toc-style", "invalid", "Invalid value for '-ts' / '--toc-style'"),
+        (
+            "--navigation-style",
+            "invalid",
+            "Invalid value for '-ns' / '--navigation-style'",
+        ),
         (
             "--top-p",
             "invalid",
-            "Usage: main [OPTIONS]\nTry 'main --help' for help.\n\nError: Invalid value for '--top-p': 'invalid' is not a valid float range.\n",
+            "Invalid value for '-tp' / '--top-p'",
         ),
         (
-            "--tree-depth",
+            "--tree-max-depth",
             "invalid",
-            "Invalid value for '-td' / '--tree-depth'",
+            "Invalid value for '-td' / '--tree-max-depth'",
         ),
     ],
 )
 def test_invalid_option_values(
     temp_dir: LocalPath, cli_runner: CliRunner, option, value, expected
 ):
-    result = cli_runner.invoke(
-        main, ["--repository", str(temp_dir), option, value]
-    )
+    result = cli_runner.invoke(main, ["--repository", str(temp_dir), option, value])
     assert result.exit_code != 0
     assert expected in result.output
 
 
-def test_main_command_exception_handling(
-    cli_runner: CliRunner, mock_config: MagicMock
-):
+def test_main_command_exception_handling(cli_runner: CliRunner, mock_config: MagicMock):
     with (
+        patch("readmeai.config.settings.ConfigLoader", return_value=mock_config),
         patch(
-            "readmeai.config.settings.ConfigLoader", return_value=mock_config
-        ),
-        patch(
-            "readmeai.__main__.readme_agent",
+            "readmeai.core.pipeline.readme_agent",
             side_effect=Exception("Test error"),
         ),
     ):

@@ -1,8 +1,8 @@
 """Utility methods to build prompts for LLM text generation."""
 
 from readmeai.config.settings import Settings
-from readmeai.ingestion.models import RepositoryContext
-from readmeai.logger import get_logger
+from readmeai.core.logger import get_logger
+from readmeai.extractors.models import RepositoryContext
 
 _logger = get_logger(__name__)
 
@@ -23,47 +23,57 @@ def get_prompt_template(prompts: dict, prompt_type: str) -> str:
     prompt_templates = {
         "features_table": prompts["prompts"]["features_table"],
         "overview": prompts["prompts"]["overview"],
-        "slogan": prompts["prompts"]["slogan"],
+        "tagline": prompts["prompts"]["tagline"],
     }
     return prompt_templates.get(prompt_type, "")
 
 
 def inject_prompt_context(template: str, context: dict) -> str:
-    """Formats the template with the provided context."""
+    """Format the template with the provided context."""
     try:
         return template.format(*[context[key] for key in context])
-    except KeyError as exc:
-        _logger.error(f"Missing context for prompt key: {exc}")
+    except KeyError as e:
+        _logger.error(f"Missing context for prompt key: {e!r}")
+        return ""
+    except Exception as e:
+        _logger.error(f"Failed to format prompt template: {e!r}")
         return ""
 
 
-async def set_additional_contexts(
+def set_additional_contexts(
     config: Settings,
     repo_context: RepositoryContext,
     file_summaries: list[tuple[str, str]],
 ) -> list[dict]:
-    """Generates additional prompts (features, overview, slogan) for LLM."""
+    """Build additional prompts for README content generation."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
             (
                 "features_table",
                 {
-                    "name": config.git.name,
+                    "project_name": config.git.name,
+                    "repository": config.git.repository,
+                    "languages": repo_context.languages,
                     "dependencies": repo_context.dependencies,
-                    "quickstart": repo_context.quickstart,
-                    "file_summary": file_summaries,
+                    "cicd": repo_context.metadata.get("cicd", []),
+                    "containers": repo_context.metadata.get("containers", []),
+                    "documentation": repo_context.metadata.get("documentation", []),
+                    "package_managers": repo_context.metadata.get(
+                        "package_managers", []
+                    ),
+                    "file_summaries": file_summaries,
                 },
             ),
             (
                 "overview",
                 {
-                    "name": config.git.name,
+                    "project_name": config.git.name,
                     "file_summary": file_summaries,
                 },
             ),
             (
-                "slogan",
+                "tagline",
                 {
                     "name": config.git.name,
                     "repo": config.git.repository,
@@ -74,7 +84,7 @@ async def set_additional_contexts(
     ]
 
 
-async def set_summary_context(
+def set_summary_context(
     config: Settings,
     repo_files: list[tuple[str, str]],
 ) -> list[dict]:
@@ -85,7 +95,7 @@ async def set_summary_context(
             (
                 "file_summary",
                 {
-                    "tree": config.md.tree,
+                    "tree": config.md.directory_structure,
                     "repo_files": repo_files,
                 },
             ),

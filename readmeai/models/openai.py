@@ -5,6 +5,11 @@ from typing import Any
 
 import aiohttp
 import openai
+from readmeai.config.settings import ConfigLoader
+from readmeai.extractors.models import RepositoryContext
+from readmeai.models.base import BaseModelHandler
+from readmeai.models.enums import BaseURLs, LLMProviders
+from readmeai.models.tokens import token_handler
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -12,47 +17,42 @@ from tenacity import (
     wait_exponential,
 )
 
-from readmeai.config.constants import LLMService
-from readmeai.config.settings import ConfigLoader
-from readmeai.ingestion.models import RepositoryContext
-from readmeai.models.base import BaseModelHandler
-from readmeai.models.tokens import token_handler
-
 
 class OpenAIHandler(BaseModelHandler):
     """
-    OpenAI API LLM implementation, with Ollama support.
+    OpenAI API model handler implementation, with Ollama support.
     """
 
-    def __init__(
-        self, config_loader: ConfigLoader, context: RepositoryContext
-    ) -> None:
+    def __init__(self, config_loader: ConfigLoader, context: RepositoryContext) -> None:
         super().__init__(config_loader, context)
         self._model_settings()
 
     def _model_settings(self):
-        self.host_name = self.config.llm.host_name
-        self.localhost = self.config.llm.localhost
+        """Handles both OpenAI API and Ollama local deployments."""
+        self.host_name = BaseURLs["OPENAI"].value
+        self.localhost = BaseURLs["OLLAMA"].value
+        self.max_tokens = self.config.llm.tokens
         self.model = self.config.llm.model
-        self.path = self.config.llm.path
-        self.tokens = self.config.llm.tokens
+        self.resource = self.config.llm.resource
         self.top_p = self.config.llm.top_p
 
-        if self.config.llm.api == LLMService.OPENAI.name:
-            self.url = f"{self.host_name}{self.path}"
-            self.client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        if self.config.llm.api == LLMProviders.OPENAI.value:
+            self.url = f"{self.host_name}{self.resource}"
+            if os.getenv("OPENAI_API_KEY") is None:
+                raise ValueError("OpenAI API key not set in environment.")
+            self.client = openai.OpenAI()
 
-        elif self.config.llm.api == LLMService.OLLAMA.name:
-            self.url = f"{self.localhost}{self.path}"
+        elif self.config.llm.api == LLMProviders.OLLAMA.value:
+            self.url = f"{self.localhost}{self.resource}"
             self.client = openai.OpenAI(
                 base_url=f"{self.localhost}v1",
-                api_key=LLMService.OLLAMA.name,
+                api_key=LLMProviders.OLLAMA.name,
             )
 
         self.headers = {"Authorization": f"Bearer {self.client.api_key}"}
 
-    async def _build_payload(self, prompt: str, tokens: int) -> dict:
-        """Build payload for POST request to OpenAI API."""
+    async def _build_payload(self, prompt: str) -> dict[str, Any]:
+        """Build request body for making text generation requests."""
         return {
             "messages": [
                 {
@@ -62,7 +62,7 @@ class OpenAIHandler(BaseModelHandler):
                 {"role": "user", "content": prompt},
             ],
             "model": self.model,
-            "max_tokens": tokens,
+            "max_tokens": self.max_tokens,
             "temperature": self.temperature,
         }
 
@@ -84,12 +84,25 @@ class OpenAIHandler(BaseModelHandler):
         prompt: str | None,
         tokens: int | None,
         repo_files: Any,
-    ) -> Any:
-        """Processes OpenAI API LLM responses and returns generated text."""
+    ):
+        """Process requests to OpenAI API, with retries and error handling."""
         try:
-            prompt = await token_handler(self.config, index, prompt, tokens)
+            if prompt is None:
+                raise ValueError("Prompt cannot be None")
 
-            parameters = await self._build_payload(prompt, tokens)
+            prompt = await token_handler(
+                config=self.config,
+                index=index,
+                prompt=prompt,
+                tokens=tokens,
+            )
+            if not prompt:
+                raise ValueError("Token handler returned empty prompt")
+
+            if index == "file_summary":
+                self.max_tokens = 100
+
+            parameters = await self._build_payload(prompt)
 
             async with self._session.post(
                 self.url,
@@ -97,12 +110,16 @@ class OpenAIHandler(BaseModelHandler):
                 json=parameters,
             ) as response:
                 response.raise_for_status()
-                data = await response.json()
-                data = data["choices"][0]["message"]["content"]
+                response = await response.json()
+                content = response["choices"][0]["message"]["content"]
+
+                if not content:
+                    raise ValueError("Empty response from API")
+
                 self._logger.info(
-                    f"Response from OpenAI for '{index}': {data}"
+                    f"Response from {self.config.llm.api.capitalize()} for '{index}': {content}",
                 )
-                return index, data
+                return index, content
 
         except (
             aiohttp.ClientError,
@@ -110,9 +127,7 @@ class OpenAIHandler(BaseModelHandler):
             aiohttp.ClientConnectorError,
             openai.OpenAIError,
         ) as e:
-            self._logger.error(
-                f"Error processing request for '{index}': {e!r}"
-            )
+            self._logger.error(f"Error processing request for '{index}': {e!r}")
             raise  # Re-raise for retry decorator
 
         except Exception as e:
