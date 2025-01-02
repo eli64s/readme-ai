@@ -28,7 +28,7 @@
 
 </div>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Quick Links
 
@@ -43,7 +43,7 @@
 > [!IMPORTANT]
 > Explore the [Official Documentation][docs] for a complete list of features, customization options, and examples.
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Introduction
 
@@ -72,7 +72,7 @@ This project aims to streamline the process of creating and maintaining document
 [readmeai-streamlit-demo][streamlit-demo]
 -->
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Features
 
@@ -86,7 +86,7 @@ Let's begin by exploring various customization options and styles supported by R
     <!-- HEADER STYLES: CLASSIC -->
     <tr>
       <td align="left">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/img/headers/custom-dragon.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/documentation/headers/variations/custom-dragon.png?raw=true"
              alt="Classic Header"
              width="800"
              style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px;">
@@ -104,8 +104,8 @@ Let's begin by exploring various customization options and styles supported by R
     <!-- HEADER STYLES: MODERN -->
     <tr>
       <td align="left">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/examples/toc/roman-numeral.png"
-             alt="docker-go-readme-example"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/documentation/headers/variations/modern-for-the-badge.png?raw=true"
+             alt="Modern Header"
              width="800"
              style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px;">
         <p align="left"><b>CLI Command:</b></p>
@@ -122,7 +122,7 @@ Let's begin by exploring various customization options and styles supported by R
     <!-- HEADER STYLES: COMPACT -->
     <tr>
       <td align="left">
-        <img src="./docs/docs/examples/styling/headers/compact.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/examples/styling/headers/compact.png?raw=true"
           alt="Compact Header"
           width="800"
           style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px;">
@@ -146,7 +146,7 @@ Let's begin by exploring various customization options and styles supported by R
   <table>
     <tr>
       <td align="left">
-        <img src="./docs/docs/examples/styling/headers/console.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/examples/styling/headers/console.png?raw=true"
           alt="Console Header"
           width="800"
           style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px;">
@@ -165,7 +165,7 @@ Let's begin by exploring various customization options and styles supported by R
     <!-- HEADER STYLES: SVG BANNER -->
     <tr>
       <td align="left">
-        <img src="./docs/docs/examples/styling/headers/svg-banner.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/examples/styling/headers/svg-banner.png?raw=true"
           alt="SVG Banner"
           width="800"
           style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px;">
@@ -186,7 +186,7 @@ Let's begin by exploring various customization options and styles supported by R
   <table>
     <tr>
       <td align="left" style="padding: 20px;">
-        <img src="docs/docs/assets/img/project-overview/introduction.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-overview/introduction.png?raw=true"
             alt="Project Overview"
             width="800"
             style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px; margin-bottom: 15px;">
@@ -206,7 +206,7 @@ Let's begin by exploring various customization options and styles supported by R
     <!-- -->
     <tr>
       <td align="left" style="padding: 20px;">
-        <img src="https://raw.githubusercontent.com/eli64s/readme-ai/refs/heads/main/docs/docs/assets/img/headers/cloud.png"
+        <img src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/documentation/headers/variations/cloud.png?raw=true"
             alt="Custom Logo"
             width="800"
             style="border: 1px solid #E7E9EB; border-radius: 5px; padding: 5px; margin-bottom: 15px;">
@@ -312,7 +312,7 @@ Let's begin by exploring various customization options and styles supported by R
 
 </details>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Getting Started
 
@@ -648,7 +648,7 @@ If you installed the project from source with the bash script, run the following
 
 </details>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ### Testing
 
@@ -677,7 +677,7 @@ Using nox, test the app against Python versions `3.9`, `3.10`, `3.11`, and `3.12
 > [!TIP]
 > <sub>Nox is an automation tool for testing applications in multiple environments. This helps ensure your project is compatible with across Python versions and environments.</sub>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Configuration
 
@@ -712,7 +712,7 @@ Visit the [Official Documentation][docs] for a complete guide on configuring and
 
 </sub>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Example Gallery
 
@@ -743,7 +743,7 @@ We invite developers to share their generated README files in our [Show & Tell][
 
 Find additional README examples in our [examples directory][examples-directory] on GitHub.
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 ## Roadmap
 
@@ -806,7 +806,7 @@ Released under the [MIT][license] license.
 
 </div>
 
-<img src="docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
+<img src="https://raw.githubusercontent.com/eli64s/readme-ai/eb2a0b4778c633911303f3c00f87874f398b5180/docs/docs/assets/svg/line-gradient.svg" alt="line break" width="100%" height="3px">
 
 <!-- REFERENCE LINKS -->
 <!-- README-AI RESOURCES -->
@@ -875,14 +875,14 @@ Released under the [MIT][license] license.
 
 <!-- EXAMPLES -->
 <!-- FEATURES -->
-[project-overview]: https://github.com/eli64s/readme-ai/blob/main/https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-overview/introduction.png?raw=true
-[features-table]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/features/features.png
-[project-structure]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-structure.png
-[project-index]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-index.png
-[installation-steps]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/installation-steps.png
-[usage-guides]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/usage-guides.png
-[community-and-support]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/community-and-support.png
-[contributing-guidelines]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/contributing-guidelines.png
+[project-overview]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-overview/introduction.png?raw=true
+[features-table]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/features/features.png?raw=true
+[project-structure]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-structure.png?raw=true
+[project-index]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/project-structure/project-index.png?raw=true
+[installation-steps]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/installation-steps.png?raw=true
+[usage-guides]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/getting-started/usage-guides.png?raw=true
+[community-and-support]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/community-and-support.png?raw=true
+[contributing-guidelines]: https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/img/community/contributing-guidelines.png?raw=true
 [readmeai.parsers]: https://github.com/eli64s/readme-ai/tree/main/readmeai/parsers
 [tree.py]: https://github.com/eli64s/readme-ai/blob/main/readmeai/generators/tree.py
 [prompts.toml]: https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings/prompts.toml

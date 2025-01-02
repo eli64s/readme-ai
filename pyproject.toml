@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.6.0-rc.2"
+version = "0.6.0-rc.3"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli Salamie <egsalamie@gmail.com>"]
 license = "MIT"
