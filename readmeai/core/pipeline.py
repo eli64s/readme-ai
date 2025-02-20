@@ -43,7 +43,7 @@ def readme_agent(config: ConfigLoader, output_file: str) -> None:
 
 async def readme_generator(config: ConfigLoader, output_file: str) -> None:
     """Processes the repository and builds the README file."""
-    section_contents = get_readme(config)
+    section_contents = await get_readme(config)
 
     FileHandler().write(output_file, section_contents)
 
