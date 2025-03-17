@@ -12,7 +12,7 @@
       Designed for simplicity, customization, and developer productivity.
     </p>
     <div class="cta-buttons">
-      <a href="https://eli64s.github.io/readme-ai/usage/prerequisites/" class="button primary">
+      <a href="https://eli64s.github.io/readme-ai/getting-started/prerequisites/" class="button primary">
         Getting Started →
       </a>
       <a href="https://github.com/eli64s/readme-ai" class="button secondary">
