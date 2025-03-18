@@ -1,7 +1,13 @@
 <div id="top">
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/eli64s/readme-ai/aaeb55cf989d1f43f43e45d5219ae3e8c6be7435/docs/docs/assets/svg/logo-gradient.svg" alt="ReadmeAI Logo" width="85%">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg">
+  <img alt="ReadmeAI Logo" src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg" width="60%">
+</picture>
+
 </p>
 
 <p align="center">
