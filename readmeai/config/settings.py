@@ -134,8 +134,13 @@ class MarkdownSettings(BaseModel):
     # Navigation Settings
     navigation_style: NavigationStyles = Field(default=NavigationStyles.BULLET)
     top_anchor_markup: str = Field(default='<div id="top">')
-    return_to_top_markup: str = Field(
-        default="""<div align="left"><a href="#top">⬆ Return</a></div>\n"""
+    return_to_top_div: str = Field(
+        default="""<div align="right">\n\n[![][back-to-top]](#top)\n\n</div>""",
+        description="Return to top link markdown",
+    )
+    return_to_top_reflink: str = Field(
+        default="""[back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square""",
+        description="Return to top link reference",
     )
 
     # Content Settings

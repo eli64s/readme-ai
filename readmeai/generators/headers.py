@@ -1,6 +1,5 @@
 import re
 from enum import Enum
-from pathlib import Path
 from typing import Any, Dict, Final, List, TypedDict
 
 from pydantic import BaseModel, ConfigDict, Field, computed_field
@@ -10,8 +9,14 @@ from readmeai.utilities.file_handler import FileHandler
 from readmeai.utilities.resource_manager import build_resource_path
 
 _logger = get_logger(__name__)
+
 _package = "readmeai.config"
 _submodule = "settings/templates"
+headers_path = build_resource_path(
+    file_path="headers.toml",
+    module=_package,
+    submodule=_submodule,
+)
 
 
 class SectionType(str, Enum):
@@ -83,30 +88,11 @@ class HeaderTemplate(BaseModel):
 
     file_handler: FileHandler = FileHandler()
     style: str = HeaderStyles.CLASSIC
-
-    @property
-    @computed_field
-    def headers_path(self) -> Path:
-        return build_resource_path(
-            file_path="headers.toml",
-            module=_package,
-            submodule=_submodule,
-        )
-
-    @property
-    @computed_field
-    def header_styles(self) -> Dict[str, Any]:
-        """Fetch the header styles from the headers.toml file."""
-        return self.file_handler.read(self.headers_path)
-
-    @property
-    @computed_field
-    def templates(self) -> Dict[HeaderStyles, str]:
-        """Fetch the header style templates."""
-        return {
-            HeaderStyles(k): v["template"]
-            for k, v in self.header_styles["header_styles"].items()
-        }
+    header_styles: HeaderStyles = file_handler.read(headers_path)
+    templates: Dict[HeaderStyles, str] = {
+        HeaderStyles(k): v["template"]
+        for k, v in header_styles["header_styles"].items()
+    }
 
     @computed_field
     def get_template(self) -> str:

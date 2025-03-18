@@ -43,8 +43,9 @@ logs/
 # VSCode Workspace Settings
 .vscode/
 
-# README-AI
+# ReadmeAI
 .readmeai/
 .actrc
+.version.tmp
 .github/workflows/update-badges-local.yml
 .github/workflows/update-badges.yml

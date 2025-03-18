@@ -14,7 +14,7 @@ clean: ## Clean project files
 
 
 # -------------
-# Docs
+# MkDocs Site
 # -------------
 
 .PHONY: docs
@@ -53,7 +53,7 @@ to-requirements: ## Export Poetry dependencies to requirements.txt
 
 
 # -------------
-# Code Quality
+# Format & Lint
 # -------------
 
 .PHONY: format
@@ -66,7 +66,7 @@ lint: ## Lint codebase using Ruff
 
 
 # -------------
-# Tests
+# Unit Tests
 # -------------
 
 .PHONY: test
@@ -84,6 +84,8 @@ test-nox: ## Run test suite using Nox
 # TestPyPI
 # -------------
 
+VERSION_FILE := .version.tmp
+
 .PHONY: testpypi-config
 testpypi-config: ## Configure Poetry for TestPyPI
 	@echo "Setting up TestPyPI repository..."
@@ -93,24 +95,49 @@ testpypi-config: ## Configure Poetry for TestPyPI
 .PHONY: testpypi-build
 testpypi-build: ## Build package for TestPyPI
 	@echo "Building package for TestPyPI..."
-	poetry version prepatch
-	poetry build
+	@# Generate a unique version with timestamp
+	@poetry version 0.6.2a$$(date +%s)
+	@# Store the version for later use
+	@poetry version -s > $(VERSION_FILE)
+	@poetry build
 
 .PHONY: testpypi-publish
 testpypi-publish: testpypi-build ## Publish package to TestPyPI
 	@echo "Publishing to TestPyPI..."
-	poetry publish -r testpypi
+	@poetry publish -r testpypi
+	@echo "Published version $$(cat $(VERSION_FILE))"
 
 .PHONY: testpypi-test
 testpypi-test: ## Test package installation from TestPyPI
 	@echo "Testing package installation from TestPyPI..."
-	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ readmeai && \
-	readmeai --version && \
-	@echo "TestPyPI installation test completed successfully."
+	@if [ ! -f $(VERSION_FILE) ]; then \
+		echo "Error: Version file not found. Run testpypi-publish first."; \
+		exit 1; \
+	fi
+	pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ readmeai==$$(cat $(VERSION_FILE)) && \
+	readmeai --help && \
+	readmeai --version
+
+.PHONY: testpypi-example
+testpypi-example: ## Test package with example repository
+	@echo "Testing package with example repository..."
+	@if [ ! -f $(VERSION_FILE) ]; then \
+		echo "Error: Version file not found. Run testpypi-publish first."; \
+		exit 1; \
+	fi
+	pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ readmeai==$$(cat $(VERSION_FILE)) && \
+	readmeai -r https://github.com/eli64s/readme-ai --api offline --output readme_testpypi.md
+	# readmeai -r https://github.com/eli64s/markitecture --api openai --output readme_testpypi_markitect.md -hs modern -bs flat-square -t 0.9
 
 .PHONY: testpypi
 testpypi: testpypi-publish testpypi-test ## Full TestPyPI workflow (build, publish, test)
 	@echo "TestPyPI workflow completed."
+
+.PHONY: testpypi-cleanup
+testpypi-cleanup: ## Clean up temporary version file
+	@rm -f $(VERSION_FILE)
+	@rm readme_testpypi.md readme_testpypi_markitect.md
+	@echo "Cleanup completed."
 
 
 # -------------
