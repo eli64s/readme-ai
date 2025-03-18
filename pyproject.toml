@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.6.0"
+version = "0.6.2a0"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli Salamie <egsalamie@gmail.com>"]
 license = "MIT"
@@ -54,7 +54,11 @@ classifiers = [
     "Topic :: Software Development :: Documentation",
     "Topic :: Text Processing :: Markup :: Markdown",
 ]
-include = ["readmeai", "readmeai.*"]
+include = [
+    "readmeai",
+    "readmeai.*",
+    "readmeai/config/settings/templates/*",
+]
 
 [tool.poetry.scripts]
 readmeai = "readmeai.cli.main:main"
@@ -100,6 +104,8 @@ pytest-pretty = "*"
 pytest-randomly = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
+pytest-memray = "^1.7.0"
+pytest-fastest = "^0.0.12"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
@@ -119,21 +125,21 @@ google-generativeai = "*"
 [tool.pytest.ini_options]
 addopts = [
     "-vv",
-    "--tb=long",
-    "--capture=sys",
+    "-n=auto",
     "--durations=5",
+    "--fastest-mode=skip",
+    "--fastest-commit=main",
     "--cov=readmeai",
     "--cov-append",
     "--cov-branch",
     "--cov-fail-under=80",
     "--cov-report=term-missing:skip-covered",
     "--cov-report=json:tests/.reports/coverage.json",
-    "--asyncio-mode=auto",
-    "--numprocesses=auto",
 ]
 asyncio_default_fixture_loop_scope = "function"
 asyncio_mode = "auto"
-pythonpath = ["readmeai"]
+log_cli = true
+log_level = "INFO"
 testpaths = ["tests"]
 
 [tool.coverage.report]
