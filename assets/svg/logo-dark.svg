@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350">
+    <defs>
+        <!-- Rich gradient with depth - optimized for dark backgrounds -->
+        <linearGradient id="depthGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#5A7CE1;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#8F52E3;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#AA5BE2;stop-opacity:1" />
+        </linearGradient>
+        <!-- Highlight gradient for 3D effect - enhanced for dark backgrounds -->
+        <linearGradient id="highlightGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.15" />
+        </linearGradient>
+        <!-- Shadow gradient for 3D effect - enhanced for dark backgrounds -->
+        <linearGradient id="shadowGradientDark" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#000000;stop-opacity:0.5" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.2" />
+        </linearGradient>
+        <!-- Enhanced glow effect for dark backgrounds -->
+        <filter id="enhancedGlowDark" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.7" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <!-- Dynamic particle effect for dark backgrounds -->
+        <radialGradient id="dynamicParticleDark" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1">
+                <animate attributeName="stop-color"
+                         values="#FFFFFF;#5A7CE1;#AA5BE2;#FFFFFF" dur="5s"
+                         repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" style="stop-color:#AA5BE2;stop-opacity:0">
+                <animate attributeName="stop-color"
+                         values="#AA5BE2;#FFFFFF;#5A7CE1;#AA5BE2" dur="5s"
+                         repeatCount="indefinite" />
+            </stop>
+        </radialGradient>
+        <!-- Subtle dark pattern -->
+        <pattern id="darkPattern" width="100" height="100"
+                 patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="#111827" />
+            <circle cx="50" cy="50" r="40" fill="#121B2E" />
+        </pattern>
+    </defs>
+    <!-- Background with subtle texture for dark mode -->
+    <rect width="500" height="350" fill="url(#darkPattern)" />
+    <!-- Dynamic background accent - enhanced for dark mode -->
+    <circle cx="250" cy="150" r="120" fill="url(#depthGradientDark)" opacity="0.15">
+        <animate attributeName="r" values="120;127;120" dur="5s"
+                 repeatCount="indefinite" />
+    </circle>
+    <!-- Main 3D container with enhanced effects for dark backgrounds -->
+    <g transform="translate(250, 145)">
+        <!-- 3D effect base layer -->
+        <rect x="-75" y="-75" width="150" height="150" rx="20"
+              fill="url(#depthGradientDark)"
+              filter="drop-shadow(0px 0px 15px rgba(138, 43, 226, 0.4))" />
+        <!-- Highlight layer for 3D effect - optimized for dark -->
+        <rect x="-75" y="-75" width="150" height="75" rx="20"
+              fill="url(#highlightGradientDark)" opacity="0.5" />
+        <!-- Shadow layer for 3D effect - optimized for dark -->
+        <rect x="-75" y="0" width="150" height="75" rx="20"
+              fill="url(#shadowGradientDark)" opacity="0.5" />
+        <!-- 3D Markdown Symbol -->
+        <path d="M -40 -50
+               L -40 50
+               L -10 50
+               L 0 30
+               L 10 50
+               L 40 50
+               L 40 -50
+               Z" fill="#FFFFFF" filter="url(#enhancedGlowDark)" />
+    </g>
+    <!-- Dynamic particle effects - enhanced for dark backgrounds -->
+    <g class="dynamic-particles">
+        <!-- Orbiting particles with stronger glow effect -->
+        <circle cx="0" cy="0" r="3" fill="url(#dynamicParticleDark)"
+                filter="url(#enhancedGlowDark)">
+            <animateMotion path="M 250 145 a 90 90 0 1 1 0 1" dur="8s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="2" fill="url(#dynamicParticleDark)"
+                filter="url(#enhancedGlowDark)">
+            <animateMotion path="M 250 145 a 85 85 0 1 0 0 1" dur="6s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="2.5" fill="url(#dynamicParticleDark)"
+                filter="url(#enhancedGlowDark)">
+            <animateMotion path="M 250 145 a 100 100 0 1 1 0 1" dur="10s"
+                           repeatCount="indefinite" />
+        </circle>
+        <!-- Additional particles for dark background -->
+        <circle cx="0" cy="0" r="1.8" fill="url(#dynamicParticleDark)"
+                filter="url(#enhancedGlowDark)">
+            <animateMotion path="M 250 145 a 70 70 0 1 0 0 1" dur="7s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="1.5" fill="url(#dynamicParticleDark)"
+                filter="url(#enhancedGlowDark)">
+            <animateMotion path="M 250 145 a 110 110 0 1 1 0 1" dur="12s"
+                           repeatCount="indefinite" />
+        </circle>
+    </g>
+    <!-- Brand name with enhanced glow for dark backgrounds -->
+    <text x="250" y="260"
+          font-family="'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif"
+          font-size="44" font-weight="800" text-anchor="middle"
+          fill="url(#depthGradientDark)"
+          filter="drop-shadow(0px 0px 4px rgba(138, 43, 226, 0.6))">README-AI</text>
+    <!-- Tagline with enhanced visibility for dark backgrounds -->
+    <text x="250" y="290" font-family="'SF Mono', 'Roboto Mono', monospace"
+          font-size="15" font-weight="500" text-anchor="middle" fill="#BEB3FF"
+          letter-spacing="1"
+          filter="drop-shadow(0px 0px 2px rgba(138, 43, 226, 0.4))">Where Structure
+        Meets Meaning</text>
+</svg>
