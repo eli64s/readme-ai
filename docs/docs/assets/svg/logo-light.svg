@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350">
+    <defs>
+        <!-- Rich gradient with depth - optimized for light backgrounds -->
+        <linearGradient id="depthGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#7B3DE3;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+        </linearGradient>
+        <!-- Highlight gradient for 3D effect - enhanced for light backgrounds -->
+        <linearGradient id="highlightGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.1" />
+        </linearGradient>
+        <!-- Shadow gradient for 3D effect - enhanced for light backgrounds -->
+        <linearGradient id="shadowGradientLight" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#000000;stop-opacity:0.25" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.05" />
+        </linearGradient>
+        <!-- Enhanced glow effect for light backgrounds -->
+        <filter id="enhancedGlowLight" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.5" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <!-- Dynamic particle effect for light backgrounds -->
+        <radialGradient id="dynamicParticleLight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1">
+                <animate attributeName="stop-color"
+                         values="#FFFFFF;#4169E1;#8A2BE2;#FFFFFF" dur="6s"
+                         repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:0">
+                <animate attributeName="stop-color"
+                         values="#8A2BE2;#FFFFFF;#4169E1;#8A2BE2" dur="6s"
+                         repeatCount="indefinite" />
+            </stop>
+        </radialGradient>
+        <!-- Subtle drop shadow -->
+        <filter id="dropShadowLight" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#000000"
+                          flood-opacity="0.2" />
+        </filter>
+        <!-- Subtle light pattern -->
+        <pattern id="lightPattern" width="100" height="100"
+                 patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="#F8F9FA" />
+            <circle cx="50" cy="50" r="40" fill="#FFFFFF" />
+        </pattern>
+    </defs>
+    <!-- Background with subtle texture for light mode -->
+    <rect width="500" height="350" fill="url(#lightPattern)" />
+    <!-- Dynamic background accent - lighter -->
+    <circle cx="250" cy="150" r="120" fill="url(#depthGradientLight)" opacity="0.07">
+        <animate attributeName="r" values="120;125;120" dur="4s"
+                 repeatCount="indefinite" />
+    </circle>
+    <!-- Main 3D container with enhanced shadow for light backgrounds -->
+    <g transform="translate(250, 145)">
+        <!-- 3D effect base layer -->
+        <rect x="-75" y="-75" width="150" height="150" rx="20"
+              fill="url(#depthGradientLight)" filter="url(#dropShadowLight)" />
+        <!-- Highlight layer for 3D effect - optimized for light -->
+        <rect x="-75" y="-75" width="150" height="75" rx="20"
+              fill="url(#highlightGradientLight)" opacity="0.4" />
+        <!-- Shadow layer for 3D effect - optimized for light -->
+        <rect x="-75" y="0" width="150" height="75" rx="20"
+              fill="url(#shadowGradientLight)" opacity="0.35" />
+        <!-- 3D Markdown Symbol -->
+        <path d="M -40 -50
+               L -40 50
+               L -10 50
+               L 0 30
+               L 10 50
+               L 40 50
+               L 40 -50
+               Z" fill="#FFFFFF" filter="url(#enhancedGlowLight)" />
+    </g>
+    <!-- Dynamic particle effects - enhanced visibility for light backgrounds -->
+    <g class="dynamic-particles">
+        <!-- Orbiting particles -->
+        <circle cx="0" cy="0" r="3" fill="url(#dynamicParticleLight)"
+                filter="url(#enhancedGlowLight)">
+            <animateMotion path="M 250 145 a 90 90 0 1 1 0 1" dur="8s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="2" fill="url(#dynamicParticleLight)"
+                filter="url(#enhancedGlowLight)">
+            <animateMotion path="M 250 145 a 85 85 0 1 0 0 1" dur="6s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="2.5" fill="url(#dynamicParticleLight)"
+                filter="url(#enhancedGlowLight)">
+            <animateMotion path="M 250 145 a 100 100 0 1 1 0 1" dur="10s"
+                           repeatCount="indefinite" />
+        </circle>
+        <!-- Additional particles for light background -->
+        <circle cx="0" cy="0" r="1.8" fill="url(#dynamicParticleLight)"
+                filter="url(#enhancedGlowLight)">
+            <animateMotion path="M 250 145 a 70 70 0 1 0 0 1" dur="7s"
+                           repeatCount="indefinite" />
+        </circle>
+    </g>
+    <!-- Brand name with optimized shadow for light backgrounds -->
+    <text x="250" y="260"
+          font-family="'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif"
+          font-size="44" font-weight="800" text-anchor="middle"
+          fill="url(#depthGradientLight)"
+          filter="drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3))">README-AI</text>
+    <!-- Tagline with enhanced contrast for light backgrounds -->
+    <text x="250" y="290" font-family="'SF Mono', 'Roboto Mono', monospace"
+          font-size="15" font-weight="500" text-anchor="middle" fill="#4B3DE3"
+          letter-spacing="1"
+          filter="drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.8))">Where Structure
+        Meets Meaning</text>
+</svg>

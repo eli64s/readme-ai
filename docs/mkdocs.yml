@@ -1,7 +1,9 @@
-# -- ReadmeAI MkDocs Static Site Configuration ----------------------------
+# -----------------------------------------
+# ReadmeAI MkDocs Static Site Configuration
+# -----------------------------------------
 
-site_name: README-AI
-site_description: "README-AI: Your AI-powered documentation assistant. Designed for simplicity, customization, and developer productivity."
+site_name: ReadmeAI
+site_description: "ReadmeAI: Your AI-powered documentation assistant. Designed for simplicity, customization, and developer productivity."
 site_author: Eli Salamie
 site_url: https://docs.readme-ai.com/
 site_dir: ../site
@@ -9,7 +11,8 @@ repo_name: eli64s/readme-ai
 repo_url: https://github.com/eli64s/readme-ai
 edit_uri: edit/main/docs/docs/
 docs_dir: "docs/"
-copyright: "© 2023-2025 README-AI"
+copyright: >+
+  Copyright &copy; 2023 - 2025 <a href="https://eli64s.github.io/readme-ai/" target="_blank">ReadmeAI.</a> All rights reserved.
 
 theme:
   name: material
@@ -59,18 +62,22 @@ theme:
     - search.suggest
     - toc.follow
   palette:
-    - scheme: light
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: white
       accent: deep-purple
       toggle:
         icon: material/brightness-7
-        name: Switch to light mode
-    - scheme: dark
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: black
       accent: deep-purple
       toggle:
         icon: material/brightness-4
-        name: Switch to dark mode
+        name: Switch to light mode
 
 markdown_extensions:
   - admonition

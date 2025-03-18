@@ -1,9 +1,18 @@
 # <!-- -->
+
 <div class="hero-section">
   <div class="hero-content">
-    <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/eli64s/readme-ai/aaeb55cf989d1f43f43e45d5219ae3e8c6be7435/docs/docs/assets/svg/logo-gradient.svg"
-      alt="readme-ai">
+    <div class="logo-container" align="center">
+      <img
+        src="assets/svg/logo-gradient.svg"
+        class="light-mode-logo"
+        alt="ReadmeAI Logo"
+        width="100%">
+      <img
+        src="assets/svg/logo-gradient.svg"
+        class="dark-mode-logo"
+        alt="ReadmeAI Logo"
+        width="100%">
     </div>
     <h2 class="tagline">
       Your AI-Powered Documentation Assistant
@@ -12,11 +21,11 @@
       Designed for simplicity, customization, and developer productivity.
     </p>
     <div class="cta-buttons">
-      <a href="https://eli64s.github.io/readme-ai/getting-started/prerequisites/" class="button primary">
-        Getting Started →
+      <a href="getting-started/prerequisites/" class="button primary">
+        ▷ Getting Started
       </a>
       <a href="https://github.com/eli64s/readme-ai" class="button secondary">
-        View on GitHub →
+         ▷ View on GitHub
       </a>
     </div>
     <div class="badges">
@@ -35,6 +44,7 @@
     </div>
   </div>
 </div>
+
 <div class="features-grid">
   <div class="feature-card">
     <div class="feature-icon">🚀</div>
@@ -57,6 +67,7 @@
     <p>Works with any programming language or framework</p>
   </div>
 </div>
+
 <div class="quick-start">
   <h2>Quick Start</h2>
   <div class="installation-steps">
@@ -75,4 +86,4 @@
   </div>
 </div>
 
----
+<hr />
