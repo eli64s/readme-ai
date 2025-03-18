@@ -224,7 +224,10 @@ class MarkdownBuilder:
             # -- ACKNOWLEDGMENTS -----------------------------
             f"## {self.theme_manager.apply_theme_to_section('Acknowledgment')}\n\n{self.acknowledgment}",
             # -- FOOTER -------------------------------------
-            self.md.return_to_top_markup,
+            self.md.return_to_top_div,
+            "\n",
+            self.md.return_to_top_reflink,
+            "\n",
             self.thematic_break,
         ]
         return "\n".join(sections)
