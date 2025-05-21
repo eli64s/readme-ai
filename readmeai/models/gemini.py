@@ -1,12 +1,14 @@
-"""
-Google Cloud's Gemini API handler implementation.
-"""
+"""Google Gemini LLM API service implementation."""
 
-import os
-from typing import List, Tuple
+from typing import Any
 
 import aiohttp
-import google.generativeai as genai
+from readmeai.config.settings import ConfigLoader
+from readmeai.extractors.models import RepositoryContext
+from readmeai.models.base import BaseModelHandler
+from readmeai.models.enums import GeminiModels
+from readmeai.models.tokens import token_handler
+from readmeai.utilities.importer import is_available
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -14,75 +16,85 @@ from tenacity import (
     wait_exponential,
 )
 
-from readmeai.config.settings import ConfigLoader
-from readmeai.core.models import BaseModelHandler
-from readmeai.models.tokens import token_handler
-from readmeai.utils.text_cleaner import clean_response
-
 
 class GeminiHandler(BaseModelHandler):
-    """Google Gemini API LLM implementation."""
+    """
+    Google Gemini LLM API service implementation.
+    """
 
-    def __init__(self, config_loader: ConfigLoader) -> None:
-        """Initializes the Gemini API handler."""
-        super().__init__(config_loader)
+    def __init__(self, config_loader: ConfigLoader, context: RepositoryContext) -> None:
+        super().__init__(config_loader, context)
         self._model_settings()
 
     def _model_settings(self):
-        """Initializes the Gemini API LLM settings."""
-        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-        self.model = genai.GenerativeModel(self.config.llm.model)
-        self.temperature = self.config.llm.temperature
-        self.tokens = self.config.llm.tokens
-        self.top_p = self.config.llm.top_p
+        if is_available("google.generativeai"):
+            import google.generativeai as genai
 
-    async def _build_payload(self, prompt: str, tokens: int) -> dict:
-        """Build payload for POST request to the Gemini API."""
-        return genai.types.GenerationConfig(
-            # candidate_count=1,
-            # stop_sequences=['x'],
-            max_output_tokens=self.tokens,
-            temperature=self.temperature,
-        )
+            self.model_name = GeminiModels.GEMINI_FLASH.value
+            genai.configure()
+            self.model = genai.GenerativeModel(self.model_name)
+            self.generation_config = genai.types.GenerationConfig(
+                max_output_tokens=self.max_tokens,
+                temperature=self.temperature,
+                top_p=self.top_p,
+            )
+        else:
+            self._logger.error(
+                "Google Generative AI library is not installed in current environment."
+            )
+            raise RuntimeError(
+                """Install the optional dependencies for Gemini:
+                pip install 'readmeai[google-generativeai]'"""
+            )
+
+    async def _build_payload(self, prompt: str) -> Any:
+        """Build request body for making text generation requests."""
+        return self.generation_config
 
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        retry=retry_if_exception_type(
-            (
-                aiohttp.ClientError,
-                aiohttp.ClientResponseError,
-                aiohttp.ClientConnectorError,
-            )
-        ),
+        retry=retry_if_exception_type((
+            aiohttp.ClientError,
+            aiohttp.ClientResponseError,
+            aiohttp.ClientConnectorError,
+        )),
     )
     async def _make_request(
         self,
-        index: str,
-        prompt: str,
-        tokens: int,
-        raw_files: List[Tuple[str, str]] = None,
-    ) -> Tuple[str, str]:
+        index: str | None,
+        prompt: str | None,
+        tokens: int | None,
+        repo_files: Any,
+    ) -> Any:
         """Processes Gemini API responses and returns generated text."""
         try:
-            prompt = await token_handler(self.config, index, prompt, tokens)
-            parameters = await self._build_payload(prompt, tokens)
+            prompt = await token_handler(
+                config=self.config,
+                index=index,
+                prompt=prompt,
+                tokens=tokens,
+            )
+
+            parameters = await self._build_payload(prompt)
 
             async with self.rate_limit_semaphore:
                 response = await self.model.generate_content_async(
                     prompt,
                     generation_config=parameters,
                 )
-                response_text = response.text
-                self._logger.info(f"Response for '{index}':\n{response_text}")
-                return index, clean_response(index, response_text)
+                content = response.text if hasattr(response, "text") else str(response)
+                self._logger.info(f"Response from Gemini for '{index}': {content}")
+                return index, content
 
         except (
             aiohttp.ClientError,
             aiohttp.ClientResponseError,
             aiohttp.ClientConnectorError,
-        ) as exc:
-            self._logger.error(
-                f"Error making request to Gemini API for `{index}`: {exc}"
-            )
-            return index, self.config.md.placeholder
+        ) as e:
+            self._logger.error(f"Gemini API error for '{index}': {e!r}")
+            raise  # Re-raise for retry decorator
+
+        except Exception as e:
+            self._logger.error(f"Unexpected error for '{index}': {e!r}")
+            return index, self.placeholder

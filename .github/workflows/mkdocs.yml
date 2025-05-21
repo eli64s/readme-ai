@@ -23,7 +23,9 @@ jobs:
           poetry install
 
     - name: Build the MkDocs site
-      run: poetry run mkdocs build
+      working-directory: ./docs
+      run: |
+          poetry run mkdocs build --site-dir ../site
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800px" height="800px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color: #FF0000"/> <!-- Red -->
+            <stop offset="16.67%" style="stop-color: #FF7F00"/> <!-- Orange -->
+            <stop offset="33.33%" style="stop-color: #FFFF00"/> <!-- Yellow -->
+            <stop offset="50%" style="stop-color: #00FF00"/> <!-- Green -->
+            <stop offset="66.67%" style="stop-color: #0000FF"/> <!-- Blue -->
+            <stop offset="83.33%" style="stop-color: #4B0082"/> <!-- Indigo -->
+            <stop offset="100%" style="stop-color: #8F00FF"/> <!-- Violet -->
+        </linearGradient>
+    </defs>
+    <path fill="url(#rainbowGradient)" d="M6.345 5h2.1v6.533H6.993l.055-5.31-1.774 5.31H4.072l-1.805-5.31c.04.644.06 5.31.06 5.31H1V5h2.156s1.528 4.493 1.577 4.807L6.345 5zm6.71 3.617v-3.5H11.11v3.5H9.166l2.917 2.916L15 8.617h-1.945z"/>
+</svg>

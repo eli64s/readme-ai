@@ -1,56 +1,116 @@
-"""
-Tests for Google Cloud Gemini API LLM handler implementation.
-"""
+from unittest.mock import AsyncMock, patch
 
-from unittest.mock import AsyncMock, MagicMock, patch
-
+import aiohttp
 import pytest
-
+import tenacity
 from readmeai.models.gemini import GeminiHandler
 
 
-@pytest.mark.asyncio
-async def test_gemini_handler_sets_attributes(gemini_handler):
-    """Test that the Gemini API handler sets the correct attributes."""
+def test_gemini_handler_sets_attributes(gemini_handler: GeminiHandler):
+    """Test that the Gemini handler sets the correct attributes."""
+    assert gemini_handler.model_name == "gemini-1.5-flash"
     assert hasattr(gemini_handler, "model")
-    assert hasattr(gemini_handler, "temperature")
-    assert hasattr(gemini_handler, "tokens")
+    assert hasattr(gemini_handler, "generation_config")
+    assert gemini_handler.top_p == 0.9
 
 
 @pytest.mark.asyncio
-async def test_gemini_make_request_with_context(gemini_handler):
-    """Test that the Gemini API handler handles a response with context."""
-    # Arrange
-    handler = gemini_handler
-    handler.http_client = MagicMock()
-    # Act
-    with patch.object(
-        GeminiHandler, "_make_request", new_callable=AsyncMock
-    ) as mock_make_request:
-        # Act
-        await handler._make_request()
-        # Assert
-        mock_make_request.assert_called_once_with()
-        handler.http_client.post.assert_not_called()
-        mock_make_request.assert_called_once_with()
+async def test_gemini_build_payload(gemini_handler: GeminiHandler):
+    """Test payload building for Gemini."""
+    payload = await gemini_handler._build_payload("test_prompt")
+    assert payload.max_output_tokens == gemini_handler.max_tokens
+    assert payload.temperature == gemini_handler.temperature
+    assert payload.top_p == gemini_handler.top_p
 
 
 @pytest.mark.asyncio
-async def test_make_request_success(mock_config, mock_configs):
-    """Test that the Gemini API handler handles a successful response."""
-    mock_config.llm.context_window = 100
-    mock_response = MagicMock()
-    mock_response.text = "Generated text"
-    mock_model = MagicMock()
-    mock_model.generate_content_async = AsyncMock(return_value=mock_response)
-
-    with patch(
-        "readmeai.models.gemini.genai.GenerativeModel", return_value=mock_model
-    ):
-        handler = GeminiHandler(mock_configs)
-        response_index, response_text = await handler._make_request(
-            "test_index", "test_prompt", 100
+async def test_gemini_make_request_success(gemini_handler: GeminiHandler):
+    """Test a successful request to the Gemini API."""
+    with patch.object(gemini_handler.model, "generate_content_async") as mock_generate:
+        mock_response = AsyncMock()
+        mock_response.text = "Generated content"
+        mock_generate.return_value = mock_response
+        index, result = await gemini_handler._make_request(
+            "test_index", "test_prompt", 100, None
         )
+        assert index == "test_index"
+        assert result == "Generated content"
+        mock_generate.assert_called_once()
 
-    assert response_index == "test_index"
-    assert response_text == "Generated text"
+
+@pytest.mark.asyncio
+async def test_gemini_make_request_client_error(gemini_handler: GeminiHandler):
+    """Test that a client error triggers retries."""
+    with patch.object(gemini_handler.model, "generate_content_async") as mock_generate:
+        mock_generate.side_effect = aiohttp.ClientError("Test error")
+        with pytest.raises(tenacity.RetryError):
+            await gemini_handler._make_request("test_index", "test_prompt", 100, None)
+
+
+@pytest.mark.asyncio
+async def test_gemini_make_request_unexpected_error(gemini_handler: GeminiHandler):
+    """Test handling of unexpected errors."""
+    with patch.object(gemini_handler.model, "generate_content_async") as mock_generate:
+        mock_generate.side_effect = Exception("Unexpected error")
+        index, result = await gemini_handler._make_request(
+            "test_index", "test_prompt", 100, None
+        )
+        assert index == "test_index"
+        assert result == gemini_handler.placeholder
+
+
+@pytest.mark.asyncio
+async def test_gemini_retry_mechanism(gemini_handler: GeminiHandler):
+    """Test retry mechanism for Gemini."""
+    with patch.object(gemini_handler.model, "generate_content_async") as mock_generate:
+        mock_generate.side_effect = [
+            aiohttp.ClientError("Error 1"),
+            aiohttp.ClientError("Error 2"),
+            AsyncMock(text="Success after retries"),
+        ]
+        index, result = await gemini_handler._make_request(
+            "test_index", "test_prompt", 100, None
+        )
+        assert index == "test_index"
+        assert result == "Success after retries"
+        assert mock_generate.call_count == 3
+
+
+@pytest.mark.asyncio
+async def test_gemini_rate_limiting(gemini_handler: GeminiHandler):
+    """Test that rate limiting works."""
+    gemini_handler.rate_limit_semaphore = AsyncMock()
+    with patch.object(gemini_handler.model, "generate_content_async") as mock_generate:
+        mock_response = AsyncMock()
+        mock_response.text = "Rate limited content"
+        mock_generate.return_value = mock_response
+        result = await gemini_handler._make_request(
+            "test_index", "test_prompt", 100, None
+        )
+        gemini_handler.rate_limit_semaphore.__aenter__.assert_called_once()
+        gemini_handler.rate_limit_semaphore.__aexit__.assert_called_once()
+        assert result == ("test_index", "Rate limited content")
+
+
+@pytest.mark.asyncio
+async def test_gemini_token_handler_integration(gemini_handler: GeminiHandler):
+    """Test integration with token handler."""
+    with patch("readmeai.models.gemini.token_handler") as mock_token_handler:
+        mock_token_handler.return_value = "Processed prompt"
+        with patch.object(
+            gemini_handler.model, "generate_content_async"
+        ) as mock_generate:
+            mock_response = AsyncMock()
+            mock_response.text = "Generated from processed prompt"
+            mock_generate.return_value = mock_response
+            index, result = await gemini_handler._make_request(
+                "test_index", "original prompt", 100, None
+            )
+            mock_token_handler.assert_called_once_with(
+                config=gemini_handler.config,
+                index="test_index",
+                prompt="original prompt",
+                tokens=100,
+            )
+            assert index == "test_index"
+            assert result == "Generated from processed prompt"

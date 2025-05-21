@@ -1,35 +1,89 @@
-<p align="center">
-  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="99">
-  <img src="https://img.icons8.com/?size=512&id=kTuxVYRKeKEY&format=png" width="99">
-</p>
-<h1 align="center">README-AI</h1>
-<p align="center">
-    <em>Automated README file generator, powered by LLM APIs</em>
-</p>
-<p align="center">
-  <a href="https://github.com/eli64s/readme-ai/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=cicd&logoColor=white&color=c125ff" alt="github-actions">
-  </a>
-  <a href="https://app.codecov.io/gh/eli64s/readme-ai">
-    <img src="https://img.shields.io/codecov/c/github/eli64s/readme-ai?logo=codecov&logoColor=white&color=c125ff" alt="codecov">
-  </a>
-  <a href="https://pypi.python.org/pypi/readmeai/">
-    <img src="https://img.shields.io/pypi/v/readmeai?logo=PyPI&logoColor=white&color=c125ff" alt="pypi-version">
-  </a>
-  <a href="https://www.pepy.tech/projects/readmeai">
-    <img src="https://img.shields.io/pepy/dt/readmeai?logo=Python&logoColor=white&color=c125ff" alt="pepy-total-downloads">
-  </a>
-</p>
-<br>
-<p align="left">
-  <b>Objective</b>
-  <br>
-    Readme-ai is a developer tool that auto-generates README.md files using a combination of data extraction and generative ai. Simply provide a repository URL or local path to your codebase and a well-structured and detailed README file will be generated for you.
-  <br>
-  <br>
-  <b>Motivation</b>
-  <br>
-    Streamlines documentation creation and maintenance, enhancing developer productivity. This project aims to enable all skill levels, across all domains, to better understand, use, and contribute to open-source software.
-</p>
+# <!-- -->
 
----
+<div class="hero-section">
+  <div class="hero-content">
+    <div class="logo-container" align="center">
+      <img
+        src="assets/svg/logo-gradient.svg"
+        class="light-mode-logo"
+        alt="ReadmeAI Logo"
+        width="100%">
+      <img
+        src="assets/svg/logo-gradient.svg"
+        class="dark-mode-logo"
+        alt="ReadmeAI Logo"
+        width="100%">
+    </div>
+    <h2 class="tagline">
+      Your AI-Powered Documentation Assistant
+    </h2>
+    <p class="description">
+      Designed for simplicity, customization, and developer productivity.
+    </p>
+    <div class="cta-buttons">
+      <a href="getting-started/prerequisites/" class="button primary">
+        ▷ Getting Started
+      </a>
+      <a href="https://github.com/eli64s/readme-ai" class="button secondary">
+         ▷ View on GitHub
+      </a>
+    </div>
+    <div class="badges">
+      <a href="https://github.com/eli64s/readme-ai/actions">
+        <img alt="GitHub Actions" src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?style=flat&logo=githubactions&logoColor=white&color=4169E1">
+      </a>
+      <a href="https://pypi.python.org/pypi/readmeai/">
+        <img alt="PyPI Version" src="https://img.shields.io/pypi/v/readmeai?style=flat&logo=Python&logoColor=white&color=7934C5">
+      </a>
+      <a href="https://www.pepy.tech/projects/readmeai">
+        <img alt="Downloads" src="https://img.shields.io/pepy/dt/readmeai?style=flat&logo=PyPI&logoColor=white&color=9400D3">
+      </a>
+      <a href="https://opensource.org/license/mit/">
+        <img alt="License" src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat&logo=opensourceinitiative&logoColor=white&color=8A2BE2">
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="features-grid">
+  <div class="feature-card">
+    <div class="feature-icon">🚀</div>
+    <h3>Automated Documentation</h3>
+    <p>Generate comprehensive documentation from your codebase instantly</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🎨</div>
+    <h3>Highly Customizable</h3>
+    <p>Choose from dozens of styling options, badges, and templates</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🤖</div>
+    <h3>Flexible Backends</h3>
+    <p>Seamlessly integrate with <code>OpenAI</code>, <code>Anthropic</code>, <code>Gemini</code>, and <code>Ollama</code></p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🌐</div>
+    <h3>Language Agnostic</h3>
+    <p>Works with any programming language or framework</p>
+  </div>
+</div>
+
+<div class="quick-start">
+  <h2>Quick Start</h2>
+  <div class="installation-steps">
+    <div class="step">
+      <p>1. In the terminal, install the <strong>readmeai</strong> package:</p>
+      <pre><code>pip install readmeai</code></pre>
+    </div>
+    <div class="step">
+      <p>2. Once installed, try it out:</p>
+      <pre><code>readmeai --help</code></pre>
+    </div>
+    <div class="step">
+      <p>3. Generate a README file for your project:</p>
+      <pre><code>readmeai --repository https://github.com/your-username/your-repo</code></pre>
+    </div>
+  </div>
+</div>
+
+<hr />

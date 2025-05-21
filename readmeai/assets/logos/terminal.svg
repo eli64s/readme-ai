@@ -1,0 +1,31 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="terminalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#4B0082;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+      </linearGradient>
+      <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.3" />
+      </filter>
+    </defs>
+    <rect x="4" y="65.048" width="504" height="381.896" fill="url(#terminalGradient)"/>
+    <g>
+      <path style="fill:#AAC1CE;" d="M512,61.048H0v389.904h512V61.048z M504,69.048v373.904H8V69.048H504"/>
+      <rect x="3" y="126.848" style="fill:#AAC1CE;" width="505.84" height="8"/>
+    </g>
+    <circle style="fill:#E04F5F;" cx="48.08" cy="98.504" r="12.584"/>
+    <circle style="fill:#25B6D2;" cx="89.312" cy="98.504" r="12.584"/>
+    <circle style="fill:#32BEA6;" cx="130.568" cy="98.504" r="12.584"/>
+    <!-- Background terminal text -->
+    <text x="20" y="180" style="fill:#ffffff20;font-family:monospace;font-size:12px;filter:url(#blur)">
+      <tspan x="20" dy="0">Initializing readmeai...</tspan>
+      <tspan x="20" dy="20">Loading dependencies...</tspan>
+      <tspan x="20" dy="20">Running analyzer...</tspan>
+      <tspan x="20" dy="20">Processing markdown...</tspan>
+      <tspan x="20" dy="20">Generating documentation...</tspan>
+    </text>
+    <!-- Main command text -->
+    <text x="50%" y="55%" style="fill:#ffffff;font-family:monospace;font-size:55px;font-weight:bold;text-anchor:middle">
+      $ readme-ai
+    </text>
+  </svg>

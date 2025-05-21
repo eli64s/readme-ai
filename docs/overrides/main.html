@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 
-{% block outdated %}
-  You're not viewing the latest version.
-  <a href="{{ '../' ~ base_url }}"> <!--  -->
-    <strong>Click here to go to latest.</strong>
-  </a>
+{% block title %}
+  {% if page.meta and page.meta.title %}
+    {{ page.meta.title }} | {{ config.site_name }}
+  {% else %}
+    {{ page.title - default(config.site_name, true) }}
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ super() }}
+<meta name="msapplication-TileColor" content="#9400D3"/>
+<meta name="theme-color" content="#ffffff"/>
+<meta name="robots" content="index,follow"/>
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ config.site_name }}",
+        "url": "{{ base_url }}/"
+    }
+</script>
 {% endblock %}

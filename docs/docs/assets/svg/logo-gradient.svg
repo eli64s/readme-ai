@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="blueviolet" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Markdown logo with correct spacing -->
+  <rect x="50" y="20" width="200" height="100" rx="10" stroke="url(#blueviolet)" stroke-width="10" fill="none" />
+  <text x="85" y="95" font-family="Roboto, sans-serif" font-size="80" font-weight="bold" fill="url(#blueviolet)">M</text>
+  <path d="M175 40 L175 85 L155 85 L185 110 L215 85 L195 85 L195 40 Z" fill="url(#blueviolet)" />
+  <!-- README-AI text -->
+  <text x="150" y="180" font-family="Roboto, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="url(#blueviolet)">README-AI</text>
+</svg>

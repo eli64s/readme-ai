@@ -1,0 +1,102 @@
+# Markdown templates for the README.md file
+
+[templates]
+
+[templates.default]
+name = "Default"
+template = """
+<div align="center" id="top">
+
+{HEADER}
+
+</div>
+
+### Table of Contents
+
+{TOC_CONTENT}
+---
+
+## Overview
+
+{OVERVIEW_CONTENT}
+
+---
+
+## Features
+
+{FEATURES_CONTENT}
+
+---
+
+## Project Structure
+
+{PROJECT_STRUCTURE_CONTENT}
+
+### Project Index
+
+{PROJECT_INDEX_CONTENT}
+---
+
+## Getting Started
+{QUICKSTART_CONTENT}
+
+---
+
+## Roadmap
+
+{ROADMAP_CONTENT}
+---
+
+## Contributing
+
+{CONTRIBUTING_CONTENT}
+---
+
+## License
+
+{LICENSE_CONTENT}
+
+---
+
+## Acknowledgment
+
+{ACKNOWLEDGMENT_CONTENT}
+
+<div align="left"><a href="#top">Back to top</a></div>
+
+---
+"""
+
+[templates.minimal]
+name = "Minimal"
+template = """
+# {PROJECT_NAME}
+
+{HEADER}
+
+---
+
+## Overview
+
+{OVERVIEW_CONTENT}
+
+---
+
+## Installation
+
+{INSTALLATION_CONTENT}
+
+---
+
+## Usage
+
+{USAGE_CONTENT}
+
+---
+
+## License
+
+{LICENSE_CONTENT}
+
+---
+"""

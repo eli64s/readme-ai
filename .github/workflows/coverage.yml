@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --with anthropic,google-generativeai
 
       - name: Run tests with coverage
         run: |

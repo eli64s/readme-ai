@@ -1,99 +1,269 @@
-# Large language model prompt templates for generative tasks.
+# LLM prompts for various text generation tasks.
 
 [prompts]
-features = """Hello! Please analyze the key technical capabilities and characteristics of the project {0} and describe them in a Markdown table format:
+features_table = """Hello! Analyze the codebase for the project "{0}" and generate a Markdown table summarizing its key technical features.
 
-|    |   Feature         | Description |
-|----|-------------------|---------------------------------------------------------------|
-| ⚙️  | **Architecture**  | *Quick facts about the project's architecture. Max 50 words.* |
-| 🔩 | **Code Quality**  | *Quick facts about the code quality and style. Max 50 words.* |
-| 📄 | **Documentation** | *Discuss the extent and quality of documentation. Max 50 words.* |
-| 🔌 | **Integrations**  | *List key integrations and external dependencies. Max 50 words.* |
-| 🧩 | **Modularity**    | *Discuss the modularity and reusability of the codebase. Max 50 words.* |
-| 🧪 | **Testing**       | *List testing frameworks and tools used. Max 50 words.* |
-| ⚡️  | **Performance**   | *Evaluate efficiency, speed and resource usage. Max 50 words.* |
-| 🛡️ | **Security**      | *Discuss measures used for data protection and access control. Max 50 words.* |
-| 📦 | **Dependencies**  | *List key external libraries and dependencies. Max 50 words.* |
-| 🚀 | **Scalability**   | *Assess ability to handle increased traffic and load. Max 50 words.* |
+=== CONTEXT ===
+PROJECT NAME: {0}
+PROGRAMMING LANGUAGE: {1}
+PROJECT DEPENDENCIES: {2}
+CICD_TOOLS: {3}
+CONTAINERIZATION: {4}
+DOCUMENTATION: {5}
+PACKAGE MANAGER: {6}
+SOURCE_CODE: {7}
 
-While generating the table, please reference the following codebase details:\n
-================================================================================
-Project dependencies: {1}
-Repository contents: {2}
-================================================================================
+=== TABLE STRUCTURE ===
+
+|      | Component       | Details                              |
+| :--- | :-------------- | :----------------------------------- |
+| ⚙️  | **Architecture**  | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🔩 | **Code Quality**  | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 📄 | **Documentation** | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🔌 | **Integrations**  | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🧩 | **Modularity**    | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🧪 | **Testing**       | <ul><li>N</li><li>N + 1</li>...</ul> |
+| ⚡️  | **Performance**   | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🛡️ | **Security**      | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 📦 | **Dependencies**  | <ul><li>N</li><li>N + 1</li>...</ul> |
+| 🚀 | **Scalability**   | <ul><li>N</li><li>N + 1</li>...</ul> |
+
+=== INSTRUCTIONS ===
+1. **HTML:** Write the details using unordered HTML list elements.
+2. **Syntax Highlighting:** When appropiate, use syntax highlighting, bold, and italics. DO NOT overuse.
+4. **Specificity:** Provide concrete details, examples, and evidence from the codebase to support your analysis.
+5. **Readability:** Ensure the table is well-structured, easy to read. Do not use ful sentences, only quick digestible points.
+"""
+
+_file_summary = """
+You are a highly skilled Staff Software Engineering leader with extensive knowledge across various tech stacks. Your task is to write a concise and informative summary for a specific file within an open-source project's codebase.
+
+First, review the overall project structure:
+
+<project_structure>
+{{project_structure}}
+</project_structure>
+
+Now, focus on the specific file to be summarized:
+
+<file_path>
+{{file_path}}
+</file_path>
+
+Here's the content of the file:
+
+<file_content>
+{{file_content}}
+</file_content>
+
+Your goal is to provide a succinct summary that highlights the main purpose and use of this file in relation to the entire codebase architecture. Focus on what the code achieves, avoiding technical implementation details.
+
+Before writing the final summary, please analyze the file and its context by performing the following steps inside <file_analysis> tags:
+
+1. Identify the primary function or purpose of the file.
+2. Determine how this file relates to or interacts with other parts of the codebase.
+3. List the key features or functionalities implemented in this file.
+4. Consider how this file contributes to the overall project architecture.
+5. Identify any important dependencies or relationships with other components.
+6. Note key classes, functions, or methods defined in the file.
+7. Assess the file's potential impact on the project's performance or scalability.
+8. Highlight any unique or innovative approaches used in the implementation.
+
+Now, based on your analysis, write a summary of the file that meets the following criteria:
+1. Length: 50-70 words
+2. Start with a verb or noun (avoid phrases like "This file", "The file", "This code", etc.)
+3. Focus on the file's main purpose and its role in the codebase
+4. Avoid technical implementation details
+5. Use clear and concise language
+
+Present your final summary within <summary> tags.
+
+Example output structure (using generic content):
+
+<summary>
+Implements core authentication functionality for the application. Manages user login, logout, and session handling processes. Integrates with the database module for user verification and token storage. Provides essential security features, including password hashing and protection against common authentication vulnerabilities. Serves as a critical component in maintaining application security and user management.
+</summary>
 """
 
 file_summary = """Deliver a succinct summary that highlights the main purpose and \
-critical features of this code file in relation to its parent repository's architecture. \
-Focus on what the code achieves, steering clear of technical implementation details. \
-While generating the summaries, please reference the following codebase details: \n
-================================================================================
-Repository structure: {0}
-File path: {1}
-File contents: {2}
-================================================================================
-Additional Requirements: \n
-- Avoid using words like 'This file', 'The file', 'This code', etc. but instead begin \
-each response with a verb or a noun to make the summary more engaging and impactful. \
-- Do not include quotes, code snippets, or bullet points in your response. \
-- Your response should be a maximum of 50 words.
+use of the code file provided in regards to the entire codebase architecture. Focus \
+on what the code achieves, steering clear of technical implementation details. \
+While generating the summary, reference additional data about the project below: \n
+
+CONTEXT DETAILS:
+------------------------
+PROJECT STRUCTURE: {0}
+FILE PATH: {1}
+FILE CONTENT: {2}
+------------------------
+
+ADDITIONAL INSTRUCTIONS:
+------------------------
+1. Avoid using words like 'This file', 'The file', 'This code', etc.
+  1a. Summary should start with a verb or noun to make it more clear and concise.
+2. Do not include quotes, code snippets, bullets, or lists in your response.
+3. RESPONSE LENGTH: 50-70 words.
+------------------------
+
+Thank you for your hard work!
 """
 
-logo = """Design a square app logo for the software project - "{project_name}". \
-The logo should feature the project name in bold and easily readable letters. \
-The color scheme should be engaging and suitable for a technology-focused app, \
-with a white background behind the stylized app logo square with rounded corners. \
-While designing the logo, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-Repository Details:
-Project Name: {project_name}
-Project Overview: {project_overview}
-Project Catch Phrase/Slogan: {project_slogan}
---------------------------------------------------------------------------------
+logo = """
+Create a fun and vibrant app icon logo for a GitHub repository.
+The logo should be in the style of an Apple app icon - square with rounded corners.
+The icon should feature a singular, memorable character or object that represents the essence of the project, without any external background.
+
+=== CONTEXT ===
+PROJECT NAME: {project_name}
+PROJECT OVERVIEW: {project_overview}
+PROJECT tagline: {project_tagline}
+
+=== INSTRUCTION ===
+1. Central Character: [Describe a relevant animal, mythical creature, tool, or object that relates to the project theme]. This character should be stylized and appealing, with a playful yet professional look.
+2. Color Scheme: Use colors that reflect the project's theme and complement the central character. The colors should be vibrant and eye-catching.
+3. Style: Modern, slightly cartoonish, and memorable. The design should be simple enough to be recognizable at small sizes, but with enough detail to be interesting when viewed larger.
+4. Layout: The central character or object should fill most of the square space, leaving some room for subtle elements or patterns that hint at the project's purpose or field.
+5. Text (Optional): If including text, limit it to a short acronym or simple logo type that integrates well with the visual elements.
+6. Background: The icon itself should have a solid or gradient background color that's part of the overall design. Do not include any external background beyond the rounded square of the icon.
+7. Originality: Ensure the design is original and doesn't infringe on any existing copyrights or trademarks.
+
+Please describe the icon design in detail, focusing on the central character, color scheme, and any additional elements within the icon itself. Do not describe any elements outside of the rounded square app icon shape.
 """
 
-overview = """Analyze the codebase, {0}, and provide a robust, yet succinct overview of the software \
-project. Craft a paragraph that encapsulate the core functionalities of the project, its purpose, and value \
-proposition. While generating the project overview, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-File Summaries: {1}
---------------------------------------------------------------------------------
-Additional Requirements: \n
-- Avoid deep technical details and focus on the project's high-level use cases and features.
-- Do not include quotes, code snippets, or bullet points in your response.
-- The project name should be mentioned at least once in the overview.
-- Your response should be a maximum of 100 words.
+_overview = """
+You are tasked with analyzing a codebase and providing a concise overview of the software project. Your goal is to create a brief paragraph that captures the project's core use-case, value proposition, and target audience without delving into technical details.
+
+You will be provided with two pieces of information:
+1. The project name: <project_name>{0}</project_name>
+2. A summary of the project's files: <file_summaries>{1}</file_summaries>
+
+To complete this task, follow these steps:
+1. Carefully review the project name and file summaries to understand the project's purpose and structure.
+2. Identify the core use-case, value proposition, and target audience based on the information provided.
+3. Craft a concise paragraph that elegantly presents these key aspects of the project.
+
+Your response should adhere to the following guidelines:
+- Focus on the project's core use-case and value proposition without including technical details.
+- Exclude technical jargon, code snippets, implementation specifics, quotes, and links.
+- Limit your response to a maximum of 50 words.
+
+Present your final overview within <overview> tags. Here's an example of a well-structured response:
+
+<example>
+<overview>
+README-AI is a developer tool that automatically generates comprehensive README files for software projects. It streamlines documentation creation across all technical disciplines, offering customization options and supporting multiple languages. This tool aims to improve consistency and efficiency in project documentation for developers of all experience levels.
+</overview>
+</example>
+
+Now, please analyze the provided project information and generate a concise overview following the guidelines above.
 """
 
-slogan = """Conceptualize a catchy and memorable slogan for the project: {0} ({1}). \
-Your response should encapsulate the project's purpose, value proposition, and engage the audience. \
-While generating the slogan, please reference the following codebase details: \n
---------------------------------------------------------------------------------
-File contents: {2}
--------------------------------------------------------------------------------- \n
-Other Requirements: \n
-- DO NOT include the project name in the slogan.
-- Your response should be a maximum of 8 words.
-- The slogan should be concise and memorable.
+overview = """
+You are a skilled technical writer tasked with creating an engaging and concise introduction for a developer tool. Your goal is to capture the essence of the tool and highlight its key features in a way that appeals to a technical audience.
+
+Here's the information about the tool you'll be describing:
+
+Project Name: {0}
+Source Code Summaries: {1}
+
+Please generate a concise and engaging introduction for this developer tool, following these guidelines:
+
+1. Structure:
+   - Begin with a brief description of the tool (1-2 sentences).
+   - Follow with a "Why [TOOL NAME]?" section.
+   - List 4-6 key benefits or features as bullet points.
+
+2. Content:
+   - Keep the entire introduction brief, around 150 words.
+   - Highlight the main benefits and features of the tool.
+   - Ensure the content is relevant to a technical audience (developers).
+
+3. Style:
+   - Use colored emojis as prefixes for the bullet points in the feature list.
+   - Randomize the emoji choices, but keep their shape/color logically consistent and symmetrically aligned.
+   - Use bold text for emphasis where appropriate.
+
+4. Formatting:
+   Present your response in the following format only including the introduction between the <overview tags:
+   <overview>
+   [Brief description of the project]
+
+   **Why [project_name]?**
+
+   This project [main goal or purpose]. The core features include:
+
+   - **[Emoji] [Feature 1]:** [Brief explanation]
+   - **[Emoji] [Feature 2]:** [Brief explanation]
+   [Continue for 4-6 features total]
+   </overview>
+
+Before providing your final response, work inside <brainstorming> tags to plan your introduction. Consider the following:
+- List out key features and benefits from the source code summaries.
+- For each feature, note how it addresses common developer pain points.
+- Draft 2-3 potential opening sentences that capture the essence of the tool.
+- Identify the most compelling features to highlight in the bullet points.
 """
 
-mermaid = """Create a visual representation of the software project '{0}' using a flowchart diagram. \
-The diagram should clearly illustrate the main components and the flow of data or control between them, \
-representing the codebase's architecture and execution path. The output should be formatted as a Markdown code block with Mermaid syntax. \
-Below is a template for the Mermaid flowchart that you can customize based on the project's specifics: \n
---------------------------------------------------------------------------------
+_tagline = """
+You are a creative marketing specialist tasked with creating a memorable tagline for a project. Your goal is to craft a concise, impactful tagline that captures the essence of the project while adhering to specific requirements.
 
-```mermaid
-flowchart LR
+First, review the following project information:
 
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
+<project_info>
+PROJECT_NAME: {0}
+PROJECT_TYPE: {1}
+FILE_CONTENTS: {2}
+</project_info>
 
---------------------------------------------------------------------------------
-While generating the diagram, please reference the following codebase details:
-File Summaries: {1}
---------------------------------------------------------------------------------
+Your task is to create a memorable tagline for this project that is no more than 8 words long. The tagline should be engaging, relevant to the project, and adhere to all specified requirements and constraints.
+
+Before providing your final tagline, wrap your work in <tagline_development> tags to brainstorm and refine your ideas. Follow these steps:
+
+1. List key words and phrases from the project info and requirements that could inspire the tagline.
+2. Brainstorm 5 potential taglines. Count the words in each one to ensure they meet the 8-word limit (e.g., 1. This 2. is 3. an 4. example 5. tagline 6. with 7. seven 8. words).
+3. Evaluate each tagline based on how well it meets the project requirements and constraints.
+4. Choose the best tagline or refine one of the options if necessary.
+
+Once you have finalized your tagline, present it within <tagline> tags. Remember, the tagline must be 8 words or fewer.
+
+Example output structure (do not use this content, it's just to illustrate the format):
+
+<tagline_development>
+[Your brainstorming and refinement process here]
+</tagline_development>
+
+<tagline>
+[Your final tagline here, 8 words or fewer]
+</tagline>
+
+Please proceed with creating the tagline for this project.
+"""
+
+tagline = """
+Create a memorable tagline for {0} following the ProjectTagline schema.
+
+CONTEXT:
+PROJECT_NAME: {0}
+PROJECT_TYPE: {1}
+FILE_CONTENTS: {2}
+
+REQUIREMENTS:
+1. Maximum 8 total words. Short and impactful.
+2. Convey key benefit or unique value.
+3. Memorable and engaging.
+4. Match desired tone: 10x Tech Leader who drives innovation.
+
+CONSTRAINTS:
+- Do not include project name
+- Avoid technical jargon
+- Focus on benefits, not features
+- Use active, powerful language
+
+Present your response in the following format only including 1 tagline between the <tagline> tags:
+
+<tagline>
+[Your final tagline here, 8 words or fewer]
+</tagline>
+
+Now please proceed with creating the tagline for this project.
 """

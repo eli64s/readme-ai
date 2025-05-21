@@ -1,78 +1,73 @@
-"""Abstract factory module for all project file parsers."""
+from typing import ClassVar
 
-from typing import Dict, Type
+from .base import BaseFileParser, DefaultParser
+from .cpp import CMakeParser, ConfigureAcParser, MakefileAmParser
+from .docker import DockerComposeParser, DockerfileParser
+from .go import GoModParser
+from .gradle import BuildGradleKtsParser, BuildGradleParser
+from .maven import MavenParser
+from .npm import PackageJsonParser
+from .properties import PropertiesParser
+from .python import RequirementsParser, TomlParser, YamlParser
+from .rust import CargoTomlParser
+from .swift import SwiftPackageParser
 
-from readmeai.core.parsers import BaseFileParser
-from readmeai.parsers.configuration.docker import (
-    DockerComposeParser,
-    DockerfileParser,
-)
-from readmeai.parsers.configuration.properties import PropertiesParser
-from readmeai.parsers.language.cpp import (
-    CMakeParser,
-    ConfigureAcParser,
-    MakefileAmParser,
-)
-from readmeai.parsers.language.go import GoModParser
-from readmeai.parsers.language.python import (
-    RequirementsParser,
-    TomlParser,
-    YamlParser,
-)
-from readmeai.parsers.language.rust import CargoTomlParser
-from readmeai.parsers.language.swift import SwiftPackageParser
-from readmeai.parsers.package.gradle import (
-    BuildGradleKtsParser,
-    BuildGradleParser,
-)
-from readmeai.parsers.package.maven import MavenParser
-from readmeai.parsers.package.npm import PackageJsonParser
-from readmeai.parsers.package.yarn import YarnLockParser
-
-ParserRegistryType = dict[str, Type[BaseFileParser]]
-
-PARSER_REGISTRY = {
-    # Configuration
-    ".properties": PropertiesParser,
-    # Language/Framework
-    # Python
-    "Pipfile": TomlParser(),
-    "pyproject.toml": TomlParser(),
-    "requirements.in": RequirementsParser(),
-    "requirements.txt": RequirementsParser(),
-    "requirements-dev.txt": RequirementsParser(),
-    "requirements-test.txt": RequirementsParser(),
-    "requirements-prod.txt": RequirementsParser(),
-    "dev-requirements.txt": RequirementsParser(),
-    "environment.yml": YamlParser(),
-    "environment.yaml": YamlParser(),
-    # "setup.py": setup_py_parser,
-    # "setup.cfg": setup_cfg_parser,
-    # C/C++
-    "cmakeLists.txt": CMakeParser(),
-    "configure.ac": ConfigureAcParser(),
-    "Makefile.am": MakefileAmParser(),
-    # JavaScript/Node.js
-    "package.json": PackageJsonParser(),
-    "yarn.lock": YarnLockParser(),
-    # Kotlin and Kotlin DSL
-    "build.gradle": BuildGradleParser(),
-    "build.gradle.kts": BuildGradleKtsParser(),
-    # Go
-    "go.mod": GoModParser(),
-    # Java
-    "pom.xml": MavenParser(),
-    # Rust
-    "cargo.toml": CargoTomlParser(),
-    # Swift
-    "Package.swift": SwiftPackageParser(),
-    "Dockerfile": DockerfileParser(),
-    "docker-compose.yaml": DockerComposeParser(),
-    # Package Managers
-    # Monitoring and Logging
-}
+ParserRegistryType = dict[str, type[BaseFileParser]]
 
 
-def parser_handler() -> Dict[str, BaseFileParser]:
-    """Returns a dictionary of callable file parser methods."""
-    return PARSER_REGISTRY
+class ParserFactory:
+    """
+    Factory for creating dependency file parser callable objects.
+    """
+
+    _parsers: ClassVar[dict[str, type[BaseFileParser]]] = {
+        # Python
+        "Pipfile": TomlParser,
+        "pyproject.toml": TomlParser,
+        "requirements.in": RequirementsParser,
+        "requirements.txt": RequirementsParser,
+        "requirements-dev.txt": RequirementsParser,
+        "requirements-test.txt": RequirementsParser,
+        "requirements-prod.txt": RequirementsParser,
+        "dev-requirements.txt": RequirementsParser,
+        "environment.yml": YamlParser,
+        "environment.yaml": YamlParser,
+        "poetry.lock": DefaultParser,
+        "pdm.lock": DefaultParser,
+        # C/C++
+        "CMakeLists.txt": CMakeParser,
+        "configure.ac": ConfigureAcParser,
+        "Makefile.am": MakefileAmParser,
+        # JavaScript/Node.js
+        "package.json": PackageJsonParser,
+        # Kotlin/Kotlin DSL
+        "build.gradle": BuildGradleParser,
+        "build.gradle.kts": BuildGradleKtsParser,
+        # Go
+        "go.mod": GoModParser,
+        # Java
+        "pom.xml": MavenParser,
+        # Rust
+        "Cargo.toml": CargoTomlParser,
+        # Swift
+        "Package.swift": SwiftPackageParser,
+        # Docker
+        "Dockerfile": DockerfileParser,
+        "docker-compose.yaml": DockerComposeParser,
+        "docker-compose.yml": DockerComposeParser,
+        # Properties
+        ".properties": PropertiesParser,
+    }
+
+    @classmethod
+    def register_parser(cls, file_name: str, parser_class: type[BaseFileParser]):
+        """Register a parser for the given file name."""
+        cls._parsers[file_name] = parser_class
+
+    @classmethod
+    def create_parser(cls, file_name: str) -> BaseFileParser:
+        """Create a parser for the given file name."""
+        if parser_class := cls._parsers.get(file_name):
+            return parser_class()
+        else:
+            return DefaultParser()

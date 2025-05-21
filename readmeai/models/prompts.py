@@ -1,13 +1,10 @@
-"""
-Methods for processing prompts used in LLM API requests.
-"""
+"""Utility methods to build prompts for LLM text generation."""
 
-from typing import Dict, List, Union
+from readmeai.config.settings import Settings
+from readmeai.core.logger import get_logger
+from readmeai.extractors.models import RepositoryContext
 
-import readmeai.config.settings as Settings
-from readmeai.core.logger import Logger
-
-_logger = Logger(__name__)
+_logger = get_logger(__name__)
 
 
 def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
@@ -24,48 +21,59 @@ def get_prompt_context(prompts: dict, prompt_type: str, context: dict) -> str:
 def get_prompt_template(prompts: dict, prompt_type: str) -> str:
     """Retrieves the template for the given prompt type."""
     prompt_templates = {
-        "features": prompts["prompts"]["features"],
+        "features_table": prompts["prompts"]["features_table"],
         "overview": prompts["prompts"]["overview"],
-        "slogan": prompts["prompts"]["slogan"],
+        "tagline": prompts["prompts"]["tagline"],
     }
     return prompt_templates.get(prompt_type, "")
 
 
 def inject_prompt_context(template: str, context: dict) -> str:
-    """Formats the template with the provided context."""
+    """Format the template with the provided context."""
     try:
         return template.format(*[context[key] for key in context])
-    except KeyError as exc:
-        _logger.error(f"Missing context for prompt key: {exc}")
+    except KeyError as e:
+        _logger.error(f"Missing context for prompt key: {e!r}")
+        return ""
+    except Exception as e:
+        _logger.error(f"Failed to format prompt template: {e!r}")
         return ""
 
 
-async def set_additional_contexts(
+def set_additional_contexts(
     config: Settings,
-    dependencies: List[str],
-    file_summaries: List[str],
-) -> List[dict]:
-    """Generates additional prompts (features, overview, slogan) for LLM."""
+    repo_context: RepositoryContext,
+    file_summaries: list[tuple[str, str]],
+) -> list[dict]:
+    """Build additional prompts for README content generation."""
     return [
         {"type": prompt_type, "context": context}
         for prompt_type, context in [
             (
-                "features",
+                "features_table",
                 {
-                    "repo": config.git.repository,
-                    "dependencies": dependencies,
-                    "file_summary": file_summaries,
+                    "project_name": config.git.name,
+                    "repository": config.git.repository,
+                    "languages": repo_context.languages,
+                    "dependencies": repo_context.dependencies,
+                    "cicd": repo_context.metadata.get("cicd", []),
+                    "containers": repo_context.metadata.get("containers", []),
+                    "documentation": repo_context.metadata.get("documentation", []),
+                    "package_managers": repo_context.metadata.get(
+                        "package_managers", []
+                    ),
+                    "file_summaries": file_summaries,
                 },
             ),
             (
                 "overview",
                 {
-                    "name": config.git.name,
+                    "project_name": config.git.name,
                     "file_summary": file_summaries,
                 },
             ),
             (
-                "slogan",
+                "tagline",
                 {
                     "name": config.git.name,
                     "repo": config.git.repository,
@@ -76,11 +84,10 @@ async def set_additional_contexts(
     ]
 
 
-async def set_summary_context(
+def set_summary_context(
     config: Settings,
-    dependencies: List[str],
-    file_summaries: List[str],
-) -> List[Dict[str, Union[str, dict]]]:
+    repo_files: list[tuple[str, str]],
+) -> list[dict]:
     """Generates the summary prompts to be used by the LLM API."""
     return [
         {"type": prompt_type, "context": context}
@@ -88,9 +95,8 @@ async def set_summary_context(
             (
                 "file_summary",
                 {
-                    "tree": config.md.tree,
-                    "dependencies": dependencies,
-                    "file_summary": file_summaries,
+                    "tree": config.md.directory_structure,
+                    "repo_files": repo_files,
                 },
             ),
         ]

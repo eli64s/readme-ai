@@ -1,0 +1,46 @@
+# SVG banner template for README header.
+
+[banners.svg]
+template = """
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}">
+	<defs>
+		<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" style="stop-color:{color1};stop-opacity:1" />
+			<stop offset="50%" style="stop-color:{color2};stop-opacity:1" />
+			<stop offset="100%" style="stop-color:{color3};stop-opacity:1" />
+		</linearGradient>
+		<filter id="shadow">
+			<feDropShadow dx="{shadow_dx}" dy="{shadow_dy}" stdDeviation="{shadow_blur}" flood-opacity="{shadow_opacity}" />
+		</filter>
+		<pattern id="dots" width="{pattern_size}" height="{pattern_size}" patternUnits="userSpaceOnUse">
+			<circle cx="3" cy="3" r="1.5" fill="rgba(255,255,255,{pattern_opacity})" />
+		</pattern>
+	</defs>
+	<rect width="100%" height="100%" fill="url(#bg)" rx="{border_radius}" />
+	<rect width="100%" height="100%" fill="url(#dots)" />
+	<circle cx="{width_08}" cy="{height_025}" r="{height_015}" fill="rgba(255,255,255,{shape_opacity})" />
+	<circle cx="{width_92}" cy="{height_075}" r="{height_02}" fill="rgba(255,255,255,{shape_opacity})" />
+	<path d="M {width_2} {height_0125}
+			 L {width_2_plus_height_025} {height_0375}
+			 L {width_2_minus_height_025} {height_0375} Z" fill="rgba(255,255,255,{shape_opacity})" />
+	<text x="{width_2}" y="{height_2}" font-family="{font_family}" font-size="{font_size}" font-weight="bold" text-anchor="middle" fill="{font_color}" filter="url(#shadow)">
+		{title}
+	</text>
+	<text x="{width_2}" y="{height_0625}" font-family="{font_family}" font-size="{subtitle_size}" text-anchor="middle" fill="rgba(255,255,255,0.9)">
+"""
+
+[settings]
+border_radius = 5.0
+font_color = "#FFFFFF"
+font_family = "Arial, sans-serif"
+font_size = 24
+height = 200
+pattern_opacity = 0.2
+pattern_size = 20.0
+shadow_blur = 4.0
+shadow_dx = 2.0
+shadow_dy = 2.0
+shadow_opacity = 0.5
+shape_opacity = 0.8
+subtitle_size = 18
+width = 800

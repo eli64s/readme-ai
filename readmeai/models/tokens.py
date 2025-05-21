@@ -1,17 +1,16 @@
-"""
-Tokenizer utilities for tokenizing and truncating text.
-"""
+"""Utilities for handling tokens in the LLM model."""
 
-from tiktoken import get_encoding
-
+import structlog
 from readmeai.config.settings import Settings
-from readmeai.core.logger import Logger
+from readmeai.core.logger import get_logger
+from tiktoken import Encoding, get_encoding
 
 _encoding_cache = {}
-_logger = Logger(__name__)
+
+_logger = get_logger(__name__)
 
 
-def _set_encoding_cache(encoding_name: str) -> str:
+def _set_encoding_cache(encoding_name: str) -> Encoding:
     """Set the encoding cache for a specific encoding."""
     if encoding_name not in _encoding_cache:
         _encoding_cache[encoding_name] = get_encoding(encoding_name)
@@ -19,16 +18,25 @@ def _set_encoding_cache(encoding_name: str) -> str:
 
 
 async def token_handler(
-    config: Settings, index: str, prompt: str, tokens: int
+    config: Settings,
+    index: str,
+    prompt: str,
+    tokens: int,
 ) -> str:
     """Handle token count for the prompt."""
     encoder = config.llm.encoder
     max_count = config.llm.context_window
     token_count = count_tokens(prompt, encoder)
 
+    structlog.contextvars.bind_contextvars(
+        token_count=token_count,
+        max_count=max_count,
+        index=index,
+    )
+
     if token_count > max_count:
         _logger.debug(
-            f"Truncating '{index}' prompt: {token_count} > {max_count} tokens!"
+            f"Truncating '{index}' prompt: {token_count} > {max_count} tokens!",
         )
         prompt = truncate_tokens(encoder, prompt, tokens)
 
@@ -43,19 +51,19 @@ def count_tokens(text: str, encoder: str) -> int:
 
     except (UnicodeEncodeError, ValueError) as exc:
         _logger.error(
-            f"Error counting tokens for '{text}' with {encoder}: {exc}"
+            f"Error counting tokens for '{text}' with {encoder}: {exc}",
         )
         token_count = 0
 
     return token_count
 
 
-def truncate_tokens(encoder: str, text: str, max_count: int) -> str:
+def truncate_tokens(encoding: str, text: str, max_count: int) -> str:
     """Truncate a text string to a maximum number of tokens."""
     if not text:
         return text
     try:
-        encoder = _set_encoding_cache(encoder)
+        encoder = _set_encoding_cache(encoding)
         token_count = len(encoder.encode(text))
         if token_count <= max_count:
             return text
@@ -70,7 +78,9 @@ def truncate_tokens(encoder: str, text: str, max_count: int) -> str:
 
 
 def update_max_tokens(
-    max_tokens: int, prompt: str, target: str = "Hello!"
+    max_tokens: int,
+    prompt: str,
+    target: str = "Hello!",
 ) -> int:
     """Adjust the maximum number of tokens based on the specific prompt."""
     is_valid_prompt = prompt.strip().startswith(target.strip())

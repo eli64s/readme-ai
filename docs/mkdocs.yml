@@ -1,0 +1,296 @@
+# -----------------------------------------
+# ReadmeAI MkDocs Static Site Configuration
+# -----------------------------------------
+
+site_name: ReadmeAI
+site_description: "ReadmeAI: Your AI-powered documentation assistant. Designed for simplicity, customization, and developer productivity."
+site_author: Eli Salamie
+site_url: https://docs.readme-ai.com/
+site_dir: ../site
+repo_name: eli64s/readme-ai
+repo_url: https://github.com/eli64s/readme-ai
+edit_uri: edit/main/docs/docs/
+docs_dir: "docs/"
+copyright: >+
+  Copyright &copy; 2023 - 2025 <a href="https://eli64s.github.io/readme-ai/" target="_blank">ReadmeAI.</a> All rights reserved.
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: assets/svg/cosmic-gradient.svg
+  icon:
+    repo: fontawesome/brands/github-alt
+    edit: material/pencil
+    view: material/eye
+    theme:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: deep-purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: deep-purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite
+  - def_list
+  - fenced_code
+  - footnotes
+  - markdown.extensions.extra
+  - md_in_html
+  - meta
+  - smarty
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {}
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji ""
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg ""
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      use_pygments: true
+      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: eli64s
+      repo: readme-ai
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      base_path:
+        - docs/snippets
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format ""
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - social
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+      enabled: true
+      follow_shallow_clones: true
+      exclude:
+        - assets/*
+        - guides/*
+        - examples/*
+      strict: false
+  - minify:
+      minify_html: true
+
+nav:
+  - Home:
+      - index.md
+      - Why ReadmeAI?: why.md
+      - Contributing: community/contributing.md
+      - Troubleshooting: community/troubleshooting.md
+  - Getting Started:
+      - Prerequisites: getting-started/prerequisites.md
+      - Installation: getting-started/installation.md
+      - Environment Setup: getting-started/environment.md
+      - Usage:
+          - CLI: getting-started/usage/cli.md
+          - Docker: getting-started/usage/docker.md
+          - Streamlit: getting-started/usage/streamlit.md
+  - Concepts:
+      - concepts/index.md
+      - Document Structure:
+          - Project Overview:
+              - Introduction: concepts/structure/overview/introduction.md
+              - Features: concepts/structure/overview/features.md
+              - Project Structure: concepts/structure/overview/project-structure.md
+          - Getting Started Guides:
+              - System Requirements: concepts/structure/quickstart/prerequisites.md
+              - Installation Steps: concepts/structure/quickstart/installation.md
+              - Usage Instructions: concepts/structure/quickstart/usage.md
+              - Test Frameworks: concepts/structure/quickstart/testing.md
+          - Community & Maintenance:
+              - Development Roadmap: concepts/structure/community/roadmap.md
+              - Contributor Guidelines: concepts/structure/community/contributing.md
+              - Licensing Details: concepts/structure/community/license.md
+              - Acknowledgements: concepts/structure/community/acknowledgements.md
+      - Document Customization:
+          - Headers:
+              - Headers: concepts/customize/headers.md
+              - Logos: concepts/customize/logos.md
+              - Navigation: concepts/customize/navigation.md
+          - Styling:
+              - Badges: concepts/customize/badges.md
+              - Emojis: concepts/customize/emojis.md
+      - Document Generation:
+          - Code Analysis: concepts/generation/analysis.md
+          - Data Extraction: concepts/generation/extraction.md
+          - Dependency Mapping: concepts/generation/dependencies.md
+      - Advanced Features:
+          - Exclusion Patterns: concepts/advanced/ignore-patterns.md
+          - Template System: concepts/advanced/templates.md
+  - Integrations:
+      - integrations/index.md
+      - Language Models:
+          - OpenAI: integrations/llms/openai.md
+          - Anthropic: integrations/llms/anthropic.md
+          - Google Gemini: integrations/llms/gemini.md
+          - Ollama: integrations/llms/ollama.md
+          - Offline Mode: integrations/llms/offline.md
+      - Advanced Topics:
+          - Model Comparison: integrations/advanced/comparison.md
+          - Best Practices: integrations/advanced/best-practices.md
+  - CLI Reference: cli-reference.md
+  - Examples:
+      - README Gallery: examples/index.md
+  - Markdown Cookbook: cookbook/index.md
+      # - Introduction: cookbook/markdown/index.md
+      # - Syntax:
+      #     - Headings & Paragraphs: cookbook/markdown/headings-paragraphs.md
+      #     - Text Formatting: cookbook/markdown/text-formatting.md
+      #     - Lists: cookbook/markdown/lists.md
+      #     - Links:
+      #         - Inline Links: cookbook/markdown/links/inline-links.md
+      #         - Reference Links: cookbook/markdown/links/reference-links.md
+      #     - Images & Media:
+      #         - Center Images: cookbook/markdown/images/centered-images.md
+      #         - Align Images: cookbook/markdown/images/aligned-images.md
+      #         - Small Images & Icons: cookbook/markdown/images/small-images.md
+      #         - Text Boxes: cookbook/markdown/images/text-boxes.md
+      #         - Text Wrapping: cookbook/markdown/images/text-wrapping.md
+      # - Advanced:
+      #     - Tables:
+      #         - Alignment: cookbook/markdown/tables/alignment.md
+      #         - Multi-Line Cells: cookbook/markdown/tables/multi-line-cells.md
+      #         - Task Lists in Tables: cookbook/markdown/tables/task-lists.md
+      #         - Merge Cells: cookbook/markdown/tables/merged-cells.md
+      #     - Text Styling:
+      #         - Formatting: cookbook/markdown/text-styling/basic-formatting.md
+      #         - Progress Bars: cookbook/markdown/text-styling/progress-bars.md
+      #         - Highlight Text: cookbook/markdown/text-styling/highlighting.md
+      #         - Underline Text: cookbook/markdown/text-styling/underlining.md
+      #     - Code Blocks: cookbook/markdown/code-blocks.md
+      #     - Blockquotes & Callouts: cookbook/markdown/blockquotes.md
+      #     - Task Lists: cookbook/markdown/task-lists.md
+      #     - Footnotes & Citations: cookbook/markdown/footnotes.md
+      #     - Buttons & Shortcuts: cookbook/markdown/buttons-and-shortcuts.md
+      #     - Contact Info: cookbook/markdown/contact-info.md
+      #     - Contributing Guidelines: cookbook/markdown/contributing.md
+      #     - HTML Elements:
+      #         - Spacing Entities: cookbook/markdown/html-elements/spacing-entities.md
+      # - GitHub Markdown:
+      #     - GitHub Features: cookbook/markdown/github-flavored.md
+      #     - Emojis & Icons: cookbook/markdown/emoji-icons.md
+      #     - Issues & PRs: cookbook/markdown/issue-references.md
+      # - Documentation:
+      #     - Table of Contents: cookbook/markdown/table-of-contents.md
+      #     - Diagrams & Flowcharts: cookbook/markdown/mermaid-diagrams.md
+      #     - Math Equations: cookbook/markdown/math-equations.md
+      # - Styling:
+      #     - Custom Styling: cookbook/markdown/styling-and-layout/custom-styling.md
+      #     - Buttons & Badges: cookbook/markdown/styling-and-layout/buttons-badges.md
+      #     - Layout Techniques: cookbook/markdown/styling-and-layout/layout-techniques.md
+      # - Best Practices:
+      #     - Effective READMEs: cookbook/markdown/best-practices/effective-readmes.md
+      #     - Organizing Docs: cookbook/markdown/best-practices/doc-structure.md
+      #     - Accessibility: cookbook/markdown/best-practices/accessibility.md
+      # - Tools & Resources:
+      #     - Markdown Editors: cookbook/markdown/resources/editors-ides.md
+      #     - Extensions: cookbook/markdown/resources/extensions.md
+      #     - Linting Tools: cookbook/markdown/resources/linting-formatting.md
+not_in_nav: |
+  /philosophy.md
+  /examples/profile-readmes.md
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/extra.js
+extra:
+  analytics:
+    provider: google
+    property: G-NTBCVE2PQY
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Thanks for your feedback! Help us improve by using our feedback form.
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eli64s/readme-ai
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/readmellms/
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/zeroxeli/readme-ai

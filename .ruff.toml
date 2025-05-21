@@ -1,0 +1,63 @@
+exclude = [
+    ".env,",
+    ".git",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pyenv",
+    ".pytest_cache",
+    ".ruff_cache",
+    "venv",
+    ".venv",
+    ".vscode",
+]
+line-length = 88
+indent-width = 4
+target-version = "py311"
+
+[lint]
+preview = true
+extend-select = [
+    "E305",     # 2 blank lines before class or function
+]
+select = [
+    "ARG",      # unused arguments
+    "B",        # flake8-bugbear
+    "E",        # pycodestyle
+    "E303",     # too many blank lines
+    "E722",     # bare except statements
+    "F",        # pyflakes
+    "F401",     # remove unused imports
+    "I",        # isort
+    "N",        # pep8-naming
+    "RUF",      # ruff
+    "SIM",      # flake8-simplify
+    "UP",       # pyupgrade
+    "W",        # pycodestyle
+    "W291",     # trailing whitespace
+    "W293",     # blank line contains whitespace
+    # "F821",     # undefined name
+]
+fixable = ["ALL"]
+ignore = [
+    "UP006",
+    "UP007",
+    "UP035",
+]
+unfixable = []
+
+[lint.isort]
+known-third-party = ["readmeai"]
+relative-imports-order = "closest-to-furthest"
+
+# [lint.pydocstyle]
+# convention = "numpy"
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = 88
+indent-style = "space"
+line-ending = "auto"
+preview = true
+quote-style = "double"
+skip-magic-trailing-comma = false

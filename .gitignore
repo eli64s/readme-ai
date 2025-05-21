@@ -1,71 +1,51 @@
-# Compiled Python files
+# Build Artifacts
+*.egg-info/
+build/
+dist/
+
+# Compiled Python Files
 *.pyc
 *.pyo
 __pycache__/
-.venv/
 
-# Compiled Cython files
-*.so
-*.c
-
-# System-specific files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*~
-
-# Test coverage results
-.nox/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
-
-# Log files
-logs/
-*.log
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
+# Documentation and MkDocs
+.cache
+site
 
 # Jupyter Notebook
 .ipynb_checkpoints/
-outputs/
 notebooks/
 
-# VSCode workspace settings
-.vscode/
+# Logging
+*.log
+logs/
 
-# cache
+# Python Tools
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
 
-# Benchmarks
-.benchmarks/
+# System-Specific Files
+.DS_Store
 
-# Package Management
-Pipfile
-Pipfile.lock
+# Temporary Files
+*~
 
-# Work In Progress
-# Configuration Files (wip)
+# Testing
+.nox/
+.reports/
+*coverage*
 
-readmeai/config/settings/classifiers.toml
-readmeai/config/settings/models.toml
-readmeai/config/settings/quickstart_wip.toml
-readmeai/config/settings/quickstart.toml
-readmeai/utils/file_cleaner.py
+# Virtual Environment
+.env
+.venv/
 
-# Github Actions
-.github/workflows/ci.yml
+# VSCode Workspace Settings
+.vscode/
 
-# Submodules (wip)
-readmeai/templates/
-readmeai/ui/
-
-# Dalle-3 Images
-examples/images/dalle
+# ReadmeAI
+.readmeai/
+.actrc
+.version.tmp
+.github/workflows/update-badges-local.yml
+.github/workflows/update-badges.yml

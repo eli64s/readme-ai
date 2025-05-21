@@ -1,7 +1,3 @@
-"""
-Tests for tokenization helper functions for the LLM API requests.
-"""
-
 import pytest
 
 from readmeai.models.tokens import (
@@ -22,7 +18,7 @@ class MockEncoder:
 
 
 @pytest.fixture(autouse=True)
-def mock_get_encoding(monkeypatch):
+def mock_get_encoding(monkeypatch: pytest.MonkeyPatch):
     """Mock the get_encoding function."""
 
     def mock_encoder(encoding_name):
@@ -110,7 +106,6 @@ def test_count_tokens_edge_cases(text, expected, ENCODING_NAME="cl100k_base"):
 
 
 def test_count_tokens_exception():
-    """Test count_tokens function with an exception."""
     with pytest.raises(TypeError) as exc:
         count_tokens([1, 2, 4, 5], ENCODING_NAME)
     assert isinstance(exc.value, TypeError)
@@ -139,30 +134,31 @@ def test_set_encoding_cache_invalid():
     assert isinstance(exc.value, ValueError)
 
 
-def test_truncate_tokens_less_tokens(mock_get_encoding):
+def test_truncate_tokens_less_tokens(mock_get_encoding: None):
     assert (
         truncate_tokens(mock_get_encoding, "Hello world", 10) == "Hello world"
     )
 
 
-def test_truncate_tokens_more_tokens(mock_get_encoding):
+def test_truncate_tokens_more_tokens(mock_get_encoding: None):
     assert (
         truncate_tokens(mock_get_encoding, "Hello world", 1) == "Hello world"
     )
 
 
-def test_truncate_tokens_empty_string(mock_get_encoding):
+def test_truncate_tokens_empty_string(mock_get_encoding: None):
     assert truncate_tokens(mock_get_encoding, "", 10) == ""
 
 
-def test_truncate_tokens_exception(mock_get_encoding, caplog):
-    assert (
-        truncate_tokens(mock_get_encoding, "Hello world", 100) == "Hello world"
-    )
-    assert "Error truncating tokens" in caplog.text
+def test_truncate_tokens_exception(
+    mock_get_encoding: None, caplog: pytest.LogCaptureFixture
+):
+    with pytest.raises(Exception) as e:
+        truncate_tokens(mock_get_encoding, None, 10)
+        assert isinstance(e, Exception)
 
 
-def test_truncate_tokens_different_encodings(mock_get_encoding):
+def test_truncate_tokens_different_encodings(mock_get_encoding: None):
     assert truncate_tokens(mock_get_encoding, "Test", 1) == "Test"
 
 
