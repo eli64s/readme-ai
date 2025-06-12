@@ -17,8 +17,8 @@ def test_openai_handler_sets_attributes(openai_handler: OpenAIHandler):
 
 
 def test_openai_endpoint_configuration_for_openai(
-    mock_config_loader: ConfigLoader,
-    openai_handler: OpenAIHandler,
+        mock_config_loader: ConfigLoader,
+        openai_handler: OpenAIHandler,
 ):
     """Test that the correct endpoint is set for OpenAI API."""
     mock_config_loader.config.llm.api = LLMProviders.OPENAI.value
@@ -26,16 +26,13 @@ def test_openai_endpoint_configuration_for_openai(
 
 
 def test_openai_endpoint_configuration_for_ollama(
-    mock_config_loader: ConfigLoader,
-    ollama_localhost: str,
+        mock_config_loader: ConfigLoader,
+        ollama_localhost: str,
 ):
     """Test that the correct endpoint is set for OLLAMA."""
     mock_config_loader.config.llm.api = LLMProviders.OLLAMA.value
     mock_config_loader.config.llm.localhost = ollama_localhost
-    assert (
-        "v1/chat/completions"
-        in f"{mock_config_loader.config.llm.localhost}v1/chat/completions"
-    )
+    assert "v1/chat/completions" in f"{mock_config_loader.config.llm.localhost}v1/chat/completions"
 
 
 @pytest.mark.asyncio
@@ -97,9 +94,7 @@ async def test_openai_make_request_without_context(openai_handler: OpenAIHandler
 
 
 @pytest.mark.asyncio
-async def test_make_request_error_handling(
-    mock_config: Settings, openai_handler: OpenAIHandler
-):
+async def test_make_request_error_handling(mock_config: Settings, openai_handler: OpenAIHandler):
     """Test error handling in _make_request."""
 
     async def run_test(error):

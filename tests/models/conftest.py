@@ -9,9 +9,9 @@ from readmeai.config.settings import ConfigLoader
 from readmeai.extractors.models import RepositoryContext
 from readmeai.models._openai import OpenAIHandler
 from readmeai.models.anthropic import ANTHROPIC_AVAILABLE, AnthropicHandler
+from readmeai.models.azure import AzureOpenAIHandler
 from readmeai.models.enums import GeminiModels
 from readmeai.models.gemini import GeminiHandler
-from readmeai.models.openai import OpenAIHandler
 
 
 @pytest.fixture
@@ -48,9 +48,7 @@ def mock_aiohttp_session():
 
 
 @pytest.fixture
-def anthropic_handler(
-    mock_config_loader: ConfigLoader, mock_repository_context: RepositoryContext
-):
+def anthropic_handler(mock_config_loader: ConfigLoader, mock_repository_context: RepositoryContext):
     if not ANTHROPIC_AVAILABLE:
         pytest.skip("Anthropic library is not available")
     context = mock_repository_context
@@ -62,20 +60,18 @@ def anthropic_handler(
 
 @pytest.fixture
 def anthropic_handler_with_mock_session(
-    anthropic_handler: AnthropicHandler, monkeypatch: pytest.MonkeyPatch
+        anthropic_handler: AnthropicHandler, monkeypatch: pytest.MonkeyPatch
 ):
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test_api_key")
-    mock_create = AsyncMock(
-        return_value=MagicMock(content=[MagicMock(text="test_response")])
-    )
+    mock_create = AsyncMock(return_value=MagicMock(content=[MagicMock(text="test_response")]))
     anthropic_handler.client.messages.create = mock_create
     return anthropic_handler
 
 
 @pytest.fixture
 def gemini_handler(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
 ):
     """Fixture to provide a GeminiHandler instance."""
     mock_config_loader.config.llm.model = GeminiModels.GEMINI_FLASH.value
@@ -88,9 +84,9 @@ def gemini_handler(
 
 @pytest.fixture
 def openai_handler(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
-    monkeypatch: pytest.MonkeyPatch,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
+        monkeypatch: pytest.MonkeyPatch,
 ):
     """Fixture to provide an OpenAIHandler instance with a mocked API key."""
     monkeypatch.setenv("OPENAI_API_KEY", "test_api_key")
@@ -102,11 +98,37 @@ def openai_handler(
 
 @pytest.fixture
 def openai_handler_with_mock_session(
-    openai_handler: OpenAIHandler, mock_aiohttp_session: MagicMock
+        openai_handler: OpenAIHandler, mock_aiohttp_session: MagicMock
 ):
     """Fixture to provide an OpenAIHandler with a mocked session."""
     openai_handler._session = mock_aiohttp_session
     return openai_handler
+
+
+@pytest.fixture
+def azure_openai_handler(
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
+):
+    """Fixture to provide an AzureOpenAIHandler instance."""
+    with patch.dict("os.environ", {
+        "AZURE_ENDPOINT": "https://test.azure.com",
+        "AZURE_API_KEY": "test_azure_api_key",
+        "AZURE_API_VERSION": "2023-05-15",
+    }):
+        return AzureOpenAIHandler(
+            config_loader=mock_config_loader,
+            context=mock_repository_context,
+        )
+
+
+@pytest.fixture
+def azure_openai_handler_with_mock_session(
+        azure_openai_handler: AzureOpenAIHandler, mock_aiohttp_session: MagicMock
+):
+    """Fixture to provide an AzureOpenAIHandler with a mocked session."""
+    azure_openai_handler._session = mock_aiohttp_session
+    return azure_openai_handler
 
 
 @pytest.fixture
