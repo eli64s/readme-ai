@@ -3,9 +3,10 @@ from unittest.mock import AsyncMock, MagicMock
 import aiohttp
 import pytest
 import tenacity
+
 from readmeai.config.settings import ConfigLoader, Settings
+from readmeai.models._openai import OpenAIHandler
 from readmeai.models.enums import LLMProviders
-from readmeai.models.openai import OpenAIHandler
 
 
 def test_openai_handler_sets_attributes(openai_handler: OpenAIHandler):

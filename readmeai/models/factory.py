@@ -3,12 +3,12 @@ from typing import ClassVar
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.errors import UnsupportedServiceError
 from readmeai.extractors.models import RepositoryContext
+from readmeai.models._openai import OpenAIHandler
 from readmeai.models.anthropic import AnthropicHandler
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.enums import LLMProviders
 from readmeai.models.gemini import GeminiHandler
 from readmeai.models.offline import OfflineHandler
-from readmeai.models.openai import OpenAIHandler
 
 
 class ModelFactory:
