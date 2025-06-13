@@ -7,11 +7,11 @@ import pytest
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.extractors.models import RepositoryContext
-from readmeai.models._openai import OpenAIHandler
 from readmeai.models.anthropic import ANTHROPIC_AVAILABLE, AnthropicHandler
 from readmeai.models.azure import AzureOpenAIHandler
 from readmeai.models.enums import GeminiModels
 from readmeai.models.gemini import GeminiHandler
+from readmeai.models.openai_ import OpenAIHandler
 
 
 @pytest.fixture

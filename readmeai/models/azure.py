@@ -8,7 +8,7 @@ from openai import AsyncAzureOpenAI
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.extractors.models import RepositoryContext
-from readmeai.models._openai import OpenAIHandler
+from readmeai.models.openai_ import OpenAIHandler
 from readmeai.models.tokens import token_handler
 
 
