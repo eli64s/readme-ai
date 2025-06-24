@@ -6,8 +6,8 @@ from readmeai.config.settings import Settings
 from readmeai.generators.colors.converters import hex_to_hls
 from readmeai.generators.enums import BadgeStyles
 from readmeai.retrievers.git.providers import GitHost
-from readmeai.utilities.file_handler import FileHandler
-from readmeai.utilities.resource_manager import build_resource_path
+from readmeai.utils.file_handler import FileHandler
+from readmeai.utils.resource_manager import build_resource_path
 
 _comment = "<!-- default option, no dependency badges. -->\n"
 _package = "readmeai"

@@ -2,7 +2,7 @@ from typing import Literal
 from unittest import mock
 
 import pytest
-from readmeai.utilities.importer import is_available
+from readmeai.utils.importer import is_available
 
 
 @pytest.fixture

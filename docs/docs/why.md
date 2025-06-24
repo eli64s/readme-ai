@@ -30,10 +30,10 @@ description: Revolutionize your project documentation with automated, flexible, 
 === "Flexibility :material-cloud-sync:"
     Seamlessly switch between AI providers and technologies.
 
-    - [:simple-openai: OpenAI](integrations/openai.md)
-    - [:simple-ollama: Ollama](integrations/ollama.md)
-    - [:simple-anthropic: Anthropic](integrations/anthropic.md)
-    - [:simple-google: Gemini](providers/gemini.md)
+    - [:simple-openai: OpenAI](integrations/llms/openai.md)
+    - [:simple-ollama: Ollama](integrations/llms/ollama.md)
+    - [:simple-anthropic: Anthropic](integrations/llms/anthropic.md)
+    - [:simple-google: Gemini](integrations/llms/gemini.md)
 
 ## :material-checkbox-multiple-marked: Key Features
 
@@ -57,7 +57,7 @@ description: Revolutionize your project documentation with automated, flexible, 
 ## :material-link-variant: Quick Links
 
 - [Getting Started](getting-started/prerequisites.md)
-- [Example Gallery](./examples/index.md
+- [Example Gallery](./examples/index.md)
 - [Contributing Guidelines](./community/contributing.md)
 
 ---

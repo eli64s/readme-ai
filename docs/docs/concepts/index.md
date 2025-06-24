@@ -100,12 +100,14 @@ For more complex documentation needs, ReadmeAI provides advanced features:
 
 ### Ignore Patterns
 
-Control what gets included in your documentation:
+Fine-tune repository analysis by controlling which files are included:
 
-- Exclude sensitive files
-- Skip test directories
-- Ignore build artifacts
-- Custom exclusion patterns
+- **Default exclusions**: Automatically ignores build artifacts, dependencies, and binary files
+- **Custom patterns**: Use `.readmeaiignore` files for project-specific exclusions
+- **Gitignore syntax**: Familiar pattern matching with wildcards and negation
+- **Security focused**: Prevent accidental inclusion of sensitive files
+
+Learn more in [Ignore Patterns](advanced/ignore-patterns.md)
 
 ### Template System
 

@@ -44,6 +44,9 @@ logs/
 .vscode/
 
 # ReadmeAI
+CLAUDE.md
+.claude/
+.cursor/
 .readmeai/
 .actrc
 .version.tmp

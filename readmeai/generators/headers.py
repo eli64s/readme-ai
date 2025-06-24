@@ -5,8 +5,8 @@ from typing import Any, Dict, Final, List, TypedDict
 from pydantic import BaseModel, ConfigDict, Field, computed_field
 from readmeai.core.logger import get_logger
 from readmeai.generators.enums import HeaderStyles
-from readmeai.utilities.file_handler import FileHandler
-from readmeai.utilities.resource_manager import build_resource_path
+from readmeai.utils.file_handler import FileHandler
+from readmeai.utils.resource_manager import build_resource_path
 
 _logger = get_logger(__name__)
 

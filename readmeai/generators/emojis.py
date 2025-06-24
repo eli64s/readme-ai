@@ -1,13 +1,13 @@
 """Theme manager for handling emoji header themes in README documentation."""
 
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import yaml
 from pydantic import BaseModel, Field
 from readmeai.config.settings import Settings
 from readmeai.core.logger import get_logger
-from readmeai.utilities.resource_manager import build_resource_path
+from readmeai.utils.resource_manager import build_resource_path
 
 logger = get_logger(__name__)
 
@@ -18,9 +18,9 @@ class Section(BaseModel):
     """
 
     title: str
-    subsections: Optional[List["Section"]] = None
+    subsections: List["Section"] | None = None
 
-    def get_emoji(self) -> Optional[str]:
+    def get_emoji(self) -> str | None:
         """Extract emoji prefix from section title if present."""
         # Match emoji characters at the start of the title
         emoji_pattern = re.compile(
@@ -76,7 +76,7 @@ class Theme(BaseModel):
     description: str
     sections: List[Section]
 
-    def get_section(self, section_name: str) -> Optional[Section]:
+    def get_section(self, section_name: str) -> Section | None:
         """Find a section by its name with robust matching."""
         if not section_name:
             return None
@@ -102,9 +102,7 @@ class Theme(BaseModel):
 
         return None
 
-    def get_subsection(
-        self, section_name: str, subsection_name: str
-    ) -> Optional[Section]:
+    def get_subsection(self, section_name: str, subsection_name: str) -> Section | None:
         """Find a subsection within a specific section."""
         section = self.get_section(section_name)
         if not section or not section.subsections:
@@ -226,7 +224,7 @@ class ThemeManager:
         return themed_headers
 
     def apply_theme_to_section(
-        self, section_name: str, subsection_name: Optional[str] = None
+        self, section_name: str, subsection_name: str | None = None
     ) -> str:
         """Get the themed title for a specific section/subsection."""
         cache_key = (
@@ -264,7 +262,7 @@ class ThemeManager:
         }
 
     @staticmethod
-    def _header_key_to_section(key: str) -> Optional[str]:
+    def _header_key_to_section(key: str) -> str | None:
         """Convert a header key to a section name."""
         # Special handling for known problematic sections
         if key.lower() in {"project_index", "acknowledgment"}:

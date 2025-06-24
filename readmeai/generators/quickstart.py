@@ -1,12 +1,11 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from string import Template
-from typing import Optional
 
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.logger import get_logger
 from readmeai.extractors.models import QuickStart, RepositoryContext
-from readmeai.utilities.importer import is_available
+from readmeai.utils.importer import is_available
 
 if is_available("tomllib"):  # pragma: no cover
     import tomllib
@@ -290,7 +289,7 @@ class QuickStartGenerator:
         file_path: str,
         cmd_type: str,
         tool_type: str,
-    ) -> Optional[str]:
+    ) -> str | None:
         """Format a command type for a specific tool/framework."""
         try:
             if not primary_language or not tool_name:

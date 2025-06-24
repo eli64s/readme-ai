@@ -2,11 +2,17 @@
 
 <p align="center">
 
-<picture>
+<div align="center">
+  <a href="https://github.com/eli64s/readme-ai">
+    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/icon/logo.svg" alt="ReadmeAI Logo" width="60%">
+  </a>
+</div>
+
+<!-- <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg">
   <img alt="ReadmeAI Logo" src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/svg/logo-gradient.svg" width="60%">
-</picture>
+</picture> -->
 
 </p>
 
@@ -64,7 +70,8 @@ This project aims to streamline the process of creating and maintaining document
 - **🟣 Flexible:** Switch between `OpenAI`, `Ollama`, `Anthropic`, and `Gemini` anytime.
 - **🟠 Language Agnostic:** Compatible with a wide range of languages and frameworks.
 - **🟡 Best Practices:** Ensure clean and consistent documentation across all projects.
-- **✨ Offline Mode:** Create README files offline, without using a LLM API service.
+- **🟢 Smart Filtering:** Intelligent file analysis with customizable `.readmeaiignore` patterns.
+- **⛔️ Offline Mode:** Create README files offline, without using a LLM API service.
 
 ## Demo
 

@@ -1,0 +1,22 @@
+# ReadmeAI Custom Ignore File
+# gitignore-style patterns to exclude files from README analysis
+
+# Ignore development and build artifacts
+*.cache
+*.tmp
+build/
+dist/
+
+# Ignore documentation generation
+site/
+docs/_build/
+
+# Ignore test files
+test_main.py
+example_config.json
+
+# Ignore directories
+demo/
+examples/
+
+# ENTER IGNORE PATTERNS BELOW

@@ -1,100 +1,88 @@
 ---
-title: Ignore Files
-description: Learn how to exclude specific files and directories from your README generation using .readmeai_ignore files.
+title: Ignore Patterns
+description: Understanding how ReadmeAI filters files and how to customize file exclusion patterns.
 ---
 
-# Ignore Files
+# Ignore Patterns
 
-When generating README documentation, you may want to exclude certain files or directories from the output. To achieve this, you can create a `.readmeai_ignore` file in your repository to specify patterns for files and directories that should be ignored during README generation.
+ReadmeAI automatically excludes certain files and directories from analysis to focus on relevant code and documentation. This system works on two levels: built-in defaults and user-customizable patterns.
 
-## Creating an Ignore File
+## How File Filtering Works
+
+ReadmeAI uses a two-tier filtering system:
+
+1. **Default Filters**: Built-in patterns that exclude common non-essential files
+2. **Custom Patterns**: User-defined patterns in `.readmeaiignore` files
+
+### Default Exclusions
+
+ReadmeAI automatically ignores:
+
+- **Development artifacts**: `__pycache__/`, `.pytest_cache/`, `node_modules/`
+- **Build outputs**: `dist/`, `build/`, `.tox/`
+- **Version control**: `.git/`, `.svn/`, `.hg/`
+- **IDE files**: `.vscode/`, `.idea/`
+- **Binary files**: `*.exe`, `*.dll`, `*.so`, `*.dylib`
+- **Media files**: `*.jpg`, `*.png`, `*.mp4`, `*.gif`
+- **Archive files**: `*.zip`, `*.tar`, `*.gz`
+
+### Custom Ignore Patterns
+
+You can override or extend the default behavior by creating a `.readmeaiignore` file in your repository root. This file follows gitignore-style syntax:
 
 ```text
+# Comments start with #
 # Ignore specific files
-secret_file.txt
-*.env
+config/secrets.yaml
+.env.local
 
-# Ignore directories
-test_data/
-**/temp/
+# Ignore by extension
+*.cache
+*.tmp
 
-# Ignore files by pattern
-**/*.log
+# Ignore directories (trailing slash)
+logs/
+temp/
+
+# Global patterns (recursive)
 **/node_modules/
+**/*.log
+
+# Negation patterns (include despite other rules)
+!important.log
+!docs/examples/
 ```
 
-## Implementation
+## Pattern Syntax
 
-```python
-"""Handling logic for .readmeai_ignore files."""
+ReadmeAI supports gitignore-style patterns:
 
-import pathlib
-from typing import List, Set
-import fnmatch
+| Pattern | Description | Example |
+|---------|-------------|---------|
+| `filename.ext` | Exact filename match | `config.yaml` |
+| `*.ext` | All files with extension | `*.log` |
+| `directory/` | Directory and contents | `temp/` |
+| `**/pattern` | Recursive match | `**/cache/` |
+| `pattern/**` | All files under directory | `logs/**` |
+| `!pattern` | Negation (include) | `!important.log` |
+| `/pattern` | Root-level only | `/config.yaml` |
 
-class ReadmeIgnoreHandler:
-    """Handler for .readmeai_ignore file processing."""
+## Precedence Rules
 
-    def __init__(self, repo_path: pathlib.Path) -> None:
-        """Initialize the ignore handler with repository path."""
-        self.repo_path = repo_path
-        self.ignore_patterns: Set[str] = set()
-        self._load_ignore_file()
+When multiple patterns could apply to a file:
 
-    def _load_ignore_file(self) -> None:
-        """Load patterns from .readmeai_ignore file if it exists."""
-        ignore_file = self.repo_path / ".readmeai_ignore"
+1. **Custom patterns** take precedence over default patterns
+2. **Negation patterns** (`!pattern`) override exclusion patterns
+3. **More specific patterns** override general patterns
+4. **Later patterns** in the file override earlier ones
 
-        if not ignore_file.exists():
-            return
+## Why This Approach?
 
-        with open(ignore_file, 'r', encoding='utf-8') as f:
-            for line in f:
-                # Remove comments and whitespace
-                line = line.split('#')[0].strip()
-                if line:
-                    self.ignore_patterns.add(line)
+This filtering system serves several purposes:
 
-    def should_ignore(self, file_path: pathlib.Path) -> bool:
-        """
-        Check if a file should be ignored based on .readmeai_ignore patterns.
-
-        Args:
-            file_path: Path object relative to repository root
-
-        Returns:
-            bool: True if file should be ignored, False otherwise
-        """
-        # Convert path to string for pattern matching
-        path_str = str(file_path.relative_to(self.repo_path))
-
-        # Check each ignore pattern
-        for pattern in self.ignore_patterns:
-            if fnmatch.fnmatch(path_str, pattern):
-                return True
-
-        return False
-
-    def get_ignore_patterns(self) -> List[str]:
-        """Return list of current ignore patterns."""
-        return sorted(self.ignore_patterns)
-
-    def add_pattern(self, pattern: str) -> None:
-        """Add a new ignore pattern."""
-        self.ignore_patterns.add(pattern.strip())
-
-    def remove_pattern(self, pattern: str) -> bool:
-        """
-        Remove an ignore pattern.
-
-        Returns:
-            bool: True if pattern was removed, False if not found
-        """
-        try:
-            self.ignore_patterns.remove(pattern.strip())
-            return True
-        except KeyError:
-            return False
-```
+- **Performance**: Analyzing fewer files means faster README generation
+- **Relevance**: Focus on source code and documentation, not artifacts
+- **Security**: Avoid accidentally including sensitive files in analysis
+- **Customization**: Project-specific needs through `.readmeaiignore`
 
 ---

@@ -6,7 +6,7 @@ from readmeai.core.logger import get_logger
 from readmeai.extractors.models import FileContext
 from readmeai.parsers.factory import ParserFactory
 from readmeai.preprocessor.document_cleaner import DocumentCleaner
-from readmeai.preprocessor.file_filter import is_excluded
+from readmeai.preprocessor.ignore_handler import IgnoreHandler
 
 _logger = get_logger(__name__)
 
@@ -16,19 +16,22 @@ class FileProcessor:
     File processor class to process files in a repository.
     """
 
-    def __init__(self, config: ConfigLoader):
+    def __init__(self, config: ConfigLoader) -> None:
+        """Initialize the file processor with configuration settings."""
         self.config = config
         self.document_cleaner = DocumentCleaner()
-        self.ignore_list = config.ignore_list.get("ignore_list", [])
+        self.default_rules = config.ignore_list.get("ignore_list", {})
         self.language_names = config.language_map.get("languages", {})
+        self.ignore_handler = IgnoreHandler(self.default_rules)
 
     def process_files(self, repo_path: Path) -> list[FileContext]:
-        """Generate file info for the given repository path."""
+        """Process all files in the repository."""
+        self.ignore_handler.load_user_rules(repo_path)
         return [
             self._create_file_context(file_path, repo_path)
             for file_path in repo_path.rglob("*")
             if file_path.is_file()
-            and not is_excluded(self.ignore_list, file_path, repo_path)
+            and not self.ignore_handler.is_excluded(file_path, repo_path)
         ]
 
     def count_languages(self, file_contexts: list[FileContext]) -> dict[str, int]:
