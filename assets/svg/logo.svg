@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"
+     role="img" aria-label="README-AI app icon">
+    <defs>
+        <linearGradient id="macosGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#7B3DE3;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="macosHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.1" />
+        </linearGradient>
+        <linearGradient id="shadowGradient" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#000000;stop-opacity:0.2" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.05" />
+        </linearGradient>
+        <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.4" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <radialGradient id="centerParticle" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1">
+                <animate attributeName="stop-color"
+                         values="#FFFFFF;#4169E1;#8A2BE2;#FFFFFF" dur="6s"
+                         repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:0">
+                <animate attributeName="stop-color"
+                         values="#8A2BE2;#FFFFFF;#4169E1;#8A2BE2" dur="6s"
+                         repeatCount="indefinite" />
+            </stop>
+        </radialGradient>
+    </defs>
+    <!-- macOS rounded square -->
+    <rect width="256" height="256" rx="58" fill="url(#macosGradient)" />
+    <!-- Highlight and shadow -->
+    <rect x="0" y="0" width="256" height="128" rx="58" fill="url(#macosHighlight)"
+          opacity="0.3" />
+    <rect x="0" y="128" width="256" height="128" rx="58" fill="url(#shadowGradient)"
+          opacity="0.3" />
+    <!-- Background glow -->
+    <circle cx="128" cy="120" r="80" fill="#FFFFFF" opacity="0.05">
+        <animate attributeName="r" values="80;85;80" dur="4s"
+                 repeatCount="indefinite" />
+    </circle>
+    <!-- Main AI logo -->
+    <g transform="translate(128, 115)">
+        <rect x="-50" y="-50" width="100" height="100" rx="15" fill="#FFFFFF"
+              opacity="0.95" filter="drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.3))" />
+        <rect x="-50" y="-50" width="100" height="50" rx="15"
+              fill="url(#macosHighlight)" opacity="0.4" />
+        <path d="M -30 -35 L -30 35 L -10 35 L 0 20 L 10 35 L 30 35 L 30 -35 Z"
+              fill="url(#macosGradient)" filter="url(#iconGlow)" />
+    </g>
+    <!-- Orbiting particles -->
+    <g>
+        <circle cx="0" cy="0" r="4" fill="url(#centerParticle)" filter="url(#iconGlow)">
+            <animateMotion path="M 128 115 a 60 60 0 1 1 0 1" dur="8s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="3" fill="url(#centerParticle)" filter="url(#iconGlow)">
+            <animateMotion path="M 128 115 a 55 55 0 1 0 0 1" dur="6s"
+                           repeatCount="indefinite" />
+        </circle>
+        <circle cx="0" cy="0" r="3.5" fill="url(#centerParticle)"
+                filter="url(#iconGlow)">
+            <animateMotion path="M 128 115 a 65 65 0 1 1 0 1" dur="10s"
+                           repeatCount="indefinite" />
+        </circle>
+    </g>
+    <!-- Bottom text -->
+    <text x="128" y="200" text-anchor="middle"
+          font-family="'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif"
+          font-size="24" font-weight="700" fill="#FFFFFF" opacity="0.9">
+        README-AI
+    </text>
+    <!-- Subtle corner elements -->
+    <g transform="translate(40, 40)" opacity="0.3">
+        <path d="M 0 0 L -8 8 L 0 16" stroke="#FFFFFF" stroke-width="2" fill="none" />
+        <path d="M 16 0 L 24 8 L 16 16" stroke="#FFFFFF" stroke-width="2" fill="none" />
+    </g>
+    <g transform="translate(216, 216)" opacity="0.3">
+        <path d="M 0 0 L -8 -8 L 0 -16" stroke="#FFFFFF" stroke-width="2" fill="none" />
+        <path d="M 16 0 L 24 -8 L 16 -16" stroke="#FFFFFF" stroke-width="2"
+              fill="none" />
+    </g>
+</svg>
