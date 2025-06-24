@@ -1,7 +1,5 @@
 """Tests for the .readmeaiignore file filter functionality."""
 
-from pathlib import Path
-
 from readmeai.preprocessor.file_filter import is_excluded
 from readmeai.preprocessor.ignore_handler import IgnoreHandler
 
@@ -9,8 +7,11 @@ from readmeai.preprocessor.ignore_handler import IgnoreHandler
 class TestIgnoreHandler:
     """Test cases for IgnoreHandler class."""
 
-    def test_no_ignore_file(self, tmp_path):
+    def test_no_ignore_file(self, tmp_path, monkeypatch):
         """Test with no ignore file."""
+        # Change to tmp_path to avoid loading actual .readmeaiignore
+        monkeypatch.chdir(tmp_path)
+
         default_rules = {"directories": [], "extensions": [], "files": []}
         handler = IgnoreHandler(default_rules)
         handler.load_user_rules(tmp_path)
@@ -18,8 +19,11 @@ class TestIgnoreHandler:
 
     def test_basic_patterns(self, tmp_path, monkeypatch):
         """Test basic pattern loading."""
-        # Create .readmeaiignore file in current directory for the test
-        ignore_file = Path.cwd() / ".readmeaiignore"
+        # Change to tmp_path to avoid conflicts with existing files
+        monkeypatch.chdir(tmp_path)
+
+        # Create .readmeaiignore file in tmp_path
+        ignore_file = tmp_path / ".readmeaiignore"
         ignore_file.write_text("""
 # This is a comment
 *.log
