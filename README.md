@@ -4,7 +4,9 @@
 
 <div align="center">
   <a href="https://github.com/eli64s/readme-ai">
-    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/docs/docs/assets/icon/logo.svg" alt="ReadmeAI Logo" width="60%">
+    <img
+      src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/svg/logo.svg" 
+      alt="ReadmeAI Logo" width="60%">
   </a>
 </div>
 
