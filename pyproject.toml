@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "readmeai"
-version = "0.6.1"
+version = "0.6.2"
 description = "Automated README file generator, powered by AI."
 authors = ["Eli Salamie <egsalamie@gmail.com>"]
 license = "MIT"
@@ -58,6 +58,7 @@ include = [
     "readmeai",
     "readmeai.*",
     "readmeai/config/settings/templates/*",
+    ".readmeaiignore",
 ]
 
 [tool.poetry.scripts]
@@ -156,6 +157,7 @@ omit = [
     "../readme-ai/readmeai/retrievers/git/providers.py",
     "../readme-ai/readmeai/utilities/fetch_badges.py",
     "../readme-ai/readmeai/extractors/tools.py",
+    "../readme-ai/readmeai/utils/fetch_badges.py",
 ]
 precision = 2
 show_missing = true

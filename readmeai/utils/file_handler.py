@@ -6,7 +6,7 @@ from typing import Any, Union
 
 import yaml
 from readmeai.core.errors import FileReadError, FileWriteError
-from readmeai.utilities.importer import is_available
+from readmeai.utils.importer import is_available
 
 
 class FileHandler:

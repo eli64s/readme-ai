@@ -38,9 +38,9 @@ from readmeai.models.enums import (
     OpenAIModels,
 )
 from readmeai.retrievers.git.providers import GitURL, parse_git_url
-from readmeai.utilities.file_handler import FileHandler
-from readmeai.utilities.importer import is_available
-from readmeai.utilities.resource_manager import build_resource_path
+from readmeai.utils.file_handler import FileHandler
+from readmeai.utils.importer import is_available
+from readmeai.utils.resource_manager import build_resource_path
 
 if is_available("typing_extensions"):
     from typing_extensions import Self

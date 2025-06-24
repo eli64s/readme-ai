@@ -21,7 +21,7 @@ from readmeai.models.enums import LLMProviders
 from readmeai.models.factory import ModelFactory
 from readmeai.postprocessor import markdown_to_html, response_cleaner
 from readmeai.retrievers.git.repository import load_data
-from readmeai.utilities.file_handler import FileHandler
+from readmeai.utils.file_handler import FileHandler
 
 _logger = get_logger(__name__)
 

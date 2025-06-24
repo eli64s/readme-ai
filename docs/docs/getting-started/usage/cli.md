@@ -100,6 +100,25 @@ The readme-ai CLI supports multiple ways to generate documentation, from cloud L
         --emojis solar
     ```
 
+## File Filtering
+
+ReadmeAI automatically excludes common non-essential files, but you can customize this behavior:
+
+### Using .readmeaiignore
+
+Create a `.readmeaiignore` file in your repository root to define custom exclusion patterns:
+
+```text
+# .readmeaiignore
+*.log
+temp/
+!important.log
+**/cache/
+```
+
+!!! tip "Custom File Exclusions"
+    For detailed guidance on ignore patterns, see the [File Exclusion Guide](ignore-files.md).
+
 ## Command Options
 
 For a complete list of available options, use the `--help` flag:

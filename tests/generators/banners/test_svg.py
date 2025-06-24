@@ -11,7 +11,7 @@ from readmeai.generators.banners.svg import SVGBannerGenerator, SVGBannerSetting
 @pytest.fixture
 def mock_file_handler():
     """Mock the file handler to avoid actual file operations"""
-    with patch("readmeai.utilities.file_handler.FileHandler") as mock:
+    with patch("readmeai.utils.file_handler.FileHandler") as mock:
         handler = mock.return_value
         handler.read.side_effect = FileReadError(
             "File not found: config/settings/templates/banners.toml"

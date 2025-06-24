@@ -1,67 +1,134 @@
-from pathlib import Path
-from typing import Any
+"""Tests for the .readmeaiignore file filter functionality."""
 
-import pytest
+from pathlib import Path
 
 from readmeai.preprocessor.file_filter import is_excluded
+from readmeai.preprocessor.ignore_handler import IgnoreHandler
 
 
-@pytest.fixture
-def repo_path() -> Path:
-    return Path("/home/user/project")
+class TestIgnoreHandler:
+    """Test cases for IgnoreHandler class."""
+
+    def test_no_ignore_file(self, tmp_path):
+        """Test with no ignore file."""
+        default_rules = {"directories": [], "extensions": [], "files": []}
+        handler = IgnoreHandler(default_rules)
+        handler.load_user_rules(tmp_path)
+        assert handler.ignore_rules == default_rules
+
+    def test_basic_patterns(self, tmp_path, monkeypatch):
+        """Test basic pattern loading."""
+        # Create .readmeaiignore file in current directory for the test
+        ignore_file = Path.cwd() / ".readmeaiignore"
+        ignore_file.write_text("""
+# This is a comment
+*.log
+temp.txt
+# Another comment
+
+src/markitecture/
+""")
+
+        try:
+            default_rules = {"directories": [], "extensions": [], "files": []}
+            handler = IgnoreHandler(default_rules)
+            handler.load_user_rules(tmp_path)
+
+            # Check that patterns were parsed correctly
+            assert "log" in handler.ignore_rules["extensions"]
+            assert "temp.txt" in handler.ignore_rules["files"]
+            assert "src/markitecture" in handler.ignore_rules["directories"]
+        finally:
+            # Clean up
+            if ignore_file.exists():
+                ignore_file.unlink()
+
+    def test_basic_integration(self, tmp_path):
+        """Test basic integration of ignore handler."""
+        default_rules = {
+            "directories": ["build"],
+            "extensions": ["log"],
+            "files": [".DS_Store"],
+        }
+        handler = IgnoreHandler(default_rules)
+        handler.load_user_rules(tmp_path)  # No user rules, just test default
+
+        # Create test files
+        (tmp_path / "build").mkdir()
+        (tmp_path / "build" / "output.txt").touch()
+        (tmp_path / "debug.log").touch()
+        (tmp_path / ".DS_Store").touch()
+        (tmp_path / "main.py").touch()
+
+        build_file = tmp_path / "build" / "output.txt"
+        log_file = tmp_path / "debug.log"
+        ds_store = tmp_path / ".DS_Store"
+        main_file = tmp_path / "main.py"
+
+        assert handler.is_excluded(build_file, tmp_path) is True
+        assert handler.is_excluded(log_file, tmp_path) is True
+        assert handler.is_excluded(ds_store, tmp_path) is True
+        assert handler.is_excluded(main_file, tmp_path) is False
 
 
-@pytest.fixture
-def ignore_list() -> dict[str, Any]:
-    return {
-        "directories": ["node_modules", ".git"],
-        "extensions": ["pyc", "tmp"],
-        "files": [".DS_Store", "Thumbs.db"],
-    }
+class TestFileFilterFunction:
+    """Test cases for is_excluded function."""
 
+    def test_directory_exclusion(self, tmp_path):
+        """Test directory exclusion with basic ignore list."""
+        # Create directory structure
+        (tmp_path / "src").mkdir()
+        (tmp_path / "src" / "markitecture").mkdir()
+        (tmp_path / "src" / "markitecture" / "main.py").touch()
+        (tmp_path / "src" / "other").mkdir()
+        (tmp_path / "src" / "other" / "file.py").touch()
+        (tmp_path / "README.md").touch()
 
-@pytest.mark.parametrize(
-    "file_path,expected",
-    [
-        (Path("/home/user/project/src/main.py"), False),
-        (Path("/home/user/project/node_modules/package.json"), True),
-        (Path("/home/user/project/.git/config"), True),
-        (Path("/home/user/project/build/output.pyc"), True),
-        (Path("/home/user/project/temp.tmp"), True),
-        (Path("/home/user/project/.DS_Store"), True),
-        (Path("/home/user/project/docs/Thumbs.db"), True),
-        (Path("/home/user/project/src/utils.py"), False),
-    ],
-)
-def test_is_excluded(
-    file_path: Path,
-    expected: bool,
-    repo_path: Path,
-    ignore_list: dict[str, Any],
-) -> None:
-    assert is_excluded(ignore_list, file_path, repo_path) == expected
+        # Test filtering with ignore list
+        ignore_list = {"directories": ["src"], "extensions": [], "files": []}
 
+        src_markitecture_file = tmp_path / "src" / "markitecture" / "main.py"
+        src_other_file = tmp_path / "src" / "other" / "file.py"
+        readme_file = tmp_path / "README.md"
 
-def test_is_excluded_empty_ignore_list(repo_path: Path):
-    empty_ignore_list = {"directories": [], "extensions": [], "files": []}
-    file_path = Path("/home/user/project/src/main.py")
-    assert not is_excluded(empty_ignore_list, file_path, repo_path)
+        assert is_excluded(ignore_list, src_markitecture_file, tmp_path) is True
+        assert is_excluded(ignore_list, src_other_file, tmp_path) is True
+        assert is_excluded(ignore_list, readme_file, tmp_path) is False
 
+    def test_extension_exclusion(self, tmp_path):
+        """Test file extension exclusion."""
+        # Create test files
+        (tmp_path / "debug.log").touch()
+        (tmp_path / "cache.tmp").touch()
+        (tmp_path / "main.py").touch()
 
-def test_is_excluded_no_match(repo_path: Path, ignore_list: dict[str, Any]):
-    file_path = Path("/home/user/project/src/app.js")
-    assert not is_excluded(ignore_list, file_path, repo_path)
+        ignore_list = {"directories": [], "extensions": ["log", "tmp"], "files": []}
 
+        log_file = tmp_path / "debug.log"
+        tmp_file = tmp_path / "cache.tmp"
+        py_file = tmp_path / "main.py"
 
-def test_is_excluded_case_sensitivity(
-    repo_path: Path, ignore_list: dict[str, Any]
-):
-    file_path = Path("/home/user/project/.GIT/config")
-    assert not is_excluded(ignore_list, file_path, repo_path)
+        assert is_excluded(ignore_list, log_file, tmp_path) is True
+        assert is_excluded(ignore_list, tmp_file, tmp_path) is True
+        assert is_excluded(ignore_list, py_file, tmp_path) is False
 
+    def test_file_exclusion(self, tmp_path):
+        """Test specific file exclusion."""
+        # Create test files
+        (tmp_path / "config.local").touch()
+        (tmp_path / "secrets.env").touch()
+        (tmp_path / "config.py").touch()
 
-def test_is_excluded_nested_directory(
-    repo_path: Path, ignore_list: dict[str, Any]
-):
-    file_path = Path("/home/user/project/src/node_modules/package.json")
-    assert is_excluded(ignore_list, file_path, repo_path)
+        ignore_list = {
+            "directories": [],
+            "extensions": [],
+            "files": ["config.local", "secrets.env"],
+        }
+
+        config_file = tmp_path / "config.local"
+        secrets_file = tmp_path / "secrets.env"
+        py_file = tmp_path / "config.py"
+
+        assert is_excluded(ignore_list, config_file, tmp_path) is True
+        assert is_excluded(ignore_list, secrets_file, tmp_path) is True
+        assert is_excluded(ignore_list, py_file, tmp_path) is False

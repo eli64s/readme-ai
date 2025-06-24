@@ -8,7 +8,7 @@ from urllib.parse import parse_qs, urlparse
 
 import aiohttp
 from readmeai.core.logger import get_logger
-from readmeai.utilities.file_handler import FileHandler
+from readmeai.utils.file_handler import FileHandler
 
 _logger = get_logger(__name__)
 

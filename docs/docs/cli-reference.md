@@ -57,10 +57,49 @@ This guide provides a comprehensive reference for the readme-ai CLI, including a
 | `--emojis` | `-e` | `default`<br>`minimal`<br>`ascension`<br>`fibonacci`<br>`harmony`<br>`prism`<br>`quantum`<br>`monochrome`<br>`unicode`<br>`atomic`<br>`cosmic`<br>`crystal`<br>`earth`<br>`fire`<br>`forest`<br>`nature`<br>`water`<br>`gradient`<br>`rainbow`<br>`solar`<br>`fun`<br>`vintage`<br>`zen`<br>`random` | `default` | Emoji theme for header sections |
 | `--tree-max-depth` | `-td` | `INTEGER` | `3` | Maximum depth of directory tree |
 
+## File Processing
+
+ReadmeAI automatically filters files during analysis to focus on relevant code and documentation.
+
+### Default Exclusions
+
+The following file types and directories are excluded by default:
+
+- **Development artifacts**: `__pycache__/`, `.pytest_cache/`, `node_modules/`, `.tox/`
+- **Build outputs**: `dist/`, `build/`, `htmlcov/`
+- **Version control**: `.git/`, `.svn/`, `.hg/`
+- **IDE files**: `.vscode/`, `.idea/`
+- **Binary files**: `*.exe`, `*.dll`, `*.so`, `*.pyc`
+- **Media files**: `*.jpg`, `*.png`, `*.mp4`, `*.gif`
+- **Archive files**: `*.zip`, `*.tar`, `*.gz`
+
+### Custom File Exclusions
+
+Create a `.readmeaiignore` file in your repository root to define custom exclusion patterns:
+
+```text
+# .readmeaiignore
+*.log
+temp/
+!important.log
+**/cache/
+```
+
+**Pattern Support**:
+- Exact filenames: `config.yaml`
+- Wildcards: `*.log`, `temp*`
+- Directories: `logs/` (trailing slash)
+- Recursive: `**/node_modules/`
+- Negation: `!important.log` (include despite other rules)
+- Comments: `# This is a comment`
+
 !!! tip "Using Short Options"
     Many commands have short versions (e.g., `-r` instead of `--repository`). Use these for quicker typing in the terminal.
 
 !!! note "Default Values"
     When an option is not specified, readme-ai will use sensible defaults optimized for most use cases.
+
+!!! info "Custom Ignore Patterns"
+    For detailed guidance on ignore patterns, see the [File Exclusion Guide](getting-started/usage/ignore-files.md).
 
 ---

@@ -15,7 +15,7 @@ from readmeai.extractors.models import (
     QuickStart,
     RepositoryContext,
 )
-from readmeai.utilities.file_handler import FileHandler
+from readmeai.utils.file_handler import FileHandler
 from structlog.testing import LogCapture
 
 # -- Logging -------------------------------------------------------

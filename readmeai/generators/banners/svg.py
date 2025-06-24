@@ -3,7 +3,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 from readmeai.generators.colors.gradients import generate_gradient_colors
-from readmeai.utilities.file_handler import FileHandler
+from readmeai.utils.file_handler import FileHandler
 
 
 class SVGBannerSettings(BaseModel):

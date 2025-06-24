@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"
+     role="img" aria-label="README-AI circular icon">
+    <defs>
+        <radialGradient id="circularGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:#4169E1;stop-opacity:1" />
+            <stop offset="70%" style="stop-color:#7B3DE3;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+        </radialGradient>
+        <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+        </radialGradient>
+        <filter id="circularGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.5" />
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+    <!-- Circular background -->
+    <circle cx="128" cy="128" r="128" fill="url(#circularGradient)" />
+    <!-- Center glow -->
+    <circle cx="128" cy="128" r="70" fill="url(#centerGlow)" opacity="0.4">
+        <animate attributeName="r" values="70;75;70" dur="4s"
+                 repeatCount="indefinite" />
+    </circle>
+    <!-- Main AI logo -->
+    <g transform="translate(128, 128)">
+        <circle cx="0" cy="0" r="50" fill="#FFFFFF" opacity="0.95"
+                filter="drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.3))" />
+        <rect x="-30" y="-30" width="60" height="30" rx="8" fill="#FFFFFF"
+              opacity="0.4" />
+        <path d="M -20 -20 L -20 20 L -8 20 L 0 12 L 8 20 L 20 20 L 20 -20 Z"
+              fill="url(#circularGradient)" filter="url(#circularGlow)" />
+    </g>
+    <!-- Orbital rings -->
+    <circle cx="128" cy="128" r="90" fill="none" stroke="#FFFFFF" stroke-width="2"
+            opacity="0.3">
+        <animate attributeName="r" values="90;95;90" dur="5s"
+                 repeatCount="indefinite" />
+        <animate attributeName="stroke-opacity" values="0.3;0.6;0.3" dur="3s"
+                 repeatCount="indefinite" />
+    </circle>
+    <circle cx="128" cy="128" r="105" fill="none" stroke="#FFFFFF" stroke-width="1"
+            opacity="0.2">
+        <animate attributeName="r" values="105;110;105" dur="6s"
+                 repeatCount="indefinite" />
+    </circle>
+    <!-- Floating documentation elements -->
+    <g opacity="0.7">
+        <circle cx="60" cy="70" r="3" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="12s"
+                              repeatCount="indefinite" />
+        </circle>
+        <rect x="58" y="72" width="8" height="2" rx="1" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="12s"
+                              repeatCount="indefinite" />
+        </rect>
+    </g>
+    <g opacity="0.6">
+        <circle cx="196" cy="186" r="2.5" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="10s"
+                              repeatCount="indefinite" />
+        </circle>
+        <rect x="194" y="188" width="6" height="1.5" rx="0.5" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="10s"
+                              repeatCount="indefinite" />
+        </rect>
+    </g>
+    <g opacity="0.8">
+        <circle cx="70" cy="186" r="3.5" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="8s"
+                              repeatCount="indefinite" />
+        </circle>
+        <rect x="67" y="188" width="10" height="2" rx="1" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="8s"
+                              repeatCount="indefinite" />
+        </rect>
+    </g>
+    <g opacity="0.5">
+        <circle cx="186" cy="70" r="2" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="14s"
+                              repeatCount="indefinite" />
+        </circle>
+        <rect x="184" y="72" width="5" height="1" rx="0.5" fill="#FFFFFF">
+            <animateTransform attributeName="transform" type="rotate"
+                              values="0 128 128;360 128 128" dur="14s"
+                              repeatCount="indefinite" />
+        </rect>
+    </g>
+    <!-- Bottom text arc -->
+    <path id="textPath" d="M 67 200 A 64 64 0 0 0 192 200" fill="none" />
+    <text font-family="'SF Mono', 'Roboto Mono', monospace" font-size="14"
+          font-weight="600" fill="#FFFFFF" opacity="0.8">
+        <textPath href="#textPath" startOffset="50%" text-anchor="middle">README-AI
+        </textPath>
+    </text>
+</svg>

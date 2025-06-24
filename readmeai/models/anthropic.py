@@ -8,7 +8,7 @@ from readmeai.extractors.models import RepositoryContext
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.enums import AnthropicModels
 from readmeai.models.tokens import token_handler
-from readmeai.utilities.importer import is_available
+from readmeai.utils.importer import is_available
 from tenacity import (
     retry,
     retry_if_exception_type,

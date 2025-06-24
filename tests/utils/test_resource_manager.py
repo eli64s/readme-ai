@@ -5,7 +5,7 @@ from typing import Literal
 
 import pytest
 from readmeai.core.errors import FileReadError
-from readmeai.utilities.resource_manager import build_resource_path
+from readmeai.utils.resource_manager import build_resource_path
 
 
 def test_build_resource_path_default_module(tmp_path: Path):

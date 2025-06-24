@@ -47,7 +47,7 @@ ReadmeAI is model agnostic, with support for the following LLM API services:
 
 1. Follow our [Installation Guide](installation.md) to set up readme-ai
 2. Learn the basics in our [CLI Reference](./usage/cli.md) guide
-3. Get help with common issues in our [Troubleshooting](../community/troubleshooting.mdhooting.md) guide
+3. Get help with common issues in our [Troubleshooting](../community/troubleshooting.md) guide
 
 ---
 

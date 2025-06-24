@@ -17,7 +17,7 @@ copyright: >+
 theme:
   name: material
   custom_dir: overrides
-  logo: assets/svg/cosmic-gradient.svg
+  logo: assets/svg/favicon.svg
   icon:
     repo: fontawesome/brands/github-alt
     edit: material/pencil
@@ -140,7 +140,7 @@ plugins:
       type: date
       fallback_to_build_date: true
       enabled: true
-      follow_shallow_clones: true
+      # follow_shallow_clones: true
       exclude:
         - assets/*
         - guides/*
@@ -163,6 +163,7 @@ nav:
           - CLI: getting-started/usage/cli.md
           - Docker: getting-started/usage/docker.md
           - Streamlit: getting-started/usage/streamlit.md
+          - Ignore Files: getting-started/usage/ignore-files.md
   - Concepts:
       - concepts/index.md
       - Document Structure:
@@ -202,7 +203,7 @@ nav:
           - Anthropic: integrations/llms/anthropic.md
           - Google Gemini: integrations/llms/gemini.md
           - Ollama: integrations/llms/ollama.md
-          - Offline Mode: integrations/llms/offline.md
+          - Offline Mode: integrations/llms/offline-mode.md
       - Advanced Topics:
           - Model Comparison: integrations/advanced/comparison.md
           - Best Practices: integrations/advanced/best-practices.md
