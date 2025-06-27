@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 import pytest
+
 from readmeai.config.settings import ConfigLoader
 from readmeai.core.errors import UnsupportedServiceError
 from readmeai.extractors.models import RepositoryContext
@@ -9,9 +10,9 @@ from readmeai.models.factory import ModelFactory
 
 
 def test_get_backend_openai(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
-    monkeypatch: pytest.MonkeyPatch,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
+        monkeypatch: pytest.MonkeyPatch,
 ):
     """Test getting OpenAI backend with proper environment setup."""
     mock_config_loader.config.llm.api = LLMProviders.OPENAI.value
@@ -22,9 +23,9 @@ def test_get_backend_openai(
 
 
 def test_get_backend_anthropic(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
-    monkeypatch: pytest.MonkeyPatch,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
+        monkeypatch: pytest.MonkeyPatch,
 ):
     """Test getting Anthropic backend."""
     mock_config_loader.config.llm.api = LLMProviders.ANTHROPIC.value
@@ -35,8 +36,8 @@ def test_get_backend_anthropic(
 
 
 def test_get_backend_gemini(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
 ):
     """Test getting Gemini backend."""
     mock_config_loader.config.llm.api = LLMProviders.GEMINI.value
@@ -47,8 +48,8 @@ def test_get_backend_gemini(
 
 
 def test_get_backend_offline(
-    mock_config_loader: ConfigLoader,
-    mock_repository_context: RepositoryContext,
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
 ):
     """Test getting Offline backend."""
     mock_config_loader.config.llm.api = LLMProviders.OFFLINE.value
@@ -57,8 +58,21 @@ def test_get_backend_offline(
     assert handler.__class__.__name__ == "OfflineHandler"
 
 
+def test_get_backend_azure(
+        mock_config_loader: ConfigLoader,
+        mock_repository_context: RepositoryContext,
+        monkeypatch: pytest.MonkeyPatch,
+):
+    """Test getting OpenAI backend with proper environment setup."""
+    mock_config_loader.config.llm.api = LLMProviders.AZURE.value
+    monkeypatch.setenv("AZURE_API_KEY", "test_key")
+    handler = ModelFactory.get_backend(mock_config_loader, mock_repository_context)
+    assert handler is not None
+    assert handler.__class__.__name__ == "AzureOpenAIHandler"
+
+
 def test_get_backend_unsupported_service(
-    mock_config_loader: ConfigLoader, mock_repository_context: RepositoryContext
+        mock_config_loader: ConfigLoader, mock_repository_context: RepositoryContext
 ):
     """Test getting a backend with an unsupported service."""
 

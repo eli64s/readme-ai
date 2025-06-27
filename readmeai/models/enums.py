@@ -10,6 +10,7 @@ class LLMAuthKeys(str, Enum):
     GOOGLE_API_KEY = "GOOGLE_API_KEY"
     OLLAMA_HOST = "OLLAMA_HOST"
     OPENAI_API_KEY = "OPENAI_API_KEY"
+    AZURE_API_KEY = "AZURE_API_KEY"
 
 
 class LLMProviders(str, Enum):
@@ -22,6 +23,7 @@ class LLMProviders(str, Enum):
     OLLAMA = "ollama"
     OPENAI = "openai"
     OFFLINE = "offline"
+    AZURE = "azure"
 
 
 class AnthropicModels(str, Enum):

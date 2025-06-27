@@ -1,8 +1,8 @@
-from unittest.mock import MagicMock, patch
-
 import pytest
 from _pytest._py.path import LocalPath
 from click.testing import CliRunner
+from unittest.mock import MagicMock, patch
+
 from readmeai.cli.main import main
 from readmeai.config.settings import ConfigLoader
 
@@ -24,13 +24,13 @@ def mock_readme_agent():
 
 
 def test_main_command_basic(
-    cli_runner: CliRunner,
-    mock_config_loader: ConfigLoader,
-    output_file_path: str,
+        cli_runner: CliRunner,
+        mock_config_loader: ConfigLoader,
+        output_file_path: str,
 ):
     with patch(
-        "readmeai.config.settings.ConfigLoader",
-        return_value=mock_config_loader,
+            "readmeai.config.settings.ConfigLoader",
+            return_value=mock_config_loader,
     ):
         result = cli_runner.invoke(
             main,
@@ -46,9 +46,9 @@ def test_main_command_basic(
 
 
 def test_main_command_all_options(
-    cli_runner: CliRunner,
-    mock_config_loader: ConfigLoader,
-    output_file_path: str,
+        cli_runner: CliRunner,
+        mock_config_loader: ConfigLoader,
+        output_file_path: str,
 ):
     mock_config = mock_config_loader
     mock_config.config.git.repository = "https://github.com/eli64s/readme-ai-streamlit"
@@ -108,9 +108,10 @@ def test_version_option(cli_runner: CliRunner):
     [
         ("--align", "invalid", "Invalid value for '-a' / '--align'"),
         (
-            "--api",
-            "invalid",
-            "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'ollama', 'openai', 'offline'.",
+                "--api",
+                "invalid",
+                "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'ollama', 'openai', 'offline', "
+                "'azure'.",
         ),
         # (
         #     "--badge-color",
@@ -118,51 +119,51 @@ def test_version_option(cli_runner: CliRunner):
         #     "Invalid value for '-bc' / '--badge-color'",
         # ),
         (
-            "--badge-style",
-            "invalid",
-            "Invalid value for '-bs' / '--badge-style'",
+                "--badge-style",
+                "invalid",
+                "Invalid value for '-bs' / '--badge-style'",
         ),
         (
-            "--context-window",
-            "invalid",
-            "Invalid value for '-cw' / '--context-window'",
+                "--context-window",
+                "invalid",
+                "Invalid value for '-cw' / '--context-window'",
         ),
         (
-            "--header-style",
-            "invalid",
-            "Invalid value for '-hs' / '--header-style'",
+                "--header-style",
+                "invalid",
+                "Invalid value for '-hs' / '--header-style'",
         ),
         ("--logo", "invalid", "Invalid value for '-l' / '--logo'"),
         # ("--model", "invalid", "Invalid value for '-m' / '--model'"),
         (
-            "--rate-limit",
-            "invalid",
-            "Invalid value for '-rl' / '--rate-limit'",
+                "--rate-limit",
+                "invalid",
+                "Invalid value for '-rl' / '--rate-limit'",
         ),
         (
-            "--temperature",
-            "invalid",
-            "Invalid value for '-t' / '--temperature'",
+                "--temperature",
+                "invalid",
+                "Invalid value for '-t' / '--temperature'",
         ),
         (
-            "--navigation-style",
-            "invalid",
-            "Invalid value for '-ns' / '--navigation-style'",
+                "--navigation-style",
+                "invalid",
+                "Invalid value for '-ns' / '--navigation-style'",
         ),
         (
-            "--top-p",
-            "invalid",
-            "Invalid value for '-tp' / '--top-p'",
+                "--top-p",
+                "invalid",
+                "Invalid value for '-tp' / '--top-p'",
         ),
         (
-            "--tree-max-depth",
-            "invalid",
-            "Invalid value for '-td' / '--tree-max-depth'",
+                "--tree-max-depth",
+                "invalid",
+                "Invalid value for '-td' / '--tree-max-depth'",
         ),
     ],
 )
 def test_invalid_option_values(
-    temp_dir: LocalPath, cli_runner: CliRunner, option, value, expected
+        temp_dir: LocalPath, cli_runner: CliRunner, option, value, expected
 ):
     result = cli_runner.invoke(main, ["--repository", str(temp_dir), option, value])
     assert result.exit_code != 0
