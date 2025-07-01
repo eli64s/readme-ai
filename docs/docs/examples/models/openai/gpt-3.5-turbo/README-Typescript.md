@@ -119,7 +119,7 @@ This project empowers developers to build interactive chat applications seamless
     ├── package.json
     ├── screens
     │   ├── HomeScreen.tsx
-    │   └── Infomation.tsx
+    │   └── Information.tsx
     ├── server
     │   ├── .gitignore
     │   ├── config.js
@@ -281,7 +281,7 @@ This project empowers developers to build interactive chat applications seamless
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
-					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Infomation.tsx'>Infomation.tsx</a></b></td>
+					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Information.tsx'>Information.tsx</a></b></td>
 					<td style='padding: 8px;'>- Define the Information screen layout and styling for the React Native app<br>- The screen presents the text Information within a centered container<br>- This component plays a key role in rendering essential information to users.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
@@ -378,7 +378,7 @@ This project requires the following dependencies:
 
 ### ⚫ Installation
 
-Build ChatGPT-App-React-Native-TypeScript from the source and intsall dependencies:
+Build ChatGPT-App-React-Native-TypeScript from the source and install dependencies:
 
 1. **Clone the repository:**
 

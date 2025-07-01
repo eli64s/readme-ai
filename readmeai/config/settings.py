@@ -338,7 +338,7 @@ class ConfigLoader:
                 config_dict = self.file_handler.read(file_path)
                 settings[key] = config_dict
                 setattr(self, key, config_dict)
-                _logger.info(f"Succesfully loaded cofing: {file_path.name}")
+                _logger.info(f"Successfully loaded cofing: {file_path.name}")
 
         themes_path = build_resource_path(
             file_path="emojis.yaml", submodule=f"{self.submodule}/themes"

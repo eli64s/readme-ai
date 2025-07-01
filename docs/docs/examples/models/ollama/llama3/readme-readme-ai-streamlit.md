@@ -205,7 +205,7 @@ This project requires the following dependencies:
 
 ### 💫 Installation
 
-Build readme-ai-streamlit from the source and intsall dependencies:
+Build readme-ai-streamlit from the source and install dependencies:
 
 1. **Clone the repository:**
 

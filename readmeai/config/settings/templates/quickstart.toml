@@ -16,7 +16,7 @@ $system_requirements
 
 installation = """### Installation
 
-Build $repo_name from the source and intsall dependencies:
+Build $repo_name from the source and install dependencies:
 
 $install_steps"""
 

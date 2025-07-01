@@ -361,7 +361,7 @@ This project requires the following dependencies:
 
 ### 🔷 Installation
 
-Build buenavista from the source and intsall dependencies:
+Build buenavista from the source and install dependencies:
 
 1. **Clone the repository:**
 
