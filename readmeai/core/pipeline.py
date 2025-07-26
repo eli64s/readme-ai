@@ -43,6 +43,14 @@ def readme_agent(config: ConfigLoader, output_file: str) -> None:
 
 async def readme_generator(config: ConfigLoader, output_file: str) -> None:
     """Processes the repository and builds the README file."""
+    section_contents = await get_readme(config)
+
+    FileHandler().write(output_file, section_contents)
+
+    log_process_completion(output_file)
+
+
+async def get_readme(config: ConfigLoader) -> str:
     with tempfile.TemporaryDirectory() as tmp_dir:
         repo_path = await load_data(config.config.git.repository, tmp_dir)
         processor: RepositoryAnalyzer = RepositoryAnalyzer(config=config)
@@ -84,11 +92,7 @@ async def readme_generator(config: ConfigLoader, output_file: str) -> None:
         if config.config.md.logo in [None, "", DefaultLogos, CustomLogos]:
             config.config.md.logo = DefaultLogos.PURPLE.value
 
-        section_contents = MarkdownBuilder(config, context, summaries, tmp_dir).build()
-
-        FileHandler().write(output_file, section_contents)
-
-        log_process_completion(output_file)
+        return MarkdownBuilder(config, context, summaries, tmp_dir).build()
 
 
 async def generate_image(config: ConfigLoader) -> None:
