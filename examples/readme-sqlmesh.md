@@ -110,7 +110,7 @@ The sqlmesh-test-tools project is designed to enhance the reliability and effici
 | File | Summary |
 | --- | --- |
 | [sqlmesh_yml_generator.ipynb](https://github.com/eli64s/sqlmesh-test-tools/blob/main/notebooks/sqlmesh_yml_generator.ipynb) | Generates YAML configuration files for SQL unit tests by parsing SQL queries, executing them against a dataset, and outputting the results in a structured format to facilitate automated testing within the SQLMesh testing framework. This enhances the reliability of SQL data models by automating test validations. |
-| [faker_dataset_generator.ipynb](https://github.com/eli64s/sqlmesh-test-tools/blob/main/notebooks/faker_dataset_generator.ipynb) | Generates synthetic datasets for testing SQL queries by leveraging the Faker library to produce realistic loan and restaurant service data, which are then saved as CSV files for integration into automated testing workflows within the repositorys SQL testing framework. |
+| [faker_dataset_generator.ipynb](https://github.com/eli64s/sqlmesh-test-tools/blob/main/notebooks/faker_dataset_generator.ipynb) | Generates synthetic datasets for testing SQL queries by leveraging the Faker library to produce realistic loan and restaurant service data, which are then saved as CSV files for integration into automated testing workflows within the repositories SQL testing framework. |
 
 </details>
 
@@ -127,7 +127,7 @@ The sqlmesh-test-tools project is designed to enhance the reliability and effici
 
 | File | Summary |
 | --- | --- |
-| [test_metric_loans_model.sql](https://github.com/eli64s/sqlmesh-test-tools/blob/main/sql/test_metric_loans_model.sql) | Analyzes loan data by computing metrics such as average loan amount, age demographics of applicants, and loan frequency within the year, integrating these insights through a series of joined SQL queries to facilitate comprehensive data-driven decision-making within the repositorys testing framework. |
+| [test_metric_loans_model.sql](https://github.com/eli64s/sqlmesh-test-tools/blob/main/sql/test_metric_loans_model.sql) | Analyzes loan data by computing metrics such as average loan amount, age demographics of applicants, and loan frequency within the year, integrating these insights through a series of joined SQL queries to facilitate comprehensive data-driven decision-making within the repositories testing framework. |
 
 </details>
 

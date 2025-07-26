@@ -136,7 +136,7 @@ This project empowers developers to build robust messaging applications with eas
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/App.tsx'>App.tsx</a></b></td>
-					<td style='padding: 8px;'>- Establishes the core architecture of the application, defining a navigation stack that handles multiple screens with distinct layouts and titles<br>- The App component acts as the entry point, providing context to the entire app through the DataProvider<br>- It sets up a navigation framework, allowing seamless transitions between the Home Screen and Infomation Screen.</td>
+					<td style='padding: 8px;'>- Establishes the core architecture of the application, defining a navigation stack that handles multiple screens with distinct layouts and titles<br>- The App component acts as the entry point, providing context to the entire app through the DataProvider<br>- It sets up a navigation framework, allowing seamless transitions between the Home Screen and Information Screen.</td>
 				</tr>
 			</table>
 		</blockquote>
@@ -239,8 +239,8 @@ This project empowers developers to build robust messaging applications with eas
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
-					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Infomation.tsx'>Infomation.tsx</a></b></td>
-					<td style='padding: 8px;'>- Displays information to the user with a centered text component<br>- This feature is part of the applications UI and provides essential data to users<br>- The Infomation component utilizes react-native elements, such as Text, View, and SliderComponent<br>- It contributes significantly to the overall usability experience of the app.</td>
+					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Information.tsx'>Information.tsx</a></b></td>
+					<td style='padding: 8px;'>- Displays information to the user with a centered text component<br>- This feature is part of the applications UI and provides essential data to users<br>- The Information component utilizes react-native elements, such as Text, View, and SliderComponent<br>- It contributes significantly to the overall usability experience of the app.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/HomeScreen.tsx'>HomeScreen.tsx</a></b></td>
@@ -335,7 +335,7 @@ This project requires the following dependencies:
 
 ### 💫 Installation
 
-Build ChatGPT-App-React-Native-TypeScript from the source and intsall dependencies:
+Build ChatGPT-App-React-Native-TypeScript from the source and install dependencies:
 
 1. **Clone the repository:**
 

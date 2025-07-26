@@ -102,7 +102,7 @@ The ChatGPT-App-React-Native-TypeScript project is a mobile application built wi
     ├── package.json
     ├── screens
     │   ├── HomeScreen.tsx
-    │   └── Infomation.tsx
+    │   └── Information.tsx
     ├── server
     │   ├── .gitignore
     │   ├── config.js
@@ -169,7 +169,7 @@ The ChatGPT-App-React-Native-TypeScript project is a mobile application built wi
 
 | File                                                                                                                 | Summary                                                                                                                                                 |
 | ---                                                                                                                  | ---                                                                                                                                                     |
-| [Infomation.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Infomation.tsx) | Displays an Infomation screen layout using React Native, presenting centered text within a container.                                                   |
+| [Information.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/Information.tsx) | Displays an Information screen layout using React Native, presenting centered text within a container.                                                   |
 | [HomeScreen.tsx](https://github.com/Yuberley/ChatGPT-App-React-Native-TypeScript/blob/master/screens/HomeScreen.tsx) | Compose the HomeScreen component; integrates ListMessage and InputMessage within a Layout, key to the ChatGPT-App-React-Native-TypeScript architecture. |
 
 </details>

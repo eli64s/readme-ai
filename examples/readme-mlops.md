@@ -137,7 +137,7 @@ The mlops-course project automates model training and hyperparameter tuning for 
 | File                                                                                                         | Summary                                                                                                                                                                              |
 | ---                                                                                                          | ---                                                                                                                                                                                  |
 | [cluster_env.yaml](https://github.com/GokuMohandas/mlops-course/blob/master/deploy/cluster_env.yaml)         | Configure cluster computing environment for Ray with post-build Python package installations.                                                                                        |
-| [cluster_compute.yaml](https://github.com/GokuMohandas/mlops-course/blob/master/deploy/cluster_compute.yaml) | Manages cloud resources for madewithml deployment in us-east2, specifying head and worker node types with their configurations.Intialized BlockDeviceMappings and TagSpecifications. |
+| [cluster_compute.yaml](https://github.com/GokuMohandas/mlops-course/blob/master/deploy/cluster_compute.yaml) | Manages cloud resources for madewithml deployment in us-east2, specifying head and worker node types with their configurations.Initialized BlockDeviceMappings and TagSpecifications. |
 
 </details>
 
