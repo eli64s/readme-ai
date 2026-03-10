@@ -37,19 +37,51 @@ class OpenAIHandler(BaseModelHandler):
         self.top_p = self.config.llm.top_p
 
         if self.config.llm.api == LLMProviders.OPENAI.value:
-            self.url = f"{self.host_name}{self.resource}"
             if os.getenv("OPENAI_API_KEY") is None:
                 raise ValueError("OpenAI API key not set in environment.")
-            self.client = openai.OpenAI()
+            api_base_url, self.url = self._resolve_transport_urls(self.config.llm.base_url)
+            self.client = openai.OpenAI(base_url=api_base_url)
 
         elif self.config.llm.api == LLMProviders.OLLAMA.value:
-            self.url = f"{self.localhost}{self.resource}"
+            base_url = self._resolve_ollama_base_url(self.config.llm.base_url)
+            api_base_url, self.url = self._resolve_transport_urls(base_url)
             self.client = openai.OpenAI(
-                base_url=f"{self.localhost}v1",
+                base_url=api_base_url,
                 api_key=LLMProviders.OLLAMA.name,
             )
 
         self.headers = {"Authorization": f"Bearer {self.client.api_key}"}
+
+    def _resolve_transport_urls(self, base_url: str) -> tuple[str, str]:
+        """Build the client base URL and request URL for OpenAI-compatible APIs."""
+        normalized_base_url = base_url.rstrip("/")
+        resource = self.resource.lstrip("/")
+        version_path, _, endpoint_suffix = resource.partition("/")
+
+        if normalized_base_url.endswith(resource):
+            endpoint_url = normalized_base_url
+            api_base_url = normalized_base_url[: -len(resource)].rstrip("/")
+        elif endpoint_suffix and normalized_base_url.endswith(version_path):
+            endpoint_url = f"{normalized_base_url}/{endpoint_suffix}"
+            api_base_url = normalized_base_url
+        else:
+            endpoint_url = f"{normalized_base_url}/{resource}"
+            api_base_url = normalized_base_url
+
+        return api_base_url, endpoint_url
+
+    def _resolve_ollama_base_url(self, base_url: str) -> str:
+        """Prefer explicit OpenAI-compatible endpoints, but preserve localhost fallback."""
+        normalized_base_url = base_url.rstrip("/")
+        openai_defaults = {
+            BaseURLs.OPENAI.value.rstrip("/"),
+            f"{BaseURLs.OPENAI.value.rstrip('/')}/{self.resource.lstrip('/')}",
+        }
+
+        if normalized_base_url in openai_defaults:
+            return f"{self.localhost.rstrip('/')}/v1"
+
+        return normalized_base_url
 
     async def _build_payload(self, prompt: str) -> dict[str, Any]:
         """Build request body for making text generation requests."""
