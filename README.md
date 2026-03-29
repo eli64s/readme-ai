@@ -538,14 +538,45 @@ To start, follow these steps:
 
 ##### Running with a LLM API service
 
-Below is the minimal command required to run `readmeai` using the `OpenAI` client:
+Below is the minimal command required to run `readmeai` using the standard `OpenAI` API client:
 
 ```sh
 ❯ readmeai --api openai -o readmeai-openai.md -r https://github.com/eli64s/readme-ai
 ```
 
 > [!IMPORTANT]
-> The default model set is `gpt-3.5-turbo`, offering the best balance between cost and performance.When using any model from the `gpt-4` series and up, please monitor your costs and usage to avoid unexpected charges.
+> The default model set is `gpt-3.5-turbo`, offering the best balance between cost and performance. When using any model from the `gpt-4` series and up, please monitor your costs and usage to avoid unexpected charges.
+
+##### Optional: OpenAI Codex OAuth mode
+
+`readmeai` also supports an optional OpenAI Codex OAuth path for ChatGPT/Codex-backed access. This mode is separate from the normal `OPENAI_API_KEY` workflow and uses a Codex-specific backend.
+
+Log in once to store local OAuth credentials:
+
+```sh
+❯ readmeai --login-openai-codex
+```
+
+Check whether `readmeai` can currently resolve OpenAI credentials:
+
+```sh
+❯ readmeai --check-openai-auth
+```
+
+Probe the Codex backend with your stored OAuth credentials:
+
+```sh
+❯ readmeai --api openai --openai-auth-mode codex --model gpt-5.4 --probe-openai-codex
+```
+
+Generate a README using the Codex backend explicitly:
+
+```sh
+❯ readmeai --api openai --openai-auth-mode codex --model gpt-5.4 -o readmeai-codex.md -r https://github.com/eli64s/readme-ai
+```
+
+> [!NOTE]
+> Codex OAuth mode is optional and does **not** replace the existing API-key path. Standard OpenAI usage with `OPENAI_API_KEY` remains unchanged.
 
 ReadmeAI can easily switch between API providers and models. We can run the same command as above with the `Anthropic` client:
 ```sh
@@ -714,6 +745,7 @@ Customize your README generation with a variety of options and style settings su
 | `--repository`       | Repository URL or local directory path        | `None`          |
 | `--temperature`      | Creativity level for content generation       | `0.1`           |
 | `--tree-max-depth`   | Maximum depth of the directory tree structure | `2`             |
+| `--openai-auth-mode` | OpenAI auth path: `auto`, `api`, or `codex`  | `auto`          |
 
 Run the following command to view all available options:
 
