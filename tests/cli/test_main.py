@@ -110,7 +110,7 @@ def test_version_option(cli_runner: CliRunner):
         (
             "--api",
             "invalid",
-            "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'ollama', 'openai', 'offline'.",
+            "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'litellm', 'ollama', 'openai', 'offline'.",
         ),
         # (
         #     "--badge-color",
