@@ -322,6 +322,118 @@ def test_transient_error_predicate_rejects_auth_error():
     assert _is_transient_litellm_error(auth_error("bad key")) is False
 
 
+# --- Non-transient error tests (model not found, bad request) ---
+
+
+@pytest.mark.asyncio
+async def test_make_request_not_found_error_no_retry(
+    mock_config: Settings, litellm_handler
+):
+    """Test that NotFoundError (bad model name) does NOT retry."""
+    not_found_error = _make_litellm_exception("NotFoundError")
+
+    with patch("readmeai.models.litellm.litellm") as mock_litellm:
+        mock_litellm.acompletion = AsyncMock(
+            side_effect=not_found_error("model not found")
+        )
+        index, result = await litellm_handler._make_request(
+            "test_index",
+            "test_prompt",
+            100,
+            None,
+        )
+        assert index == "test_index"
+        assert result == mock_config.md.placeholder
+        assert mock_litellm.acompletion.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_make_request_bad_request_error_no_retry(
+    mock_config: Settings, litellm_handler
+):
+    """Test that BadRequestError (e.g. context overflow) does NOT retry."""
+    bad_request_error = _make_litellm_exception("BadRequestError")
+
+    with patch("readmeai.models.litellm.litellm") as mock_litellm:
+        mock_litellm.acompletion = AsyncMock(
+            side_effect=bad_request_error("context length exceeded")
+        )
+        index, result = await litellm_handler._make_request(
+            "test_index",
+            "test_prompt",
+            100,
+            None,
+        )
+        assert index == "test_index"
+        assert result == mock_config.md.placeholder
+        assert mock_litellm.acompletion.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_make_request_passes_drop_params_to_acompletion(
+    litellm_handler,
+):
+    """Test that drop_params=True is passed through to litellm.acompletion."""
+    mock_response = MagicMock()
+    mock_response.choices = [MagicMock(message=MagicMock(content="ok"))]
+
+    with patch("readmeai.models.litellm.litellm") as mock_litellm:
+        mock_litellm.acompletion = AsyncMock(return_value=mock_response)
+        await litellm_handler._make_request("test_index", "test_prompt", 100, None)
+        call_kwargs = mock_litellm.acompletion.call_args[1]
+        assert call_kwargs["drop_params"] is True
+
+
+@pytest.mark.asyncio
+async def test_make_request_uses_correct_model_string(
+    litellm_handler,
+):
+    """Test that the litellm model string format is passed correctly."""
+    mock_response = MagicMock()
+    mock_response.choices = [MagicMock(message=MagicMock(content="ok"))]
+
+    with patch("readmeai.models.litellm.litellm") as mock_litellm:
+        mock_litellm.acompletion = AsyncMock(return_value=mock_response)
+        await litellm_handler._make_request("test_index", "test_prompt", 100, None)
+        call_kwargs = mock_litellm.acompletion.call_args[1]
+        assert call_kwargs["model"] == "openai/gpt-4o-mini"
+
+
+# --- Error predicate: additional non-transient types ---
+
+
+def test_transient_error_predicate_rejects_not_found():
+    """Test _is_transient_litellm_error rejects NotFoundError."""
+    from readmeai.models.litellm import _is_transient_litellm_error
+
+    not_found = _make_litellm_exception("NotFoundError")
+    assert _is_transient_litellm_error(not_found("model")) is False
+
+
+def test_transient_error_predicate_rejects_bad_request():
+    """Test _is_transient_litellm_error rejects BadRequestError."""
+    from readmeai.models.litellm import _is_transient_litellm_error
+
+    bad_req = _make_litellm_exception("BadRequestError")
+    assert _is_transient_litellm_error(bad_req("context")) is False
+
+
+def test_transient_error_predicate_service_unavailable():
+    """Test _is_transient_litellm_error recognizes ServiceUnavailableError."""
+    from readmeai.models.litellm import _is_transient_litellm_error
+
+    svc_err = _make_litellm_exception("ServiceUnavailableError")
+    assert _is_transient_litellm_error(svc_err("503")) is True
+
+
+def test_transient_error_predicate_internal_server():
+    """Test _is_transient_litellm_error recognizes InternalServerError."""
+    from readmeai.models.litellm import _is_transient_litellm_error
+
+    internal = _make_litellm_exception("InternalServerError")
+    assert _is_transient_litellm_error(internal("500")) is True
+
+
 # --- Factory registration tests ---
 
 
