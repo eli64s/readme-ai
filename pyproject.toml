@@ -82,7 +82,7 @@ typing-extensions = { version = "*", python = "<3.11" }
 
 anthropic = { version = "*", optional = true }
 google-generativeai = { version = "*", optional = true }
-litellm = { version = ">=1.60.0,<2.0", optional = true }
+litellm = { version = ">=1.80.0,<1.87.0", optional = true }
 
 [tool.poetry.extras]
 anthropic = ["anthropic"]
