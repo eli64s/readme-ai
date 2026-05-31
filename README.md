@@ -5,7 +5,7 @@
 <div align="center">
   <a href="https://github.com/eli64s/readme-ai">
     <img
-      src="https://github.com/eli64s/readme-ai/blob/main/docs/docs/assets/svg/logo.svg" 
+      src="https://raw.githubusercontent.com/eli64s/readme-ai/e2a5f0ab93b923a78935178dd165d5019b4a1fbc/docs/docs/assets/svg/logo.svg"
       alt="ReadmeAI Logo" width="60%">
   </a>
 </div>
@@ -38,6 +38,21 @@
   <a href="https://opensource.org/license/mit/">
     <img src="https://img.shields.io/github/license/eli64s/readme-ai?logo=opensourceinitiative&logoColor=white&label=License&color=8A2BE2" alt="MIT License">
   </a>
+</p>
+
+<!-- ✦ ────────────────  RENDERED WITH HYPERWEAVE  ──────────────── ✦ -->
+<p align="center">
+  <a href="https://github.com/InnerAura/hyperweave" title="Rendered with HyperWeave">
+    <img src="https://hyperweave.app/v1/strip/readme-ai/automata.static?variant=violet&amp;data=gh:eli64s/readme-ai.stars,gh:eli64s/readme-ai.forks,pypi:readmeai.version&amp;subtitle=eli64s/readme-ai&amp;glyph=github" alt="readme-ai · stars · forks · version" width="66%">
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/InnerAura/hyperweave" title="Star history rendered with HyperWeave">
+    <img src="https://hyperweave.app/v1/chart/stars/eli64s/readme-ai/automata.static?variant=violet" alt="readme-ai star history rendered by HyperWeave" width="80%">
+  </a>
+</p>
+<p align="center">
+  <sub>The metrics above are rendered with <a href="https://github.com/InnerAura/hyperweave"><b>HyperWeave</b></a> — an experimental SVG artifact layer for agents. &nbsp;<a href="https://github.com/InnerAura/hyperweave"><b>Explore&nbsp;→</b></a></sub>
 </p>
 
 </div>
@@ -833,6 +848,7 @@ Released under the [MIT][license] license.
 [github-discussions]: https://github.com/eli64s/readme-ai/discussions
 [github-issues]: https://github.com/eli64s/readme-ai/issues
 [github-pulls]: https://github.com/eli64s/readme-ai/pulls
+[hyperweave]: https://github.com/InnerAura/hyperweave
 [mit]: https://opensource.org/license/mit
 [pepy]: https://www.pepy.tech/projects/readmeai
 [contributing]: https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md
