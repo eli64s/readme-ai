@@ -221,9 +221,10 @@ class ModelSettings(BaseModel):
             "openai": [model.value for model in OpenAIModels],
             "anthropic": [model.value for model in AnthropicModels],
             "gemini": [model.value for model in GeminiModels],
+            "litellm": [],
         }
     )
-    model: Union[OllamaModels, OpenAIModels, AnthropicModels, GeminiModels] = Field(
+    model: Union[OllamaModels, OpenAIModels, AnthropicModels, GeminiModels, str] = Field(
         default=OpenAIModels.GPT35_TURBO,
         description="Model for text generation",
     )

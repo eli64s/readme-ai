@@ -7,6 +7,7 @@ from readmeai.models.anthropic import AnthropicHandler
 from readmeai.models.base import BaseModelHandler
 from readmeai.models.enums import LLMProviders
 from readmeai.models.gemini import GeminiHandler
+from readmeai.models.litellm import LiteLLMHandler
 from readmeai.models.offline import OfflineHandler
 from readmeai.models.openai import OpenAIHandler
 
@@ -19,6 +20,7 @@ class ModelFactory:
     _model_map: ClassVar[dict] = {
         LLMProviders.ANTHROPIC: AnthropicHandler,
         LLMProviders.GEMINI.value: GeminiHandler,
+        LLMProviders.LITELLM.value: LiteLLMHandler,
         LLMProviders.OLLAMA.value: OpenAIHandler,
         LLMProviders.OPENAI.value: OpenAIHandler,
         LLMProviders.OFFLINE.value: OfflineHandler,
