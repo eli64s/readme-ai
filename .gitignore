@@ -52,3 +52,5 @@ CLAUDE.md
 .version.tmp
 .github/workflows/update-badges-local.yml
 .github/workflows/update-badges.yml
+# Local auth artifacts
+readme-ai.md

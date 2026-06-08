@@ -211,3 +211,31 @@ tree_max_depth = click.option(
     type=int,
     help="Maximum depth of the directory tree generated for the README file.",
 )
+
+login_openai_codex = click.option(
+    "--login-openai-codex",
+    is_flag=True,
+    help="Run a minimal ChatGPT/OpenAI Codex OAuth login and store credentials for reuse.",
+)
+
+check_openai_auth = click.option(
+    "--check-openai-auth",
+    is_flag=True,
+    help="Inspect whether OpenAI auth is available via API key or stored OAuth credentials.",
+)
+
+
+probe_openai_codex = click.option(
+    "--probe-openai-codex",
+    is_flag=True,
+    default=False,
+    help="Probe the ChatGPT/Codex backend with the stored OAuth token.",
+)
+
+openai_auth_mode = click.option(
+    "--openai-auth-mode",
+    type=click.Choice(["auto", "api", "codex"], case_sensitive=False),
+    default="auto",
+    show_default=True,
+    help="Choose OpenAI auth/request mode: normal API, Codex OAuth backend, or auto.",
+)

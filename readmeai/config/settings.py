@@ -209,6 +209,7 @@ class ModelSettings(BaseModel):
     top_p: NonNegativeFloat = Field(default=0.9, le=1.0)
     rate_limit: PositiveInt = Field(default=10, le=30)
     resource: str = "v1/chat/completions"
+    openai_auth_mode: Literal["auto", "api", "codex"] = "auto"
     system_message: str = (
         "You're a 10x Staff Software Engineering leader, with deep knowledge "
         "across most tech stacks. You'll use your expertise to write robust "
