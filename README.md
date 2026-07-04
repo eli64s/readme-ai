@@ -21,7 +21,7 @@
 <p align="center">
   <em>Designed for simplicity, customization, and developer productivity.</em>
 </p>
-
+<!--
 <p align="center">
   <a href="https://github.com/eli64s/readme-ai/actions">
     <img src="https://img.shields.io/github/actions/workflow/status/eli64s/readme-ai/release-pipeline.yml?logo=githubactions&label=CI&logoColor=white&color=4169E1" alt="Github Actions">
@@ -38,6 +38,22 @@
   <a href="https://opensource.org/license/mit/">
     <img src="https://img.shields.io/github/license/eli64s/readme-ai?logo=opensourceinitiative&logoColor=white&label=License&color=8A2BE2" alt="MIT License">
   </a>
+</p>
+-->
+
+<!-- ✦ ────────────────  RENDERED WITH HYPERWEAVE  ──────────────── ✦ -->
+<p align="center">
+  <a href="https://github.com/InnerAura/hyperweave" title="Rendered with HyperWeave">
+    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/assets/readmeai-strip.svg" alt="readme-ai · stars · forks · version">
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/InnerAura/hyperweave" title="Star history rendered with HyperWeave">
+    <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/assets/readmeai-star-chart.svg" alt="readme-ai star history rendered by HyperWeave" width="100%">
+  </a>
+</p>
+<p align="center">
+  <sub>The metrics above are rendered with <a href="https://github.com/InnerAura/hyperweave"><b>HyperWeave</b></a> — an experimental SVG artifact layer for agents. &nbsp;<a href="https://github.com/InnerAura/hyperweave"><b>Explore&nbsp;→</b></a></sub>
 </p>
 
 <!-- ✦ ────────────────  RENDERED WITH HYPERWEAVE  ──────────────── ✦ -->

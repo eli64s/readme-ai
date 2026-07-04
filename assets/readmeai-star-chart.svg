@@ -1,0 +1,355 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:hw="https://hyperweave.app/hw/v1.0"
+     role="img"
+     aria-labelledby="hw-054ee987-title hw-054ee987-desc"
+     viewBox="0 0 1100 660"
+     width="1100" height="660"
+     shape-rendering="geometricPrecision"
+     data-hw-id="chart-054ee98751cca72b"
+     data-hw-type="chart"
+     data-hw-frame="chart"
+     data-hw-genome="readmeai-porcelain"
+     data-hw-mode="light"
+     data-hw-status="active"
+     data-hw-state="bound"
+     data-hw-profile="flat"
+     data-hw-motion="static"
+     data-hw-generation="1"
+     data-hw-contract="chart-054ee98751cca72b"
+     data-hw-size="default"
+     data-hw-regime="normal"
+     data-hw-glyph="github"
+     style="--dna-surface:#F8F5FF; --dna-surface-alt:#FFFFFF; --dna-surface-deep:#F0E9FB; --dna-ink-primary:#1E3A5F; --dna-ink-muted:#537395; --dna-ink-secondary:#537395; --dna-ink-on-accent:#FFFFFF; --dna-signal:#7B3DE3; --dna-signal-dim:#5C7C9E; --dna-status-passing-core:#15803D; --dna-status-warning-core:#B45309; --dna-status-failing-core:#DC2626; --dna-border:#D9C9EE; --dna-label-text:#7B3DE3; --dna-ink-ghost:#7B3DE3; --dna-glyph-inner:#7B3DE3; --dna-border-tint:rgba(90,40,184,0.14); --dna-border-div:rgba(90,40,184,0.14); --dna-seam-color:#7B3DE3; --dna-shadow-color:#7B3DE3; --dna-diagram-shadow-color:#101828; --dna-bg:#F8F5FF; --dna-bg-alt:#F0E9FB; --dna-ink-bright:#1E3A5F; --dna-ink-sub:#5C7C9E; --dna-ink-tertiary:#5C7C9E; --dna-brand-text:#1E3A5F; --dna-metric-text:#1E3A5F; --dna-seam-gap:#F0E9FB; --dna-badge-value-text:#1E3A5F; --dna-badge-pass-sep:#7B3DE3; --dna-badge-pass-core:#15803D; --dna-frame-fill:#F8F5FF; --dna-chart-title-bg:#FFFFFF;"
+     data-hw-chromatic="readmeai-porcelain">
+  <title id="hw-054ee987-title">stars: eli64s/readme-ai</title>
+  <desc id="hw-054ee987-desc">A chart artifact, using readmeai-porcelain genome.</desc>
+  <!-- agents: this is a HyperWeave living artifact. Its data is in <metadata> — hw:payload (lossless seed, replant to regenerate) and hw:envelope (compact hwz/1 digest, ~200 tokens, actionable). Verbs over the seed: extract · verify · transform · diff · query. Contract: https://hyperweave.app/llms.txt -->
+  <metadata>
+  <hw:artifact id="chart-054ee98751cca72b" type="chart" series="core" version="0.4.0a6.dev2+g172e00ee3.d20260702"
+               xmlns:hw="https://hyperweave.app/hw/v1.0">
+    <hw:provenance>
+      <hw:generator>HyperWeave Compositor v0.4.0a6.dev2+g172e00ee3.d20260702 (InnerAura Labs)</hw:generator>
+      <hw:created>2026-07-04T01:23:03.808717+00:00</hw:created>
+      <hw:human-directed>true</hw:human-directed>
+    </hw:provenance>
+    <hw:spec size="1100x660" performance="composite-only"
+             theme="light" a11y="WCAG-AA" platform="github-readme"/>
+  </hw:artifact>
+  <hw:composition xmlns:hw="https://hyperweave.app/hw/v1.0">
+    <hw:frame>chart</hw:frame>
+    <hw:genome>readmeai-porcelain@0.4.0a6.dev2+g172e00ee3.d20260702</hw:genome>
+    <hw:variant>porcelain</hw:variant>
+    <hw:profile>flat</hw:profile>
+    <hw:stratum>002-TRIBE</hw:stratum>
+    <hw:slots>
+    </hw:slots>
+    <hw:environment platform="github-readme" motion="static" status="active"/>
+  </hw:composition>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description>
+      <dc:title>stars: eli64s/readme-ai</dc:title>
+      <dc:creator>HyperWeave Compositor v0.4.0a6.dev2+g172e00ee3.d20260702 (InnerAura Labs)</dc:creator>
+      <dc:date>2026-07-04T01:23:03.808717+00:00</dc:date>
+      <dc:rights>CC BY 4.0</dc:rights>
+    </rdf:Description>
+  </rdf:RDF>
+  <hw:aesthetic xmlns:hw="https://hyperweave.app/hw/v1.0">
+    <hw:chromatic system="readmeai-porcelain" space="oklch"
+                  palette="porcelain" contrast-ratio="10.7:1"/>
+    <hw:motion vocabulary="static" physics="none"
+               timing="phi" duration-base="2.618s"
+               stagger-regime="contemplative" cim-compliant="true"/>
+    <hw:geometry form-language="editorial" corner-radius="5px"
+                 grid="auto" proportional-system="phi"
+                 mathematical-basis="golden-ratio" symmetry="bilateral"/>
+    <hw:typography stack="'Inter',-apple-system,system-ui,sans-serif, 'JetBrains Mono','SF Mono','Consolas',ui-monospace,monospace" hierarchy="11/18/8"
+                   weight-range="500-900" metrics-method="lut"/>
+    <hw:material surface="genome-native" depth="shallow" texture="none"/>
+  </hw:aesthetic>
+  <hw:reasoning xmlns:hw="https://hyperweave.app/hw/v1.0">
+    <hw:intent></hw:intent>
+    <hw:approach></hw:approach>
+    <hw:tradeoffs></hw:tradeoffs>
+    <hw:constraints-applied>self-contained, cim-compliant, wcag-aa</hw:constraints-applied>
+    <hw:spatial-notes>1100x660 (1.67), left-to-right</hw:spatial-notes>
+  </hw:reasoning>
+  <hw:payload xmlns:hw="https://hyperweave.app/hw/v1.0" schema="chart/1" media-type="application/json"><![CDATA[{"repo":"eli64s/readme-ai","current":"2,935"}]]></hw:payload>
+  <hw:envelope xmlns:hw="https://hyperweave.app/hw/v1.0" format="hwz/1" media-type="application/json"><![CDATA[{"v":"hwz/1","id":"sha256:8cf0fa023b387e7a3075e01c7f09a8874c5dedda60b38a2863b615a4aa924042","k":"chart","title":"eli64s/readme-ai","intent":"chart artifact","state":"active","data":{"current":"2,935","points_total":13},"frames":[{"t":"chart","l":"eli64s/readme-ai"}],"prov":{"by":"hyperweave","ver":"0.4.0a6.dev2+g172e00ee3.d20260702","genome":"readmeai-porcelain.porcelain","ts":"2026-07-04T01:23:03.808717+00:00"}}]]></hw:envelope>
+</metadata>
+  <style>/* hw:css-modules: genome,accessibility */
+svg, :root {
+  --dna-surface: #F8F5FF;
+  --dna-surface-alt: #FFFFFF;
+  --dna-surface-deep: #F0E9FB;
+  --dna-ink-primary: #1E3A5F;
+  --dna-ink-muted: #537395;
+  --dna-ink-on-accent: #FFFFFF;
+  --dna-ink-bright: #1E3A5F;
+  --dna-ink-sub: #5C7C9E;
+  --dna-signal: #7B3DE3;
+  --dna-signal-dim: #5C7C9E;
+  --dna-border: #D9C9EE;
+  --dna-border-tint: rgba(90,40,184,0.14);
+  --dna-seam-color: #7B3DE3;
+  --dna-chart-title-bg: #FFFFFF;
+  --dna-shadow-color: #7B3DE3;
+  --dna-shadow-opacity: 0.06;
+  --dna-diagram-shadow-color: #101828;
+  --dna-glow: 0px;
+  --dna-corner: 6;
+  --dna-rhythm-base: 2.618s;
+  --dna-bg: #F8F5FF;
+  --dna-bg-alt: #F0E9FB;
+  --dna-brand-text: #1E3A5F;
+  --dna-glyph-inner: #7B3DE3;
+  --dna-font-display: 'Inter',-apple-system,system-ui,sans-serif;
+  --dna-font-mono: 'JetBrains Mono','SF Mono','Consolas',ui-monospace,monospace;
+  --dna-sep: #D9C9EE;
+  --dna-status-delta-positive: #22C55E;
+  --dna-status-delta-negative: #DC2626;
+}
+/* === HyperWeave Accessibility Layer ===
+ * Non-negotiable media queries for motion, color scheme, and forced colors.
+ * Included in EVERY artifact.
+ *
+ * CAMO NOTE: @media (prefers-color-scheme) and @media (forced-colors: active)
+ * are INERT when served through GitHub Camo as img tags. The img element
+ * creates an isolated browsing context — the parent document's color scheme
+ * and forced-colors mode do not propagate into it. Artifacts will always
+ * render in their default (dark) theme on GitHub READMEs.
+ *
+ * These queries DO activate when the SVG is embedded directly (svg inline,
+ * object, or opened as a standalone document). This is a known accepted
+ * tradeoff: dark-default through Camo, adaptive in direct embed.
+ */
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hw-logic-bit { animation: none !important; opacity: .8; }
+  .hw-scanner { animation: none; opacity: 0; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  animate, animateTransform, animateMotion, set {
+    display: none !important;
+  }
+}
+
+/* ── Light Mode Override (see CAMO NOTE above — inert through img) ── */
+/* Light mode: genome alleles injected by CSS assembler into per-artifact @media block. */
+
+/* ── Forced Colors (Windows High Contrast) ── */
+@media (forced-colors: active) {
+  text { fill: CanvasText !important; }
+  rect, path, circle, ellipse, polygon, polyline, line {
+    stroke: CanvasText;
+  }
+  .hw-frame-bg { fill: Canvas !important; }
+  .hw-accent-bar { fill: Highlight !important; }
+  .hw-signal { fill: Highlight !important; }
+  .hw-logic-bit { fill: Highlight !important; }
+}
+</style>
+  <defs>
+<clipPath id="hw-054ee987-clip">
+  <rect width="1100" height="660"/>
+</clipPath>
+<linearGradient id="hw-054ee987-card-bg" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#FFFFFF"/>
+  <stop offset="100%" stop-color="#F8F5FF"/>
+</linearGradient>
+<linearGradient id="hw-054ee987-area-fade" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="var(--dna-signal)" stop-opacity="0.14"/>
+  <stop offset="55%" stop-color="var(--dna-signal)" stop-opacity="0.04"/>
+  <stop offset="100%" stop-color="var(--dna-signal)" stop-opacity="0"/>
+</linearGradient>
+<filter id="hw-054ee987-lift" x="-4%" y="-8%" width="108%" height="116%">
+  <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#7B3DE3" flood-opacity="0.04"/>
+  <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#7B3DE3" flood-opacity="0.03"/>
+</filter>
+<linearGradient id="hw-054ee987-line-g" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#5C7C9E"/>
+  <stop offset="55%" stop-color="#7B3DE3"/>
+  <stop offset="100%" stop-color="#7B3DE3"/>
+</linearGradient>
+<filter id="hw-054ee987-glass" x="-40%" y="-40%" width="180%" height="190%">
+  <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#7B3DE3" flood-opacity="0.06"/>
+</filter>
+<style>
+
+.hw-054ee987-chart text { shape-rendering: geometricPrecision; }
+.hw-054ee987-title {
+  font-family: var(--dna-font-display, 'Inter', system-ui, sans-serif);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  /* ink-primary is substrate-aware; ink_bright is the near-black surface tone on
+     dark variants, which made the chart title vanish on noir/carbon/space/anvil. */
+  fill: var(--dna-ink-primary);
+}
+.hw-054ee987-subtitle,
+.hw-054ee987-axis-y,
+.hw-054ee987-axis-x,
+.hw-054ee987-footer,
+.hw-054ee987-live {
+  font-family: var(--dna-font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  fill: var(--dna-ink-muted);
+}
+.hw-054ee987-subtitle { font-size: 12px; letter-spacing: 0.03em; opacity: 0.85; }
+.hw-054ee987-hero-value {
+  font-family: var(--dna-font-display, 'Inter', system-ui, sans-serif);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  /* Hero = the SAME identity tone as the glyph (glyph_inner), so the big number
+     reads the same orange/cobalt/etc. as the header mark on every variant. The
+     prior accent_deep was a muddy darker tone that clashed with the bright glyph. */
+  fill: #7B3DE3;
+}
+/* PRIMER LABEL VOICE (single source: genome label_text). The chart's category
+   labels — CURRENT/DELTA/WINDOW, GROWTH/GAINED, LIVE·TOTAL — wear the SAME voice as
+   the badge label, strip column header, and stats card label: JetBrains Mono, 8px,
+   700, 0.12em, uppercase, fill var(--dna-label-text). */
+.hw-054ee987-tri-label,
+.hw-054ee987-callout-label,
+.hw-054ee987-hero-label {
+  font-family: var(--dna-font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-size: 8px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  fill: var(--dna-label-text);
+}
+.hw-054ee987-tri-value { font-family: var(--dna-font-display, 'Inter', system-ui, sans-serif); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; fill: var(--dna-ink-primary); }
+.hw-054ee987-tri-accent { fill: var(--dna-signal); }
+.hw-054ee987-callout-value { font-family: var(--dna-font-display, 'Inter', system-ui, sans-serif); font-size: 32px; font-weight: 800; letter-spacing: -0.03em; fill: var(--dna-ink-primary); }
+.hw-054ee987-live-word { fill: var(--dna-signal); animation: hw-054ee987-pulse var(--dna-rhythm-base, 2.618s) ease-in-out infinite; will-change: opacity; }
+.hw-054ee987-live { font-size: 9px; font-weight: 700; letter-spacing: 0.10em; fill: var(--dna-signal); }
+/* Axis ticks share the label colour (var(--dna-label-text)); they keep their own
+   legible tick size since they're data annotations, and the milestone accent
+   (axis-accent) still wins for the top-Y / current-X tick. */
+.hw-054ee987-axis-y { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; fill: var(--dna-label-text); opacity: 0.72; }
+.hw-054ee987-axis-x { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; fill: var(--dna-label-text); opacity: 0.58; }
+/* Accented tick (top Y, current X) — the genome accent at full strength. Defined
+   after axis-y/axis-x so it wins their fill + opacity at equal specificity. */
+.hw-054ee987-axis-accent { fill: var(--dna-signal); opacity: 1; }
+.hw-054ee987-footer { font-size: 9px; letter-spacing: 0.14em; opacity: 0.62; }
+.hw-054ee987-brand { font-weight: 700; letter-spacing: 0.24em; }
+/* Grid is a light NEUTRAL field (faint ink), not the blue border — matching the
+   specimen's barely-there near-white grid. Baseline axis a touch stronger; the
+   trailing (current) vertical carries a faint accent tint. */
+.hw-054ee987-chart .hw-chart-gridline { stroke: var(--dna-ink-primary); stroke-width: 1; opacity: 0.06; }
+.hw-054ee987-chart .hw-chart-axis { stroke: var(--dna-ink-primary); stroke-width: 1; opacity: 0.12; }
+.hw-054ee987-vgrid { stroke: var(--dna-ink-primary); stroke-width: 1; opacity: 0.05; }
+.hw-054ee987-vgrid-a { stroke: var(--dna-signal); stroke-width: 1; opacity: 0.14; }
+.hw-054ee987-chart .hw-chart-area-smooth { fill: url(#hw-054ee987-area-fade); fill-opacity: 1; }
+.hw-054ee987-chart .hw-chart-line { stroke: url(#hw-054ee987-line-g); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.hw-054ee987-chart [data-hw-zone="markers"] circle { fill: var(--dna-surface-alt); stroke: var(--dna-signal); stroke-width: 1; }
+.hw-054ee987-chart [data-hw-zone="markers"] circle:last-child { fill: var(--dna-signal); stroke: none; }
+.hw-054ee987-chart .hw-chart-milestone-line { stroke: var(--dna-signal); stroke-width: 0.7; opacity: 0.25; stroke-dasharray: 2 6; }
+.hw-054ee987-chart .hw-chart-milestone-label { font-family: var(--dna-font-mono, 'JetBrains Mono', ui-monospace, monospace); font-size: 9px; font-weight: 700; letter-spacing: 0.10em; fill: var(--dna-ink-primary); }
+.hw-054ee987-pulse { animation: hw-054ee987-pulse var(--dna-rhythm-base, 2.618s) ease-in-out infinite; will-change: opacity; }
+@keyframes hw-054ee987-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+.hw-054ee987-chart .hw-chart-line-draw { stroke-dashoffset: 0; animation: hw-054ee987-draw 2.4s cubic-bezier(0.16,1,0.3,1) 0.25s backwards; will-change: stroke-dashoffset; }
+@keyframes hw-054ee987-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.hw-054ee987-chart .hw-chart-area-smooth { animation: hw-054ee987-rise 1.2s ease-out 1.0s backwards; }
+.hw-054ee987-chart [data-hw-zone="markers"] { animation: hw-054ee987-rise 0.6s ease-out 1.9s backwards; }
+@keyframes hw-054ee987-rise { from { opacity: 0; } to { opacity: 1; } }
+.hw-054ee987-chart .hw-chart-endpoint { transform-box: fill-box; transform-origin: center; animation: hw-054ee987-ping 3s cubic-bezier(0.16,1,0.3,1) 2.6s infinite; will-change: transform, opacity; }
+@keyframes hw-054ee987-ping { 0% { opacity: 0.3; transform: scale(1); } 100% { opacity: 0; transform: scale(2.4); } }
+@media (prefers-reduced-motion: reduce) {
+  .hw-054ee987-chart .hw-chart-line-draw { animation: none; stroke-dashoffset: 0; }
+  .hw-054ee987-chart .hw-chart-area-smooth,
+  .hw-054ee987-chart [data-hw-zone="markers"] { animation: none; opacity: 1; }
+  .hw-054ee987-chart .hw-chart-endpoint { animation: none; }
+  .hw-054ee987-pulse, .hw-054ee987-live-word { animation: none !important; opacity: 1; }
+}
+</style>
+
+  </defs>
+<g class="hw-054ee987-chart" clip-path="url(#hw-054ee987-clip)">
+  <g filter="url(#hw-054ee987-lift)">
+    <rect x="50.0" y="36.0"
+          width="1000.0" height="588.0"
+          rx="16.0" fill="url(#hw-054ee987-card-bg)"/>
+  </g>
+  <rect x="50.0" y="36.0"
+        width="1000.0" height="588.0"
+        rx="16.0" fill="none" stroke="var(--dna-border)" stroke-width="0.8"/>
+
+  <svg x="100.0" y="73.0" width="20" height="20" viewBox="0 0 24 24">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#7B3DE3"/>
+  </svg>
+  <text class="hw-054ee987-title" x="132.0" y="90.0">eli64s/readme-ai</text>
+  <text class="hw-054ee987-subtitle" x="132.0" y="110.0">STARS · Jan 2023 — Jul 2026</text>
+  <text class="hw-054ee987-hero-value" x="1000.0" y="90.0"
+        text-anchor="end">2,935</text>
+  <text class="hw-054ee987-hero-label" x="1000.0" y="110.0"
+        text-anchor="end"><tspan class="hw-054ee987-live-word">LIVE</tspan> · TOTAL STARS</text>
+
+  <g data-hw-zone="plot">
+    <line x1="100.0" y1="140" x2="100.0" y2="480" class="hw-054ee987-vgrid"/>    <line x1="356.0" y1="140" x2="356.0" y2="480" class="hw-054ee987-vgrid"/>    <line x1="612.0" y1="140" x2="612.0" y2="480" class="hw-054ee987-vgrid"/>    <line x1="980.0" y1="140" x2="980.0" y2="480" class="hw-054ee987-vgrid hw-054ee987-vgrid-a"/><line x1="100" y1="480" x2="980" y2="480" class="hw-chart-gridline"/>
+<line x1="100" y1="367" x2="980" y2="367" class="hw-chart-gridline"/>
+<line x1="100" y1="253" x2="980" y2="253" class="hw-chart-gridline"/>
+<line x1="100" y1="140" x2="980" y2="140" class="hw-chart-gridline"/>
+<line x1="100" y1="480" x2="980" y2="480" class="hw-chart-axis"/>
+<line x1="100" y1="140" x2="100" y2="480" class="hw-chart-axis"/>
+    <text class="hw-054ee987-axis-y" x="88" y="484.0" text-anchor="end">0</text>
+    <text class="hw-054ee987-axis-y" x="88" y="371.0" text-anchor="end">1K</text>
+    <text class="hw-054ee987-axis-y" x="88" y="257.0" text-anchor="end">2K</text>
+    <text class="hw-054ee987-axis-y hw-054ee987-axis-accent" x="88" y="144.0" text-anchor="end">3K</text>
+<path d="M100,480 C142,469 184,478 226,446 C232,442 237,429 243,423 C258,407 274,397 289,389 C322,371 355,365 388,355 C418,346 449,342 479,333 C511,323 544,310 576,299 C600,291 623,286 647,276 C671,266 694,255 718,242 C735,232 753,226 770,208 C775,202 781,188 786,185 C843,152 899,158 956,151 C964,150 972,148 980,147 L980,480 L100,480 Z" fill="var(--dna-chart-main, var(--dna-signal))"
+      fill-opacity="0.12" class="hw-chart-area-smooth"/><path d="M100,480 C142,469 184,478 226,446 C232,442 237,429 243,423 C258,407 274,397 289,389 C322,371 355,365 388,355 C418,346 449,342 479,333 C511,323 544,310 576,299 C600,291 623,286 647,276 C671,266 694,255 718,242 C735,232 753,226 770,208 C775,202 781,188 786,185 C843,152 899,158 956,151 C964,150 972,148 980,147" fill="none" stroke="var(--dna-chart-main, var(--dna-signal))"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+      class="hw-chart-line hw-chart-line-draw" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"/>    <g data-hw-zone="markers"><circle cx="100" cy="480" r="4"/>
+<circle cx="226" cy="446" r="4"/>
+<circle cx="243" cy="423" r="4"/>
+<circle cx="289" cy="389" r="4"/>
+<circle cx="388" cy="355" r="4"/>
+<circle cx="479" cy="333" r="4"/>
+<circle cx="576" cy="299" r="4"/>
+<circle cx="647" cy="276" r="4"/>
+<circle cx="718" cy="242" r="4"/>
+<circle cx="770" cy="208" r="4"/>
+<circle cx="786" cy="185" r="4"/>
+<circle cx="956" cy="151" r="4"/>
+<g data-hw-zone="endpoint">
+  <circle class="hw-chart-endpoint" cx="980" cy="147" r="8"
+          fill="var(--dna-signal)" opacity="0.18"/>
+  <circle cx="980" cy="147" r="5"
+          fill="var(--dna-surface-alt)" stroke="var(--dna-signal)" stroke-width="1"/>
+  <circle cx="980" cy="147" r="2" fill="var(--dna-signal)"/>
+</g>
+    </g>
+  </g>
+
+  <g data-hw-zone="x-axis">
+    <text class="hw-054ee987-axis-x" x="100.0" y="500.0" text-anchor="start">2023</text>
+    <text class="hw-054ee987-axis-x" x="356.0" y="500.0" text-anchor="middle">2024</text>
+    <text class="hw-054ee987-axis-x" x="612.0" y="500.0" text-anchor="middle">2025</text>
+    <text class="hw-054ee987-axis-x hw-054ee987-axis-accent" x="980.0" y="500.0" text-anchor="end">2026</text>
+  </g>
+  <g filter="url(#hw-054ee987-glass)">
+    <rect x="150.0" y="210.0"
+          width="120.0" height="72.0"
+          rx="10.0" fill="white" fill-opacity="0.72" stroke="#D9C9EE" stroke-width="1"/>
+  </g>
+  <rect x="151.0" y="211.0"
+        width="118.0" height="2.0"
+        rx="1.0" fill="white" fill-opacity="0.32"/>
+  <text class="hw-054ee987-callout-value" x="210.0" y="254.0" text-anchor="middle">+2.9K</text>
+  <text class="hw-054ee987-callout-label" x="210.0" y="270.0" text-anchor="middle">GAINED</text>
+
+  <line x1="80.0" y1="530.0" x2="1020.0" y2="530.0" stroke="#D9C9EE" stroke-width="0.7" opacity="0.7"/>
+  <text class="hw-054ee987-tri-label" x="100.0" y="552.0">CURRENT</text>
+  <text class="hw-054ee987-tri-label" x="410.0" y="552.0">DELTA</text>
+  <text class="hw-054ee987-tri-label" x="720.0" y="552.0">WINDOW</text>
+  <text class="hw-054ee987-tri-value" x="100.0" y="576.0">2,935</text>
+  <text class="hw-054ee987-tri-value hw-054ee987-tri-accent" x="410.0" y="576.0">+2.9K</text>
+  <text class="hw-054ee987-tri-value" x="720.0" y="576.0">3y</text>
+
+  <line x1="80.0" y1="600.0" x2="1020.0" y2="600.0" stroke="#D9C9EE" stroke-width="0.7" opacity="0.5"/>
+  <text class="hw-054ee987-footer hw-054ee987-brand" x="100.0" y="616.0">HYPERWEAVE · STAR HISTORY</text>
+  <text class="hw-054ee987-footer" x="1000.0" y="616.0" text-anchor="end">https://github.com/eli64s/readme-ai</text>
+</g>
+</svg>
