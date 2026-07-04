@@ -21,6 +21,7 @@
 <p align="center">
   <em>Designed for simplicity, customization, and developer productivity.</em>
 </p>
+
 <!--
 <p align="center">
   <a href="https://github.com/eli64s/readme-ai/actions">
@@ -50,21 +51,6 @@
 <p align="center">
   <a href="https://github.com/InnerAura/hyperweave" title="Star history rendered with HyperWeave">
     <img src="https://raw.githubusercontent.com/eli64s/readme-ai/main/assets/readmeai-star-chart.svg" alt="readme-ai star history rendered by HyperWeave" width="100%">
-  </a>
-</p>
-<p align="center">
-  <sub>The metrics above are rendered with <a href="https://github.com/InnerAura/hyperweave"><b>HyperWeave</b></a> — an experimental SVG artifact layer for agents. &nbsp;<a href="https://github.com/InnerAura/hyperweave"><b>Explore&nbsp;→</b></a></sub>
-</p>
-
-<!-- ✦ ────────────────  RENDERED WITH HYPERWEAVE  ──────────────── ✦ -->
-<p align="center">
-  <a href="https://github.com/InnerAura/hyperweave" title="Rendered with HyperWeave">
-    <img src="https://hyperweave.app/v1/strip/readme-ai/automata.static?variant=violet&amp;data=gh:eli64s/readme-ai.stars,gh:eli64s/readme-ai.forks,pypi:readmeai.version&amp;subtitle=eli64s/readme-ai&amp;glyph=github" alt="readme-ai · stars · forks · version" width="66%">
-  </a>
-</p>
-<p align="center">
-  <a href="https://github.com/InnerAura/hyperweave" title="Star history rendered with HyperWeave">
-    <img src="https://hyperweave.app/v1/chart/stars/eli64s/readme-ai/automata.static?variant=violet" alt="readme-ai star history rendered by HyperWeave" width="80%">
   </a>
 </p>
 <p align="center">
