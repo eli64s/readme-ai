@@ -8,6 +8,7 @@ class LLMAuthKeys(str, Enum):
 
     ANTHROPIC_API_KEY = "ANTHROPIC_API_KEY"
     GOOGLE_API_KEY = "GOOGLE_API_KEY"
+    LITELLM_API_KEY = "LITELLM_API_KEY"
     OLLAMA_HOST = "OLLAMA_HOST"
     OPENAI_API_KEY = "OPENAI_API_KEY"
 
@@ -19,6 +20,7 @@ class LLMProviders(str, Enum):
 
     ANTHROPIC = "anthropic"
     GEMINI = "gemini"
+    LITELLM = "litellm"
     OLLAMA = "ollama"
     OPENAI = "openai"
     OFFLINE = "offline"
