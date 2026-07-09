@@ -388,6 +388,8 @@ ReadmeAI is model agnostic, with support for the following LLM API services:
 
 ### Installation
 
+> Note: Ensure Python 3.9 or higher is installed before proceeding.
+
 ReadmeAI is available on [PyPI][pypi-link] as readmeai and can be installed as follows:
 
 <!-- #### Using `pip` [![pypi][pypi-shield]][pypi-link] -->
