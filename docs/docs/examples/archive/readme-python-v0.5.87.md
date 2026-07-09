@@ -5,7 +5,7 @@
     <h1 align="center">README-AI</h1>
 </p>
 <p align="center">
-    <em>Automated README documenation generator!</em>
+    <em>Automated README documentation generator!</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
@@ -172,7 +172,7 @@ The `readme-ai` project is an automated README generator leveraging AI to synthe
 
 | File                                                                                                          | Summary                                                                                                               |
 | ---                                                                                                           | ---                                                                                                                   |
-| [ansible.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/configuration/ansible.py)       | Parse Ansible configuration files for repositorys AI project.                                                         |
+| [ansible.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/configuration/ansible.py)       | Parse Ansible configuration files for repositories AI project.                                                         |
 | [properties.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/configuration/properties.py) | Parser for.properties configuration files extracting connection strings and package names.                            |
 | [apache.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/configuration/apache.py)         | Parser for Apache configuration files in the `readme-ai` repository.                                                  |
 | [docker.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/configuration/docker.py)         | Parser for Docker configuration files extracting package names from Dockerfile and services from docker-compose.yaml. |
@@ -226,7 +226,7 @@ The `readme-ai` project is an automated README generator leveraging AI to synthe
 
 | File                                                                                                | Summary                                                                                                                              |
 | ---                                                                                                 | ---                                                                                                                                  |
-| [composer.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/package/composer.py) | Parse PHP Composer configuration files for repositorys architecture.                                                                 |
+| [composer.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/package/composer.py) | Parse PHP Composer configuration files for repositories architecture.                                                                 |
 | [npm.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/package/npm.py)           | Parse npm and yarn.lock files to extract dependencies for documentation generation.                                                  |
 | [gradle.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/package/gradle.py)     | Parser for extracting package names from Gradle dependency files.                                                                    |
 | [nuget.py](https://github.com/eli64s/readme-ai/blob/master/readmeai/parsers/package/nuget.py)       | Parser for NuGet.Config files in.NET, located in readmeai/parsers/package/nuget.py.                                                  |

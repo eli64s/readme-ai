@@ -574,7 +574,7 @@ This project requires the following dependencies:
 
 ### ⚡ Installation
 
-Build pydantic-ai from the source and intsall dependencies:
+Build pydantic-ai from the source and install dependencies:
 
 1. **Clone the repository:**
 

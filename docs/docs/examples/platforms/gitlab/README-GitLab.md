@@ -305,7 +305,7 @@ This project requires the following dependencies:
 
 ### 🌾 Installation
 
-Build badgie from the source and intsall dependencies:
+Build badgie from the source and install dependencies:
 
 1. **Clone the repository:**
 

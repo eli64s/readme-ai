@@ -449,7 +449,7 @@ This project requires the following dependencies:
 
 ### ⚫ Installation
 
-Build tictac-ai from the source and intsall dependencies:
+Build tictac-ai from the source and install dependencies:
 
 1. **Clone the repository:**
 

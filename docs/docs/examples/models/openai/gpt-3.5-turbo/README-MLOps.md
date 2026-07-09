@@ -354,7 +354,7 @@ This project requires the following dependencies:
 
 ### 🔷 Installation
 
-Build mlops-course from the source and intsall dependencies:
+Build mlops-course from the source and install dependencies:
 
 1. **Clone the repository:**
 

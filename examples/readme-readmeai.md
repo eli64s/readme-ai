@@ -126,7 +126,7 @@ README-AI is an innovative open-source project that leverages AI models to autom
 | [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile) | Builds a Docker image for the readmeai package, setting up a non-root user, installing dependencies, and configuring the environment. The image runs the readmeai CLI by default. |
 | [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile) | Manages repository cleanup, formatting, linting, and testing tasks.-Builds Conda package, generates requirements file, and searches for a word in the directory.-Executes various commands for maintaining code quality and project organization. |
 | [pyproject.toml](https://github.com/eli64s/readme-ai/blob/main/pyproject.toml) | Generates README files using AI models. Key features include markdown generation, badge integration, and AI-powered content creation. Supports Python, markdown, and various AI libraries. |
-| [noxfile.py](https://github.com/eli64s/readme-ai/blob/main/noxfile.py) | Executes tests across multiple Python versions by installing the package and running the test suite with coverage reports. The code ensures seamless testing workflow for the repositorys Python versions. |
+| [noxfile.py](https://github.com/eli64s/readme-ai/blob/main/noxfile.py) | Executes tests across multiple Python versions by installing the package and running the test suite with coverage reports. The code ensures seamless testing workflow for the repositories Python versions. |
 
 </details>
 
@@ -144,7 +144,7 @@ README-AI is an innovative open-source project that leverages AI models to autom
 
 | File | Summary |
 | --- | --- |
-| [parsers](https://github.com/eli64s/readme-ai/blob/main/tests/parsers) | Validates data parsing functionality ensuring accurate extraction and transformation. Enhances data integrity and reliability within the repositorys architecture. |
+| [parsers](https://github.com/eli64s/readme-ai/blob/main/tests/parsers) | Validates data parsing functionality ensuring accurate extraction and transformation. Enhances data integrity and reliability within the repositories architecture. |
 
 </details>
 
@@ -213,7 +213,7 @@ README-AI is an innovative open-source project that leverages AI models to autom
 | [cpp.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/cpp.py) | CMakeParser for CMakeLists.txt, ConfigureAcParser for configure.ac, and MakefileAmParser for Makefile.am. Each parser handles specific file types to identify dependencies, libs, and software. |
 | [swift.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/swift.py) | Extracts Swift package names from Package.swift files by parsing dependencies. |
 | [python.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/python.py) | Parses Python dependency files to extract package names without version specifiers.-Handles requirements.txt, TOML (Pipenv, Poetry, Flit), and YAML (environment.yml) formats.-Ensures robust error handling for parsing exceptions. |
-| [go.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/go.py) | Extracts Go package dependencies from go.mod files using regex pattern matching. Inherits from BaseFileParser to parse content and handle parsing errors. Contributes to the repositorys parsers module for language-specific file parsing. |
+| [go.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/go.py) | Extracts Go package dependencies from go.mod files using regex pattern matching. Inherits from BaseFileParser to parse content and handle parsing errors. Contributes to the repositories parsers module for language-specific file parsing. |
 | [rust.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/language/rust.py) | Extracts Rust package names from cargo.toml files using toml parsing library. |
 
 </details>
@@ -225,7 +225,7 @@ README-AI is an innovative open-source project that leverages AI models to autom
 | [bitbucket.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/bitbucket.py) | Extracts Bitbucket Pipelines configuration details for CI/CD workflows. |
 | [travis.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/travis.py) | Extracts CI/CD configurations from.travis.yml files. |
 | [gitlab.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/gitlab.py) | Extracts GitLab CI configuration details from.gitlab-ci.yml files. |
-| [jenkins.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/jenkins.py) | Extracts Jenkinsfile configurations for CI/CD pipelines. Identifies and parses Jenkinsfile settings for automation and deployment processes within the repositorys architecture. |
+| [jenkins.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/jenkins.py) | Extracts Jenkinsfile configurations for CI/CD pipelines. Identifies and parses Jenkinsfile settings for automation and deployment processes within the repositories architecture. |
 | [github.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/github.py) | Extracts GitHub Actions configurations for CI/CD pipelines from.github/workflows/ directory. |
 | [circleci.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/cicd/circleci.py) | Parses CircleCI configuration files in the readme-ai repository. |
 
@@ -253,11 +253,11 @@ README-AI is an innovative open-source project that leverages AI models to autom
 | File | Summary |
 | --- | --- |
 | [composer.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/composer.py) | Extracts PHP Composer configuration details from composer.json files. |
-| [npm.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/npm.py) | Extracts dependencies from package.json and yarn.lock files for the parent repositorys architecture. Parses JSON dependency files and yarn.lock files to retrieve package names for different sections. |
+| [npm.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/npm.py) | Extracts dependencies from package.json and yarn.lock files for the parent repositories architecture. Parses JSON dependency files and yarn.lock files to retrieve package names for different sections. |
 | [gradle.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/gradle.py) | Parses Gradle dependency files to extract package names. Handles both build.gradle and build.gradle.kts formats, utilizing regex patterns for parsing. Implements error handling for parsing exceptions. |
 | [nuget.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/nuget.py) | Parses NuGet.Config files for.NET configuration settings. |
 | [yarn.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/yarn.py) | Extracts package names from a yarn.lock file using regex pattern matching. |
-| [pip.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/pip.py) | Extracts and interprets Pip configuration files for the parent repositorys AI documentation tool. |
+| [pip.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/pip.py) | Extracts and interprets Pip configuration files for the parent repositories AI documentation tool. |
 | [maven.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/maven.py) | Extracts Maven package names from pom.xml files, handling parsing errors. Parses groupId, artifactId, and version using regex. Appends spring if found in dependencies. Returns a set of unique dependencies. |
 | [gem.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/parsers/package/gem.py) | Parses Gemfile.lock (Ruby) configuration files in the readme-ai repository. |
 

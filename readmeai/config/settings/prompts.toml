@@ -30,9 +30,9 @@ SOURCE_CODE: {7}
 
 === INSTRUCTIONS ===
 1. **HTML:** Write the details using unordered HTML list elements.
-2. **Syntax Highlighting:** When appropiate, use syntax highlighting, bold, and italics. DO NOT overuse.
+2. **Syntax Highlighting:** When appropriate, use syntax highlighting, bold, and italics. DO NOT overuse.
 4. **Specificity:** Provide concrete details, examples, and evidence from the codebase to support your analysis.
-5. **Readability:** Ensure the table is well-structured, easy to read. Do not use ful sentences, only quick digestible points.
+5. **Readability:** Ensure the table is well-structured, easy to read. Do not use full sentences, only quick digestible points.
 """
 
 _file_summary = """

@@ -858,7 +858,7 @@ IX. [👏 Acknowledgments](#-acknowledgments)<br>
 					</thead>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/generators/tree.py'>tree.py</a></b></td>
-							<td style='padding: 8px;'>- Generates Directory Structure for Code Repository**The <code>tree.py</code> file provides a class, <code>TreeGenerator</code>, to build a string representation of a directory structure<br>- It generates a hierarchical tree view of a code repositorys directories and subdirectories based on the provided repository name, root directory, and maximum depth<br>- The generated tree structure is formatted with indentation for better readability.</td>
+							<td style='padding: 8px;'>- Generates Directory Structure for Code Repository**The <code>tree.py</code> file provides a class, <code>TreeGenerator</code>, to build a string representation of a directory structure<br>- It generates a hierarchical tree view of a code repositories directories and subdirectories based on the provided repository name, root directory, and maximum depth<br>- The generated tree structure is formatted with indentation for better readability.</td>
 						</tr>
 						<tr style='border-bottom: 1px solid #eee;'>
 							<td style='padding: 8px;'><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/generators/emojis.py'>emojis.py</a></b></td>
@@ -908,7 +908,7 @@ IX. [👏 Acknowledgments](#-acknowledgments)<br>
 							</thead>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/readers/git/metadata.py'>metadata.py</a></b></td>
-									<td style='padding: 8px;'>- Retrieves metadata of a git repository via the host providers API, providing detailed information about the repositorys statistics, details, and settings<br>- Fetches GitHub repository metadata using an aiohttp ClientSession, parsing raw data into a structured dataclass<br>- Returns RepositoryMetadata object with comprehensive repository info or None if an error occurs during fetching.</td>
+									<td style='padding: 8px;'>- Retrieves metadata of a git repository via the host providers API, providing detailed information about the repositories statistics, details, and settings<br>- Fetches GitHub repository metadata using an aiohttp ClientSession, parsing raw data into a structured dataclass<br>- Returns RepositoryMetadata object with comprehensive repository info or None if an error occurs during fetching.</td>
 								</tr>
 								<tr style='border-bottom: 1px solid #eee;'>
 									<td style='padding: 8px;'><b><a href='https://github.com/eli64s/readme-ai/blob/master/readmeai/readers/git/providers.py'>providers.py</a></b></td>
@@ -969,7 +969,7 @@ This project requires the following dependencies:
 
 ### 🛠️ Installation
 
-Build readme-ai from the source and intsall dependencies:
+Build readme-ai from the source and install dependencies:
 
 1. **Clone the repository:**
 

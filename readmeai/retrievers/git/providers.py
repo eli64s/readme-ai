@@ -124,7 +124,7 @@ def parse_git_url(url: Union[str, Path]) -> tuple[str, str, str, str]:
             if parsed_url.scheme not in ["http", "https"]:
                 raise GitURLError(
                     url,
-                    f"Uknown scheme provided: {parsed_url.scheme}",
+                    f"Unknown scheme provided: {parsed_url.scheme}",
                 )
         except ValueError as e:
             raise GitURLError(url) from e
