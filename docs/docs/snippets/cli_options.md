@@ -1,4 +1,5 @@
 <!-- --8<------ [start:options] -->
+
 ```console
 Usage: readmeai [OPTIONS]
 
@@ -9,7 +10,7 @@ Options:
   -a, --align [center|left|right]
                                   align for the README.md file header
                                   sections.
-  --api [anthropic|gemini|ollama|openai|offline]
+  --api [anthropic|gemini|ollama|openai|azure|offline]
                                   LLM API service provider to power the README
                                   file generation.
   -bc, --badge-color TEXT         Primary color (hex code or name) to use for
@@ -50,4 +51,5 @@ Options:
                                   generated for the README file.
   --help                          Show this message and exit.
 ```
+
 <!-- --8<------ [end:options] -->
