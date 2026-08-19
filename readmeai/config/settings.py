@@ -135,11 +135,14 @@ class MarkdownSettings(BaseModel):
     navigation_style: NavigationStyles = Field(default=NavigationStyles.BULLET)
     top_anchor_markup: str = Field(default='<div id="top">')
     return_to_top_div: str = Field(
-        default="""<div align="right">\n\n[![][back-to-top]](#top)\n\n</div>""",
+        default=("""<div align="right">\n\n[![][back-to-top]](#top)\n\n</div>"""),
         description="Return to top link markdown",
     )
     return_to_top_reflink: str = Field(
-        default="""[back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square""",
+        default=(
+            """[back-to-top]: https://img.shields.io/badge/"""
+            """-BACK_TO_TOP-151515?style=flat-square"""
+        ),
         description="Return to top link reference",
     )
 
@@ -209,6 +212,14 @@ class ModelSettings(BaseModel):
     top_p: NonNegativeFloat = Field(default=0.9, le=1.0)
     rate_limit: PositiveInt = Field(default=10, le=30)
     resource: str = "v1/chat/completions"
+    # Streaming and timeouts
+    stream: bool = Field(
+        default=False,
+        description="Enable streaming responses if supported",
+    )
+    timeout_total: PositiveInt = Field(default=60, le=600)
+    timeout_connect: PositiveInt = Field(default=5, le=60)
+    timeout_read: PositiveInt = Field(default=30, le=600)
     system_message: str = (
         "You're a 10x Staff Software Engineering leader, with deep knowledge "
         "across most tech stacks. You'll use your expertise to write robust "
@@ -221,9 +232,15 @@ class ModelSettings(BaseModel):
             "openai": [model.value for model in OpenAIModels],
             "anthropic": [model.value for model in AnthropicModels],
             "gemini": [model.value for model in GeminiModels],
+            "lmstudio": [],
         }
     )
-    model: Union[OllamaModels, OpenAIModels, AnthropicModels, GeminiModels] = Field(
+    model: Union[
+        OllamaModels,
+        OpenAIModels,
+        AnthropicModels,
+        GeminiModels,
+    ] = Field(
         default=OpenAIModels.GPT35_TURBO,
         description="Model for text generation",
     )
@@ -231,6 +248,27 @@ class ModelSettings(BaseModel):
     def get_supported_models(self) -> List[str]:
         """Get a list of supported models for a given LLM API."""
         return self.supported_models.get(self.api, [])
+
+    async def hydrate_lmstudio_models(self) -> None:
+        """Populate LM Studio models from the local server if available."""
+        try:
+            import aiohttp  # type: ignore
+
+            async with (
+                aiohttp.ClientSession() as session,
+                session.get("http://localhost:1234/v1/models", timeout=1) as r,
+            ):
+                if r.status == 200:
+                    data = await r.json()
+                    names = []
+                    for m in data.get("data", []):
+                        if m.get("id"):
+                            names.append(m.get("id"))
+                    if names:
+                        self.supported_models[LLMProviders.LMSTUDIO.value] = names
+        except Exception:
+            # Best-effort; ignore if not reachable
+            pass
 
     def validate_model(self, model: str) -> bool:
         """Validate if a LLM API supports a given model."""
@@ -338,7 +376,7 @@ class ConfigLoader:
                 config_dict = self.file_handler.read(file_path)
                 settings[key] = config_dict
                 setattr(self, key, config_dict)
-                _logger.info(f"Succesfully loaded cofing: {file_path.name}")
+                _logger.info(f"Successfully loaded config: {file_path.name}")
 
         themes_path = build_resource_path(
             file_path="emojis.yaml", submodule=f"{self.submodule}/themes"

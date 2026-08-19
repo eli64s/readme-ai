@@ -1,8 +1,6 @@
-FROM --platform=${BUILDPLATFORM} python:3.11-slim-buster
+FROM --platform=${BUILDPLATFORM} python:3.11-slim-bookworm
 
 WORKDIR /app
-
-ENV GIT_PYTHON_REFRESH=quiet
 
 RUN apt-get update \
     && apt-get install -y git \
