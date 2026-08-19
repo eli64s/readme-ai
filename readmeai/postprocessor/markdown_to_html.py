@@ -55,7 +55,7 @@ def convert(text: str) -> str:
 
     for i, pattern in enumerate(HEADER_RE, start=1):
         text = pattern.sub(
-            lambda m: f"<h{7 - i}>{process_inline(m.group(1))}</h{7 - i}>", text
+            lambda m, i=i: f"<h{7 - i}>{process_inline(m.group(1))}</h{7 - i}>", text
         )
 
     lines = text.split("\n")

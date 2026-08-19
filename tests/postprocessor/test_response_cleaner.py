@@ -1,5 +1,4 @@
 import pytest
-
 from readmeai.postprocessor.response_cleaner import (
     fix_markdown_table_rows,
     format_markdown_table,
@@ -22,7 +21,9 @@ def test_fix_markdown_table_rows():
 
 def test_fix_markdown_table_rows_malformed():
     """Test malformed markdown table rows."""
-    malformed_table = """| Feature || Description ||---------|-------------| | Data || More Data |"""
+    malformed_table = (
+        """| Feature || Description ||---------|-------------| | Data || More Data |"""
+    )
     result = fix_markdown_table_rows(malformed_table)
     assert isinstance(result, str)
     assert "| Feature | Description |" in result
@@ -49,7 +50,7 @@ def test_fix_markdown_table_rows_malformed():
         ),
         ("**AI-Driven, Streamlined Success", "AI-Driven, Streamlined Success"),
         (
-            "'\AI-Driven, Streamlined Success!",
+            r"'\AI-Driven, Streamlined Success!",
             "AI-Driven, Streamlined Success!",
         ),
     ],

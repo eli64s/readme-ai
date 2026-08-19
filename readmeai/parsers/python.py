@@ -2,9 +2,9 @@
 
 import re
 import sys
+from typing import Any
 
 import yaml
-
 from readmeai.parsers.base import BaseFileParser
 
 if sys.version_info < (3, 11):
@@ -65,25 +65,17 @@ class TomlParser(BaseFileParser):
             # pyproject.toml-style (Poetry, Hatch, Flit)
             if "project" in data:
                 dependencies.extend(
-                    self.extract_package_names(
-                        data["project"].get("dependencies", [])
-                    )
+                    self.extract_package_names(data["project"].get("dependencies", []))
                 )
                 if "optional-dependencies" in data["project"]:
-                    for group_deps in data["project"][
-                        "optional-dependencies"
-                    ].values():
-                        dependencies.extend(
-                            self.extract_package_names(group_deps)
-                        )
+                    for group_deps in data["project"]["optional-dependencies"].values():
+                        dependencies.extend(self.extract_package_names(group_deps))
 
             # For build-system specific tools like Poetry
             if "tool" in data:
                 if "poetry" in data["tool"]:
                     poetry_data = data["tool"]["poetry"]
-                    dependencies.extend(
-                        poetry_data.get("dependencies", {}).keys()
-                    )
+                    dependencies.extend(poetry_data.get("dependencies", {}).keys())
 
                     # Add dev-dependencies and any group dependencies
                     for group in ["dev-dependencies", "group"]:
@@ -97,7 +89,7 @@ class TomlParser(BaseFileParser):
 
                 if "hatch" in data["tool"]:
                     hatch_data = data["tool"]["hatch"].get("envs", {})
-                    for env, env_data in hatch_data.items():
+                    for _env, env_data in hatch_data.items():
                         dependencies.extend(env_data.get("dependencies", []))
                         if "extra-dependencies" in env_data:
                             dependencies.extend(env_data["extra-dependencies"])
@@ -113,27 +105,16 @@ class TomlParser(BaseFileParser):
         except Exception as exc:
             return self.handle_parsing_error(exc)
 
-    def extract_package_names(self, dependencies: list[str]) -> list[str]:
-        """Helper method to extract package names from a list of dependencies."""
+    def extract_package_names(self, dependencies: list[Any]) -> list[str]:
+        """Helper method to extract package names from dependency strings or mappings."""
         package_names = []
         for dep in dependencies:
-            # Handle cases where dependencies might be in the format 'package_name>=1.0.0'
             if isinstance(dep, str):
-                package_name = (
-                    dep.split(">=")[0].split("<=")[0].split("==")[0].strip()
-                )
-                package_names.append(package_name)
+                match = re.match(r"([a-zA-Z0-9\-_]+)", dep.split(";")[0].strip())
+                if match:
+                    package_names.append(match.group(1))
             elif isinstance(dep, dict):
                 package_names.extend(dep.keys())
-        return package_names
-
-    def extract_package_names(self, dependencies: list[str]) -> list[str]:
-        """Helper method to extract package names from dependency strings."""
-        package_names = []
-        for dep in dependencies:
-            match = re.match(r"([a-zA-Z0-9\-_]+)", dep.split(";")[0].strip())
-            if match:
-                package_names.append(match.group(1))
         return package_names
 
 
