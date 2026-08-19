@@ -75,7 +75,7 @@ pydantic-settings = "*"
 pyyaml = "^6.0.1"
 requests = ">=2.33.0"
 structlog = "^24.4.0"
-tenacity = "^8.2.2"
+tenacity = ">=8.2.2,<10.0.0"
 tiktoken = "^0.4.0"
 tomli = { version = "*", python = "<3.11" }
 typing-extensions = { version = "*", python = "<3.11" }
