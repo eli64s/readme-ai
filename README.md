@@ -350,11 +350,11 @@ Let's begin by exploring various customization options and styles supported by R
 
 ### Prerequisites
 
-ReadmeAI requires Python 3.9 or higher, and one of the following installation methods:
+ReadmeAI requires Python 3.10 or higher, and one of the following installation methods:
 
 | Requirement                          | Details                          |
 |--------------------------------------|----------------------------------|
-| • [Python][python-link] ≥3.9         | Core runtime                     |
+| • [Python][python-link] ≥3.10        | Core runtime                     |
 | **Installation Method** (choose one) |                                  |
 | • [pip][pip-link]                    | Default Python package manager   |
 | • [pipx][pipx-link]                  | Isolated environment installer   |
@@ -700,7 +700,7 @@ Run the unit test suite using Pytest:
 ❯ make test
 ```
 
-Using nox, test the app against Python versions `3.9`, `3.10`, `3.11`, and `3.12`:
+Using nox, test the app against Python versions `3.10`, `3.11`, `3.12`, and `3.13`:
 
 ```sh
 ❯ make test-nox

@@ -5,6 +5,7 @@ from _pytest._py.path import LocalPath
 from click.testing import CliRunner
 from readmeai.cli.main import main
 from readmeai.config.settings import ConfigLoader
+from readmeai.models.enums import LLMProviders
 
 
 @pytest.fixture
@@ -110,7 +111,7 @@ def test_version_option(cli_runner: CliRunner):
         (
             "--api",
             "invalid",
-            "Invalid value for '--api': 'invalid' is not one of 'anthropic', 'gemini', 'ollama', 'openai', 'offline'.",
+            "Invalid value for '--api'",
         ),
         # (
         #     "--badge-color",
@@ -167,6 +168,9 @@ def test_invalid_option_values(
     result = cli_runner.invoke(main, ["--repository", str(temp_dir), option, value])
     assert result.exit_code != 0
     assert expected in result.output
+    if option == "--api":
+        for provider in LLMProviders:
+            assert provider.value in result.output
 
 
 def test_main_command_exception_handling(cli_runner: CliRunner, mock_config: MagicMock):

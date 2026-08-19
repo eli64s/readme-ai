@@ -34,9 +34,9 @@ def install(session, groups=None, extras=None, root=True):
         session.install(".")
 
 
-@nox.session(python=["3.9", "3.10", "3.11", "3.12"])
+@nox.session(python=["3.10", "3.11", "3.12", "3.13"])
 def tests(session):
-    """Run test suite against Python versions 3.9, 3.10, 3.11, and 3.12."""
+    """Run test suite against Python versions 3.10, 3.11, 3.12, and 3.13."""
     install(
         session,
         groups=["test"],

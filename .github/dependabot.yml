@@ -1,0 +1,54 @@
+# Dependabot configuration
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# NOTE: this file only changes how Dependabot BATCHES its pull requests.
+# It never merges anything and never edits dependencies on its own, so
+# adding it cannot break a build. Breakage can only happen when *you merge*
+# a bump — which is why majors are kept separate and CI still gates merges.
+version: 2
+
+updates:
+  # ── Python ────────────────────────────────────────────────────────────
+  # One entry covers both manifests: Poetry at the root (pyproject.toml +
+  # poetry.lock) and the exported runtime pins (setup/requirements.txt).
+  - package-ecosystem: "pip"
+    directories:
+      - "/"
+      - "/setup"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      # Collapse EVERY security fix into a single PR — this is what turns
+      # the 85 individual alerts into one merge.
+      python-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      # Routine low-risk bumps (minor + patch) batched into one PR.
+      # Majors are intentionally excluded so they arrive as individual,
+      # reviewable PRs instead of riding in silently.
+      python-version:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+    # Never let the LLM SDKs jump a breaking MAJOR on their own — those are
+    # deliberate, code-touching migrations you do by hand and test.
+    ignore:
+      - dependency-name: "openai"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "anthropic"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "google-generativeai"
+        update-types: ["version-update:semver-major"]
+
+  # ── GitHub Actions used in .github/workflows ──────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
