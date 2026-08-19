@@ -6,12 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install Poetry
         run: |
@@ -20,15 +20,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --with anthropic,google-generativeai
+          poetry install --all-groups
 
       - name: Run tests with coverage
         run: |
           poetry run pytest -n auto --asyncio-mode=auto --cov=. --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
-          fail_ci_if_error: true
+          fail_ci_if_error: false

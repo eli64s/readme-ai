@@ -5,7 +5,7 @@ This file contains reusable requirement snippets for MkDocs documentation.
 <!-- --8<-- [start:core] -->
 | Requirement                          | Details                          |
 |--------------------------------------|----------------------------------|
-| • [Python][python-link] ≥3.9         | Core runtime                     |
+| • [Python][python-link] ≥3.10        | Core runtime                     |
 | **Installation Method** (choose one) |                                  |
 | • [pip][pip-link]                    | Default Python package manager   |
 | • [pipx][pipx-link]                  | Isolated environment installer   |

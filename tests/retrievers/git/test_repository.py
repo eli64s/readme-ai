@@ -1,7 +1,6 @@
 from pathlib import Path
 from unittest.mock import ANY, AsyncMock, MagicMock, patch
 
-import git
 import pytest
 from readmeai.core.errors import GitCloneError
 from readmeai.retrievers.git.repository import (
@@ -13,50 +12,50 @@ from readmeai.retrievers.git.repository import (
 )
 
 
-@pytest.fixture
-def mock_git_repo():
-    with patch("git.Repo") as mock:
-        yield mock
-
-
 @pytest.mark.asyncio
-async def test_clone_repository(mock_git_repo: MagicMock | AsyncMock):
+async def test_clone_repository_success():
     repo_url = "https://github.com/example/repo.git"
     target = Path("/tmp/target")
     depth = 1
 
-    await clone_repository(repo_url, target, depth)
+    mock_proc = AsyncMock()
+    mock_proc.communicate.return_value = (b"", b"")
+    mock_proc.returncode = 0
 
-    mock_git_repo.clone_from.assert_called_once_with(
-        repo_url,
-        str(target),
-        depth=depth,
-        single_branch=True,
-    )
-
-
-@pytest.mark.asyncio
-async def test_copy_directory_windows():
-    with (
-        patch("platform.system", return_value="Windows"),
-        patch("os.system") as mock_system,
-    ):
-        source = Path("/source")
-        target = Path("/target")
-
-        await copy_directory(source, target)
-
-        mock_system.assert_called_once_with(
-            f'xcopy "{source}" "{target}" /E /I /H /Y',
+    with patch("asyncio.create_subprocess_exec", return_value=mock_proc) as mock_exec:
+        await clone_repository(repo_url, target, depth)
+        mock_exec.assert_called_once_with(
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            "--single-branch",
+            repo_url,
+            str(target),
+            stdout=ANY,
+            stderr=ANY,
         )
 
 
 @pytest.mark.asyncio
-async def test_copy_directory_non_windows():
+async def test_clone_repository_failure():
+    repo_url = "https://github.com/example/repo.git"
+    target = Path("/tmp/target")
+
+    mock_proc = AsyncMock()
+    mock_proc.communicate.return_value = (b"", b"fatal: repository not found")
+    mock_proc.returncode = 128
+
     with (
-        patch("platform.system", return_value="Linux"),
-        patch("shutil.copytree") as mock_copytree,
+        patch("asyncio.create_subprocess_exec", return_value=mock_proc),
+        pytest.raises(GitCloneError, match="fatal: repository not found"),
     ):
+        await clone_repository(repo_url, target)
+
+
+@pytest.mark.asyncio
+async def test_copy_directory():
+    with patch("shutil.copytree") as mock_copytree:
         source = Path("/source")
         target = Path("/target")
 
@@ -66,29 +65,15 @@ async def test_copy_directory_non_windows():
             source,
             target,
             dirs_exist_ok=True,
+            symlinks=True,
+            ignore_dangling_symlinks=True,
             ignore=ANY,
         )
 
 
 @pytest.mark.asyncio
-async def test_remove_directory_windows():
-    with (
-        patch("platform.system", return_value="Windows"),
-        patch("os.system") as mock_system,
-    ):
-        path = Path("/tmp/dir")
-
-        await remove_directory(path)
-
-        mock_system.assert_called_once_with(f'rmdir /S /Q "{path}"')
-
-
-@pytest.mark.asyncio
-async def test_remove_directory_non_windows():
-    with (
-        patch("platform.system", return_value="Linux"),
-        patch("shutil.rmtree") as mock_rmtree,
-    ):
+async def test_remove_directory():
+    with patch("shutil.rmtree") as mock_rmtree:
         path = Path("/tmp/dir")
 
         await remove_directory(path)
@@ -115,25 +100,13 @@ async def test_remove_hidden_contents():
         mock_unlink.assert_not_called()
 
 
-@pytest.mark.skip
-@pytest.mark.asyncio
-async def test_load_data_local():
-    raise NotImplementedError
-
-
-@pytest.mark.skip
-@pytest.mark.asyncio
-async def test_load_data_remote():
-    raise NotImplementedError
-
-
 @pytest.mark.asyncio
 async def test_load_data_git_error():
     with (
         patch("readmeai.retrievers.git.repository.remove_directory"),
         patch(
             "readmeai.retrievers.git.repository.clone_repository",
-            side_effect=git.GitCommandError("clone", "error"),
+            side_effect=GitCloneError("clone error"),
         ),
         patch("pathlib.Path.is_dir", return_value=False),
     ):

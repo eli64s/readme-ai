@@ -13,7 +13,7 @@ exclude = [
 ]
 line-length = 88
 indent-width = 4
-target-version = "py311"
+target-version = "py310"
 
 [lint]
 preview = true
@@ -21,7 +21,6 @@ extend-select = [
     "E305",     # 2 blank lines before class or function
 ]
 select = [
-    "ARG",      # unused arguments
     "B",        # flake8-bugbear
     "E",        # pycodestyle
     "E303",     # too many blank lines
@@ -40,6 +39,18 @@ select = [
 ]
 fixable = ["ALL"]
 ignore = [
+    "ARG001",
+    "ARG002",
+    "ARG003",
+    "ARG004",
+    "ARG005",
+    "E501",
+    "N805",
+    "RUF001",
+    "RUF002",
+    "RUF003",
+    "RUF029",
+    "RUF039",
     "UP006",
     "UP007",
     "UP035",

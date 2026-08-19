@@ -9,11 +9,11 @@ This guide covers everything you need to know about setting up and using readme-
 
 ## Prerequisites
 
-ReadmeAI requires Python 3.9 or higher, and one of the following installation methods:
+ReadmeAI requires Python 3.10 or higher, and one of the following installation methods:
 
 | Requirement                          | Details                          |
 |--------------------------------------|----------------------------------|
-| • [Python][python-link] ≥3.9         | Core runtime                     |
+| • [Python][python-link] ≥3.10        | Core runtime                     |
 | **Installation Method** (choose one) |                                  |
 | • [pip][pip-link]                    | Default Python package manager   |
 | • [pipx][pipx-link]                  | Isolated environment installer   |
@@ -86,7 +86,7 @@ This guide covers everything you need to know about setting up and using readme-
 
 ## Prerequisites
 
-ReadmeAI requires Python 3.9 or higher, plus one installation method of your choice:
+ReadmeAI requires Python 3.10 or higher, plus one installation method of your choice:
 
 --8<-- "requirements.md:core"
 

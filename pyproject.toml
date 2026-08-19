@@ -8,18 +8,19 @@ readme = "README.md"
 homepage = "https://github.com/eli64s/readme-ai"
 documentation = "https://eli64s.github.io/readme-ai"
 keywords = [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "claude-code",
     "ai-documentation",
     "ai-powered",
     "ai-readme",
     "automatic-documentation",
-    "chat-gpt",
     "cli",
     "code-documentation",
     "developer-tools",
     "documentation-automation",
     "gemini",
     "github-documentation",
-    "gpt-4",
     "llm",
     "markdown-generator",
     "openai",
@@ -43,7 +44,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -65,27 +65,21 @@ include = [
 readmeai = "readmeai.cli.main:main"
 
 [tool.poetry.dependencies]
-python = "^3.9,<4.0.0"
-aiohttp = "^3.9.5"
+python = "^3.10,<4.0.0"
+aiohttp = ">=3.14.3"
 click = "^8.1.7"
-gitpython = "^3.1.31"
-openai = "*"
+openai = "^1.0.0"
 pydantic = "*"
 pydantic-extra-types = "*"
 pydantic-settings = "*"
 pyyaml = "^6.0.1"
+requests = ">=2.33.0"
 structlog = "^24.4.0"
 tenacity = "^8.2.2"
 tiktoken = "^0.4.0"
 tomli = { version = "*", python = "<3.11" }
 typing-extensions = { version = "*", python = "<3.11" }
-
-anthropic = { version = "*", optional = true }
-google-generativeai = { version = "*", optional = true }
-
-[tool.poetry.extras]
-anthropic = ["anthropic"]
-google-generativeai = ["google-generativeai"]
+urllib3 = ">=2.7.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "*"
@@ -100,13 +94,12 @@ coverage = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+pytest-memray = "*"
 pytest-mock = "*"
 pytest-pretty = "*"
 pytest-randomly = "*"
 pytest-sugar = "*"
 pytest-xdist = "*"
-pytest-memray = "^1.7.0"
-pytest-fastest = "^0.0.12"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
@@ -115,7 +108,7 @@ mkdocs-material = { version = "*", extras = ["imaging"] }
 mkdocs-minify-plugin = "*"
 mkdocstrings-python = "*"
 mkdocs-redirects = "*"
-pymdown-extensions = "*"
+pymdown-extensions = ">=11.0.1"
 
 [tool.poetry.group.anthropic.dependencies]
 anthropic = "*"

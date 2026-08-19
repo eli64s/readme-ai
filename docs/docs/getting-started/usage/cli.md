@@ -194,7 +194,7 @@ See the [CLI Reference](../cli-reference.md) for the full list of options and th
 2. **Package Installation Problems**
    - Update pip: `python -m pip install --upgrade pip`
    - Try installing in a fresh virtual environment
-   - Check Python version compatibility (3.9+ required)
+   - Check Python version compatibility (3.10+ required)
 
 3. **API Key Issues**
    - Verify API key is correctly set in environment variables
