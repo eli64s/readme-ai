@@ -1,4 +1,4 @@
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import aiohttp
 import pytest
@@ -16,25 +16,57 @@ def test_openai_handler_sets_attributes(openai_handler: OpenAIHandler):
 
 
 def test_openai_endpoint_configuration_for_openai(
-    mock_config_loader: ConfigLoader,
     openai_handler: OpenAIHandler,
 ):
     """Test that the correct endpoint is set for OpenAI API."""
-    mock_config_loader.config.llm.api = LLMProviders.OPENAI.value
-    assert openai_handler.url == f"{openai_handler.host_name}{openai_handler.resource}"
+    assert openai_handler.url == "https://api.openai.com/v1/chat/completions"
 
 
 def test_openai_endpoint_configuration_for_ollama(
     mock_config_loader: ConfigLoader,
-    ollama_localhost: str,
+    mock_repository_context,
 ):
-    """Test that the correct endpoint is set for OLLAMA."""
+    """Test that the default endpoint is set for Ollama."""
     mock_config_loader.config.llm.api = LLMProviders.OLLAMA.value
-    mock_config_loader.config.llm.localhost = ollama_localhost
-    assert (
-        "v1/chat/completions"
-        in f"{mock_config_loader.config.llm.localhost}v1/chat/completions"
-    )
+    handler = OpenAIHandler(mock_config_loader, mock_repository_context)
+    assert handler.url == "http://localhost:11434/v1/chat/completions"
+
+
+def test_openai_endpoint_configuration_for_openrouter(
+    mock_config_loader: ConfigLoader,
+    mock_repository_context,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that OpenAI-compatible remote base URLs are honored."""
+    monkeypatch.setenv("OPENAI_API_KEY", "test_api_key")
+    mock_config_loader.config.llm.api = LLMProviders.OPENAI.value
+    mock_config_loader.config.llm.base_url = "https://openrouter.ai/api/v1"
+    handler = OpenAIHandler(mock_config_loader, mock_repository_context)
+    assert handler.url == "https://openrouter.ai/api/v1/chat/completions"
+
+
+def test_openai_endpoint_configuration_for_lm_studio(
+    mock_config_loader: ConfigLoader,
+    mock_repository_context,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that local OpenAI-compatible endpoints are honored."""
+    monkeypatch.setenv("OPENAI_API_KEY", "test_api_key")
+    mock_config_loader.config.llm.api = LLMProviders.OPENAI.value
+    mock_config_loader.config.llm.base_url = "http://localhost:1234/v1"
+    handler = OpenAIHandler(mock_config_loader, mock_repository_context)
+    assert handler.url == "http://localhost:1234/v1/chat/completions"
+
+
+def test_ollama_endpoint_configuration_for_custom_host(
+    mock_config_loader: ConfigLoader,
+    mock_repository_context,
+):
+    """Test that explicit Ollama-compatible hosts are honored."""
+    mock_config_loader.config.llm.api = LLMProviders.OLLAMA.value
+    mock_config_loader.config.llm.base_url = "http://192.168.1.10:11434/v1"
+    handler = OpenAIHandler(mock_config_loader, mock_repository_context)
+    assert handler.url == "http://192.168.1.10:11434/v1/chat/completions"
 
 
 @pytest.mark.asyncio
@@ -50,12 +82,14 @@ async def test_openai_build_payload(openai_handler: OpenAIHandler):
 @pytest.mark.asyncio
 async def test_make_request_success(openai_handler_with_mock_session: OpenAIHandler):
     """Test _make_request with a successful response."""
-    index, result = await openai_handler_with_mock_session._make_request(
-        "test_index",
-        "test_prompt",
-        100,
-        None,
-    )
+    with patch("readmeai.models.openai.token_handler") as mock_token_handler:
+        mock_token_handler.return_value = "processed_prompt"
+        index, result = await openai_handler_with_mock_session._make_request(
+            "test_index",
+            "test_prompt",
+            100,
+            None,
+        )
     assert isinstance(result, str)
     assert index == "test_index"
     assert result == "test_response"
@@ -104,15 +138,15 @@ async def test_make_request_error_handling(
     async def run_test(error):
         openai_handler._session = MagicMock(spec=aiohttp.ClientSession)
         openai_handler._session.post.side_effect = error  # Simulate the error
-        index, result = await openai_handler._make_request(
-            "test_index",
-            "test_prompt",
-            100,
-            None,
-        )
-        assert index == "test_index"
-        assert result == mock_config.md.placeholder
-        assert openai_handler._session.post.call_count == 1
+        with patch("readmeai.models.openai.token_handler") as mock_token_handler:
+            mock_token_handler.return_value = "processed_prompt"
+            await openai_handler._make_request(
+                "test_index",
+                "test_prompt",
+                100,
+                None,
+            )
+        assert openai_handler._session.post.call_count == 3
 
     with pytest.raises(tenacity.RetryError) as e:
         await run_test(aiohttp.ClientError())
