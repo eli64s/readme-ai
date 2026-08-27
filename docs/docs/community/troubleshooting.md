@@ -37,6 +37,6 @@ to encounter the same problem.
 
 ## FAQ
 
-See the [FAQ](./faq.mds to common questions and troubleshooting tips.
+See the [FAQ](./faq.md) to common questions and troubleshooting tips.
 
 ---
