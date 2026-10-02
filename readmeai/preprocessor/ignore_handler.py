@@ -37,6 +37,20 @@ class IgnoreHandler:
                 new = set(patterns)
                 self.ignore_rules[category] = list(existing.union(new))
 
+    @staticmethod
+    def _is_dir_matched(ignored_dir: str, relative_path: Path) -> bool:
+        clean_dir = ignored_dir.strip("/\\")
+        if not clean_dir:
+            return False
+        parts = Path(clean_dir).parts
+        rel_parts = relative_path.parts
+        if len(parts) == 1:
+            return parts[0] in rel_parts
+        for i in range(len(rel_parts) - len(parts) + 1):
+            if rel_parts[i : i + len(parts)] == parts:
+                return True
+        return False
+
     def is_excluded(self, file_path: Path, repo_path: Path) -> bool:
         """
         Check if the file should be ignored based on the merged rules.
@@ -45,32 +59,49 @@ class IgnoreHandler:
         relative_path = file_path.relative_to(repo_path)
 
         for ignored_dir in self.ignore_rules.get("directories", []):
-            if ignored_dir in relative_path.parts:
+            if self._is_dir_matched(ignored_dir, relative_path):
                 return True
 
         if file_path.suffix.lstrip(".") in self.ignore_rules.get("extensions", []):
             return True
 
-        return file_path.name in self.ignore_rules.get("files", [])
+        ignored_files = self.ignore_rules.get("files", [])
+        if file_path.name in ignored_files:
+            return True
+
+        for part in relative_path.parts[:-1]:
+            if part in ignored_files:
+                return True
+
+        return False
 
     def _read_ignore_file(self, repo_path: Path) -> List[str]:
         """Reads patterns from a .readmeaiignore file."""
-        ignore_file = Path.cwd() / ".readmeaiignore"
-        _logger.debug(f"Looking for ignore file at: {ignore_file}")
-        if not ignore_file.is_file():
-            return []
+        candidates = [repo_path / ".readmeaiignore"]
+        try:
+            if Path.cwd().resolve() != repo_path.resolve():
+                candidates.append(Path.cwd() / ".readmeaiignore")
+        except Exception:
+            candidates.append(Path.cwd() / ".readmeaiignore")
 
-        with ignore_file.open("r", encoding="utf-8") as f:
-            return [
-                line
-                for line in (line.strip() for line in f)
-                if line and not line.startswith("#")
-            ]
+        patterns: List[str] = []
+        seen = set()
+        for ignore_file in candidates:
+            _logger.debug(f"Looking for ignore file at: {ignore_file}")
+            if ignore_file.is_file():
+                with ignore_file.open("r", encoding="utf-8") as f:
+                    for raw_line in f:
+                        line = raw_line.strip()
+                        if line and not line.startswith("#") and line not in seen:
+                            seen.add(line)
+                            patterns.append(line)
+        return patterns
 
     def _parse_patterns(self, patterns: List[str]) -> Dict[str, List[str]]:
         """Parses a flat list of patterns into a structured dictionary."""
         categorized = {"directories": [], "extensions": [], "files": []}
         for p in patterns:
+            p = p.strip()
             if p.endswith("/"):
                 categorized["directories"].append(p.strip("/"))
             elif p.startswith("*."):

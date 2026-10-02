@@ -8,10 +8,28 @@ def is_excluded(ignore_list: dict, file_path: Path, repo_path: Path) -> bool:
     relative_path = file_path.relative_to(repo_path)
 
     for ignored_dir in ignore_list.get("directories", []):
-        if ignored_dir in relative_path.parts:
-            return True
+        clean_dir = ignored_dir.strip("/\\")
+        if not clean_dir:
+            continue
+        parts = Path(clean_dir).parts
+        rel_parts = relative_path.parts
+        if len(parts) == 1:
+            if parts[0] in rel_parts:
+                return True
+        else:
+            for i in range(len(rel_parts) - len(parts) + 1):
+                if rel_parts[i : i + len(parts)] == parts:
+                    return True
 
     if file_path.suffix.lstrip(".") in ignore_list.get("extensions", []):
         return True
 
-    return file_path.name in ignore_list.get("files", [])
+    ignored_files = ignore_list.get("files", [])
+    if file_path.name in ignored_files:
+        return True
+
+    for part in relative_path.parts[:-1]:
+        if part in ignored_files:
+            return True
+
+    return False

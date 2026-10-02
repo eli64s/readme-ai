@@ -11,10 +11,10 @@ async def remove_directory(path: Path) -> None:
 async def remove_hidden_contents(directory: Path) -> None:
     """Remove hidden files and directories from a specified directory."""
     for item in directory.iterdir():
-        if ".github" in item.parts:
+        if ".github" in item.parts or item.name == ".readmeaiignore":
             continue
         if item.name.startswith("."):
             if item.is_dir():
-                shutil.rmtree(item)
+                shutil.rmtree(item, ignore_errors=True)
             else:
-                item.unlink()
+                item.unlink(missing_ok=True)

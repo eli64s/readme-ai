@@ -74,6 +74,56 @@ src/markitecture/
         assert handler.is_excluded(ds_store, tmp_path) is True
         assert handler.is_excluded(main_file, tmp_path) is False
 
+    def test_node_modules_and_directory_exclusion(self, tmp_path):
+        """Test that node_modules and directory patterns in .readmeaiignore exclude nested files."""
+        ignore_file = tmp_path / ".readmeaiignore"
+        ignore_file.write_text("node_modules/\nsrc/markitecture/\n")
+
+        default_rules = {"directories": [], "extensions": [], "files": []}
+        handler = IgnoreHandler(default_rules)
+        handler.load_user_rules(tmp_path)
+
+        nm_file = tmp_path / "node_modules" / "axios" / "index.js"
+        nm_file.parent.mkdir(parents=True)
+        nm_file.touch()
+
+        nested_nm_file = tmp_path / "frontend" / "node_modules" / "lodash" / "package.json"
+        nested_nm_file.parent.mkdir(parents=True)
+        nested_nm_file.touch()
+
+        markitecture_file = tmp_path / "src" / "markitecture" / "main.py"
+        markitecture_file.parent.mkdir(parents=True)
+        markitecture_file.touch()
+
+        valid_file = tmp_path / "src" / "other" / "main.py"
+        valid_file.parent.mkdir(parents=True)
+        valid_file.touch()
+
+        assert handler.is_excluded(nm_file, tmp_path) is True
+        assert handler.is_excluded(nested_nm_file, tmp_path) is True
+        assert handler.is_excluded(markitecture_file, tmp_path) is True
+        assert handler.is_excluded(valid_file, tmp_path) is False
+
+    def test_node_modules_pattern_without_trailing_slash(self, tmp_path):
+        """Test node_modules pattern specified without trailing slash."""
+        ignore_file = tmp_path / ".readmeaiignore"
+        ignore_file.write_text("node_modules\n")
+
+        default_rules = {"directories": [], "extensions": [], "files": []}
+        handler = IgnoreHandler(default_rules)
+        handler.load_user_rules(tmp_path)
+
+        nm_file = tmp_path / "node_modules" / "pkg" / "index.js"
+        nm_file.parent.mkdir(parents=True)
+        nm_file.touch()
+
+        valid_file = tmp_path / "src" / "index.js"
+        valid_file.parent.mkdir(parents=True)
+        valid_file.touch()
+
+        assert handler.is_excluded(nm_file, tmp_path) is True
+        assert handler.is_excluded(valid_file, tmp_path) is False
+
 
 class TestFileFilterFunction:
     """Test cases for is_excluded function."""
@@ -136,3 +186,20 @@ class TestFileFilterFunction:
         assert is_excluded(ignore_list, config_file, tmp_path) is True
         assert is_excluded(ignore_list, secrets_file, tmp_path) is True
         assert is_excluded(ignore_list, py_file, tmp_path) is False
+
+    def test_nested_directory_exclusion(self, tmp_path):
+        """Test multi-part directory exclusion with is_excluded."""
+        (tmp_path / "src" / "markitecture").mkdir(parents=True)
+        file1 = tmp_path / "src" / "markitecture" / "main.py"
+        file1.touch()
+        (tmp_path / "src" / "other").mkdir(parents=True)
+        file2 = tmp_path / "src" / "other" / "main.py"
+        file2.touch()
+
+        ignore_list = {
+            "directories": ["src/markitecture"],
+            "extensions": [],
+            "files": [],
+        }
+        assert is_excluded(ignore_list, file1, tmp_path) is True
+        assert is_excluded(ignore_list, file2, tmp_path) is False
